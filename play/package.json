@@ -1,0 +1,24 @@
+{
+  "name": "@kd-elp/play",
+  "version": "1.0.0",
+  "description": "组件调试项目",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@kd-elp/components": "workspace:*",
+    "@kd-elp/utils": "workspace:*",
+    "element-plus": "^2.6.0",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "sass": "^1.72.0",
+    "typescript": "^5.4.2",
+    "vite": "^5.1.6"
+  }
+} 

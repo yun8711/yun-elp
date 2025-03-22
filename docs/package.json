@@ -1,0 +1,22 @@
+{
+  "name": "@kd-elp/docs",
+  "version": "1.0.0",
+  "description": "组件库文档",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "dependencies": {
+    "@kd-elp/components": "workspace:*",
+    "@kd-elp/utils": "workspace:*",
+    "element-plus": "^2.6.0",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "sass": "^1.72.0",
+    "vitepress": "1.0.0"
+  }
+}

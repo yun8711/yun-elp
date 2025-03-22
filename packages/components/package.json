@@ -1,0 +1,50 @@
+{
+  "name": "@kd-elp/components",
+  "version": "1.0.0",
+  "description": "基于 Element Plus 的业务组件库",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "require": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./dist/style.css": "./src/styles/index.scss",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "web-types": "./dist/web-types.json",
+  "scripts": {
+    "build": "vite build",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
+    "build:web-types": "node ./scripts/web-types.js"
+  },
+  "keywords": [
+    "vue3",
+    "component",
+    "element-plus",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "element-plus": "^2.4.1",
+    "vue": "^3.4.0"
+  },
+  "dependencies": {
+    "@kd-elp/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "element-plus": "^2.6.0",
+    "typescript": "^5.4.2",
+    "vite": "^5.1.6",
+    "vite-plugin-dts": "^3.7.3",
+    "vue": "^3.4.21",
+    "vue-tsc": "^2.0.6"
+  }
+}

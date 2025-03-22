@@ -1,0 +1,63 @@
+{
+  "name": "kd-elp",
+  "version": "1.0.0",
+  "description": "基于 Element Plus 的业务组件库",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "bootstrap": "pnpm install && pnpm build",
+    "build": "pnpm -r build",
+    "dev": "pnpm -C play dev",
+    "docs:dev": "pnpm -C docs dev",
+    "docs:build": "pnpm -C docs build",
+    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.json --max-warnings 0",
+    "lint:fix": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.json --fix",
+    "stylelint": "stylelint \"**/*.{vue,scss,css}\" --cache",
+    "stylelint:fix": "stylelint \"**/*.{vue,scss,css}\" --fix",
+    "prettier": "prettier --write .",
+    "commit": "czg",
+    "release": "release-it"
+  },
+  "keywords": [
+    "vue3",
+    "component",
+    "element-plus",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 18"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "@release-it/conventional-changelog": "^8.0.2",
+    "@types/node": "^20.17.25",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "cz-git": "^1.11.1",
+    "czg": "^1.11.1",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-vue": "^9.33.0",
+    "prettier": "^3.5.3",
+    "release-it": "^17.11.0",
+    "sass": "^1.86.0",
+    "stylelint": "^16.16.0",
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-config-standard-vue": "^1.0.0",
+    "typescript": "^5.8.2",
+    "vue": "^3.5.13"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild",
+      "vue-demi"
+    ]
+  }
+}
