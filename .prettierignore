@@ -1,0 +1,39 @@
+# 依赖目录
+node_modules
+.pnpm-store
+
+# 构建输出
+dist
+build
+coverage
+.output
+.nuxt
+
+# 包管理文件
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# 自动生成的文件
+CHANGELOG.md
+LICENSE
+.gitignore
+
+# 缓存文件
+.DS_Store
+.cache
+.temp
+*.log
+
+# IDE 目录
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# 其他
+.husky
+.github
+.git 

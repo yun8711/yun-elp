@@ -7,6 +7,9 @@ dist
 dist-ssr
 *.local
 
+# 测试覆盖率报告
+coverage
+
 # 编辑器和IDE文件
 .vscode/*
 !.vscode/extensions.json
@@ -40,4 +43,4 @@ pnpm-debug.log*
 
 # 操作系统
 .DS_Store
-Thumbs.db 
+Thumbs.db

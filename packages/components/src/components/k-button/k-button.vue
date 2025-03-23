@@ -13,7 +13,7 @@ defineOptions({
 })
 
 // 定义组件 props
-const props = defineProps<{
+defineProps<{
   type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | ''
   size?: 'large' | 'default' | 'small'
   disabled?: boolean
@@ -31,6 +31,6 @@ const handleClick = (event: MouseEvent) => {
 }
 </script>
 
-<style scoped>
-/* 组件样式在全局样式文件中定义 */
-</style> 
+<style lang="scss">
+@import './k-button.scss';
+</style>

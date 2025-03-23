@@ -1,0 +1,66 @@
+/**
+ * KD-ELP 自定义主题
+ * 覆盖 Element Plus 的默认主题变量
+ */
+
+// 定义自定义主题变量
+:root {
+  // 主色调
+  --el-color-primary: #1890ff;
+  --el-color-primary-light-3: #4dabff;
+  --el-color-primary-light-5: #80c2ff;
+  --el-color-primary-light-7: #b3daff;
+  --el-color-primary-light-9: #e6f5ff;
+  --el-color-primary-dark-2: #146ccc;
+
+  // 功能色
+  --el-color-success: #52c41a;
+  --el-color-warning: #faad14;
+  --el-color-danger: #f5222d;
+  --el-color-info: #8c8c8c;
+
+  // 文字颜色
+  --el-text-color-primary: #262626;
+  --el-text-color-regular: #595959;
+  --el-text-color-secondary: #8c8c8c;
+  --el-text-color-placeholder: #bfbfbf;
+  --el-text-color-disabled: #d9d9d9;
+
+  // 边框颜色
+  --el-border-color: #e8e8e8;
+  --el-border-color-light: #f0f0f0;
+  --el-border-color-lighter: #f5f5f5;
+  --el-border-color-extra-light: #fafafa;
+
+  // 背景颜色
+  --el-bg-color: #ffffff;
+  --el-bg-color-page: #f5f5f5;
+  --el-bg-color-overlay: #ffffff;
+
+  // 圆角
+  --el-border-radius-base: 4px;
+  --el-border-radius-small: 2px;
+  --el-border-radius-round: 20px;
+  --el-border-radius-circle: 100%;
+
+  // 字体大小
+  --el-font-size-extra-large: 20px;
+  --el-font-size-large: 18px;
+  --el-font-size-medium: 16px;
+  --el-font-size-base: 14px;
+  --el-font-size-small: 13px;
+  --el-font-size-extra-small: 12px;
+
+  // 阴影
+  --el-box-shadow-light: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --el-box-shadow-base: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  --el-box-shadow-dark: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+}
+
+// 将来可能的深色模式支持
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     --el-color-primary: #1f90ff;
+//     // ... 其他深色模式变量
+//   }
+// }

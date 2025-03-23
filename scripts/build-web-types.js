@@ -1,12 +1,16 @@
+/**
+ * 构建脚本 - 生成Web Types配置文件
+ */
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-
-const componentsDir = path.resolve(__dirname, '../src/components')
-const outputPath = path.resolve(__dirname, '../dist/web-types.json')
+const rootDir = path.resolve(__dirname, '..')
+const packagesDir = path.resolve(rootDir, 'packages')
+const componentsDir = path.resolve(packagesDir, 'components/src/components')
+const distDir = path.resolve(rootDir, 'dist')
 
 /**
  * 获取组件列表
@@ -48,7 +52,7 @@ function generateWebTypes (components) {
   const webTypes = {
     $schema: 'https://json.schemastore.org/web-types',
     framework: 'vue',
-    name: '@kd-elp/components',
+    name: 'kd-elp',
     version: '1.0.0',
     contributions: {
       html: {
@@ -70,17 +74,15 @@ function generateWebTypes (components) {
  * 保存文件
  */
 function saveWebTypes (content) {
-  // 确保目录存在
-  const dir = path.dirname(outputPath)
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true })
-  }
-
+  const outputPath = path.resolve(distDir, 'web-types.json')
   fs.writeFileSync(outputPath, content)
   console.log('web-types.json 生成成功！')
 }
 
 // 执行生成过程
 const components = getComponents()
+console.log(`找到 ${components.length} 个组件`)
 const webTypesContent = generateWebTypes(components)
-saveWebTypes(webTypesContent) 
+saveWebTypes(webTypesContent)
+
+console.log('Web Types 配置生成完成！')

@@ -17,5 +17,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["**/*.test.ts", "**/*.spec.ts", "src/test-setup.ts", "src/test-utils/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
-} 
+}
