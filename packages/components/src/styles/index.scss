@@ -3,15 +3,15 @@
  */
 
 // 导入 Element Plus 样式
-@import 'element-plus/dist/index.css';
+@use 'element-plus/dist/index.css' as element;
 
 // 导入自定义主题 (覆盖Element Plus变量)
-@import './theme/index.scss';
+@use './theme/index.scss' as theme;
 
 // 导入公共混入工具
-@import './mixins/index.scss';
+@use './mixins/index.scss' as mixins;
 
 // 导入一些全局样式重置或通用样式
-@import './common/index.scss';
+@use './common/index.scss' as common;
 
 // 组件样式通过各组件自身的样式文件按需导入

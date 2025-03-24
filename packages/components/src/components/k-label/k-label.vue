@@ -23,5 +23,5 @@ const emit = defineEmits<{
 </script>
 
 <style lang="scss">
-@import './k-label.scss';
+@use './k-label.scss';
 </style>

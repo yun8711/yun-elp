@@ -40,6 +40,8 @@ pnpm-debug.log*
 .sass-cache
 .stylelintcache
 .eslintcache
+# VitePress缓存
+docs/.vitepress/cache/
 
 # 操作系统
 .DS_Store

@@ -1,14 +1,14 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from 'vitepress';
 
 export default defineConfig({
   title: 'KD-ELP',
   description: '基于 Element Plus 的业务组件库',
   lang: 'zh-CN',
   lastUpdated: true,
-  
+
   // 部署相关配置
   base: '/',
-  
+
   // 主题配置
   themeConfig: {
     logo: '/logo.png',
@@ -18,7 +18,7 @@ export default defineConfig({
       { text: '工具函数', link: '/utils/' },
       { text: 'GitHub', link: 'https://github.com/your-org/kd-elp' }
     ],
-    
+
     sidebar: {
       '/guide/': [
         {
@@ -33,9 +33,7 @@ export default defineConfig({
       '/components/': [
         {
           text: '基础组件',
-          items: [
-            { text: 'Button 按钮', link: '/components/k-button' }
-          ]
+          items: [{ text: 'Button 按钮', link: '/components/k-button' }]
         }
       ],
       '/utils/': [
@@ -49,14 +47,12 @@ export default defineConfig({
         }
       ]
     },
-    
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/your-org/kd-elp' }
-    ],
-    
+
+    socialLinks: [{ icon: 'github', link: 'https://github.com/your-org/kd-elp' }],
+
     footer: {
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2024'
     }
   }
-}) 
+});

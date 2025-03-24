@@ -40,6 +40,16 @@
       "import": "./dist/theme.mjs",
       "require": "./dist/theme.js"
     },
+    "./locale": {
+      "types": "./dist/locale/index.d.ts",
+      "import": "./dist/locale/index.mjs",
+      "require": "./dist/locale/index.js"
+    },
+    "./locale/*": {
+      "types": "./dist/locale/lang/*.d.ts",
+      "import": "./dist/locale/lang/*.mjs",
+      "require": "./dist/locale/lang/*.js"
+    },
     "./utils": {
       "types": "./dist/utils/index.d.ts",
       "import": "./dist/utils/index.mjs",

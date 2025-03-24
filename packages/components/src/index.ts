@@ -11,6 +11,11 @@ export { KdElpResolver, KdElpAutoImportResolver } from './resolvers';
 export { applyTheme, resetTheme } from './theme';
 export type { KdElpTheme } from './theme';
 
+// 导出国际化相关功能
+export { locales, getLocale, setLocale, getLocaleCode, defaultLocale } from './locale';
+export type { KdElpLocale, LocaleType } from './locale';
+export { useLocale } from './hooks/use-locale';
+
 // 导出所有组件
 export * from './components';
 

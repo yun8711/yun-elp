@@ -12,6 +12,7 @@
 - 支持按需加载，减小打包体积
 - 支持 unplugin-vue-components 和 unplugin-auto-import 自动导入
 - 自定义主题，支持运行时动态切换
+- 国际化支持，默认中文，可配置其他语言
 
 ## 安装
 
@@ -153,6 +154,38 @@ app.mount('#app');
 ```
 
 更多主题配置请参考 [主题定制指南](docs/guide/theme.md)。
+
+### 国际化配置
+
+KD-ELP 支持国际化，默认使用简体中文，可以配置为其他语言：
+
+```js
+import { createApp } from 'vue';
+import KdElp, { KdElpConfigProvider } from 'kd-elp';
+import 'kd-elp/style';
+import App from './App.vue';
+
+const app = createApp(App);
+app.use(KdElp);
+app.mount('#app');
+```
+
+使用英文：
+
+```vue
+<template>
+  <kd-elp-config-provider locale="en-US">
+    <App />
+  </kd-elp-config-provider>
+</template>
+
+<script setup>
+import { KdElpConfigProvider } from 'kd-elp';
+import App from './App.vue';
+</script>
+```
+
+更多国际化配置请参考 [国际化指南](docs/guide/i18n.md)。
 
 ## 项目结构
 

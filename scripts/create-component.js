@@ -99,7 +99,7 @@ const emit = defineEmits<{
 </script>
 
 <style lang="scss">
-@import './${componentName}.scss';
+@use './${componentName}.scss';
 </style>
 `
 }

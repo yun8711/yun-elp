@@ -75,7 +75,6 @@ export function applyTheme(theme: KdElpTheme = {}): void {
  */
 export function resetTheme(): void {
   // 获取所有已设置的主题相关CSS变量
-  const computedStyle = getComputedStyle(document.documentElement);
   const allCssVars = Array.from(document.styleSheets)
     .filter(sheet => {
       try {

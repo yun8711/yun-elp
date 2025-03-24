@@ -1,16 +1,20 @@
 <template>
   <el-button class="k-button" :type="type" :size="size" :disabled="disabled" :loading="loading" v-bind="$attrs" @click="handleClick">
-    <slot></slot>
+    <slot>{{ loading ? t('kdelp.button.loading') : null }}</slot>
   </el-button>
 </template>
 
 <script setup lang="ts">
 import { ElButton } from 'element-plus'
+import { useLocale } from '../../hooks/use-locale'
 
 defineOptions({
   name: 'KButton',
   inheritAttrs: false
 })
+
+// 使用国际化
+const { t } = useLocale()
 
 // 定义组件 props
 defineProps<{
@@ -32,5 +36,5 @@ const handleClick = (event: MouseEvent) => {
 </script>
 
 <style lang="scss">
-@import './k-button.scss';
+@use './k-button.scss';
 </style>
