@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
-    "preview": "vitepress preview"
+    "preview": "vitepress preview",
+    "generate:web-types": "tsx scripts/generate-web-types.ts"
   },
   "dependencies": {
     "@kd-elp/components": "workspace:*",
@@ -16,7 +17,12 @@
     "vue": "^3.4.21"
   },
   "devDependencies": {
+    "@types/node": "^20.11.16",
+    "@vitejs/plugin-vue": "^5.0.3",
+    "@vue/tsconfig": "^0.5.1",
     "sass": "^1.72.0",
-    "vitepress": "1.0.0"
+    "typescript": "^5.3.3",
+    "vitepress": "1.0.0",
+    "vitepress-theme-demoblock": "^3.1.1"
   }
 }
