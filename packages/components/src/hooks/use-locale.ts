@@ -2,8 +2,9 @@
  * 国际化钩子函数
  * 用于在组件中使用国际化文本
  */
-import { computed, inject } from 'vue';
+import { computed, inject, Ref } from 'vue';
 import { getLocale } from '../locale';
+import type { LocaleType } from '../locale';
 
 // 用于组件树传递国际化配置的key
 export const localeContextKey = Symbol('kdelp-locale');
@@ -14,12 +15,12 @@ export const localeContextKey = Symbol('kdelp-locale');
  */
 export function useLocale() {
   // 尝试从上下文中获取国际化配置
-  const locale = inject(localeContextKey, null);
+  const locale = inject<Ref<LocaleType> | null>(localeContextKey, null);
 
   // 获取实际使用的语言包
   const resolvedLocale = computed(() => {
     if (locale) {
-      return locale;
+      return locale.value;
     }
     // 如果没有注入的locale，则使用默认的
     return getLocale();
@@ -38,7 +39,6 @@ export function useLocale() {
     const paths = path.split('.');
     let current: any = resolvedLocale.value;
     let value: any;
-
     for (let i = 0; i < paths.length; i++) {
       const key = paths[i];
       value = current[key];

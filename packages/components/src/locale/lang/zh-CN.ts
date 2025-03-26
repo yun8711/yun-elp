@@ -22,7 +22,8 @@ export default {
     loading: '加载中',
     confirm: '确认',
     submit: '提交',
-    cancel: '取消'
+    cancel: '取消',
+    default: '默认'
   },
 
   // 国际化相关

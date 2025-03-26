@@ -22,7 +22,8 @@ export default {
     loading: 'Loading',
     confirm: 'Confirm',
     submit: 'Submit',
-    cancel: 'Cancel'
+    cancel: 'Cancel',
+    default: 'Default'
   },
 
   // Internationalization
