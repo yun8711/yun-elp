@@ -1,6 +1,6 @@
 {
   "name": "kd-elp",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "基于 Element Plus 的业务组件库",
   "private": false,
   "type": "module",
@@ -13,63 +13,6 @@
     "tags": "dist/vetur/tags.json",
     "attributes": "dist/vetur/attributes.json"
   },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./style": "./dist/components/index.css",
-    "./components": {
-      "types": "./dist/components/index.d.ts",
-      "import": "./dist/components/index.mjs",
-      "require": "./dist/components/index.js"
-    },
-    "./components/*": {
-      "types": "./dist/components/*/index.d.ts",
-      "import": "./dist/components/*/index.mjs",
-      "require": "./dist/components/*/index.js"
-    },
-    "./components/*/style": {
-      "types": "./dist/components/*/style.d.ts",
-      "import": "./dist/components/*/style.mjs",
-      "require": "./dist/components/*/style.js"
-    },
-    "./theme": {
-      "types": "./dist/theme.d.ts",
-      "import": "./dist/theme.mjs",
-      "require": "./dist/theme.js"
-    },
-    "./locale": {
-      "types": "./dist/locale/index.d.ts",
-      "import": "./dist/locale/index.mjs",
-      "require": "./dist/locale/index.js"
-    },
-    "./locale/*": {
-      "types": "./dist/locale/lang/*.d.ts",
-      "import": "./dist/locale/lang/*.mjs",
-      "require": "./dist/locale/lang/*.js"
-    },
-    "./utils": {
-      "types": "./dist/utils/index.d.ts",
-      "import": "./dist/utils/index.mjs",
-      "require": "./dist/utils/index.js"
-    },
-    "./resolvers": {
-      "types": "./dist/components/resolvers/index.d.ts",
-      "import": "./dist/components/resolvers/index.mjs",
-      "require": "./dist/components/resolvers/index.js"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "sideEffects": [
-    "*.css",
-    "*.scss",
-    "dist/components/index.mjs",
-    "dist/components/index.js"
-  ],
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "bootstrap": "pnpm install",
@@ -146,5 +89,62 @@
       "esbuild",
       "vue-demi"
     ]
-  }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./style": "./dist/components/index.css",
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.mjs",
+      "require": "./dist/components/index.js"
+    },
+    "./components/*": {
+      "types": "./dist/components/*/index.d.ts",
+      "import": "./dist/components/*/index.mjs",
+      "require": "./dist/components/*/index.js"
+    },
+    "./components/*/style": {
+      "types": "./dist/components/*/style.d.ts",
+      "import": "./dist/components/*/style.mjs",
+      "require": "./dist/components/*/style.js"
+    },
+    "./theme": {
+      "types": "./dist/theme.d.ts",
+      "import": "./dist/theme.mjs",
+      "require": "./dist/theme.js"
+    },
+    "./locale": {
+      "types": "./dist/locale/index.d.ts",
+      "import": "./dist/locale/index.mjs",
+      "require": "./dist/locale/index.js"
+    },
+    "./locale/*": {
+      "types": "./dist/locale/lang/*.d.ts",
+      "import": "./dist/locale/lang/*.mjs",
+      "require": "./dist/locale/lang/*.js"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.mjs",
+      "require": "./dist/utils/index.js"
+    },
+    "./resolvers": {
+      "types": "./dist/components/resolvers/index.d.ts",
+      "import": "./dist/components/resolvers/index.mjs",
+      "require": "./dist/components/resolvers/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css",
+    "*.scss",
+    "dist/components/index.mjs",
+    "dist/components/index.js"
+  ]
 }

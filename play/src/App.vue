@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>KD-ELP 组件库国际化测试</h1>
+    <h1>KD-ELP 组件库测试</h1>
 
     <!-- 语言切换按钮 -->
     <div class="language-switch">
@@ -20,9 +20,10 @@
         </k-label>
         <!-- <h2>{{ t('common.button') }}</h2> -->
         <div class="demo-buttons">
-          <k-button></k-button>
+          <k-button>测试</k-button>
         </div>
         <div>
+        <el-button>测试</el-button>
           <el-input v-model="input" style="width: 240px" />
         </div>
       </section>
@@ -41,17 +42,6 @@ const handleLocaleChange = (newLocale) => {
   console.log('切换语言为:', newLocale);
   locale.value = newLocale;
 };
-
-// 展示的国际化文本键值
-const i18nKeys = [
-  'common.button',
-  'common.loading',
-  'common.search',
-  'common.i18n',
-  'button.default',
-  'button.primary',
-  'button.success'
-];
 
 const input = ref('');
 </script>

@@ -1,6 +1,6 @@
 <template>
   <el-button class="k-button" :type="type" :size="size" :disabled="disabled" :loading="loading" v-bind="$attrs" @click="handleClick">
-    <slot>{{ loading ? t('kdelp.button.loading') : t('kdelp.button.default') }}</slot>
+    <slot>{{ loading ? t('kdelp.button.loading') : '' }}</slot>
   </el-button>
 </template>
 

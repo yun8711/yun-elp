@@ -13,9 +13,9 @@ $prefix: '.k-label';
       padding: 0 8px;
       font-size: 12px;
       line-height: 32px;
-      color: var(--text-title);
-      border: 1px solid var(--line-border);
-      border-right-width: 0;
+      color: var(--text-color-85);
+      border: 1px solid var(--border-color);
+      border-right: 0 none;
     }
 
     > #{$prefix}__content {
