@@ -1,29 +1,59 @@
 <template>
-  <el-config-provider :locale="currentLocale" v-bind="$attrs">
+  <el-config-provider v-bind="configProviderAttrs">
     <slot></slot>
   </el-config-provider>
 </template>
 
 <script setup lang="ts">
-import { computed, provide, watch } from 'vue';
+import { computed, provide, watch, useAttrs } from 'vue';
 import { ElConfigProvider } from 'element-plus';
 import { getLocale, setLocale, locales } from '../../locale';
 import { localeContextKey } from '../../hooks/use-locale';
 import type { KConfigProviderProps } from './types';
+import type { ConfigProviderProps } from 'element-plus';
+const attrs = useAttrs();
 
 defineOptions({
   name: 'KConfigProvider'
 });
 
-const props = defineProps<KConfigProviderProps>();
+const props = withDefaults(defineProps<KConfigProviderProps>(), {
+  locale: 'zh-CN'
+});
 
 // 处理传入的locale，并设置全局语言
-watch(() => props.locale, (newLocale) => {
-  if (typeof newLocale === 'string') {
-    // 如果是语言代码字符串，则设置全局语言
-    setLocale(newLocale);
-  }
-}, { immediate: true });
+watch(
+  () => props.locale,
+  newLocale => {
+    if (typeof newLocale === 'string') {
+      // 如果是语言代码字符串，则设置全局语言
+      setLocale(newLocale);
+    }
+  },
+  { immediate: true }
+);
+
+const configProviderAttrs = computed<ConfigProviderProps>(() => {
+  return {
+    locale: currentLocale.value,
+    size: 'default',
+    button: () => ({
+      autoInsertSpace: true
+    }),
+    message: () => ({
+      max: 3,
+      grouping: true,
+      duration: 3000,
+      showClose: true,
+      offset: 20
+    }),
+    zIndex: 2000,
+    a11y: true,
+    keyboardNavigation: true,
+    namespace: 'el',
+    ...(attrs.value as Record<string, any>)
+  };
+});
 
 // 计算出最终使用的语言包
 const currentLocale = computed(() => {

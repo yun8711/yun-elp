@@ -1,7 +1,13 @@
 <template>
-  <div class="k-label">
-    <!-- 组件内容 -->
-    <slot></slot>
+  <div class="k-label" :style="{ width: props.width, display: props.block ? 'block' : 'inline-block' }">
+    <div class="k-label__inner">
+      <div v-if="props.label" class="k-label__label">
+        <slot name="label">{{ props.label }}</slot>
+      </div>
+      <div class="k-label__content">
+        <slot></slot>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,15 +17,17 @@ defineOptions({
   inheritAttrs: false
 });
 
-// 定义组件属性
-defineProps<{
-  // 在此处定义组件属性
-}>();
+interface Props {
+  label?: string;
+  width?: string;
+  block?: boolean;
+}
 
-// 定义组件事件
-const emit = defineEmits<{
-  // 在此处定义组件事件
-}>();
+// 定义组件属性
+const props = withDefaults(defineProps<Props>(), {
+  width: '316px',
+  block: false,
+})
 </script>
 
 <style lang="scss">

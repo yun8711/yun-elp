@@ -1,3 +1,67 @@
-.k-label {
-  // 在此处添加组件样式
+$prefix: '.k-label';
+
+#{$prefix} {
+  display: inline-block;
+
+  &__inner {
+    box-sizing: border-box;
+    display: flex;
+    align-items: stretch;
+    height: 32px;
+
+    > #{$prefix}__label {
+      padding: 0 8px;
+      font-size: 12px;
+      line-height: 32px;
+      color: var(--text-title);
+      border: 1px solid var(--line-border);
+      border-right-width: 0;
+    }
+
+    > #{$prefix}__content {
+      flex: 1;
+      height: 100%;
+
+      //输入框
+      > .el-input {
+        width: 100%;
+        height: 100%;
+
+        > .el-input__wrapper {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+
+      //下拉框
+      > .el-select {
+        width: 100%;
+        height: 100%;
+
+        > .el-select__wrapper {
+          height: 100%;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+
+      //级联选择器
+      > .el-cascader {
+        width: 100%;
+        height: 100%;
+
+        > .el-input {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      // 日期时间范围选择器
+      .el-date-editor {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
 }

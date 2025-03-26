@@ -15,6 +15,9 @@
     <k-config-provider :locale="locale" :key="locale">
       <!-- 组件国际化演示 -->
       <section class="demo-section">
+        <k-label label="测试">
+          <el-input v-model="input" style="width: 240px" />
+        </k-label>
         <!-- <h2>{{ t('common.button') }}</h2> -->
         <div class="demo-buttons">
           <k-button></k-button>
