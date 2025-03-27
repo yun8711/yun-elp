@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
+import 'normalize.css'
 import 'element-plus/dist/index.css'
 import KdElp from '@kd-elp/components'
 import '@kd-elp/components/styles/index.scss'

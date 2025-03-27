@@ -11,19 +11,30 @@
       </el-radio-group>
     </div>
 
+    <!-- 展示区域控制 -->
+    <div class="display-controls">
+      <el-switch
+        v-model="showGrid"
+        active-text="显示网格"
+        inactive-text="隐藏网格"
+      />
+      <el-color-picker
+        v-model="backgroundColor"
+        show-alpha
+        @change="handleBackgroundChange"
+      />
+    </div>
+
     <!-- 使用KD-ELP的ConfigProvider -->
     <k-config-provider :locale="locale" :key="locale">
       <!-- 组件国际化演示 -->
-      <section class="demo-section">
+      <section class="demo-section" :class="{ 'show-grid': showGrid }" :style="{ backgroundColor }">
         <k-label label="测试">
-          <el-input v-model="input" style="width: 240px" />
+          <el-input v-model="input" />
         </k-label>
-        <!-- <h2>{{ t('common.button') }}</h2> -->
-        <div class="demo-buttons">
-          <k-button>测试</k-button>
-        </div>
+
         <div>
-        <el-button>测试</el-button>
+          <el-button>测试</el-button>
           <el-input v-model="input" style="width: 240px" />
         </div>
       </section>
@@ -37,10 +48,21 @@ import { ref } from 'vue';
 // 当前语言
 const locale = ref('zh-CN');
 
+// 网格显示控制
+const showGrid = ref(false);
+
+// 背景颜色
+const backgroundColor = ref('#ffffff');
+
 // 切换语言
 const handleLocaleChange = (newLocale) => {
   console.log('切换语言为:', newLocale);
   locale.value = newLocale;
+};
+
+// 切换背景颜色
+const handleBackgroundChange = (color) => {
+  console.log('背景颜色:', color);
 };
 
 const input = ref('');
@@ -48,15 +70,9 @@ const input = ref('');
 
 <style lang="scss" scoped>
 .container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
-
-  h1 {
-    font-size: 24px;
-    color: #303133;
-    margin-bottom: 30px;
-  }
 
   .language-switch {
     margin-bottom: 30px;
@@ -68,57 +84,23 @@ const input = ref('');
     }
   }
 
+  .display-controls {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
   .demo-section {
     margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 
-    h2 {
-      font-size: 18px;
-      margin-bottom: 16px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #ebeef5;
-    }
-
-    .demo-buttons {
-      .k-button {
-        margin-right: 12px;
-        margin-bottom: 12px;
-      }
-    }
-
-    .demo-input {
-      margin-top: 16px;
-      margin-bottom: 16px;
-
-      p {
-        margin-bottom: 8px;
-      }
-    }
-
-    .i18n-table {
-      width: 100%;
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-
-      th, td {
-        border: 1px solid #ebeef5;
-        padding: 10px;
-        text-align: left;
-      }
-
-      th {
-        background-color: #f5f7fa;
-      }
-    }
-
-    ol {
-      padding-left: 20px;
-
-      li {
-        margin-bottom: 8px;
-      }
+    &.show-grid {
+      background-image: linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+                       linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+      background-size: 20px 20px;
     }
   }
 }
