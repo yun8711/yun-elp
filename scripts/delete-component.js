@@ -4,6 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import readline from 'readline'
 import { fileURLToPath } from 'url'
+import { execSync } from 'child_process'
 import {
   getComponentName,
   getComponentDirName,
@@ -32,7 +33,7 @@ function readSidebar () {
 }
 
 // 更新 sidebar.json
-function updateSidebar (componentName, pascalCaseName, isDirDeleted) {
+function updateSidebar (componentName, componentDirName, isDirDeleted) {
   const sidebar = readSidebar()
   let updated = false
 
@@ -41,7 +42,7 @@ function updateSidebar (componentName, pascalCaseName, isDirDeleted) {
     if (category.items) {
       // 找到并删除组件
       const index = category.items.findIndex(item =>
-        item.link === `/components/${componentName}/`
+        item.link === `/components/${componentDirName}/`
       )
       if (index !== -1) {
         category.items.splice(index, 1)
@@ -61,13 +62,23 @@ function updateSidebar (componentName, pascalCaseName, isDirDeleted) {
   }
 }
 
+// 格式化文件
+function formatFile (filePath) {
+  try {
+    execSync(`npx prettier --write "${filePath}"`, { stdio: 'ignore' })
+    console.log(`✅ 格式化文件: ${filePath}`)
+  } catch (error) {
+    console.warn(`⚠️ 格式化文件失败: ${filePath}`)
+  }
+}
+
 // 更新组件索引文件
 function updateComponentsIndex (componentDirName, pascalCaseName, isDirDeleted) {
   const indexPath = path.join(componentsDir, 'index.ts')
   let content = fs.readFileSync(indexPath, 'utf-8')
 
   // 删除导入语句
-  content = content.replace(`import ${pascalCaseName} from './${componentDirName}'\n`, '')
+  content = content.replace(`import ${pascalCaseName} from './${componentDirName}';`, '')
 
   // 从导出语句中删除组件
   const exportRegex = new RegExp(`export\\s*{\\s*([^}]*?)\\s*${pascalCaseName}\\s*([^}]*?)\\s*}`, 'g')
@@ -78,10 +89,28 @@ function updateComponentsIndex (componentDirName, pascalCaseName, isDirDeleted) 
 
   fs.writeFileSync(indexPath, content)
   console.log(`更新组件索引文件: ${indexPath}`)
+  formatFile(indexPath)
 
   if (isDirDeleted) {
     console.log(`✅ 删除组件目录: ${componentDirName}`)
     console.log(`✅ 删除文档目录: ${componentDirName}`)
+  }
+}
+
+// 更新组件样式入口文件
+function updateComponentsStyle (componentDirName, componentName, isDirDeleted) {
+  const stylePath = path.join(componentsDir, 'style.ts')
+  let content = fs.readFileSync(stylePath, 'utf-8')
+
+  // 删除导入语句
+  content = content.replace(`'${componentName}': () => importStyle('${componentDirName}')`, '').replaceAll(`,,`, ',')
+
+  fs.writeFileSync(stylePath, content)
+  console.log(`更新组件样式入口文件: ${stylePath}`)
+  formatFile(stylePath)
+
+  if (isDirDeleted) {
+    console.log(`✅ 删除组件样式导入: ${componentDirName}`)
   }
 }
 
@@ -110,7 +139,10 @@ function deleteComponent (name) {
   updateComponentsIndex(componentDirName, pascalCaseName, true)
 
   // 更新文档菜单
-  updateSidebar(componentName, pascalCaseName, true)
+  updateSidebar(componentName, componentDirName, true)
+
+  // 更新组件样式入口文件
+  updateComponentsStyle(componentDirName, componentName, true)
 
   console.log(`\n✅ 组件 ${pascalCaseName} 删除成功!`)
 }

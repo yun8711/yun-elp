@@ -16,6 +16,8 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "bootstrap": "pnpm install",
+    "create": "node scripts/create-component.js",
+    "delete": "node scripts/delete-component.js",
     "dev": "pnpm -C play dev",
     "docs:dev": "pnpm -C docs dev",
     "build": "pnpm run build:clean && pnpm run build:components && pnpm run build:docs && pnpm run build:web-types",
@@ -23,8 +25,6 @@
     "build:components": "pnpm -C packages/components build",
     "build:docs": "pnpm -C docs build",
     "build:web-types": "tsx scripts/generate-web-types.ts",
-    "create": "node scripts/create-component.js",
-    "delete": "node scripts/delete-component.js",
     "lint": "pnpm lint:format && pnpm lint:eslint && pnpm lint:style",
     "lint:format": "prettier --write .",
     "lint:eslint": "eslint . --fix",
@@ -87,6 +87,7 @@
     "onlyBuiltDependencies": [
       "@parcel/watcher",
       "esbuild",
+      "vitepress-theme-demoblock",
       "vue-demi"
     ]
   },

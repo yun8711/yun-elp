@@ -19,9 +19,9 @@ export const importStyle = (componentName: string) => {
 
 // 组件样式导入映射
 export const styleImporters = {
-  'k-button': () => importStyle('button'),
-  'k-config-provider': () => importStyle('config-provider')
   // 随着组件的增加，在这里添加更多组件的样式导入
+  'k-config-provider': () => importStyle('config-provider'),
+  'k-label': () => importStyle('label')
 };
 
 // 导出默认样式加载器

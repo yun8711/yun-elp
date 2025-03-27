@@ -4,6 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import readline from 'readline'
 import { fileURLToPath } from 'url'
+import { execSync } from 'child_process'
 import {
   getComponentName,
   getComponentNameWithoutPrefix,
@@ -48,6 +49,7 @@ function readSidebar () {
 
 // 更新 sidebar.json
 function updateSidebar (componentName, componentTitle, category) {
+  console.log('updateSidebar', componentName, componentTitle, category)
   const sidebar = readSidebar()
   const categoryIndex = sidebar.findIndex(item => item.text === category)
 
@@ -80,7 +82,7 @@ ${description}
 
 ## 基础用法
 
-:::demo 基础用法示例
+:::demo
 
 \`\`\`vue
 <template>
@@ -118,6 +120,16 @@ ${description}
 `
 }
 
+// 格式化文件
+function formatFile (filePath) {
+  try {
+    execSync(`npx prettier --write "${filePath}"`, { stdio: 'ignore' })
+    console.log(`✅ 格式化文件: ${filePath}`)
+  } catch (error) {
+    console.warn(`⚠️ 格式化文件失败: ${filePath}`)
+  }
+}
+
 // 更新组件索引文件
 function updateComponentsIndex (componentName, pascalCaseName) {
   const indexPath = path.join(componentsDir, 'index.ts')
@@ -148,6 +160,27 @@ function updateComponentsIndex (componentName, pascalCaseName) {
 
     fs.writeFileSync(indexPath, content)
     console.log(`更新组件索引文件: ${indexPath}`)
+    formatFile(indexPath)
+  }
+}
+
+// 更新组件样式入口文件
+function updateComponentsStyle (componentName, componentDirName) {
+  const stylePath = path.join(componentsDir, 'style.ts')
+  let content = fs.readFileSync(stylePath, 'utf-8')
+
+  // 检查是否已经导入了该组件的样式
+  if (!content.includes(`'${componentName}': () => importStyle('${componentDirName}')`)) {
+    // 找到 styleImporters 对象的结束位置
+    const styleImportersEndIndex = content.lastIndexOf('};')
+    if (styleImportersEndIndex !== -1) {
+      // 在最后一个属性后添加新的导入
+      const newImport = `,'${componentName}': () => importStyle('${componentDirName}'),`
+      content = content.slice(0, styleImportersEndIndex) + newImport + content.slice(styleImportersEndIndex)
+      fs.writeFileSync(stylePath, content)
+      console.log(`更新组件样式入口文件: ${stylePath}`)
+      formatFile(stylePath)
+    }
   }
 }
 
@@ -220,14 +253,14 @@ function generateScssTemplate (componentName) {
 }
 
 // 生成样式入口文件模板
-function generateStyleTemplate (componentName) {
+function generateStyleTemplate (componentName, componentDirName) {
   return `/**
  * ${componentName} 样式入口
  * 提供给使用者按需导入样式
  */
 
 // 导入组件样式
-import './${componentName}.scss';
+import './${componentDirName}.scss';
 
 // 如果组件依赖其他组件，可以在这里导入它们的样式
 // 例如: import '../other-component/style';
@@ -274,20 +307,21 @@ describe('${pascalCaseName} 组件', () => {
 
 // 创建组件
 function createComponent (name, type, category, description) {
-  // 获取组件名称（带前缀）和目录名（不带前缀）
+  // 获取组件名称，带前缀
   const componentName = getComponentName(name)
-  console.log('componentName', componentName)
+  // 获取组件目录名，不带前缀
   const componentDirName = getComponentDirName(name)
-  console.log('componentDirName', componentDirName)
+  // 获取组件文件名，不带前缀，如：label
   const componentFileName = getComponentFileName(name)
-  console.log('componentFileName', componentFileName)
+  // 获取组件PascalCase名称，如：KLabel
   const pascalCaseName = toPascalCase(componentName)
-  console.log('pascalCaseName', pascalCaseName)
+  // 获取组件目录，如：packages/components/src/components/label
   const componentDir = path.join(componentsDir, componentDirName)
-  console.log('componentDir', componentDir)
+  // 获取组件文档目录，如：docs/components/label
   const docDir = path.join(docsDir, 'components', componentDirName)
-  console.log('docDir', docDir)
+  // 获取组件是否为JSX组件
   const isJsx = type.toLowerCase() === 'jsx'
+  // 获取组件文件扩展名
   const fileExtension = isJsx ? 'tsx' : 'vue'
 
   // 创建组件目录
@@ -295,46 +329,43 @@ function createComponent (name, type, category, description) {
   createDir(docDir)
 
   // 创建组件文件
-  createFile(
-    path.join(componentDir, `${componentFileName}.${fileExtension}`),
-    isJsx ? generateJsxTemplate(componentName, pascalCaseName, componentDirName) : generateVueTemplate(componentName, pascalCaseName, componentDirName)
-  )
+  const componentFilePath = path.join(componentDir, `${componentFileName}.${fileExtension}`)
+  createFile(componentFilePath, isJsx ? generateJsxTemplate(componentName, pascalCaseName, componentDirName) : generateVueTemplate(componentName, pascalCaseName, componentDirName))
+  formatFile(componentFilePath)
 
   // 创建样式文件
-  createFile(
-    path.join(componentDir, `${componentFileName}.scss`),
-    generateScssTemplate(componentName)
-  )
+  const scssFilePath = path.join(componentDir, `${componentFileName}.scss`)
+  createFile(scssFilePath, generateScssTemplate(componentName))
+  formatFile(scssFilePath)
 
   // 创建样式入口文件
-  createFile(
-    path.join(componentDir, 'style.ts'),
-    generateStyleTemplate(componentName)
-  )
+  const styleFilePath = path.join(componentDir, 'style.ts')
+  createFile(styleFilePath, generateStyleTemplate(componentName, componentDirName))
+  formatFile(styleFilePath)
 
   // 创建索引文件
-  createFile(
-    path.join(componentDir, 'index.ts'),
-    generateIndexTemplate(componentFileName, pascalCaseName, isJsx)
-  )
+  const indexFilePath = path.join(componentDir, 'index.ts')
+  createFile(indexFilePath, generateIndexTemplate(componentFileName, pascalCaseName, isJsx))
+  formatFile(indexFilePath)
 
   // 创建测试文件
-  createFile(
-    path.join(componentDir, `${componentFileName}.test.ts`),
-    generateTestTemplate(componentFileName, pascalCaseName, isJsx)
-  )
+  const testFilePath = path.join(componentDir, `${componentFileName}.test.ts`)
+  createFile(testFilePath, generateTestTemplate(componentFileName, pascalCaseName, isJsx))
+  formatFile(testFilePath)
 
   // 创建文档文件
-  createFile(
-    path.join(docDir, 'index.md'),
-    generateDocTemplate(componentName, pascalCaseName, description)
-  )
+  const docFilePath = path.join(docDir, 'index.md')
+  createFile(docFilePath, generateDocTemplate(componentName, pascalCaseName, description))
+  formatFile(docFilePath)
 
   // 更新组件索引文件
   updateComponentsIndex(componentDirName, pascalCaseName)
 
+  // 更新组件样式入口文件
+  updateComponentsStyle(componentName, componentDirName)
+
   // 更新文档菜单
-  updateSidebar(componentDirName, pascalCaseName, category)
+  updateSidebar(componentDirName, description, category)
 
   console.log(`\n✅ 组件 ${pascalCaseName} 创建成功!`)
 }
@@ -360,8 +391,8 @@ function main () {
       return
     }
 
-    rl.question(`请输入组件名称 (例如: button): `, (name) => {
-      rl.question('请输入组件描述: ', (description) => {
+    rl.question(`请输入组件英文名称 (例如: button): `, (name) => {
+      rl.question('请输入组件中文名称: ', (description) => {
         rl.question('请选择组件类型 (vue/jsx) [默认: vue]: ', (type) => {
           const componentType = type.trim() || 'vue'
 
