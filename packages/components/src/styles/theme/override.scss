@@ -1,0 +1,41 @@
+/**
+ * KD-ELP 样式覆盖
+ * 确保自定义样式优先级高于 Element Plus
+ */
+
+// 使用更具体的选择器提高优先级
+html body {
+  // 主题色覆盖
+  --el-color-primary: var(--primary-color, #365edf) !important;
+  --el-color-primary-light-3: var(--primary-hover, #5e7ee5) !important;
+  --el-color-primary-light-5: var(--primary-suspension, #f5f7fd) !important;
+  --el-color-primary-light-7: var(--primary-disabled, #eaeefb) !important;
+  --el-color-primary-light-8: var(--primary-disabled, #eaeefb) !important;
+  --el-color-primary-light-9: var(--primary-suspension, #f5f7fd) !important;
+  --el-color-primary-dark-2: var(--primary-active, #2b4bb2) !important;
+
+  // 功能色覆盖
+  --el-color-success: var(--success-color, #67c23a) !important;
+  --el-color-warning: var(--warning-color, #e6a23c) !important;
+  --el-color-danger: var(--danger-color, #f56c6c) !important;
+  --el-color-info: var(--info-color, #909399) !important;
+
+  // 文本颜色覆盖
+  --el-text-color-primary: var(--color-text-title, #303133) !important;
+  --el-text-color-regular: var(--color-text-85, rgb(39 48 75 / 85%)) !important;
+  --el-text-color-secondary: var(--color-text-65, rgb(39 48 75 / 65%)) !important;
+  --el-text-color-placeholder: var(--color-text-45, rgb(39 48 75 / 45%)) !important;
+  --el-text-color-disabled: var(--color-text-25, rgb(39 48 75 / 25%)) !important;
+
+  // 边框颜色覆盖
+  --el-border-color: var(--color-border, #dcdcdc) !important;
+  --el-border-color-light: var(--color-split-line, #e3e6e8) !important;
+
+  // 字体大小覆盖
+  --el-font-size-base: var(--font-size-base, 12px) !important;
+  --el-font-size-small: var(--font-size-small, 10px) !important;
+  --el-font-size-large: var(--font-size-large, 14px) !important;
+
+  // 圆角覆盖
+  --el-border-radius-base: var(--el-border-radius-base, 1px) !important;
+}
