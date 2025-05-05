@@ -12,9 +12,9 @@
 @use './theme/override.scss' as override;
 
 // 导入公共混入工具
-@use './mixins/index.scss' as mixins;
+// @use './mixins/index.scss' as mixins;
 
 // 导入一些全局样式重置或通用样式
-@use './common/index.scss' as common;
+// @use './common/index.scss' as common;
 
 // 组件样式通过各组件自身的样式文件按需导入
