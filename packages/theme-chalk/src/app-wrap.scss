@@ -1,0 +1,5 @@
+@use 'mixins/mixins' as *;
+
+@include b('app-wrap') {
+  color: red;
+}

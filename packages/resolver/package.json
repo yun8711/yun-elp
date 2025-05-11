@@ -1,0 +1,15 @@
+{
+  "name": "@yun-elp/resolver",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.2",
+    "unplugin-vue-components": "^0.26.0"
+  }
+}

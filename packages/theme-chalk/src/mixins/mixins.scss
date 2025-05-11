@@ -1,0 +1,97 @@
+/**
+ * BEM 命名规范混入
+ *
+ * 使用示例：
+ *
+ * 1. 基础用法
+ * @include b('button') {
+ *   // 生成: .y-button
+ *   display: inline-block;
+ *
+ *   @include e('icon') {
+ *     // 生成: .y-button__icon
+ *     margin-right: 8px;
+ *   }
+ *
+ *   @include m('primary') {
+ *     // 生成: .y-button--primary
+ *     background-color: #409eff;
+ *   }
+ * }
+ *
+ * 2. 多元素/多修饰符
+ * @include b('form') {
+ *   @include e(('item', 'label')) {
+ *     // 生成: .y-form__item, .y-form__label
+ *     margin-bottom: 8px;
+ *   }
+ *
+ *   @include m(('inline', 'vertical')) {
+ *     // 生成: .y-form--inline, .y-form--vertical
+ *     display: flex;
+ *   }
+ * }
+ *
+ * 3. 状态类
+ * @include b('button') {
+ *   &.is-disabled {
+ *     // 生成: .y-button.is-disabled
+ *     cursor: not-allowed;
+ *   }
+ * }
+ */
+
+@use 'namespace' as *;
+@use 'config' as *;
+@use 'function' as *;
+
+$B: null;
+$E: null;
+
+// BEM
+@mixin b($block) {
+  $B: $namespace + $common-separator + $block !global;
+
+  .#{$B} {
+    @content;
+  }
+}
+
+@mixin e($element) {
+  $E: $element !global;
+  $selector: &;
+  $currentSelector: '';
+  @each $unit in $element {
+    $currentSelector: #{$currentSelector + '.' + $B + $element-separator + $unit + ','};
+  }
+
+  @if hitAllSpecialNestRule($selector) {
+    @at-root {
+      #{$selector} {
+        #{$currentSelector} {
+          @content;
+        }
+      }
+    }
+  } @else {
+    @at-root {
+      #{$currentSelector} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin m($modifier) {
+  $selector: &;
+  $currentSelector: '';
+  @each $unit in $modifier {
+    $currentSelector: #{$currentSelector + $selector + $modifier-separator + $unit + ','};
+  }
+
+  @at-root {
+    #{$currentSelector} {
+      @content;
+    }
+  }
+}

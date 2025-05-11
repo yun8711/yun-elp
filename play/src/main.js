@@ -1,14 +1,11 @@
 import { createApp } from 'vue'
-// import ElementPlus from 'element-plus'
 import 'normalize.css'
-// import 'element-plus/dist/index.css'
-import KdElp from '@kd-elp/components'
-import '@kd-elp/components/styles/index.scss'
+import YunElp from '../../packages/components/index'
+import '@yun-elp/theme-chalk/src/index.scss'
 import './styles/index.scss'
 import App from './App.vue'
 
 const app = createApp(App)
 
-// app.use(ElementPlus)
-app.use(KdElp)
+app.use(YunElp)
 app.mount('#app')

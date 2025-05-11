@@ -1,0 +1,87 @@
+@use 'mixins/mixins' as *;
+
+/**
+ * Label 组件样式
+ *
+ * 生成的类名结构：
+ * .y-label                    - 组件根元素
+ * .y-label__inner            - 内部容器
+ * .y-label__label            - 标签文本
+ * .y-label__content          - 内容区域
+ */
+
+@include b('label') {
+  // 生成: .y-label
+  display: inline-block;
+
+  @include e('inner') {
+    // 生成: .y-label__inner
+    box-sizing: border-box;
+    display: flex;
+    align-items: stretch;
+    height: 32px;
+
+    > #{$B}__label {
+      // 生成: .y-label__label
+      padding: 0 8px;
+      font-size: 12px;
+      line-height: 32px;
+      color: var(--color-text-70, --el-text-color-primary);
+      border: 1px solid var(--color-border);
+      border-right: 0 none;
+      border-radius: var(--el-border-radius-base, 1px) 0 0 var(--el-border-radius-base, 1px);
+      background-color: #fff;
+    }
+
+    > #{$B}__content {
+      // 生成: .y-label__content
+      flex: 1;
+      height: 100%;
+
+      //输入框
+      > .el-input {
+        // 生成: .y-label__content > .el-input
+        width: 100%;
+        height: 100%;
+
+        > .el-input__wrapper {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+
+      //下拉框
+      > .el-select {
+        // 生成: .y-label__content > .el-select
+        width: 100%;
+        height: 100%;
+
+        > .el-select__wrapper {
+          height: 100%;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+
+      //级联选择器
+      > .el-cascader {
+        // 生成: .y-label__content > .el-cascader
+        width: 100%;
+        height: 100%;
+
+        > .el-input {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      // 日期时间范围选择器
+      .el-date-editor {
+        // 生成: .y-label__content .el-date-editor
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

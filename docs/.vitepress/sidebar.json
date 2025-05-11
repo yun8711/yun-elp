@@ -1,32 +1,19 @@
 [
   {
     "text": "通用",
-    "items": [
-      {
-        "text": "text 文本",
-        "link": "/components/button/"
-      }
-    ]
+    "items": []
   },
   {
     "text": "导航",
-    "items": [
-      {
-        "text": "section-head 段标题",
-        "link": "/components/section-head/"
-      },
-      {
-        "text": "page-head 页面标题",
-        "link": "/components/page-head/"
-      }
-    ]
+    "items": []
   },
   {
     "text": "容器和布局",
     "items": [
       {
-        "text": "label Label",
-        "link": "/components/label/"
+        "text": "label",
+        "link": "/examples/label/",
+        "activeMatch": "/examples/label/"
       }
     ]
   },
@@ -36,12 +23,7 @@
   },
   {
     "text": "数据展示",
-    "items": [
-      {
-        "text": "empty 空状态",
-        "link": "/components/empty/"
-      }
-    ]
+    "items": []
   },
   {
     "text": "反馈",

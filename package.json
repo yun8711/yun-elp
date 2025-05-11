@@ -1,18 +1,9 @@
 {
-  "name": "kd-elp",
+  "name": "yun-elp",
   "version": "0.0.1",
   "description": "基于 Element Plus 的业务组件库",
   "private": false,
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "style": "dist/components/index.css",
-  "web-types": "dist/web-types.json",
-  "vetur": {
-    "tags": "dist/vetur/tags.json",
-    "attributes": "dist/vetur/attributes.json"
-  },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "bootstrap": "pnpm install",
@@ -20,9 +11,13 @@
     "delete": "node scripts/delete-component.js",
     "dev": "pnpm -C play dev",
     "docs:dev": "pnpm -C docs dev",
-    "build": "pnpm run build:clean && pnpm run build:components && pnpm run build:docs && pnpm run build:web-types",
+    "build": "pnpm build:clean && pnpm build:style-vars && pnpm build:comp && pnpm build:style && pnpm build:resolver && pnpm build:pkg",
     "build:clean": "rimraf dist",
-    "build:components": "pnpm -C packages/components build",
+    "build:comp": "pnpm -C packages/components build",
+    "build:style-vars": "tsx scripts/generate-style-vars.ts --module node16",
+    "build:style": "pnpm -C packages/theme-chalk build",
+    "build:resolver": "pnpm -C packages/resolver build",
+    "build:pkg": "tsx scripts/build2.ts",
     "build:docs": "pnpm -C docs build",
     "build:web-types": "tsx scripts/generate-web-types.ts",
     "lint": "pnpm lint:format && pnpm lint:eslint && pnpm lint:style",
@@ -35,20 +30,13 @@
     "prepublishOnly": "pnpm build",
     "publish": "npm publish --registry=https://registry.npmjs.org/"
   },
-  "keywords": [
-    "vue3",
-    "component",
-    "element-plus",
-    "typescript"
-  ],
-  "author": "",
-  "license": "MIT",
   "engines": {
     "node": ">= 18"
   },
-  "peerDependencies": {
-    "element-plus": "^2.4.1",
-    "vue": "^3.4.0"
+  "dependencies": {
+    "@yun-elp/components": "workspace:*",
+    "@yun-elp/theme-chalk": "workspace:*",
+    "@yun-elp/resolver": "workspace:*"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
@@ -59,9 +47,10 @@
     "@typescript-eslint/eslint-plugin": "^8.28.0",
     "@typescript-eslint/parser": "^8.28.0",
     "@vue/eslint-config-typescript": "^14.5.0",
+    "@vue/runtime-core": "^3.5.14",
     "cz-git": "^1.11.1",
     "czg": "^1.11.1",
-    "element-plus": "^2.6.0",
+    "element-plus": "^2.9.10",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.5",
@@ -72,7 +61,6 @@
     "prettier": "^3.5.3",
     "release-it": "^17.11.0",
     "rimraf": "^5.0.5",
-    "sass": "^1.86.0",
     "stylelint": "^16.16.0",
     "stylelint-config-recess-order": "^5.0.0",
     "stylelint-config-standard": "^36.0.1",
@@ -81,7 +69,8 @@
     "stylelint-order": "^6.0.4",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
-    "vue": "^3.5.13"
+    "vite": "^5.4.15",
+    "vue": "^3.5.14"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -90,62 +79,5 @@
       "vitepress-theme-demoblock",
       "vue-demi"
     ]
-  },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./style": "./dist/components/index.css",
-    "./components": {
-      "types": "./dist/components/index.d.ts",
-      "import": "./dist/components/index.mjs",
-      "require": "./dist/components/index.js"
-    },
-    "./components/*": {
-      "types": "./dist/components/*/index.d.ts",
-      "import": "./dist/components/*/index.mjs",
-      "require": "./dist/components/*/index.js"
-    },
-    "./components/*/style": {
-      "types": "./dist/components/*/style.d.ts",
-      "import": "./dist/components/*/style.mjs",
-      "require": "./dist/components/*/style.js"
-    },
-    "./theme": {
-      "types": "./dist/theme.d.ts",
-      "import": "./dist/theme.mjs",
-      "require": "./dist/theme.js"
-    },
-    "./locale": {
-      "types": "./dist/locale/index.d.ts",
-      "import": "./dist/locale/index.mjs",
-      "require": "./dist/locale/index.js"
-    },
-    "./locale/*": {
-      "types": "./dist/locale/lang/*.d.ts",
-      "import": "./dist/locale/lang/*.mjs",
-      "require": "./dist/locale/lang/*.js"
-    },
-    "./utils": {
-      "types": "./dist/utils/index.d.ts",
-      "import": "./dist/utils/index.mjs",
-      "require": "./dist/utils/index.js"
-    },
-    "./resolvers": {
-      "types": "./dist/components/resolvers/index.d.ts",
-      "import": "./dist/components/resolvers/index.mjs",
-      "require": "./dist/components/resolvers/index.js"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "sideEffects": [
-    "*.css",
-    "*.scss",
-    "dist/components/index.mjs",
-    "dist/components/index.js"
-  ]
+  }
 }

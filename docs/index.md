@@ -27,5 +27,81 @@ features:
 :root {
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: linear-gradient(135deg, #409eff 10%, #95de64 100%);
+  --vp-home-hero-text-color: #2c3e50;
+  --vp-home-hero-image-background-image: linear-gradient(135deg, #409eff 10%, #95de64 100%);
+  --vp-home-hero-image-filter: blur(40px);
+}
+
+.VPHome {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.VPHome .main {
+  padding: 120px 24px;
+}
+
+.VPHome .container {
+  margin: 0 auto;
+  max-width: 1152px;
+}
+
+.VPHome .hero {
+  text-align: center;
+}
+
+.VPHome .text {
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: 600;
+}
+
+.VPHome .tagline {
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--vp-c-text-2);
+  margin: 16px auto 48px;
+  max-width: 592px;
+}
+
+.VPHome .actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.VPHome .features {
+  margin-top: 64px;
+  padding: 0 24px;
+}
+
+.VPHome .feature {
+  padding: 24px;
+  border-radius: 8px;
+  background-color: var(--vp-c-bg-soft);
+  transition: background-color 0.25s;
+}
+
+.VPHome .feature:hover {
+  background-color: var(--vp-c-bg-mute);
+}
+
+.VPHome .feature .icon {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.VPHome .feature .title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.VPHome .feature .details {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--vp-c-text-2);
 }
 </style>

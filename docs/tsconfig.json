@@ -1,21 +1,31 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
     "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
     "skipLibCheck": true,
+    "jsx": "preserve",
+    "lib": ["ESNext", "DOM"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "yun-elp": ["../packages/elp"],
+      "~/*": ["./.vitepress/vitepress/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.d.ts", "**/*.tsx", "**/*.vue", "../scripts/generate-web-types.ts"],
+  "include": [
+    "**/*.ts",
+    "**/*.d.ts",
+    "**/*.tsx",
+    "**/*.vue",
+    "../scripts/generate-web-types.ts",
+    "components/label/basic"
+  ],
   "exclude": ["node_modules"]
 }

@@ -1,0 +1,13 @@
+{
+  "name": "@yun-elp/theme-chalk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.css",
+  "style": "index.css",
+  "scripts": {
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^5.4.15"
+  }
+}

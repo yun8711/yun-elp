@@ -17,5 +17,8 @@ declare module 'vue' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     GridCanvas: typeof import('./src/components/GridCanvas.vue')['default']
+    Layout: typeof import('./src/components/Layout.vue')['default']
+    YAppWrap: typeof import('yun-elp/es/components')['YAppWrap']
+    YLabel: typeof import('yun-elp/es/components')['YLabel']
   }
 }

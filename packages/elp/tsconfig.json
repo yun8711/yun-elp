@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "emitDeclarationOnly": true,
+    "baseUrl": ".",
+    "paths": {
+      "@yun-elp/components": ["../components/src"]
+    }
+  },
+  "include": ["**/*.ts", "../components/**/*.ts"]
+}

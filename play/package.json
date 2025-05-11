@@ -1,5 +1,5 @@
 {
-  "name": "@kd-elp/play",
+  "name": "@yun-elp/play",
   "version": "1.0.0",
   "description": "组件调试项目",
   "private": true,
@@ -10,18 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@kd-elp/components": "workspace:*",
-    "@kd-elp/utils": "workspace:*",
-    "element-plus": "^2.9.7",
+    "@yun-elp/components": "workspace:*",
+    "@yun-elp/theme-chalk": "workspace:*",
+    "element-plus": "^2.9.9",
     "normalize.css": "^8.0.1",
     "unplugin-auto-import": "^19.1.2",
     "unplugin-element-plus": "^0.10.0",
-    "unplugin-vue-components": "^0.26.0",
-    "vue": "^3.5.13"
+    "unplugin-vue-components": "^0.26.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
-    "sass": "^1.72.0",
+    "sass": "^1.88.0",
     "vite": "^5.4.15"
   }
 }

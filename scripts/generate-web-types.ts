@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { glob } from 'glob';
+import packageJson from '../package.json';
 import matter from 'gray-matter';
 
 interface WebType {
@@ -75,10 +76,10 @@ function generateWebTypes(): void {
     const { data, content: markdownContent } = matter(content);
     const componentName = data.title.split(' ')[0];
 
-    const attributes = parseMarkdownTable(extractApiSection(markdownContent, '属性'));
-    const slots = parseMarkdownTable(extractApiSection(markdownContent, '插槽'));
-    const events = parseMarkdownTable(extractApiSection(markdownContent, '事件'));
-    const exposes = parseMarkdownTable(extractApiSection(markdownContent, '暴露'));
+    const attributes = parseMarkdownTable(extractApiSection(markdownContent, 'Attributes'));
+    const slots = parseMarkdownTable(extractApiSection(markdownContent, 'Slots'));
+    const events = parseMarkdownTable(extractApiSection(markdownContent, 'Events'));
+    const exposes = parseMarkdownTable(extractApiSection(markdownContent, 'Exposes'));
 
     const webType: WebType = {
       name: componentName,
@@ -123,8 +124,8 @@ function generateWebTypes(): void {
   const output = {
     $schema: 'https://json.schemastore.org/web-types',
     framework: 'vue',
-    name: 'kd-elp3',
-    version: '1.0.0',
+    name: packageJson.name,
+    version: packageJson.version,
     contributions: {
       html: {
         'vue-components': webTypes

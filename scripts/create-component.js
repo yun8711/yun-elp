@@ -72,11 +72,11 @@ function updateSidebar (componentName, componentTitle, category) {
 // 生成组件文档模板
 function generateDocTemplate (componentName, pascalCaseName, description) {
   return `---
-title: ${pascalCaseName} ${componentName}
+title: ${componentName}
 description: ${description}
 ---
 
-# ${pascalCaseName} ${componentName}
+# ${componentName}
 
 ${description}
 
@@ -94,25 +94,25 @@ ${description}
 
 ## API
 
-### 属性
+### Attributes
 
 | 属性名 | 说明 | 类型 | 可选值 | 默认值 |
 |--------|------|------|--------|--------|
 | - | - | - | - | - |
 
-### 插槽
+### Slots
 
 | 插槽名 | 说明 |
 |--------|------|
 | default | 默认插槽 |
 
-### 事件
+### Events
 
 | 事件名 | 说明 | 回调参数 |
 |--------|------|----------|
 | - | - | - |
 
-### 暴露
+### Exposes
 
 | 名称 | 说明 | 类型 |
 |------|------|------|
@@ -355,7 +355,7 @@ function createComponent (name, type, category, description) {
 
   // 创建文档文件
   const docFilePath = path.join(docDir, 'index.md')
-  createFile(docFilePath, generateDocTemplate(componentName, pascalCaseName, description))
+  createFile(docFilePath, generateDocTemplate(componentFileName, pascalCaseName, description))
   formatFile(docFilePath)
 
   // 更新组件索引文件
