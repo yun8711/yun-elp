@@ -37,7 +37,7 @@
     "unocss": "^0.58.0",
     "unplugin-icons": "^0.18.5",
     "unplugin-vue-components": "^0.26.0",
-    "vitepress": "2.0.0-alpha.5",
+    "vitepress": "^1.6.3",
     "vitepress-plugin-group-icons": "^1.5.2"
   }
 }

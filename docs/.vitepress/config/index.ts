@@ -1,22 +1,21 @@
 // import { fileURLToPath } from 'url';
 import mdPlugin from './plugins';
 import getViteConfig from './vite';
+import head from './head';
 import type { UserConfig } from 'vitepress';
 
 import sidebarList from '../sidebar.json';
 const firstLink = sidebarList.find((x: { items: string | any[] }) => x.items.length > 0)?.items?.[0]
   ?.link;
-const baseUrl = '/';
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = resolve(__filename, '..');
+export const baseUrl = '/';
 
 const setupConfig = configEnv => {
   const config: UserConfig = {
-    title: 'KD-ELP',
-    description: 'KD-ELP 组件文档',
+    title: 'YUN-ELP',
+    description: '基于element-plus 的业务组件库',
     lang: 'zh-CN',
     // 在html 的head 标签中显现的其他元素，这里添加了icon 图标
-    head: [['link', { rel: 'icon', type: 'image/svg+xml', href: baseUrl + 'logo.svg' }]],
+    head,
     appearance: false, // 不启用深色模式
     // 使用 Git 获取每个页面的最后更新时间戳
     lastUpdated: false,
@@ -32,7 +31,10 @@ const setupConfig = configEnv => {
     // 主题配置
     themeConfig: {
       // 每个页面右侧大纲标题
-      outline: false,
+      outline: {
+        level: 2,
+        label: '内容大纲'
+      },
       lastUpdatedText: '',
       // 显示在导航栏中网站标题
       logo: baseUrl + 'logo.svg',
