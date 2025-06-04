@@ -16,7 +16,7 @@ export function MdTransform(): Plugin {
     // 在构建开始时收集所有组件文档的路径，即examples目录下的所有子目录
     async buildStart() {
       // console.log('docsRoot', docsRoot);
-      compPaths = await glob('examples/*/', {
+      compPaths = await glob('components/*/', {
         cwd: docsRoot,
         absolute: true,
         onlyDirectories: true
@@ -57,7 +57,7 @@ export function MdTransform(): Plugin {
 // 动态的导入示例代码组件，返回一个数组，数组中是导入示例代码组件的语句
 const getExampleImports = (componentId: string) => {
   // console.log('getExampleImports-componentId', componentId);
-  const examplePath = path.resolve(docsRoot, 'examples', componentId);
+  const examplePath = path.resolve(docsRoot, 'components', componentId);
   // console.log('examplePath', examplePath);
   if (!fs.existsSync(examplePath)) return [];
   const files = fs.readdirSync(examplePath);

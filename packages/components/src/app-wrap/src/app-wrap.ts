@@ -1,10 +1,10 @@
-import type { KdElpLocale, LocaleType } from '../../../locale';
+import type { YunElpLocale, LocaleType } from '../../../locale';
 import type { ConfigProviderProps } from 'element-plus';
 import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
 
 // 定义扩展的属性
 export interface ExtendedAppWrapProps {
-  locale?: LocaleType | KdElpLocale;
+  locale?: LocaleType | YunElpLocale;
   size?: 'default' | 'large' | 'small';
   button?: {
     autoInsertSpace?: boolean;
@@ -29,7 +29,7 @@ export const appWrapProps = {
     default: 'el'
   },
   locale: {
-    type: [String, Object] as PropType<LocaleType | KdElpLocale>,
+    type: [String, Object] as PropType<LocaleType | YunElpLocale>,
     default: undefined
   },
   size: {

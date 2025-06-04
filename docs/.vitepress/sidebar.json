@@ -12,8 +12,8 @@
     "items": [
       {
         "text": "label",
-        "link": "/examples/label/",
-        "activeMatch": "/examples/label/"
+        "link": "/components/label/",
+        "activeMatch": "/components/label/"
       }
     ]
   },

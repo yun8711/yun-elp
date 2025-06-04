@@ -14,7 +14,6 @@ import type { Theme } from 'vitepress';
 export default {
   extends: DefaultTheme,
   enhanceApp: async ({ app, router }) => {
-    console.log('enhanceApp', router);
     app.use(ElementPlus);
     app.use(YunElp);
     // 提供ID_INJECTION_KEY，用于生成唯一的ID

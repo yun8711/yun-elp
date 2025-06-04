@@ -16,12 +16,12 @@ import zhCN from './lang/zh-CN';
 export type LocaleType = 'zh-CN' | 'en-US';
 
 // 扩展后的语言包类型
-export interface KdElpLocale extends Language {
+export interface YunElpLocale extends Language {
   kdelp: typeof zhCN;
 }
 
 // 合并 Element Plus 语言包和自定义语言包
-const mergeLanguages = (elementLocale: Language, customLocale: any): KdElpLocale => {
+const mergeLanguages = (elementLocale: Language, customLocale: any): YunElpLocale => {
   return {
     ...elementLocale,
     kdelp: {
@@ -31,7 +31,7 @@ const mergeLanguages = (elementLocale: Language, customLocale: any): KdElpLocale
 };
 
 // 导出合并后的语言包
-export const locales: Record<LocaleType, KdElpLocale> = {
+export const locales: Record<LocaleType, YunElpLocale> = {
   'en-US': mergeLanguages(elementEnUS, enUS),
   'zh-CN': mergeLanguages(elementZhCN, zhCN)
 };
@@ -46,7 +46,7 @@ let currentLocale: LocaleType = defaultLocale;
  * 获取当前语言包
  * @returns 当前语言包
  */
-export const getLocale = (): KdElpLocale => {
+export const getLocale = (): YunElpLocale => {
   return locales[currentLocale];
 };
 

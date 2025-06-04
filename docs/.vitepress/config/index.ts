@@ -1,4 +1,3 @@
-// import { fileURLToPath } from 'url';
 import mdPlugin from './plugins';
 import getViteConfig from './vite';
 import head from './head';
@@ -32,7 +31,7 @@ const setupConfig = configEnv => {
     themeConfig: {
       // 每个页面右侧大纲标题
       outline: {
-        level: 2,
+        level: 'deep',
         label: '内容大纲'
       },
       lastUpdatedText: '',
@@ -46,7 +45,7 @@ const setupConfig = configEnv => {
       nav: [
         { text: '主页', link: '/', activeMatch: '^/$' },
         { text: '指南', link: '/guide/', activeMatch: '^/guide/' },
-        { text: '组件', link: firstLink!, activeMatch: '^/examples/' },
+        { text: '组件', link: firstLink!, activeMatch: '^/components/' },
         { text: '工具函数', link: '/utils/', activeMatch: '^/utils/' }
       ],
 
@@ -64,7 +63,7 @@ const setupConfig = configEnv => {
             ]
           }
         ],
-        '/examples/': sidebarList,
+        '/components/': sidebarList,
         '/utils/': [
           {
             text: '工具函数',

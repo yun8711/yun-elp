@@ -52,7 +52,7 @@ function createDemoContainer(md: MarkdownRenderer): ContainerOpts {
         if (sourceFileToken.type === 'inline') {
           // 获取文件内容
           source = fs.readFileSync(
-            path.resolve(docsRoot, 'examples', `${sourceFile}.vue`),
+            path.resolve(docsRoot, 'components', `${sourceFile}.vue`),
             'utf-8'
           );
         }
