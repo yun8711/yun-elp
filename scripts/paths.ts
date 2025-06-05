@@ -17,6 +17,8 @@ export const compRoot = path.resolve(pkgRoot, 'components');
 export const utilsRoot = path.resolve(pkgRoot, 'utils');
 // locale 子项目目录
 export const localeRoot = path.resolve(pkgRoot, 'locale');
+// 组件样式目录
+export const styleRoot = path.resolve(pkgRoot, 'theme-chalk');
 
 // 组件文档子项目目录
 export const docsRoot = path.resolve(projRoot, 'docs');
