@@ -6,7 +6,7 @@
 // @use 'element-plus/dist/index.css' as element;
 
 // 导入自定义主题 (覆盖Element Plus变量)
-@use './theme/index.scss' as theme;
+@use './theme/index2.scss' as theme;
 
 // 导入样式覆盖 (确保优先级高于 Element Plus)
 @use './theme/override.scss' as override;

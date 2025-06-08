@@ -1,0 +1,32 @@
+:root {
+  // 主色
+  --color-primary: #165dff;
+  --color-primary-active: #0e42d2; // 激活、点击
+  --color-primary-hover: #4080ff; // 悬浮
+  --color-primary-disabled: #94bfff; // 一般禁用
+  --color-primary-light: #e8f3ff; // 浅色
+
+  // 辅助色:success
+  --color-success: #00b42a; // 点击
+  --color-success-active: #009a29; // 激活、点击
+  --color-success-hover: #23c343; // 悬浮
+  --color-success-disabled: #7be188; // 一般禁用
+
+  // 辅助色:warning
+  --color-warning: #ff7d00; // 点击
+  --color-warning-active: #d25f00; // 激活、点击
+  --color-warning-hover: #ff9a2e; // 悬浮
+  --color-warning-disabled: #ffcf8b; // 一般禁用
+
+  // 辅助色:danger
+  --color-danger: #f53f3f; // 点击
+  --color-danger-active: #cb2634; // 激活、点击
+  --color-danger-hover: #f76560; // 悬浮
+  --color-danger-disabled: #fbaca3; // 一般禁用
+
+  // 文本颜色
+  --color-text-10: #1d2129; // 强调/正文标题
+  --color-text-8: #4e5969; // 次强调/正文标题
+  --color-text-6: #86909c; // 将要信息
+  --color-text-4: #c9cdd4; // 置灰信息
+}

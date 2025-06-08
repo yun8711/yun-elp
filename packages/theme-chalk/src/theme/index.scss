@@ -1,18 +1,22 @@
 /**
- * KD-ELP 自定义主题
+ * KD-ELP 自定义主题css变量
  * 覆盖 Element Plus 的默认主题变量
  */
 
-// 定义自定义主题变量
+// 定义自定义主题变量，参考阿里云
 :root {
   // 主题色
-  --primary-color: #365edf;
-  --primary-hover: #5e7ee5;
-  --primary-active: #2b4bb2;
-  --primary-disabled: #eaeefb;
-  --primary-suspension: #f5f7fd; // 悬浮
-  --color-primary: #365edf;
-  --color-primary-hover: #5e7ee5;
+  --color-primary-active: #0e42d2; // 激活、点击
+  --color-primary: #165dff; // 主色
+  --color-primary-hover: #4080ff; // 悬浮
+  --color-primary-4: #6aa1ff; // 特殊场景
+  --color-primary-disabled: #94bfff; // 一般禁用
+  --color-primary-text-disabled: #bedaff; // 文字禁用
+  --color-primary-shadow: #e8f3ff; // 浅色、白色悬浮
+
+  // 辅助色
+  // 成功
+  --color-success: #009a29; // 点击
 
   // 文本大小
   --font-size-base: 12px; // 基础字体大小
@@ -21,17 +25,26 @@
   --font-size-xlarge: 16px; // 超大字体
 
   // 文本颜色
-  --color-text-title: #303133; // 标题
-  --color-text-90: rgb(39 48 75 / 90%); // 标题
-  --color-text-85: rgb(39 48 75 / 85%); // 正文
-  --color-text-65: rgb(39 48 75 / 65%); // 正文次要
-  --color-text-45: rgb(39 48 75 / 45%); // 辅助、说明文字
-  --color-text-25: rgb(39 48 75 / 25%); // 禁用，提示文字
+  --color-text-10: #1d2129; // 强调/正文标题
+  --color-text-8: #4e5969; // 次强调/正文标题
+  --color-text-6: #86909c; // 将要信息
+  --color-text-4: #c9cdd4; // 置灰信息
+
+  // 线条颜色
+  --color-line-light: #e5e6eb; // 常规、白底
+  --color-line-dark: #c9cdd4; // 深色、灰底
+
+  // 填充色
+  --color-fill-1: #f7f8fa; // 浅/禁用
+  --color-fill-2: #f2f3f5; // 一般/常规/白底悬浮
+  --color-fill-3: #e5e6e8; // 深/灰底悬浮
+  --color-fill-4: #c9cdd4; // 重/特殊场景
+  --color-fill-8: #4e5969; // 强调/图标/特殊场景
 
   // 其他颜色
-  --color-border: #dcdcdc; // 线框
-  --color-split-line: #e3e6e8; // 分割线
-  --color-table-header-bg: #f7f8fa; // 表格表头背景色
+  // --color-border: #dcdcdc; // 线框
+  // --color-split-line: #e3e6e8; // 分割线
+  // --color-table-header-bg: #f7f8fa; // 表格表头背景色
 
   // 距离
   --gap-base: 8px; // 基础间距
