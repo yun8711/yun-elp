@@ -14,20 +14,20 @@
 
       <!-- 展示区域控制 -->
       <div class="config-item">
-        <span>背景网格：</span>
-        <el-switch v-model="showGrid" active-text="显示" inactive-text="隐藏" />
+        <span>背景颜色：</span>
+        <el-color-picker v-model="backgroundColor" show-alpha />
       </div>
 
+      <!-- 显示容器尺寸 -->
       <div class="config-item">
-        <span>背景颜色：</span>
-        <el-color-picker v-model="backgroundColor" show-alpha @change="handleBackgroundChange" />
+        <span>容器尺寸：</span>
+        <span class="size-info">{{ Math.round(width) }} x {{ Math.round(height) }}px</span>
+        <el-switch v-model="isLocked" active-text="锁定" inactive-text="解锁" style="margin-left: 10px;" />
       </div>
     </div>
 
     <!-- 使用KD-ELP的ConfigProvider -->
-
-    <section class="demo-section" :style="{ backgroundColor }">
-      <grid-canvas v-if="showGrid" :show-grid="showGrid" :background-color="backgroundColor" />
+    <section ref="sectionRef" class="demo-section" :class="{ 'is-locked': isLocked }" :style="{ backgroundColor }">
       <slot locale backgroundColor></slot>
     </section>
 
@@ -36,32 +36,33 @@
 
 <script setup>
 import { ref } from 'vue'
-import GridCanvas from './GridCanvas.vue'
+import { useElementSize } from '@vueuse/core'
 
 // 当前语言
 const locale = ref('zh-CN')
 
-// 网格显示控制
-const showGrid = ref(false)
-
 // 背景颜色
-const backgroundColor = ref('#ffffff')
+const backgroundColor = ref('#eeeeee')
+
+// 容器尺寸监控
+const sectionRef = ref(null)
+const { width, height } = useElementSize(sectionRef, {
+  debounce: 100,  // 添加100ms的防抖
+  box: 'border-box'  // 使用border-box盒模型计算尺寸
+})
+
+// 尺寸锁定状态
+const isLocked = ref(false)
 
 // 切换语言
 const handleLocaleChange = newLocale => {
   console.log('切换语言为:', newLocale)
   locale.value = newLocale
 }
-
-// 切换背景颜色
-const handleBackgroundChange = color => {
-  console.log('背景颜色:', color)
-}
 </script>
 
 <style lang="scss" scoped>
 .container {
-  max-width: 1000px;
   margin: 0 auto;
   padding: 20px 50px;
 
@@ -73,15 +74,36 @@ const handleBackgroundChange = color => {
       margin-right: 10px;
       font-size: 14px;
     }
+
+    .size-info {
+      font-family: monospace;
+      background-color: #f5f7fa;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #e4e7ed;
+      min-width: 120px; // 添加最小宽度防止数字变化时的抖动
+      text-align: center; // 文字居中
+    }
   }
 
   .demo-section {
     margin-bottom: 30px;
     padding: 20px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+    border-radius: 0px;
+    transition: background-color 0.3s; // 只对背景色变化添加过渡
     position: relative;
     z-index: 1;
+    overflow: auto;
+    resize: both;
+    width: 1000px;
+    height: 200px;
+    border: 2px solid #000;
+    box-sizing: border-box; // 确保padding和border不会影响整体尺寸计算
+
+    &.is-locked {
+      resize: none;
+      overflow: auto;
+    }
   }
 }
 </style>

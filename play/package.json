@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/core": "^10.7.0",
     "@yun-elp/components": "workspace:*",
     "@yun-elp/theme-chalk": "workspace:*",
     "element-plus": "^2.9.9",

@@ -34,11 +34,8 @@ export default {
       { value: 'utils', name: 'utils:      工具函数' },
       { value: 'docs', name: 'docs:       文档' },
       { value: 'style', name: 'style:      样式' },
-      { value: 'refactor', name: 'refactor:   重构' },
-      { value: 'test', name: 'test:       测试' },
-      { value: 'build', name: 'build:      构建' },
-      { value: 'revert', name: 'revert:     回退' },
-      { value: 'chore', name: 'chore:      其他' }
+      { value: 'play', name: 'play:       演示' },
+      { value: 'other', name: 'other:      其他' }
     ],
     // 是否开启 commit message 带有 Emoji 字符
     useEmoji: true,
