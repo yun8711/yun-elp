@@ -29,8 +29,7 @@
     "commit": "czg",
     "release": "release-it --config release-it.config.cjs",
     "prepare": "husky install",
-    "prepublishOnly": "pnpm build",
-    "publish": "npm publish --registry=https://registry.npmjs.org/"
+    "publish": "cd dist && npm publish --registry=https://registry.npmjs.org/"
   },
   "engines": {
     "node": ">= 18"
