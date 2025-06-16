@@ -18,24 +18,27 @@ defineOptions({
 
 const props = withDefaults(defineProps<AppWrapProps>(), {
   elpConfig: () => ({
+    namespace: 'el',
+    a11y: true,
+    keyboardNavigation: true,
     size: 'default',
-    button: () => ({
+    zIndex: 2000,
+    button: {
       autoInsertSpace: true
-    }),
-    message: () => ({
+    },
+    message: {
       max: 3,
       grouping: true,
       duration: 3000,
       showClose: true,
       offset: 20
-    }),
-    zIndex: 2000,
+    }
   }),
-  locale: 'zh-CN',
-  label: {
+  locale: 'zh-cn',
+  'border-label': () => ({
     width: '316px',
     height: '32px'
-  }
+  })
 });
 
 // 从props中获取除elpConfig/locale以外的配置

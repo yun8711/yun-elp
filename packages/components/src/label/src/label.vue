@@ -1,5 +1,5 @@
 <template>
-  <div class="y-label" :class="{ 'y-label--border': props.border }" :style="{ height: props.height }">
+  <div class="y-label" :style="{ height: props.height }">
     <!-- 前置插槽 -->
     <div class="y-label__prefix" v-if="$slots.prefix">
       <slot name="prefix"></slot>

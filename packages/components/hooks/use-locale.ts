@@ -5,6 +5,7 @@
 import { computed, inject, type Ref } from '@vue/runtime-core';
 import { getLocale } from '../locale';
 import type { LocaleType } from '../locale';
+import type { YunElpLanguage } from '../locale/type';
 
 // 用于组件树传递国际化配置的key
 export const localeContextKey = Symbol('yun-elp-locale');
@@ -15,20 +16,17 @@ export const localeContextKey = Symbol('yun-elp-locale');
  */
 export function useLocale() {
   // 尝试从上下文中获取国际化配置
-  const locale = inject<Ref<LocaleType>>(localeContextKey, null);
+  const locale: LocaleType | undefined = inject(localeContextKey, 'zh-cn');
 
   // 获取实际使用的语言包
-  const resolvedLocale = computed(() => {
-    if (locale) {
-      return locale.value;
-    }
+  const resolvedLocale: Ref<YunElpLanguage> = computed(() => {
     // 如果没有注入的locale，则使用默认的
-    return getLocale();
+    return getLocale(locale);
   });
 
   /**
    * 翻译函数
-   * @param path 翻译路径，如 'kdelp.button.confirm'
+   * @param path 翻译路径，如 'button.confirm'
    * @param options 翻译参数
    * @returns 翻译后的文本
    */
@@ -37,11 +35,11 @@ export function useLocale() {
 
     // 解析路径
     const paths = path.split('.');
-    let current: any = resolvedLocale.value;
+    let current: YunElpLanguage = resolvedLocale.value;
     let value: any;
     for (let i = 0; i < paths.length; i++) {
       const key = paths[i];
-      value = current[key];
+      value = current[key as keyof YunElpLanguage];
       if (i === paths.length - 1) return value || path;
       if (!value) return path;
       current = value;

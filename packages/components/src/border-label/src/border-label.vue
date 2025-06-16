@@ -28,7 +28,7 @@ defineOptions({
 });
 
 const props = defineProps<BorderLabelProps>();
-const labelConfig = useAppConfig('label');
+const labelConfig = useAppConfig('border-label');
 // 使用计算属性来处理默认值
 const height = computed(() => props.height || labelConfig?.height || '32px');
 const width = computed(() => props.width || labelConfig?.width || 'auto');

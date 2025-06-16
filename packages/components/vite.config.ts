@@ -127,6 +127,7 @@ export default defineConfig({
         'vue',
         '@vue/runtime-core',
         'element-plus',
+        'lodash-es',
         /^element-plus\/.*/,
         /^@element-plus\/.*/,
         /^node_modules\/.*/,

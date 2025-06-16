@@ -1,6 +1,6 @@
 import type { LocaleType } from '../../../locale';
 import type { ConfigProviderProps } from 'element-plus';
-import type { PropType, ExtractPublicPropTypes, InjectionKey } from '@vue/runtime-core';
+import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
 
 // export const elpConfigProviderContextKey:InjectionKey<Ref<
 
@@ -10,10 +10,11 @@ export interface AppWrapProps {
   elpConfig?: ConfigProviderProps;
   locale?: LocaleType;
   // border-label、label的配置
-  label?: {
+  'border-label'?: {
     width?: string;
     height?: string;
   };
+  [key: string]: any;
 }
 
 // 定义 props 对象
@@ -24,10 +25,10 @@ export const appWrapProps = {
   },
   locale: {
     type: String as PropType<LocaleType>,
-    default: 'zh-CN'
+    default: 'zh-cn'
   },
-  label: {
-    type: Object as PropType<AppWrapProps['label']>,
+  'border-label': {
+    type: Object as PropType<AppWrapProps['border-label']>,
     default: () => ({})
   }
 } as const;

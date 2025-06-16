@@ -3,20 +3,20 @@
  */
 import type { YunElpLanguage } from './type';
 // 导入自定义语言包
-import enUS from './lang/en-US';
-import zhCN from './lang/zh-CN';
+import en from './lang/en-US';
+import zhCn from './lang/zh-CN';
 
 // 定义支持的语言代码
-export type LocaleType = 'zh-CN' | 'en-US';
+export type LocaleType = 'zh-cn' | 'en';
 
 // 导出合并后的语言包
 export const locales = {
-  'en-US': enUS,
-  'zh-CN': zhCN
+  en: en,
+  'zh-cn': zhCn
 };
 
 // 默认语言：简体中文
-export const defaultLocale: LocaleType = 'zh-CN';
+export const defaultLocale: LocaleType = 'zh-cn';
 
 // 当前语言
 let currentLocale: LocaleType = defaultLocale;
