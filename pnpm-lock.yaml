@@ -30,6 +30,9 @@ importers:
       '@types/glob':
         specifier: ^8.1.0
         version: 8.1.0
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       '@types/node':
         specifier: ^20.17.25
         version: 20.17.27
@@ -39,6 +42,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^8.28.0
         version: 8.28.0(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)
+      '@vitejs/plugin-vue':
+        specifier: ^5.2.4
+        version: 5.2.4(vite@5.4.15(@types/node@20.17.27)(sass@1.88.0))(vue@3.5.14(typescript@5.8.2))
       '@vue/eslint-config-typescript':
         specifier: ^14.5.0
         version: 14.5.0(eslint-plugin-vue@10.0.0(eslint@9.23.0(jiti@2.4.2))(vue-eslint-parser@10.1.1(eslint@9.23.0(jiti@2.4.2))))(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)
@@ -52,8 +58,8 @@ importers:
         specifier: ^1.11.1
         version: 1.11.1
       element-plus:
-        specifier: ^2.9.10
-        version: 2.9.10(vue@3.5.14(typescript@5.8.2))
+        specifier: ^2.10.2
+        version: 2.10.2(vue@3.5.14(typescript@5.8.2))
       eslint:
         specifier: ^9.0.0
         version: 9.23.0(jiti@2.4.2)
@@ -78,6 +84,9 @@ importers:
       inquirer:
         specifier: ^12.6.3
         version: 12.6.3(@types/node@20.17.27)
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
@@ -127,8 +136,8 @@ importers:
         specifier: ^2.3.1
         version: 2.3.1(vue@3.5.14(typescript@5.8.3))
       '@element-plus/metadata':
-        specifier: ^2.9.10
-        version: 2.9.10
+        specifier: ^2.10.2
+        version: 2.10.2
       '@vue/shared':
         specifier: ^3.4.15
         version: 3.5.14
@@ -145,8 +154,8 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1
       element-plus:
-        specifier: ^2.9.10
-        version: 2.9.10(vue@3.5.14(typescript@5.8.3))
+        specifier: ^2.10.2
+        version: 2.10.2(vue@3.5.14(typescript@5.8.3))
       normalize.css:
         specifier: ^8.0.1
         version: 8.0.1
@@ -231,8 +240,8 @@ importers:
         specifier: ^2.4.4
         version: 2.4.6
       element-plus:
-        specifier: ^2.9.9
-        version: 2.9.10(vue@3.5.14(typescript@5.8.3))
+        specifier: ^2.10.2
+        version: 2.10.2(vue@3.5.14(typescript@5.8.3))
       happy-dom:
         specifier: ^13.3.8
         version: 13.10.1
@@ -287,6 +296,9 @@ importers:
 
   play:
     dependencies:
+      '@element-plus/icons-vue':
+        specifier: ^2.3.1
+        version: 2.3.1(vue@3.5.14(typescript@5.8.3))
       '@vueuse/core':
         specifier: ^10.7.0
         version: 10.11.1(vue@3.5.14(typescript@5.8.3))
@@ -297,8 +309,8 @@ importers:
         specifier: workspace:*
         version: link:../packages/theme-chalk
       element-plus:
-        specifier: ^2.9.9
-        version: 2.9.10(vue@3.5.14(typescript@5.8.3))
+        specifier: ^2.10.2
+        version: 2.10.2(vue@3.5.14(typescript@5.8.3))
       normalize.css:
         specifier: ^8.0.1
         version: 8.0.1
@@ -704,8 +716,8 @@ packages:
     peerDependencies:
       vue: ^3.2.0
 
-  '@element-plus/metadata@2.9.10':
-    resolution: {integrity: sha512-p7T0U3E2ckk8izmFLfsUaj1GhmlfOUrwAy4Q82u6TNx3tNgVXzTmrF0469jmcyGiYmH6H4+wXc7pesf9pZnQ6Q==}
+  '@element-plus/metadata@2.10.2':
+    resolution: {integrity: sha512-iTBlNGHAC4wCoi5tj+pYIR8eHYt5lKlYewlHsy+EFnf/4J6CruqJa/sNm6TLDObfJ6o30giaTfI0Kx4j1r8QZg==}
 
   '@esbuild/aix-ppc64@0.21.5':
     resolution: {integrity: sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==}
@@ -2673,6 +2685,11 @@ packages:
 
   electron-to-chromium@1.5.151:
     resolution: {integrity: sha512-Rl6uugut2l9sLojjS4H4SAr3A4IgACMLgpuEMPYCVcKydzfyPrn5absNRju38IhQOf/NwjJY8OGWjlteqYeBCA==}
+
+  element-plus@2.10.2:
+    resolution: {integrity: sha512-p2KiAa0jEGXrzdlTAfpiS7HQFAhla4gvx6H7RuDf+OO0uC3DGpolxvdHjFR8gt7+vaWyxQNcHa1sAdBkmjqlgA==}
+    peerDependencies:
+      vue: ^3.2.0
 
   element-plus@2.9.10:
     resolution: {integrity: sha512-W2v9jWnm1kl/zm4bSvCh8aFCVlxvhG3fmqiDZwyd6WQiWGE595J/mpjcCggEr+49QDgIymhXrpPMOPPSARUbng==}
@@ -5826,7 +5843,7 @@ snapshots:
     dependencies:
       vue: 3.5.14(typescript@5.8.3)
 
-  '@element-plus/metadata@2.9.10': {}
+  '@element-plus/metadata@2.10.2': {}
 
   '@esbuild/aix-ppc64@0.21.5':
     optional: true
@@ -6992,6 +7009,11 @@ snapshots:
       vite: 5.4.15(@types/node@20.17.46)(sass@1.88.0)
       vue: 3.5.14(typescript@5.8.3)
 
+  '@vitejs/plugin-vue@5.2.4(vite@5.4.15(@types/node@20.17.27)(sass@1.88.0))(vue@3.5.14(typescript@5.8.2))':
+    dependencies:
+      vite: 5.4.15(@types/node@20.17.27)(sass@1.88.0)
+      vue: 3.5.14(typescript@5.8.2)
+
   '@vitejs/plugin-vue@5.2.4(vite@5.4.15(@types/node@20.17.46)(sass@1.88.0))(vue@3.5.14(typescript@5.8.3))':
     dependencies:
       vite: 5.4.15(@types/node@20.17.46)(sass@1.88.0)
@@ -7950,7 +7972,7 @@ snapshots:
 
   electron-to-chromium@1.5.151: {}
 
-  element-plus@2.9.10(vue@3.5.14(typescript@5.8.2)):
+  element-plus@2.10.2(vue@3.5.14(typescript@5.8.2)):
     dependencies:
       '@ctrl/tinycolor': 3.6.1
       '@element-plus/icons-vue': 2.3.1(vue@3.5.14(typescript@5.8.2))
@@ -7968,6 +7990,27 @@ snapshots:
       memoize-one: 6.0.0
       normalize-wheel-es: 1.2.0
       vue: 3.5.14(typescript@5.8.2)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+
+  element-plus@2.10.2(vue@3.5.14(typescript@5.8.3)):
+    dependencies:
+      '@ctrl/tinycolor': 3.6.1
+      '@element-plus/icons-vue': 2.3.1(vue@3.5.14(typescript@5.8.3))
+      '@floating-ui/dom': 1.7.0
+      '@popperjs/core': '@sxzz/popperjs-es@2.11.7'
+      '@types/lodash': 4.17.16
+      '@types/lodash-es': 4.17.12
+      '@vueuse/core': 9.13.0(vue@3.5.14(typescript@5.8.3))
+      async-validator: 4.2.5
+      dayjs: 1.11.13
+      escape-html: 1.0.3
+      lodash: 4.17.21
+      lodash-es: 4.17.21
+      lodash-unified: 1.0.3(@types/lodash-es@4.17.12)(lodash-es@4.17.21)(lodash@4.17.21)
+      memoize-one: 6.0.0
+      normalize-wheel-es: 1.2.0
+      vue: 3.5.14(typescript@5.8.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
 
