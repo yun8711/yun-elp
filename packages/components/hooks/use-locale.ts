@@ -7,15 +7,15 @@ import { getLocale } from '../locale';
 import type { LocaleType } from '../locale';
 
 // 用于组件树传递国际化配置的key
-export const localeContextKey = Symbol('kdelp-locale');
+export const localeContextKey = Symbol('yun-elp-locale');
 
 /**
- * 在组件中使用国际化的钩子函数
+ * 在组件中使用国际化的hook
  * @returns 国际化相关方法
  */
 export function useLocale() {
   // 尝试从上下文中获取国际化配置
-  const locale = inject<Ref<LocaleType> | null>(localeContextKey, null);
+  const locale = inject<Ref<LocaleType>>(localeContextKey, null);
 
   // 获取实际使用的语言包
   const resolvedLocale = computed(() => {

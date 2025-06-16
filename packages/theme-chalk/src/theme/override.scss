@@ -4,6 +4,9 @@
 
 // 使用更具体的选择器提高优先级
 html body {
+  font-family:
+    'nunito_for_arco', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
   // 主题色覆盖
   --el-color-primary: var(--color-primary, #409eff);
   // button type=primary:hover
@@ -44,20 +47,20 @@ html body {
 
   // 文本颜色覆盖
   --el-text-color-primary: var(--color-text-10, #303133);
-  --el-text-color-regular: var(--color-text-8, rgb(39 48 75 / 85%));
-  --el-text-color-secondary: var(--color-text-8, rgb(39 48 75 / 65%));
-  --el-text-color-placeholder: var(--color-text-6, rgb(39 48 75 / 45%));
-  --el-text-color-disabled: var(--color-text-4, rgb(39 48 75 / 25%));
+  --el-text-color-regular: var(--color-text-8, #606266);
+  --el-text-color-secondary: var(--color-text-8, #909399);
+  --el-text-color-placeholder: var(--color-text-6, #a8abb2);
+  --el-text-color-disabled: var(--color-text-4, #c0c4cc);
 
   // 边框颜色覆盖
-  --el-border-color: var(--color-border, #dcdcdc);
+  --el-border-color: var(--color-line, #dcdcdc);
   --el-border-color-light: var(--color-split-line, #e3e6e8);
 
   // 字体大小覆盖
-  --el-font-size-base: var(--font-size-base, 13px);
-  --el-font-size-small: var(--font-size-small, 12px);
-  --el-font-size-large: var(--font-size-large, 14px);
+  // --el-font-size-small: var(--font-size-small, 12px);
+  // --el-font-size-base: var(--font-size-base, 14px);
+  // --el-font-size-large: var(--font-size-large, 14px);
 
   // 圆角覆盖
-  --el-border-radius-base: var(--el-border-radius-base, 1px);
+  --el-border-radius-base: var(--border-radius-base, 4px);
 }

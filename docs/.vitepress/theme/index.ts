@@ -1,6 +1,9 @@
-import ElementPlus, { ID_INJECTION_KEY, ZINDEX_INJECTION_KEY } from 'element-plus';
 import DefaultTheme from 'vitepress/theme';
-import YunElp from '@yun-elp/components';
+import { App } from 'vue';
+import ElementPlus, { ID_INJECTION_KEY, ZINDEX_INJECTION_KEY } from 'element-plus';
+import 'element-plus/dist/index.css';
+import YunElp from '../../../packages/components';
+import '../../../packages/theme-chalk/src/index.scss';
 import { globals } from '../vitepress';
 // 判断当前代码是否在浏览器客户端环境中运行
 import { isClient } from '@vueuse/core';
@@ -9,7 +12,6 @@ import './styles/index.scss';
 import 'vitepress/dist/client/theme-default/styles/components/vp-code-group.css';
 import 'virtual:group-icons.css';
 import type { Theme } from 'vitepress';
-// import 'element-plus/dist/index.css';
 
 export default {
   extends: DefaultTheme,
@@ -18,12 +20,12 @@ export default {
     app.use(YunElp);
     // 提供ID_INJECTION_KEY，用于生成唯一的ID
     app.provide(ID_INJECTION_KEY, { prefix: 1024, current: 0 });
-    // 提供ZINDEX_INJECTION_KEY，用于生成唯一的Z-index
-    app.provide(ZINDEX_INJECTION_KEY, { current: 0 });
+    // 提供ZINDEX_INJECTION_KEY，用于管理z-index
+    app.provide(ZINDEX_INJECTION_KEY, { current: 2000 });
 
     // 注册全局组件
-    globals.forEach(([name, Comp]) => {
-      app.component(name, Comp);
+    globals.forEach(([name, comp]) => {
+      app.component(name, comp);
     });
 
     // 如果当前代码不在浏览器客户端环境中运行，则返回

@@ -14,6 +14,9 @@
 
 /* 表格样式 */
 .vp-doc {
+  h2 {
+    border-top: none;
+  }
   table {
     display: table;
     width: 100%;

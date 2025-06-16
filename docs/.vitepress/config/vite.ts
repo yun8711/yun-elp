@@ -40,16 +40,15 @@ const alias: AliasOptions = [
   {
     find: '~/',
     replacement: `${path.resolve(__dirname, '../')}/`
+  },
+  {
+    find: /^@yun-elp(\/(es|lib))?$/,
+    replacement: path.resolve(pkgRoot, 'components/index.ts')
+  },
+  {
+    find: /^@yun-elp\/(es|lib)\/(.*)$/,
+    replacement: `${path.resolve(projRoot, 'packages')}/$2`
   }
-  // {
-  //   find: /^yun-elp(\/(es|lib))?$/,
-  //   replacement: path.resolve(pkgRoot, 'components/index.ts')
-  // },
-  // {
-  //   find: /^yun-elp\/(es|lib)\/(.*)$/,
-  //   replacement: `${path.resolve(projRoot, 'packages')}/$2`
-  //   // replacement: path.resolve(process.cwd(), '../../../packages/theme-chalk')
-  // }
 ];
 
 const getViteConfig = ({ mode }: { mode: string }): ViteConfig => {

@@ -1,14 +1,15 @@
 <template>
-  <el-config-provider v-bind="props" :locale="currentLocale">
+  <el-config-provider v-bind="props.elpConfig">
     <slot></slot>
   </el-config-provider>
 </template>
 
 <script setup lang="ts">
-import { computed, provide, watch } from '@vue/runtime-core';
-import { getLocale, setLocale, locales } from '../../../locale';
-import { localeContextKey } from '../../../hooks/use-locale';
+import { watch, provide } from '@vue/runtime-core';
+import { omit } from 'lodash-es';
+import { setLocale, type LocaleType } from '../../../locale';
 import type { AppWrapProps } from './app-wrap';
+import { appConfigKey } from './use-app-config';
 
 defineOptions({
   name: 'YAppWrap',
@@ -16,50 +17,39 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<AppWrapProps>(), {
+  elpConfig: () => ({
+    size: 'default',
+    button: () => ({
+      autoInsertSpace: true
+    }),
+    message: () => ({
+      max: 3,
+      grouping: true,
+      duration: 3000,
+      showClose: true,
+      offset: 20
+    }),
+    zIndex: 2000,
+  }),
   locale: 'zh-CN',
-  size: 'default',
-  button: () => ({
-    autoInsertSpace: true
-  }),
-  message: () => ({
-    max: 3,
-    grouping: true,
-    duration: 3000,
-    showClose: true,
-    offset: 20
-  }),
-  zIndex: 2000
+  label: {
+    width: '316px',
+    height: '32px'
+  }
 });
 
-// 计算出最终使用的语言包
-const currentLocale = computed(() => {
-  // 如果传入的是语言代码（字符串）
-  if (typeof props.locale === 'string') {
-    // 从语言集合中获取对应的语言包
-    return locales[props.locale] || getLocale();
-  }
+// 从props中获取除elpConfig/locale以外的配置
+const configProps = omit(props, ['elpConfig', 'locale']);
 
-  // 如果传入的是完整的语言包对象
-  if (props.locale && typeof props.locale === 'object') {
-    return props.locale;
-  }
-
-  // 默认使用当前语言
-  return getLocale();
-});
+// 提供全局配置
+provide(appConfigKey, configProps);
 
 // 处理传入的locale，并设置全局语言
 watch(
   () => props.locale,
-  newLocale => {
-    if (typeof newLocale === 'string') {
-      // 如果是语言代码字符串，则设置全局语言
-      setLocale(newLocale);
-    }
+  (newLocale: LocaleType) => {
+    setLocale(newLocale as LocaleType);
   },
   { immediate: true }
 );
-
-// 提供locale上下文给子组件
-provide(localeContextKey, currentLocale);
 </script>

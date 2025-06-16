@@ -4,7 +4,10 @@
   "description": "基于 Element Plus 的业务组件库",
   "type": "module",
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@testing-library/user-event": "^14.5.2",
@@ -13,7 +16,7 @@
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitest/coverage-v8": "^1.3.1",
     "@vue/test-utils": "^2.4.4",
-    "element-plus": "^2.9.9",
+    "element-plus": "^2.10.2",
     "happy-dom": "^13.3.8",
     "rollup-plugin-visualizer": "^5.14.0",
     "sass": "^1.88.0",

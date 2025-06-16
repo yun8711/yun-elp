@@ -18,5 +18,5 @@
 // @use './common/index.scss' as common;
 
 // 组件样式通过各组件自身的样式文件按需导入
-@use './app-wrap.scss';
 @use './label.scss';
+@use './border-label.scss';

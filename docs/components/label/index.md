@@ -1,15 +1,25 @@
 ---
-title: label
-description:
+title: Label 标签
+description: 用于展示键值对数据。
 ---
 
-# label
+# Label 标签
+
+Label 组件主要用于键值对数据的展示
 
 ## 基础用法
 
-:::demo 测试
+:::demo label组件主要用来进行数据展示
 
-label/test
+label/basic
+
+:::
+
+## 组件尺寸
+
+:::demo label组件内部使用flex布局方式
+
+label/size
 
 :::
 
@@ -17,36 +27,22 @@ label/test
 
 ### Attributes
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| ------ | ---- | ---- | ------ |
-| -      | -    | -    | -      |
+| 属性名       | 说明                              | 类型                             | 默认值 |
+| ------------ | --------------------------------- | -------------------------------- | ------ |
+| label        | 标签文本                          | string                           | -      |
+| labelWidth   | 标签宽度                          | string \| number                 | 'auto' |
+| align        | 标签文本对齐方式                  | 'left' \| 'center' \| 'right'    | 'left' |
+| height       | 组件高度                          | string \| number                 | '32px' |
+| border       | 是否显示边框                      | boolean                          | false  |
+| colon        | 标签后分隔符，border为false时有效 | string                           | ''     |
+| labelStyle   | 标签自定义样式                    | Record<string, string \| number> | {}     |
+| contentStyle | 内容区域自定义样式                | Record<string, string \| number> | {}     |
 
 ### Slots
 
-| 插槽名  | 说明     |
-| ------- | -------- |
-| default | 默认插槽 |
-
-### Events
-
-| 事件名 | 说明 | 回调参数 |
-| ------ | ---- | -------- |
-| -      | -    | -        |
-
-### Exposes
-
-| 名称 | 说明 | 类型 |
-| ---- | ---- | ---- |
-| -    | -    | -    |
-
-## CSS 变量
-
-| 变量名                | 说明         | 默认值                       |
-| --------------------- | ------------ | ---------------------------- |
-| --label-color         | 标签文字颜色 | var(--el-text-color-primary) |
-| --label-bg-color      | 标签背景颜色 | var(--el-fill-color-light)   |
-| --label-border-color  | 标签边框颜色 | var(--el-border-color)       |
-| --label-border-radius | 标签圆角大小 | 4px                          |
-| --label-padding       | 标签内边距   | 0 8px                        |
-| --label-font-size     | 标签文字大小 | 14px                         |
-| --label-line-height   | 标签行高     | 1.5                          |
+| 插槽名  | 说明                             |
+| ------- | -------------------------------- |
+| default | 默认插槽，用于放置内容           |
+| prefix  | 前置插槽，用于放置图标等前置内容 |
+| suffix  | 后置插槽，用于放置图标等后置内容 |
+| label   | 标签文本插槽，用于自定义标签内容 |

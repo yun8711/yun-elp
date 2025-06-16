@@ -11,6 +11,16 @@
     "text": "容器和布局",
     "items": [
       {
+        "text": "app-wrap",
+        "link": "/components/app-wrap/",
+        "activeMatch": "/components/app-wrap/"
+      },
+      {
+        "text": "border-label",
+        "link": "/components/border-label/",
+        "activeMatch": "/components/border-label/"
+      },
+      {
         "text": "label",
         "link": "/components/label/",
         "activeMatch": "/components/label/"

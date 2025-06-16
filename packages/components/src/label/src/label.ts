@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
 
 // 定义组件的属性接口
 export interface LabelProps {
@@ -7,28 +7,68 @@ export interface LabelProps {
    */
   label?: string;
   /**
+   * 组件总宽度
+   */
+  width?: string | number;
+  /**
+   * 组件高度
+   */
+  height?: string | number;
+  /**
    * 标签宽度
    */
-  width?: string;
+  labelWidth?: string | number;
   /**
-   * 是否块级显示
+   * 标签文本水平对齐方式
    */
-  block?: boolean;
+  labelAlign?: 'left' | 'center' | 'right';
+  /**
+   * 标签后分隔符，默认无，border为false时有效
+   */
+  colon?: string;
+  /**
+   * 自定义样式
+   */
+  labelStyle?: Record<string, string | number>;
+  /**
+   * 自定义内容样式
+   */
+  contentStyle?: Record<string, string | number>;
 }
 
 // 定义 props 对象
 export const labelProps = {
   label: {
     type: String,
-    default: undefined
+    default: ''
   },
   width: {
     type: String,
-    default: '316px'
+    default: 'auto'
   },
-  block: {
-    type: Boolean,
-    default: false
+  height: {
+    type: String,
+    default: ''
+  },
+  labelWidth: {
+    type: String,
+    default: 'auto'
+  },
+  labelAlign: {
+    type: String as PropType<'left' | 'center' | 'right'>,
+    default: 'left'
+  },
+  colon: {
+    type: String,
+    default: ''
+  },
+  labelStyle: {
+    type: Object as PropType<Record<string, string | number>>,
+    default: () => ({})
+  },
+  contentStyle: {
+    type: Object as PropType<Record<string, string | number>>,
+    default: () => ({})
   }
 } as const;
 

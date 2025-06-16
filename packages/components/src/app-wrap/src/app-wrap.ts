@@ -1,52 +1,34 @@
-import type { YunElpLocale, LocaleType } from '../../../locale';
+import type { LocaleType } from '../../../locale';
 import type { ConfigProviderProps } from 'element-plus';
-import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
+import type { PropType, ExtractPublicPropTypes, InjectionKey } from '@vue/runtime-core';
+
+// export const elpConfigProviderContextKey:InjectionKey<Ref<
 
 // 定义扩展的属性
-export interface ExtendedAppWrapProps {
-  locale?: LocaleType | YunElpLocale;
-  size?: 'default' | 'large' | 'small';
-  button?: {
-    autoInsertSpace?: boolean;
+export interface AppWrapProps {
+  // el-config-provider的配置
+  elpConfig?: ConfigProviderProps;
+  locale?: LocaleType;
+  // border-label、label的配置
+  label?: {
+    width?: string;
+    height?: string;
   };
-  message?: {
-    max?: number;
-    grouping?: boolean;
-    duration?: number;
-    showClose?: boolean;
-    offset?: number;
-  };
-  zIndex?: number;
 }
-
-// 合并 Element Plus 的属性和扩展的属性
-export type AppWrapProps = Omit<ConfigProviderProps, 'locale'> & ExtendedAppWrapProps;
 
 // 定义 props 对象
 export const appWrapProps = {
-  namespace: {
-    type: String,
-    default: 'el'
+  elpConfig: {
+    type: Object as PropType<ConfigProviderProps>,
+    default: () => ({})
   },
   locale: {
-    type: [String, Object] as PropType<LocaleType | YunElpLocale>,
-    default: undefined
+    type: String as PropType<LocaleType>,
+    default: 'zh-CN'
   },
-  size: {
-    type: String as PropType<'default' | 'large' | 'small'>,
-    default: 'default'
-  },
-  button: {
-    type: Object as PropType<ExtendedAppWrapProps['button']>,
+  label: {
+    type: Object as PropType<AppWrapProps['label']>,
     default: () => ({})
-  },
-  message: {
-    type: Object as PropType<ExtendedAppWrapProps['message']>,
-    default: () => ({})
-  },
-  zIndex: {
-    type: Number,
-    default: undefined
   }
 } as const;
 
