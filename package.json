@@ -10,7 +10,7 @@
     "create": "tsx scripts/create-component.ts",
     "dev": "pnpm -C play dev",
     "docs:dev": "pnpm -C docs dev",
-    "build": "pnpm build:clean && pnpm build:style-vars && pnpm build:comp && pnpm build:style && pnpm build:resolver && pnpm build:pkg",
+    "build": "pnpm build:clean && pnpm build:style-vars && pnpm build:comp && pnpm build:style && pnpm build:resolver && pnpm build:pkg && pnpm build:web-types",
     "build:clean": "rimraf dist",
     "build:comp": "pnpm -C packages/components build",
     "build:style-vars": "tsx scripts/generate-style-vars.ts --module node16",
