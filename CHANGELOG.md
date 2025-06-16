@@ -2,7 +2,16 @@
 
 
 
-* feat(docs): :sparkles: 完善readme文档 (db53d83)
+# [0.2.0](https://github.com/yun8711/yun-elp/compare/v0.1.0...v0.2.0) (2025-06-16)
+
+
+### Features
+
+* **docs:** :sparkles: 完善readme文档 ([db53d83](https://github.com/yun8711/yun-elp/commit/db53d837cd946375a087a52f9fb52fe60193f367))
+
+# 📋 更新历史 
+
+
 
 # 0.1.0 (2025-06-16)
 
