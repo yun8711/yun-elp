@@ -40,7 +40,8 @@
     "./resolver": {
       "types": "./resolver.d.ts",
       "import": "./resolver.mjs"
-    }
+    },
+    "./*": "./*"
   },
   "keywords": [
     "vue3",

@@ -1,31 +1,84 @@
 /**
  * YunElp 组件库解析器
  * 用于支持 unplugin-vue-components 和 unplugin-auto-import 插件
+ * 参考 ElementPlus 解析器实现
  */
 import type { ComponentResolver, ComponentInfo } from 'unplugin-vue-components/types';
 
 const PACKAGE_NAME = 'yun-elp';
-const COMPONENT_PREFIX = 'Y';
+
+interface ImportInfo {
+  as?: string;
+  name?: string;
+  from: string;
+}
+
+type SideEffectsInfo = (ImportInfo | string)[] | ImportInfo | string | undefined;
+
+/**
+ * 将 PascalCase 转换为 kebab-case
+ */
+function kebabCase(key: string) {
+  const result = key.replace(/([A-Z])/g, ' $1').trim();
+  return result.split(' ').join('-').toLowerCase();
+}
 
 /**
  * YunElp组件解析器配置选项
  */
 export interface YunElpResolverOptions {
   /**
-   * 是否导入组件样式
-   * @default true
+   * 导入样式类型
+   * @default 'scss'
    */
-  importStyle?: boolean;
+  importStyle?: boolean | 'css' | 'scss';
   /**
-   * 是否导入 scss 样式
-   * @default true
+   * 排除组件名称，如果匹配则不解析组件
    */
-  importScss?: boolean;
+  exclude?: RegExp;
   /**
-   * 组件前缀
-   * @default 'Y'
+   * 没有样式的组件名称列表，因此应该避免解析它们的样式文件
    */
-  prefix?: string;
+  noStylesComponents?: string[];
+}
+
+type YunElpResolverOptionsResolved = Required<Omit<YunElpResolverOptions, 'exclude'>> &
+  Pick<YunElpResolverOptions, 'exclude'>;
+
+function getSideEffects(
+  dirName: string,
+  options: YunElpResolverOptionsResolved
+): SideEffectsInfo | undefined {
+  const { importStyle } = options;
+  const themeFolder = `${PACKAGE_NAME}/theme-chalk`;
+
+  if (importStyle === 'scss') {
+    return [`${themeFolder}/src/${dirName}.scss`];
+  } else if (importStyle === true || importStyle === 'css') {
+    return [`${themeFolder}/${dirName}.css`];
+  }
+}
+
+function resolveComponent(
+  name: string,
+  options: YunElpResolverOptionsResolved
+): ComponentInfo | undefined {
+  // 排除组件
+  if (options.exclude?.test(name)) {
+    return;
+  }
+  // 组件名必须以 Y 开头
+  if (!name.match(/^Y[A-Z]/)) {
+    return;
+  }
+  // 获取组件名 YLabel -> label
+  const kebabName = kebabCase(name.slice(1));
+  const sideEffects = getSideEffects(kebabName, options);
+  return {
+    name,
+    from: `${PACKAGE_NAME}/es`,
+    sideEffects
+  };
 }
 
 /**
@@ -44,9 +97,8 @@ export interface YunElpResolverOptions {
  *   plugins: [
  *     Components({
  *       resolvers: [YunElpResolver({
- *         importStyle: false,
- *         importScss: false,
- *         prefix: 'Y',
+ *         importStyle: 'scss',
+ *         noStylesComponents: ['YAppWrap'],
  *       })],
  *     }),
  *   ],
@@ -54,100 +106,29 @@ export interface YunElpResolverOptions {
  * ```
  */
 export function YunElpResolver(options: YunElpResolverOptions = {}): ComponentResolver {
-  const { importStyle = true, importScss = true, prefix = COMPONENT_PREFIX } = options;
+  let optionsResolved: YunElpResolverOptionsResolved;
+
+  async function resolveOptions() {
+    if (optionsResolved) return optionsResolved;
+    optionsResolved = {
+      importStyle: options?.importStyle || 'scss',
+      exclude: options?.exclude,
+      noStylesComponents: ['YAppWrap', ...(options.noStylesComponents || [])]
+    };
+    return optionsResolved;
+  }
 
   return {
     type: 'component',
-    resolve: (name: string): ComponentInfo | undefined => {
-      console.log('name', name);
-      if (name.startsWith(prefix)) {
-        // 将PascalCase转换为kebab-case (例如：YButton -> y-button)
-        const kebabName = name
-          .replace(new RegExp(`^${prefix}`), 'y')
-          .replace(/([A-Z])/g, '-$1')
-          .toLowerCase();
-
-        const sideEffects: string[] = [];
-        if (importStyle) {
-          if (importScss) {
-            sideEffects.push(`${PACKAGE_NAME}/theme-chalk/src/${kebabName}.scss`);
-          }
-          sideEffects.push(`${PACKAGE_NAME}/theme-chalk/${kebabName}.css`);
-        }
-
-        return {
-          name,
-          from: `${PACKAGE_NAME}/es/components`,
-          sideEffects: sideEffects.length ? sideEffects : undefined
-        };
+    resolve: async (name: string) => {
+      const options = await resolveOptions();
+      if (options.noStylesComponents.includes(name)) {
+        return resolveComponent(name, { ...options, importStyle: false });
+      } else {
+        return resolveComponent(name, options);
       }
     }
   };
 }
 
-/**
- * YunElp自动导入解析器配置选项
- */
-export interface YunElpAutoImportResolverOptions {
-  /**
-   * 要自动导入的工具函数列表
-   * @default 'all'
-   */
-  utils?: string[] | 'all';
-  /**
-   * 是否导入组件样式
-   * @default true
-   */
-  importStyle?: boolean;
-}
-
-/**
- * YunElp自动导入解析器
- * 用于unplugin-auto-import插件，自动导入工具函数
- *
- * @example
- * ```ts
- * // vite.config.ts
- * import { defineConfig } from 'vite'
- * import AutoImport from 'unplugin-auto-import/vite'
- * import { YunElpAutoImportResolver } from 'yun-elp/resolver'
- *
- * export default defineConfig({
- *   plugins: [
- *     AutoImport({
- *       resolvers: [YunElpAutoImportResolver({
- *         importStyle: false,
- *       })],
- *     }),
- *   ],
- * })
- * ```
- */
-export function YunElpAutoImportResolver(options: YunElpAutoImportResolverOptions = {}) {
-  const { utils = 'all', importStyle = true } = options;
-
-  return {
-    type: 'component',
-    resolveId: (id: string) => {
-      if (id.startsWith(`${PACKAGE_NAME}/`)) {
-        return id;
-      }
-    },
-    resolve: (name: string) => {
-      // 如果指定了特定工具函数并且当前名称在列表中
-      // 或者设置为'all'
-      if ((Array.isArray(utils) && utils.includes(name)) || utils === 'all') {
-        return {
-          name,
-          from: `${PACKAGE_NAME}/es/utils`,
-          sideEffects: importStyle ? [`${PACKAGE_NAME}/theme-chalk/index.css`] : undefined
-        };
-      }
-    }
-  };
-}
-
-export default {
-  YunElpResolver,
-  YunElpAutoImportResolver
-};
+export default YunElpResolver;
