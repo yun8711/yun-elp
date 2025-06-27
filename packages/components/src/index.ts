@@ -2,3 +2,4 @@
 export * from './app-wrap';
 export * from './label';
 export * from './border-label';
+export * from './part-title';

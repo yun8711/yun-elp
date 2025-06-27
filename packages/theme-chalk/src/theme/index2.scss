@@ -40,6 +40,12 @@
   --border-radius-small: 1px;
 
   // 字体大小
-  // --font-size-base: 13px;
-  // --font-size-small: 12px;
+  --font-size-base: 13px;
+  --font-size-small: 12px;
+
+  // 距离
+  --gap-small: 4px; // 小间距
+  --gap-base: 8px; // 基础间距
+  --gap-large: 16px; // 大间距
+  --gap-xlarge: 24px; // 超大间距
 }

@@ -5,23 +5,29 @@
   },
   {
     "text": "导航",
-    "items": []
+    "items": [
+      {
+        "text": "part-title 分区标题",
+        "link": "/components/part-title/",
+        "activeMatch": "/components/part-title/"
+      }
+    ]
   },
   {
     "text": "容器和布局",
     "items": [
       {
-        "text": "app-wrap",
+        "text": "app-wrap 应用容器",
         "link": "/components/app-wrap/",
         "activeMatch": "/components/app-wrap/"
       },
       {
-        "text": "border-label",
+        "text": "border-label 边框标签",
         "link": "/components/border-label/",
         "activeMatch": "/components/border-label/"
       },
       {
-        "text": "label",
+        "text": "label 标签",
         "link": "/components/label/",
         "activeMatch": "/components/label/"
       }
