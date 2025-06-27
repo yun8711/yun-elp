@@ -47,3 +47,7 @@ docs/.vitepress/cache/
 # 操作系统
 .DS_Store
 Thumbs.db
+
+# 其他
+play/src/App.vue
+play/components.d.ts
