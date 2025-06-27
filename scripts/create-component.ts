@@ -5,6 +5,7 @@ import path from 'path';
 import inquirer from 'inquirer';
 import * as paths from './paths';
 import * as names from './names';
+import { COMPONENT_PREFIX } from './base-config';
 
 function createDir(dir: string) {
   if (!fs.existsSync(dir)) {
@@ -26,7 +27,7 @@ function appendIfNotExists(filePath: string, content: string) {
   }
 }
 
-function updateSidebarJson(componentName: string, category: string) {
+function updateSidebarJson(componentName: string, category: string, chineseName?: string) {
   const sidebarPath = path.join(paths.docsRoot, '.vitepress', 'sidebar.json');
   const sidebar = JSON.parse(fs.readFileSync(sidebarPath, 'utf-8'));
   const categoryObj = sidebar.find((item: any) => item.text === category);
@@ -34,9 +35,13 @@ function updateSidebarJson(componentName: string, category: string) {
     console.error(`未找到分类: ${category}`);
     return;
   }
-  if (!categoryObj.items.some((item: any) => item.text === componentName)) {
+
+  // 构建显示文本：如果有中文名称则使用 "英文名 中文名" 格式，否则只使用英文名
+  const displayText = chineseName ? `${componentName} ${chineseName}` : componentName;
+
+  if (!categoryObj.items.some((item: any) => item.text === displayText)) {
     categoryObj.items.push({
-      text: componentName,
+      text: displayText,
       link: `/components/${componentName}/`,
       activeMatch: `/components/${componentName}/`
     });
@@ -46,7 +51,7 @@ function updateSidebarJson(componentName: string, category: string) {
 }
 
 function genVueFile(name: string, pascalName: string) {
-  return `<template>\n  <div class="${name}">\n    <slot></slot>\n  </div>\n</template>\n\n<script setup lang="ts">\ndefineOptions({\n  name: '${pascalName}',\n  inheritAttrs: true\n});\n</script>\n`;
+  return `<template>\n  <div class="${COMPONENT_PREFIX}-${name}">\n    <slot></slot>\n  </div>\n</template>\n\n<script setup lang="ts">\ndefineOptions({\n  name: '${pascalName}',\n  inheritAttrs: true\n});\n</script>\n`;
 }
 
 function genIndexTs(name: string, pascalName: string) {
@@ -63,7 +68,14 @@ export * from './src/${name}';
 }
 
 function genTypeFile(name: string) {
-  return `export interface ${names.getCamelCaseName(name, true)}Props {\n  // TODO: 定义属性\n}\n`;
+  return `import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+
+  export interface ${names.getCamelCaseName(name, true)}Props {\n  // TODO: 定义属性\n};
+
+  export const ${names.getCamelCaseName(name, true)}Props = {} as const;
+
+  export type ${names.getCamelCaseName(name, true)}Instance = ExtractPublicPropTypes<typeof ${names.getCamelCaseName(name, true)}Props>;
+  `;
 }
 
 function genTestFile(name: string, pascalName: string) {
@@ -71,11 +83,12 @@ function genTestFile(name: string, pascalName: string) {
 }
 
 function genScssFile(name: string) {
-  return `@use 'mixins/mixins' as *;\n\n@include b('${name}') {\n  // 组件样式\n}\n`;
+  return `.${COMPONENT_PREFIX}-${name} {\n  // 组件样式\n}\n`;
 }
 
-function genDocFile(compDirName: string) {
-  return `# ${compDirName} 组件
+function genDocFile(compDirName: string, chineseName?: string) {
+  const title = chineseName ? `${chineseName} 组件` : `${compDirName} 组件`;
+  return `# ${title}
 
 ## 基础用法
 
@@ -121,7 +134,7 @@ ${compDirName}/test
 
 function genDocTestFile(compDirName: string) {
   return `<template>
-    <y-${compDirName} />
+    <${COMPONENT_PREFIX}-${compDirName} />
 </template>
 
 <script setup lang="ts">
@@ -208,7 +221,25 @@ async function main() {
     {
       type: 'input',
       name: 'name',
-      message: '请输入组件英文名（如 button）：'
+      message: '请输入组件英文名（如 button）：',
+      validate: (input: string) => {
+        if (!input.trim()) {
+          return '组件名称不能为空';
+        }
+        if (!/^[a-z][a-z0-9-]*$/.test(input)) {
+          return '组件名称只能包含小写字母、数字和连字符，且必须以字母开头';
+        }
+        return true;
+      }
+    }
+  ]);
+
+  const { chineseName } = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'chineseName',
+      message: '请输入组件中文名称（可选，如：按钮）：',
+      default: ''
     }
   ]);
 
@@ -249,7 +280,7 @@ async function main() {
   // 7. docs/components下文档
   const docDir = path.join(paths.docsRoot, 'components', compDirName);
   createDir(docDir);
-  createFile(path.join(docDir, 'index.md'), genDocFile(compDirName));
+  createFile(path.join(docDir, 'index.md'), genDocFile(compDirName, chineseName));
   createFile(path.join(docDir, 'test.vue'), genDocTestFile(compDirName));
 
   // 8. 修改 packages/components/src/index.ts
@@ -268,9 +299,12 @@ async function main() {
   );
 
   // 11. 修改 docs/.vitepress/sidebar.json
-  updateSidebarJson(compDirName, category);
+  updateSidebarJson(compDirName, category, chineseName);
 
-  console.log(`\n✅ 组件 ${pascalName} 创建成功!`);
+  const successMessage = chineseName
+    ? `\n✅ 组件 ${pascalName}（${chineseName}）创建成功!`
+    : `\n✅ 组件 ${pascalName} 创建成功!`;
+  console.log(successMessage);
 }
 
 main();
