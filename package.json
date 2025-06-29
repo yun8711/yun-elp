@@ -37,7 +37,8 @@
   "dependencies": {
     "@yun-elp/components": "workspace:*",
     "@yun-elp/resolver": "workspace:*",
-    "@yun-elp/theme-chalk": "workspace:*"
+    "@yun-elp/theme-chalk": "workspace:*",
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",

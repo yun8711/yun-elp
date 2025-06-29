@@ -52,7 +52,9 @@
   "peerDependencies": {
     "element-plus": "^2.9.9",
     "vue": "^3.5.14",
-    "@vue/runtime-core": "^3.5.14"
+    "vue-router": "^4.5.1",
+    "@vue/runtime-core": "^3.5.14",
+    "lodash-es": "^4.17.21"
   },
   "repository": {
     "type": "git",

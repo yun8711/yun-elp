@@ -10,6 +10,11 @@
         "text": "part-title 分区标题",
         "link": "/components/part-title/",
         "activeMatch": "/components/part-title/"
+      },
+      {
+        "text": "page-title 页面标题",
+        "link": "/components/page-title/",
+        "activeMatch": "/components/page-title/"
       }
     ]
   },
