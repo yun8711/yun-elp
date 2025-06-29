@@ -2,7 +2,7 @@
  * 组件库配置
  */
 
-// 组件前缀
+// 组件前缀小写
 import { COMPONENT_PREFIX } from './base-config';
 // 组件前缀大写
 export const COMPONENT_PREFIX_UPPER = COMPONENT_PREFIX.toUpperCase();
@@ -25,7 +25,7 @@ export function getCamelCaseName(name: string, prefix?: boolean) {
 }
 
 /**
- * 获取组件大驼峰名称获取小写字母、连字符名称
+ * 获取组件小写、连字符名称
  * @example
  * getKebabCaseName('YButton') // y-button
  * getKebabCaseName('YAppWrap', false) // app-wrap

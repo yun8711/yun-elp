@@ -67,15 +67,20 @@ export * from './src/${name}';
 `;
 }
 
+// name：app-wrap
 function genTypeFile(name: string) {
+  const pascalName = names.getCamelCaseName(name, false);
+  // 首字母小写
+  const pascalNameFirstLower = pascalName.charAt(0).toLowerCase() + pascalName.slice(1);
+
   return `import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
 
-  export interface ${names.getCamelCaseName(name, true)}Props {\n  // TODO: 定义属性\n};
+export interface ${pascalName}Props {\n  // TODO: 定义属性\n};
 
-  export const ${names.getCamelCaseName(name, true)}Props = {} as const;
+export const ${pascalNameFirstLower}Props = {} as const;
 
-  export type ${names.getCamelCaseName(name, true)}Instance = ExtractPublicPropTypes<typeof ${names.getCamelCaseName(name, true)}Props>;
-  `;
+export type ${pascalNameFirstLower}Instance = ExtractPublicPropTypes<typeof ${pascalNameFirstLower}Props>;
+`;
 }
 
 function genTestFile(name: string, pascalName: string) {
@@ -86,9 +91,14 @@ function genScssFile(name: string) {
   return `.${COMPONENT_PREFIX}-${name} {\n  // 组件样式\n}\n`;
 }
 
-function genDocFile(compDirName: string, chineseName?: string) {
+function genDocFile(compDirName: string, rawPascal: string, chineseName?: string) {
   const title = chineseName ? `${chineseName} 组件` : `${compDirName} 组件`;
-  return `# ${title}
+  return `---
+title: ${rawPascal} ${chineseName}
+description: ${rawPascal} ${chineseName}
+---
+
+# ${title}
 
 ## 基础用法
 
@@ -252,7 +262,12 @@ async function main() {
     }
   ]);
 
+  // 组件名称，带前缀：YAppWrap
   const pascalName = names.getCamelCaseName(name, true);
+  // 组件名称，不带前缀：AppWrap
+  const rawPascal = names.getCamelCaseName(name, false);
+  // 组件目录名，也是组件文件名：app-wrap
+  // 组件文件名：app-wrap.vue
   const compDirName = names.getComponentDirName(name);
 
   // 1. 组件源码目录
@@ -280,7 +295,7 @@ async function main() {
   // 7. docs/components下文档
   const docDir = path.join(paths.docsRoot, 'components', compDirName);
   createDir(docDir);
-  createFile(path.join(docDir, 'index.md'), genDocFile(compDirName, chineseName));
+  createFile(path.join(docDir, 'index.md'), genDocFile(compDirName, rawPascal, chineseName));
   createFile(path.join(docDir, 'test.vue'), genDocTestFile(compDirName));
 
   // 8. 修改 packages/components/src/index.ts
