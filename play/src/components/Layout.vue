@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>KD-ELP 组件库测试</h1>
+    <h1>YUN-ELP 组件调试</h1>
 
     <div style="display: flex; align-items: center; gap: 15px;margin-bottom: 20px;">
       <!-- 语言切换按钮 -->

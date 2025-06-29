@@ -3,8 +3,8 @@
     <y-app-wrap :key="locale" :elp-config="{ locale: locale === 'zh-CN' ? zhCn : en }" :locale="locale"
       v-bind="appWrapConfig">
 
-      <div>当前语言：{{ locale }}</div>
-
+      <!-- <div>当前语言：{{ locale }}</div> -->
+      <y-page-title title="标题" border />
     </y-app-wrap>
   </Layout>
 </template>
