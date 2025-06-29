@@ -1,3 +1,8 @@
+---
+title: PageTitle 页面标题
+description: 用于展示路由title
+---
+
 # Page Title 页面标题
 
 用于展示页面标题的组件，默认使用路由元数据的 route.meta.title
@@ -14,13 +19,13 @@ page-title/test
 
 ### Attributes
 
-| 参数       | 说明           | 类型                     | 可选值        | 默认值           |
-| ---------- | -------------- | ------------------------ | ------------- | ---------------- |
-| height     | 组件高度       | string / number          | —             | 40px             |
-| title      | 标题文本       | string                   | —             | route.meta.title |
-| border     | 是否显示下边框 | boolean                  | true \| false | true             |
-| padding-x  | 左右内边距     | string / [string,string] | —             | 24px             |
-| titleStyle | 标题样式       | object                   | —             | {}               |
+| 参数       | 说明           | 类型                     | 默认值           |
+| ---------- | -------------- | ------------------------ | ---------------- |
+| height     | 组件高度       | string / number          | 40px             |
+| title      | 标题文本       | string                   | route.meta.title |
+| border     | 是否显示下边框 | boolean                  | true             |
+| padding-x  | 左右内边距     | string / [string,string] | 24px             |
+| titleStyle | 标题样式       | object                   | {}               |
 
 ### Slots
 
