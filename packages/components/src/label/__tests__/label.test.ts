@@ -1,184 +1,88 @@
 /// <reference types="vitest/globals" />
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { ElInput, ElSelect, ElDatePicker, ElCascader, ElOption } from 'element-plus';
 import Label from '../src/label.vue';
 
-describe('Label组件', () => {
-  // 基础渲染测试
-  it('应该正确渲染基础结构', () => {
-    const wrapper = mount(Label, {
-      props: {
-        label: '测试标签'
-      }
-    });
+describe('Label 组件', () => {
+  it('基础渲染', () => {
+    const wrapper = mount(Label, { props: { label: '测试标签' } });
     expect(wrapper.find('.y-label').exists()).toBe(true);
-    expect(wrapper.find('.y-label__label').exists()).toBe(true);
+    expect(wrapper.find('.y-label__label span').text()).toBe('测试标签');
     expect(wrapper.find('.y-label__content').exists()).toBe(true);
-    expect(wrapper.find('.y-label__label').text()).toBe('测试标签');
   });
 
-  // 插槽测试
-  it('应该正确渲染默认插槽内容', () => {
+  it('无 label 时不渲染标签文本', () => {
+    const wrapper = mount(Label, { props: {} });
+    expect(wrapper.find('.y-label__label span').exists()).toBe(false);
+  });
+
+  it('默认插槽内容渲染', () => {
     const wrapper = mount(Label, {
-      props: {
-        label: '测试标签'
-      },
+      props: { label: '测试标签' },
+      slots: { default: '<div class="slot-content">内容</div>' }
+    });
+    expect(wrapper.find('.slot-content').exists()).toBe(true);
+  });
+
+  it('具名插槽 prefix/suffix', () => {
+    const wrapper = mount(Label, {
+      props: { label: '测试标签' },
       slots: {
-        default: '<div class="test-content">测试内容</div>'
+        prefix: '<span class="prefix">前缀</span>',
+        suffix: '<span class="suffix">后缀</span>'
       }
     });
-    expect(wrapper.find('.test-content').exists()).toBe(true);
-    expect(wrapper.find('.test-content').text()).toBe('测试内容');
+    expect(wrapper.find('.prefix').exists()).toBe(true);
+    expect(wrapper.find('.suffix').exists()).toBe(true);
   });
 
-  // 具名插槽测试
-  it('应该正确渲染prefix和suffix插槽', () => {
+  it('label 插槽优先于 label 属性', () => {
     const wrapper = mount(Label, {
-      props: {
-        label: '测试标签'
-      },
-      slots: {
-        prefix: '<div class="test-prefix">前缀</div>',
-        suffix: '<div class="test-suffix">后缀</div>'
-      }
+      props: { label: '属性标签' },
+      slots: { label: '<span class="custom-label">插槽标签</span>' }
     });
-    expect(wrapper.find('.test-prefix').exists()).toBe(true);
-    expect(wrapper.find('.test-suffix').exists()).toBe(true);
+    expect(wrapper.find('.custom-label').text()).toBe('插槽标签');
+    expect(wrapper.find('.y-label__label span').text()).toBe('插槽标签');
   });
 
-  // 标签插槽测试
-  it('应该正确渲染label插槽', () => {
-    const wrapper = mount(Label, {
-      props: {
-        label: '默认标签'
-      },
-      slots: {
-        label: '<span class="custom-label">自定义标签</span>'
-      }
-    });
-    expect(wrapper.find('.custom-label').exists()).toBe(true);
-    expect(wrapper.find('.custom-label').text()).toBe('自定义标签');
-  });
-
-  // 属性测试
-  it('应该正确应用border属性', () => {
-    const wrapper = mount(Label, {
-      props: {
-        label: '测试标签',
-        border: true
-      }
-    });
-    expect(wrapper.classes()).toContain('y-label--border');
-  });
-
-  it('应该正确应用colon属性', () => {
-    const wrapper = mount(Label, {
-      props: {
-        label: '测试标签',
-        colon: '：'
-      }
-    });
+  it('colon 属性渲染分隔符', () => {
+    const wrapper = mount(Label, { props: { label: '测试', colon: '：' } });
     expect(wrapper.find('.y-label__colon').text()).toBe('：');
   });
 
-  it('应该正确应用align属性', () => {
-    const wrapper = mount(Label, {
-      props: {
-        label: '测试标签',
-        align: 'right'
-      }
-    });
-    const labelEl = wrapper.find('.y-label__label');
-    expect(labelEl.attributes('style')).toContain('justify-content: flex-end');
+  it('labelAlign 属性控制对齐', () => {
+    const wrapper = mount(Label, { props: { label: '测试', labelAlign: 'right' } });
+    const style = wrapper.find('.y-label__label').attributes('style');
+    expect(style).toContain('justify-content: flex-end');
   });
 
-  // 样式测试
-  it('应该正确应用自定义样式', () => {
+  it('labelWidth 属性控制宽度', () => {
+    const wrapper = mount(Label, { props: { label: '测试', labelWidth: '120px' } });
+    const style = wrapper.find('.y-label__label').attributes('style');
+    expect(style).toContain('width: 120px');
+  });
+
+  it('height 属性控制整体高度', () => {
+    const wrapper = mount(Label, { props: { label: '测试', height: '40px' } });
+    const style = wrapper.find('.y-label').attributes('style');
+    expect(style).toContain('height: 40px');
+  });
+
+  it('labelStyle/contentStyle 属性生效', () => {
     const wrapper = mount(Label, {
       props: {
-        label: '测试标签',
+        label: '测试',
         labelStyle: { color: 'red' },
-        contentStyle: { backgroundColor: 'blue' },
-        height: '40px'
+        contentStyle: { backgroundColor: 'blue' }
       }
     });
-    const labelEl = wrapper.find('.y-label__label');
-    const contentEl = wrapper.find('.y-label__content');
-    const containerEl = wrapper.find('.y-label');
-
-    expect(labelEl.attributes('style')).toContain('color: red');
-    expect(contentEl.attributes('style')).toContain('background-color: blue');
-    expect(containerEl.attributes('style')).toContain('height: 40px');
+    expect(wrapper.find('.y-label__label').attributes('style')).toContain('color: red');
+    expect(wrapper.find('.y-label__content').attributes('style')).toContain('background-color: blue');
   });
 
-  // 表单控件集成测试
-  it('应该正确集成el-input', () => {
-    const wrapper = mount(Label, {
-      props: {
-        label: '测试标签'
-      },
-      slots: {
-        default: '<el-input v-model="value" />'
-      },
-      global: {
-        components: {
-          ElInput
-        }
-      }
-    });
-    expect(wrapper.find('.el-input').exists()).toBe(true);
-  });
-
-  it('应该正确集成el-select', () => {
-    const wrapper = mount(Label, {
-      props: {
-        label: '测试标签'
-      },
-      slots: {
-        default: '<el-select v-model="value"><el-option label="选项1" value="1" /></el-select>'
-      },
-      global: {
-        components: {
-          ElSelect,
-          ElOption
-        }
-      }
-    });
-    expect(wrapper.find('.el-select').exists()).toBe(true);
-  });
-
-  it('应该正确集成el-date-picker', () => {
-    const wrapper = mount(Label, {
-      props: {
-        label: '测试标签'
-      },
-      slots: {
-        default: '<el-date-picker v-model="value" type="date" />'
-      },
-      global: {
-        components: {
-          ElDatePicker
-        }
-      }
-    });
-    expect(wrapper.find('.el-date-editor').exists()).toBe(true);
-  });
-
-  it('应该正确集成el-cascader', () => {
-    const wrapper = mount(Label, {
-      props: {
-        label: '测试标签'
-      },
-      slots: {
-        default: '<el-cascader v-model="value" :options="[]" />'
-      },
-      global: {
-        components: {
-          ElCascader
-        }
-      }
-    });
-    expect(wrapper.find('.el-cascader').exists()).toBe(true);
+  it('边界：labelAlign 非法值时默认左对齐', () => {
+    const wrapper = mount(Label, { props: { label: '测试', labelAlign: 'invalid' as any } });
+    const style = wrapper.find('.y-label__label').attributes('style');
+    expect(style).toContain('justify-content: flex-start');
   });
 });

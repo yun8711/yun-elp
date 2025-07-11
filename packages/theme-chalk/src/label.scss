@@ -2,7 +2,8 @@
   box-sizing: border-box;
   display: inline-flex;
   align-items: stretch;
-  height: 100%;
+  height: var(--label-height);
+  position: relative;
 
   // 前置插槽样式
   &__prefix {
@@ -18,7 +19,6 @@
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    line-height: 100%;
     font-size: var(--el-font-size-base);
   }
 

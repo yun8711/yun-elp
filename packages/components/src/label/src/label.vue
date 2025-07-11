@@ -1,5 +1,5 @@
 <template>
-  <div class="y-label" :style="{ height: props.height }">
+  <div class="y-label" :style="{ '--label-height': height }">
     <!-- 前置插槽 -->
     <div class="y-label__prefix" v-if="$slots.prefix">
       <slot name="prefix"></slot>
@@ -14,7 +14,7 @@
       <span v-if="props.colon" class="y-label__colon">{{ props.colon }}</span>
     </div>
     <!-- 内容 -->
-    <div class="y-label__content" :style="props.contentStyle">
+    <div class="y-label__content" :style="contentStyle">
       <slot></slot>
     </div>
     <!-- 后置插槽 -->
@@ -27,6 +27,7 @@
 <script setup lang="ts">
 import type { LabelProps } from './label';
 import { computed } from '@vue/runtime-core';
+import { isNumber } from 'lodash-es';
 
 defineOptions({
   name: 'YLabel',
@@ -35,6 +36,13 @@ defineOptions({
 
 // 定义组件属性
 const props = defineProps<LabelProps>();
+
+const height = computed(() => {
+  if (props.height) {
+    return isNumber(props.height) ? `${props.height}px` : props.height;
+  }
+  return 'auto';
+})
 
 
 const alignMap = {
@@ -45,8 +53,16 @@ const alignMap = {
 const labelStyle = computed(() => {
   return {
     width: props.labelWidth,
-    justifyContent: alignMap[props.labelAlign as keyof typeof alignMap],
+    height: height.value,
+    justifyContent: alignMap[props.labelAlign as keyof typeof alignMap] || 'flex-start',
     ...props.labelStyle
+  }
+})
+
+const contentStyle = computed(() => {
+  return {
+    height: height.value,
+    ...props.contentStyle
   }
 })
 </script>

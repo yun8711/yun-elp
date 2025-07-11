@@ -23,6 +23,14 @@ label/size
 
 :::
 
+## 插槽
+
+:::demo 提供了前后置插槽
+
+label/slots
+
+:::
+
 ## API
 
 ### Attributes

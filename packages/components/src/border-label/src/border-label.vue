@@ -24,7 +24,7 @@ import { useAppConfig } from '../../app-wrap/src/use-app-config';
 
 defineOptions({
   name: 'YBorderLabel',
-  inheritAttrs: false
+  inheritAttrs: true
 });
 
 const props = defineProps<BorderLabelProps>();

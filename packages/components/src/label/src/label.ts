@@ -7,10 +7,6 @@ export interface LabelProps {
    */
   label?: string;
   /**
-   * 组件总宽度
-   */
-  width?: string | number;
-  /**
    * 组件高度
    */
   height?: string | number;
@@ -41,10 +37,6 @@ export const labelProps = {
   label: {
     type: String,
     default: ''
-  },
-  width: {
-    type: String,
-    default: 'auto'
   },
   height: {
     type: String,

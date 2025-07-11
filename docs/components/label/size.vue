@@ -1,8 +1,7 @@
 <template>
   <y-label label="用户名" colon=":" height="100px" :label-style="labelStyle" :content-style="contentStyle">
     Yingdu Building, Zhichun Road, BeijingYingdu Building, Zhichun Road, BeijingYingdu Building, Zhichun Road,
-    BeijingYingdu Building, Zhichun Road, BeijingYingdu Building, Zhichun Road, BeijingYingdu Building, Zhichun
-    Road, Beijing
+    BeijingYingdu Building, Zhichun Road
   </y-label>
 </template>
 
