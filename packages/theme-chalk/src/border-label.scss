@@ -23,6 +23,7 @@
     border: 1px solid var(--el-border-color);
     border-right: 0 none;
     border-radius: var(--el-border-radius-base) 0 0 var(--el-border-radius-base);
+    white-space: nowrap;
 
     &--no-border {
       border: none;

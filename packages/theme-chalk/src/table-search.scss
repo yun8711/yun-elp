@@ -1,0 +1,41 @@
+.y-table-search {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  &__left {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    &-show-more {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    &-all {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    &-first {
+      flex: 1;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    &-more {
+      gap: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      padding-bottom: 8px;
+    }
+  }
+  &__right {
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+  }
+}

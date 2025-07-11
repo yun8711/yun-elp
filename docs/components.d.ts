@@ -7,9 +7,10 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    EpLabelBasic: typeof import('@kd-elp')['EpLabelBasic']
     IRiCodeLine: typeof import('~icons/ri/code-line')['default']
     IRiFileCopyLine: typeof import('~icons/ri/file-copy-line')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     VpApp: typeof import('./.vitepress/vitepress/components/vp-app.vue')['default']
     VpDemo: typeof import('./.vitepress/vitepress/components/vp-demo.vue')['default']
     VpSourceCode: typeof import('./.vitepress/vitepress/components/vp-source-code.vue')['default']

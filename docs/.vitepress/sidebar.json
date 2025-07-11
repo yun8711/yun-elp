@@ -40,7 +40,13 @@
   },
   {
     "text": "数据录入",
-    "items": []
+    "items": [
+      {
+        "text": "table-search 表格搜索",
+        "link": "/components/table-search/",
+        "activeMatch": "/components/table-search/"
+      }
+    ]
   },
   {
     "text": "数据展示",

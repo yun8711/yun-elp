@@ -4,3 +4,4 @@ export * from './label';
 export * from './border-label';
 export * from './part-title';
 export * from './page-title';
+export * from './table-search';

@@ -6,5 +6,7 @@
 // biome-ignore lint: disable
 export {}
 declare global {
-
+  const ElCascader: typeof import('element-plus/es')['ElCascader']
+  const ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
+  const ElSelect: typeof import('element-plus/es')['ElSelect']
 }
