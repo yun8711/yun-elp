@@ -7,8 +7,7 @@
           <y-border-label v-for="item in firstOptions.filter((item: TableSearchItem) => !item.hidden)" :key="item.prop"
             v-bind="item.borderAttrs">
             <template v-if="item.custom">
-              <slot :name="item.prop" :prop="item.prop" :value="form[item.prop]" :item="item"
-                :form="form" />
+              <slot :name="item.prop" :prop="item.prop" :value="form[item.prop]" :item="item" :form="form" />
             </template>
             <template v-else>
               <component :is="item.comp" v-model="form[item.prop]" v-bind="item.innerAttrs"
@@ -28,8 +27,7 @@
           <y-border-label v-for="item in firstOptions.filter((item: TableSearchItem) => !item.hidden)" :key="item.prop"
             v-bind="item.borderAttrs">
             <template v-if="item.custom">
-              <slot :name="item.prop" :prop="item.prop" :value="form[item.prop]" :item="item"
-                :form="form" />
+              <slot :name="item.prop" :prop="item.prop" :value="form[item.prop]" :item="item" :form="form" />
             </template>
             <template v-else>
               <component :is="item.comp" v-model="form[item.prop]" v-bind="item.innerAttrs"
@@ -55,8 +53,7 @@
             <y-border-label v-for="item in moreOptions.filter((item: TableSearchItem) => !item.hidden)" :key="item.prop"
               v-bind="item.borderAttrs">
               <template v-if="item.custom">
-                <slot :name="item.prop" :prop="item.prop" :value="form[item.prop]" :item="item"
-                  :form="form" />
+                <slot :name="item.prop" :prop="item.prop" :value="form[item.prop]" :item="item" :form="form" />
               </template>
               <template v-else>
                 <component :is="item.comp" v-model="form[item.prop]" v-bind="item.innerAttrs"
@@ -114,20 +111,33 @@ const moreOptions = ref<TableSearchItem[]>([]);
 
 // ==================== 计算属性 ====================
 const foldText = computed(() => {
-  return tableSearchConfig?.foldText ?? '收起'
+  return props.foldText || tableSearchConfig?.foldText || '收起'
 })
 
 const unFoldText = computed(() => {
-  return tableSearchConfig?.unFoldText ?? '高级搜索'
+  return props.unFoldText || tableSearchConfig?.unFoldText || '高级搜索'
 })
 
 const hasMore = computed(() => {
-  const options = typeof props.options === 'function' ? props.options(form.value, isFold.value) : props.options;
+  const options = getCurrentOptions();
   const firstOptions = options.filter((item: TableSearchOption) => item.first === true);
-  return firstOptions.length !== 0 && firstOptions.length !== options.length;
+  return firstOptions.length !== 0 && options.length !== 1 && firstOptions.length !== options.length;
 })
 
 // ==================== 工具函数 ====================
+/**
+ * 获取当前选项列表
+ */
+function getCurrentOptions(): TableSearchOption[] {
+  if (typeof props.options === 'function') {
+    return props.options({
+      form: form.value,
+      isFold: isFold.value
+    });
+  }
+  return props.options;
+}
+
 /**
  * 处理动态属性
  */
@@ -249,8 +259,16 @@ function processOption(item: TableSearchOption): TableSearchItem {
     },
   }
 
-  if (item.first && props.disabledFirst && !isFold.value) {
-    obj.innerAttrs.disabled = true;
+  // 修正首行disabled自动控制逻辑
+  const allOptions = getCurrentOptions();
+  const optionsCount = allOptions.length;
+  if (
+    item.first &&
+    props.disabledFirst &&
+    hasMore.value &&
+    optionsCount > 1
+  ) {
+    obj.innerAttrs.disabled = !isFold.value;
   }
 
   return obj;
@@ -260,7 +278,7 @@ function processOption(item: TableSearchOption): TableSearchItem {
  * 更新选项列表
  */
 function updateOptions() {
-  const options = typeof props.options === 'function' ? props.options(form.value, isFold.value) : props.options;
+  const options = getCurrentOptions();
 
   firstOptions.value = [];
   moreOptions.value = [];
@@ -285,7 +303,7 @@ function updateOptions() {
  * 初始化表单数据
  */
 function initializeForm() {
-  const options = typeof props.options === 'function' ? props.options(form.value, isFold.value) : props.options;
+  const options = getCurrentOptions();
 
   options.forEach((item: TableSearchOption) => {
     if (!(item.prop in form.value)) {
@@ -303,7 +321,7 @@ function initializeForm() {
  * 更新格式化后的表单数据
  */
 function updateFormatForm() {
-  const options = typeof props.options === 'function' ? props.options(form.value, isFold.value) : props.options;
+  const options = getCurrentOptions();
   const newFormatForm: Record<string, any> = {};
 
   Object.keys(form.value).forEach(prop => {
@@ -351,6 +369,7 @@ function handleValueUpdate(prop: string, value: any) {
  * 搜索事件
  */
 function onSearch() {
+  updateFormatForm(); // 确保数据是最新的
   emits('search', formatFormData())
 }
 
@@ -358,7 +377,7 @@ function onSearch() {
  * 重置事件
  */
 function onReset() {
-  const options = typeof props.options === 'function' ? props.options(form.value, isFold.value) : props.options;
+  const options = getCurrentOptions();
 
   options.forEach((item: TableSearchOption) => {
     form.value[item.prop] = item.value ?? getDefaultValue(item, {
@@ -414,6 +433,7 @@ watch(() => props.options, () => {
 
 // 监听form变化，发送change事件
 watch(form, () => {
+  updateFormatForm();
   emits('change', formatFormData())
 }, { deep: true, immediate: true })
 </script>

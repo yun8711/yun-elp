@@ -10,6 +10,12 @@ export interface DynamicPropsParams {
   value: any;
 }
 
+// 定义函数式options的参数类型
+export interface OptionsFunctionParams {
+  form: Record<string, any>;
+  isFold: boolean;
+}
+
 // 定义 emits 的类型
 export interface TableSearchEmits {
   (e: 'search', form: Record<string, any>): void;
@@ -62,7 +68,7 @@ export interface TableSearchItem {
 
 export interface TableSearchProps {
   // 字段配置
-  options: TableSearchOption[] | ((params: DynamicPropsParams) => TableSearchOption[]);
+  options: TableSearchOption[] | ((params: OptionsFunctionParams) => TableSearchOption[]);
   // 收起按钮文本
   foldText?: string;
   // 展开按钮文本
@@ -80,7 +86,7 @@ export interface TableSearchProps {
 export const tableSearchProps = {
   options: {
     type: [Array, Function] as PropType<
-      TableSearchOption[] | ((params: DynamicPropsParams) => TableSearchOption[])
+      TableSearchOption[] | ((params: OptionsFunctionParams) => TableSearchOption[])
     >,
     default: () => []
   },
