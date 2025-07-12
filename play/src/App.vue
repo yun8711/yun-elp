@@ -4,7 +4,7 @@
       v-bind="appWrapConfig">
 
       <!-- <div>当前语言：{{ locale }}</div> -->
-      <y-table-search :options="options" @change="handleChange">
+      <y-table-search :options="options1" @change="handleChange">
         <template #f2="{ prop, value, item, form }">
           <el-select v-model="form[prop]" placeholder="请选择">
             <el-option label="选项1" value="1" />
@@ -46,7 +46,15 @@ const querySearch = (queryString, cb) => {
   console.log(queryString)
   cb([{ value: '123' }, { value: '456' }, { value: '789' }])
 }
-const options = ref([
+
+const options1 = ref([
+  {
+    prop: 'name',
+    label: '姓名',
+    first: true
+  }
+])
+const options2 = ref([
   {
     label: '关键词',
     prop: 'f1',

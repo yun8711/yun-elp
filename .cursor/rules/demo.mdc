@@ -27,3 +27,15 @@ alwaysApply: true
 - play：组件库开发演示子项目
 - scripts：项目脚本，如创建组件模板、删除组件、基础配置、构建等
 
+
+每个组件包含以下文件(xxx表示某个组件名)：
+- docs/.vitepress/sidebar.json：组件文档菜单配置
+- docs/components/xxx/index.md：组件文档主文件
+- docs/components/xxx/test.vue：组件示例vue文件，被index.md主文件引用
+- packages/components/src/xxx/__tests__/xxx.test.ts：组件测试文件
+- packages/components/src/xxx/src/xxx.ts：组件类型定义、props定义文件
+- packages/components/src/xxx/src/xxx.vue：组件源码
+- packages/components/src/xxx/index.ts：组件入口文件，导出组件及各种类型定义
+- packages/components.ts：组件库统一导出入口文件
+- packages\theme-chalk\src\xxx.scss：组件样式文件
+- packages\theme-chalk\src\index.scss：组件样式统一导出文件

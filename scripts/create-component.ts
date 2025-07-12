@@ -98,7 +98,7 @@ title: ${rawPascal} ${chineseName}
 description: ${rawPascal} ${chineseName}
 ---
 
-# ${title}
+# ${rawPascal} ${chineseName}
 
 ## 基础用法
 

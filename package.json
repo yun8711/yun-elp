@@ -22,6 +22,7 @@
     "build:pkg": "tsx scripts/copy-pkg.ts",
     "build:docs": "pnpm -C docs build",
     "build:web-types": "tsx scripts/generate-web-types.ts",
+    "test": "pnpm -C packages/components test",
     "lint": "pnpm lint:format && pnpm lint:eslint && pnpm lint:style",
     "lint:format": "prettier --write .",
     "lint:eslint": "eslint . --fix",
@@ -43,6 +44,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "@element-plus/icons-vue": "^2.3.1",
     "@release-it/conventional-changelog": "^8.0.2",
     "@types/glob": "^8.1.0",
     "@types/lodash-es": "^4.17.12",
