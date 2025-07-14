@@ -745,6 +745,7 @@ describe('YTableSearch', () => {
 
       // 验证 item 对象的关键属性
       expect(slotCallArg.item.prop).toBe('custom');
+      expect(slotCallArg.item.label).toBe('自定义');
       expect(slotCallArg.item.custom).toBe(true);
       expect(slotCallArg.item.first).toBe(true);
       expect(slotCallArg.item.hidden).toBe(false);

@@ -53,6 +53,7 @@ export interface TableSearchOption {
 
 export interface TableSearchItem {
   prop: string;
+  label: string;
   first: boolean;
   custom: boolean;
   value: any;

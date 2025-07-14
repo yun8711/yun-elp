@@ -240,6 +240,7 @@ function processOption(item: TableSearchOption): TableSearchItem {
 
   const obj: TableSearchItem = {
     prop: item.prop,
+    label: item.label ?? '',
     first: item.first ?? false,
     custom: item.custom ?? false,
     value: item.value ?? getDefaultValue(item, params),
