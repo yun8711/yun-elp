@@ -45,6 +45,11 @@
         "text": "table-search 表格搜索",
         "link": "/components/table-search/",
         "activeMatch": "/components/table-search/"
+      },
+      {
+        "text": "simple-select 选择器",
+        "link": "/components/simple-select/",
+        "activeMatch": "/components/simple-select/"
       }
     ]
   },

@@ -5,12 +5,14 @@ import { YBorderLabel } from './src/border-label';
 import { YPartTitle } from './src/part-title';
 import { YPageTitle } from './src/page-title';
 import { YTableSearch } from './src/table-search';
+import { YSimpleSelect } from './src/simple-select';
 
 export default [
-  YAppWrap,,,
-  YLabel,,,
-  YBorderLabel,,,
-  YPartTitle,,,
-  YPageTitle,,
+  YAppWrap,
+  YLabel,
+  YBorderLabel,
+  YPartTitle,
+  YPageTitle,
   YTableSearch,
+  YSimpleSelect,
 ] as Plugin[];
