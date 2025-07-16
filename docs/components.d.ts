@@ -8,11 +8,24 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     IRiCodeLine: typeof import('~icons/ri/code-line')['default']
+    IRiExternalLinkLine: typeof import('~icons/ri/external-link-line')['default']
     IRiFileCopyLine: typeof import('~icons/ri/file-copy-line')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    VpApiBool: typeof import('./.vitepress/vitepress/components/globals/vp-api-bool.vue')['default']
+    VpApiEnum: typeof import('./.vitepress/vitepress/components/globals/vp-api-enum.vue')['default']
+    VpApiExternal: typeof import('./.vitepress/vitepress/components/globals/vp-api-external.vue')['default']
+    VpApiFunction: typeof import('./.vitepress/vitepress/components/globals/vp-api-function.vue')['default']
+    VpApiNumber: typeof import('./.vitepress/vitepress/components/globals/vp-api-number.vue')['default']
+    VpApiPrimitive: typeof import('./.vitepress/vitepress/components/globals/vp-api-primitive.vue')['default']
+    VpApiRef: typeof import('./.vitepress/vitepress/components/globals/vp-api-ref.vue')['default']
+    VpApiString: typeof import('./.vitepress/vitepress/components/globals/vp-api-string.vue')['default']
+    VpApiTyping: typeof import('./.vitepress/vitepress/components/globals/vp-api-typing.vue')['default']
     VpApp: typeof import('./.vitepress/vitepress/components/vp-app.vue')['default']
     VpDemo: typeof import('./.vitepress/vitepress/components/vp-demo.vue')['default']
+    VpLink: typeof import('./.vitepress/vitepress/components/common/vp-link.vue')['default']
+    VpMarkdown: typeof import('./.vitepress/vitepress/components/common/vp-markdown.vue')['default']
     VpSourceCode: typeof import('./.vitepress/vitepress/components/vp-source-code.vue')['default']
+    VpThemeToggler: typeof import('./.vitepress/vitepress/components/common/vp-theme-toggler.vue')['default']
   }
 }

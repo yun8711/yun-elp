@@ -4,23 +4,11 @@
       v-bind="appWrapConfig">
 
       <!-- <div>当前语言：{{ locale }}</div> -->
-      <y-table-search :options="options1" @change="handleChange">
-        <template #f2="{ prop, value, item, form }">
-          <el-select v-model="form[prop]" placeholder="请选择">
-            <el-option label="选项1" value="1" />
-            <el-option label="选项2" value="2" />
-            <el-option label="选项3" value="3" />
-          </el-select>
-        </template>
+      <y-simple-select v-model="form.f1" :options="options1" @change="changeHandle"></y-simple-select>
 
-        <template #right>
-          <el-button type="primary">新增</el-button>
-        </template>
-      </y-table-search>
-
-      <div>
-        {{ form }}
-      </div>
+      <el-select v-model="form.f2">
+        <el-option v-for="option in options1" :key="option.value" v-bind="option" />
+      </el-select>
     </y-app-wrap>
   </Layout>
 </template>
@@ -31,7 +19,7 @@ import Layout from './components/Layout.vue'
 import { User, InfoFilled } from '@element-plus/icons-vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
-import { ElAutocomplete, ElCascader } from 'element-plus'
+import { ElAutocomplete, ElCascader, ElSelect } from 'element-plus'
 import { treeData } from './test-data'
 
 const appWrapConfig = {
@@ -49,9 +37,12 @@ const querySearch = (queryString, cb) => {
 
 const options1 = ref([
   {
-    prop: 'name',
-    label: '姓名',
-    first: true
+    label: '选项1',
+    value: '1'
+  },
+  {
+    label: '选项2',
+    value: '2'
   }
 ])
 const options2 = ref([
@@ -114,10 +105,11 @@ const options2 = ref([
 
 
 const form = ref({
+  f1: '',
+  f2:'',
 })
-const handleChange = (formData) => {
-  console.log(formData)
-  form.value = { ...formData }
+const changeHandle = (e) => {
+  console.log(e)
 }
 </script>
 

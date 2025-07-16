@@ -3,7 +3,7 @@
 // css variables
 :root {
   // layouts
-  --vp-screen-max-width: 1376px;
+  --vp-screen-max-width: 1600px;
 
   // colors
   --text-color: var(--el-text-color-primary);
@@ -37,7 +37,7 @@
   --nav-height: 55px; // alias of --header-height
 
   /* Screen Size */
-  --vp-screen-max-width: 1362px;
+  /* --vp-screen-max-width: 1362px; */
 
   // sidebar
   --vp-sidebar-width-mobile: 320px;
@@ -76,7 +76,7 @@
   }
 
   @include respond-to('max') {
-    --vp-screen-max-width: 1482px;
+    --vp-screen-max-width: 1700px;
     --vp-sidebar-width-small: 290px;
   }
 }

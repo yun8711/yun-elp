@@ -35,22 +35,22 @@ label/slots
 
 ### Attributes
 
-| 属性名       | 说明                              | 类型                             | 默认值 |
-| ------------ | --------------------------------- | -------------------------------- | ------ |
-| label        | 标签文本                          | string                           | -      |
-| labelWidth   | 标签宽度                          | string \| number                 | 'auto' |
-| align        | 标签文本对齐方式                  | 'left' \| 'center' \| 'right'    | 'left' |
-| height       | 组件高度                          | string \| number                 | '32px' |
-| border       | 是否显示边框                      | boolean                          | false  |
-| colon        | 标签后分隔符，border为false时有效 | string                           | ''     |
-| labelStyle   | 标签自定义样式                    | Record<string, string \| number> | {}     |
-| contentStyle | 内容区域自定义样式                | Record<string, string \| number> | {}     |
+| 属性名       | 说明                              | 类型                                   | 默认值 |
+| ------------ | --------------------------------- | -------------------------------------- | ------ |
+| label        | 标签文本                          | ^[string]                              | —      |
+| labelWidth   | 标签宽度                          | ^[string] / ^[number]                  | auto   |
+| align        | 标签文本对齐方式                  | ^[enum]`'left' \| 'center' \| 'right'` | left   |
+| height       | 组件高度                          | ^[string] / ^[number]                  | 32px   |
+| border       | 是否显示边框                      | ^[boolean]                             | false  |
+| colon        | 标签后分隔符，border为false时有效 | ^[string]                              | ''     |
+| labelStyle   | 标签自定义样式                    | ^[object]`CSSProperties`               | —      |
+| contentStyle | 内容区域自定义样式                | ^[object]`CSSProperties`               | —      |
 
 ### Slots
 
-| 插槽名  | 说明                             |
-| ------- | -------------------------------- |
-| default | 默认插槽，用于放置内容           |
-| prefix  | 前置插槽，用于放置图标等前置内容 |
-| suffix  | 后置插槽，用于放置图标等后置内容 |
-| label   | 标签文本插槽，用于自定义标签内容 |
+| 名称    | 说明                             | 类型 |
+| ------- | -------------------------------- | ---- |
+| default | 默认插槽，用于放置内容           |      |
+| prefix  | 前置插槽，用于放置图标等前置内容 |      |
+| suffix  | 后置插槽，用于放置图标等后置内容 |      |
+| label   | 标签文本插槽，用于自定义标签内容 |      |

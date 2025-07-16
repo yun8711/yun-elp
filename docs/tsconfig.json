@@ -19,13 +19,6 @@
       "~/*": ["./.vitepress/vitepress/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.d.ts",
-    "**/*.tsx",
-    "**/*.vue",
-    "../scripts/generate-web-types.ts",
-    "components/label/basic"
-  ],
+  "include": ["**/*", "**/*.vue", ".vitepress/**/*"],
   "exclude": ["node_modules"]
 }

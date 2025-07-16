@@ -10,6 +10,7 @@
     'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   --font-family-mono:
     'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --vp-layout-max-width: 100%;
 }
 
 /* 表格样式 */
@@ -44,6 +45,17 @@
 
     tbody tr td:first-child {
       font-family: var(--font-family-mono);
+    }
+  }
+}
+
+#VPContent{
+  .container{
+    .content {
+      .content-container {
+        max-width: 100%;
+        width: 100%;
+      }
     }
   }
 }
