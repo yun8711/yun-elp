@@ -558,7 +558,144 @@ describe('YTableSearch', () => {
       });
 
       await wrapper.findComponent(ElLink).trigger('click');
-      expect(onFold).toHaveBeenCalledWith(false);
+      expect(onFold).toHaveBeenCalledWith({
+        isFold: false,
+        form: expect.objectContaining({
+          name: '',
+          age: ''
+        })
+      });
+    });
+
+    it('应该触发fold事件（收起状态）', async () => {
+      const options: TableSearchOption[] = [
+        {
+          prop: 'name',
+          label: '姓名',
+          first: true
+        },
+        {
+          prop: 'age',
+          label: '年龄'
+        }
+      ];
+
+      const onFold = vi.fn();
+      wrapper = mount(YTableSearch, {
+        props: {
+          options,
+          defaultFold: false,
+          onFold
+        },
+        global: {
+          components: globalComponents
+        }
+      });
+
+      await wrapper.findComponent(ElLink).trigger('click');
+      expect(onFold).toHaveBeenCalledWith({
+        isFold: true,
+        form: expect.objectContaining({
+          name: '',
+          age: ''
+        })
+      });
+    });
+
+    it('fold事件应该包含当前表单数据', async () => {
+      const options: TableSearchOption[] = [
+        {
+          prop: 'name',
+          label: '姓名',
+          first: true
+        },
+        {
+          prop: 'age',
+          label: '年龄'
+        }
+      ];
+
+      const onFold = vi.fn();
+      wrapper = mount(YTableSearch, {
+        props: {
+          options,
+          defaultFold: true,
+          clearOnFold: false, // 关闭clearOnFold以便测试表单数据传递
+          onFold
+        },
+        global: {
+          components: globalComponents
+        }
+      });
+
+      // 设置表单数据
+      const vm = wrapper.vm;
+      vm.form.name = '张三';
+      vm.form.age = '25';
+
+      await wrapper.findComponent(ElLink).trigger('click');
+      expect(onFold).toHaveBeenCalledWith({
+        isFold: false,
+        form: expect.objectContaining({
+          name: '张三',
+          age: '25'
+        })
+      });
+    });
+
+    it('fold事件应该支持clearOnFold功能', async () => {
+      const options: TableSearchOption[] = [
+        {
+          prop: 'name',
+          label: '姓名',
+          first: true
+        },
+        {
+          prop: 'age',
+          label: '年龄'
+        }
+      ];
+
+      const onFold = vi.fn();
+      wrapper = mount(YTableSearch, {
+        props: {
+          options,
+          defaultFold: true,
+          clearOnFold: true,
+          onFold
+        },
+        global: {
+          components: globalComponents
+        }
+      });
+
+      // 设置表单数据
+      const vm = wrapper.vm;
+      vm.form.name = '张三';
+      vm.form.age = '25';
+
+      // 展开时，第一行数据应该被清空（因为从折叠状态展开）
+      await wrapper.findComponent(ElLink).trigger('click');
+      expect(onFold).toHaveBeenCalledWith({
+        isFold: false,
+        form: expect.objectContaining({
+          name: '', // 第一行数据被清空
+          age: '25' // 第二行数据保持不变
+        })
+      });
+
+      // 重置mock
+      onFold.mockClear();
+
+      // 收起时，第二行数据应该被清空
+      await wrapper.findComponent(ElLink).trigger('click');
+      expect(onFold).toHaveBeenCalledWith({
+        isFold: true,
+        form: expect.objectContaining({
+          name: '', // 第一行数据保持为空
+          age: '' // 第二行数据被清空
+        })
+      });
     });
 
     it('应该支持disabledFirst属性', () => {

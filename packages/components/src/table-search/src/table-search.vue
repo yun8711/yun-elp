@@ -412,7 +412,7 @@ function toggleFold() {
   }
 
   updateFormatForm();
-  emits('fold', isFold.value)
+  emits('fold', { isFold: isFold.value, form: form.value })
 }
 
 // ==================== 初始化 & 监听器 ====================

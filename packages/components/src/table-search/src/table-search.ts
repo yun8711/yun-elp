@@ -21,7 +21,7 @@ export interface TableSearchEmits {
   (e: 'search', form: Record<string, any>): void;
   (e: 'reset', form: Record<string, any>): void;
   (e: 'change', form: Record<string, any>): void;
-  (e: 'fold', isFold: boolean): void;
+  (e: 'fold', params: { isFold: boolean; form: Record<string, any> }): void;
 }
 
 export interface TableSearchOption {
