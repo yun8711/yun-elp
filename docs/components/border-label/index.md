@@ -44,9 +44,9 @@ border-label/slot
 
 ### Slots
 
-| 名称    | 说明     | 类型 |
+| 名称    | 说明     | 参数 |
 | ------- | -------- | ---- |
-| default | 默认内容 |      |
-| prefix  | 前置内容 |      |
-| label   | 标签内容 |      |
-| suffix  | 后置内容 |      |
+| default | 默认内容 | —    |
+| prefix  | 前置内容 | —    |
+| label   | 标签内容 | —    |
+| suffix  | 后置内容 | —    |
