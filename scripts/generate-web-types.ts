@@ -13,46 +13,48 @@ const packageJson = JSON.parse(readFileSync(resolve(__dirname, '../package.json'
 
 interface WebType {
   name: string;
+  description?: string;
+  'doc-url'?: string;
   source?: {
     symbol: string;
   };
-  description?: string;
-  'doc-url'?: string;
-  props?: WebTypeProp[];
   slots?: WebTypeSlot[];
-  events?: WebTypeEvent[];
-  exposes?: WebTypeExpose[];
-}
-
-interface WebTypeProp {
-  name: string;
-  description?: string;
-  'doc-url'?: string;
-  type: (string | { name: string; source: { symbol: string; module: string } })[];
-  default?: string | boolean | number;
+  attributes?: WebTypeAttribute[];
+  props?: WebTypeProp[];
+  js?: {
+    events?: WebTypeEvent[];
+  };
 }
 
 interface WebTypeSlot {
   name: string;
   description?: string;
   'doc-url'?: string;
+  type?: string;
+}
+
+interface WebTypeAttribute {
+  name: string;
+  description?: string;
+  'doc-url'?: string;
+  type?: string;
+  default?: string;
+}
+
+interface WebTypeProp {
+  name: string;
+  description?: string;
+  'doc-url'?: string;
+  type?: string;
+  default?: string;
 }
 
 interface WebTypeEvent {
   name: string;
   description?: string;
   'doc-url'?: string;
-  arguments?: {
-    name: string;
-    type: string;
-    description?: string;
-  }[];
-}
-
-interface WebTypeExpose {
-  name: string;
-  description?: string;
-  type: string;
+  type?: string;
+  default?: string;
 }
 
 interface MarkdownTableRow {
@@ -61,35 +63,51 @@ interface MarkdownTableRow {
 
 function parseMarkdownTable(content: string): MarkdownTableRow[] {
   if (!content.trim()) {
-    // console.log('Empty content for table parsing');
     return [];
   }
 
   const lines = content.split('\n').filter(line => line.trim());
   if (lines.length < 3) {
-    // console.log('Not enough lines for table:', lines);
+    return [];
+  }
+
+  // 查找表格开始的位置（表头行）
+  let tableStartIndex = -1;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    // 检查是否是表格行（包含 | 且不是描述文字）
+    if (line.includes('|') && !line.includes('除了') && !line.includes('支持') && !line.includes('组件')) {
+      tableStartIndex = i;
+      break;
+    }
+  }
+
+  if (tableStartIndex === -1) {
+    return [];
+  }
+
+  // 从表格开始位置提取表格内容
+  const tableLines = lines.slice(tableStartIndex);
+  if (tableLines.length < 3) {
     return [];
   }
 
   // 移除表头和分隔行
-  const tableContent = lines.slice(2);
+  const tableContent = tableLines.slice(2);
 
   // 处理表头，将转义的竖线替换为特殊字符
-  const headers = lines[0]
-    .replace(/\\\|/g, '___PIPE___') // 先将转义的竖线替换为特殊字符
+  const headers = tableLines[0]
+    .replace(/\\\|/g, '___PIPE___')
     .split('|')
     .filter(Boolean)
-    .map(h => h.trim().replace(/___PIPE___/g, '\\|')); // 恢复转义的竖线
-
-  // console.log('Table headers:', headers);
+    .map(h => h.trim().replace(/___PIPE___/g, '\\|'));
 
   const rows = tableContent.map(line => {
-    // 处理每一行，将转义的竖线替换为特殊字符
     const processedLine = line.replace(/\\\|/g, '___PIPE___');
     const cells = processedLine
       .split('|')
       .filter(Boolean)
-      .map(c => c.trim().replace(/___PIPE___/g, '\\|')); // 恢复转义的竖线
+      .map(c => c.trim().replace(/___PIPE___/g, '\\|'));
 
     return headers.reduce((obj, header, index) => {
       obj[header] = cells[index] || '';
@@ -97,58 +115,65 @@ function parseMarkdownTable(content: string): MarkdownTableRow[] {
     }, {} as MarkdownTableRow);
   });
 
-  // console.log('Parsed table rows:', rows);
   return rows;
 }
 
 function extractApiSection(content: string, section: string): string {
-  // console.log(`Extracting ${section} section...`);
-  // 只要出现 ### ${section} 就匹配
-  const regex = new RegExp(`### ${section}\\s*\\n([\\s\\S]*?)(?=\\n### |$)`);
-  const match = content.match(regex);
-  if (!match) {
-    // console.log(`No match found for ${section}`);
+  // 首先查找 ## API 章节
+  const apiRegex = /## API\s*\n([\s\S]*?)(?=\n## |$)/;
+  const apiMatch = content.match(apiRegex);
+
+  if (!apiMatch) {
     return '';
   }
-  const tableContent = match[1].trim();
-  // console.log(`Found ${section} content:`, tableContent);
-  return tableContent;
+
+  const apiContent = apiMatch[1];
+
+  // 在 API 章节内查找指定的子章节
+  const sectionRegex = new RegExp(`### ${section}\\s*\\n([\\s\\S]*?)(?=\\n### |$)`);
+  const match = apiContent.match(sectionRegex);
+
+  if (!match) {
+    return '';
+  }
+
+  return match[1].trim();
 }
 
-function parseType(
-  type: string
-): (string | { name: string; source: { symbol: string; module: string } })[] {
+function parseType(type: string): string {
+  if (!type) return '';
+
+  // 处理复杂数据类型，提取反引号中的内容
+  const backtickMatch = type.match(/`([^`]+)`/);
+  if (backtickMatch) {
+    return backtickMatch[1].trim();
+  }
+
   // 处理联合类型，注意处理转义的竖线
   if (type.includes('|') && !type.includes('\\|')) {
-    return type.split('|').map(t => t.trim());
+    return type.split('|').map(t => t.trim()).join(' | ');
   }
+
   // 处理包含转义竖线的类型
   if (type.includes('\\|')) {
-    // 移除转义符号，将 \| 替换为 |
-    return [type.replace(/\\\|/g, '|')];
+    return type.replace(/\\\|/g, '|');
   }
-  // 处理特殊类型
-  if (type.includes('Component')) {
-    return [type, { name: 'Component', source: { symbol: 'Component', module: 'vue' } }];
+
+  // 处理包含"/"的联合类型
+  if (type.includes('/')) {
+    return type.split('/').map(t => t.trim()).join(' | ');
   }
-  return [type];
+
+  // 清理类型字符串，移除markdown格式
+  return type
+    .replace(/\^\[/g, '')
+    .replace(/\]/g, '')
+    .replace(/`/g, '')
+    .trim();
 }
 
-function parseDefaultValue(value: string, type: string): string | boolean | number | undefined {
+function parseDefaultValue(value: string): string | undefined {
   if (value === '—' || !value) return undefined;
-
-  // 处理布尔值
-  if (type === 'boolean') {
-    return value === 'true';
-  }
-
-  // 处理数字
-  if (type === 'number' || type.includes('number')) {
-    const num = Number(value);
-    if (!isNaN(num)) {
-      return num;
-    }
-  }
 
   // 处理字符串，移除多余的引号
   if (value.startsWith("'") && value.endsWith("'")) {
@@ -158,91 +183,81 @@ function parseDefaultValue(value: string, type: string): string | boolean | numb
   return value;
 }
 
+function isValidTableRow(row: MarkdownTableRow): boolean {
+  // 检查是否是有效的表格行（不是分隔符或标题行）
+  const values = Object.values(row);
+  return values.some(value => value && !value.includes('---') && !value.includes('###'));
+}
+
 function generateWebTypes(): void {
   const docsDir = resolve(__dirname, '../docs');
   const componentsDir = resolve(docsDir, 'components');
-  // console.log('Components directory:', componentsDir);
 
   const componentFiles = glob.sync('**/index.md', { cwd: componentsDir });
-  // console.log('Found component files:', componentFiles);
 
   const webTypes: WebType[] = [];
 
   componentFiles.forEach(file => {
-    // console.log(`\nProcessing file: ${file}`);
     const filePath = resolve(componentsDir, file);
-    // console.log('Full file path:', filePath);
-
     const content = readFileSync(filePath, 'utf-8');
     const { data, content: markdownContent } = matter(content);
-    // console.log('Front matter data:', data);
 
     const componentName = data.title.split(' ')[0];
-    // console.log('Component name:', componentName);
 
-    const attributes = parseMarkdownTable(extractApiSection(markdownContent, 'Attributes'));
-    const slots = parseMarkdownTable(extractApiSection(markdownContent, 'Slots'));
-    const events = parseMarkdownTable(extractApiSection(markdownContent, 'Events'));
-    const exposes = parseMarkdownTable(extractApiSection(markdownContent, 'Exposes'));
-
-    // console.log('Parsed sections:', {
-    // attributes,
-    // slots,
-    // events,
-    // exposes
-    // });
+    // 只解析API文档中特定章节下的表格
+    const attributes = parseMarkdownTable(extractApiSection(markdownContent, 'Attributes'))
+      .filter(isValidTableRow);
+    const slots = parseMarkdownTable(extractApiSection(markdownContent, 'Slots'))
+      .filter(isValidTableRow);
+    const events = parseMarkdownTable(extractApiSection(markdownContent, 'Events'))
+      .filter(isValidTableRow);
+    const exposes = parseMarkdownTable(extractApiSection(markdownContent, 'Exposes'))
+      .filter(isValidTableRow);
 
     const webType: WebType = {
-      name: `y-${componentName.toLowerCase()}`,
+      name: `Y${componentName}`,
+      description: data.description,
       source: {
         symbol: `Y${componentName}`
       },
-      description: data.description,
-      'doc-url': `/components/${file.replace('/index.md', '')}`,
-      props: attributes.map(attr => {
-        const type = parseType(attr['类型']);
-        return {
-          name: attr['属性名'],
-          description: attr['说明'],
-          'doc-url': `/components/${file.replace('/index.md', '')}#attributes`,
-          type,
-          default: parseDefaultValue(attr['默认值'], type[0].toString())
+      slots: slots.map(slot => {
+        const slotData: WebTypeSlot = {
+          name: slot['插槽名'] || slot['名称'] || slot['name'],
+          description: slot['说明'] || slot['description']
         };
-      }),
-      slots: slots.map(slot => ({
-        name: slot['插槽名'],
-        description: slot['说明'],
-        'doc-url': `/components/${file.replace('/index.md', '')}#slots`
-      })),
-      events: events.map(event => ({
-        name: event['事件名'],
-        description: event['说明'],
-        'doc-url': `/components/${file.replace('/index.md', '')}#events`,
-        arguments: event['回调参数']
-          ? [
-              {
-                name: 'event',
-                type: event['回调参数'],
-                description: '事件对象'
-              }
-            ]
-          : undefined
-      })),
-      exposes: exposes.map(expose => ({
-        name: expose['名称'],
-        description: expose['说明'],
-        type: expose['类型']
-      }))
+
+        const type = slot['参数'] || slot['类型'] || slot['type'];
+        if (type && type !== '—') {
+          slotData.type = parseType(type);
+        }
+
+        return slotData;
+      }).filter(slot => slot.name && slot.name !== '参数'),
+      props: attributes.map(attr => ({
+        name: attr['参数'] || attr['属性名'] || attr['name'],
+        description: attr['说明'] || attr['description'],
+        type: parseType(attr['类型'] || attr['type']),
+        default: parseDefaultValue(attr['默认值'] || attr['default'])
+      })).filter(prop => prop.name && prop.name !== '参数'),
+      js: {
+        events: events.map(event => ({
+          name: event['事件名'] || event['name'],
+          description: event['说明'] || event['description'],
+          type: parseType(event['回调参数'] || event['类型'] || event['type']),
+          default: parseDefaultValue(event['默认值'] || event['default'])
+        })).filter(event => event.name && event.name !== '事件名')
+      }
     };
 
     webTypes.push(webType);
   });
 
   const output = {
-    $schema: 'https://json.schemastore.org/web-types',
+    $schema: 'https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json',
     framework: 'vue',
     name: packageJson.name,
     version: packageJson.version,
+    'js-types-syntax': 'typescript',
     contributions: {
       html: {
         'vue-components': webTypes
@@ -250,9 +265,8 @@ function generateWebTypes(): void {
     }
   };
 
-  // 同时生成到 dist 目录和 packages/components 目录
+  // 生成到 dist 目录
   const distPath = resolve(__dirname, '../dist/web-types.json');
-
   writeFileSync(distPath, JSON.stringify(output, null, 2));
 
   console.log(`已生成 web-types.json，包含 ${webTypes.length} 个组件`);
