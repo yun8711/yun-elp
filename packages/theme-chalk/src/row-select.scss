@@ -1,0 +1,112 @@
+.y-row-select {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  overflow: hidden;
+  height: var(--height);
+  transition: height var(--duration) linear;
+  font-size: var(--text-font-size, var(--el-font-size-base));
+
+  & + .y-row-select {
+    margin-top: 16px;
+  }
+
+  // 左侧 label
+  &__label {
+    margin-right: 24px;
+    font-weight: 500;
+    color: var(--text-label-color, var(--el-text-color-regular));
+    font-size: var(--text-label-font-size, var(--el-font-size-base));
+    height: var(--item-height);
+    line-height: var(--item-height);
+
+    &--separator {
+      position: relative;
+
+      &::after {
+        content: ':';
+        display: inline-block;
+        position: absolute;
+        right: -6px;
+      }
+    }
+  }
+
+  // 中间选项列表容器
+  &__options-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // 中间选项列表
+  &__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap, 8px);
+    will-change: transform;
+    overflow: hidden;
+  }
+
+  // 选项项
+  &__item {
+    padding: 0 8px;
+    cursor: pointer;
+    text-align: center;
+    width: var(--item-width);
+    height: var(--item-height);
+    line-height: var(--item-height);
+    color: var(--text-item-color, var(--el-text-color-regular));
+    font-size: var(--text-item-font-size, var(--el-font-size-base));
+
+    &-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &.is-active {
+      color: var(--active-item-color, var(--el-color-white));
+      background-color: var(--active-item-bg-color, var(--el-color-primary));
+    }
+
+    &.is-disabled {
+      color: var(--disabled-item-color, var(--el-text-color-disabled));
+      background-color: var(--disabled-item-bg-color, var(--el-color-disabled));
+      cursor: not-allowed;
+    }
+
+    &:not(.is-active):not(.is-disabled):hover {
+      color: var(--hover-item-color, var(--el-text-color-primary));
+      background-color: var(--hover-item-bg-color, var(--el-color-primary-light-9));
+    }
+  }
+
+  // 右侧展开/收起按钮
+  &__fold {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 8px;
+    cursor: pointer;
+    height: var(--item-height);
+    line-height: var(--item-height);
+    color: var(--el-color-primary);
+
+    &-inner {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .el-icon--right {
+        margin-right: 4px;
+        transition: transform var(--duration);
+
+        &--reverse {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}

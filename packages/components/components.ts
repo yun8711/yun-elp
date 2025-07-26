@@ -6,6 +6,7 @@ import { YPartTitle } from './src/part-title';
 import { YPageTitle } from './src/page-title';
 import { YTableSearch } from './src/table-search';
 import { YSimpleSelect } from './src/simple-select';
+import { YRowSelect } from './src/row-select';
 
 export default [
   YAppWrap,
@@ -15,4 +16,5 @@ export default [
   YPageTitle,
   YTableSearch,
   YSimpleSelect,
+  YRowSelect,
 ] as Plugin[];

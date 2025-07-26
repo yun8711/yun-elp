@@ -50,6 +50,11 @@
         "text": "simple-select 选择器",
         "link": "/components/simple-select/",
         "activeMatch": "/components/simple-select/"
+      },
+      {
+        "text": "row-select 行选择器",
+        "link": "/components/row-select/",
+        "activeMatch": "/components/row-select/"
       }
     ]
   },

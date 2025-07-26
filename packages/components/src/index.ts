@@ -6,3 +6,4 @@ export * from './part-title';
 export * from './page-title';
 export * from './table-search';
 export * from './simple-select';
+export * from './row-select';
