@@ -24,6 +24,7 @@ interface WebType {
   js?: {
     events?: WebTypeEvent[];
   };
+  exposes?: WebTypeExpose[];
 }
 
 interface WebTypeSlot {
@@ -55,6 +56,13 @@ interface WebTypeEvent {
   'doc-url'?: string;
   type?: string;
   default?: string;
+}
+
+interface WebTypeExpose {
+  name: string;
+  description?: string;
+  'doc-url'?: string;
+  type?: string;
 }
 
 interface MarkdownTableRow {
@@ -164,7 +172,7 @@ function parseType(type: string): string {
     return type.split('/').map(t => t.trim()).join(' | ');
   }
 
-  // 清理类型字符串，移除markdown格式
+  // 清理类型字符串，移除markdown格式和反引号
   return type
     .replace(/\^\[/g, '')
     .replace(/\]/g, '')
@@ -175,8 +183,9 @@ function parseType(type: string): string {
 function parseDefaultValue(value: string): string | undefined {
   if (value === '—' || !value) return undefined;
 
-  // 处理字符串，移除多余的引号
-  if (value.startsWith("'") && value.endsWith("'")) {
+  // 处理字符串，移除多余的引号（单引号或反引号）
+  if ((value.startsWith("'") && value.endsWith("'")) ||
+      (value.startsWith("`") && value.endsWith("`"))) {
     return value.slice(1, -1);
   }
 
@@ -246,7 +255,12 @@ function generateWebTypes(): void {
           type: parseType(event['回调参数'] || event['类型'] || event['type']),
           default: parseDefaultValue(event['默认值'] || event['default'])
         })).filter(event => event.name && event.name !== '事件名')
-      }
+      },
+      exposes: exposes.map(expose => ({
+        name: expose['名称'] || expose['name'],
+        description: expose['说明'] || expose['description'],
+        type: parseType(expose['类型'] || expose['type'])
+      })).filter(expose => expose.name && expose.name !== '名称')
     };
 
     webTypes.push(webType);

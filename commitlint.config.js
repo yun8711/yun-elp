@@ -30,10 +30,10 @@ export default {
       { value: 'chore', name: 'chore:    其他修改 | Other changes that do not modify src or test files', emoji: ':hammer:' }
     ],
     scopes: [
-      { value: 'component', name: 'component:  组件' },
-      { value: 'utils', name: 'utils:      工具函数' },
+      { value: 'core', name: 'core:       核心代码，包含组件、工具函数、样式等' },
+      { value: 'config', name: 'config:     项目配置文件等' },
+      { value: 'style', name: 'style:      代码风格' },
       { value: 'docs', name: 'docs:       文档' },
-      { value: 'style', name: 'style:      样式' },
       { value: 'play', name: 'play:       演示' },
       { value: 'other', name: 'other:      其他' }
     ],
