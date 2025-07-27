@@ -3,12 +3,6 @@
     <y-app-wrap :key="locale" :elp-config="{ locale: locale === 'zh-CN' ? zhCn : en }" :locale="locale"
       v-bind="appWrapConfig">
 
-      <!-- <div>当前语言：{{ locale }}</div> -->
-      <y-simple-select v-model="form.f1" :options="options1" @change="changeHandle"></y-simple-select>
-
-      <el-select v-model="form.f2">
-        <el-option v-for="option in options1" :key="option.value" v-bind="option" />
-      </el-select>
     </y-app-wrap>
   </Layout>
 </template>
@@ -19,7 +13,7 @@ import Layout from './components/Layout.vue'
 import { User, InfoFilled } from '@element-plus/icons-vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
-import { ElAutocomplete, ElCascader, ElSelect } from 'element-plus'
+// import { ElAutocomplete, ElCascader, ElRadioGroup, ElRadio } from 'element-plus'
 import { treeData } from './test-data'
 
 const appWrapConfig = {
@@ -35,16 +29,17 @@ const querySearch = (queryString, cb) => {
   cb([{ value: '123' }, { value: '456' }, { value: '789' }])
 }
 
-const options1 = ref([
-  {
-    label: '选项1',
-    value: '1'
-  },
-  {
-    label: '选项2',
-    value: '2'
-  }
-])
+const options1 = ref([])
+
+// 生成选项
+for (let i = 0; i < 3; i++){
+  options1.value.push({
+    label: "选项选项选项" + i,
+    value: i,
+    // disabled: i % 2 === 0
+  })
+}
+
 const options2 = ref([
   {
     label: '关键词',
