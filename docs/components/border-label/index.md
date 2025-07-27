@@ -35,12 +35,12 @@ border-label/slot
 
 ### Attributes
 
-| 属性名   | 说明           | 类型                  | 默认值 |
-| -------- | -------------- | --------------------- | ------ |
-| label    | 标签文本       | ^[string]             |        |
-| width    | 组件总宽度     | ^[string] / ^[number] | auto   |
-| height   | 组件高度       | ^[string] / ^[number] | 32px   |
-| noBorder | 是否不显示边框 | ^[boolean]            | false  |
+| 属性名   | 说明           | 类型                  | 默认值  |
+| -------- | -------------- | --------------------- | ------- |
+| label    | 标签文本       | ^[string]             |         |
+| width    | 组件总宽度     | ^[string] / ^[number] | `auto`  |
+| height   | 组件高度       | ^[string] / ^[number] | `32px`  |
+| noBorder | 是否不显示边框 | ^[boolean]            | `false` |
 
 ### Slots
 

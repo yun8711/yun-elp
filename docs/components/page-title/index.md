@@ -19,13 +19,13 @@ page-title/test
 
 ### Attributes
 
-| 属性名     | 说明           | 类型                                  | 默认值           |
-| ---------- | -------------- | ------------------------------------- | ---------------- |
-| height     | 组件高度       | ^[string] / ^[number]                 | 40px             |
-| title      | 标题文本       | ^[string]                             | route.meta.title |
-| border     | 是否显示下边框 | ^[boolean]                            | true             |
-| padding-x  | 左右内边距     | ^[string] / ^[array]`[string,string]` | 24px             |
-| titleStyle | 标题样式       | ^[object]`CSSProperties`              | —                |
+| 属性名     | 说明           | 类型                                  | 默认值             |
+| ---------- | -------------- | ------------------------------------- | ------------------ |
+| height     | 组件高度       | ^[string] / ^[number]                 | `40px`             |
+| title      | 标题文本       | ^[string]                             | `route.meta.title` |
+| border     | 是否显示下边框 | ^[boolean]                            | `true`             |
+| padding-x  | 左右内边距     | ^[string] / ^[array]`[string,string]` | `24px `            |
+| titleStyle | 标题样式       | ^[object]`CSSProperties`              | —                  |
 
 ### Slots
 

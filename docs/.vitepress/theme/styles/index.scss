@@ -49,12 +49,23 @@
   }
 }
 
-#VPContent{
-  .container{
+#VPContent {
+  .container {
     .content {
       .content-container {
         max-width: 100%;
         width: 100%;
+      }
+      a.vp-link {
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        svg {
+          display: inline-block;
+          margin-left: 0.25rem;
+          height: 1em;
+          width: 1em;
+        }
       }
     }
   }

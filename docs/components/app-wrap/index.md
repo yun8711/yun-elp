@@ -11,12 +11,12 @@ AppWrap是一个应用容器
 
 ### Attributes
 
-| 属性名       | 说明                                                                                | 类型                                | 默认值 |
-| ------------ | ----------------------------------------------------------------------------------- | ----------------------------------- | ------ |
-| elpConfig    | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`Ref<record<string, any>>` | —      |
-| locale       | yun-elp的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | zh-cn  |
-| border-label | border-label组件全局配置，[见下表](#border-label-attribute)                         | ^[object]`Ref<record<string, any>>` | —      |
-| page-title   | page-title组件全局配置，[见下表](#page-title-attribute)                             | ^[object]`Ref<record<string, any>>` | —      |
+| 属性名       | 说明                                                                                | 类型                                | 默认值  |
+| ------------ | ----------------------------------------------------------------------------------- | ----------------------------------- | ------- |
+| elpConfig    | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`Ref<record<string, any>>` | —       |
+| locale       | yun-elp的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
+| border-label | border-label组件全局配置，[见下表](#border-label-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
+| page-title   | page-title组件全局配置，[见下表](#page-title-attribute)                             | ^[object]`Ref<record<string, any>>` | —       |
 
 #### border-label Attribute
 

@@ -35,16 +35,16 @@ label/slots
 
 ### Attributes
 
-| 属性名       | 说明                              | 类型                                   | 默认值 |
-| ------------ | --------------------------------- | -------------------------------------- | ------ |
-| label        | 标签文本                          | ^[string]                              | —      |
-| labelWidth   | 标签宽度                          | ^[string] / ^[number]                  | auto   |
-| align        | 标签文本对齐方式                  | ^[enum]`'left' \| 'center' \| 'right'` | left   |
-| height       | 组件高度                          | ^[string] / ^[number]                  | 32px   |
-| border       | 是否显示边框                      | ^[boolean]                             | false  |
-| colon        | 标签后分隔符，border为false时有效 | ^[string]                              | ''     |
-| labelStyle   | 标签自定义样式                    | ^[object]`CSSProperties`               | —      |
-| contentStyle | 内容区域自定义样式                | ^[object]`CSSProperties`               | —      |
+| 属性名       | 说明                              | 类型                                   | 默认值  |
+| ------------ | --------------------------------- | -------------------------------------- | ------- |
+| label        | 标签文本                          | ^[string]                              | —       |
+| labelWidth   | 标签宽度                          | ^[string] / ^[number]                  | `auto`  |
+| align        | 标签文本对齐方式                  | ^[enum]`'left' \| 'center' \| 'right'` | `left`  |
+| height       | 组件高度                          | ^[string] / ^[number]                  | `32px`  |
+| border       | 是否显示边框                      | ^[boolean]                             | `false` |
+| colon        | 标签后分隔符，border为false时有效 | ^[string]                              | ''      |
+| labelStyle   | 标签自定义样式                    | ^[object]`CSSProperties`               | —       |
+| contentStyle | 内容区域自定义样式                | ^[object]`CSSProperties`               | —       |
 
 ### Slots
 

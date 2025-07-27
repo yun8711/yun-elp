@@ -75,11 +75,10 @@ row-select/advance
 
 ### Events
 
-| 事件名            | 说明               | 类型                                                           |
-| ----------------- | ------------------ | -------------------------------------------------------------- |
-| update:modelValue | 绑定值变化时触发   | ^[Function]`(value: string \| string[] \| number \| number[])` |
-| change            | 选择变化时触发     | ^[Function]`(value: string \| string[] \| number \| number[])` |
-| fold              | 折叠状态变化时触发 | ^[Function]`(value: boolean)`                                  |
+| 事件名 | 说明               | 类型                                                                 |
+| ------ | ------------------ | -------------------------------------------------------------------- |
+| change | 选择变化时触发     | ^[Function]`(value: string \| string[] \| number \| number[])=>void` |
+| fold   | 折叠状态变化时触发 | ^[Function]`(value: boolean)=>void`                                  |
 
 ### Exposes
 
