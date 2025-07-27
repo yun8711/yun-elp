@@ -7,6 +7,7 @@ import { YPageTitle } from './src/page-title';
 import { YTableSearch } from './src/table-search';
 import { YSimpleSelect } from './src/simple-select';
 import { YRowSelect } from './src/row-select';
+import { YSimpleRadio } from './src/simple-radio';
 
 export default [
   YAppWrap,
@@ -17,4 +18,5 @@ export default [
   YTableSearch,
   YSimpleSelect,
   YRowSelect,
+  YSimpleRadio,
 ] as Plugin[];

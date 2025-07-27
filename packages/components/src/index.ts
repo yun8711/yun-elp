@@ -7,3 +7,4 @@ export * from './page-title';
 export * from './table-search';
 export * from './simple-select';
 export * from './row-select';
+export * from './simple-radio';
