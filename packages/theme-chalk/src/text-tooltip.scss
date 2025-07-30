@@ -1,0 +1,14 @@
+@use 'element-plus/theme-chalk/src/tooltip.scss' as tooltip;
+
+.y-text-tooltip {
+  &__content {
+    align-self: center;
+    margin: 0;
+    padding: 0;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+}

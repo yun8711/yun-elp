@@ -8,6 +8,7 @@ import { YTableSearch } from './src/table-search';
 import { YSimpleSelect } from './src/simple-select';
 import { YRowSelect } from './src/row-select';
 import { YSimpleRadio } from './src/simple-radio';
+import { YTextTooltip } from './src/text-tooltip';
 
 export default [
   YAppWrap,
@@ -19,4 +20,5 @@ export default [
   YSimpleSelect,
   YRowSelect,
   YSimpleRadio,
+  YTextTooltip,
 ] as Plugin[];

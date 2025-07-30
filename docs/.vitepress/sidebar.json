@@ -65,7 +65,13 @@
   },
   {
     "text": "数据展示",
-    "items": []
+    "items": [
+      {
+        "text": "text-tooltip 提示文本",
+        "link": "/components/text-tooltip/",
+        "activeMatch": "/components/text-tooltip/"
+      }
+    ]
   },
   {
     "text": "反馈",
