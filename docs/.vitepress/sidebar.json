@@ -1,7 +1,13 @@
 [
   {
     "text": "通用",
-    "items": []
+    "items": [
+      {
+        "text": "button 按钮",
+        "link": "/components/button/",
+        "activeMatch": "/components/button/"
+      }
+    ]
   },
   {
     "text": "导航",

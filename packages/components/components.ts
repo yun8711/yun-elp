@@ -9,6 +9,7 @@ import { YSimpleSelect } from './src/simple-select';
 import { YRowSelect } from './src/row-select';
 import { YSimpleRadio } from './src/simple-radio';
 import { YTextTooltip } from './src/text-tooltip';
+import { YButton } from './src/button';
 
 export default [
   YAppWrap,
@@ -21,4 +22,5 @@ export default [
   YRowSelect,
   YSimpleRadio,
   YTextTooltip,
+  YButton,
 ] as Plugin[];

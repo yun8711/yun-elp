@@ -132,7 +132,9 @@ export default defineConfig({
         /^element-plus\/.*/,
         /^@element-plus\/.*/,
         /^node_modules\/.*/,
-        '@constants'
+        '@constants',
+        '@vueuse/shared',
+        '@vueuse/core'
       ],
       output: {
         globals: {

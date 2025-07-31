@@ -9,3 +9,4 @@ export * from './simple-select';
 export * from './row-select';
 export * from './simple-radio';
 export * from './text-tooltip';
+export * from './button';
