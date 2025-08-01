@@ -12,6 +12,18 @@ export default defineConfig({
         singleFork: true
       }
     },
+    // 添加更稳定的测试配置
+    setupFiles: ['./vitest.setup.ts'],
+    isolate: true,
+    restoreMocks: true,
+    clearMocks: true,
+    // 确保测试顺序一致
+    sequence: {
+      shuffle: false
+    },
+    // 添加超时设置
+    testTimeout: 10000,
+    hookTimeout: 10000,
     coverage: {
       provider: 'v8',
       reporter: ['html'],
