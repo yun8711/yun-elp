@@ -10,12 +10,12 @@ export interface AppWrapProps {
   elpConfig?: ConfigProviderProps;
   locale?: LocaleType;
   // border-label、label的配置
-  'border-label'?: {
+  borderLabel?: {
     width?: string;
     height?: string;
   };
   // page-title的配置
-  'page-title'?: {
+  pageTitle?: {
     height?: string | number;
     // 从route中获取title的路径
     titlePath?: string;
@@ -23,6 +23,12 @@ export interface AppWrapProps {
     paddingX?: string | [string, string];
     // 标题的样式，只作用于文本
     titleTextStyle?: Record<string, any>;
+  };
+  // page-footer的配置
+  pageFooter?: {
+    height?: string | number;
+    left?: string | number;
+    right?: string | number;
   };
   [key: string]: any;
 }
@@ -37,12 +43,16 @@ export const appWrapProps = {
     type: String as PropType<LocaleType>,
     default: 'zh-cn'
   },
-  'border-label': {
-    type: Object as PropType<AppWrapProps['border-label']>,
+  borderLabel: {
+    type: Object as PropType<AppWrapProps['borderLabel']>,
     default: () => ({})
   },
-  'page-title': {
-    type: Object as PropType<AppWrapProps['page-title']>,
+  pageTitle: {
+    type: Object as PropType<AppWrapProps['pageTitle']>,
+    default: () => ({})
+  },
+  pageFooter: {
+    type: Object as PropType<AppWrapProps['pageFooter']>,
     default: () => ({})
   }
 } as const;

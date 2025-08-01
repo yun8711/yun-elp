@@ -36,7 +36,7 @@ const props = withDefaults(defineProps<YPageTitleProps>(), {
 });
 
 // 从app-wrap配置中获取默认值
-const appConfig = useAppConfig('page-title');
+const appConfig = useAppConfig('pageTitle');
 
 // 计算显示的高度
 const displayHeight = computed(() => {

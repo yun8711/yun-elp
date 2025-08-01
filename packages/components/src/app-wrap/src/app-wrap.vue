@@ -35,10 +35,10 @@ const props = withDefaults(defineProps<AppWrapProps>(), {
     }
   }),
   locale: 'zh-cn',
-  'border-label': () => ({
+  borderLabel: () => ({
     width: '316px',
     height: '32px'
-  })
+  }),
 });
 
 // 从props中获取除elpConfig/locale以外的配置
