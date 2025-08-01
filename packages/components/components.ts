@@ -10,6 +10,7 @@ import { YRowSelect } from './src/row-select';
 import { YSimpleRadio } from './src/simple-radio';
 import { YTextTooltip } from './src/text-tooltip';
 import { YButton } from './src/button';
+import { YPageFooter } from './src/page-footer';
 
 export default [
   YAppWrap,
@@ -23,4 +24,5 @@ export default [
   YSimpleRadio,
   YTextTooltip,
   YButton,
+  YPageFooter,
 ] as Plugin[];

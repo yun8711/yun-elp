@@ -41,6 +41,11 @@
         "text": "label 标签",
         "link": "/components/label/",
         "activeMatch": "/components/label/"
+      },
+      {
+        "text": "page-footer 页脚",
+        "link": "/components/page-footer/",
+        "activeMatch": "/components/page-footer/"
       }
     ]
   },
