@@ -39,6 +39,11 @@ const props = withDefaults(defineProps<AppWrapProps>(), {
     width: '316px',
     height: '32px'
   }),
+  button: () => ({
+    delay: 300,
+    maxWait: undefined,
+    placement: 'top'
+  })
 });
 
 // 从props中获取除elpConfig/locale以外的配置

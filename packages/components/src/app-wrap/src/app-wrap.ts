@@ -30,6 +30,12 @@ export interface AppWrapProps {
     left?: string | number;
     right?: string | number;
   };
+  // button的配置
+  button?: {
+    delay?: string | number | undefined;
+    maxWait?: string | number | undefined;
+    placement?: 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end';
+  };
   [key: string]: any;
 }
 
@@ -53,6 +59,10 @@ export const appWrapProps = {
   },
   pageFooter: {
     type: Object as PropType<AppWrapProps['pageFooter']>,
+    default: () => ({})
+  },
+  button: {
+    type: Object as PropType<AppWrapProps['button']>,
     default: () => ({})
   }
 } as const;
