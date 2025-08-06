@@ -16,7 +16,7 @@ export default {
     search: 'Search',
     more: 'More',
     all: 'All'
-  }
+  },
 
   // Button component
 

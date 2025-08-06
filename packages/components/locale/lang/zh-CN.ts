@@ -16,7 +16,7 @@ export default {
     search: '搜索',
     more: '更多',
     all: '全部'
-  }
+  },
 
   // 按钮组件
 

@@ -7,7 +7,7 @@
       <div class="config-item">
         <span>切换语言：</span>
         <el-select v-model="locale" style="width: 120px" @change="handleLocaleChange">
-          <el-option label="简体中文" value="zh-CN" />
+          <el-option label="简体中文" value="zh-cn" />
           <el-option label="English" value="en" />
         </el-select>
       </div>
@@ -39,7 +39,7 @@ import { ref } from 'vue'
 import { useElementSize } from '@vueuse/core'
 
 // 当前语言
-const locale = ref('zh-CN')
+const locale = ref('zh-cn')
 
 // 背景颜色
 const backgroundColor = ref(localStorage.getItem('YElp-backgroundColor') || '#ffffff')

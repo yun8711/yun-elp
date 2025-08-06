@@ -3,12 +3,9 @@
  * 用于在组件中使用国际化文本
  */
 import { computed, inject, type Ref } from '@vue/runtime-core';
-import { getLocale } from '../locale';
+import { getLocale, localeContextKey } from '../locale';
 import type { LocaleType } from '../locale';
 import type { YunElpLanguage } from '../locale/type';
-
-// 用于组件树传递国际化配置的key
-export const localeContextKey = Symbol('yun-elp-locale');
 
 /**
  * 在组件中使用国际化的hook
@@ -38,7 +35,7 @@ export function useLocale() {
     let current: YunElpLanguage = resolvedLocale.value;
     let value: any;
     for (let i = 0; i < paths.length; i++) {
-      const key = paths[i];
+      const key = paths[i];;
       value = current[key as keyof YunElpLanguage];
       if (i === paths.length - 1) return value || path;
       if (!value) return path;

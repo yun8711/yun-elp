@@ -18,20 +18,10 @@ export const locales = {
 // 默认语言：简体中文
 export const defaultLocale: LocaleType = 'zh-cn';
 
+export const localeContextKey = Symbol('yun-elp-locale');
+
 // 当前语言
 let currentLocale: LocaleType = defaultLocale;
-
-/**
- * 设置当前语言
- * @param locale 语言代码 ('zh-CN' | 'en-US')
- */
-export const setLocale = (locale: LocaleType): boolean => {
-  if (locales[locale]) {
-    currentLocale = locale;
-    return true;
-  }
-  return false;
-};
 
 /**
  * 获取当前语言代码
@@ -53,6 +43,5 @@ export default {
   locales,
   defaultLocale,
   getLocale,
-  setLocale,
   getLocaleCode
 };
