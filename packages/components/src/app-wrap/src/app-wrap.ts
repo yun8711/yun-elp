@@ -12,8 +12,8 @@ export interface AppWrapProps {
     width?: string;
     height?: string;
   };
-  // page-title的配置
-  pageTitle?: {
+  // page-header的配置
+  pageHeader?: {
     height?: string | number;
     // 从route中获取title的路径
     titlePath?: string;
@@ -70,8 +70,8 @@ export const appWrapProps = {
     type: Object as PropType<AppWrapProps['borderLabel']>,
     default: () => ({})
   },
-  pageTitle: {
-    type: Object as PropType<AppWrapProps['pageTitle']>,
+  pageHeader: {
+    type: Object as PropType<AppWrapProps['pageHeader']>,
     default: () => ({})
   },
   pageFooter: {

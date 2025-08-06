@@ -18,9 +18,9 @@
         "activeMatch": "/components/part-title/"
       },
       {
-        "text": "page-title 页面标题",
-        "link": "/components/page-title/",
-        "activeMatch": "/components/page-title/"
+        "text": "page-header 页面头部",
+        "link": "/components/page-header/",
+        "activeMatch": "/components/page-header/"
       }
     ]
   },

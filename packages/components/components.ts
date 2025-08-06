@@ -3,7 +3,7 @@ import { YAppWrap } from './src/app-wrap';
 import { YLabel } from './src/label';
 import { YBorderLabel } from './src/border-label';
 import { YPartTitle } from './src/part-title';
-import { YPageTitle } from './src/page-title';
+import { YPageHeader } from './src/page-header';
 import { YTableSearch } from './src/table-search';
 import { YSimpleSelect } from './src/simple-select';
 import { YRowSelect } from './src/row-select';
@@ -18,7 +18,7 @@ export default [
   YLabel,
   YBorderLabel,
   YPartTitle,
-  YPageTitle,
+  YPageHeader,
   YTableSearch,
   YSimpleSelect,
   YRowSelect,

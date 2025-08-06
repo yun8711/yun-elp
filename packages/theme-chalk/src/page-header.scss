@@ -1,8 +1,8 @@
-.y-page-title {
+.y-page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--y-page-title-bg-color, #fff);
+  background-color: var(--y-page-header-bg-color, #fff);
   box-sizing: border-box;
   font-size: var(--el-font-size-base);
 

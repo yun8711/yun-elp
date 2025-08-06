@@ -16,7 +16,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：1
 | elpConfig    | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`Ref<record<string, any>>` | —       |
 | locale       | yun-elp的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
 | border-label | y-border-label组件全局配置，[见下表](#border-label-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
-| page-title   | y-page-title组件全局配置，[见下表](#page-title-attribute)                           | ^[object]`Ref<record<string, any>>` | —       |
+| page-header  | y-page-header组件全局配置，[见下表](#page-header-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
 | page-footer  | y-page-footer组件全局配置，[见下表](#page-footer-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
 | button       | y-button组件全局配置，[见下表](#button-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
 | drawer       | y-drawer组件全局配置，[见下表](#drawer-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
@@ -28,7 +28,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：1
 | width  | 组件总宽度 | ^[string] | auto   |
 | height | 组件高度   | ^[string] | 32px   |
 
-#### page-title Attribute
+#### page-header Attribute
 
 | 参数           | 描述                              | 类型                                   | 默认值 |
 | -------------- | --------------------------------- | -------------------------------------- | ------ |

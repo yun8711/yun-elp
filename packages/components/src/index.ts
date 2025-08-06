@@ -3,7 +3,7 @@ export * from './app-wrap';
 export * from './label';
 export * from './border-label';
 export * from './part-title';
-export * from './page-title';
+export * from './page-header';
 export * from './table-search';
 export * from './simple-select';
 export * from './row-select';

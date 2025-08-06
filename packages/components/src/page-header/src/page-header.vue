@@ -1,17 +1,17 @@
 <template>
-  <div class="y-page-title" :class="{ 'y-page-title--border': showBorder }" :style="containerStyle">
-    <div class="y-page-title__left">
-      <div class="y-page-title__left-title" :style="titleStyle">
+  <div class="y-page-header" :class="{ 'y-page-header--border': showBorder }" :style="containerStyle">
+    <div class="y-page-header__left">
+      <div class="y-page-header__left-title" :style="titleStyle">
         <slot name="title">
           {{ displayTitle }}
         </slot>
       </div>
-      <div class="y-page-title__left-extra">
+      <div class="y-page-header__left-extra">
         <slot name="extra" />
       </div>
     </div>
 
-    <div class="y-page-title__right">
+    <div class="y-page-header__right">
       <slot name="right" />
     </div>
   </div>
@@ -20,23 +20,23 @@
 <script setup lang="ts">
 import { computed } from '@vue/runtime-core';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
-import { YPageTitleProps } from './page-title';
+import { YPageHeaderProps } from './page-header';
 import { useRoute } from 'vue-router';
 import { get, isEmpty } from 'lodash-es';
 
 defineOptions({
-  name: 'YPageTitle',
+  name: 'YPageHeader',
   inheritAttrs: true
 });
 
-const props = withDefaults(defineProps<YPageTitleProps>(), {
+const props = withDefaults(defineProps<YPageHeaderProps>(), {
   title: '',
   titleStyle: () => ({}),
   border: true
 });
 
 // 从app-wrap配置中获取默认值
-const appConfig = useAppConfig('pageTitle');
+const appConfig = useAppConfig('pageHeader');
 
 // 计算显示的高度
 const displayHeight = computed(() => {
