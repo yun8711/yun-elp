@@ -11,6 +11,7 @@ import { YSimpleRadio } from './src/simple-radio';
 import { YTextTooltip } from './src/text-tooltip';
 import { YButton } from './src/button';
 import { YPageFooter } from './src/page-footer';
+import { YDrawer } from './src/drawer';
 
 export default [
   YAppWrap,
@@ -25,4 +26,5 @@ export default [
   YTextTooltip,
   YButton,
   YPageFooter,
+  YDrawer,
 ] as Plugin[];

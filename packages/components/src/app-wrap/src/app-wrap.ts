@@ -2,8 +2,6 @@ import type { LocaleType } from '../../../locale';
 import type { ConfigProviderProps } from 'element-plus';
 import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
 
-// export const elpConfigProviderContextKey:InjectionKey<Ref<
-
 // 定义扩展的属性
 export interface AppWrapProps {
   // el-config-provider的配置
@@ -34,7 +32,26 @@ export interface AppWrapProps {
   button?: {
     delay?: string | number | undefined;
     maxWait?: string | number | undefined;
-    placement?: 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end';
+    placement?:
+      | 'top'
+      | 'top-start'
+      | 'top-end'
+      | 'bottom'
+      | 'bottom-start'
+      | 'bottom-end'
+      | 'left'
+      | 'left-start'
+      | 'left-end'
+      | 'right'
+      | 'right-start'
+      | 'right-end';
+  };
+  // drawer的配置
+  drawer?: {
+    size?: string | number;
+    confirmText?: string;
+    cancelText?: string;
+    titleStyle?: Record<string, any>;
   };
   [key: string]: any;
 }
@@ -63,6 +80,10 @@ export const appWrapProps = {
   },
   button: {
     type: Object as PropType<AppWrapProps['button']>,
+    default: () => ({})
+  },
+  drawer: {
+    type: Object as PropType<AppWrapProps['drawer']>,
     default: () => ({})
   }
 } as const;

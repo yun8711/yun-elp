@@ -11,3 +11,4 @@ export * from './simple-radio';
 export * from './text-tooltip';
 export * from './button';
 export * from './page-footer';
+export * from './drawer';

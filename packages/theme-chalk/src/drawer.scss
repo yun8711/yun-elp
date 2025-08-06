@@ -1,0 +1,29 @@
+.y-drawer {
+  &__header {
+    padding: 16px !important;
+    border-bottom: 1px solid var(--el-border-color-light);
+    margin-bottom: 0 !important;
+    font-size: var(--el-font-size-base);
+    box-sizing: border-box;
+
+    .el-drawer__title {
+      font-size: var(--el-font-size-base);
+      font-weight: var(--el-font-weight-primary);
+      color: var(--el-text-color-primary);
+    }
+  }
+
+  &__body {
+    padding: 0;
+  }
+
+  &__footer {
+    padding: 16px !important;
+    border-top: 1px solid var(--el-border-color-light);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 56px;
+    box-sizing: border-box;
+  }
+}

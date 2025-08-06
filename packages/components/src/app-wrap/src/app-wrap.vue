@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import { watch, provide } from '@vue/runtime-core';
+import { provide } from '@vue/runtime-core';
 import { omit } from 'lodash-es';
-import { setLocale, type LocaleType } from '../../../locale';
+import { localeContextKey } from '../../../locale';
 import type { AppWrapProps } from './app-wrap';
 import { appConfigKey } from './use-app-config';
 
@@ -43,21 +43,13 @@ const props = withDefaults(defineProps<AppWrapProps>(), {
     delay: 300,
     maxWait: undefined,
     placement: 'top'
-  })
+  }),
 });
 
-// 从props中获取除elpConfig/locale以外的配置
+// 从props中获取除elpConfig、locale以外的配置
 const configProps = omit(props, ['elpConfig', 'locale']);
 
 // 提供全局配置
 provide(appConfigKey, configProps);
-
-// 处理传入的locale，并设置全局语言
-watch(
-  () => props.locale,
-  (newLocale: LocaleType) => {
-    setLocale(newLocale as LocaleType);
-  },
-  { immediate: true }
-);
+provide(localeContextKey, props.locale);
 </script>
