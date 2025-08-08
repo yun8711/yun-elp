@@ -51,6 +51,11 @@
         "text": "drawer 抽屉",
         "link": "/components/drawer/",
         "activeMatch": "/components/drawer/"
+      },
+      {
+        "text": "scroll-box 滚动盒",
+        "link": "/components/scroll-box/",
+        "activeMatch": "/components/scroll-box/"
       }
     ]
   },
