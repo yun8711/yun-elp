@@ -1,147 +1,221 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import YDrawer from '../src/drawer.vue';
 
-// Mock useAppConfig
-vi.mock('../../app-wrap/src/use-app-config', () => ({
-  useAppConfig: () => ({
-    size: '640px',
-    confirmText: '确定',
-    cancelText: '取消',
-    titleStyle: {}
-  })
-}));
-
-// Mock useLocale
-vi.mock('../../../hooks/use-locale', () => ({
-  useLocale: () => ({
-    t: (key: string) => key === 'common.confirm' ? '确定' : key === 'common.cancel' ? '取消' : key
-  })
-}));
+// 全局 stubs：最小化实现，便于断言 attrs、插槽与点击
+const globalStubs = {
+  'el-drawer': {
+    template:
+      '<div class="el-drawer" v-bind="$attrs"><slot name="header"></slot><slot></slot><slot name="footer"></slot></div>'
+  },
+  'y-button': {
+    props: ['type'],
+    template: '<button class="y-button" :data-type="type"><slot/></button>'
+  }
+};
 
 describe('YDrawer', () => {
-  let wrapper: any;
-
-  beforeEach(() => {
-    wrapper = mount(YDrawer, {
-      global: {
-        stubs: {
-          'el-drawer': {
-            template: '<div class="el-drawer"><slot name="header"></slot><slot></slot><slot name="footer"></slot></div>',
-            props: ['modelValue', 'headerClass', 'bodyClass', 'footerClass', 'size', 'with-header']
-          },
-          'y-button': {
-            template: '<button class="y-button"><slot></slot></button>',
-            props: ['type', 'disabled']
-          }
-        }
-      }
-    });
+  it('渲染正常', () => {
+    const wrapper = mount(YDrawer, { global: { stubs: globalStubs } });
+    expect(wrapper.exists()).toBe(true);
   });
 
-  describe('基础渲染', () => {
-    it('组件应该正常渲染', () => {
-      expect(wrapper.exists()).toBe(true);
-      expect(wrapper.find('.y-drawer').exists()).toBe(true);
-    });
+  it('默认不显示（受控，默认 modelValue=false）', () => {
+    const wrapper = mount(YDrawer, { global: { stubs: globalStubs } });
+    expect(wrapper.props('modelValue')).toBe(false);
   });
 
-  describe('Props 测试', () => {
-    it('应该正确设置 title', async () => {
-      await wrapper.setProps({ title: '测试标题' });
-      await nextTick();
-      expect(wrapper.text()).toContain('测试标题');
+  it('通过 modelValue 控制显示状态（受控）', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true },
+      global: { stubs: globalStubs }
     });
-
-    it('应该正确设置 confirmText', async () => {
-      await wrapper.setProps({ confirmText: '自定义确认' });
-      await nextTick();
-      expect(wrapper.text()).toContain('自定义确认');
-    });
-
-    it('应该正确设置 cancelText', async () => {
-      await wrapper.setProps({ cancelText: '自定义取消' });
-      await nextTick();
-      expect(wrapper.text()).toContain('自定义取消');
-    });
+    expect(wrapper.props('modelValue')).toBe(true);
   });
 
-  describe('方法测试', () => {
-    it('open 方法应该正确工作', async () => {
-      expect(wrapper.vm.show).toBe(false);
-      await wrapper.vm.open();
-      expect(wrapper.vm.show).toBe(true);
+  it('点击确认：无外部监听器 -> 仅触发 update:modelValue(false)，不触发 confirm', async () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true },
+      global: { stubs: globalStubs }
     });
-
-    it('close 方法应该正确工作', async () => {
-      // 先打开
-      await wrapper.vm.open();
-      expect(wrapper.vm.show).toBe(true);
-
-      // 再关闭
-      await wrapper.vm.close();
-      expect(wrapper.vm.show).toBe(false);
-    });
+    const buttons = wrapper.findAll('button.y-button');
+    await buttons[0].trigger('click');
+    expect(wrapper.emitted('confirm')).toBeUndefined();
+    expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+    expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([false]);
   });
 
-  describe('插槽测试', () => {
-    it('应该正确渲染默认插槽', () => {
-      const wrapperWithSlot = mount(YDrawer, {
-        global: {
-          stubs: {
-            'el-drawer': {
-              template: '<div class="el-drawer"><slot name="header"></slot><slot></slot><slot name="footer"></slot></div>',
-              props: ['modelValue', 'headerClass', 'bodyClass', 'footerClass', 'size', 'with-header']
-            },
-            'y-button': {
-              template: '<button class="y-button"><slot></slot></button>',
-              props: ['type', 'disabled']
-            }
-          }
-        },
-        slots: {
-          default: '<div class="test-content">测试内容</div>'
-        }
-      });
-      expect(wrapperWithSlot.find('.test-content').exists()).toBe(true);
-      expect(wrapperWithSlot.text()).toContain('测试内容');
+  it('点击确认：有外部监听器 -> 仅触发 confirm，不触发 update:modelValue', async () => {
+    const onConfirm = () => {};
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true, onConfirm },
+      global: { stubs: globalStubs }
     });
-
-    it('应该正确渲染 header 插槽', () => {
-      const wrapperWithHeader = mount(YDrawer, {
-        global: {
-          stubs: {
-            'el-drawer': {
-              template: '<div class="el-drawer"><slot name="header"></slot><slot></slot><slot name="footer"></slot></div>',
-              props: ['modelValue', 'headerClass', 'bodyClass', 'footerClass', 'size', 'with-header']
-            },
-            'y-button': {
-              template: '<button class="y-button"><slot></slot></button>',
-              props: ['type', 'disabled']
-            }
-          }
-        },
-        slots: {
-          header: '<div class="custom-header">自定义头部</div>'
-        }
-      });
-      expect(wrapperWithHeader.find('.custom-header').exists()).toBe(true);
-      expect(wrapperWithHeader.text()).toContain('自定义头部');
-    });
+    const buttons = wrapper.findAll('button.y-button');
+    await buttons[0].trigger('click');
+    expect(wrapper.emitted('confirm')).toBeTruthy();
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined();
   });
 
-  describe('组件暴露的方法', () => {
-    it('应该暴露 open 方法', () => {
-      expect(typeof wrapper.vm.open).toBe('function');
+  it('点击取消：无外部监听器 -> 仅触发 update:modelValue(false)，不触发 cancel', async () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true },
+      global: { stubs: globalStubs }
     });
+    const buttons = wrapper.findAll('button.y-button');
+    await buttons[1].trigger('click');
+    expect(wrapper.emitted('cancel')).toBeUndefined();
+    expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+    expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([false]);
+  });
 
-    it('应该暴露 close 方法', () => {
-      expect(typeof wrapper.vm.close).toBe('function');
+  it('点击取消：有外部监听器 -> 仅触发 cancel，不触发 update:modelValue', async () => {
+    const onCancel = () => {};
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true, onCancel },
+      global: { stubs: globalStubs }
     });
+    const buttons = wrapper.findAll('button.y-button');
+    await buttons[1].trigger('click');
+    expect(wrapper.emitted('cancel')).toBeTruthy();
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined();
+  });
 
-    it('应该暴露 scrollbarRef', () => {
-      expect(wrapper.vm.scrollbarRef).toBeDefined();
+  it('showFooter=false 时不渲染底部按钮', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true, showFooter: false },
+      global: { stubs: globalStubs }
     });
+    expect(wrapper.findAll('button.y-button').length).toBe(0);
+  });
+
+  it('noConfirm=true 隐藏确认按钮，仅保留取消按钮', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true, noConfirm: true },
+      global: { stubs: globalStubs }
+    });
+    expect(wrapper.findAll('button.y-button').length).toBe(1);
+  });
+
+  it('noCancel=true 隐藏取消按钮，仅保留确认按钮', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true, noCancel: true },
+      global: { stubs: globalStubs }
+    });
+    expect(wrapper.findAll('button.y-button').length).toBe(1);
+  });
+
+  it('支持自定义确认/取消按钮文案', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true, confirmText: 'OK', cancelText: 'NO' },
+      global: { stubs: globalStubs }
+    });
+    const buttons = wrapper.findAll('button.y-button');
+    expect(buttons[0].text()).toBe('OK');
+    expect(buttons[1].text()).toBe('NO');
+  });
+
+  it('默认确认/取消文案来自 i18n（zh-CN：确认/取消）', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true },
+      global: { stubs: globalStubs }
+    });
+    const buttons = wrapper.findAll('button.y-button');
+    expect(buttons[0].text()).toBe('确认');
+    expect(buttons[1].text()).toBe('取消');
+  });
+
+  it('确认按钮类型：默认 primary，可通过 confirmProps 覆盖', async () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true },
+      global: { stubs: globalStubs }
+    });
+    let btns = wrapper.findAll('button.y-button');
+    expect(btns[0].attributes('data-type')).toBe('primary');
+
+    await wrapper.setProps({ confirmProps: { type: 'success' } } as any);
+    await nextTick();
+    btns = wrapper.findAll('button.y-button');
+    expect(btns[0].attributes('data-type')).toBe('success');
+  });
+
+  it('title 文案渲染', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true, title: '测试标题' },
+      global: { stubs: globalStubs }
+    });
+    expect(wrapper.text()).toContain('测试标题');
+  });
+
+  it('header/body/footer class 属性与 size 透传至 el-drawer，且 size 默认 640px', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true },
+      global: { stubs: globalStubs }
+    });
+    const attrs = wrapper.find('.el-drawer').attributes();
+    const get = (key: string) => attrs[key] ?? attrs[key.replace(/([A-Z])/g, '-$1').toLowerCase()] ?? attrs[key.toLowerCase()];
+    expect(get('headerClass')).toBe('y-drawer__header');
+    expect(get('bodyClass')).toBe('y-drawer__body');
+    expect(get('footerClass')).toBe('y-drawer__footer');
+    expect(attrs['size']).toBe('640px');
+  });
+
+  it('attrs 透传：传入 size 应覆盖默认 size', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true, size: '500px' } as any,
+      global: { stubs: globalStubs }
+    });
+    const attrs = wrapper.find('.el-drawer').attributes();
+    expect(attrs['size']).toBe('500px');
+  });
+
+  it('confirm/cancel 具名插槽应覆盖默认按钮', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true },
+      slots: {
+        confirm: () => '自定义确认',
+        cancel: () => '自定义取消'
+      },
+      global: { stubs: globalStubs }
+    });
+    expect(wrapper.findAll('button.y-button').length).toBe(0);
+    expect(wrapper.text()).toContain('自定义确认');
+    expect(wrapper.text()).toContain('自定义取消');
+  });
+
+  it('支持自定义 header 插槽', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true },
+      slots: { header: '<div class="custom-header">自定义头部</div>' },
+      global: { stubs: globalStubs }
+    });
+    expect(wrapper.find('.custom-header').exists()).toBe(true);
+    expect(wrapper.find('.custom-header').text()).toContain('自定义头部');
+  });
+
+  it('title 插槽应覆盖基于 props.title 的默认标题内容', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true, title: 'Props 标题' },
+      slots: { title: () => 'Slot 标题' },
+      global: { stubs: globalStubs }
+    });
+    const headerTitle = wrapper.find('.y-drawer__header-title');
+    expect(headerTitle.exists()).toBe(true);
+    expect(headerTitle.text()).toContain('Slot 标题');
+    expect(headerTitle.text()).not.toContain('Props 标题');
+  });
+
+  it('defineExpose 暴露 drawerRef（在实例上可访问该字段）', async () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true },
+      global: { stubs: globalStubs }
+    });
+    const vmAny: any = wrapper.vm as any;
+    // 暴露的 ref 会在代理上解包，故这里只断言字段存在且可访问
+    expect('drawerRef' in vmAny).toBe(true);
+    // 挂载后应可访问到（可能为 null 或子组件实例，视运行时而定）
+    // 仅校验不为 undefined
+    expect(vmAny.drawerRef).not.toBeUndefined();
   });
 });

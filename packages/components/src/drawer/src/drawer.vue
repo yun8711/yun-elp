@@ -1,5 +1,5 @@
 <template>
-  <el-drawer v-model="show" v-bind="drawerAttrs" class="y-drawer">
+  <el-drawer v-model="drawerVisible" ref="drawerRef" v-bind="drawerAttrs" class="y-drawer">
     <template #header>
       <slot name="header">
         <div class="y-drawer__header-title" :style="titleStyle">
@@ -18,7 +18,7 @@
           <y-button v-if="!props.noConfirm" v-bind="confirmBtnProps" @click="confirmClick">{{ confirmText }}</y-button>
         </slot>
         <slot name="cancel">
-          <y-button v-if="!props.noCancel" v-bind="cancelProps" @click="cancelClick">{{ cancelText }}</y-button>
+          <y-button v-if="!props.noCancel" v-bind="cancelBtnProps" @click="cancelClick">{{ cancelText }}</y-button>
         </slot>
       </slot>
     </template>
@@ -30,19 +30,23 @@ import { ref, computed, useAttrs } from '@vue/runtime-core';
 import { DrawerProps } from './drawer';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
+import { useExternalListener } from '../../../hooks/use-external-listener';
+import { omit } from 'lodash-es';
 
 defineOptions({
   name: 'YDrawer',
   inheritAttrs: true
 });
 
-const emit = defineEmits(['confirm', 'cancel'])
+const emit = defineEmits(['confirm', 'cancel', 'update:modelValue'])
 
-const show = ref(false)
 const drawerConfig = useAppConfig('drawer');
 const attrs = useAttrs();
 const { t } = useLocale();
+const { hasExternalListener } = useExternalListener();
+
 const props = withDefaults(defineProps<DrawerProps>(), {
+  modelValue: false,
   title: '',
   titleStyle: () => ({}),
   showFooter: true,
@@ -52,12 +56,21 @@ const props = withDefaults(defineProps<DrawerProps>(), {
   cancelProps: () => { },
 })
 
+// 受控组件的显示状态
+const drawerVisible = computed({
+  get: () => props.modelValue,
+  set: (val: boolean) => {
+    emit('update:modelValue', val)
+  }
+})
+
 const drawerAttrs = computed(() => {
   return {
     headerClass: 'y-drawer__header',
     bodyClass: 'y-drawer__body',
     footerClass: 'y-drawer__footer',
     size: drawerConfig?.size || '640px',
+    ...omit(drawerConfig, ['titleStyle', 'confirmText', 'cancelText', 'confirmProps', 'cancelProps']),
     ...attrs,
   }
 })
@@ -77,6 +90,14 @@ const confirmBtnProps = computed(() => {
     ...props.confirmProps,
   }
 })
+
+const cancelBtnProps = computed(() => {
+  return {
+    type: props.cancelType || 'default',
+    ...props.cancelProps,
+  }
+})
+
 const confirmText = computed(() => {
   return props?.confirmText || drawerConfig?.confirmText || t('common.confirm')
 })
@@ -85,26 +106,24 @@ const cancelText = computed(() => {
   return props?.cancelText || drawerConfig?.cancelText || t('common.cancel')
 })
 
-const open = () => {
-  show.value = true
-}
-
-const close = () => {
-  show.value = false
-}
-
 const cancelClick = () => {
-  show.value = false
-  emit('cancel')
+  if (hasExternalListener('cancel')) {
+    emit('cancel');
+  } else {
+    emit('update:modelValue', false)
+  }
 }
 
 const confirmClick = () => {
-  show.value = false
-  emit('confirm')
+  if (hasExternalListener('confirm')) {
+    emit('confirm');
+  } else {
+    emit('update:modelValue', false)
+  }
 }
 
+const drawerRef = ref(null);
 defineExpose({
-  open,
-  close,
+  drawerRef,
 })
 </script>

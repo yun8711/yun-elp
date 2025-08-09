@@ -27,7 +27,6 @@ drawer/test
 | headerClass  | header 部分的自定义 class 名 | ^[string]                      | `'y-drawer__header'`        |
 | bodyClass    | body 部分的自定义 class 名   | ^[string]                      | `'y-drawer__body'`          |
 | footerClass  | footer 部分的自定义 class 名 | ^[string]                      | `'y-drawer__footer'`        |
-| title        | 抽屉标题                     | ^[string]                      | —                           |
 | titleStyle   | 标题样式                     | ^[object]`Record<string, any>` | —                           |
 | showFooter   | 是否显示底部按钮区域         | ^[boolean]                     | `true`                      |
 | noConfirm    | 是否隐藏确认按钮             | ^[boolean]                     | `false`                     |
@@ -35,7 +34,7 @@ drawer/test
 | confirmProps | 确认按钮属性                 | ^[object]`YButtonProps`        | ^[object]`{type:'primary'}` |
 | noCancel     | 是否隐藏取消按钮             | ^[boolean]                     | `false`                     |
 | cancelText   | 取消按钮文本                 | ^[string]                      | `'取消'`                    |
-| cancelProps  | 取消按钮属性                 | ^[object]`YButtonProps`        | —                           |
+| cancelProps  | 取消按钮属性                 | ^[object]`YButtonProps`        | ^[object]`{type:'default'}` |
 
 ### Slots
 

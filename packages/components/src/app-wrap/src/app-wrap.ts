@@ -1,5 +1,5 @@
 import type { LocaleType } from '../../../locale';
-import type { ConfigProviderProps, DialogProps } from 'element-plus';
+import type { ConfigProviderProps, DialogProps, DrawerProps } from 'element-plus';
 import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
 import type { ButtonProps as YButtonProps } from '../../button/src/button';
 
@@ -48,11 +48,12 @@ export interface AppWrapProps {
       | 'right-end';
   };
   // drawer的配置
-  drawer?: {
-    size?: string | number;
+  drawer?: DrawerProps & {
     confirmText?: string;
     cancelText?: string;
     titleStyle?: Record<string, any>;
+    confirmProps?: YButtonProps;
+    cancelProps?: YButtonProps;
   };
   // dialog的配置
   dialog?: DialogProps & {

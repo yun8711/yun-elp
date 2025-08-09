@@ -57,12 +57,15 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：1
 
 #### drawer Attribute
 
-| 参数        | 描述                   | 类型                     | 默认值    |
-| ----------- | ---------------------- | ------------------------ | --------- |
-| size        | 组件尺寸               | ^[string] / ^[number]    | `'640px'` |
-| confirmText | 确认按钮文本           | ^[string]                | `'确定'`  |
-| cancelText  | 取消按钮文本           | ^[string]                | `'取消'`  |
-| titleStyle  | 组件默认是否显示下边框 | ^[object]`CSSProperties` | —         |
+继承 [el-drawer 的全部属性](https://element-plus.org/zh-CN/component/drawer.html#%E5%B1%9E%E6%80%A7) ，另外包含以下属性
+
+| 参数         | 描述                   | 类型                     | 默认值             |
+| ------------ | ---------------------- | ------------------------ | ------------------ |
+| confirmText  | 确认按钮文本           | ^[string]                | `'确定'`           |
+| confirmProps | 确认按钮属性           | ^[object]`YButtonProps`  | `{type:'primary'}` |
+| cancelText   | 取消按钮文本           | ^[string]                | `'取消'`           |
+| cancelProps  | 取消按钮属性           | ^[object]`YButtonProps`  | `{type:'default'}` |
+| titleStyle   | 组件默认是否显示下边框 | ^[object]`CSSProperties` | —                  |
 
 #### dialog Attribute
 

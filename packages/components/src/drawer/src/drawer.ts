@@ -2,6 +2,7 @@ import type { ExtractPublicPropTypes } from '@vue/runtime-core';
 import type { ButtonProps } from '../../button/src/button';
 
 export interface DrawerProps {
+  modelValue?: boolean;
   title?: string;
   titleStyle?: Record<string, any>;
   showFooter?: boolean;
