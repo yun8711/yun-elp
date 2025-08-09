@@ -12,3 +12,7 @@ export * from './text-tooltip';
 export * from './button';
 export * from './page-footer';
 export * from './drawer';
+export * from './dialog';
+
+// Hooks 导出
+export * from '../hooks';

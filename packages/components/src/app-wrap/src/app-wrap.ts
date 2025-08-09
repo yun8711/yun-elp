@@ -1,6 +1,7 @@
 import type { LocaleType } from '../../../locale';
-import type { ConfigProviderProps } from 'element-plus';
+import type { ConfigProviderProps, DialogProps } from 'element-plus';
 import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
+import type { ButtonProps as YButtonProps } from '../../button/src/button';
 
 // 定义扩展的属性
 export interface AppWrapProps {
@@ -53,6 +54,14 @@ export interface AppWrapProps {
     cancelText?: string;
     titleStyle?: Record<string, any>;
   };
+  // dialog的配置
+  dialog?: DialogProps & {
+    titleStyle?: Record<string, any>;
+    confirmText?: string;
+    confirmProps?: YButtonProps;
+    cancelText?: string;
+    cancelProps?: YButtonProps;
+  };
   [key: string]: any;
 }
 
@@ -84,6 +93,10 @@ export const appWrapProps = {
   },
   drawer: {
     type: Object as PropType<AppWrapProps['drawer']>,
+    default: () => ({})
+  },
+  dialog: {
+    type: Object as PropType<AppWrapProps['dialog']>,
     default: () => ({})
   }
 } as const;

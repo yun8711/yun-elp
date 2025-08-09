@@ -37,6 +37,12 @@
     "./locale/*": {
       "import": "./es/locale/lang/*.mjs"
     },
+    "./hooks": {
+      "import": "./es/hooks/index.mjs"
+    },
+    "./hooks/*": {
+      "import": "./es/hooks/*.mjs"
+    },
     "./resolver": {
       "types": "./resolver.d.ts",
       "import": "./resolver.mjs"

@@ -46,11 +46,6 @@
         "text": "page-footer 页脚",
         "link": "/components/page-footer/",
         "activeMatch": "/components/page-footer/"
-      },
-      {
-        "text": "drawer 抽屉",
-        "link": "/components/drawer/",
-        "activeMatch": "/components/drawer/"
       }
     ]
   },
@@ -91,7 +86,18 @@
   },
   {
     "text": "反馈",
-    "items": []
+    "items": [
+      {
+        "text": "drawer 抽屉",
+        "link": "/components/drawer/",
+        "activeMatch": "/components/drawer/"
+      },
+      {
+        "text": "dialog 对话框",
+        "link": "/components/dialog/",
+        "activeMatch": "/components/dialog/"
+      }
+    ]
   },
   {
     "text": "其他",
