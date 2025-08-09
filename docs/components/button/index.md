@@ -33,7 +33,7 @@ button/tooltip
 | maxWait      | 最大等待时间，单位ms                                                               | ^[string] / ^[number]                                                                                                                                                       | —       |
 | placement    | el-tooltip显示位置                                                                 | ^[enum]`'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | `'top'` |
 | content      | el-tooltip内容                                                                     | ^[string]                                                                                                                                                                   | —       |
-| tooltipProps | 参见[el-tooltip](https://element-plus.org/zh-CN/component/tooltip.html#attributes) | ^[object]`ElTooltipProps`                                                                                                                                                   | —       |
+| tooltipProps | 优先级最高，参见[el-tooltip](https://element-plus.org/zh-CN/component/tooltip.html#attributes) | ^[object]`ElTooltipProps`                                                                                                                                                   | —       |
 
 ### Slots
 
@@ -50,5 +50,5 @@ button/tooltip
 
 | 属性名     | 说明                 | 类型                              |
 | ---------- | -------------------- | --------------------------------- |
-| buttonRef  | 内部 el-button 元素  | ^[object]`Ref<HTMLButtonElement>` |
-| tooltipRef | 内部 el-tooltip 元素 | ^[object]`Ref<HTMLButtonElement>` |
+| buttonRef  | 内部 el-button 元素  | ^[object]`Ref<ElButtonInstance>` |
+| tooltipRef | 内部 el-tooltip 元素 | ^[object]`Ref<ElTooltipInstance>` |

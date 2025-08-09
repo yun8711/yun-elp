@@ -1,6 +1,6 @@
 <template>
-  <el-tooltip v-bind="tooltipAttrs" :disabled="!showTooltip" class="y-button-tooltip" ref="tooltipRef">
-    <el-button class="y-button" v-bind="$attrs" @click="handleClick" ref="buttonRef">
+  <el-tooltip v-bind="tooltipAttrs" class="y-button-tooltip" ref="tooltipRef">
+    <el-button class="y-button" v-bind="buttonAttrs" @click="handleClick" ref="buttonRef">
       <slot />
       <slot name="icon" />
       <slot name="loading" />
@@ -13,12 +13,14 @@
 
 <script setup lang="ts">
 import { useDebounceFn } from '@vueuse/core'
-import { computed, ref, useSlots, defineExpose } from '@vue/runtime-core'
+import { computed, ref, useSlots, useAttrs, defineExpose } from '@vue/runtime-core'
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
+import { ButtonProps as ElButtonProps } from 'element-plus';
 import type { ButtonProps } from './button'
+import { pick } from 'lodash-es'
 const $slots = useSlots()
 const buttonConfig = useAppConfig('button')
-
+const attrs = useAttrs()
 defineOptions({
   name: 'YButton',
   inheritAttrs: false
@@ -60,14 +62,47 @@ const handleClick = useDebounceFn((event: MouseEvent) => {
 
 
 const showTooltip = computed(() => {
-  return props.content || $slots.content
+  return props.content || $slots.content || props?.tooltipProps?.content;
 })
 
 const tooltipAttrs = computed(() => {
+  const configAttrs = buttonConfig?.tooltipProps || {};
+  const propAttrs = props?.tooltipProps || {};
   return {
+    ...configAttrs,
     content: props.content,
     placement: placement.value,
-    ...props.tooltipProps
+    disabled: !showTooltip.value,
+    ...propAttrs,
+  }
+})
+
+// 以常量数组列举 ElButton 支持的属性键，受 TS 类型校验
+const EL_BUTTON_PROP_KEYS = [
+  'type',
+  'size',
+  'plain',
+  'text',
+  'bg',
+  'link',
+  'round',
+  'circle',
+  'loading',
+  'disabled',
+  'icon',
+  'autofocus',
+  'nativeType',
+  'autoInsertSpace',
+  'color',
+  'dark',
+  'tag'
+] as const satisfies readonly (keyof ElButtonProps)[];
+
+const buttonAttrs = computed(() => {
+  const configAttrs = buttonConfig || {};
+  return {
+    ...pick(configAttrs, EL_BUTTON_PROP_KEYS),
+    ...pick(attrs, EL_BUTTON_PROP_KEYS),
   }
 })
 

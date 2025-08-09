@@ -25,7 +25,7 @@ vi.mock('../../app-wrap/src/use-app-config', () => ({
 // Mock Element Plus components
 const ElButton = {
   name: 'ElButton',
-  template: '<button v-bind="$attrs" @click="$emit(\'click\', $event)"><slot /><slot name="icon" /><slot name="loading" /></button>',
+  template: '<button class="el-button" :data-type="type" :data-size="size" :data-disabled="String(disabled)" :data-loading="String(loading)" v-bind="$attrs" @click="$emit(\'click\', $event)"><slot /><slot name="icon" /><slot name="loading" /></button>',
   emits: ['click'],
   props: ['type', 'size', 'disabled', 'loading']
 };
@@ -133,20 +133,23 @@ describe('YButton 组件', () => {
     expect(wrapper.emitted('click')).toBeDefined();
   });
 
-  it('继承 el-button 的所有属性', () => {
+  it('不转发任意 attrs（data-testid/style/class 等），仅保留组件自身 class', () => {
     const wrapper = mount(YButton, {
       ...globalConfig,
       attrs: {
-        'data-testid': 'test-button',
+        'data-testid': 'should-not-forward',
         class: 'custom-class',
         style: 'color: red;'
       }
     });
 
     const button = wrapper.find('button');
-    expect(button.attributes('data-testid')).toBe('test-button');
-    expect(button.attributes('class')).toContain('custom-class');
-    expect(button.attributes('style')).toContain('color: red');
+    // 非声明支持的 attrs 不应被透传
+    expect(button.attributes('data-testid')).toBeUndefined();
+    expect(button.attributes('style')).toBeUndefined();
+    expect(button.classes()).not.toContain('custom-class');
+    // 仍应包含 y-button
+    expect(button.classes()).toContain('y-button');
   });
 
   it('emit click 事件', async () => {
@@ -261,6 +264,17 @@ describe('YButton 组件', () => {
       const tooltip = wrapper.find('.el-tooltip');
       expect(tooltip.attributes('effect')).toBe('dark');
       expect(tooltip.attributes('enterable')).toBe('false');
+    });
+
+    it('仅设置 tooltipProps.content 也应显示 tooltip（disabled=false）', () => {
+      const wrapper = mount(YButton, {
+        ...globalConfig,
+        props: {
+          tooltipProps: { content: '来自 props.tooltipProps 的提示' }
+        }
+      });
+      const tooltip = wrapper.find('.el-tooltip');
+      expect(tooltip.attributes('disabled')).toBe('false');
     });
 
     it('tooltip 和 content 插槽同时存在时优先使用插槽', () => {

@@ -1,5 +1,5 @@
 import type { LocaleType } from '../../../locale';
-import type { ConfigProviderProps, DialogProps, DrawerProps } from 'element-plus';
+import type { ConfigProviderProps, DialogProps, DrawerProps, ButtonProps } from 'element-plus';
 import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
 import type { ButtonProps as YButtonProps } from '../../button/src/button';
 
@@ -30,7 +30,7 @@ export interface AppWrapProps {
     right?: string | number;
   };
   // button的配置
-  button?: {
+  button?: ButtonProps & {
     delay?: string | number | undefined;
     maxWait?: string | number | undefined;
     placement?:
