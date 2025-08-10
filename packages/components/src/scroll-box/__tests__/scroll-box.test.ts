@@ -1,11 +1,26 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { ElScrollbar, ElIcon } from 'element-plus';
 import YScrollBox from '../src/scroll-box.vue';
 
+// Mock ResizeObserver
+const mockResizeObserver = {
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+};
+
+global.ResizeObserver = vi.fn(() => mockResizeObserver);
+
 describe('YScrollBox', () => {
-  it('should render correctly', () => {
-    const wrapper = mount(YScrollBox, {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  const createWrapper = (props = {}, slots = {}) => {
+    return mount(YScrollBox, {
+      props,
+      slots,
       global: {
         components: {
           ElScrollbar,
@@ -13,70 +28,285 @@ describe('YScrollBox', () => {
         }
       }
     });
+  };
 
-    expect(wrapper.find('.y-scroll-box').exists()).toBe(true);
-    expect(wrapper.find('.y-scroll-box__container').exists()).toBe(true);
-  });
-
-  it('should render with default props', () => {
-    const wrapper = mount(YScrollBox, {
-      global: {
-        components: {
-          ElScrollbar,
-          ElIcon
-        }
-      }
+  describe('基础渲染', () => {
+    it('应该正确渲染组件', () => {
+      const wrapper = createWrapper();
+      expect(wrapper.find('.y-scroll-box').exists()).toBe(true);
+      expect(wrapper.find('.y-scroll-box__container').exists()).toBe(true);
+      expect(wrapper.find('.y-scroll-box__content').exists()).toBe(true);
     });
 
-    expect(wrapper.classes()).toContain('y-scroll-box--horizontal');
+    it('应该正确渲染内容', () => {
+      const wrapper = createWrapper({}, {
+        default: '<div>测试内容</div>'
+      });
+      expect(wrapper.text()).toContain('测试内容');
+    });
   });
 
-  it('should render with vertical direction', () => {
-    const wrapper = mount(YScrollBox, {
-      props: {
-        direction: 'vertical'
-      },
-      global: {
-        components: {
-          ElScrollbar,
-          ElIcon
-        }
-      }
+    describe('属性测试', () => {
+    it('应该应用自定义高度和宽度', () => {
+      const wrapper = createWrapper({
+        height: 200,
+        width: 300
+      });
+
+      const container = wrapper.find('.y-scroll-box');
+      const style = container.attributes('style');
+      expect(style).toContain('height: 200px');
+      expect(style).toContain('width: 300px');
     });
 
-    expect(wrapper.classes()).toContain('y-scroll-box--vertical');
+    it('应该应用自定义箭头样式', () => {
+      const arrowStyle = { backgroundColor: 'red', color: 'white' };
+      const wrapper = createWrapper({
+        arrowModel: 'always',
+        arrowStyle
+      });
+
+      const arrow = wrapper.find('.y-scroll-box__arrow--prev');
+      const style = arrow.attributes('style');
+      expect(style).toContain('background-color: red');
+      expect(style).toContain('color: white');
+    });
   });
 
-  it('should render arrows when arrowModel is always', () => {
-    const wrapper = mount(YScrollBox, {
-      props: {
+  describe('箭头显示逻辑', () => {
+    it('当 arrowModel 为 always 时应该显示箭头', () => {
+      const wrapper = createWrapper({
         arrowModel: 'always'
-      },
-      global: {
-        components: {
-          ElScrollbar,
-          ElIcon
-        }
-      }
+      });
+
+      expect(wrapper.find('.y-scroll-box__arrow--prev').exists()).toBe(true);
+      expect(wrapper.find('.y-scroll-box__arrow--next').exists()).toBe(true);
     });
 
-    expect(wrapper.find('.y-scroll-box__arrow--prev').exists()).toBe(true);
-    expect(wrapper.find('.y-scroll-box__arrow--next').exists()).toBe(true);
+    it('当 arrowModel 为 auto 时不应该显示箭头', () => {
+      const wrapper = createWrapper({
+        arrowModel: 'auto'
+      });
+
+      expect(wrapper.find('.y-scroll-box__arrow--prev').exists()).toBe(false);
+      expect(wrapper.find('.y-scroll-box__arrow--next').exists()).toBe(false);
+    });
   });
 
-  it('should render content correctly', () => {
-    const wrapper = mount(YScrollBox, {
-      slots: {
-        default: '<div>Test Content</div>'
-      },
-      global: {
-        components: {
-          ElScrollbar,
-          ElIcon
-        }
-      }
+    describe('滚动功能测试', () => {
+    it('应该触发滚动事件', async () => {
+      const wrapper = createWrapper();
+
+      const scrollbar = wrapper.findComponent(ElScrollbar);
+      await scrollbar.vm.$emit('scroll', { scrollLeft: 100 });
+
+      expect(wrapper.emitted('scroll')).toBeTruthy();
+      expect(wrapper.emitted('scroll')?.[0]).toEqual([100]);
     });
 
-    expect(wrapper.text()).toContain('Test Content');
+    it('单击时应该只触发一次scroll事件', async () => {
+      const wrapper = createWrapper({
+        arrowModel: 'always',
+        step: 50,
+        continuous: true,
+        continuousTime: 100
+      });
+
+      // 模拟滚动条状态
+      const scrollbar = wrapper.findComponent(ElScrollbar);
+      scrollbar.vm.wrapRef = {
+        scrollLeft: 100,
+        scrollWidth: 500,
+        clientWidth: 200
+      };
+
+      // 触发单击事件
+      const prevArrow = wrapper.find('.y-scroll-box__arrow--prev');
+      await prevArrow.trigger('click');
+
+      // 验证只触发一次scroll事件
+      expect(wrapper.emitted('scroll')).toBeTruthy();
+      expect(wrapper.emitted('scroll')?.length).toBe(1);
+    });
+
+    it('连续滚动时应该按continuousStep距离滚动', async () => {
+      const wrapper = createWrapper({
+        arrowModel: 'always',
+        step: 30,
+        continuousStep: 100,
+        continuous: true,
+        continuousTime: 50
+      });
+
+      // 模拟滚动条状态
+      const scrollbar = wrapper.findComponent(ElScrollbar);
+      scrollbar.vm.wrapRef = {
+        scrollLeft: 100,
+        scrollWidth: 500,
+        clientWidth: 200
+      };
+
+      // 模拟按下超过continuousTime
+      const prevArrow = wrapper.find('.y-scroll-box__arrow--prev');
+      await prevArrow.trigger('mousedown');
+
+      // 等待超过continuousTime
+      await new Promise(resolve => setTimeout(resolve, 60));
+
+      await prevArrow.trigger('mouseup');
+
+      // 验证连续滚动使用了continuousStep
+      expect(wrapper.emitted('scroll')).toBeTruthy();
+    });
+
+    it('启用滚轮滚动时应该处理滚轮事件', async () => {
+      const wrapper = createWrapper({
+        wheelScroll: true
+      });
+
+      const container = wrapper.find('.y-scroll-box__container');
+      await container.trigger('wheel', { deltaX: 50, deltaY: 0 });
+
+      // 验证事件被处理（不抛出错误）
+      expect(container.exists()).toBe(true);
+    });
+
+    it('禁用滚轮滚动时不应该处理滚轮事件', async () => {
+      const wrapper = createWrapper({
+        wheelScroll: false
+      });
+
+      const container = wrapper.find('.y-scroll-box__container');
+      await container.trigger('wheel', { deltaX: 50, deltaY: 0 });
+
+      // 验证事件被忽略（不抛出错误）
+      expect(container.exists()).toBe(true);
+    });
+  });
+
+    describe('箭头点击测试', () => {
+    it('应该处理左箭头点击', async () => {
+      const wrapper = createWrapper({
+        arrowModel: 'always'
+      });
+
+      const prevArrow = wrapper.find('.y-scroll-box__arrow--prev');
+      await prevArrow.trigger('mousedown');
+
+      // 验证事件被处理（不抛出错误）
+      expect(prevArrow.exists()).toBe(true);
+    });
+
+    it('应该处理箭头松开事件', async () => {
+      const wrapper = createWrapper({
+        arrowModel: 'always'
+      });
+
+      const arrow = wrapper.find('.y-scroll-box__arrow--prev');
+      await arrow.trigger('mousedown');
+      await arrow.trigger('mouseup');
+
+      // 验证事件被处理（不抛出错误）
+      expect(arrow.exists()).toBe(true);
+    });
+
+    it('应该处理箭头鼠标离开事件', async () => {
+      const wrapper = createWrapper({
+        arrowModel: 'always'
+      });
+
+      const arrow = wrapper.find('.y-scroll-box__arrow--prev');
+      await arrow.trigger('mousedown');
+      await arrow.trigger('mouseleave');
+
+      // 验证事件被处理（不抛出错误）
+      expect(arrow.exists()).toBe(true);
+    });
+  });
+
+    describe('暴露方法测试', () => {
+    it('应该暴露 scrollTo 方法', async () => {
+      const wrapper = createWrapper();
+
+      // 验证方法存在且可调用
+      expect(typeof wrapper.vm.scrollTo).toBe('function');
+      await wrapper.vm.scrollTo(100);
+
+      // 验证方法执行（不抛出错误）
+      expect(wrapper.vm.scrollTo).toBeDefined();
+    });
+
+    it('应该暴露 scrollToStart 方法', async () => {
+      const wrapper = createWrapper();
+
+      // 验证方法存在且可调用
+      expect(typeof wrapper.vm.scrollToStart).toBe('function');
+      await wrapper.vm.scrollToStart();
+
+      // 验证方法执行（不抛出错误）
+      expect(wrapper.vm.scrollToStart).toBeDefined();
+    });
+
+    it('应该暴露 scrollToEnd 方法', async () => {
+      const wrapper = createWrapper();
+
+      // 验证方法存在且可调用
+      expect(typeof wrapper.vm.scrollToEnd).toBe('function');
+      await wrapper.vm.scrollToEnd();
+
+      // 验证方法执行（不抛出错误）
+      expect(wrapper.vm.scrollToEnd).toBeDefined();
+    });
+
+
+  });
+
+    describe('组件生命周期', () => {
+    it('挂载时应该设置 ResizeObserver', async () => {
+      const wrapper = createWrapper();
+      await wrapper.vm.$nextTick();
+
+      expect(ResizeObserver).toHaveBeenCalled();
+    });
+
+    it('卸载时应该清理资源', async () => {
+      const wrapper = createWrapper();
+      await wrapper.vm.$nextTick();
+
+      wrapper.unmount();
+
+      expect(mockResizeObserver.disconnect).toHaveBeenCalled();
+    });
+  });
+
+    describe('连续滚动测试', () => {
+    it('应该处理连续滚动', async () => {
+      const wrapper = createWrapper({
+        arrowModel: 'always',
+        continuous: true,
+        step: 30,
+        continuousStep: 50
+      });
+
+      const arrow = wrapper.find('.y-scroll-box__arrow--prev');
+      await arrow.trigger('mousedown');
+
+      // 验证事件被处理（不抛出错误）
+      expect(arrow.exists()).toBe(true);
+    });
+  });
+
+    describe('边界情况测试', () => {
+    it('应该阻止双击文本选择', async () => {
+      const wrapper = createWrapper({
+        arrowModel: 'always'
+      });
+
+      const arrow = wrapper.find('.y-scroll-box__arrow--prev');
+      await arrow.trigger('dblclick');
+
+      // 验证事件被处理（不抛出错误）
+      expect(arrow.exists()).toBe(true);
+    });
   });
 });

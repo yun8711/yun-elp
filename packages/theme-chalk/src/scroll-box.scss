@@ -14,18 +14,11 @@
     height: 100%;
     width: 100%;
 
-    &--horizontal {
-      .el-scrollbar__wrap {
-        overflow-x: auto;
-        overflow-y: hidden;
-      }
-    }
-
-    &--vertical {
-      .el-scrollbar__wrap {
-        overflow-x: hidden;
-        overflow-y: auto;
-      }
+    .el-scrollbar__wrap {
+      overflow-x: auto;
+      overflow-y: hidden;
+      will-change: scroll-position;
+      scroll-behavior: smooth;
     }
   }
 
@@ -33,15 +26,9 @@
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
-
-    &--horizontal {
-      flex-direction: row;
-      white-space: nowrap;
-    }
-
-    &--vertical {
-      flex-direction: column;
-    }
+    flex-direction: row;
+    white-space: nowrap;
+    will-change: transform;
   }
 
   &__arrow {
@@ -54,8 +41,13 @@
     border: 1px solid var(--el-border-color);
     border-radius: var(--el-border-radius-base);
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     z-index: 1;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    will-change: transform, opacity;
 
     &:hover {
       background-color: var(--el-color-primary-light-9);
@@ -70,40 +62,44 @@
     .el-icon {
       font-size: 16px;
       color: var(--el-text-color-regular);
+      pointer-events: none;
+      transition: color 0.3s ease;
     }
 
     &:hover .el-icon {
       color: var(--el-color-primary);
     }
 
-    &--horizontal {
-      &.y-scroll-box__arrow--prev {
-        margin-right: 8px;
-      }
-
-      &.y-scroll-box__arrow--next {
-        margin-left: 8px;
-      }
+    &.y-scroll-box__arrow--prev {
+      margin-right: 8px;
     }
 
-    &--vertical {
-      &.y-scroll-box__arrow--prev {
-        margin-bottom: 8px;
+    &.y-scroll-box__arrow--next {
+      margin-left: 8px;
+    }
+
+    // 禁用状态
+    &--disabled {
+      cursor: not-allowed;
+      opacity: 0.3;
+      background-color: var(--el-fill-color-light);
+      border-color: var(--el-border-color-lighter);
+      transform: scale(0.95);
+
+      &:hover {
+        background-color: var(--el-fill-color-light);
+        border-color: var(--el-border-color-lighter);
+        color: var(--el-text-color-placeholder);
+        transform: scale(0.95);
       }
 
-      &.y-scroll-box__arrow--next {
-        margin-top: 8px;
+      .el-icon {
+        color: var(--el-text-color-placeholder);
+      }
+
+      &:hover .el-icon {
+        color: var(--el-text-color-placeholder);
       }
     }
-  }
-
-  // 水平方向布局
-  &--horizontal {
-    flex-direction: row;
-  }
-
-  // 垂直方向布局
-  &--vertical {
-    flex-direction: column;
   }
 }

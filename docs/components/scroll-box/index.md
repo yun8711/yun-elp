@@ -1,17 +1,35 @@
 ---
-title: ScrollBox 可滚动容器
-description: ScrollBox 可滚动容器
+title: ScrollBox 可滚动盒容器
+description: ScrollBox 可滚动盒容器
 ---
 
 # ScrollBox 可滚动容器
 
-一个支持水平/垂直方向滚动的容器组件，内部使用 Element Plus 的 scrollbar 组件包裹内容，并提供手动控制滚动的按钮。
+基于 [el-scrollbar 组件](https://element-plus.org/zh-CN/component/scrollbar.html)封装，支持水平方向滚动的容器组件，内部包裹内容，并提供手动控制滚动的按钮。
+
+> 垂直滚动一般不需要箭头，所以可以直接使用 el-scrollbar 组件
 
 ## 基础用法
 
-:::demo 使用 `scroll-box` 组件创建一个可滚动的容器，支持水平和垂直方向的滚动。
+:::demo 设置一个容器，宽度可自由调整，以此来展示自动显示左右箭头的功能。当内容超出容器宽度时，会自动显示左右箭头按钮。
 
 scroll-box/basic
+
+:::
+
+## 连续滚动和滚轮功能
+
+:::demo continuous 属性可控制是否启动连续滚动功能（按下箭头按钮后一直滚动），continuousStep 属性控制连续滚动时的速度，wheelScroll 属性控制是否开户鼠标滚轮触发水平滚动的功能
+
+scroll-box/continuous
+
+:::
+
+## 高级用法 - 自定义箭头样式
+
+:::demo 组件支持自定义箭头样式，内容部分可自由定义。
+
+scroll-box/arrow
 
 :::
 
@@ -27,9 +45,14 @@ scroll-box/basic
 | arrow-style     | 箭头样式                     | ^[object]`Record<string, any>`      | —                     | `{}`           |
 | direction       | 滚动方向                     | ^[enum]`'horizontal' \| 'vertical'` | horizontal / vertical | `'horizontal'` |
 | scrollbar-props | 滚动条配置                   | ^[object]`Partial<ScrollbarProps>`  | —                     | `{}`           |
-| step            | 滚动步进距离                 | ^[number]                           | —                     | `30`           |
+| step            | 单击滚动时的步进距离         | ^[number]                           | —                     | `30`           |
+| continuous-step | 连续滚动时每秒移动的距离     | ^[number]                           | —                     | `step` 的值    |
+| continuous-time | 连续滚动触发时间（毫秒）     | ^[number]                           | —                     | `300`          |
 | continuous      | 是否支持连续滚动             | ^[boolean]                          | —                     | `false`        |
 | wheel-scroll    | 是否支持鼠标滚轮触发水平滚动 | ^[boolean]                          | —                     | `false`        |
+| throttle-delay  | 节流间隔时间（毫秒）         | ^[number]                           | —                     | `16`           |
+| throttle-leading | 节流是否在开始时执行        | ^[boolean]                          | —                     | `true`         |
+| throttle-trailing | 节流是否在结束时执行       | ^[boolean]                          | —                     | `true`         |
 
 ### Events
 
@@ -51,6 +74,17 @@ scroll-box/basic
   - 垂直滚动：auto模式下默认不显示箭头（可通过鼠标滚轮操作），always模式下始终显示
 - **手动滚动控制**：提供左右/上下按钮来手动控制滚动行为
 - **连续滚动**：支持按住按钮连续滚动
-- **鼠标滚轮支持**：可配置是否支持鼠标滚轮触发水平滚动
-- **灵活配置**：可自定义滚动步长、箭头样式等
+- **鼠标滚轮支持**：可配置是否支持鼠标滚轮触发水平滚动，已优化防止外层容器滚动问题
+- **灵活配置**：可自定义滚动步长、箭头样式、节流参数等
 - **响应式设计**：适配不同屏幕尺寸
+
+## 注意事项
+
+### 滚轮滚动优化
+
+当启用 `wheel-scroll` 时，组件会自动处理滚轮事件以防止外层容器滚动：
+
+- 使用 `event.preventDefault()` 阻止默认的垂直滚动行为
+- 直接处理滚轮事件，确保响应性和流畅性
+- 自动限制滚动范围，防止超出边界
+- 支持自定义节流参数以优化其他滚动操作性能
