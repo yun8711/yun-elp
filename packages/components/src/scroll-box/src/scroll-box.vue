@@ -2,9 +2,8 @@
   <div class="y-scroll-box" :style="containerStyle">
     <!-- 左侧按钮 -->
     <div v-if="showPrevButton" class="y-scroll-box__arrow y-scroll-box__arrow--prev"
-      :class="{ 'y-scroll-box__arrow--disabled': !canScrollLeft }" :style="arrowStyle"
-      @click="handleClick('prev')"
-      @mousedown="handleArrowDown('prev')" @mouseup="handleArrowUp" @dblclick="handleDoubleClick">
+      :class="{ 'y-scroll-box__arrow--disabled': !canScrollLeft }" :style="arrowStyle" @click="handleClick('prev')"
+      @dblclick="handleDoubleClick" @mousedown="handleMouseDown('prev')" @mouseup="handleMouseUp">
       <el-icon>
         <ArrowLeft />
       </el-icon>
@@ -21,9 +20,8 @@
 
     <!-- 右侧按钮 -->
     <div v-if="showNextButton" class="y-scroll-box__arrow y-scroll-box__arrow--next"
-      :class="{ 'y-scroll-box__arrow--disabled': !canScrollRight }" :style="arrowStyle"
-      @click="handleClick('next')"
-      @mousedown="handleArrowDown('next')" @mouseup="handleArrowUp" @dblclick="handleDoubleClick">
+      :class="{ 'y-scroll-box__arrow--disabled': !canScrollRight }" :style="arrowStyle" @click="handleClick('next')"
+      @dblclick="handleDoubleClick" @mousedown="handleMouseDown('next')" @mouseup="handleMouseUp">
       <el-icon>
         <ArrowRight />
       </el-icon>
@@ -33,7 +31,7 @@
 
 <script setup lang="ts">
 import { ref, computed, nextTick, onMounted, onUnmounted, watch } from '@vue/runtime-core';
-import { useThrottleFn } from '@vueuse/core';
+import { useThrottleFn, useResizeObserver } from '@vueuse/core';
 import { ElScrollbar, ElIcon } from 'element-plus';
 import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue';
 import { type ScrollBoxProps } from './scroll-box';
@@ -48,14 +46,10 @@ const props = withDefaults(defineProps<ScrollBoxProps>(), {
   arrowStyle: () => ({}),
   scrollbarProps: () => ({}),
   step: 30,
-  continuousStep: undefined,
-  continuousTime: 300,
-  continuous: false,
   wheelScroll: false,
-});
-
-const continuousStepValue = computed(() => {
-  return props.continuousStep !== undefined ? props.continuousStep : props.step;
+  continuous: false,
+  continuousTime: 200,
+  continuousStep: 20
 });
 
 // 定义事件
@@ -67,33 +61,12 @@ const emit = defineEmits<{
 const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>();
 // 内容元素
 const contentRef = ref<HTMLElement>();
-// 滚动定时器
-const scrollTimer = ref<number>();
-// 连续滚动触发定时器
-const continuousTriggerTimer = ref<number>();
-// 是否正在滚动
-const isScrolling = ref(false);
-// 是否处于连续滚动状态
-const isContinuousScrolling = ref(false);
-// 是否正在进行连续滚动操作
-const isContinuousOperation = ref(false);
-// 按下时间戳
-const pressStartTime = ref<number>(0);
-// 滚动方向
-const scrollDirection = ref<'prev' | 'next' | null>(null);
-// 内容尺寸变化观察器
-const resizeObserver = ref<ResizeObserver>();
 
 // 容器样式
 const containerStyle = computed(() => ({
   height: typeof props.height === 'number' ? `${props.height}px` : props.height,
   width: typeof props.width === 'number' ? `${props.width}px` : props.width
 }));
-
-// 箭头样式
-const arrowStyle = computed(() => props.arrowStyle);
-
-
 
 // 是否可以向左滚动
 const canScrollLeft = ref(false);
@@ -140,20 +113,107 @@ const checkScrollStatus = useThrottleFn(() => {
   canScrollRight.value = scrollLeft < scrollWidth - clientWidth - 1;
 }, 16);
 
-// 处理单击事件
-const handleClick = (direction: 'prev' | 'next') => {
-  // 如果正在进行连续滚动操作，忽略单击
-  if (isContinuousOperation.value) {
-    return;
+// 连续滚动相关状态
+const isContinuous = ref(false);
+const continuousTimer = ref<NodeJS.Timeout | null>(null);
+const continuousAnimationId = ref<number | null>(null);
+const continuousDirection = ref<'prev' | 'next' | null>(null);
+const continuousBoundaries = ref<{ min: number; max: number } | null>(null);
+const lastScrollTime = ref(0);
+
+const handleMouseDown = (direction: 'prev' | 'next') => {
+  // 通过记时器标记是否触发连续滚动
+  continuousTimer.value = setTimeout(() => {
+    isContinuous.value = true;
+    continuousDirection.value = direction;
+  }, props.continuousTime);
+}
+
+const handleMouseUp = () => {
+  if (continuousTimer.value) {
+    clearTimeout(continuousTimer.value);
+    continuousTimer.value = null;
   }
+  // 立即停止连续滚动
+  isContinuous.value = false;
+}
 
-  // 检查是否禁用
-  if (direction === 'prev' && !canScrollLeft.value) return;
-  if (direction === 'next' && !canScrollRight.value) return;
+// 开始连续滚动
+const startContinuousScroll = (direction: 'prev' | 'next') => {
+  if (!scrollbarRef.value || !scrollbarRef.value.wrapRef) return;
 
-  // 执行单击滚动
-  performScroll(direction, props.step);
+  const wrapRef = scrollbarRef.value.wrapRef;
+  const { scrollWidth, clientWidth } = wrapRef;
+
+  // 缓存边界值，避免重复计算
+  continuousBoundaries.value = {
+    min: 0,
+    max: scrollWidth - clientWidth
+  };
+
+  const stepValue = props.continuousStep || props.step;
+  const targetDirection = direction;
+
+  const animate = (currentTime: number) => {
+    if (!isContinuous.value || !scrollbarRef.value || !continuousBoundaries.value) {
+      return;
+    }
+
+    // 控制滚动频率，约60fps
+    if (currentTime - lastScrollTime.value < 16) {
+      continuousAnimationId.value = requestAnimationFrame(animate);
+      return;
+    }
+
+    const { scrollLeft } = wrapRef;
+    const { min, max } = continuousBoundaries.value;
+
+    const newScrollLeft = targetDirection === 'prev'
+      ? scrollLeft - stepValue
+      : scrollLeft + stepValue;
+
+    const clampedScrollLeft = Math.max(min, Math.min(newScrollLeft, max));
+
+    // 如果到达边界，停止滚动
+    if (clampedScrollLeft === scrollLeft) {
+      stopContinuousScroll();
+      return;
+    }
+
+    // 设置滚动位置
+    scrollbarRef.value.setScrollLeft(clampedScrollLeft);
+
+    // 触发滚动事件
+    emit('scroll', clampedScrollLeft);
+
+    lastScrollTime.value = currentTime;
+
+    // 继续下一帧动画
+    continuousAnimationId.value = requestAnimationFrame(animate);
+  };
+
+  continuousAnimationId.value = requestAnimationFrame(animate);
 };
+
+// 停止连续滚动
+const stopContinuousScroll = () => {
+  if (continuousAnimationId.value) {
+    cancelAnimationFrame(continuousAnimationId.value);
+    continuousAnimationId.value = null;
+  }
+  continuousBoundaries.value = null;
+  continuousDirection.value = null;
+};
+
+watch(isContinuous, (newVal: boolean) => {
+  if (newVal && continuousDirection.value) {
+    startContinuousScroll(continuousDirection.value);
+  } else {
+    stopContinuousScroll();
+  }
+});
+
+
 
 // 执行滚动操作
 const performScroll = (direction: 'prev' | 'next', stepValue: number) => {
@@ -173,9 +233,9 @@ const performScroll = (direction: 'prev' | 'next', stepValue: number) => {
   const maxScrollLeft = scrollWidth - clientWidth;
   const clampedScrollLeft = Math.max(0, Math.min(newScrollLeft, maxScrollLeft));
 
-  // 如果已经到达边界，停止滚动
-  if (clampedScrollLeft === scrollLeft) {
-    return;
+  // 滚动前，设置scroll-behavior为smooth
+  if (wrapRef) {
+    wrapRef.style.scrollBehavior = 'smooth';
   }
 
   // 设置滚动位置
@@ -183,132 +243,33 @@ const performScroll = (direction: 'prev' | 'next', stepValue: number) => {
 
   // 触发滚动事件
   emit('scroll', clampedScrollLeft);
+
+  // 滚动后，设置scroll-behavior为auto
+  if (wrapRef) {
+    wrapRef.style.scrollBehavior = 'auto';
+  }
 };
+
+
 
 // 处理滚动事件（主要用于用户直接操作滚动条时）
 const handleScroll = ({ scrollLeft }: { scrollLeft: number }) => {
-  // 如果正在程序化滚动（通过按钮或API调用），不触发事件，避免重复
-  if (isScrolling.value) {
-    return;
-  }
-
-  // 只有用户直接操作滚动条时才触发事件
+  // 触发滚动事件（用户直接操作滚动条时）
   emit('scroll', scrollLeft);
 
   checkScrollStatus();
 }
 
-// 处理箭头按下
-const handleArrowDown = (direction: 'prev' | 'next') => {
+// 处理箭头点击
+const handleClick = (direction: 'prev' | 'next') => {
+  if (isContinuous.value) return;
   // 检查是否禁用
   if (direction === 'prev' && !canScrollLeft.value) return;
   if (direction === 'next' && !canScrollRight.value) return;
 
-  // 如果正在连续滚动，延迟检查状态，避免频繁更新
-  if (isScrolling.value) {
-    return;
-  }
-
-  // 再次检查边界状态，确保不会在边界时触发滚动
-  if (!scrollbarRef.value) return;
-  const wrapRef = scrollbarRef.value.wrapRef;
-  if (!wrapRef) return;
-
-  const { scrollLeft, scrollWidth, clientWidth } = wrapRef;
-  const maxScrollLeft = scrollWidth - clientWidth;
-
-  if (direction === 'prev' && scrollLeft <= 0) return;
-  if (direction === 'next' && scrollLeft >= maxScrollLeft) return;
-
-  // 记录按下时间
-  pressStartTime.value = Date.now();
-
-  // 设置滚动方向
-  scrollDirection.value = direction;
-  isScrolling.value = true;
-  isContinuousScrolling.value = false;
-  // 不在这里设置 isContinuousOperation，等松开时根据时间判断
-
-  // 滚动方法
-  const scroll = () => {
-    if (!scrollbarRef.value || !isScrolling.value) return;
-
-    let stepValue: number;
-    if (isContinuousScrolling.value) {
-      // 连续滚动：continuousStep 表示每秒移动的距离
-      // 由于定时器间隔是 50ms，所以每次移动的距离是 continuousStep / 20
-      stepValue = continuousStepValue.value / 20;
-    } else {
-      // 单击滚动：每次移动 step 指定的距离
-      stepValue = props.step;
-    }
-
-    // 执行滚动操作
-    performScroll(direction, stepValue);
-
-    // 连续滚动：如果启用连续滚动且仍在滚动状态，则继续
-    if (props.continuous && isScrolling.value && isContinuousScrolling.value) {
-      // 使用 setTimeout 进行连续滚动，间隔 50ms
-      scrollTimer.value = window.setTimeout(scroll, 50);
-    }
-  };
-
-  // 立即执行一次滚动
-  scroll();
-
-  // 如果启用了连续滚动，设置连续滚动触发定时器
-  if (props.continuous) {
-    continuousTriggerTimer.value = window.setTimeout(() => {
-      // 只有在仍然处于滚动状态时才启动连续滚动
-      if (isScrolling.value) {
-        isContinuousScrolling.value = true;
-        // 触发连续滚动
-        scroll();
-      }
-    }, props.continuousTime);
-  }
+  // 执行单击滚动
+  performScroll(direction, props.step);
 };
-
-// 处理箭头松开
-const handleArrowUp = () => {
-  // 计算按下持续时间
-  const pressDuration = Date.now() - pressStartTime.value;
-
-  // 如果按下时间超过 continuousTime，则认为是连续滚动操作
-  if (pressDuration >= props.continuousTime) {
-    isContinuousOperation.value = true;
-  } else {
-    // 如果按下时间小于 continuousTime，则认为是单击操作
-    isContinuousOperation.value = false;
-  }
-
-  // 立即停止滚动状态
-  isScrolling.value = false;
-  isContinuousScrolling.value = false;
-  scrollDirection.value = null;
-
-  // 立即清理连续滚动触发定时器
-  if (continuousTriggerTimer.value) {
-    clearTimeout(continuousTriggerTimer.value);
-    continuousTriggerTimer.value = undefined;
-  }
-
-  // 立即清理连续滚动定时器
-  if (scrollTimer.value) {
-    clearTimeout(scrollTimer.value);
-    scrollTimer.value = undefined;
-  }
-
-  // 滚动结束后立即检查状态
-  nextTick(() => {
-    checkScrollStatus();
-  });
-};
-
-// 处理鼠标离开
-// const handleMouseLeave = () => {
-//   handleArrowUp();
-// };
 
 // 处理双击事件，防止选中文本
 const handleDoubleClick = (event: MouseEvent) => {
@@ -339,20 +300,17 @@ const handleWheel = (event: WheelEvent) => {
 
 
 
+// 使用 useResizeObserver 监听内容尺寸变化
+const { stop: stopResizeObserver } = useResizeObserver(contentRef, () => {
+  nextTick(() => {
+    checkScrollStatus();
+  });
+});
+
 // 组件挂载后检查滚动状态
 onMounted(() => {
   nextTick(() => {
     checkScrollStatus();
-
-    // 创建 ResizeObserver 监听内容尺寸变化
-    if (contentRef.value) {
-      resizeObserver.value = new ResizeObserver(() => {
-        nextTick(() => {
-          checkScrollStatus();
-        });
-      });
-      resizeObserver.value.observe(contentRef.value);
-    }
   });
 });
 
@@ -369,36 +327,41 @@ watch(
 
 // 组件卸载时清理资源
 onUnmounted(() => {
-  if (scrollTimer.value) {
-    clearTimeout(scrollTimer.value);
-  }
-  if (continuousTriggerTimer.value) {
-    clearTimeout(continuousTriggerTimer.value);
-  }
-  if (resizeObserver.value) {
-    resizeObserver.value.disconnect();
+  stopResizeObserver();
+  stopContinuousScroll();
+  if (continuousTimer.value) {
+    clearTimeout(continuousTimer.value);
   }
 });
+
+const scrollTo = (scrollLeft: undefined | number | 'start' | 'end') => {
+  if (scrollbarRef.value) {
+    const wrapRef = scrollbarRef.value.wrapRef;
+    if (!wrapRef) return;
+
+    wrapRef.style.scrollBehavior = 'smooth';
+
+    if (scrollLeft === 'start') {
+      scrollbarRef.value.setScrollLeft(0);
+    } else if (scrollLeft === 'end') {
+      scrollbarRef.value.setScrollLeft(scrollbarRef.value.wrapRef.scrollWidth - scrollbarRef.value.wrapRef.clientWidth);
+    } else {
+      scrollbarRef.value.setScrollLeft(scrollLeft);
+    }
+
+    wrapRef.style.scrollBehavior = 'auto';
+  }
+}
 
 // 暴露方法给父组件
 defineExpose({
   scrollbarRef,
-  // contentRef,
-  scrollTo: (scrollLeft: number) => {
-    if (scrollbarRef.value) {
-      scrollbarRef.value.setScrollLeft(scrollLeft);
-    }
-  },
+  scrollTo,
   scrollToStart: () => {
-    if (scrollbarRef.value) {
-      scrollbarRef.value.setScrollLeft(0);
-    }
+    scrollTo('start');
   },
   scrollToEnd: () => {
-    if (scrollbarRef.value && scrollbarRef.value.wrapRef) {
-      const { scrollWidth, clientWidth } = scrollbarRef.value.wrapRef;
-      scrollbarRef.value.setScrollLeft(scrollWidth - clientWidth);
-    }
+    scrollTo('end');
   }
 });
 </script>

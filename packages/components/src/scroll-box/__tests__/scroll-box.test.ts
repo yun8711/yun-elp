@@ -107,56 +107,28 @@ describe('YScrollBox', () => {
     it('单击时应该只触发一次scroll事件', async () => {
       const wrapper = createWrapper({
         arrowModel: 'always',
-        step: 50,
-        continuous: true,
-        continuousTime: 100
+        step: 50
       });
 
-      // 模拟滚动条状态
+      // 模拟滚动条状态 - 确保可以向左滚动
       const scrollbar = wrapper.findComponent(ElScrollbar);
-      scrollbar.vm.wrapRef = {
-        scrollLeft: 100,
+      (scrollbar.vm as any).wrapRef = {
+        scrollLeft: 200,
         scrollWidth: 500,
         clientWidth: 200
       };
+      (scrollbar.vm as any).setScrollLeft = vi.fn();
 
-      // 触发单击事件
+      // 手动设置滚动状态
+      await wrapper.vm.checkScrollStatus();
+
+      // 模拟单击
       const prevArrow = wrapper.find('.y-scroll-box__arrow--prev');
       await prevArrow.trigger('click');
 
       // 验证只触发一次scroll事件
       expect(wrapper.emitted('scroll')).toBeTruthy();
       expect(wrapper.emitted('scroll')?.length).toBe(1);
-    });
-
-    it('连续滚动时应该按continuousStep距离滚动', async () => {
-      const wrapper = createWrapper({
-        arrowModel: 'always',
-        step: 30,
-        continuousStep: 100,
-        continuous: true,
-        continuousTime: 50
-      });
-
-      // 模拟滚动条状态
-      const scrollbar = wrapper.findComponent(ElScrollbar);
-      scrollbar.vm.wrapRef = {
-        scrollLeft: 100,
-        scrollWidth: 500,
-        clientWidth: 200
-      };
-
-      // 模拟按下超过continuousTime
-      const prevArrow = wrapper.find('.y-scroll-box__arrow--prev');
-      await prevArrow.trigger('mousedown');
-
-      // 等待超过continuousTime
-      await new Promise(resolve => setTimeout(resolve, 60));
-
-      await prevArrow.trigger('mouseup');
-
-      // 验证连续滚动使用了continuousStep
-      expect(wrapper.emitted('scroll')).toBeTruthy();
     });
 
     it('启用滚轮滚动时应该处理滚轮事件', async () => {
@@ -185,42 +157,16 @@ describe('YScrollBox', () => {
   });
 
     describe('箭头点击测试', () => {
-    it('应该处理左箭头点击', async () => {
+    it('应该处理箭头点击', async () => {
       const wrapper = createWrapper({
         arrowModel: 'always'
       });
 
       const prevArrow = wrapper.find('.y-scroll-box__arrow--prev');
-      await prevArrow.trigger('mousedown');
+      await prevArrow.trigger('click');
 
       // 验证事件被处理（不抛出错误）
       expect(prevArrow.exists()).toBe(true);
-    });
-
-    it('应该处理箭头松开事件', async () => {
-      const wrapper = createWrapper({
-        arrowModel: 'always'
-      });
-
-      const arrow = wrapper.find('.y-scroll-box__arrow--prev');
-      await arrow.trigger('mousedown');
-      await arrow.trigger('mouseup');
-
-      // 验证事件被处理（不抛出错误）
-      expect(arrow.exists()).toBe(true);
-    });
-
-    it('应该处理箭头鼠标离开事件', async () => {
-      const wrapper = createWrapper({
-        arrowModel: 'always'
-      });
-
-      const arrow = wrapper.find('.y-scroll-box__arrow--prev');
-      await arrow.trigger('mousedown');
-      await arrow.trigger('mouseleave');
-
-      // 验证事件被处理（不抛出错误）
-      expect(arrow.exists()).toBe(true);
     });
   });
 
@@ -279,17 +225,16 @@ describe('YScrollBox', () => {
     });
   });
 
-    describe('连续滚动测试', () => {
-    it('应该处理连续滚动', async () => {
+    describe('箭头点击测试', () => {
+    it('应该处理箭头点击', async () => {
       const wrapper = createWrapper({
         arrowModel: 'always',
-        continuous: true,
-        step: 30,
-        continuousStep: 50
+        step: 30
       });
 
       const arrow = wrapper.find('.y-scroll-box__arrow--prev');
       await arrow.trigger('mousedown');
+      await arrow.trigger('mouseup');
 
       // 验证事件被处理（不抛出错误）
       expect(arrow.exists()).toBe(true);

@@ -272,7 +272,7 @@ const throttleScrollBoxRef = ref()
 
 // 处理滚动事件
 const handleScroll = (scrollLeft) => {
-  console.log('handleScroll', scrollLeft)
+  // console.log('handleScroll', scrollLeft)
   scrollInfo.value = `${scrollLeft}`
 }
 

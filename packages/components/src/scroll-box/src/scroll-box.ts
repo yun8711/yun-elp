@@ -17,14 +17,14 @@ export interface ScrollBoxProps {
   scrollbarProps?: Partial<ScrollbarProps>;
   // 滚动步进距离
   step?: number;
-  // 连续滚动步进距离
-  continuousStep?: number;
-  // 连续滚动触发时间（毫秒）
-  continuousTime?: number;
-  // 是否支持连续滚动
-  continuous?: boolean;
   // 是否支持鼠标滚轮触发水平滚动
   wheelScroll?: boolean;
+  // 连续滚动
+  continuous?: boolean;
+  // 鼠标按下后多长时间触发连续滚动
+  continuousTime?: number;
+  // 连续滚动步进距离
+  continuousStep?: number;
 }
 
 export interface ScrollBoxEmits {
@@ -34,11 +34,11 @@ export interface ScrollBoxEmits {
 
 export interface ScrollBoxExpose {
   // 检查滚动状态
-  checkScrollStatus: () => void;
+  // checkScrollStatus: () => void;
   // scrollbar 实例
   scrollbarRef: any;
   // 内容元素
-  contentRef: HTMLElement | undefined;
+  // contentRef: HTMLElement | undefined;
   // 滚动到指定位置
   scrollTo: (scrollLeft: number) => void;
   // 滚动到开始位置
@@ -72,22 +72,22 @@ export const scrollBoxProps = {
     type: Number,
     default: 30
   },
-  continuousStep: {
-    type: Number,
-    default: undefined
-  },
-  continuousTime: {
-    type: Number,
-    default: 300
+  wheelScroll: {
+    type: Boolean,
+    default: false
   },
   continuous: {
     type: Boolean,
     default: false
   },
-  wheelScroll: {
-    type: Boolean,
-    default: false
+  continuousTime: {
+    type: Number,
+    default: 200
   },
+  continuousStep: {
+    type: Number,
+    default: 30
+  }
 } as const;
 
 export type ScrollBoxInstance = ExtractPublicPropTypes<typeof scrollBoxProps>;

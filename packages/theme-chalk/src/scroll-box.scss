@@ -10,17 +10,17 @@
     overflow: hidden;
   }
 
-  &__scrollbar {
-    height: 100%;
-    width: 100%;
+  // &__scrollbar {
+  //   // height: 100%;
+  //   // width: 100%;
 
-    .el-scrollbar__wrap {
-      overflow-x: auto;
-      overflow-y: hidden;
-      will-change: scroll-position;
-      scroll-behavior: smooth;
-    }
-  }
+  //   .el-scrollbar__wrap {
+  //     overflow-x: auto;
+  //     overflow-y: hidden;
+  //     // will-change: scroll-position;
+  //     // scroll-behavior: smooth;
+  //   }
+  // }
 
   &__content {
     display: flex;
@@ -28,7 +28,7 @@
     flex-wrap: nowrap;
     flex-direction: row;
     white-space: nowrap;
-    will-change: transform;
+    // will-change: transform;
   }
 
   &__arrow {

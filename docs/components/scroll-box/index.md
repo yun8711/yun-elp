@@ -17,9 +17,9 @@ scroll-box/basic
 
 :::
 
-## 连续滚动和滚轮功能
+## 滚轮功能
 
-:::demo continuous 属性可控制是否启动连续滚动功能（按下箭头按钮后一直滚动），continuousStep 属性控制连续滚动时的速度，wheelScroll 属性控制是否开户鼠标滚轮触发水平滚动的功能
+:::demo wheelScroll 属性控制是否开户鼠标滚轮触发水平滚动的功能
 
 scroll-box/continuous
 
@@ -46,13 +46,7 @@ scroll-box/arrow
 | direction       | 滚动方向                     | ^[enum]`'horizontal' \| 'vertical'` | horizontal / vertical | `'horizontal'` |
 | scrollbar-props | 滚动条配置                   | ^[object]`Partial<ScrollbarProps>`  | —                     | `{}`           |
 | step            | 单击滚动时的步进距离         | ^[number]                           | —                     | `30`           |
-| continuous-step | 连续滚动时每秒移动的距离     | ^[number]                           | —                     | `step` 的值    |
-| continuous-time | 连续滚动触发时间（毫秒）     | ^[number]                           | —                     | `300`          |
-| continuous      | 是否支持连续滚动             | ^[boolean]                          | —                     | `false`        |
 | wheel-scroll    | 是否支持鼠标滚轮触发水平滚动 | ^[boolean]                          | —                     | `false`        |
-| throttle-delay  | 节流间隔时间（毫秒）         | ^[number]                           | —                     | `16`           |
-| throttle-leading | 节流是否在开始时执行        | ^[boolean]                          | —                     | `true`         |
-| throttle-trailing | 节流是否在结束时执行       | ^[boolean]                          | —                     | `true`         |
 
 ### Events
 
@@ -73,7 +67,6 @@ scroll-box/arrow
   - 水平滚动：根据内容是否超出容器自动显示/隐藏控制按钮
   - 垂直滚动：auto模式下默认不显示箭头（可通过鼠标滚轮操作），always模式下始终显示
 - **手动滚动控制**：提供左右/上下按钮来手动控制滚动行为
-- **连续滚动**：支持按住按钮连续滚动
 - **鼠标滚轮支持**：可配置是否支持鼠标滚轮触发水平滚动，已优化防止外层容器滚动问题
 - **灵活配置**：可自定义滚动步长、箭头样式、节流参数等
 - **响应式设计**：适配不同屏幕尺寸
