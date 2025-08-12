@@ -6,9 +6,9 @@
   </el-form-item>
 
   <!-- 滚动容器 -->
-  <YScrollBox :height="120" class="scroll-box" :width="containerWidth" arrow-model="auto" :step="50">
+  <YScrollBox :height="120" class="scroll-box" :width="containerWidth">
     <div class="content-wrapper">
-      <div v-for="i in 5" :key="i" class="content-item">
+      <div v-for="i in 4" :key="i" class="content-item">
         <div class="item-number">{{ i }}</div>
       </div>
     </div>

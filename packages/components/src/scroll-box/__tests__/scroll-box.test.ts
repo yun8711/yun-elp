@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { ElScrollbar, ElIcon } from 'element-plus';
+import { ElScrollbar, ElIcon, ElButton } from 'element-plus';
 import YScrollBox from '../src/scroll-box.vue';
 
 // Mock ResizeObserver
@@ -24,7 +24,8 @@ describe('YScrollBox', () => {
       global: {
         components: {
           ElScrollbar,
-          ElIcon
+          ElIcon,
+          ElButton
         }
       }
     });
@@ -119,8 +120,8 @@ describe('YScrollBox', () => {
       };
       (scrollbar.vm as any).setScrollLeft = vi.fn();
 
-      // 手动设置滚动状态
-      await wrapper.vm.checkScrollStatus();
+      // 手动设置滚动状态 - 通过触发滚动事件来更新状态
+      await scrollbar.vm.$emit('scroll', { scrollLeft: 200 });
 
       // 模拟单击
       const prevArrow = wrapper.find('.y-scroll-box__arrow--prev');
@@ -156,7 +157,71 @@ describe('YScrollBox', () => {
     });
   });
 
-    describe('箭头点击测试', () => {
+  describe('连续滚动功能测试', () => {
+    it('应该在边界位置正确处理连续滚动', async () => {
+      const wrapper = createWrapper({
+        arrowModel: 'always',
+        continuous: true,
+        continuousTime: 100
+      });
+
+      const scrollbar = wrapper.findComponent(ElScrollbar);
+
+      // 模拟滚动到最左边界
+      (scrollbar.vm as any).wrapRef = {
+        scrollLeft: 0,
+        scrollWidth: 500,
+        clientWidth: 200
+      };
+      (scrollbar.vm as any).setScrollLeft = vi.fn();
+
+      // 触发滚动事件更新状态
+      await scrollbar.vm.$emit('scroll', { scrollLeft: 0 });
+
+      // 模拟长按右键
+      const nextArrow = wrapper.find('.y-scroll-box__arrow--next');
+      await nextArrow.trigger('mousedown');
+
+      // 等待连续滚动计时器触发
+      await new Promise(resolve => setTimeout(resolve, 150));
+
+      // 验证长按事件被正确处理（不抛出错误）
+      expect(nextArrow.exists()).toBe(true);
+    });
+
+    it('应该在无法滚动时正确处理连续滚动', async () => {
+      const wrapper = createWrapper({
+        arrowModel: 'always',
+        continuous: true,
+        continuousTime: 100
+      });
+
+      const scrollbar = wrapper.findComponent(ElScrollbar);
+
+      // 模拟滚动到最右边界
+      (scrollbar.vm as any).wrapRef = {
+        scrollLeft: 300, // 已经滚动到最右
+        scrollWidth: 500,
+        clientWidth: 200
+      };
+      (scrollbar.vm as any).setScrollLeft = vi.fn();
+
+      // 触发滚动事件更新状态
+      await scrollbar.vm.$emit('scroll', { scrollLeft: 300 });
+
+      // 模拟长按右键
+      const nextArrow = wrapper.find('.y-scroll-box__arrow--next');
+      await nextArrow.trigger('mousedown');
+
+      // 等待连续滚动计时器触发
+      await new Promise(resolve => setTimeout(resolve, 150));
+
+      // 验证长按事件被正确处理（不抛出错误）
+      expect(nextArrow.exists()).toBe(true);
+    });
+  });
+
+  describe('箭头点击测试', () => {
     it('应该处理箭头点击', async () => {
       const wrapper = createWrapper({
         arrowModel: 'always'

@@ -1,71 +1,22 @@
 <template>
   <div class="demo-container">
-    <h3>高级用法 - 自定义箭头样式</h3>
-    <p class="demo-description">
-      展示组件的更高级用法，包括自定义箭头样式和精美的卡片布局。
-      通过自定义样式，可以让组件更好地融入不同的设计风格。
-    </p>
-
     <!-- 样式选择器 -->
     <div class="style-selector">
-      <el-form :model="styleConfig" label-width="100px" size="small">
-        <el-row :gutter="20">
-          <el-col :span="8">
-            <el-form-item label="箭头主题">
-              <el-select v-model="styleConfig.theme" @change="updateArrowStyle">
-                <el-option label="默认主题" value="default" />
-                <el-option label="渐变主题" value="gradient" />
-                <el-option label="圆角主题" value="rounded" />
-                <el-option label="阴影主题" value="shadow" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="箭头大小">
-              <el-slider
-                v-model="styleConfig.size"
-                :min="24"
-                :max="48"
-                :step="4"
-                show-input
-                @change="updateArrowStyle"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="透明度">
-              <el-slider
-                v-model="styleConfig.opacity"
-                :min="0.3"
-                :max="1"
-                :step="0.1"
-                show-input
-                @change="updateArrowStyle"
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
+      <el-form-item label="箭头样式">
+        <el-select v-model="theme" style="width:200px">
+          <el-option label="默认主题" value="default" />
+          <el-option label="渐变主题" value="gradient" />
+          <el-option label="圆角主题" value="rounded" />
+          <el-option label="阴影主题" value="shadow" />
+        </el-select>
+      </el-form-item>
     </div>
 
     <!-- 滚动容器 -->
     <div class="scroll-container">
-      <YScrollBox
-        :height="200"
-        :width="'100%'"
-        arrow-model="always"
-        :arrow-style="arrowStyle"
-        :step="80"
-        :continuous="true"
-        :wheel-scroll="true"
-      >
+      <YScrollBox :height="200" arrow-model="always" :arrow-style="arrowStyle" :step="80" continuous wheel-scroll>
         <div class="cards-wrapper">
-          <div
-            v-for="(card, index) in cards"
-            :key="index"
-            class="card"
-            :class="{ 'featured': card.featured }"
-          >
+          <div v-for="(card, index) in cards" :key="index" class="card" :class="{ 'featured': card.featured }">
             <div class="card-header">
               <div class="card-icon">{{ card.icon }}</div>
               <div class="card-badge" v-if="card.badge">{{ card.badge }}</div>
@@ -85,12 +36,7 @@
                   {{ card.rating }}
                 </span>
               </div>
-              <el-button
-                type="primary"
-                size="small"
-                :icon="card.buttonIcon"
-                round
-              >
+              <el-button type="primary" size="small" :icon="card.buttonIcon" round>
                 {{ card.buttonText }}
               </el-button>
             </div>
@@ -98,29 +44,13 @@
         </div>
       </YScrollBox>
     </div>
-
-    <!-- 样式说明 -->
-    <div class="style-description">
-      <h4>自定义样式说明：</h4>
-      <ul>
-        <li><strong>箭头主题</strong>：提供多种预设的箭头样式主题</li>
-        <li><strong>箭头大小</strong>：可以调整箭头按钮的尺寸</li>
-        <li><strong>透明度</strong>：控制箭头按钮的透明度效果</li>
-        <li><strong>响应式设计</strong>：卡片布局自适应不同屏幕尺寸</li>
-        <li><strong>交互效果</strong>：鼠标悬停和点击都有丰富的视觉反馈</li>
-      </ul>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-const styleConfig = ref({
-  theme: 'gradient',
-  size: 36,
-  opacity: 0.8
-});
+const theme = ref('default')
 
 // 卡片数据
 const cards = ref([
@@ -213,13 +143,13 @@ const cards = ref([
 // 根据主题生成箭头样式
 const arrowStyle = computed(() => {
   const baseStyle = {
-    width: `${styleConfig.value.size}px`,
-    height: `${styleConfig.value.size}px`,
-    opacity: styleConfig.value.opacity,
+    width: `36px`,
+    height: `36px`,
+    opacity: 0.8,
     transition: 'all 0.3s ease'
   };
 
-  switch (styleConfig.value.theme) {
+  switch (theme.value) {
     case 'gradient':
       return {
         ...baseStyle,
@@ -257,10 +187,6 @@ const arrowStyle = computed(() => {
       };
   }
 });
-
-const updateArrowStyle = () => {
-  // 样式更新会通过 computed 自动响应
-};
 </script>
 
 <style scoped>
@@ -389,29 +315,5 @@ const updateArrowStyle = () => {
 
 .stat-item i {
   font-size: 14px;
-}
-
-.style-description {
-  margin-top: 20px;
-  padding: 16px;
-  background-color: var(--el-fill-color-light);
-  border-radius: 6px;
-  border-left: 4px solid var(--el-color-primary);
-}
-
-.style-description h4 {
-  margin: 0 0 12px 0;
-  color: var(--el-text-color-primary);
-}
-
-.style-description ul {
-  margin: 0;
-  padding-left: 20px;
-}
-
-.style-description li {
-  margin-bottom: 8px;
-  color: var(--el-text-color-regular);
-  line-height: 1.5;
 }
 </style>

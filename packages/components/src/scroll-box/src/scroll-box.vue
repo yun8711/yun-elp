@@ -1,13 +1,20 @@
 <template>
   <div class="y-scroll-box" :style="containerStyle">
     <!-- 左侧按钮 -->
-    <div v-if="showPrevButton" class="y-scroll-box__arrow y-scroll-box__arrow--prev"
-      :class="{ 'y-scroll-box__arrow--disabled': !canScrollLeft }" :style="arrowStyle" @click="handleClick('prev')"
-      @dblclick="handleDoubleClick" @mousedown="handleMouseDown('prev')" @mouseup="handleMouseUp">
+    <el-button
+      v-if="showPrevButton"
+      :style="arrowStyle"
+      class="y-scroll-box__arrow y-scroll-box__arrow--prev"
+      :class="{ 'y-scroll-box__arrow--disabled': !canScrollLeft }"
+      @click="handleClick('prev')"
+      @dblclick="handleDoubleClick"
+      @mousedown="handleMouseDown('prev')"
+      @mouseup="handleMouseUp"
+    >
       <el-icon>
         <ArrowLeft />
       </el-icon>
-    </div>
+    </el-button>
 
     <!-- 滚动容器 -->
     <div class="y-scroll-box__container" @wheel="handleWheel">
@@ -19,20 +26,27 @@
     </div>
 
     <!-- 右侧按钮 -->
-    <div v-if="showNextButton" class="y-scroll-box__arrow y-scroll-box__arrow--next"
-      :class="{ 'y-scroll-box__arrow--disabled': !canScrollRight }" :style="arrowStyle" @click="handleClick('next')"
-      @dblclick="handleDoubleClick" @mousedown="handleMouseDown('next')" @mouseup="handleMouseUp">
+    <el-button
+      v-if="showNextButton"
+      :style="arrowStyle"
+      class="y-scroll-box__arrow y-scroll-box__arrow--next"
+      :class="{ 'y-scroll-box__arrow--disabled': !canScrollRight }"
+      @click="handleClick('next')"
+      @dblclick="handleDoubleClick"
+      @mousedown="handleMouseDown('next')"
+      @mouseup="handleMouseUp"
+    >
       <el-icon>
         <ArrowRight />
       </el-icon>
-    </div>
+    </el-button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, nextTick, onMounted, onUnmounted, watch } from '@vue/runtime-core';
 import { useThrottleFn, useResizeObserver } from '@vueuse/core';
-import { ElScrollbar, ElIcon } from 'element-plus';
+import { ElScrollbar, ElIcon, ElButton } from 'element-plus';
 import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue';
 import { type ScrollBoxProps } from './scroll-box';
 
@@ -121,11 +135,34 @@ const continuousDirection = ref<'prev' | 'next' | null>(null);
 const continuousBoundaries = ref<{ min: number; max: number } | null>(null);
 const lastScrollTime = ref(0);
 
+// 检查连续滚动能力的独立函数
+const checkContinuousScrollAbility = (direction: 'prev' | 'next'): boolean => {
+  if (!scrollbarRef.value || !scrollbarRef.value.wrapRef) return false;
+
+  const wrapRef = scrollbarRef.value.wrapRef;
+  const { scrollLeft, scrollWidth, clientWidth } = wrapRef;
+
+  if (direction === 'prev') {
+    return scrollLeft > 0;
+  } else {
+    return scrollLeft < scrollWidth - clientWidth - 1;
+  }
+};
+
 const handleMouseDown = (direction: 'prev' | 'next') => {
+  // 立即更新滚动状态，确保状态是最新的
+  checkScrollStatus();
+
+  // 只有当continuous为true时才启动连续滚动
+  if (!props.continuous) return;
+
   // 通过记时器标记是否触发连续滚动
   continuousTimer.value = setTimeout(() => {
-    isContinuous.value = true;
-    continuousDirection.value = direction;
+    // 连续滚动启动时，基于实时状态检查是否可以滚动
+    if (checkContinuousScrollAbility(direction)) {
+      isContinuous.value = true;
+      continuousDirection.value = direction;
+    }
   }, props.continuousTime);
 }
 
