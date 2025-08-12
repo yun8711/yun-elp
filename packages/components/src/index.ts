@@ -12,3 +12,4 @@ export * from './text-tooltip';
 export * from './button';
 export * from './page-footer';
 export * from './drawer';
+export * from './scroll-box';

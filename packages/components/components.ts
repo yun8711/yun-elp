@@ -12,6 +12,7 @@ import { YTextTooltip } from './src/text-tooltip';
 import { YButton } from './src/button';
 import { YPageFooter } from './src/page-footer';
 import { YDrawer } from './src/drawer';
+import { YScrollBox } from './src/scroll-box';
 
 export default [
   YAppWrap,
@@ -27,4 +28,5 @@ export default [
   YButton,
   YPageFooter,
   YDrawer,
+  YScrollBox,
 ] as Plugin[];
