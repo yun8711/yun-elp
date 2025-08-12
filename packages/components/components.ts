@@ -13,6 +13,7 @@ import { YButton } from './src/button';
 import { YPageFooter } from './src/page-footer';
 import { YDrawer } from './src/drawer';
 import { YDialog } from './src/dialog';
+import { YScrollBox } from './src/scroll-box';
 
 export default [
   YAppWrap,
@@ -29,4 +30,5 @@ export default [
   YPageFooter,
   YDrawer,
   YDialog,
+  YScrollBox,
 ] as Plugin[];

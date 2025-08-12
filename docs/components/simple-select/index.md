@@ -71,4 +71,4 @@ SimpleSelect 支持 Element Plus Select 组件的所有事件。
 | focus             | 使 input 获取焦点   | ^[Function]`()=>void` |
 | blur              | 使 input 失去焦点   | ^[Function]`()=>void` |
 | getSelectedLabel  | 获取当前选中的标签  | ^[string]             |
-| getSelectInstance | 获取 el-select 实例 | ElSelect 实例         |
+| getSelectInstance | 获取 el-select 实例 | ^[object]`ElSelectInstance`         |

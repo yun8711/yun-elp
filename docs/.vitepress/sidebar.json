@@ -46,6 +46,11 @@
         "text": "page-footer 页脚",
         "link": "/components/page-footer/",
         "activeMatch": "/components/page-footer/"
+      },
+      {
+        "text": "scroll-box 滚动盒",
+        "link": "/components/scroll-box/",
+        "activeMatch": "/components/scroll-box/"
       }
     ]
   },

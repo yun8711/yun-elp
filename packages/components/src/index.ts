@@ -13,6 +13,7 @@ export * from './button';
 export * from './page-footer';
 export * from './drawer';
 export * from './dialog';
+export * from './scroll-box';
 
 // Hooks 导出
 export * from '../hooks';
