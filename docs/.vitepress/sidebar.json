@@ -76,6 +76,11 @@
         "text": "simple-radio 单选框",
         "link": "/components/simple-radio/",
         "activeMatch": "/components/simple-radio/"
+      },
+      {
+        "text": "group-select 组选择器",
+        "link": "/components/group-select/",
+        "activeMatch": "/components/group-select/"
       }
     ]
   },

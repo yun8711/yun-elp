@@ -66,7 +66,7 @@ export default {
     // 允许sass的插值语法
     "scss/at-rule-conditional-no-parentheses": null,
     // 允许空规则
-    "block-no-empty": null,
+    "block-no-empty": 'off',
     // 允许空规则集
     "declaration-block-no-empty": null,
     // 允许空规则块
