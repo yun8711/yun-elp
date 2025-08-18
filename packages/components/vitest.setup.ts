@@ -1,4 +1,5 @@
 import { beforeAll, afterEach, afterAll, vi } from 'vitest';
+import { config } from '@vue/test-utils';
 
 // 全局测试设置
 beforeAll(() => {
@@ -12,6 +13,18 @@ beforeAll(() => {
 
   // 设置全局测试超时
   vi.setConfig({ testTimeout: 10000 });
+
+  // 全局注册 Element Plus 组件
+  config.global.stubs = {
+    'el-button': {
+      template: '<button class="el-button" :class="[type, { disabled }]" :style="style" @click="$emit(\'click\')"><slot></slot></button>',
+      props: ['type', 'class', 'icon', 'loading', 'disabled', 'style'],
+      emits: ['click']
+    },
+    'el-button-group': {
+      template: '<div class="el-button-group"><slot></slot></div>'
+    }
+  };
 });
 
 // 每个测试后清理

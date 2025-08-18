@@ -14,21 +14,23 @@ import { YPageFooter } from './src/page-footer';
 import { YDrawer } from './src/drawer';
 import { YDialog } from './src/dialog';
 import { YScrollBox } from './src/scroll-box';
+import { YGroupSelect } from './src/group-select';
 
 export default [
-  YAppWrap,
-  YLabel,
-  YBorderLabel,
-  YPartTitle,
-  YPageHeader,
-  YTableSearch,
-  YSimpleSelect,
-  YRowSelect,
-  YSimpleRadio,
-  YTextTooltip,
-  YButton,
-  YPageFooter,
-  YDrawer,
-  YDialog,
-  YScrollBox,
+  YAppWrap,,
+  YLabel,,
+  YBorderLabel,,
+  YPartTitle,,
+  YPageHeader,,
+  YTableSearch,,
+  YSimpleSelect,,
+  YRowSelect,,
+  YSimpleRadio,,
+  YTextTooltip,,
+  YButton,,
+  YPageFooter,,
+  YDrawer,,
+  YDialog,,
+  YScrollBox,,
+  YGroupSelect,
 ] as Plugin[];
