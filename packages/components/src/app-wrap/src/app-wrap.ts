@@ -1,5 +1,5 @@
 import type { LocaleType } from '../../../locale';
-import type { ConfigProviderProps, DialogProps, DrawerProps, ButtonProps } from 'element-plus';
+import type { ConfigProviderProps, DialogProps, DrawerProps, ButtonProps, EmptyProps } from 'element-plus';
 import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
 import type { ButtonProps as YButtonProps } from '../../button/src/button';
 
@@ -63,6 +63,10 @@ export interface AppWrapProps {
     cancelText?: string;
     cancelProps?: YButtonProps;
   };
+  // empty的配置
+  empty?: EmptyProps & {
+    style?: Record<string, any>;
+  };
   [key: string]: any;
 }
 
@@ -98,6 +102,10 @@ export const appWrapProps = {
   },
   dialog: {
     type: Object as PropType<AppWrapProps['dialog']>,
+    default: () => ({})
+  },
+  empty: {
+    type: Object as PropType<AppWrapProps['empty']>,
     default: () => ({})
   }
 } as const;

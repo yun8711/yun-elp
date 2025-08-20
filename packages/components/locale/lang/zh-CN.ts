@@ -17,6 +17,9 @@ export default {
     more: '更多',
     all: '全部'
   },
+  empty: {
+    description: '暂无数据'
+  },
 
   // 按钮组件
 

@@ -17,6 +17,9 @@ export default {
     more: 'More',
     all: 'All'
   },
+  empty: {
+    description: 'No data'
+  },
 
   // Button component
 

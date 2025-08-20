@@ -44,6 +44,9 @@ const props = withDefaults(defineProps<AppWrapProps>(), {
     maxWait: undefined,
     placement: 'top'
   }),
+  empty: () => ({
+    imageSize: 100,
+  })
 });
 
 // 从props中获取除elpConfig、locale以外的配置

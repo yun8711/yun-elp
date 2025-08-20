@@ -27,7 +27,7 @@ drawer/test
 | headerClass  | header 部分的自定义 class 名 | ^[string]                      | `'y-drawer__header'`        |
 | bodyClass    | body 部分的自定义 class 名   | ^[string]                      | `'y-drawer__body'`          |
 | footerClass  | footer 部分的自定义 class 名 | ^[string]                      | `'y-drawer__footer'`        |
-| titleStyle   | 标题样式                     | ^[object]`Record<string, any>` | —                           |
+| titleStyle   | 标题样式                     | ^[object]`CSSProperties` | —                           |
 | showFooter   | 是否显示底部按钮区域         | ^[boolean]                     | `true`                      |
 | noConfirm    | 是否隐藏确认按钮             | ^[boolean]                     | `false`                     |
 | confirmText  | 确认按钮文本                 | ^[string]                      | `'确定'`                    |

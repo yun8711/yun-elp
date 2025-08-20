@@ -11,6 +11,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 - 设置组件库的语言选项
 
 注意：
+
 - AppWrap 向后代组件传递的配置参数只是为了从全局角度简化组件的配置和使用，所以它的优先级最低
 - 对于使用了 element-plus 原生组件的组件，[el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) 也会影响组件属性
 
@@ -20,7 +21,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 
 | 属性名       | 说明                                                                                | 类型                                | 默认值  |
 | ------------ | ----------------------------------------------------------------------------------- | ----------------------------------- | ------- |
-| elpConfig    | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`ElConfigProviderProps` | —       |
+| elpConfig    | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`ElConfigProviderProps`    | —       |
 | locale       | yun-elp的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
 | border-label | y-border-label组件全局配置，[见下表](#border-label-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
 | page-header  | y-page-header组件全局配置，[见下表](#page-header-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
@@ -28,6 +29,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | button       | y-button组件全局配置，[见下表](#button-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
 | drawer       | y-drawer组件全局配置，[见下表](#drawer-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
 | dialog       | y-dialog组件全局配置，[见下表](#dialog-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
+| empty        | y-empty组件全局配置，[见下表](#empty-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
 
 #### border-label Attribute
 
@@ -88,6 +90,14 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | cancelText   | 取消按钮文本 | ^[string]                | `'取消'`           |
 | cancelProps  | 取消按钮属性 | ^[object]`YButtonProps`  | `{type:'default'}` |
 | titleStyle   | 标题文本样式 | ^[object]`CSSProperties` | —                  |
+
+#### empty Attribute
+
+继承 [el-empty 的全部属性](https://element-plus.org/zh-CN/component/empty.html#attributes) ，另外包含以下属性
+
+| 参数  | 描述                                | 类型                     | 默认值 |
+| ----- | ----------------------------------- | ------------------------ | ------ |
+| style | 组件样式，包括el-empty支持的css变量 | ^[object]`CSSProperties` | —      |
 
 ### Slots
 
