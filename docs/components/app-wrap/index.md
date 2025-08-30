@@ -19,18 +19,19 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 
 ### Attributes
 
-| 属性名       | 说明                                                                                | 类型                                | 默认值  |
-| ------------ | ----------------------------------------------------------------------------------- | ----------------------------------- | ------- |
-| elpConfig    | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`ElConfigProviderProps`    | —       |
-| locale       | yun-elp的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
-| border-label | y-border-label组件全局配置，[见下表](#border-label-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
-| page-header  | y-page-header组件全局配置，[见下表](#page-header-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
-| page-footer  | y-page-footer组件全局配置，[见下表](#page-footer-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
-| button       | y-button组件全局配置，[见下表](#button-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
-| drawer       | y-drawer组件全局配置，[见下表](#drawer-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
-| dialog       | y-dialog组件全局配置，[见下表](#dialog-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
-| empty        | y-empty组件全局配置，[见下表](#empty-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
-| desc         | y-desc组件全局配置，[见下表](#desc-attribute)                                       | ^[object]`Ref<record<string, any>>` | —       |
+| 属性名      | 说明                                                                                | 类型                                | 默认值  |
+| ----------- | ----------------------------------------------------------------------------------- | ----------------------------------- | ------- |
+| elpConfig   | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`ElConfigProviderProps`    | —       |
+| locale      | yun-elp的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
+| borderLabel | y-border-label组件全局配置，[见下表](#border-label-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
+| pageHeader  | y-page-header组件全局配置，[见下表](#page-header-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
+| pageFooter  | y-page-footer组件全局配置，[见下表](#page-footer-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
+| button      | y-button组件全局配置，[见下表](#button-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
+| drawer      | y-drawer组件全局配置，[见下表](#drawer-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
+| dialog      | y-dialog组件全局配置，[见下表](#dialog-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
+| empty       | y-empty组件全局配置，[见下表](#empty-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
+| textTooltip | y-text-tooltip组件全局配置，[见下表](#desc-attribute)                               | ^[object]`Ref<record<string, any>>` | —       |
+| desc        | y-desc组件全局配置，[见下表](#desc-attribute)                                       | ^[object]`Ref<record<string, any>>` | —       |
 
 #### border-label Attribute
 
@@ -99,6 +100,13 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | 参数  | 描述                                | 类型                     | 默认值 |
 | ----- | ----------------------------------- | ------------------------ | ------ |
 | style | 组件样式，包括el-empty支持的css变量 | ^[object]`CSSProperties` | —      |
+
+#### text-tooltip Attribute
+
+| 参数         | 描述                                                                                                | 类型                                                                                                                                                                        | 默认值  |
+| ------------ | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| placement    | tooltip显示位置                                                                                     | ^[enum]`'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | `'top'` |
+| tooltipProps | tooltip配置属性，详见[el-tooltip](https://element-plus.org/zh-CN/component/tooltip.html#attributes) | ^[object]`Partial<ElTooltipProps>`                                                                                                                                          | `{}`    |
 
 #### desc Attribute
 

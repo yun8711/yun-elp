@@ -63,4 +63,32 @@ html body {
 
   // 圆角覆盖
   --el-border-radius-base: var(--border-radius-base, 4px);
+
+  // yun-elp的全局样式
+  --y-tooltip-popper-max-width: 316px;
+  --y-tooltip-popper-max-height: 100px;
+}
+
+// 全局样式
+.el-tooltip.el-popper {
+  max-width: var(--y-tooltip-popper-max-width);
+  padding: 5px 0;
+  > span:first-child {
+    display: block;
+    padding: 0 10px;
+    max-height: calc(var(--y-tooltip-popper-max-height) - 10px);
+    overflow-y: scroll;
+
+    // 改写滚动条样式
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--el-scrollbar-bg-color, var(--el-text-color-secondary));
+      border-radius: inherit;
+      opacity: var(--el-scrollbar-hover-opacity, 0.5);
+      cursor: pointer;
+    }
+  }
 }

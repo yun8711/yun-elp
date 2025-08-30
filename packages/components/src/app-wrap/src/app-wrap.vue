@@ -44,6 +44,11 @@ const props = withDefaults(defineProps<AppWrapProps>(), {
     maxWait: undefined,
     placement: 'top'
   }),
+  // textTooltip: () => ({
+  //   popperClass: 'y-text-tooltip__popper',
+  //   popperWidth: 316,
+  //   placement: 'top'
+  // }),
   empty: () => ({
     imageSize: 100,
   })

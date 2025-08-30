@@ -1,5 +1,12 @@
 import type { LocaleType } from '../../../locale';
-import type { ConfigProviderProps, DialogProps, DrawerProps, ButtonProps, EmptyProps } from 'element-plus';
+import type {
+  ConfigProviderProps,
+  DialogProps,
+  DrawerProps,
+  ButtonProps,
+  EmptyProps,
+  ElTooltipProps
+} from 'element-plus';
 import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
 import type { ButtonProps as YButtonProps } from '../../button/src/button';
 
@@ -67,14 +74,30 @@ export interface AppWrapProps {
   empty?: EmptyProps & {
     style?: Record<string, any>;
   };
-  desc?:{
+  textTooltip?: {
+    placement?:
+      | 'top'
+      | 'top-start'
+      | 'top-end'
+      | 'bottom'
+      | 'bottom-start'
+      | 'bottom-end'
+      | 'left'
+      | 'left-start'
+      | 'left-end'
+      | 'right'
+      | 'right-start'
+      | 'right-end';
+    tooltipProps?: Partial<ElTooltipProps>;
+  };
+  desc?: {
     labelWidth?: string | number;
     labelStyle?: Record<string, any>;
     contentStyle?: Record<string, any>;
     labelAlign?: 'left' | 'center' | 'right';
     contentAlign?: 'left' | 'center' | 'right';
     emptyText?: string;
-  }
+  };
   [key: string]: any;
 }
 
@@ -114,6 +137,10 @@ export const appWrapProps = {
   },
   empty: {
     type: Object as PropType<AppWrapProps['empty']>,
+    default: () => ({})
+  },
+  textTooltip: {
+    type: Object as PropType<AppWrapProps['textTooltip']>,
     default: () => ({})
   },
   desc: {

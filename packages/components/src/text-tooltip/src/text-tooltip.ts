@@ -20,7 +20,7 @@ export interface TextTooltipProps {
     | 'right-start'
     | 'right-end';
   // tooltip显示方式
-  tooltip?: 'auto' | 'none' | 'always';
+  model?: 'auto' | 'none' | 'always';
   tooltipProps?: Partial<ElTooltipProps>;
   textStyle?: Record<string, any>;
 }
@@ -38,7 +38,7 @@ export const textTooltipProps = {
     type: String,
     default: 'top'
   },
-  tooltip: {
+  model: {
     type: String,
     default: 'auto',
     validator: (value: string) => ['auto', 'none', 'always'].includes(value)
@@ -50,7 +50,7 @@ export const textTooltipProps = {
   textStyle: {
     type: Object,
     default: () => ({})
-  }
+  },
 } as const;
 
 export type TextTooltipInstance = ExtractPublicPropTypes<typeof textTooltipProps>;
