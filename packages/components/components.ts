@@ -16,23 +16,25 @@ import { YDialog } from './src/dialog';
 import { YScrollBox } from './src/scroll-box';
 import { YGroupSelect } from './src/group-select';
 import { YEmpty } from './src/empty';
+import { YDesc } from './src/desc';
 
 export default [
-  YAppWrap,,,
-  YLabel,,,
-  YBorderLabel,,,
-  YPartTitle,,,
-  YPageHeader,,,
-  YTableSearch,,,
-  YSimpleSelect,,,
-  YRowSelect,,,
-  YSimpleRadio,,,
-  YTextTooltip,,,
-  YButton,,,
-  YPageFooter,,,
-  YDrawer,,,
-  YDialog,,,
-  YScrollBox,,,
-  YGroupSelect,,
+  YAppWrap,
+  YLabel,
+  YBorderLabel,
+  YPartTitle,
+  YPageHeader,
+  YTableSearch,
+  YSimpleSelect,
+  YRowSelect,
+  YSimpleRadio,
+  YTextTooltip,
+  YButton,
+  YPageFooter,
+  YDrawer,
+  YDialog,
+  YScrollBox,
+  YGroupSelect,
   YEmpty,
+  YDesc,
 ] as Plugin[];

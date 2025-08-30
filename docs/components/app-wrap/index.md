@@ -30,6 +30,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | drawer       | y-drawer组件全局配置，[见下表](#drawer-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
 | dialog       | y-dialog组件全局配置，[见下表](#dialog-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
 | empty        | y-empty组件全局配置，[见下表](#empty-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
+| desc         | y-desc组件全局配置，[见下表](#desc-attribute)                                       | ^[object]`Ref<record<string, any>>` | —       |
 
 #### border-label Attribute
 
@@ -98,6 +99,17 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | 参数  | 描述                                | 类型                     | 默认值 |
 | ----- | ----------------------------------- | ------------------------ | ------ |
 | style | 组件样式，包括el-empty支持的css变量 | ^[object]`CSSProperties` | —      |
+
+#### desc Attribute
+
+| 参数         | 描述                         | 类型                                   | 默认值   |
+| ------------ | ---------------------------- | -------------------------------------- | -------- |
+| labelWidth   | label 宽度                   | ^[string] / ^[number]                  | `'auto'` |
+| labelStyle   | label 样式                   | ^[object]`CSSProperties`               | —        |
+| contentStyle | content 样式                 | ^[object]`CSSProperties`               | —        |
+| labelAlign   | label 文本对齐方式           | ^[enum]`'left' \| 'center' \| 'right'` | `'left'` |
+| contentAlign | content 文本对齐方式         | ^[enum]`'left' \| 'center' \| 'right'` | `'left'` |
+| emptyText    | content 内容为空时显示的内容 | ^[string]                              | `''`     |
 
 ### Slots
 

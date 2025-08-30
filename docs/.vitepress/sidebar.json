@@ -96,6 +96,11 @@
         "text": "empty 空状态",
         "link": "/components/empty/",
         "activeMatch": "/components/empty/"
+      },
+      {
+        "text": "desc 描述列表",
+        "link": "/components/desc/",
+        "activeMatch": "/components/desc/"
       }
     ]
   },

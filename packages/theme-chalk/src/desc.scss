@@ -1,0 +1,85 @@
+.y-desc {
+  width: 100%;
+  font-size: var(--el-font-size-base);
+  color: var(--el-text-color-primary);
+
+  // 主体内容区域 - 使用Grid布局
+  &__body {
+    display: grid;
+    grid-template-columns: repeat(var(--y-desc-columns, 3), 1fr);
+    gap: 8px 0;
+    width: 100%;
+  }
+
+  // 描述项
+  &__item {
+    display: flex;
+    flex-direction: row;
+    min-width: 0; // 防止内容撑开
+
+    &--vertical {
+      flex-direction: column;
+    }
+  }
+
+  // 标签
+  &__item-label {
+    flex-shrink: 0;
+    color: var(--el-text-color-regular);
+    line-height: 1.5;
+    word-break: keep-all;
+    white-space: nowrap;
+    margin-right: 16px;
+    // box-sizing: border-box;
+    line-height: 23px;
+  }
+
+  // 内容区域
+  &__item-content {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    padding-right: 16px;
+    // box-sizing: border-box;
+    line-height: 23px;
+  }
+
+  // 边框模式
+  &--bordered {
+    .y-desc__body {
+      border: 1px solid var(--el-border-color);
+      overflow: hidden;
+      gap: 0; // 移除间距
+    }
+
+    .y-desc__item {
+      border: none;
+      border-bottom: 1px solid var(--el-border-color-lighter);
+      min-height: 41px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .y-desc__item-label {
+      font-weight: bold;
+      color: var(--el-text-color-regular);
+      min-width: 80px;
+      padding: 8px 11px;
+      margin-right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-right: 1px solid var(--el-border-color-lighter);
+      background-color: var(--el-fill-color-light);
+    }
+
+    .y-desc__item-content {
+      padding: 8px 11px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+  }
+}

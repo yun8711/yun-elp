@@ -19,3 +19,4 @@ export * from './scroll-box';
 export * from '../hooks';
 export * from './group-select';
 export * from './empty';
+export * from './desc';

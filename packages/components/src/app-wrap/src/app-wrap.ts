@@ -67,6 +67,14 @@ export interface AppWrapProps {
   empty?: EmptyProps & {
     style?: Record<string, any>;
   };
+  desc?:{
+    labelWidth?: string | number;
+    labelStyle?: Record<string, any>;
+    contentStyle?: Record<string, any>;
+    labelAlign?: 'left' | 'center' | 'right';
+    contentAlign?: 'left' | 'center' | 'right';
+    emptyText?: string;
+  }
   [key: string]: any;
 }
 
@@ -106,6 +114,10 @@ export const appWrapProps = {
   },
   empty: {
     type: Object as PropType<AppWrapProps['empty']>,
+    default: () => ({})
+  },
+  desc: {
+    type: Object as PropType<AppWrapProps['desc']>,
     default: () => ({})
   }
 } as const;
