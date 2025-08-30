@@ -3,22 +3,19 @@
     <y-app-wrap :key="locale" :elp-config="{ locale: locale === 'zh-cn' ? zhCn : en }" :locale="locale"
       v-bind="appWrapConfig">
 
-      <y-group-select v-model="value" :options="options">
-        <template #default="{ item }">
-          <span>{{ item.label }}123</span>
-        </template>
-      </y-group-select>
+      <desc-example />
+
     </y-app-wrap>
   </Layout>
 </template>
 
 <script setup>
 import { ref, markRaw } from 'vue'
-import Layout from './components/Layout.vue'
+import Layout from './components/layout.vue'
 import { User, InfoFilled } from '@element-plus/icons-vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
-import { treeData } from './test-data'
+import DescExample from './components/desc-example.vue'
 
 const appWrapConfig = {
   dialog: {
@@ -28,26 +25,6 @@ const appWrapConfig = {
     closeOnClickModal: true
   }
 }
-
-const value = ref('2');
-const options = ref([
-  {
-    value: '1',
-    label: '选项1',
-    icon: 'el-icon-user',
-
-    disabled: true
-  },
-  {
-    value: '2',
-    label: '选项2',
-    loading: true,
-  },
-  {
-    value: '3',
-    label: '选项3'
-  }
-])
 
 </script>
 
@@ -173,7 +150,7 @@ const options = ref([
   background: white;
   border: 1px solid var(--el-border-color-light);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   h4 {
     margin: 0 0 8px 0;
