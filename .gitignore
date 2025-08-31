@@ -49,5 +49,4 @@ docs/.vitepress/cache/
 Thumbs.db
 
 # 其他
-play/src/App.vue
 play/components.d.ts
