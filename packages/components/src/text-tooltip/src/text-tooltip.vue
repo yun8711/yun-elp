@@ -38,6 +38,7 @@ const tooltipAttrs = computed(() => {
     showAfter: 50,
     hideAfter: 50,
     enterable: false,
+    popperClass: 'y-text-tooltip__popper',
     content: getSlotContent(),
     ...configAttrs,
     ...propAttrs,

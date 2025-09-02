@@ -66,16 +66,16 @@ html body {
 
   // yun-elp的全局样式
   --y-tooltip-popper-max-width: 316px;
-  --y-tooltip-popper-max-height: 100px;
+  --y-tooltip-popper-max-height: 200px;
 }
 
 // 全局样式
-.el-tooltip.el-popper {
+.y-text-tooltip__popper {
   max-width: var(--y-tooltip-popper-max-width);
   padding: 5px 0;
   > span:first-child {
     display: block;
-    padding: 0 10px;
+    padding: 0;
     max-height: calc(var(--y-tooltip-popper-max-height) - 10px);
     overflow-y: scroll;
 
