@@ -1,314 +1,289 @@
-/// <reference types="vitest/globals" />
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import YButton from '../src/button.vue';
 
-// Mock @vueuse/core
-vi.mock('@vueuse/core', () => ({
-  useDebounceFn: vi.fn((fn, delay, options) => {
-    return vi.fn((...args) => {
-      // 模拟防抖延迟
-      setTimeout(() => fn(...args), delay);
-    });
-  })
-}));
-
-// Mock useAppConfig
-vi.mock('../../app-wrap/src/use-app-config', () => ({
-  useAppConfig: vi.fn(() => ({
-    delay: 300,
-    maxWait: undefined,
-    placement: 'top'
-  }))
-}));
-
-// Mock Element Plus components
-const ElButton = {
-  name: 'ElButton',
-  template: '<button class="el-button" :data-type="type" :data-size="size" :data-disabled="String(disabled)" :data-loading="String(loading)" v-bind="$attrs" @click="$emit(\'click\', $event)"><slot /><slot name="icon" /><slot name="loading" /></button>',
-  emits: ['click'],
-  props: ['type', 'size', 'disabled', 'loading']
-};
-
-const ElTooltip = {
-  name: 'ElTooltip',
-  template: `
-    <div class="el-tooltip" :disabled="disabled" :content="content" :placement="placement" :effect="effect" :enterable="enterable" v-bind="$attrs">
-      <div class="el-tooltip__trigger">
-        <slot />
-      </div>
-      <div v-if="$slots.content" class="el-tooltip__content">
-        <slot name="content" />
-      </div>
-    </div>
-  `,
-  props: ['content', 'placement', 'disabled', 'effect', 'enterable']
-};
-
-// 全局配置
-const globalConfig = {
-  global: {
-    components: {
-      'el-button': ElButton,
-      'el-tooltip': ElTooltip
-    }
-  }
-};
-
-describe('YButton 组件', () => {
+describe('YButton 防抖按钮组件', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.useFakeTimers();
   });
 
-  it('基础渲染', () => {
-    const wrapper = mount(YButton, globalConfig);
-    expect(wrapper.exists()).toBe(true);
-    expect(wrapper.find('.el-tooltip').exists()).toBe(true);
-    expect(wrapper.find('.y-button').exists()).toBe(true);
-  });
-
-  it('默认插槽内容渲染', () => {
-    const wrapper = mount(YButton, {
-      ...globalConfig,
-      slots: { default: '点击按钮' }
-    });
-    expect(wrapper.text()).toBe('点击按钮');
-  });
-
-  it('具名插槽 icon 和 loading 渲染', () => {
-    const wrapper = mount(YButton, {
-      ...globalConfig,
-      slots: {
-        icon: '<span class="icon">图标</span>',
-        loading: '<span class="loading">加载中</span>'
-      }
-    });
-    expect(wrapper.find('.icon').exists()).toBe(true);
-    expect(wrapper.find('.loading').exists()).toBe(true);
-  });
-
-  it('传递自定义 props', () => {
-    const wrapper = mount(YButton, {
-      ...globalConfig,
-      props: {
-        delay: 500,
-        maxWait: 1000
-      }
+  describe('基本功能', () => {
+    it('应该正常渲染', () => {
+      const wrapper = mount(YButton);
+      expect(wrapper.exists()).toBe(true);
+      // 检查组件的HTML结构是否正确
+      expect(wrapper.html()).toContain('y-button');
     });
 
-    // 检查自定义 props 是否正确传递到组件
-    expect(wrapper.vm.$props.delay).toBe(500);
-    expect(wrapper.vm.$props.maxWait).toBe(1000);
-  });
-
-  it('自定义 delay 属性', () => {
-    const wrapper = mount(YButton, {
-      ...globalConfig,
-      props: { delay: 500 }
-    });
-    expect(wrapper.props('delay')).toBe(500);
-  });
-
-  it('maxWait 属性传递', () => {
-    const wrapper = mount(YButton, {
-      ...globalConfig,
-      props: { maxWait: 1000 }
-    });
-    expect(wrapper.props('maxWait')).toBe(1000);
-  });
-
-  it('点击事件触发防抖函数', async () => {
-    const onClick = vi.fn();
-    const wrapper = mount(YButton, {
-      ...globalConfig,
-      props: { onClick }
-    });
-
-    await wrapper.find('button').trigger('click');
-
-    // 等待防抖延迟
-    await new Promise(resolve => setTimeout(resolve, 350));
-
-    // 验证点击事件被触发
-    expect(wrapper.emitted('click')).toBeDefined();
-  });
-
-  it('不转发任意 attrs（data-testid/style/class 等），仅保留组件自身 class', () => {
-    const wrapper = mount(YButton, {
-      ...globalConfig,
-      attrs: {
-        'data-testid': 'should-not-forward',
-        class: 'custom-class',
-        style: 'color: red;'
-      }
-    });
-
-    const button = wrapper.find('button');
-    // 非声明支持的 attrs 不应被透传
-    expect(button.attributes('data-testid')).toBeUndefined();
-    expect(button.attributes('style')).toBeUndefined();
-    expect(button.classes()).not.toContain('custom-class');
-    // 仍应包含 y-button
-    expect(button.classes()).toContain('y-button');
-  });
-
-  it('emit click 事件', async () => {
-    const wrapper = mount(YButton, globalConfig);
-    const button = wrapper.find('button');
-
-    await button.trigger('click');
-
-    // 等待防抖延迟
-    await new Promise(resolve => setTimeout(resolve, 350));
-
-    // 验证点击事件被触发
-    expect(wrapper.emitted('click')).toBeDefined();
-  });
-
-  it('组件名称正确', () => {
-    const wrapper = mount(YButton, globalConfig);
-    expect(wrapper.vm.$options.name).toBe('YButton');
-  });
-
-  it('inheritAttrs 为 false', () => {
-    const wrapper = mount(YButton, globalConfig);
-    expect(wrapper.vm.$options.inheritAttrs).toBe(false);
-  });
-
-  it('边界：delay 为字符串类型', () => {
-    const wrapper = mount(YButton, {
-      ...globalConfig,
-      props: { delay: '500' }
-    });
-    expect(wrapper.props('delay')).toBe('500');
-  });
-
-  it('边界：maxWait 为字符串类型', () => {
-    const wrapper = mount(YButton, {
-      ...globalConfig,
-      props: { maxWait: '1000' }
-    });
-    expect(wrapper.props('maxWait')).toBe('1000');
-  });
-
-  it('边界：maxWait 为 undefined', () => {
-    const wrapper = mount(YButton, {
-      ...globalConfig,
-      props: { maxWait: undefined }
-    });
-    expect(wrapper.props('maxWait')).toBeUndefined();
-  });
-
-  // Tooltip 相关测试
-  describe('Tooltip 功能', () => {
-    it('默认不显示 tooltip', () => {
-      const wrapper = mount(YButton, globalConfig);
-      const tooltip = wrapper.find('.el-tooltip');
-      expect(tooltip.attributes('disabled')).toBe('true');
-    });
-
-    it('设置 content 属性时显示 tooltip', () => {
+    it('应该渲染默认插槽内容', () => {
       const wrapper = mount(YButton, {
-        ...globalConfig,
-        props: { content: '按钮提示' }
-      });
-      const tooltip = wrapper.find('.el-tooltip');
-      expect(tooltip.attributes('disabled')).toBe('false');
-      expect(tooltip.attributes('content')).toBe('按钮提示');
-    });
-
-    it('使用 content 插槽时显示 tooltip', () => {
-      const wrapper = mount(YButton, {
-        ...globalConfig,
         slots: {
-          content: '<span>自定义提示内容</span>'
+          default: '点击按钮'
         }
       });
-      const tooltip = wrapper.find('.el-tooltip');
-      expect(tooltip.attributes('disabled')).toBe('false');
-      expect(wrapper.find('.el-tooltip__content').exists()).toBe(true);
+      expect(wrapper.text()).toContain('点击按钮');
     });
 
-    it('默认 placement 为 top', () => {
+    it('应该渲染图标插槽', () => {
       const wrapper = mount(YButton, {
-        ...globalConfig,
-        props: { content: '提示' }
-      });
-      const tooltip = wrapper.find('.el-tooltip');
-      expect(tooltip.attributes('placement')).toBe('top');
-    });
-
-    it('自定义 placement 属性', () => {
-      const wrapper = mount(YButton, {
-        ...globalConfig,
-        props: {
-          content: '提示',
-          placement: 'bottom'
-        }
-      });
-      const tooltip = wrapper.find('.el-tooltip');
-      expect(tooltip.attributes('placement')).toBe('bottom');
-    });
-
-    it('传递 tooltipProps 属性', () => {
-      const wrapper = mount(YButton, {
-        ...globalConfig,
-        props: {
-          content: '提示',
-          tooltipProps: {
-            effect: 'dark',
-            enterable: false
-          }
-        }
-      });
-      const tooltip = wrapper.find('.el-tooltip');
-      expect(tooltip.attributes('effect')).toBe('dark');
-      expect(tooltip.attributes('enterable')).toBe('false');
-    });
-
-    it('仅设置 tooltipProps.content 也应显示 tooltip（disabled=false）', () => {
-      const wrapper = mount(YButton, {
-        ...globalConfig,
-        props: {
-          tooltipProps: { content: '来自 props.tooltipProps 的提示' }
-        }
-      });
-      const tooltip = wrapper.find('.el-tooltip');
-      expect(tooltip.attributes('disabled')).toBe('false');
-    });
-
-    it('tooltip 和 content 插槽同时存在时优先使用插槽', () => {
-      const wrapper = mount(YButton, {
-        ...globalConfig,
-        props: { content: 'props提示' },
         slots: {
-          content: '<span>插槽提示</span>'
+          icon: '<i class="el-icon-star-on"></i>'
         }
       });
-      const tooltip = wrapper.find('.el-tooltip');
-      expect(tooltip.attributes('disabled')).toBe('false');
-      expect(wrapper.find('.el-tooltip__content').text()).toBe('插槽提示');
+      expect(wrapper.html()).toContain('el-icon-star-on');
     });
 
-    it('tooltip 组件具有正确的 class', () => {
+    it('应该渲染loading插槽', () => {
       const wrapper = mount(YButton, {
-        ...globalConfig,
-        props: { content: '提示' }
+        slots: {
+          loading: '<i class="el-icon-loading"></i>'
+        }
       });
-      const tooltip = wrapper.find('.el-tooltip');
-      expect(tooltip.classes()).toContain('y-button-tooltip');
+      expect(wrapper.html()).toContain('el-icon-loading');
+    });
+  });
+
+  describe('Props 测试', () => {
+    it('应该支持设置 delay 属性', async () => {
+      const wrapper = mount(YButton, {
+        props: {
+          delay: 500
+        }
+      });
+
+      // 验证组件接收了delay属性
+      expect(wrapper.props('delay')).toBe(500);
     });
 
-    it('button 组件具有正确的 class', () => {
-      const wrapper = mount(YButton, globalConfig);
+    it('应该支持设置 maxWait 属性', async () => {
+      const wrapper = mount(YButton, {
+        props: {
+          maxWait: 1000
+        }
+      });
+
+      // 验证组件接收了maxWait属性
+      expect(wrapper.props('maxWait')).toBe(1000);
+    });
+
+    it('delay 应该支持字符串类型', () => {
+      const wrapper = mount(YButton, {
+        props: {
+          delay: '200'
+        }
+      });
+      expect(wrapper.props('delay')).toBe('200');
+    });
+
+    it('maxWait 应该支持字符串类型', () => {
+      const wrapper = mount(YButton, {
+        props: {
+          maxWait: '800'
+        }
+      });
+      expect(wrapper.props('maxWait')).toBe('800');
+    });
+  });
+
+  describe('事件测试', () => {
+    it('应该在点击时触发 click 事件', async () => {
+      const onClick = vi.fn();
+      const wrapper = mount(YButton, {
+        props: {
+          onClick
+        }
+      });
+
+      await wrapper.trigger('click');
+      // 等待防抖时间
+      vi.advanceTimersByTime(300);
+      await nextTick();
+
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('click 事件应该传递 MouseEvent 参数', async () => {
+      const onClick = vi.fn();
+      const wrapper = mount(YButton, {
+        props: {
+          onClick
+        }
+      });
+
+      await wrapper.trigger('click');
+      // 等待防抖时间
+      vi.advanceTimersByTime(300);
+      await nextTick();
+
+      expect(onClick).toHaveBeenCalledWith(expect.any(MouseEvent));
+    });
+
+    it('应该支持防抖功能', async () => {
+      const onClick = vi.fn();
+      const wrapper = mount(YButton, {
+        props: {
+          delay: 300,
+          onClick
+        }
+      });
+
+      // 快速点击多次
+      await wrapper.trigger('click');
+      await wrapper.trigger('click');
+      await wrapper.trigger('click');
+
+      // 立即检查，应该还没有触发
+      expect(onClick).toHaveBeenCalledTimes(0);
+
+      // 等待防抖时间
+      vi.advanceTimersByTime(300);
+      await nextTick();
+
+      // 应该只触发一次
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('应该支持 maxWait 功能', async () => {
+      const onClick = vi.fn();
+      const wrapper = mount(YButton, {
+        props: {
+          delay: 300,
+          maxWait: 500,
+          onClick
+        }
+      });
+
+      // 快速连续点击多次
+      await wrapper.trigger('click');
+      await wrapper.trigger('click');
+      await wrapper.trigger('click');
+
+      // 等待超过maxWait的时间
+      vi.advanceTimersByTime(600);
+      await nextTick();
+
+      // 由于maxWait限制，应该至少触发一次
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('暴露的接口', () => {
+    it('应该暴露 buttonRef', async () => {
+      const wrapper = mount(YButton);
+      await nextTick(); // 等待组件挂载完成
+
+      const vm = wrapper.vm as any;
+      expect(vm.buttonRef).toBeDefined();
+      // 检查ref是否指向正确的DOM元素
       const button = wrapper.find('button');
-      expect(button.classes()).toContain('y-button');
+      expect(button.exists()).toBe(true);
+      // 由于使用的是stub，ref可能不会直接指向DOM元素，但应该存在
+      expect(vm.buttonRef.value !== null).toBe(true);
+    });
+  });
+
+  describe('继承属性', () => {
+    it('应该继承 el-button 的所有属性', () => {
+      const wrapper = mount(YButton, {
+        props: {
+          type: 'primary',
+          disabled: true,
+          loading: true
+        }
+      });
+
+      // 由于使用的是 stub，直接检查根元素的属性
+      const button = wrapper.find('button');
+      expect(button.exists()).toBe(true);
+      // 检查类型相关的class是否正确应用
+      expect(button.classes()).toContain('el-button--primary');
+      // 检查disabled状态是否通过class反映
+      expect(button.classes()).toContain('disabled');
     });
 
-    it('expose buttonRef 和 tooltipRef', () => {
-      const wrapper = mount(YButton, globalConfig);
-      expect(wrapper.vm.buttonRef).toBeDefined();
-      expect(wrapper.vm.tooltipRef).toBeDefined();
+    it('应该支持 el-button 的原生事件', async () => {
+      const onFocus = vi.fn();
+      const wrapper = mount(YButton, {
+        attrs: {
+          onFocus
+        }
+      });
+
+      const button = wrapper.find('button');
+      await button.trigger('focus');
+
+      expect(onFocus).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('样式测试', () => {
+    it('应该应用 y-button 类名', () => {
+      const wrapper = mount(YButton);
+      // 检查HTML中是否包含y-button类
+      expect(wrapper.html()).toContain('y-button');
+    });
+
+    it('应该与 el-button 样式兼容', () => {
+      const wrapper = mount(YButton, {
+        props: {
+          type: 'success'
+        }
+      });
+
+      const button = wrapper.find('button');
+      expect(button.classes()).toContain('el-button--success');
+    });
+  });
+
+  describe('集成测试', () => {
+    it('应该在表单中使用正常', () => {
+      const wrapper = mount({
+        template: `
+          <form @submit.prevent="handleSubmit">
+            <y-button type="primary" @click="handleClick">提交</y-button>
+          </form>
+        `,
+        components: { YButton },
+        setup() {
+          const handleSubmit = vi.fn();
+          const handleClick = vi.fn();
+
+          return {
+            handleSubmit,
+            handleClick
+          };
+        }
+      });
+
+      const button = wrapper.findComponent(YButton);
+      expect(button.exists()).toBe(true);
+      expect(button.text()).toBe('提交');
+    });
+
+    it('应该支持异步操作', async () => {
+      const onClick = vi.fn().mockImplementation(() => {
+        return new Promise(resolve => setTimeout(resolve, 100));
+      });
+
+      const wrapper = mount(YButton, {
+        props: {
+          onClick
+        }
+      });
+
+      await wrapper.trigger('click');
+
+      // 等待防抖时间
+      vi.advanceTimersByTime(300);
+      await nextTick();
+
+      // 等待异步操作完成
+      vi.advanceTimersByTime(100);
+      await nextTick();
+
+      expect(onClick).toHaveBeenCalledTimes(1);
     });
   });
 });

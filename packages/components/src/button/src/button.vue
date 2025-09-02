@@ -1,32 +1,28 @@
 <template>
-  <el-tooltip v-bind="tooltipAttrs" class="y-button-tooltip" ref="tooltipRef">
-    <el-button class="y-button" v-bind="buttonAttrs" @click="handleClick" ref="buttonRef">
-      <slot />
-      <slot name="icon" />
-      <slot name="loading" />
-    </el-button>
-    <template #content>
-      <slot name="content"></slot>
-    </template>
-  </el-tooltip>
+  <el-button class="y-button" @click="handleClick" ref="buttonRef">
+    <slot />
+    <slot name="icon" />
+    <slot name="loading" />
+  </el-button>
 </template>
 
 <script setup lang="ts">
 import { useDebounceFn } from '@vueuse/core'
-import { computed, ref, useSlots, useAttrs, defineExpose } from '@vue/runtime-core'
+import { computed, ref, defineExpose } from '@vue/runtime-core'
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
-import { ButtonProps as ElButtonProps } from 'element-plus';
-import type { ButtonProps } from './button'
-import { pick } from 'lodash-es'
-const $slots = useSlots()
-const buttonConfig = useAppConfig('button')
-const attrs = useAttrs()
+import type { ButtonProps } from './button';
+
 defineOptions({
   name: 'YButton',
-  inheritAttrs: false
+  inheritAttrs: true
 });
 
-const props = defineProps<ButtonProps>();
+const props = defineProps<ButtonProps>()
+const buttonConfig = useAppConfig('button')
+
+const emit = defineEmits<{
+  click: [event: MouseEvent]
+}>()
 
 const delay = computed(() => {
   if (props.delay !== undefined && props.delay !== null && props.delay !== '') {
@@ -48,69 +44,12 @@ const maxWait = computed(() => {
   return undefined
 })
 
-const placement = computed(() => {
-  return props.placement || buttonConfig?.placement || 'top'
-})
-
-const emit = defineEmits<{
-  click: [event: MouseEvent]
-}>()
-
 const handleClick = useDebounceFn((event: MouseEvent) => {
   emit('click', event)
-}, delay.value, { maxWait: maxWait.value })
-
-
-const showTooltip = computed(() => {
-  return props.content || $slots.content || props?.tooltipProps?.content;
-})
-
-const tooltipAttrs = computed(() => {
-  const configAttrs = buttonConfig?.tooltipProps || {};
-  const propAttrs = props?.tooltipProps || {};
-  return {
-    ...configAttrs,
-    content: props.content,
-    placement: placement.value,
-    disabled: !showTooltip.value,
-    ...propAttrs,
-  }
-})
-
-// 以常量数组列举 ElButton 支持的属性键，受 TS 类型校验
-const EL_BUTTON_PROP_KEYS = [
-  'type',
-  'size',
-  'plain',
-  'text',
-  'bg',
-  'link',
-  'round',
-  'circle',
-  'loading',
-  'disabled',
-  'icon',
-  'autofocus',
-  'nativeType',
-  'autoInsertSpace',
-  'color',
-  'dark',
-  'tag'
-] as const satisfies readonly (keyof ElButtonProps)[];
-
-const buttonAttrs = computed(() => {
-  const configAttrs = buttonConfig || {};
-  return {
-    ...pick(configAttrs, EL_BUTTON_PROP_KEYS),
-    ...pick(attrs, EL_BUTTON_PROP_KEYS),
-  }
-})
+}, delay.value, { maxWait: maxWait.value, rejectOnCancel: true })
 
 const buttonRef = ref(null)
-const tooltipRef = ref(null)
 defineExpose({
   buttonRef: buttonRef,
-  tooltipRef: tooltipRef
 })
-
 </script>

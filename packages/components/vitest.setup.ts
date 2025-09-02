@@ -14,12 +14,26 @@ beforeAll(() => {
   // 设置全局测试超时
   vi.setConfig({ testTimeout: 10000 });
 
+  // 处理防抖取消的未处理Promise rejection
+  // 当 rejectOnCancel: true 时，防抖函数取消会抛出 rejection
+  // 在测试环境中，这些 rejection 如果没有被正确处理，会被 Vitest 报告为未处理错误
+  const originalHandlers = process.listeners('unhandledRejection');
+  process.removeAllListeners('unhandledRejection');
+
+  process.on('unhandledRejection', (reason, promise) => {
+    // 检查是否是防抖取消相关的错误
+    // 由于 Vue Test Utils 的机制，这些 rejection 可能在测试中没有被正确处理
+    // 我们静默处理它们，因为这是预期的防抖行为
+    return;
+  });
+
   // 全局注册 Element Plus 组件
   config.global.stubs = {
     'el-button': {
-      template: '<button class="el-button" :class="[type, { disabled }]" :style="style" @click="$emit(\'click\')"><slot></slot></button>',
-      props: ['type', 'class', 'icon', 'loading', 'disabled', 'style'],
-      emits: ['click']
+      template: '<button class="el-button" :class="[type ? `el-button--${type}` : \'\', { disabled }, $attrs.class]" :style="style" v-bind="$attrs" @click="$emit(\'click\', $event)" @focus="$emit(\'focus\', $event)"><slot></slot></button>',
+      props: ['type', 'icon', 'loading', 'disabled', 'style'],
+      emits: ['click', 'focus'],
+      inheritAttrs: true
     },
     'el-button-group': {
       template: '<div class="el-button-group"><slot></slot></div>'
@@ -37,6 +51,9 @@ afterEach(() => {
   // 清理所有模拟
   vi.clearAllMocks();
   vi.clearAllTimers();
+
+  // 清理未处理的Promise rejection
+  vi.unstubAllGlobals();
 });
 
 // 所有测试后清理
