@@ -70,9 +70,11 @@ html body {
 }
 
 // 全局样式
+// y-text-tooltip弹出框样式
 .y-text-tooltip__popper {
   max-width: var(--y-tooltip-popper-max-width);
   padding: 5px 0;
+
   > span:first-child {
     display: block;
     padding: 0;
@@ -90,5 +92,21 @@ html body {
       opacity: var(--el-scrollbar-hover-opacity, 0.5);
       cursor: pointer;
     }
+  }
+}
+
+// y-pop的popover弹出框样式
+.y-pop__popover.el-popover.el-popper {
+  font-size: var(--el-font-size-small);
+  color: var(--el-text-color-regular);
+
+  .el-popover__title {
+    font-size: var(--el-font-size-base);
+    color: var(--el-text-color-primary);
+    font-weight: bold;
+  }
+  .y-pop__popover-footer {
+    text-align: right;
+    margin-top: 12px;
   }
 }

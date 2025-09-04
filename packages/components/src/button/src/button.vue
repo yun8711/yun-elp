@@ -46,7 +46,7 @@ const maxWait = computed(() => {
 
 const handleClick = useDebounceFn((event: MouseEvent) => {
   emit('click', event)
-}, delay.value, { maxWait: maxWait.value, rejectOnCancel: true })
+}, delay.value, { maxWait: maxWait.value })
 
 const buttonRef = ref(null)
 defineExpose({

@@ -51,6 +51,11 @@
         "text": "scroll-box 滚动盒",
         "link": "/components/scroll-box/",
         "activeMatch": "/components/scroll-box/"
+      },
+      {
+        "text": "pop 弹出框",
+        "link": "/components/pop/",
+        "activeMatch": "/components/pop/"
       }
     ]
   },

@@ -5,10 +5,25 @@ import type {
   DrawerProps,
   ButtonProps,
   EmptyProps,
-  ElTooltipProps
+  ElTooltipProps,
+  PopoverProps
 } from 'element-plus';
 import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
 import type { ButtonProps as YButtonProps } from '../../button/src/button';
+
+type PlacementType =
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'left-start'
+  | 'left-end'
+  | 'right-start'
+  | 'right-end';
 
 // 定义扩展的属性
 export interface AppWrapProps {
@@ -40,19 +55,6 @@ export interface AppWrapProps {
   button?: ButtonProps & {
     delay?: string | number | undefined;
     maxWait?: string | number | undefined;
-    // placement?:
-    //   | 'top'
-    //   | 'top-start'
-    //   | 'top-end'
-    //   | 'bottom'
-    //   | 'bottom-start'
-    //   | 'bottom-end'
-    //   | 'left'
-    //   | 'left-start'
-    //   | 'left-end'
-    //   | 'right'
-    //   | 'right-start'
-    //   | 'right-end';
   };
   // drawer的配置
   drawer?: DrawerProps & {
@@ -75,19 +77,7 @@ export interface AppWrapProps {
     style?: Record<string, any>;
   };
   textTooltip?: {
-    placement?:
-      | 'top'
-      | 'top-start'
-      | 'top-end'
-      | 'bottom'
-      | 'bottom-start'
-      | 'bottom-end'
-      | 'left'
-      | 'left-start'
-      | 'left-end'
-      | 'right'
-      | 'right-start'
-      | 'right-end';
+    placement?: PlacementType;
     tooltipProps?: Partial<ElTooltipProps>;
   };
   desc?: {
@@ -97,6 +87,19 @@ export interface AppWrapProps {
     labelAlign?: 'left' | 'center' | 'right';
     contentAlign?: 'left' | 'center' | 'right';
     emptyText?: string;
+  };
+  pop?: {
+    confirmText?: string;
+    confirmProps?: YButtonProps;
+    cancelText?: string;
+    cancelProps?: YButtonProps;
+    tipPlacement?: PlacementType;
+    tipProps?: Partial<ElTooltipProps>;
+    popWidth?: number;
+    popTitle?: string;
+    popPlacement?: PlacementType;
+    popContent?: string;
+    popProps?: Partial<PopoverProps>;
   };
   [key: string]: any;
 }

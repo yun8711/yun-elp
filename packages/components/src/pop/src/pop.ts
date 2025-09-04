@@ -1,0 +1,113 @@
+import type { ExtractPublicPropTypes } from '@vue/runtime-core';
+import type { PopoverProps, ElTooltipProps } from 'element-plus';
+import type { ButtonProps } from '../../button/src/button';
+
+type PlacementType =
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'left-start'
+  | 'left-end'
+  | 'right-start'
+  | 'right-end';
+
+export interface PopProps {
+  // tooltip内容
+  tipContent?: string;
+  // tooltip位置
+  tipPlacement?: PlacementType;
+  // tooltip完整属性
+  tipProps?: Partial<ElTooltipProps>;
+
+  // popover常用配置
+  noPop?: boolean;
+  popTitle?: string;
+  popContent?: string;
+  popPlacement?: PlacementType;
+  popWidth?: number;
+  // popover完整属性
+  popProps?: Partial<PopoverProps>;
+  // popover内容配置
+  noFooter?: boolean;
+  noConfirm?: boolean;
+  confirmText?: string;
+  confirmProps?: Partial<ButtonProps>;
+  noCancel?: boolean;
+  cancelText?: string;
+  cancelProps?: Partial<ButtonProps>;
+}
+
+export const popProps = {
+  tipContent: {
+    type: String,
+    default: ''
+  },
+  tipPlacement: {
+    type: String,
+    default: ''
+  },
+  tipProps: {
+    type: Object,
+    default: () => ({})
+  },
+
+  noPop: {
+    type: Boolean,
+    default: false
+  },
+  popTitle: {
+    type: [String, Number],
+    default: 200
+  },
+  popContent: {
+    type: String,
+    default: ''
+  },
+  popPlacement: {
+    type: String,
+    default: ''
+  },
+  popWidth: {
+    type: Number,
+    default: 226
+  },
+  popProps: {
+    type: Object,
+    default: () => ({})
+  },
+  noFooter: {
+    type: Boolean,
+    default: false
+  },
+  noConfirm: {
+    type: Boolean,
+    default: false
+  },
+  confirmText: {
+    type: String,
+    default: ''
+  },
+  confirmProps: {
+    type: Object,
+    default: () => ({})
+  },
+  noCancel: {
+    type: Boolean,
+    default: false
+  },
+  cancelText: {
+    type: String,
+    default: ''
+  },
+  cancelProps: {
+    type: Object,
+    default: () => ({})
+  }
+} as const;
+
+export type popInstance = ExtractPublicPropTypes<typeof popProps>;

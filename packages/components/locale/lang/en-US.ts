@@ -9,17 +9,22 @@ export default {
   common: {
     confirm: 'Confirm',
     cancel: 'Cancel',
-    submit: 'Submit',
-    clear: 'Clear',
-    close: 'Close',
-    loading: 'Loading',
-    search: 'Search',
-    more: 'More',
-    all: 'All'
+    notice: 'Notice',
+
+    // submit: 'Submit',
+    // clear: 'Clear',
+    // close: 'Close',
+    // loading: 'Loading',
+    // search: 'Search',
+    // more: 'More',
+    // all: 'All'
   },
   empty: {
     description: 'No data'
   },
+  pop: {
+    popContent: 'Are you sure you want to perform this operation?'
+  }
 
   // Button component
 

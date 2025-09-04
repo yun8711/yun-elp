@@ -9,17 +9,22 @@ export default {
   common: {
     confirm: '确认',
     cancel: '取消',
-    submit: '提交',
-    clear: '清空',
-    close: '关闭',
-    loading: '加载中',
-    search: '搜索',
-    more: '更多',
-    all: '全部'
+    notice: '提示'
+
+    // submit: '提交',
+    // clear: '清空',
+    // close: '关闭',
+    // loading: '加载中',
+    // search: '搜索',
+    // more: '更多',
+    // all: '全部'
   },
   empty: {
     description: '暂无数据'
   },
+  pop: {
+    popContent: '是否执行该操作？'
+  }
 
   // 按钮组件
 

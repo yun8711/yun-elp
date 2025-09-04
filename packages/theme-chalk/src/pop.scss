@@ -1,0 +1,15 @@
+.y-pop {
+  display: inline-block;
+
+  & + & {
+    margin-left: 12px;
+  }
+}
+
+.el-button + .y-pop {
+  margin-left: 12px;
+}
+
+.y-pop + .el-button {
+  margin-left: 12px;
+}
