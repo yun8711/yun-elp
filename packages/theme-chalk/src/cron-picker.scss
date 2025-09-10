@@ -1,0 +1,61 @@
+.y-cron-picker {
+  &__clearable-icon {
+    cursor: pointer;
+
+    :hover {
+      color: var(--color-primary);
+    }
+  }
+
+  &__content {
+    width: 100%;
+    height: 432px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+
+    &-item {
+      margin-bottom: 16px;
+      display: flex;
+    }
+
+    &-preview {
+      flex: 1;
+      display: flex;
+      textarea {
+        height: 100%;
+        font-size: var(--font-size-base);
+      }
+    }
+
+    &-actions {
+      width: 100%;
+      text-align: right;
+    }
+  }
+
+  &__group {
+    margin-top: 16px;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+
+    &-interval {
+      padding-left: 22px;
+    }
+  }
+
+  &__form-label {
+    width: 60px;
+    text-align: right;
+    line-height: 32px;
+    padding-right: 12px;
+  }
+}

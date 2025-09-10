@@ -10,6 +10,7 @@ export default {
     confirm: 'Confirm',
     cancel: 'Cancel',
     notice: 'Notice',
+    reset: 'Reset',
 
     // submit: 'Submit',
     // clear: 'Clear',
@@ -24,6 +25,35 @@ export default {
   },
   pop: {
     popContent: 'Are you sure you want to perform this operation?'
+  },
+  // CronPicker Timer Selector
+  cronPicker: {
+    period: 'Period',
+    cron: 'Cron',
+    preview: 'Preview',
+    noExecutionTime: 'No execution time',
+    minute: 'Minute',
+    hour: 'Hour',
+    day: 'Day',
+    week: 'Week',
+    month: 'Month',
+    year: 'Year',
+    from: 'From',
+    to: 'To',
+    at: 'At',
+    interval: 'Time Interval',
+    runOnce: 'Run Once',
+    startTime: 'Start Time',
+    endTime: 'End Time',
+    assignHours: 'Assign Hours',
+    assignMinutes: 'Assign Minutes',
+    time: 'Time',
+    weekDays: 'Sun,Mon,Tue,Wed,Thu,Fri,Sat',
+    days: 'Days',
+    months: 'Months',
+    selectAtLeastOne: 'Select at least one item, default value restored',
+    selectAtLeastTwoHours: 'Select at least two hours for assign hours',
+    placeholder: 'Please select Cron expression'
   }
 
   // Button component

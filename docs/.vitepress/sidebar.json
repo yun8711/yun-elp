@@ -86,6 +86,11 @@
         "text": "group-select 组选择器",
         "link": "/components/group-select/",
         "activeMatch": "/components/group-select/"
+      },
+      {
+        "text": "cron-picker 定时选择器",
+        "link": "/components/cron-picker/",
+        "activeMatch": "/components/cron-picker/"
       }
     ]
   },

@@ -3,8 +3,8 @@
     <y-app-wrap :key="locale" :elp-config="{ locale: locale === 'zh-cn' ? zhCn : en }" :locale="locale"
       v-bind="appWrapConfig">
 
-      <desc-example />
-
+      <cron-picker-example />
+      <!-- <button-example /> -->
     </y-app-wrap>
   </Layout>
 </template>
@@ -15,7 +15,7 @@ import Layout from './components/layout.vue'
 import { User, InfoFilled } from '@element-plus/icons-vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
-import DescExample from './components/desc-example.vue'
+import CronPickerExample from './components/corn-picker-example.vue'
 
 const appWrapConfig = {
   dialog: {

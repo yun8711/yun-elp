@@ -18,6 +18,7 @@ import { YGroupSelect } from './src/group-select';
 import { YEmpty } from './src/empty';
 import { YDesc } from './src/desc';
 import { YPop } from './src/pop';
+import { YCronPicker } from './src/cron-picker';
 
 export default [
   YAppWrap,
@@ -39,4 +40,5 @@ export default [
   YEmpty,
   YDesc,
   YPop,
+  YCronPicker,
 ] as Plugin[];
