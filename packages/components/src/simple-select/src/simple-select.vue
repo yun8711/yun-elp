@@ -1,3 +1,11 @@
+<!--
+ * @Author: liuyun liuyun.dev@qq.com
+ * @Date: 2025-07-28 10:01:33
+ * @LastEditors: liuyun liuyun.dev@qq.com
+ * @LastEditTime: 2025-09-11 15:01:48
+ * @FilePath: /yun-elp/packages/components/src/simple-select/src/simple-select.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <el-select ref="selectRef" v-model="modelValue" v-bind="$attrs">
     <!-- 透传所有插槽到 el-select -->
@@ -16,21 +24,13 @@
           :disabled="group.disabled"
           v-bind="group"
         >
-          <el-option
-            v-for="option in group.options"
-            :key="option.value"
-            v-bind="option"
-          />
+          <el-option v-for="option in group.options" :key="option.value" v-bind="option" />
         </el-option-group>
       </template>
 
       <!-- 渲染普通选项 -->
       <template v-else-if="options.length > 0">
-        <el-option
-          v-for="option in options"
-          :key="option.value"
-          v-bind="option"
-        />
+        <el-option v-for="option in options" :key="option.value" v-bind="option" />
       </template>
     </template>
   </el-select>
@@ -56,7 +56,7 @@ const emit = defineEmits<{
 
 // 计算属性
 const modelValue = computed({
-  get: () => props.modelValue,
+  get: () => (props as any).modelValue,
   set: (value: any) => emit('update:modelValue', value)
 });
 

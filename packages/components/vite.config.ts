@@ -28,7 +28,6 @@ export default defineConfig({
       include: [
         'src/**/*.ts',
         'src/**/*.vue',
-        'src/**/*.vue.ts',
         'hooks/*.ts',
         'locale/**/*.ts',
         'locale/index.ts',

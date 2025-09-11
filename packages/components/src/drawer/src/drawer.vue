@@ -15,10 +15,14 @@
     <template #footer v-if="props.showFooter">
       <slot name="footer">
         <slot name="confirm">
-          <y-button v-if="!props.noConfirm" v-bind="confirmBtnProps" @click="confirmClick">{{ confirmText }}</y-button>
+          <y-button v-if="!props.noConfirm" v-bind="confirmBtnProps" @click="confirmClick">{{
+            confirmText
+          }}</y-button>
         </slot>
         <slot name="cancel">
-          <y-button v-if="!props.noCancel" v-bind="cancelBtnProps" @click="cancelClick">{{ cancelText }}</y-button>
+          <y-button v-if="!props.noCancel" v-bind="cancelBtnProps" @click="cancelClick">{{
+            cancelText
+          }}</y-button>
         </slot>
       </slot>
     </template>
@@ -38,7 +42,7 @@ defineOptions({
   inheritAttrs: true
 });
 
-const emit = defineEmits(['confirm', 'cancel', 'update:modelValue'])
+const emit = defineEmits(['confirm', 'cancel', 'update:modelValue']);
 
 const drawerConfig = useAppConfig('drawer');
 const attrs = useAttrs();
@@ -51,18 +55,18 @@ const props = withDefaults(defineProps<DrawerProps>(), {
   titleStyle: () => ({}),
   showFooter: true,
   noConfirm: false,
-  confirmProps: () => { },
+  confirmProps: () => ({}),
   noCancel: false,
-  cancelProps: () => { },
-})
+  cancelProps: () => ({})
+});
 
 // 受控组件的显示状态
 const drawerVisible = computed({
   get: () => props.modelValue,
   set: (val: boolean) => {
-    emit('update:modelValue', val)
+    emit('update:modelValue', val);
   }
-})
+});
 
 const drawerAttrs = computed(() => {
   return {
@@ -70,60 +74,66 @@ const drawerAttrs = computed(() => {
     bodyClass: 'y-drawer__body',
     footerClass: 'y-drawer__footer',
     size: drawerConfig?.size || '640px',
-    ...omit(drawerConfig, ['titleStyle', 'confirmText', 'cancelText', 'confirmProps', 'cancelProps']),
-    ...attrs,
-  }
-})
+    ...omit(drawerConfig, [
+      'titleStyle',
+      'confirmText',
+      'cancelText',
+      'confirmProps',
+      'cancelProps'
+    ]),
+    ...attrs
+  };
+});
 
 const titleStyle = computed(() => {
   const configStyle = drawerConfig?.titleStyle || {};
   const propStyle = props?.titleStyle || {};
   return {
     ...configStyle,
-    ...propStyle,
-  } as Record<string, any>
-})
+    ...propStyle
+  } as Record<string, any>;
+});
 
 const confirmBtnProps = computed(() => {
   return {
-    type: props.confirmType || 'primary',
-    ...props.confirmProps,
-  }
-})
+    type: 'primary',
+    ...props.confirmProps
+  };
+});
 
 const cancelBtnProps = computed(() => {
   return {
-    type: props.cancelType || 'default',
-    ...props.cancelProps,
-  }
-})
+    type: 'default',
+    ...props.cancelProps
+  };
+});
 
 const confirmText = computed(() => {
-  return props?.confirmText || drawerConfig?.confirmText || t('common.confirm')
-})
+  return props?.confirmText || drawerConfig?.confirmText || t('common.confirm');
+});
 
 const cancelText = computed(() => {
-  return props?.cancelText || drawerConfig?.cancelText || t('common.cancel')
-})
+  return props?.cancelText || drawerConfig?.cancelText || t('common.cancel');
+});
 
 const cancelClick = () => {
   if (hasExternalListener('cancel')) {
     emit('cancel');
   } else {
-    emit('update:modelValue', false)
+    emit('update:modelValue', false);
   }
-}
+};
 
 const confirmClick = () => {
   if (hasExternalListener('confirm')) {
     emit('confirm');
   } else {
-    emit('update:modelValue', false)
+    emit('update:modelValue', false);
   }
-}
+};
 
 const drawerRef = ref(null);
 defineExpose({
-  drawerRef,
-})
+  drawerRef
+});
 </script>

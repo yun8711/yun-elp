@@ -3,10 +3,8 @@ import type {
   ConfigProviderProps,
   DialogProps,
   DrawerProps,
-  ButtonProps,
-  EmptyProps,
   ElTooltipProps,
-  PopoverProps
+  Placement
 } from 'element-plus';
 import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
 import type { ButtonProps as YButtonProps } from '../../button/src/button';
@@ -52,7 +50,7 @@ export interface AppWrapProps {
     right?: string | number;
   };
   // button的配置
-  button?: ButtonProps & {
+  button?: {
     delay?: string | number | undefined;
     maxWait?: string | number | undefined;
   };
@@ -73,11 +71,14 @@ export interface AppWrapProps {
     cancelProps?: YButtonProps;
   };
   // empty的配置
-  empty?: EmptyProps & {
+  empty?: {
+    image?: string;
+    imageSize?: number;
+    description?: string;
     style?: Record<string, any>;
   };
   textTooltip?: {
-    placement?: PlacementType;
+    placement?: Placement;
     tooltipProps?: Partial<ElTooltipProps>;
   };
   desc?: {

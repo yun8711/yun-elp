@@ -3,7 +3,7 @@ import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
 // 选项接口
 export interface RowSelectOption {
   label: string;
-  value: string | number;
+  value: any;
   disabled?: boolean;
   [key: string]: any;
 }

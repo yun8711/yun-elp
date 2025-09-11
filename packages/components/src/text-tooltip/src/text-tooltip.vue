@@ -11,7 +11,15 @@
 
 <script setup lang="ts">
 import type { TextTooltipProps } from './text-tooltip';
-import { computed, ref, onMounted, onUpdated, onUnmounted, useTemplateRef, watch } from '@vue/runtime-core';
+import {
+  computed,
+  ref,
+  onMounted,
+  onUpdated,
+  onUnmounted,
+  useTemplateRef,
+  watch
+} from '@vue/runtime-core';
 import { ElTooltip } from 'element-plus';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 
@@ -41,27 +49,22 @@ const tooltipAttrs = computed(() => {
     popperClass: 'y-text-tooltip__popper',
     content: getSlotContent(),
     ...configAttrs,
-    ...propAttrs,
+    ...propAttrs
   };
 });
 
 const lineClamp = computed(() => {
-  return typeof props.lineClamp === 'number'
-    ? props.lineClamp
-    : Number(props.lineClamp);
+  return typeof props.lineClamp === 'number' ? props.lineClamp : Number(props.lineClamp);
 });
 
 const textStyle = computed(() => {
   return {
-    width: typeof props.width === 'number'
-      ? `${props.width}px`
-      : props.width,
+    width: typeof props.width === 'number' ? `${props.width}px` : props.width,
     '-webkit-line-clamp': lineClamp.value,
     'white-space': lineClamp.value > 1 ? 'normal' : 'nowrap',
-    ...props.textStyle,
+    ...props.textStyle
   };
 });
-
 
 const textRef = useTemplateRef<HTMLElement>('textRef');
 // 从默认插槽获取内容
@@ -86,14 +89,14 @@ const getIsOverflow = () => {
       const width = textRef.value?.offsetWidth;
       // 获取内容滚动宽度，即实际宽度
       const scrollWidth = textRef.value?.scrollWidth;
-      showTooltip.value = width < scrollWidth;
+      showTooltip.value = (width ?? 0) < (scrollWidth ?? 0);
     } else if (lineClamp.value > 1) {
       const height = textRef.value?.offsetHeight;
       const scrollHeight = textRef.value?.scrollHeight;
-      showTooltip.value = height < scrollHeight;
+      showTooltip.value = (height ?? 0) < (scrollHeight ?? 0);
     }
   }
-}
+};
 
 onMounted(() => {
   getIsOverflow();
@@ -110,23 +113,27 @@ onMounted(() => {
 onUpdated(getIsOverflow);
 
 // 监听相关属性变化，重新计算是否显示tooltip
-watch([() => props.model, () => props.lineClamp, () => props.width], () => {
-  // 先清理之前的ResizeObserver
-  if (resizeObserver) {
-    resizeObserver.disconnect();
-    resizeObserver = null;
-  }
+watch(
+  [() => props.model, () => props.lineClamp, () => props.width],
+  () => {
+    // 先清理之前的ResizeObserver
+    if (resizeObserver) {
+      resizeObserver.disconnect();
+      resizeObserver = null;
+    }
 
-  getIsOverflow();
+    getIsOverflow();
 
-  // 如果model为auto且有DOM元素，重新创建ResizeObserver
-  if (props.model === 'auto' && textRef.value) {
-    resizeObserver = new ResizeObserver(() => {
-      getIsOverflow();
-    });
-    resizeObserver.observe(textRef.value);
-  }
-}, { immediate: false });
+    // 如果model为auto且有DOM元素，重新创建ResizeObserver
+    if (props.model === 'auto' && textRef.value) {
+      resizeObserver = new ResizeObserver(() => {
+        getIsOverflow();
+      });
+      resizeObserver.observe(textRef.value);
+    }
+  },
+  { immediate: false }
+);
 
 // 组件卸载时清理ResizeObserver
 onUnmounted(() => {

@@ -11,7 +11,7 @@ export interface GroupSelectProps {
   options: GroupSelectOption[];
   itemClass?: string;
   itemStyles?: Record<string, any>;
-};
+}
 
 export interface GroupSelectEmits {
   change: [value: string | number, item: GroupSelectOption, index: number];
@@ -19,7 +19,7 @@ export interface GroupSelectEmits {
 
 export const groupSelectProps = {
   modelValue: {
-    type: [String, Number],
+    type: [String, Number] as PropType<string | number>,
     default: ''
   },
   options: {

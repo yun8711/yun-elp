@@ -1,10 +1,20 @@
 <template>
-  <div class="y-desc" ref="descRef" :style="containerStyle" :class="{
-    'y-desc--bordered': isBorder,
-  }">
+  <div
+    class="y-desc"
+    ref="descRef"
+    :style="containerStyle"
+    :class="{
+      'y-desc--bordered': isBorder
+    }"
+  >
     <div class="y-desc__body">
-      <div v-for="(item, index) in props.config" :key="getItemKey(item, index)" class="y-desc__item" :class="itemClass"
-        :style="getItemStyle(index)">
+      <div
+        v-for="(item, index) in props.config"
+        :key="getItemKey(item, index)"
+        class="y-desc__item"
+        :class="itemClass"
+        :style="getItemStyle(index)"
+      >
         <div class="y-desc__item-label" :style="getLabelStyle(item, index)">
           <slot v-if="item?.prop" :name="`${item.prop}-label`" v-bind="{ item, index }">
             <span>{{ item.label }}</span>
@@ -33,7 +43,7 @@
 <script setup lang="ts">
 import type { DescProps, DescItem } from './desc';
 import { get } from 'lodash-es';
-import { computed, useAttrs, useTemplateRef } from '@vue/runtime-core'
+import { computed, useAttrs, useTemplateRef } from '@vue/runtime-core';
 import { hasOwn } from '@vueuse/shared';
 import { useElementSize } from '@vueuse/core';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
@@ -47,21 +57,26 @@ defineOptions({
 const descConfig = useAppConfig('desc');
 const attrs = useAttrs();
 const descRef = useTemplateRef<HTMLElement | null>('descRef');
-const { width } = useElementSize(descRef)
+const { width } = useElementSize(descRef);
 const props = defineProps<DescProps>();
 
 const mergedProps = computed(() => {
   const desc = descConfig || {};
-  return {
-    labelAlign: 'left',
-    contentAlign: 'left',
-    emptyText: '',
+  // 先展开 desc 和 props，这样它们会覆盖默认值
+  const merged = {
     ...desc,
     ...props,
     labelWidth: getSizeValue(props.labelWidth) ?? getSizeValue(desc?.labelWidth) ?? 'auto',
     labelStyle: Object.assign({}, desc?.labelStyle || {}, props.labelStyle || {}),
-    contentStyle: Object.assign({}, desc?.contentStyle || {}, props.contentStyle || {}),
-  }
+    contentStyle: Object.assign({}, desc?.contentStyle || {}, props.contentStyle || {})
+  };
+
+  // 如果 desc 和 props 中都没有设置这些属性，则使用默认值
+  if (!merged.labelAlign) merged.labelAlign = 'left';
+  if (!merged.contentAlign) merged.contentAlign = 'left';
+  if (!merged.emptyText) merged.emptyText = '';
+
+  return merged;
 });
 
 // 是否显示边框
@@ -83,30 +98,29 @@ const isItemTooltip = (item: DescItem) => {
   return isAllTooltip.value ?? true;
 };
 
-
 // 获取值
 const getValue = (item: DescItem) => {
   let value = null;
   if (item?.content) {
     value = item.content;
   } else {
-    const v0 = get(props.data, item.path)
+    const v0 = item.path ? get(props.data, item.path) : props.data;
     if (v0 !== undefined && v0 !== null) {
       if (typeof item?.format === 'function') {
-        value = item.format(v0, item);
+        value = item.format(v0);
       } else {
-        value = v0 || mergedProps.emptyText;
+        value = v0 || mergedProps.value?.emptyText;
       }
     } else {
       value = props.emptyText;
     }
   }
   return value;
-}
+};
 
 const getItemKey = (item: DescItem, index: number) => {
   return item?.prop || index;
-}
+};
 
 // 列数
 const column = computed(() => {
@@ -123,139 +137,133 @@ const column = computed(() => {
 // 容器样式 - 动态设置CSS变量
 const containerStyle = computed(() => {
   const style: Record<string, string | number> = {
-    '--y-desc-columns': String(column.value),
-  }
+    '--y-desc-columns': String(column.value)
+  };
 
   // 合并用户自定义样式，过滤无效值
-  const userStyle = (attrs.style as Record<string, any>) || {}
+  const userStyle = (attrs.style as Record<string, any>) || {};
   Object.keys(userStyle).forEach(key => {
-    const value = userStyle[key]
-    if (value != null && value !== undefined && value !== '') {
+    const value = userStyle[key];
+    if (value != null && value !== '') {
       if (typeof value === 'string' || typeof value === 'number') {
-        style[key] = String(value)
+        style[key] = String(value);
       }
     }
-  })
+  });
 
-  return style
-})
+  return style;
+});
 
 const itemClass = computed(() => {
   return {
     'y-desc__item--bordered': isBorder.value,
-    'y-desc__item--vertical': props?.direction === 'vertical',
-  }
-})
+    'y-desc__item--vertical': props?.direction === 'vertical'
+  };
+});
 
 // 获取item样式
 const getItemStyle = (index: number) => {
-  const obj: Record<string, string> = {}
-  const totalItems = props.config.length
-  let currentCol = 0
+  const obj: Record<string, string> = {};
+  const totalItems = props.config.length;
+  let currentCol = 0;
 
   // 遍历到当前item，计算布局
   for (let i = 0; i <= index; i++) {
-    const item = props.config[i]
-    let spanValue =
-      item.span === 'column'
-        ? column.value
-        : typeof item.span === 'number'
-          ? item.span
-          : 1
+    const item = props.config[i];
+    let spanValue: number;
+    if (item.span === ('column' as any)) {
+      spanValue = column.value;
+    } else if (typeof item.span === 'number') {
+      spanValue = item.span;
+    } else {
+      spanValue = 1;
+    }
 
     // 确保spanValue是有效的数字
-    if (typeof spanValue !== 'number' || spanValue <= 0) {
-      spanValue = 1
+    if (spanValue <= 0) {
+      spanValue = 1;
     }
 
     // 如果当前行放不下这个item，换行
     if (currentCol + spanValue > column.value) {
-      currentCol = 0
+      currentCol = 0;
     }
 
     // 如果是最后一个item，且当前行有剩余空间，让它占据剩余空间
     if (i === totalItems - 1 && currentCol < column.value) {
-      spanValue = column.value - currentCol
+      spanValue = column.value - currentCol;
     }
 
     // 如果是当前item，设置gridColumn
     if (i === index) {
       if (spanValue > 1) {
-        obj.gridColumn = `span ${spanValue}`
+        obj.gridColumn = `span ${spanValue}`;
       }
-      break
+      break;
     }
 
-    currentCol += spanValue
+    currentCol += spanValue;
   }
 
   // 最后一行不显示border-bottom
-  const lastRowIndex = Math.floor(totalItems / column.value) * column.value
+  const lastRowIndex = Math.floor(totalItems / column.value) * column.value;
   if (index === lastRowIndex) {
-    obj.borderBottom = 'none'
+    obj.borderBottom = 'none';
   }
 
-  return obj
-}
+  return obj;
+};
 
 // 获取标签样式
 const getLabelStyle = (item: DescItem, index: number) => {
   const style: Record<string, string> = {
     width: getSizeValue(item?.labelWidth) || getSizeValue(props?.labelWidth) || 'auto',
-    borderRight: isBorder.value
-      ? '1px solid var(--el-border-color-lighter)'
-      : 'none',
+    borderRight: isBorder.value ? '1px solid var(--el-border-color-lighter)' : 'none',
     borderLeft:
       isBorder.value && index % column.value !== 0
         ? '1px solid var(--el-border-color-lighter)'
         : 'none',
-    alignItems: item?.labelAlign || mergedProps?.labelAlign || 'left',
-  }
+    alignItems: item?.labelAlign || mergedProps.value?.labelAlign || 'left'
+  };
 
   // 合并样式对象，过滤无效值
-  const mergeStyles = (
-    target: Record<string, string>,
-    source: Record<string, any>
-  ) => {
+  const mergeStyles = (target: Record<string, string>, source: Record<string, any>) => {
     Object.keys(source).forEach(key => {
-      const value = source[key]
-      if (value != null && value !== undefined && value !== '') {
+      const value = source[key];
+      if (value != null && value !== '') {
         if (typeof value === 'string' || typeof value === 'number') {
-          target[key] = String(value)
+          target[key] = String(value);
         }
       }
-    })
-  }
+    });
+  };
 
-  mergeStyles(style, item?.labelStyle || {})
-  mergeStyles(style, mergedProps?.labelStyle || {})
+  mergeStyles(style, item?.labelStyle || {});
+  mergeStyles(style, mergedProps.value?.labelStyle || {});
 
-  return style
-}
+  return style;
+};
 // 获取内容样式
 const getContentStyle = (item: DescItem) => {
   const style: Record<string, string> = {
-    alignItems: item?.contentAlign || mergedProps?.contentAlign || 'left',
-  }
+    alignItems: item?.contentAlign || mergedProps.value?.contentAlign || 'left'
+  };
 
   // 合并样式对象，过滤无效值
-  const mergeStyles = (
-    target: Record<string, string>,
-    source: Record<string, any>
-  ) => {
+  const mergeStyles = (target: Record<string, string>, source: Record<string, any>) => {
     Object.keys(source).forEach(key => {
-      const value = source[key]
-      if (value != null && value !== undefined && value !== '') {
+      const value = source[key];
+      if (value != null && value !== '') {
         if (typeof value === 'string' || typeof value === 'number') {
-          target[key] = String(value)
+          target[key] = String(value);
         }
       }
-    })
-  }
+    });
+  };
 
-  mergeStyles(style, item?.contentStyle || {})
-  mergeStyles(style, mergedProps?.contentStyle || {})
+  mergeStyles(style, item?.contentStyle || {});
+  mergeStyles(style, mergedProps.value?.contentStyle || {});
 
-  return style
-}
+  return style;
+};
 </script>

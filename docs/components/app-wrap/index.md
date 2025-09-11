@@ -62,12 +62,10 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 
 继承 [el-button 的全部属性](https://element-plus.org/zh-CN/component/button.html#button-attributes) ，另外包含以下属性
 
-| 参数         | 描述                 | 类型                                                                                                                                                                        | 默认值  |
-| ------------ | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| delay        | 防抖间隔时间，单位ms | ^[string] / ^[number]                                                                                                                                                       | `300`   |
-| maxWait      | 最大等待时间，单位ms | ^[string] / ^[number]                                                                                                                                                       | —       |
-| placement    | el-tooltip显示位置   | ^[enum]`'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | `'top'` |
-| tooltipProps | el-tooltip的属性     | ^[object]`ElTooltipProps`                                                                                                                                                   | —       |
+| 参数    | 描述                 | 类型                  | 默认值      |
+| ------- | -------------------- | --------------------- | ----------- |
+| delay   | 防抖间隔时间，单位ms | ^[string] / ^[number] | `300`       |
+| maxWait | 最大等待时间，单位ms | ^[string] / ^[number] | `undefined` |
 
 #### drawer Attribute
 
@@ -97,9 +95,12 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 
 继承 [el-empty 的全部属性](https://element-plus.org/zh-CN/component/empty.html#attributes) ，另外包含以下属性
 
-| 参数  | 描述                                | 类型                     | 默认值 |
-| ----- | ----------------------------------- | ------------------------ | ------ |
-| style | 组件样式，包括el-empty支持的css变量 | ^[object]`CSSProperties` | —      |
+| 参数        | 描述                                | 类型                     | 默认值       |
+| ----------- | ----------------------------------- | ------------------------ | ------------ |
+| style       | 组件样式，包括el-empty支持的css变量 | ^[object]`CSSProperties` | —            |
+| image       | 自定义图片                          | ^[string]                | —            |
+| imageSize   | 自定义图片大小                      | ^[number]                | `100`        |
+| description | 自定义描述                          | ^[string]                | `'暂无数据'` |
 
 #### text-tooltip Attribute
 
