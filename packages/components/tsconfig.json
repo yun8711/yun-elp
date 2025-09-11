@@ -24,7 +24,8 @@
       "@/*": ["src/*"],
       "~/*": ["./*"]
     },
-    "preserveSymlinks": true
+    "preserveSymlinks": true,
+    "types": ["vue", "@vue/shared"]
   },
   "include": [
     "src/**/*.ts",

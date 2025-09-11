@@ -1,17 +1,38 @@
+<!--
+ * @Author: liuyun liuyun.dev@qq.com
+ * @Date: 2025-07-28 10:01:33
+ * @LastEditors: liuyun liuyun.dev@qq.com
+ * @LastEditTime: 2025-09-11 20:08:52
+ * @FilePath: /yun-elp/packages/components/src/table-search/src/table-search.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ -->
 <template>
   <div class="y-table-search">
     <div class="y-table-search__left" :class="{ 'y-table-search__left-show-more': hasMore }">
       <!-- 不区分多行时 -->
       <template v-if="!hasMore">
         <div class="y-table-search__left-all">
-          <y-border-label v-for="item in firstOptions.filter((item: TableSearchItem) => !item.hidden)" :key="item.prop"
-            v-bind="item.borderAttrs">
+          <y-border-label
+            v-for="item in firstOptions.filter((item: TableSearchItem) => !item.hidden)"
+            :key="item.prop"
+            v-bind="item.borderAttrs"
+          >
             <template v-if="item.custom">
-              <slot :name="item.prop" :prop="item.prop" :value="form[item.prop]" :item="item" :form="form" />
+              <slot
+                :name="item.prop"
+                :prop="item.prop"
+                :value="form[item.prop]"
+                :item="item"
+                :form="form"
+              />
             </template>
             <template v-else>
-              <component :is="item.comp" v-model="form[item.prop]" v-bind="item.innerAttrs"
-                @update:modelValue="handleValueUpdate(item.prop, $event)" />
+              <component
+                :is="item.comp"
+                v-model="form[item.prop]"
+                v-bind="item.innerAttrs"
+                @update:modelValue="handleValueUpdate(item.prop, $event)"
+              />
             </template>
           </y-border-label>
           <div>
@@ -24,14 +45,27 @@
       <template v-else>
         <!-- 第一行 -->
         <div class="y-table-search__left-first">
-          <y-border-label v-for="item in firstOptions.filter((item: TableSearchItem) => !item.hidden)" :key="item.prop"
-            v-bind="item.borderAttrs">
+          <y-border-label
+            v-for="item in firstOptions.filter((item: TableSearchItem) => !item.hidden)"
+            :key="item.prop"
+            v-bind="item.borderAttrs"
+          >
             <template v-if="item.custom">
-              <slot :name="item.prop" :prop="item.prop" :value="form[item.prop]" :item="item" :form="form" />
+              <slot
+                :name="item.prop"
+                :prop="item.prop"
+                :value="form[item.prop]"
+                :item="item"
+                :form="form"
+              />
             </template>
             <template v-else>
-              <component :is="item.comp" v-model="form[item.prop]" v-bind="item.innerAttrs"
-                @update:modelValue="handleValueUpdate(item.prop, $event)" />
+              <component
+                :is="item.comp"
+                v-model="form[item.prop]"
+                v-bind="item.innerAttrs"
+                @update:modelValue="handleValueUpdate(item.prop, $event)"
+              />
             </template>
           </y-border-label>
 
@@ -50,14 +84,27 @@
         <!-- 使用 Transition 包裹 -->
         <el-collapse-transition :style="{ 'transition-duration': `${props.duration}s` }">
           <div class="y-table-search__left-more" v-show="!isFold">
-            <y-border-label v-for="item in moreOptions.filter((item: TableSearchItem) => !item.hidden)" :key="item.prop"
-              v-bind="item.borderAttrs">
+            <y-border-label
+              v-for="item in moreOptions.filter((item: TableSearchItem) => !item.hidden)"
+              :key="item.prop"
+              v-bind="item.borderAttrs"
+            >
               <template v-if="item.custom">
-                <slot :name="item.prop" :prop="item.prop" :value="form[item.prop]" :item="item" :form="form" />
+                <slot
+                  :name="item.prop"
+                  :prop="item.prop"
+                  :value="form[item.prop]"
+                  :item="item"
+                  :form="form"
+                />
               </template>
               <template v-else>
-                <component :is="item.comp" v-model="form[item.prop]" v-bind="item.innerAttrs"
-                  @update:modelValue="handleValueUpdate(item.prop, $event)" />
+                <component
+                  :is="item.comp"
+                  v-model="form[item.prop]"
+                  v-bind="item.innerAttrs"
+                  @update:modelValue="handleValueUpdate(item.prop, $event)"
+                />
               </template>
             </y-border-label>
           </div>
@@ -72,19 +119,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, markRaw } from '@vue/runtime-core'
+/// <reference types="@vue/shared" />
+import { ref, computed, watch, markRaw } from '@vue/runtime-core';
 // @ts-ignore
-import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
+import { ArrowDown, ArrowUp } from '@element-plus/icons-vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
-import YBorderLabel from '../../border-label/src/border-label.vue'
-import type { TableSearchProps, TableSearchOption, TableSearchItem, DynamicPropsParams, TableSearchEmits } from './table-search'
+import YBorderLabel from '../../border-label/src/border-label.vue';
+import type {
+  TableSearchProps,
+  TableSearchOption,
+  TableSearchItem,
+  DynamicPropsParams,
+  TableSearchEmits
+} from './table-search';
 // @ts-ignore
 import { ElCollapseTransition, ElInput, ElAutocomplete } from 'element-plus';
 
 defineOptions({
   name: 'YTableSearch',
-  inheritAttrs: true,
-})
+  inheritAttrs: true
+});
 
 // ==================== Props & Emits ====================
 const props = withDefaults(defineProps<TableSearchProps>(), {
@@ -94,9 +148,9 @@ const props = withDefaults(defineProps<TableSearchProps>(), {
   duration: 0.2,
   disabledFirst: true,
   clearOnFold: true
-})
+});
 
-const emits = defineEmits<TableSearchEmits>()
+const emits = defineEmits<TableSearchEmits>();
 
 // ==================== 配置获取 ====================
 const borderLabelConfig = useAppConfig('border-label');
@@ -104,25 +158,27 @@ const tableSearchConfig = useAppConfig('table-search');
 
 // ==================== 响应式数据 ====================
 const isFold = ref(props.defaultFold);
-const form = ref<Record<string, any>>({});  // 原始绑定值
-const formatForm = ref<Record<string, any>>({});  // 格式化后的值
+const form = ref<Record<string, any>>({}); // 原始绑定值
+const formatForm = ref<Record<string, any>>({}); // 格式化后的值
 const firstOptions = ref<TableSearchItem[]>([]);
 const moreOptions = ref<TableSearchItem[]>([]);
 
 // ==================== 计算属性 ====================
 const foldText = computed(() => {
-  return props.foldText || tableSearchConfig?.foldText || '收起'
-})
+  return props.foldText || tableSearchConfig?.foldText || '收起';
+});
 
 const unFoldText = computed(() => {
-  return props.unFoldText || tableSearchConfig?.unFoldText || '高级搜索'
-})
+  return props.unFoldText || tableSearchConfig?.unFoldText || '高级搜索';
+});
 
 const hasMore = computed(() => {
   const options = getCurrentOptions();
   const firstOptions = options.filter((item: TableSearchOption) => item.first === true);
-  return firstOptions.length !== 0 && options.length !== 1 && firstOptions.length !== options.length;
-})
+  return (
+    firstOptions.length !== 0 && options.length !== 1 && firstOptions.length !== options.length
+  );
+});
 
 // ==================== 工具函数 ====================
 /**
@@ -141,7 +197,10 @@ function getCurrentOptions(): TableSearchOption[] {
 /**
  * 处理动态属性
  */
-function resolveDynamicProp<T>(prop: T | ((params: DynamicPropsParams) => T) | undefined, params: DynamicPropsParams): T | undefined {
+function resolveDynamicProp<T>(
+  prop: T | ((params: DynamicPropsParams) => T) | undefined,
+  params: DynamicPropsParams
+): T | undefined {
   if (typeof prop === 'function') {
     return (prop as (params: DynamicPropsParams) => T)(params);
   }
@@ -210,21 +269,27 @@ function processOption(item: TableSearchOption): TableSearchItem {
   // 智能 placeholder 处理
   let newInnerAttrs = { ...resolvedInnerAttrs };
   const hasPlaceholder = 'placeholder' in newInnerAttrs;
-  const hasStartPlaceholder = 'startPlaceholder' in newInnerAttrs || 'start-placeholder' in newInnerAttrs;
+  const hasStartPlaceholder =
+    'startPlaceholder' in newInnerAttrs || 'start-placeholder' in newInnerAttrs;
   const hasEndPlaceholder = 'endPlaceholder' in newInnerAttrs || 'end-placeholder' in newInnerAttrs;
 
   // 输入类
   const inputComps = ['ElInput', 'ElInputNumber', 'ElAutocomplete'];
   // 选择类
   const selectComps = [
-    'ElSelect', 'ElCascader', 'ElTreeSelect', 'ElRadioGroup', 'ElCheckboxGroup',
-    'ElDatePicker', 'ElTimePicker'
+    'ElSelect',
+    'ElCascader',
+    'ElTreeSelect',
+    'ElRadioGroup',
+    'ElCheckboxGroup',
+    'ElDatePicker',
+    'ElTimePicker'
   ];
 
   // 范围选择
   const isRange =
     (compName === 'ElDatePicker' || compName === 'ElTimePicker') &&
-    (newInnerAttrs.type?.includes('range'));
+    newInnerAttrs.type?.includes('range');
 
   if (!hasPlaceholder && !isRange) {
     if (inputComps.includes(compName)) {
@@ -252,23 +317,18 @@ function processOption(item: TableSearchOption): TableSearchItem {
       width: resolvedBorderAttrs.width ?? borderLabelConfig?.width ?? '220px',
       height: resolvedBorderAttrs.height ?? borderLabelConfig?.height ?? '32px',
       noBorder: resolvedBorderAttrs.noBorder ?? false,
-      ...resolvedBorderAttrs,
+      ...resolvedBorderAttrs
     },
     innerAttrs: {
       disabled: resolvedDisabled ?? false,
-      ...newInnerAttrs,
-    },
-  }
+      ...newInnerAttrs
+    }
+  };
 
   // 修正首行disabled自动控制逻辑
   const allOptions = getCurrentOptions();
   const optionsCount = allOptions.length;
-  if (
-    item.first &&
-    props.disabledFirst &&
-    hasMore.value &&
-    optionsCount > 1
-  ) {
+  if (item.first && props.disabledFirst && hasMore.value && optionsCount > 1) {
     obj.innerAttrs.disabled = !isFold.value;
   }
 
@@ -308,12 +368,14 @@ function initializeForm() {
 
   options.forEach((item: TableSearchOption) => {
     if (!(item.prop in form.value)) {
-      form.value[item.prop] = item.value ?? getDefaultValue(item, {
-        form: form.value,
-        isFold: isFold.value,
-        prop: item.prop,
-        value: undefined
-      });
+      form.value[item.prop] =
+        item.value ??
+        getDefaultValue(item, {
+          form: form.value,
+          isFold: isFold.value,
+          prop: item.prop,
+          value: undefined
+        });
     }
   });
 }
@@ -371,7 +433,7 @@ function handleValueUpdate(prop: string, value: any) {
  */
 function onSearch() {
   updateFormatForm(); // 确保数据是最新的
-  emits('search', formatFormData())
+  emits('search', formatFormData());
 }
 
 /**
@@ -381,23 +443,25 @@ function onReset() {
   const options = getCurrentOptions();
 
   options.forEach((item: TableSearchOption) => {
-    form.value[item.prop] = item.value ?? getDefaultValue(item, {
-      form: form.value,
-      isFold: isFold.value,
-      prop: item.prop,
-      value: undefined
-    });
+    form.value[item.prop] =
+      item.value ??
+      getDefaultValue(item, {
+        form: form.value,
+        isFold: isFold.value,
+        prop: item.prop,
+        value: undefined
+      });
   });
 
   updateFormatForm();
-  emits('reset', formatFormData())
+  emits('reset', formatFormData());
 }
 
 /**
  * 折叠切换事件
  */
 function toggleFold() {
-  isFold.value = !isFold.value
+  isFold.value = !isFold.value;
 
   if (hasMore.value && props.clearOnFold) {
     if (isFold.value) {
@@ -412,7 +476,7 @@ function toggleFold() {
   }
 
   updateFormatForm();
-  emits('fold', { isFold: isFold.value, form: form.value })
+  emits('fold', { isFold: isFold.value, form: form.value });
 }
 
 // ==================== 初始化 & 监听器 ====================
@@ -420,21 +484,33 @@ function toggleFold() {
 initializeForm();
 
 // 监听表单变化，更新选项和格式化数据
-watch([form, isFold], () => {
-  updateOptions();
-  updateFormatForm();
-}, { deep: true })
+watch(
+  [form, isFold],
+  () => {
+    updateOptions();
+    updateFormatForm();
+  },
+  { deep: true }
+);
 
 // 监听options变化，重新初始化
-watch(() => props.options, () => {
-  initializeForm();
-  updateOptions();
-  updateFormatForm();
-}, { deep: true, immediate: true })
+watch(
+  () => props.options,
+  () => {
+    initializeForm();
+    updateOptions();
+    updateFormatForm();
+  },
+  { deep: true, immediate: true }
+);
 
 // 监听form变化，发送change事件
-watch(form, () => {
-  updateFormatForm();
-  emits('change', formatFormData())
-}, { deep: true, immediate: true })
+watch(
+  form,
+  () => {
+    updateFormatForm();
+    emits('change', formatFormData());
+  },
+  { deep: true, immediate: true }
+);
 </script>

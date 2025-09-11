@@ -3,9 +3,8 @@ import type {
   ConfigProviderProps,
   DialogProps,
   DrawerProps,
-  ButtonProps,
-  EmptyProps,
-  ElTooltipProps
+  ElTooltipProps,
+  Placement
 } from 'element-plus';
 import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
 import type { ButtonProps as YButtonProps } from '../../button/src/button';
@@ -37,22 +36,9 @@ export interface AppWrapProps {
     right?: string | number;
   };
   // button的配置
-  button?: ButtonProps & {
+  button?: {
     delay?: string | number | undefined;
     maxWait?: string | number | undefined;
-    // placement?:
-    //   | 'top'
-    //   | 'top-start'
-    //   | 'top-end'
-    //   | 'bottom'
-    //   | 'bottom-start'
-    //   | 'bottom-end'
-    //   | 'left'
-    //   | 'left-start'
-    //   | 'left-end'
-    //   | 'right'
-    //   | 'right-start'
-    //   | 'right-end';
   };
   // drawer的配置
   drawer?: DrawerProps & {
@@ -71,23 +57,14 @@ export interface AppWrapProps {
     cancelProps?: YButtonProps;
   };
   // empty的配置
-  empty?: EmptyProps & {
+  empty?: {
+    image?: string;
+    imageSize?: number;
+    description?: string;
     style?: Record<string, any>;
   };
   textTooltip?: {
-    placement?:
-      | 'top'
-      | 'top-start'
-      | 'top-end'
-      | 'bottom'
-      | 'bottom-start'
-      | 'bottom-end'
-      | 'left'
-      | 'left-start'
-      | 'left-end'
-      | 'right'
-      | 'right-start'
-      | 'right-end';
+    placement?: Placement;
     tooltipProps?: Partial<ElTooltipProps>;
   };
   desc?: {

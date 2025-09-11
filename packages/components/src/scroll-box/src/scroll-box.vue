@@ -18,7 +18,12 @@
 
     <!-- 滚动容器 -->
     <div class="y-scroll-box__container" @wheel="handleWheel">
-      <el-scrollbar ref="scrollbarRef" v-bind="scrollbarProps" class="y-scroll-box__scrollbar" @scroll="handleScroll">
+      <el-scrollbar
+        ref="scrollbarRef"
+        v-bind="scrollbarProps"
+        class="y-scroll-box__scrollbar"
+        @scroll="handleScroll"
+      >
         <div ref="contentRef" class="y-scroll-box__content">
           <slot></slot>
         </div>
@@ -68,7 +73,7 @@ const props = withDefaults(defineProps<ScrollBoxProps>(), {
 
 // 定义事件
 const emit = defineEmits<{
-  scroll: [scrollLeft: number]
+  scroll: [scrollLeft: number];
 }>();
 
 // el-scrollbar 实例
@@ -129,7 +134,7 @@ const checkScrollStatus = useThrottleFn(() => {
 
 // 连续滚动相关状态
 const isContinuous = ref(false);
-const continuousTimer = ref<NodeJS.Timeout | null>(null);
+const continuousTimer = ref<number | null>(null);
 const continuousAnimationId = ref<number | null>(null);
 const continuousDirection = ref<'prev' | 'next' | null>(null);
 const continuousBoundaries = ref<{ min: number; max: number } | null>(null);
@@ -164,7 +169,7 @@ const handleMouseDown = (direction: 'prev' | 'next') => {
       continuousDirection.value = direction;
     }
   }, props.continuousTime);
-}
+};
 
 const handleMouseUp = () => {
   if (continuousTimer.value) {
@@ -173,7 +178,7 @@ const handleMouseUp = () => {
   }
   // 立即停止连续滚动
   isContinuous.value = false;
-}
+};
 
 // 开始连续滚动
 const startContinuousScroll = (direction: 'prev' | 'next') => {
@@ -205,9 +210,8 @@ const startContinuousScroll = (direction: 'prev' | 'next') => {
     const { scrollLeft } = wrapRef;
     const { min, max } = continuousBoundaries.value;
 
-    const newScrollLeft = targetDirection === 'prev'
-      ? scrollLeft - stepValue
-      : scrollLeft + stepValue;
+    const newScrollLeft =
+      targetDirection === 'prev' ? scrollLeft - stepValue : scrollLeft + stepValue;
 
     const clampedScrollLeft = Math.max(min, Math.min(newScrollLeft, max));
 
@@ -250,8 +254,6 @@ watch(isContinuous, (newVal: boolean) => {
   }
 });
 
-
-
 // 执行滚动操作
 const performScroll = (direction: 'prev' | 'next', stepValue: number) => {
   if (!scrollbarRef.value) return;
@@ -263,8 +265,7 @@ const performScroll = (direction: 'prev' | 'next', stepValue: number) => {
 
   const { scrollLeft, scrollWidth, clientWidth } = wrapRef;
 
-  const newScrollLeft =
-    direction === 'prev' ? scrollLeft - stepValue : scrollLeft + stepValue;
+  const newScrollLeft = direction === 'prev' ? scrollLeft - stepValue : scrollLeft + stepValue;
 
   // 检查是否到达边界
   const maxScrollLeft = scrollWidth - clientWidth;
@@ -287,15 +288,13 @@ const performScroll = (direction: 'prev' | 'next', stepValue: number) => {
   }
 };
 
-
-
 // 处理滚动事件（主要用于用户直接操作滚动条时）
 const handleScroll = ({ scrollLeft }: { scrollLeft: number }) => {
   // 触发滚动事件（用户直接操作滚动条时）
   emit('scroll', scrollLeft);
 
   checkScrollStatus();
-}
+};
 
 // 处理箭头点击
 const handleClick = (direction: 'prev' | 'next') => {
@@ -334,8 +333,6 @@ const handleWheel = (event: WheelEvent) => {
 
   scrollbar.setScrollLeft(newScrollLeft);
 };
-
-
 
 // 使用 useResizeObserver 监听内容尺寸变化
 const { stop: stopResizeObserver } = useResizeObserver(contentRef, () => {
@@ -381,14 +378,18 @@ const scrollTo = (scrollLeft: undefined | number | 'start' | 'end') => {
     if (scrollLeft === 'start') {
       scrollbarRef.value.setScrollLeft(0);
     } else if (scrollLeft === 'end') {
-      scrollbarRef.value.setScrollLeft(scrollbarRef.value.wrapRef.scrollWidth - scrollbarRef.value.wrapRef.clientWidth);
-    } else {
+      if (scrollbarRef.value.wrapRef) {
+        scrollbarRef.value.setScrollLeft(
+          scrollbarRef.value.wrapRef.scrollWidth - scrollbarRef.value.wrapRef.clientWidth
+        );
+      }
+    } else if (typeof scrollLeft === 'number') {
       scrollbarRef.value.setScrollLeft(scrollLeft);
     }
 
     wrapRef.style.scrollBehavior = 'auto';
   }
-}
+};
 
 // 暴露方法给父组件
 defineExpose({
