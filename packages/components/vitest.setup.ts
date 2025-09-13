@@ -27,7 +27,7 @@ beforeAll(() => {
     return;
   });
 
-  // 全局注册 Element Plus 组件
+  // 全局注册 Element Plus 组件和指令
   config.global.stubs = {
     'el-button': {
       template: '<button class="el-button" :class="[type ? `el-button--${type}` : \'\', { disabled }, $attrs.class]" :style="style" v-bind="$attrs" @click="$emit(\'click\', $event)" @focus="$emit(\'focus\', $event)"><slot></slot></button>',
@@ -37,6 +37,40 @@ beforeAll(() => {
     },
     'el-button-group': {
       template: '<div class="el-button-group"><slot></slot></div>'
+    },
+    'el-table': {
+      template: '<div class="el-table" v-bind="$attrs" :class="{ \'is-loading\': loading }"><slot></slot><slot name="empty"></slot><slot name="append"></slot></div>',
+      props: ['data', 'border', 'size', 'loading', 'height', 'maxHeight'],
+      inheritAttrs: true
+    },
+    'el-pagination': {
+      template: '<div class="el-pagination" v-bind="$attrs" @change="$emit(\'change\', arguments[0], arguments[1])"></div>',
+      props: ['total', 'currentPage', 'pageSize', 'layout', 'background', 'pageSizes'],
+      emits: ['change'],
+      inheritAttrs: true
+    },
+    'y-empty': {
+      template: '<div class="y-empty" v-bind="$attrs"><slot></slot><slot name="image"></slot><slot name="description"></slot></div>',
+      props: ['image', 'imageSize', 'description', 'style'],
+      inheritAttrs: true
+    }
+  };
+
+  // 注册指令
+  config.global.directives = {
+    loading: {
+      mounted(el, binding) {
+        if (binding.value) {
+          el.classList.add('is-loading');
+        }
+      },
+      updated(el, binding) {
+        if (binding.value) {
+          el.classList.add('is-loading');
+        } else {
+          el.classList.remove('is-loading');
+        }
+      }
     }
   };
 });

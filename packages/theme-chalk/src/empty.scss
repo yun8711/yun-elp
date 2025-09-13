@@ -4,4 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  .el-empty__description {
+    line-height: 18px;
+    font-size: var(--el-font-size-base);
+  }
 }

@@ -64,6 +64,9 @@ html body {
   // 圆角覆盖
   --el-border-radius-base: var(--border-radius-base, 4px);
 
+  // 分页器样式覆盖
+  // --el-pagination-font-size: var(--el-font-size-base, 12px);
+
   // yun-elp的全局样式
   --y-tooltip-popper-max-width: 316px;
   --y-tooltip-popper-max-height: 200px;
@@ -110,3 +113,31 @@ html body {
     margin-top: 12px;
   }
 }
+
+.el-table {
+    // border: 1px solid var(--el-border-color-light);
+    // border-bottom: none;
+    --el-table-header-bg-color: #f7f8fa; // 表头背景色
+    --el-table-header-text-color: var(--el-text-color-primary); // 表头文字颜色
+
+    // 表头增加分隔线样式
+    .el-table__header:hover th:not(:last-child)::after {
+      position: absolute;
+      top: 12px;
+      right: 0;
+      display: inline-block;
+      width: 1px;
+      height: 16px;
+      content: '\20';
+      background: rgb(25 39 62 / 8%);
+    }
+
+    // 隐藏表格竖线
+    &.el-table--border .el-table__cell {
+      border-right: none;
+    }
+
+    &__empty-block{
+      height: 100px;
+    }
+  }

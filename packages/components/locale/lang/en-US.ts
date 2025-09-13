@@ -54,6 +54,10 @@ export default {
     selectAtLeastOne: 'Select at least one item, default value restored',
     selectAtLeastTwoHours: 'Select at least two hours for assign hours',
     placeholder: 'Please select Cron expression'
+  },
+  table: {
+    total: 'Total',
+    items: 'items of data'
   }
 
   // Button component

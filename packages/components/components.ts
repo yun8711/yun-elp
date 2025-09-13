@@ -19,6 +19,7 @@ import { YEmpty } from './src/empty';
 import { YDesc } from './src/desc';
 import { YPop } from './src/pop';
 import { YCronPicker } from './src/cron-picker';
+import { YTable } from './src/table';
 
 export default [
   YAppWrap,
@@ -41,4 +42,5 @@ export default [
   YDesc,
   YPop,
   YCronPicker,
+  YTable,
 ] as Plugin[];

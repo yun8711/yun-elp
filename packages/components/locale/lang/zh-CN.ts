@@ -54,6 +54,10 @@ export default {
     selectAtLeastOne: '至少选择一项,已恢复默认值',
     selectAtLeastTwoHours: '指定小时最少选择两个',
     placeholder: '请选择Cron表达式'
+  },
+  table: {
+    total: '共',
+    items: '项数据'
   }
 
   // 按钮组件

@@ -4,10 +4,13 @@ import type {
   DialogProps,
   DrawerProps,
   ElTooltipProps,
-  Placement
+  Placement,
+  PopoverProps,
+  PaginationProps
 } from 'element-plus';
 import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
 import type { ButtonProps as YButtonProps } from '../../button/src/button';
+import type { EmptyProps } from '../../empty/src/empty';
 
 type PlacementType =
   | 'top'
@@ -102,6 +105,10 @@ export interface AppWrapProps {
     popContent?: string;
     popProps?: Partial<PopoverProps>;
   };
+  table?: {
+    emptyProps?: EmptyProps;
+    paginationProps?: PaginationProps;
+  };
   [key: string]: any;
 }
 
@@ -149,6 +156,10 @@ export const appWrapProps = {
   },
   desc: {
     type: Object as PropType<AppWrapProps['desc']>,
+    default: () => ({})
+  },
+  table: {
+    type: Object as PropType<AppWrapProps['table']>,
     default: () => ({})
   }
 } as const;

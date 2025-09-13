@@ -111,6 +111,11 @@
         "text": "desc 描述列表",
         "link": "/components/desc/",
         "activeMatch": "/components/desc/"
+      },
+      {
+        "text": "table 表格",
+        "link": "/components/table/",
+        "activeMatch": "/components/table/"
       }
     ]
   },
