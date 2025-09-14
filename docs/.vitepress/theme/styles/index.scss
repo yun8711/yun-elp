@@ -13,12 +13,12 @@
   --vp-layout-max-width: 100%;
 }
 
-/* 表格样式 */
+/* 表格样式（仅作用于 Markdown 渲染出来的表格，不影响 el-table/y-table） */
 .vp-doc {
   h2 {
     border-top: none;
   }
-  table {
+  .vp-table > table {
     display: table;
     width: 100%;
     border-collapse: collapse;
@@ -47,7 +47,14 @@
       font-family: var(--font-family-mono);
     }
   }
+
+  table:not(.el-table) {
+    margin:0;
+  }
 }
+
+/* 取消 VitePress 对 Element Plus 表格的通用 table 样式干扰（保留 EP 默认行高） */
+/* 已通过 .vp-table > table 限定 Markdown 表格作用域，这里不再强制重置 .el-table */
 
 #VPContent {
   .container {

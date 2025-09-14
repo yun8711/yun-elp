@@ -151,20 +151,20 @@ body {
   background-color: var(--vp-c-bg-soft);
 }
 
-/* 表格样式 */
-.vp-doc table {
+/* 表格样式（仅作用于 Markdown 渲染表格，不影响 el-table/y-table） */
+.vp-doc .vp-table > table {
   width: 100%;
   border-collapse: collapse;
   margin: 1em 0;
 }
 
-.vp-doc th,
-.vp-doc td {
+.vp-doc .vp-table > table th,
+.vp-doc .vp-table > table td {
   padding: 0.6em 1em;
   border: 1px solid var(--vp-c-border);
 }
 
-.vp-doc th {
+.vp-doc .vp-table > table th {
   background-color: var(--vp-c-bg-soft);
   font-weight: 600;
 }
