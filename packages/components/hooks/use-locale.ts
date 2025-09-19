@@ -64,6 +64,7 @@ export function useLocale() {
 
   return {
     t,
-    locale: resolvedLocale
+    locale: resolvedLocale,
+    localeCode: locale
   };
 }

@@ -43,7 +43,7 @@ export default defineConfig({
         // 确保类型声明文件可以在 JS 项目中使用
         skipLibCheck: true,
         // 将类型依赖标记为可选
-        types: ['vue']
+        types: ['vue', '@vue/shared']
       },
       // 在类型声明文件中添加类型引用
       beforeWriteFile: (filePath, content) => {

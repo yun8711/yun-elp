@@ -22,10 +22,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "~/*": ["./*"]
+      "~/*": ["./*"],
     },
     "preserveSymlinks": true,
-    "types": ["vue", "@vue/shared"]
+    "types": ["vue"]
   },
   "include": [
     "src/**/*.ts",

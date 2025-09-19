@@ -119,9 +119,7 @@
 </template>
 
 <script setup lang="ts">
-/// <reference types="@vue/shared" />
 import { ref, computed, watch, markRaw } from '@vue/runtime-core';
-// @ts-ignore
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import YBorderLabel from '../../border-label/src/border-label.vue';

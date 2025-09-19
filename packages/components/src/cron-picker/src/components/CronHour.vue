@@ -62,7 +62,7 @@ const emit = defineEmits<{
   change: [value: string]
 }>()
 
-const { t,locale } = useLocale()
+const { t, localeCode } = useLocale()
 
 const cronForm = reactive({
   startTime: '00:00',
@@ -74,7 +74,7 @@ const cronForm = reactive({
 })
 
 const labelWidth = computed(() => {
-  return locale.value === 'zh-cn' ? '60px' : '50px'
+  return localeCode === 'zh-cn' ? '60px' : '50px'
 })
 
 // 计算属性

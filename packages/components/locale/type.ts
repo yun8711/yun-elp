@@ -45,4 +45,8 @@ export type YunElpLanguage = {
     selectAtLeastOne: string;
     selectAtLeastTwoHours: string;
   };
+  table: {
+    total: string;
+    items: string;
+  };
 };

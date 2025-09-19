@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useAttrs, useTemplateRef } from '@vue/runtime-core';
+import { computed, provide, useAttrs, useTemplateRef } from '@vue/runtime-core';
 import type { TableProps } from './table';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
@@ -38,13 +38,18 @@ defineOptions({
   inheritAttrs: true
 });
 
+
+
 const emit = defineEmits<{
   (e: 'paginationChange', obj: { currentPage: number, pageSize: number }): void
 }>();
 
 const attrs = useAttrs();
 const slots = defineSlots<{
-  footer(): any
+  default(): any;
+  empty(): any;
+  append(): any;
+  footer(): any;
 }>();
 
 const props = withDefaults(defineProps<TableProps>(), {
@@ -100,4 +105,7 @@ defineExpose({
   tableRef,
   paginationRef
 })
+
+provide('tableData', attrs.data);
+// provide('tableProps', tableProps);
 </script>
