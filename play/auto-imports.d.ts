@@ -9,5 +9,6 @@ declare global {
   const ElAutocomplete: typeof import('element-plus/es')['ElAutocomplete']
   const ElCascader: typeof import('element-plus/es')['ElCascader']
   const ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
+  const ElMessage: typeof import('element-plus/es')['ElMessage']
   const ElSelect: typeof import('element-plus/es')['ElSelect']
 }

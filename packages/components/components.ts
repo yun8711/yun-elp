@@ -20,6 +20,7 @@ import { YDesc } from './src/desc';
 import { YPop } from './src/pop';
 import { YCronPicker } from './src/cron-picker';
 import { YTable } from './src/table';
+import { YColumnText } from './src/column-text';
 
 export default [
   YAppWrap,
@@ -43,4 +44,5 @@ export default [
   YPop,
   YCronPicker,
   YTable,
+  YColumnText,
 ] as Plugin[];

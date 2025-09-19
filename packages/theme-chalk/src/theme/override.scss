@@ -74,15 +74,18 @@ html body {
 
 // 全局样式
 // y-text-tooltip弹出框样式
-.y-text-tooltip__popper {
+// y-column-text__tooltip 用于覆盖column-text组件的tooltip样式
+.y-text-tooltip__popper,.y-column-text__tooltip {
   max-width: var(--y-tooltip-popper-max-width);
-  padding: 5px 0;
+  padding: 4px 6px;
 
   > span:first-child {
     display: block;
     padding: 0;
     max-height: calc(var(--y-tooltip-popper-max-height) - 10px);
     overflow-y: scroll;
+    line-height: 1.5;
+    font-size: var(--el-font-size-small);
 
     // 改写滚动条样式
     &::-webkit-scrollbar {
@@ -115,29 +118,30 @@ html body {
 }
 
 .el-table {
-    // border: 1px solid var(--el-border-color-light);
-    // border-bottom: none;
-    --el-table-header-bg-color: #f7f8fa; // 表头背景色
-    --el-table-header-text-color: var(--el-text-color-primary); // 表头文字颜色
+  // border: 1px solid var(--el-border-color-light);
+  // border-bottom: none;
+  --el-table-header-bg-color: #f7f8fa; // 表头背景色
+  --el-table-header-text-color: var(--el-text-color-primary); // 表头文字颜色
+  width: 100%;
 
-    // 表头增加分隔线样式
-    .el-table__header:hover th:not(:last-child)::after {
-      position: absolute;
-      top: 12px;
-      right: 0;
-      display: inline-block;
-      width: 1px;
-      height: 16px;
-      content: '\20';
-      background: rgb(25 39 62 / 8%);
-    }
-
-    // 隐藏表格竖线
-    &.el-table--border .el-table__cell {
-      border-right: none;
-    }
-
-    &__empty-block{
-      height: 100px;
-    }
+  // 表头增加分隔线样式
+  .el-table__header:hover th:not(:last-child)::after {
+    position: absolute;
+    top: 12px;
+    right: 0;
+    display: inline-block;
+    width: 1px;
+    height: 16px;
+    content: '\20';
+    background: rgb(25 39 62 / 8%);
   }
+
+  // 隐藏表格竖线
+  &.el-table--border .el-table__cell {
+    border-right: none;
+  }
+
+  &__empty-block {
+    height: 100px;
+  }
+}
