@@ -121,6 +121,11 @@
         "text": "column-text 文本列",
         "link": "/components/column-text/",
         "activeMatch": "/components/column-text/"
+      },
+      {
+        "text": "column-filter 筛选列",
+        "link": "/components/column-filter/",
+        "activeMatch": "/components/column-filter/"
       }
     ]
   },

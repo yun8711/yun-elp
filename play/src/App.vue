@@ -15,7 +15,7 @@ import Layout from './components/layout.vue'
 import { User, InfoFilled } from '@element-plus/icons-vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
-import TableExample from './components/table-example.vue'
+import TableExample from './components/table-filter.vue'
 import logo from './assets/test.png'
 import EmptyExample from './components/empty-example.vue'
 

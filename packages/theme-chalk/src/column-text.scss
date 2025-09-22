@@ -1,11 +1,7 @@
 .y-column-text {
   // 组件样式
   &__content {
-    // display: inline-block;
     line-height: 1.5;
-    // overflow: hidden;
-    // text-overflow: ellipsis;
-    // white-space: nowrap;
   }
   &__link {
     color: var(--el-color-primary);

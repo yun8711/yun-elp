@@ -24,3 +24,4 @@ export * from './pop';
 export * from './cron-picker';
 export * from './table';
 export * from './column-text';
+export * from './column-filter';

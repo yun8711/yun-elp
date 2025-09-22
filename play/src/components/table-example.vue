@@ -1,20 +1,4 @@
 <template>
-  <y-table :data="tableData" @paginationChange="paginationChange" @select="onSelect">
-    <el-table-column type="selection" width="55" />
-    <el-table-column prop="date" />
-    <el-table-column prop="name" label="Name" />
-    <!-- <el-table-column prop="address" label="Address" :tooltip-formatter="tooltipFormatter"
-      :show-overflow-tooltip="false" /> -->
-    <y-column-text prop="address" label="Address" link />
-
-    <y-column-text prop="address" label="Address" no-tip>
-      <template #default="scope">
-        <y-text-tooltip :text="scope.value">
-          <span>{{ scope.value }}</span>
-        </y-text-tooltip>
-      </template>
-    </y-column-text>
-  </y-table>
 
   <y-table :data="tableData2">
     <!-- 基础文本 -->
@@ -34,7 +18,7 @@
     <y-column-text prop="desc" label="无tooltip" no-tip />
 
     <!-- 自定义插槽 -->
-    <y-column-text prop="status" label="插槽">
+    <y-column-text prop="status">
       <template #default="{ value }">
         <el-tag :type="value === 'active' ? 'success' : 'warning'">{{ value }}</el-tag>
       </template>
