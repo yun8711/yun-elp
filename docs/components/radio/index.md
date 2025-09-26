@@ -1,0 +1,35 @@
+---
+title: Radio 单选框
+description: Radio 单选框
+---
+
+# Radio 单选框
+
+## 基础用法
+
+:::demo
+
+radio/test
+
+:::
+
+## API
+
+### Attributes
+
+| 属性名         | 说明                                     | 类型                                          | 默认值    |
+| -------------- | ---------------------------------------- | --------------------------------------------- | --------- | --------- |
+| modelValue     | 绑定值                                   | ^[string] / ^[number] / ^[boolean]            | `''`      |
+| options        | 选项值                                   | ^[object]`RadioOption[]`                      | `[]`      |
+| childType      | 子元素类型，即el-radio-group支持的子组件 | ^[enum]`'radio'                               | 'button'` | `'radio'` |
+| disabledMethod | 选项禁用方法                             | ^[Function]`(option: RadioOption) => boolean` | —         |
+
+### RadioOption
+
+它支持 [RadioProps](https://element-plus.org/zh-CN/component/radio.html#radio-attributes) 和 [RadioButtonProps](https://element-plus.org/zh-CN/component/radio.html#radiobutton-attributes) ，也可以是任意简单数据类型的值
+
+### Slots
+
+| 名称    | 说明         | 参数                             |
+| ------- | ------------ | -------------------------------- |
+| default | 选项内容插槽 | ^[object]`{ item: RadioOption }` |

@@ -29,8 +29,7 @@ const appWrapConfig = {
   empty: {
     image: logo
   }
-}
-
+};
 </script>
 
 <style lang="scss" scoped>
@@ -137,7 +136,11 @@ const appWrapConfig = {
   .image-placeholder {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, var(--el-color-primary-light-8), var(--el-color-primary-light-6));
+    background: linear-gradient(
+      135deg,
+      var(--el-color-primary-light-8),
+      var(--el-color-primary-light-6)
+    );
     border-radius: 8px;
     display: flex;
     align-items: center;

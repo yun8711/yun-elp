@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import YSimpleRadio from '../src/simple-radio.vue';
-import type { SimpleRadioOption } from '../src/simple-radio';
+import YRadio from '../src/radio.vue';
+import type { RadioOption } from '../src/radio';
 
 // 模拟 Element Plus 组件
 vi.mock('element-plus', () => ({
@@ -25,8 +25,8 @@ vi.mock('element-plus', () => ({
   }
 }));
 
-describe('YSimpleRadio', () => {
-  const mockOptions: SimpleRadioOption[] = [
+describe('YRadio', () => {
+  const mockOptions: RadioOption[] = [
     { label: '选项1', value: '1' },
     { label: '选项2', value: '2' },
     { label: '选项3', value: '3', disabled: true }
@@ -35,6 +35,7 @@ describe('YSimpleRadio', () => {
   // 基础 props，包含必要的 RadioGroupProps 属性
   const baseProps = {
     options: mockOptions,
+    modelValue: '',
     disabled: false,
     fill: '#409EFF',
     textColor: '#ffffff',
@@ -43,16 +44,16 @@ describe('YSimpleRadio', () => {
 
   describe('基础渲染', () => {
     it('应该正确渲染组件', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: baseProps
       });
 
       expect(wrapper.exists()).toBe(true);
-      expect(wrapper.classes()).toContain('y-simple-radio');
+      expect(wrapper.classes()).toContain('y-radio');
     });
 
     it('应该渲染 el-radio-group', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: baseProps
       });
 
@@ -63,7 +64,7 @@ describe('YSimpleRadio', () => {
 
   describe('选项渲染', () => {
     it('应该根据 options 渲染正确的选项数量', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: baseProps
       });
 
@@ -72,7 +73,7 @@ describe('YSimpleRadio', () => {
     });
 
     it('应该正确显示选项的 label', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: baseProps
       });
 
@@ -83,7 +84,7 @@ describe('YSimpleRadio', () => {
     });
 
     it('应该处理空选项数组', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: {
           ...baseProps,
           options: []
@@ -97,7 +98,7 @@ describe('YSimpleRadio', () => {
 
   describe('双向绑定', () => {
     it('应该正确绑定 modelValue', async () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: {
           ...baseProps,
           modelValue: '2'
@@ -109,7 +110,7 @@ describe('YSimpleRadio', () => {
     });
 
     it('应该正确更新 modelValue', async () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: {
           ...baseProps,
           modelValue: '1'
@@ -123,7 +124,7 @@ describe('YSimpleRadio', () => {
 
   describe('事件触发', () => {
     it('应该触发 update:modelValue 事件', async () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: {
           ...baseProps,
           modelValue: '1'
@@ -138,7 +139,7 @@ describe('YSimpleRadio', () => {
     });
 
     it('应该触发 change 事件', async () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: {
           ...baseProps,
           modelValue: '1'
@@ -155,7 +156,7 @@ describe('YSimpleRadio', () => {
 
   describe('禁用状态', () => {
     it('应该正确渲染禁用选项', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: baseProps
       });
 
@@ -164,12 +165,12 @@ describe('YSimpleRadio', () => {
     });
 
     it('应该处理所有选项都禁用的情况', () => {
-      const disabledOptions: SimpleRadioOption[] = [
+      const disabledOptions: RadioOption[] = [
         { label: '禁用选项1', value: '1', disabled: true },
         { label: '禁用选项2', value: '2', disabled: true }
       ];
 
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: {
           ...baseProps,
           options: disabledOptions
@@ -185,7 +186,7 @@ describe('YSimpleRadio', () => {
 
   describe('子组件类型', () => {
     it('默认应该使用 ElRadio 组件', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: baseProps
       });
 
@@ -194,7 +195,7 @@ describe('YSimpleRadio', () => {
     });
 
     it('当 childType 为 button 时应该使用 ElRadioButton 组件', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: {
           ...baseProps,
           childType: 'button'
@@ -208,10 +209,10 @@ describe('YSimpleRadio', () => {
 
   describe('插槽功能', () => {
     it('应该支持默认插槽', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: baseProps,
         slots: {
-          default: (props) => `自定义: ${props.label}`
+          default: props => `自定义: ${props.label}`
         }
       });
 
@@ -222,7 +223,7 @@ describe('YSimpleRadio', () => {
     });
 
     it('应该在没有插槽时使用默认内容', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: baseProps
       });
 
@@ -235,7 +236,7 @@ describe('YSimpleRadio', () => {
 
   describe('属性透传', () => {
     it('应该透传属性到组件', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: {
           ...baseProps,
           size: 'large',
@@ -249,7 +250,7 @@ describe('YSimpleRadio', () => {
     });
 
     it('应该透传属性到子组件', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: {
           ...baseProps,
           options: [
@@ -267,13 +268,13 @@ describe('YSimpleRadio', () => {
 
   describe('边界情况', () => {
     it('应该处理不同类型的 value', () => {
-      const mixedOptions: SimpleRadioOption[] = [
+      const mixedOptions: RadioOption[] = [
         { label: '字符串', value: 'string' },
         { label: '数字', value: 123 },
         { label: '布尔值', value: true }
       ];
 
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: {
           ...baseProps,
           options: mixedOptions
@@ -286,17 +287,17 @@ describe('YSimpleRadio', () => {
     });
 
     it('应该处理复杂的选项对象', () => {
-      const complexOptions: SimpleRadioOption[] = [
+      const complexOptions: RadioOption[] = [
         {
           label: '复杂选项',
           value: 'complex',
           disabled: false,
           customProp: 'custom-value',
           nested: { key: 'value' }
-        }
+        } as any
       ];
 
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: {
           ...baseProps,
           options: complexOptions
@@ -309,13 +310,130 @@ describe('YSimpleRadio', () => {
     });
   });
 
+  describe('disabledMethod 功能', () => {
+    it('应该使用 disabledMethod 正确禁用选项', () => {
+      const wrapper = mount(YRadio, {
+        props: {
+          ...baseProps,
+          disabledMethod: (option: RadioOption) => {
+            // 如果是对象，检查value；如果是简单值，直接比较
+            const value = typeof option === 'object' && option !== null ? option.value : option;
+            return value === '2';
+          }
+        }
+      });
+
+      const radioElements = wrapper.findAll('.el-radio');
+      expect(radioElements[0].classes()).not.toContain('disabled');
+      expect(radioElements[1].classes()).toContain('disabled');
+      expect(radioElements[2].classes()).toContain('disabled'); // 这个已经在原始数据中禁用了
+    });
+
+    it('应该优先使用选项本身的 disabled 属性', () => {
+      const wrapper = mount(YRadio, {
+        props: {
+          ...baseProps,
+          options: [
+            { label: '选项1', value: '1', disabled: false }, // 明确设置为不禁用
+            { label: '选项2', value: '2' }, // 没有disabled属性，应该被disabledMethod禁用
+            { label: '选项3', value: '3', disabled: true } // 明确设置为禁用
+          ],
+          disabledMethod: (option: RadioOption) => {
+            const value = typeof option === 'object' && option !== null ? option.value : option;
+            return value === '2';
+          }
+        }
+      });
+
+      const radioElements = wrapper.findAll('.el-radio');
+      expect(radioElements[0].classes()).not.toContain('disabled'); // 明确设置为不禁用
+      expect(radioElements[1].classes()).toContain('disabled'); // 被disabledMethod禁用
+      expect(radioElements[2].classes()).toContain('disabled'); // 明确设置为禁用
+    });
+  });
+
+  describe('简单值选项', () => {
+    it('应该支持字符串数组作为选项', () => {
+      const stringOptions: RadioOption[] = ['选项1', '选项2', '选项3'];
+
+      const wrapper = mount(YRadio, {
+        props: {
+          ...baseProps,
+          options: stringOptions
+        }
+      });
+
+      const radioElements = wrapper.findAll('.el-radio');
+      expect(radioElements).toHaveLength(3);
+      expect(radioElements[0].text()).toBe('选项1');
+      expect(radioElements[1].text()).toBe('选项2');
+      expect(radioElements[2].text()).toBe('选项3');
+    });
+
+    it('应该支持数字数组作为选项', () => {
+      const numberOptions: RadioOption[] = [1, 2, 3];
+
+      const wrapper = mount(YRadio, {
+        props: {
+          ...baseProps,
+          options: numberOptions
+        }
+      });
+
+      const radioElements = wrapper.findAll('.el-radio');
+      expect(radioElements).toHaveLength(3);
+      expect(radioElements[0].text()).toBe('1');
+      expect(radioElements[1].text()).toBe('2');
+      expect(radioElements[2].text()).toBe('3');
+    });
+
+    it('应该支持布尔值数组作为选项', () => {
+      const booleanOptions: RadioOption[] = [true, false];
+
+      const wrapper = mount(YRadio, {
+        props: {
+          ...baseProps,
+          options: booleanOptions
+        }
+      });
+
+      const radioElements = wrapper.findAll('.el-radio');
+      expect(radioElements).toHaveLength(2);
+      expect(radioElements[0].text()).toBe('true');
+      expect(radioElements[1].text()).toBe('false');
+    });
+
+    it('应该支持混合类型的选项', () => {
+      const mixedOptions: RadioOption[] = [
+        '字符串选项',
+        42,
+        true,
+        { label: '对象选项', value: 'object' }
+      ];
+
+      const wrapper = mount(YRadio, {
+        props: {
+          ...baseProps,
+          options: mixedOptions
+        }
+      });
+
+      const radioElements = wrapper.findAll('.el-radio');
+      expect(radioElements).toHaveLength(4);
+      expect(radioElements[0].text()).toBe('字符串选项');
+      expect(radioElements[1].text()).toBe('42');
+      expect(radioElements[2].text()).toBe('true');
+      expect(radioElements[3].text()).toBe('对象选项');
+    });
+  });
+
   describe('组件名称', () => {
     it('应该设置正确的组件名称', () => {
-      const wrapper = mount(YSimpleRadio, {
+      const wrapper = mount(YRadio, {
         props: baseProps
       });
 
-      expect(wrapper.vm.$options.name).toBe('YSimpleRadio');
+      expect(wrapper.vm.$options.name).toBe('YRadio');
     });
   });
 });

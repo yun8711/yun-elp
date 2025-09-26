@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <h3>选项分组（optionGroups 属性）</h3>
-    <y-simple-select v-model="value" :option-groups="optionGroups" placeholder="请选择城市" />
-    <p>选中值: {{ value }}</p>
-  </div>
+  <y-select v-model="value" :option-groups="optionGroups" placeholder="请选择城市" />
+
+  <p>选中值: {{ value }}</p>
 </template>
 
 <script setup lang="ts">
@@ -31,11 +29,7 @@ const optionGroups = [
   },
   {
     label: '可选城市',
-    options: [
-      { label: '成都', value: 'chengdu' },
-      { label: '武汉', value: 'wuhan', disabled: true },
-      { label: '西安', value: 'xian' }
-    ]
+    options: ['成都', '武汉', '西安']
   }
 ];
 </script>
