@@ -78,9 +78,9 @@
         "activeMatch": "/components/row-select/"
       },
       {
-        "text": "simple-radio 单选框",
-        "link": "/components/simple-radio/",
-        "activeMatch": "/components/simple-radio/"
+        "text": "radio 单选框",
+        "link": "/components/radio/",
+        "activeMatch": "/components/radio/"
       },
       {
         "text": "group-select 组选择器",

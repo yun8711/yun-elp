@@ -7,7 +7,7 @@ import { YPageHeader } from './src/page-header';
 import { YTableSearch } from './src/table-search';
 import { YSelect } from './src/select';
 import { YRowSelect } from './src/row-select';
-import { YSimpleRadio } from './src/simple-radio';
+import { YRadio } from './src/radio';
 import { YTextTooltip } from './src/text-tooltip';
 import { YButton } from './src/button';
 import { YPageFooter } from './src/page-footer';
@@ -30,7 +30,7 @@ export default [
   YTableSearch,
   YSelect,
   YRowSelect,
-  YSimpleRadio,
+  YRadio,
   YTextTooltip,
   YButton,
   YPageFooter,

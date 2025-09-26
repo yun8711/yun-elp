@@ -10,7 +10,7 @@ export * from './page-header';
 export * from './table-search';
 export * from './select';
 export * from './row-select';
-export * from './simple-radio';
+export * from './radio';
 export * from './text-tooltip';
 export * from './button';
 export * from './page-footer';
