@@ -19,12 +19,13 @@ table/test
 
 ### Attributes
 
-| 属性名           | 说明             | 类型                       | 默认值  |
-| ---------------- | ---------------- | -------------------------- | ------- |
-| loading          | 是否显示加载状态 | ^[boolean]                 | `false` |
-| empty-props      | 空状态配置       | ^[object]`EmptyProps`      | —       |
-| show-footer      | 是否显示底部区域 | ^[boolean]                 | `true`  |
-| pagination-props | 分页配置         | ^[object]`PaginationProps` | —       |
+| 属性名           | 说明                                              | 类型                       | 默认值      |
+| ---------------- | ------------------------------------------------- | -------------------------- | ----------- |
+| loading          | 是否显示加载状态                                  | ^[boolean]                 | `false`     |
+| empty-props      | 空状态配置                                        | ^[object]`EmptyProps`      | —           |
+| show-footer      | 是否显示底部区域                                  | ^[boolean]                 | `true`      |
+| pagination-props | 分页配置                                          | ^[object]`PaginationProps` | —           |
+| formTableProp    | 在表单对象中嵌套的 table 数据的键名，用于绑定校验 | ^[string]                  | `tableData` |
 
 ### Slots
 
@@ -43,7 +44,7 @@ table/test
 
 ### Exposes
 
-| 名称           | 说明                   | 类型                                 |
-| -------------- | ---------------------- | ------------------------------------ |
+| 名称          | 说明                   | 类型                                 |
+| ------------- | ---------------------- | ------------------------------------ |
 | tableRef      | el-table组件的ref      | ^[object]`Ref<ElTableInstance>`      |
 | paginationRef | el-pagination组件的ref | ^[object]`Ref<ElPaginationInstance>` |

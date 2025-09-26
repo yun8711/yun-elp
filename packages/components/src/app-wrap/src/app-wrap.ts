@@ -109,6 +109,10 @@ export interface AppWrapProps {
     emptyProps?: EmptyProps;
     paginationProps?: PaginationProps;
   };
+  columnForms?: {
+    placement?: PlacementType;
+    popperClass?: string;
+  };
   [key: string]: any;
 }
 

@@ -22,6 +22,7 @@ import { YCronPicker } from './src/cron-picker';
 import { YTable } from './src/table';
 import { YColumnText } from './src/column-text';
 import { YColumnFilter } from './src/column-filter';
+import { YColumnForms } from './src/column-forms';
 
 export default [
   YAppWrap,
@@ -47,4 +48,5 @@ export default [
   YTable,
   YColumnText,
   YColumnFilter,
+  YColumnForms,
 ] as Plugin[];

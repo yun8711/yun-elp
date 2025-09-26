@@ -75,7 +75,10 @@ html body {
 // 全局样式
 // y-text-tooltip弹出框样式
 // y-column-text__tooltip 用于覆盖column-text组件的tooltip样式
-.y-text-tooltip__popper,.y-column-text__tooltip {
+// y-column-forms__error-tooltip 用于覆盖column-forms、column-form组件的tooltip样式
+.y-text-tooltip__popper,
+.y-column-text__tooltip,
+.y-column-form__error-tooltip {
   max-width: var(--y-tooltip-popper-max-width);
   padding: 4px 6px;
 

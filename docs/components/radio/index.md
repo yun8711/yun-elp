@@ -18,10 +18,10 @@ radio/test
 ### Attributes
 
 | 属性名         | 说明                                     | 类型                                          | 默认值    |
-| -------------- | ---------------------------------------- | --------------------------------------------- | --------- | --------- |
+| -------------- | ---------------------------------------- | --------------------------------------------- | --------- |
 | modelValue     | 绑定值                                   | ^[string] / ^[number] / ^[boolean]            | `''`      |
 | options        | 选项值                                   | ^[object]`RadioOption[]`                      | `[]`      |
-| childType      | 子元素类型，即el-radio-group支持的子组件 | ^[enum]`'radio'                               | 'button'` | `'radio'` |
+| childType      | 子元素类型，即el-radio-group支持的子组件 | ^[enum]`'radio' \| 'button'`                  | `'radio'` |
 | disabledMethod | 选项禁用方法                             | ^[Function]`(option: RadioOption) => boolean` | —         |
 
 ### RadioOption

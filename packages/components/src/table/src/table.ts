@@ -8,7 +8,9 @@ export interface TableProps {
   emptyProps?: EmptyProps;
   showFooter?: boolean;
   paginationProps?: PaginationProps;
-};
+  // 在el-form中嵌套的table，需要传入该属性，指明表间中表格数据的字段名，用于绑定校验
+  formTableProp?: string;
+}
 
 export const tableProps = {
   loading: {
@@ -26,6 +28,10 @@ export const tableProps = {
   paginationProps: {
     type: Object as PropType<PaginationProps>,
     default: () => ({})
+  },
+  formTableProp: {
+    type: String,
+    default: 'tableData'
   }
 } as const;
 

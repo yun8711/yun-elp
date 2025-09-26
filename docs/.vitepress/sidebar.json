@@ -126,6 +126,11 @@
         "text": "column-filter 筛选列",
         "link": "/components/column-filter/",
         "activeMatch": "/components/column-filter/"
+      },
+      {
+        "text": "column-forms 多表单列",
+        "link": "/components/column-forms/",
+        "activeMatch": "/components/column-forms/"
       }
     ]
   },

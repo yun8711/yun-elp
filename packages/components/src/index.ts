@@ -25,3 +25,4 @@ export * from './cron-picker';
 export * from './table';
 export * from './column-text';
 export * from './column-filter';
+export * from './column-forms';

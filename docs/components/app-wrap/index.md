@@ -32,6 +32,8 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | empty       | y-empty组件全局配置，[见下表](#empty-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
 | textTooltip | y-text-tooltip组件全局配置，[见下表](#desc-attribute)                               | ^[object]`Ref<record<string, any>>` | —       |
 | desc        | y-desc组件全局配置，[见下表](#desc-attribute)                                       | ^[object]`Ref<record<string, any>>` | —       |
+| table       | y-table组件全局配置，[见下表](#table-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
+| columnForms | y-column-forms组件全局配置，[见下表](#column-forms-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
 
 #### border-label Attribute
 
@@ -119,6 +121,20 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | labelAlign   | label 文本对齐方式           | ^[enum]`'left' \| 'center' \| 'right'` | `'left'` |
 | contentAlign | content 文本对齐方式         | ^[enum]`'left' \| 'center' \| 'right'` | `'left'` |
 | emptyText    | content 内容为空时显示的内容 | ^[string]                              | `''`     |
+
+#### table Attribute
+
+| 参数            | 描述                  | 类型                         | 默认值   |
+| --------------- | --------------------- | ---------------------------- | -------- |
+| emptyProps      | 空数据时 y-empty 配置 | ^[object]`YEmptyProps`       | `'auto'` |
+| paginationProps | label 样式            | ^[object]`ElPaginationProps` | `{}`     |
+
+#### columnForms Attribute
+
+| 参数        | 描述                           | 类型                                                                                                                                                                        | 默认值                           |
+| ----------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| placement   | 错误提示tooltip弹出位置        | ^[enum]`'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | `'auto'`                         |
+| popperClass | 错误提示tooltip 的 popper 类名 | ^[string]                                                                                                                                                                   | `'y-column-form__error-tooltip'` |
 
 ### Slots
 

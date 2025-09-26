@@ -39,7 +39,6 @@ defineOptions({
 });
 
 
-
 const emit = defineEmits<{
   (e: 'paginationChange', obj: { currentPage: number, pageSize: number }): void
 }>();
@@ -56,7 +55,8 @@ const props = withDefaults(defineProps<TableProps>(), {
   loading: false,
   showFooter: true,
   emptyProps: undefined,
-  paginationProps: undefined
+  paginationProps: undefined,
+  formTableProp: 'tableData'
 });
 
 const tableConfig = useAppConfig('table');
@@ -107,5 +107,5 @@ defineExpose({
 })
 
 provide('tableData', attrs.data);
-// provide('tableProps', tableProps);
+provide('formTableProp', props.formTableProp);
 </script>
