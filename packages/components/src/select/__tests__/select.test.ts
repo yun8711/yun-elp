@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect, afterEach } from 'vitest';
-import YSimpleSelect from '../src/simple-select.vue';
+import YSelect from '../src/select.vue';
 
 // 简化的 mock 组件
 const MockElSelect = {
@@ -27,13 +27,13 @@ const MockElOptionGroup = {
   props: ['label', 'disabled']
 };
 
-describe('YSimpleSelect', () => {
+describe('YSelect', () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
 
   it('应该正确渲染', () => {
-    const wrapper = mount(YSimpleSelect, {
+    const wrapper = mount(YSelect, {
       global: {
         components: {
           ElSelect: MockElSelect,
@@ -51,7 +51,7 @@ describe('YSimpleSelect', () => {
       { label: '选项2', value: '2' }
     ];
 
-    const wrapper = mount(YSimpleSelect, {
+    const wrapper = mount(YSelect, {
       props: { options } as any,
       global: {
         components: {
@@ -69,7 +69,7 @@ describe('YSimpleSelect', () => {
   it('应该支持 v-model', async () => {
     const options = [{ label: '选项1', value: '1' }];
 
-    const wrapper = mount(YSimpleSelect, {
+    const wrapper = mount(YSelect, {
       props: {
         options,
         modelValue: ''
@@ -93,7 +93,7 @@ describe('YSimpleSelect', () => {
   it('应该支持多选', () => {
     const options = [{ label: '选项1', value: '1' }];
 
-    const wrapper = mount(YSimpleSelect, {
+    const wrapper = mount(YSelect, {
       props: {
         options,
         multiple: true,
@@ -115,8 +115,97 @@ describe('YSimpleSelect', () => {
     expect(wrapper.props('modelValue')).toEqual([]);
   });
 
+  it('应该支持disabledMethod参数', () => {
+    const options = [
+      { label: '选项1', value: '1' },
+      { label: '选项2', value: '2' },
+      { label: '选项3', value: '3' }
+    ];
+
+    const disabledMethod = (option: any) => option.value === '2';
+
+    const wrapper = mount(YSelect, {
+      props: {
+        options,
+        disabledMethod
+      } as any,
+      global: {
+        components: {
+          ElSelect: MockElSelect,
+          ElOption: MockElOption,
+          ElOptionGroup: MockElOptionGroup
+        }
+      }
+    });
+
+    const optionElements = wrapper.findAllComponents(MockElOption);
+    expect(optionElements).toHaveLength(3);
+
+    // 检查第二个选项是否被禁用
+    expect(optionElements[1].props('disabled')).toBe(true);
+    expect(optionElements[0].props('disabled')).toBe(false);
+    expect(optionElements[2].props('disabled')).toBe(false);
+  });
+
+  it('应该支持简单类型选项', () => {
+    const options = ['选项1', '选项2', '选项3'];
+
+    const wrapper = mount(YSelect, {
+      props: { options } as any,
+      global: {
+        components: {
+          ElSelect: MockElSelect,
+          ElOption: MockElOption,
+          ElOptionGroup: MockElOptionGroup
+        }
+      }
+    });
+
+    const optionElements = wrapper.findAllComponents(MockElOption);
+    expect(optionElements).toHaveLength(3);
+
+    // 检查简单类型选项是否正确转换为对象格式
+    expect(optionElements[0].props('label')).toBe('选项1');
+    expect(optionElements[0].props('value')).toBe('选项1');
+    expect(optionElements[1].props('label')).toBe('选项2');
+    expect(optionElements[1].props('value')).toBe('选项2');
+  });
+
+  it('应该支持选项分组', () => {
+    const optionGroups = [
+      {
+        label: '分组1',
+        options: [
+          { label: '选项1', value: '1' },
+          { label: '选项2', value: '2' }
+        ]
+      },
+      {
+        label: '分组2',
+        options: [{ label: '选项3', value: '3' }]
+      }
+    ];
+
+    const wrapper = mount(YSelect, {
+      props: { optionGroups } as any,
+      global: {
+        components: {
+          ElSelect: MockElSelect,
+          ElOption: MockElOption,
+          ElOptionGroup: MockElOptionGroup
+        }
+      }
+    });
+
+    const groupElements = wrapper.findAllComponents(MockElOptionGroup);
+    expect(groupElements).toHaveLength(2);
+
+    const optionElements = wrapper.findAllComponents(MockElOption);
+    expect(optionElements).toHaveLength(3);
+  });
+
   it('应该暴露正确的方法', () => {
-    const wrapper = mount(YSimpleSelect, {
+    const wrapper = mount(YSelect, {
       global: {
         components: {
           ElSelect: MockElSelect,

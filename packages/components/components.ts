@@ -5,7 +5,7 @@ import { YBorderLabel } from './src/border-label';
 import { YPartTitle } from './src/part-title';
 import { YPageHeader } from './src/page-header';
 import { YTableSearch } from './src/table-search';
-import { YSimpleSelect } from './src/simple-select';
+import { YSelect } from './src/select';
 import { YRowSelect } from './src/row-select';
 import { YSimpleRadio } from './src/simple-radio';
 import { YTextTooltip } from './src/text-tooltip';
@@ -28,7 +28,7 @@ export default [
   YPartTitle,
   YPageHeader,
   YTableSearch,
-  YSimpleSelect,
+  YSelect,
   YRowSelect,
   YSimpleRadio,
   YTextTooltip,
@@ -42,5 +42,5 @@ export default [
   YDesc,
   YPop,
   YCronPicker,
-  YTable,
+  YTable
 ] as Plugin[];

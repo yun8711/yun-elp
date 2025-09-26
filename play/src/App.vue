@@ -1,21 +1,23 @@
 <template>
   <Layout #default="{ locale }">
-    <y-app-wrap :key="locale" :elp-config="{ locale: locale === 'zh-cn' ? zhCn : en }" :locale="locale"
-      v-bind="appWrapConfig">
-
-      <cron-picker-example />
-      <!-- <button-example /> -->
+    <y-app-wrap
+      :key="locale"
+      :elp-config="{ locale: locale === 'zh-cn' ? zhCn : en }"
+      :locale="locale"
+      v-bind="appWrapConfig"
+    >
+      <select-example />
     </y-app-wrap>
   </Layout>
 </template>
 
 <script setup>
-import { ref, markRaw } from 'vue'
-import Layout from './components/layout.vue'
-import { User, InfoFilled } from '@element-plus/icons-vue'
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import en from 'element-plus/dist/locale/en.mjs'
-import CronPickerExample from './components/corn-picker-example.vue'
+import { ref, markRaw } from 'vue';
+import Layout from './components/layout.vue';
+import { User, InfoFilled } from '@element-plus/icons-vue';
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+import en from 'element-plus/dist/locale/en.mjs';
+import SelectExample from './components/select-example.vue';
 
 const appWrapConfig = {
   dialog: {
@@ -24,8 +26,7 @@ const appWrapConfig = {
     },
     closeOnClickModal: true
   }
-}
-
+};
 </script>
 
 <style lang="scss" scoped>
@@ -132,7 +133,11 @@ const appWrapConfig = {
   .image-placeholder {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, var(--el-color-primary-light-8), var(--el-color-primary-light-6));
+    background: linear-gradient(
+      135deg,
+      var(--el-color-primary-light-8),
+      var(--el-color-primary-light-6)
+    );
     border-radius: 8px;
     display: flex;
     align-items: center;
