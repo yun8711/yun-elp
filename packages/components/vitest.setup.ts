@@ -53,6 +53,40 @@ beforeAll(() => {
       template: '<div class="y-empty" v-bind="$attrs"><slot></slot><slot name="image"></slot><slot name="description"></slot></div>',
       props: ['image', 'imageSize', 'description', 'style'],
       inheritAttrs: true
+    },
+    'el-table-column': {
+      template: '<div class="el-table-column" v-bind="$attrs"><slot></slot></div>',
+      props: ['prop', 'label', 'width', 'minWidth', 'showOverflowTooltip'],
+      inheritAttrs: true
+    },
+    'el-form-item': {
+      template: '<div class="el-form-item" v-bind="$attrs" @mouseenter="$emit(\'mouseenter\', $event)" @mouseleave="$emit(\'mouseleave\', $event)"><slot></slot><template #error="{ error }"><slot name="error" :error="error"></slot></template></div>',
+      props: ['prop', 'label', 'rules', 'labelWidth', 'required'],
+      emits: ['mouseenter', 'mouseleave'],
+      inheritAttrs: true
+    },
+    'el-tooltip': {
+      template: '<div class="el-tooltip" v-bind="$attrs"><slot></slot></div>',
+      props: ['content', 'placement', 'effect', 'disabled', 'popperClass'],
+      inheritAttrs: true
+    },
+    'el-input': {
+      template: '<input class="el-input__inner" v-bind="$attrs" :value="modelValue" @input="$emit(\'update:modelValue\', $event.target.value)" @blur="$emit(\'blur\', $event)" @focus="$emit(\'focus\', $event)" @change="$emit(\'change\', $event)" />',
+      props: ['modelValue', 'placeholder', 'disabled', 'readonly', 'type'],
+      emits: ['update:modelValue', 'blur', 'focus', 'change'],
+      inheritAttrs: true
+    },
+    'el-form': {
+      template: '<form class="el-form" v-bind="$attrs" @submit.prevent="$emit(\'submit\', $event)"><slot></slot></form>',
+      props: ['model', 'rules', 'labelPosition', 'labelWidth', 'inline'],
+      emits: ['submit'],
+      inheritAttrs: true
+    },
+    'el-select': {
+      template: '<div class="el-select" v-bind="$attrs"><slot></slot></div>',
+      props: ['modelValue', 'placeholder', 'disabled', 'multiple', 'options'],
+      emits: ['update:modelValue', 'change'],
+      inheritAttrs: true
     }
   };
 

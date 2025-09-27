@@ -33,7 +33,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | textTooltip | y-text-tooltip组件全局配置，[见下表](#desc-attribute)                               | ^[object]`Ref<record<string, any>>` | —       |
 | desc        | y-desc组件全局配置，[见下表](#desc-attribute)                                       | ^[object]`Ref<record<string, any>>` | —       |
 | table       | y-table组件全局配置，[见下表](#table-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
-| columnForms | y-column-forms组件全局配置，[见下表](#column-forms-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
+| columnForm  | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)        | ^[object]`Ref<record<string, any>>` | —       |
 
 #### border-label Attribute
 
@@ -129,7 +129,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | emptyProps      | 空数据时 y-empty 配置 | ^[object]`YEmptyProps`       | `'auto'` |
 | paginationProps | label 样式            | ^[object]`ElPaginationProps` | `{}`     |
 
-#### columnForms Attribute
+#### columnForm Attribute
 
 | 参数        | 描述                           | 类型                                                                                                                                                                        | 默认值                           |
 | ----------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |

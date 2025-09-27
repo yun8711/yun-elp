@@ -46,7 +46,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { TableColumnCtx, FormInstance, FormValidateCallback } from 'element-plus'
+import type { TableColumnCtx, FormInstance } from 'element-plus'
 
 type TableItemScope = { row: any, column: TableColumnCtx<Record<PropertyKey, any>>, $index: number }
 

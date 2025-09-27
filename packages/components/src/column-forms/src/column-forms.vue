@@ -14,7 +14,7 @@
               <div>
                 <el-tooltip v-bind="item.tooltipAttrs" :content="error" :disabled="!error"
                   :visible="errorMessageMap[`${scope.$index}_${item.prop}`]">
-                  <span class="y-column-forms__error" :class="{ 'is-hidden': !error }"></span>
+                  <span class="y-column-form__error" :class="{ 'is-hidden': !error }"></span>
                 </el-tooltip>
               </div>
             </template>
@@ -40,7 +40,7 @@ defineOptions({
   inheritAttrs: true
 });
 
-const columnFormsConig = useAppConfig('columnForms')
+const columnFormConig = useAppConfig('columnForm')
 // y-table下发的，最外层el-form中el-table绑定的字段名
 const formTableProp = inject('formTableProp', 'tableData');
 const attrs = useAttrs();
@@ -85,9 +85,9 @@ const mergedItemFormAttrs = (scope: any, item: any) => {
 // 合并表单项错误提示的tooltip属性
 const mergedItemTooltipAttrs = (scope: any, item: any) => {
   const defaultObj = {
-    popperClass: columnFormsConig?.popperClass || 'y-column-form__error-tooltip',
+    popperClass: columnFormConig?.popperClass || 'y-column-form__error-tooltip',
     effect: 'dark',
-    placement: columnFormsConig?.placement || 'top',
+    placement: columnFormConig?.placement || 'top',
     enterable: false,
   }
   const compObj = typeof item.tooltipAttrs === 'function' ? item.tooltipAttrs(scope, item.prop) : item.tooltipAttrs
@@ -99,7 +99,7 @@ const mergedItemTooltipAttrs = (scope: any, item: any) => {
 
 // 整理表单数据
 const mergedFormArr = (scope: any) => {
-  return options.value.map((item: any) => {
+  return options.value?.map((item: any) => {
     return {
       prop: item.prop,
       show: typeof item.show === 'function' ? item.show(scope, item.prop) : item.show || true,
@@ -108,7 +108,7 @@ const mergedFormArr = (scope: any) => {
       width: typeof item.width === 'function' ? item.width(scope, item.prop) : item.width || 'auto',
       style: typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {},
     }
-  }).filter((x: any) => x.show) || [];
+  })?.filter((x: any) => x.show) || [];
 }
 
 const handleMouseEnter = (index: string) => {
@@ -119,6 +119,4 @@ const handleMouseLeave = (index: string) => {
   // 鼠标离开时隐藏错误提示
   errorMessageMap.value[index] = false;
 };
-
-
 </script>
