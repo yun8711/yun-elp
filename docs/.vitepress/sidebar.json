@@ -127,7 +127,7 @@
         "link": "/components/column-filter/",
         "activeMatch": "/components/column-filter/"
       },
-       {
+      {
         "text": "column-form 表单列",
         "link": "/components/column-form/",
         "activeMatch": "/components/column-form/"
@@ -136,6 +136,11 @@
         "text": "column-forms 多表单列",
         "link": "/components/column-forms/",
         "activeMatch": "/components/column-forms/"
+      },
+      {
+        "text": "column-operation 操作列",
+        "link": "/components/column-operation/",
+        "activeMatch": "/components/column-operation/"
       }
     ]
   },
