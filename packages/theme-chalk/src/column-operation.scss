@@ -1,3 +1,45 @@
 .y-column-operation {
-  // 组件样式
+  .cell {
+    .y-pop {
+      margin-left: 8px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__dropdown {
+    padding: 6px 0 !important;
+    min-width: 0 !important;
+    width: auto !important;
+
+    &-icon {
+      cursor: pointer;
+      vertical-align: middle;
+      margin-left: 8px;
+      color: var(--el-color-primary);
+    }
+
+    &-item {
+      height: 32px;
+      line-height: 32px;
+      padding: 0 15px;
+      box-sizing: border-box;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--el-color-primary);
+        background-color: var(--el-color-primary-light-9);
+      }
+
+      &.disabled {
+        color: var(--el-color-primary-light-5);
+        font-weight: 400;
+        user-select: none;
+        cursor: not-allowed;
+      }
+    }
+  }
 }

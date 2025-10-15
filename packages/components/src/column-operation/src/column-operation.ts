@@ -1,5 +1,6 @@
 import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
 import type { TableColumnCtx } from 'element-plus';
+import type { PopProps } from '../../pop/src/pop';
 
 // 表格项的scope
 export type TableItemScope = {
@@ -22,6 +23,8 @@ export interface ColumnOperationItemType {
   label: string | ((scope: TableItemScope, item: ColumnOperationItemType) => string);
   // 操作项的prop，作用同key，唯一标识
   prop: string;
+  // 按钮是否加载中
+  loading?: boolean;
   // 按钮是否禁用
   disabled?:
     | ColumnOperationItemDisabledReturn
@@ -32,6 +35,14 @@ export interface ColumnOperationItemType {
   hide?: boolean | ((scope: TableItemScope, item: ColumnOperationItemType) => boolean);
   // 是否以dropdown的形式展示
   dropdown?: boolean | ((scope: TableItemScope, item: ColumnOperationItemType) => boolean);
+  // popover完整属性配置
+  popProps?:
+    | Partial<PopProps>
+    | ((scope: TableItemScope, item: ColumnOperationItemType) => Partial<PopProps>);
+  // 操作项的确认函数
+  confirm?: (scope: TableItemScope, item: ColumnOperationItemType, e: MouseEvent) => any;
+  // 操作项的取消函数
+  cancel?: (scope: TableItemScope, item: ColumnOperationItemType, e: MouseEvent) => any;
 }
 
 // 操作列的配置
