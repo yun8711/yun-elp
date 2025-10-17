@@ -1,23 +1,25 @@
 <template>
   <Layout #default="{ locale }">
-    <y-app-wrap :key="locale" :elp-config="{ locale: locale === 'zh-cn' ? zhCn : en }" :locale="locale"
-      v-bind="appWrapConfig">
-
-      <table-example />
-      <!-- <empty-example /> -->
+    <y-app-wrap
+      :key="locale"
+      :elp-config="{ locale: locale === 'zh-cn' ? zhCn : en }"
+      :locale="locale"
+      v-bind="appWrapConfig"
+    >
+      <example />
     </y-app-wrap>
   </Layout>
 </template>
 
 <script setup>
-import { ref, markRaw } from 'vue'
-import Layout from './components/layout.vue'
-import { User, InfoFilled } from '@element-plus/icons-vue'
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import en from 'element-plus/dist/locale/en.mjs'
-import TableExample from './components/table-form-example.vue'
-import logo from './assets/test.png'
-import EmptyExample from './components/empty-example.vue'
+import { ref, markRaw } from 'vue';
+import Layout from './components/layout.vue';
+import { User, InfoFilled } from '@element-plus/icons-vue';
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+import en from 'element-plus/dist/locale/en.mjs';
+import TableExample from './components/table-form-example.vue';
+import logo from './assets/test.png';
+import Example from './components/table-operate-example.vue';
 
 const appWrapConfig = {
   dialog: {

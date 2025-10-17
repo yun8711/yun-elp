@@ -24,6 +24,7 @@ import { YColumnText } from './src/column-text';
 import { YColumnFilter } from './src/column-filter';
 import { YColumnForms } from './src/column-forms';
 import { YColumnForm } from './src/column-form';
+import { YColumnOperation } from './src/column-operation';
 
 export default [
   YAppWrap,,
@@ -51,4 +52,5 @@ export default [
   YColumnFilter,,
   YColumnForms,,
   YColumnForm,
+  YColumnOperation,
 ] as Plugin[];

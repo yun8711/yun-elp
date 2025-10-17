@@ -113,6 +113,9 @@ export interface AppWrapProps {
     placement?: PlacementType;
     popperClass?: string;
   };
+  columnOperation?: {
+    disabledDefaultTip?: string;
+  };
   [key: string]: any;
 }
 

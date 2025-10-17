@@ -6,10 +6,10 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
     globals: true,
-    pool: 'forks',
+    pool: 'threads',
     poolOptions: {
-      forks: {
-        singleFork: true
+      threads: {
+        singleThread: true
       }
     },
     // 添加更稳定的测试配置
