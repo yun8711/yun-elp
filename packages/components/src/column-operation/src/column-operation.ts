@@ -35,6 +35,8 @@ export interface ColumnOperationItemType {
   hide?: boolean | ((scope: TableItemScope, item: ColumnOperationItemType) => boolean);
   // 是否以dropdown的形式展示
   dropdown?: boolean | ((scope: TableItemScope, item: ColumnOperationItemType) => boolean);
+  // 是否显示popover，默认不显示
+  noPop?: boolean | ((scope: TableItemScope, item: ColumnOperationItemType) => boolean);
   // popover完整属性配置
   popProps?:
     | Partial<PopProps>
@@ -48,6 +50,8 @@ export interface ColumnOperationItemType {
 // 操作列的配置
 export interface ColumnOperationProps {
   options: ColumnOperationItemType[] | ((scope: TableItemScope) => ColumnOperationItemType[]);
+  // 禁用默认提示文案
+  disabledDefaultTip?: string;
   // 表头样式
   headerStyle?: Record<string, string | number>;
 }
@@ -56,6 +60,10 @@ export const columnOperationProps = {
   headerStyle: {
     type: Object as PropType<Record<string, string | number>>,
     default: () => ({})
+  },
+  disabledDefaultTip: {
+    type: String,
+    default: () => ''
   },
   options: {
     type: Array as PropType<ColumnOperationItemType[]>,

@@ -96,7 +96,7 @@ table-search/dynamic
 | 名称   | 说明                            | 参数                                                                                      |
 | ------ | ------------------------------- | ----------------------------------------------------------------------------------------- |
 | right  | 右侧内容                        | —                                                                                         |
-| {prop} | 自定义字段组件，{prop} 为字段名 | ^[object]`{ prop: string, value: any, item: TableSearchItem, form: Record<string, any> }` |
+| [prop] | 自定义字段组件，{prop} 为字段名 | ^[object]`{ prop: string, value: any, item: TableSearchItem, form: Record<string, any> }` |
 
 ### TableSearchItem Attribute
 

@@ -19,21 +19,22 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 
 ### Attributes
 
-| 属性名      | 说明                                                                                | 类型                                | 默认值  |
-| ----------- | ----------------------------------------------------------------------------------- | ----------------------------------- | ------- |
-| elpConfig   | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`ElConfigProviderProps`    | —       |
-| locale      | yun-elp的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
-| borderLabel | y-border-label组件全局配置，[见下表](#border-label-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
-| pageHeader  | y-page-header组件全局配置，[见下表](#page-header-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
-| pageFooter  | y-page-footer组件全局配置，[见下表](#page-footer-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
-| button      | y-button组件全局配置，[见下表](#button-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
-| drawer      | y-drawer组件全局配置，[见下表](#drawer-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
-| dialog      | y-dialog组件全局配置，[见下表](#dialog-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
-| empty       | y-empty组件全局配置，[见下表](#empty-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
-| textTooltip | y-text-tooltip组件全局配置，[见下表](#desc-attribute)                               | ^[object]`Ref<record<string, any>>` | —       |
-| desc        | y-desc组件全局配置，[见下表](#desc-attribute)                                       | ^[object]`Ref<record<string, any>>` | —       |
-| table       | y-table组件全局配置，[见下表](#table-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
-| columnForm  | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)        | ^[object]`Ref<record<string, any>>` | —       |
+| 属性名          | 说明                                                                                | 类型                                | 默认值  |
+| --------------- | ----------------------------------------------------------------------------------- | ----------------------------------- | ------- |
+| elpConfig       | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`ElConfigProviderProps`    | —       |
+| locale          | yun-elp的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
+| borderLabel     | y-border-label组件全局配置，[见下表](#border-label-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
+| pageHeader      | y-page-header组件全局配置，[见下表](#page-header-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
+| pageFooter      | y-page-footer组件全局配置，[见下表](#page-footer-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
+| button          | y-button组件全局配置，[见下表](#button-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
+| drawer          | y-drawer组件全局配置，[见下表](#drawer-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
+| dialog          | y-dialog组件全局配置，[见下表](#dialog-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
+| empty           | y-empty组件全局配置，[见下表](#empty-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
+| textTooltip     | y-text-tooltip组件全局配置，[见下表](#desc-attribute)                               | ^[object]`Ref<record<string, any>>` | —       |
+| desc            | y-desc组件全局配置，[见下表](#desc-attribute)                                       | ^[object]`Ref<record<string, any>>` | —       |
+| table           | y-table组件全局配置，[见下表](#table-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
+| columnForm      | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)        | ^[object]`Ref<record<string, any>>` | —       |
+| columnOperation | y-column-operation 组件全局配置，[见下表](#column-operation-attribute)              | ^[object]`Ref<record<string, any>>` | —       |
 
 #### border-label Attribute
 
@@ -135,6 +136,12 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | ----------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
 | placement   | 错误提示tooltip弹出位置        | ^[enum]`'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | `'auto'`                         |
 | popperClass | 错误提示tooltip 的 popper 类名 | ^[string]                                                                                                                                                                   | `'y-column-form__error-tooltip'` |
+
+#### columnOperation Attribute
+
+| 参数               | 描述                                | 类型      | 默认值 |
+| ------------------ | ----------------------------------- | --------- | ------ |
+| disabledDefaultTip | 按钮禁用状态时默认的tooltip提示文本 | ^[string] | —      |
 
 ### Slots
 

@@ -30,7 +30,8 @@ beforeAll(() => {
   // 全局注册 Element Plus 组件和指令
   config.global.stubs = {
     'el-button': {
-      template: '<button class="el-button" :class="[type ? `el-button--${type}` : \'\', { disabled }, $attrs.class]" :style="style" v-bind="$attrs" @click="$emit(\'click\', $event)" @focus="$emit(\'focus\', $event)"><slot></slot></button>',
+      template:
+        '<button class="el-button" :class="[type ? `el-button--${type}` : \'\', { disabled }, $attrs.class]" :style="style" v-bind="$attrs" @click="$emit(\'click\', $event)" @focus="$emit(\'focus\', $event)"><slot></slot></button>',
       props: ['type', 'icon', 'loading', 'disabled', 'style'],
       emits: ['click', 'focus'],
       inheritAttrs: true
@@ -39,18 +40,21 @@ beforeAll(() => {
       template: '<div class="el-button-group"><slot></slot></div>'
     },
     'el-table': {
-      template: '<div class="el-table" v-bind="$attrs" :class="{ \'is-loading\': loading }"><slot></slot><slot name="empty"></slot><slot name="append"></slot></div>',
+      template:
+        '<div class="el-table" v-bind="$attrs" :class="{ \'is-loading\': loading }"><slot></slot><slot name="empty"></slot><slot name="append"></slot></div>',
       props: ['data', 'border', 'size', 'loading', 'height', 'maxHeight'],
       inheritAttrs: true
     },
     'el-pagination': {
-      template: '<div class="el-pagination" v-bind="$attrs" @change="$emit(\'change\', arguments[0], arguments[1])"></div>',
+      template:
+        '<div class="el-pagination" v-bind="$attrs" @change="$emit(\'change\', arguments[0], arguments[1])"></div>',
       props: ['total', 'currentPage', 'pageSize', 'layout', 'background', 'pageSizes'],
       emits: ['change'],
       inheritAttrs: true
     },
     'y-empty': {
-      template: '<div class="y-empty" v-bind="$attrs"><slot></slot><slot name="image"></slot><slot name="description"></slot></div>',
+      template:
+        '<div class="y-empty" v-bind="$attrs"><slot></slot><slot name="image"></slot><slot name="description"></slot></div>',
       props: ['image', 'imageSize', 'description', 'style'],
       inheritAttrs: true
     },
@@ -60,7 +64,8 @@ beforeAll(() => {
       inheritAttrs: true
     },
     'el-form-item': {
-      template: '<div class="el-form-item" v-bind="$attrs" @mouseenter="$emit(\'mouseenter\', $event)" @mouseleave="$emit(\'mouseleave\', $event)"><slot></slot><template #error="{ error }"><slot name="error" :error="error"></slot></template></div>',
+      template:
+        '<div class="el-form-item" v-bind="$attrs" @mouseenter="$emit(\'mouseenter\', $event)" @mouseleave="$emit(\'mouseleave\', $event)"><slot></slot><template #error="{ error }"><slot name="error" :error="error"></slot></template></div>',
       props: ['prop', 'label', 'rules', 'labelWidth', 'required'],
       emits: ['mouseenter', 'mouseleave'],
       inheritAttrs: true
@@ -71,13 +76,15 @@ beforeAll(() => {
       inheritAttrs: true
     },
     'el-input': {
-      template: '<input class="el-input__inner" v-bind="$attrs" :value="modelValue" @input="$emit(\'update:modelValue\', $event.target.value)" @blur="$emit(\'blur\', $event)" @focus="$emit(\'focus\', $event)" @change="$emit(\'change\', $event)" />',
+      template:
+        '<input class="el-input__inner" v-bind="$attrs" :value="modelValue" @input="$emit(\'update:modelValue\', $event.target.value)" @blur="$emit(\'blur\', $event)" @focus="$emit(\'focus\', $event)" @change="$emit(\'change\', $event)" />',
       props: ['modelValue', 'placeholder', 'disabled', 'readonly', 'type'],
       emits: ['update:modelValue', 'blur', 'focus', 'change'],
       inheritAttrs: true
     },
     'el-form': {
-      template: '<form class="el-form" v-bind="$attrs" @submit.prevent="$emit(\'submit\', $event)"><slot></slot></form>',
+      template:
+        '<form class="el-form" v-bind="$attrs" @submit.prevent="$emit(\'submit\', $event)"><slot></slot></form>',
       props: ['model', 'rules', 'labelPosition', 'labelWidth', 'inline'],
       emits: ['submit'],
       inheritAttrs: true
@@ -86,6 +93,30 @@ beforeAll(() => {
       template: '<div class="el-select" v-bind="$attrs"><slot></slot></div>',
       props: ['modelValue', 'placeholder', 'disabled', 'multiple', 'options'],
       emits: ['update:modelValue', 'change'],
+      inheritAttrs: true
+    },
+    'y-pop': {
+      template: '<div class="y-pop" v-bind="$attrs"><slot></slot></div>',
+      props: ['noPop', 'tipContent', 'tipProps', 'confirm', 'cancel'],
+      emits: ['confirm', 'cancel'],
+      inheritAttrs: true
+    },
+    'y-button': {
+      template:
+        '<button class="y-button el-button" v-bind="$attrs" @click="$emit(\'click\', $event)"><slot></slot></button>',
+      props: ['type', 'loading', 'disabled', 'link'],
+      emits: ['click'],
+      inheritAttrs: true
+    },
+    'el-popover': {
+      template:
+        '<div class="el-popover" v-bind="$attrs"><slot></slot><slot name="reference"></slot></div>',
+      props: ['placement', 'width', 'popperClass', 'trigger', 'visible'],
+      emits: ['update:visible'],
+      inheritAttrs: true
+    },
+    'el-icon': {
+      template: '<i class="el-icon" v-bind="$attrs"><slot></slot></i>',
       inheritAttrs: true
     }
   };

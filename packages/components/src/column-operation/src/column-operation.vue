@@ -1,29 +1,54 @@
 <template>
-  <el-table-column class="y-column-operation" v-bind="mergedColumnAttrs" class-name="y-column-operation">
+  <el-table-column
+    class="y-column-operation"
+    v-bind="mergedColumnAttrs"
+    class-name="y-column-operation"
+  >
     <template #default="scope">
       <template v-for="item in getOptions(scope).normalList" :key="item.prop">
         <slot :name="item.prop" :scope="scope" :row="scope.row" :prop="item.prop">
           <y-pop v-bind="item.popProps" v-on="getPopEvents(scope, item)">
-            <y-button type="primary" link :disabled="item.disabled" :loading="item.loading"
-              v-on="getButtonEvents(scope, item)">
+            <y-button
+              type="primary"
+              link
+              :disabled="item.disabled"
+              :loading="item.loading"
+              v-on="getButtonEvents(scope, item)"
+            >
               {{ item.label }}
             </y-button>
           </y-pop>
         </slot>
       </template>
 
-      <el-popover v-if="getOptions(scope).dropdownList.length > 0" placement="bottom" width="0"
-        popper-class="y-column-operation__dropdown" trigger="click" :visible="getDropdownVisible(scope.$index)"
-        @update:visible="setDropdownVisible(scope.$index, $event)" ref="popoverRef">
+      <el-popover
+        v-if="getOptions(scope).dropdownList.length > 0"
+        placement="bottom"
+        width="0"
+        popper-class="y-column-operation__dropdown"
+        trigger="click"
+        :visible="getDropdownVisible(scope.$index)"
+        @update:visible="setDropdownVisible(scope.$index, $event)"
+        ref="popoverRef"
+      >
         <template #reference>
           <el-icon class="y-column-operation__dropdown-icon">
             <MoreFilled />
           </el-icon>
         </template>
-        <div v-for="item in getOptions(scope).dropdownList" :key="item.prop" class="y-column-operation__dropdown-item">
+        <div
+          v-for="item in getOptions(scope).dropdownList"
+          :key="item.prop"
+          class="y-column-operation__dropdown-item"
+        >
           <y-pop v-bind="item.popProps" v-on="getPopEvents(scope, item)">
-            <y-button type="primary" link :disabled="item.disabled" :loading="item.loading"
-              v-on="getButtonEvents(scope, item)">
+            <y-button
+              type="primary"
+              link
+              :disabled="item.disabled"
+              :loading="item.loading"
+              v-on="getButtonEvents(scope, item)"
+            >
               {{ item.label }}
             </y-button>
           </y-pop>
@@ -43,24 +68,37 @@
 import type {
   ColumnOperationProps,
   TableItemScope,
-  ColumnOperationItemType,
+  ColumnOperationItemType
 } from './column-operation';
-import { withDefaults, toRefs, useAttrs, computed, ref } from '@vue/runtime-core';
+import {
+  withDefaults,
+  toRefs,
+  useAttrs,
+  computed,
+  ref,
+  watch,
+  onUnmounted,
+  nextTick
+} from '@vue/runtime-core';
 import type { PopProps } from '../../pop/src/pop';
+import { merge } from 'lodash-es';
 import { MoreFilled } from '@element-plus/icons-vue';
+import { useAppConfig } from '../../app-wrap/src/use-app-config';
 
 defineOptions({
   name: 'YColumnOperation',
   inheritAttrs: true
 });
 
+const columnOperationConfig = useAppConfig('columnOperation');
 const attrs = useAttrs();
 const props = withDefaults(defineProps<ColumnOperationProps>(), {
   options: () => [],
-  headerStyle: () => ({})
+  headerStyle: () => ({}),
+  disabledDefaultTip: undefined as string | undefined
 });
 
-const { options, headerStyle } = toRefs(props);
+const { options, headerStyle, disabledDefaultTip } = toRefs(props);
 
 const mergedColumnAttrs = computed(() => {
   return {
@@ -76,11 +114,11 @@ const showDropdownMap = ref(new Map<number, boolean>());
 
 const getDropdownVisible = (index: number) => {
   return showDropdownMap.value.get(index) || false;
-}
+};
 
 const setDropdownVisible = (index: number, visible: boolean) => {
   showDropdownMap.value.set(index, visible);
-}
+};
 
 const getOptions = (scope: TableItemScope) => {
   // 正常展示的操作项
@@ -97,7 +135,7 @@ const getOptions = (scope: TableItemScope) => {
       show: true,
       hide: false,
       dropdown: false,
-      noPop: false,
+      noPop: true,
       popProps: {} as Partial<PopProps>,
       confirm: item?.confirm || undefined,
       cancel: item?.cancel || undefined,
@@ -105,11 +143,11 @@ const getOptions = (scope: TableItemScope) => {
     };
     defaultObj.label = typeof item.label === 'function' ? item.label(scope, item) : item.label;
 
-    let disabledTipContent: string = "";
+    let disabledTipContent: string = '';
     const disabledValue = getDisabledValue(scope, item);
 
     defaultObj.disabled = disabledValue[0];
-    disabledTipContent = disabledValue[1] || "";
+    disabledTipContent = disabledValue[1] || '';
 
     defaultObj.show =
       typeof item.show === 'function' ? item.show(scope, item) : (item.show ?? true);
@@ -117,22 +155,28 @@ const getOptions = (scope: TableItemScope) => {
       typeof item.hide === 'function' ? item.hide(scope, item) : (item.hide ?? false);
     defaultObj.dropdown =
       typeof item.dropdown === 'function' ? item.dropdown(scope, item) : (item.dropdown ?? false);
+    // 是否显示popover，默认不显示
+    defaultObj.noPop =
+      typeof item.noPop === 'function' ? item.noPop(scope, item) : (item?.noPop ?? true);
+
     const popProps =
       typeof item.popProps === 'function' ? item.popProps(scope, item) : (item.popProps ?? {});
 
-    defaultObj.popProps = {
-      noPop: true,
-      tipContent: disabledTipContent,
-      tipProps: {
-        enterable: false,
+    // 使用lodash的递归合并，将popProps的值合并到defaultObj.popProps中
+    defaultObj.popProps = merge(
+      {},
+      {
+        noPop: defaultObj.noPop,
+        tipContent: disabledTipContent,
+        tipProps: {
+          enterable: false
+        }
       },
-      ...popProps
-    };
+      popProps
+    );
 
     // 如果按钮隐藏，则不展示
     if (!defaultObj.show) return;
-
-    // console.log('defaultObj', defaultObj);
 
     // 根据dropdown的值，将操作项添加到对应的列表中
     if (defaultObj.dropdown) {
@@ -161,7 +205,9 @@ const getDisabledValue = (scope: TableItemScope, item: ColumnOperationItemType) 
       // 判断是否为二维数组，表示有多个禁用条件
       if (Array.isArray(res0[0])) {
         // 获取不为false的值
-        const res1: [boolean, string] | undefined = (res0 as [boolean, string][]).find((item) => item[0]);
+        const res1: [boolean, string] | undefined = (res0 as [boolean, string][]).find(
+          item => item[0]
+        );
         if (res1) {
           res = [res1[0], res1[1] || '无权限'];
         } else {
@@ -176,12 +222,14 @@ const getDisabledValue = (scope: TableItemScope, item: ColumnOperationItemType) 
       res = [false, ''];
     }
   } else if (typeof item.disabled === 'boolean') {
-    res = [item.disabled, item.disabled ? '无权限' : ''];
+    res = [item.disabled, ''];
   } else if (typeof item.disabled === 'object') {
     // 判断是否为二维数组，表示有多个禁用条件
     if (Array.isArray(item.disabled[0])) {
       // 获取不为false的值
-      const res1: [boolean, string] | undefined = (item.disabled as [boolean, string][]).find((item) => item[0]);
+      const res1: [boolean, string] | undefined = (item.disabled as [boolean, string][]).find(
+        item => item[0]
+      );
       if (res1) {
         res = [res1[0], res1[1] || '无权限'];
       } else {
@@ -189,34 +237,77 @@ const getDisabledValue = (scope: TableItemScope, item: ColumnOperationItemType) 
       }
     } else {
       // 不是二维数组，即只有一个禁用条件
-      res = [(item.disabled as [boolean, string])[0], (item.disabled as [boolean, string])[1] ?? ''];
+      res = [
+        (item.disabled as [boolean, string])[0],
+        (item.disabled as [boolean, string])[1] ?? ''
+      ];
     }
   } else {
     res = [false, ''];
   }
-  return res;
-}
+  return [
+    res[0],
+    res[1] || (disabledDefaultTip.value ?? columnOperationConfig?.disabledDefaultTip)
+  ];
+};
 
 const getPopEvents = (scope: TableItemScope, item: ColumnOperationItemType) => {
-  // console.log('getPopEvents', item);
-  // 这里已确定 item.popProps 类型为 Partial<PopProps>
-  const popProps = item.popProps as PopProps || {};
-  const noPop = popProps.noPop;
+  const noPop = item.noPop as boolean;
 
   // 只有当 noPop 为 false 时，才绑定 confirm 和 cancel 事件到 y-pop
-  return noPop === false ? {
-    confirm: (e: MouseEvent) => item.confirm?.(scope, item, e),
-    cancel: (e: MouseEvent) => item.cancel?.(scope, item, e)
-  } : {};
-}
+  return noPop === false
+    ? {
+        confirm: (e: MouseEvent) => item.confirm?.(scope, item, e),
+        cancel: (e: MouseEvent) => item.cancel?.(scope, item, e)
+      }
+    : {};
+};
 
 const getButtonEvents = (scope: TableItemScope, item: ColumnOperationItemType) => {
-  const popProps = item.popProps as PopProps || {};
-  const noPop = popProps.noPop;
+  const noPop = item.noPop as boolean;
 
   // 只有当 noPop 不为 false 时，才绑定 click 事件到按钮
-  return noPop !== false ? {
-    click: (e: MouseEvent) => item.confirm?.(scope, item, e)
-  } : {};
-}
+  return noPop !== false
+    ? {
+        click: (e: MouseEvent) => item.confirm?.(scope, item, e)
+      }
+    : {};
+};
+
+// 路由变化监听器 - 兼容有无vue-router的环境
+const setupRouteWatcher = () => {
+  // 延迟执行，避免在组件初始化时立即访问可能不存在的依赖
+  nextTick(() => {
+    const handleRouteChange = () => {
+      showDropdownMap.value.clear();
+    };
+
+    // 尝试使用vue-router
+    try {
+      const { useRoute } = require('vue-router');
+      const route = useRoute();
+      // 确保route对象存在且有path属性
+      if (route && route.path !== undefined) {
+        const routePath = computed(() => route.path);
+        watch(() => routePath.value, handleRouteChange);
+      }
+    } catch (error) {
+      // 如果没有vue-router，使用浏览器原生事件
+      // 监听浏览器前进后退按钮
+      window.addEventListener('popstate', handleRouteChange);
+
+      // 监听hash变化（适用于hash模式路由）
+      window.addEventListener('hashchange', handleRouteChange);
+
+      // 清理函数
+      onUnmounted(() => {
+        window.removeEventListener('popstate', handleRouteChange);
+        window.removeEventListener('hashchange', handleRouteChange);
+      });
+    }
+  });
+};
+
+// 初始化路由监听
+setupRouteWatcher();
 </script>
