@@ -7,7 +7,7 @@
     <template #default="scope">
       <template v-for="item in getOptions(scope).normalList" :key="item.prop">
         <slot :name="item.prop" :scope="scope" :row="scope.row" :prop="item.prop">
-          <y-pop v-bind="item.popProps" v-on="getPopEvents(scope, item)">
+          <y-pop v-bind="getPopProps(item)" v-on="getPopEvents(scope, item)">
             <y-button
               type="primary"
               link
@@ -41,7 +41,7 @@
           :key="item.prop"
           class="y-column-operation__dropdown-item"
         >
-          <y-pop v-bind="item.popProps" v-on="getPopEvents(scope, item)">
+          <y-pop v-bind="getPopProps(item)" v-on="getPopEvents(scope, item)">
             <y-button
               type="primary"
               link
@@ -147,7 +147,7 @@ const getOptions = (scope: TableItemScope) => {
     const disabledValue = getDisabledValue(scope, item);
 
     defaultObj.disabled = disabledValue[0];
-    disabledTipContent = disabledValue[1] || '';
+    disabledTipContent = String(disabledValue[1] || '');
 
     defaultObj.show =
       typeof item.show === 'function' ? item.show(scope, item) : (item.show ?? true);
@@ -192,7 +192,14 @@ const getOptions = (scope: TableItemScope) => {
   };
 };
 
-const getDisabledValue = (scope: TableItemScope, item: ColumnOperationItemType) => {
+const getPopProps = (item: ColumnOperationItemType) => {
+  return item.popProps || {};
+};
+
+const getDisabledValue = (
+  scope: TableItemScope,
+  item: ColumnOperationItemType
+): [boolean, string] => {
   let res: [boolean, string];
 
   if (typeof item.disabled === 'function') {
@@ -284,12 +291,16 @@ const setupRouteWatcher = () => {
 
     // 尝试使用vue-router
     try {
-      const { useRoute } = require('vue-router');
-      const route = useRoute();
-      // 确保route对象存在且有path属性
-      if (route && route.path !== undefined) {
-        const routePath = computed(() => route.path);
-        watch(() => routePath.value, handleRouteChange);
+      // 使用动态导入来避免TypeScript错误
+      const vueRouterModule = (globalThis as any).VueRouter || (window as any).VueRouter;
+      if (vueRouterModule && vueRouterModule.useRoute) {
+        const { useRoute } = vueRouterModule;
+        const route = useRoute();
+        // 确保route对象存在且有path属性
+        if (route && route.path !== undefined) {
+          const routePath = computed(() => route.path);
+          watch(() => routePath.value, handleRouteChange);
+        }
       }
     } catch (error) {
       // 如果没有vue-router，使用浏览器原生事件
