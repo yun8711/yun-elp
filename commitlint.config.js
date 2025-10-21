@@ -31,7 +31,7 @@ export default {
     ],
     scopes: [
       { value: 'core', name: 'core:       核心代码，包含组件、工具函数、样式等' },
-      { value: 'config', name: 'config:     项目配置文件等' },
+      { value: 'build', name: 'build:     构建相关' },
       { value: 'style', name: 'style:      代码风格' },
       { value: 'docs', name: 'docs:       文档' },
       { value: 'play', name: 'play:       演示' },
