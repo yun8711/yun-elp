@@ -21,6 +21,11 @@
         "text": "page-header 页面头部",
         "link": "/components/page-header/",
         "activeMatch": "/components/page-header/"
+      },
+      {
+        "text": "step 步骤条",
+        "link": "/components/step/",
+        "activeMatch": "/components/step/"
       }
     ]
   },
