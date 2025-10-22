@@ -1,0 +1,31 @@
+.y-echarts {
+  position: relative;
+  display: block;
+
+  &.loading {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    &::after {
+      content: '加载中...';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--el-color-primary);
+      font-size: 14px;
+      z-index: 11;
+    }
+  }
+}

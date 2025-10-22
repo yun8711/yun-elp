@@ -13,11 +13,12 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from '@vue/runtime-core';
+import { provide, onMounted } from '@vue/runtime-core';
 import { omit } from 'lodash-es';
 import { localeContextKey } from '../../../locale';
 import type { AppWrapProps } from './app-wrap';
 import { appConfigKey } from './use-app-config';
+import { preloadCustomModules } from '../../echarts/src/echarts-loader';
 
 defineOptions({
   name: 'YAppWrap',
@@ -55,4 +56,20 @@ const configProps = omit(props, ['elpConfig', 'locale']);
 // 提供全局配置
 provide(appConfigKey, configProps);
 provide(localeContextKey, props.locale);
+
+// 预加载ECharts模块（立即加载）
+onMounted(() => {
+  if (props.echarts && (props.echarts.chartTypes?.length || props.echarts.components?.length || props.echarts.renderers?.length || props.echarts.features?.length)) {
+    preloadCustomModules({
+      chartTypes: props.echarts.chartTypes,
+      components: props.echarts.components,
+      renderers: props.echarts.renderers,
+      features: props.echarts.features
+    }).then(() => {
+      console.log('ECharts模块预加载完成');
+    }).catch((error) => {
+      console.warn('ECharts模块预加载失败:', error);
+    });
+  }
+});
 </script>

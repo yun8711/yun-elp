@@ -146,6 +146,11 @@
         "text": "column-operation 操作列",
         "link": "/components/column-operation/",
         "activeMatch": "/components/column-operation/"
+      },
+      {
+        "text": "echarts 基础图表",
+        "link": "/components/echarts/",
+        "activeMatch": "/components/echarts/"
       }
     ]
   },
