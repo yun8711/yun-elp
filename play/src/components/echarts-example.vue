@@ -2,53 +2,91 @@
   <div class="demo-container">
 
     <div class="charts-section">
-      <h3>1. 智能组件（推荐）</h3>
-      <p>自动根据AppWrap配置加载模块，无需手动指定</p>
-      <div style="width: 600px; height: 300px;">
-        <y-echarts :option="lineChartOption" :loading="loading" style="width: 600px; height: 300px;" />
+
+      <div style="width: 500px; height: 300px;border: 1px solid red;">
+        <y-echarts :option="lineChartOption" :loading="loading" :empty="isEmpty" :config="echartsConfig1" >
+        </y-echarts>
       </div>
 
+      <el-button @click="getLineChartOption">获取数据</el-button>
+      <el-button @click="clearLineChartOption">清除数据</el-button>
     </div>
-
-    <!-- <div class="charts-section">
-        <h3>2. 简化组件</h3>
-        <p>假设模块已在AppWrap中预加载，直接使用</p>
-        <y-echarts-simple :option="barChartOption" :loading="loading" width="600" height="300" />
-      </div>
-
-      <div class="charts-section">
-        <h3>3. 完整组件（不推荐）</h3>
-        <p>每次都会动态导入，性能较差，仅用于演示</p>
-        <y-echarts :option="pieChartOption" :loading="loading" :chart-types="['PieChart']"
-          :components="['TooltipComponent', 'LegendComponent']" width="600" height="300" />
-      </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
-const loading = ref(true);
+const loading = ref(false);
+
+const echartsConfig1 = ref({
+  chartTypes: ['LineChart'],
+  components: ['GridComponent', 'TooltipComponent', 'LegendComponent', 'TitleComponent', 'ToolboxComponent'],
+  features: ['UniversalTransition']
+});
 
 // 折线图配置
 const lineChartOption = ref({
-  title: { text: '智能组件 - 折线图' },
-  grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
-  tooltip: { trigger: 'axis' },
-  legend: { data: ['折线图'] },
+  title: {
+    text: 'Stacked Line'
+  },
+  tooltip: {
+    trigger: 'axis'
+  },
+  legend: {
+    data: ['Email', 'Union Ads', 'Video Ads']
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '15%',
+    containLabel: true
+  },
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
   xAxis: {
     type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    boundaryGap: false
+    boundaryGap: false,
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   },
-  yAxis: { type: 'value' },
-  series: [{
-    name: '折线图',
-    type: 'line',
-    data: [120, 200, 150, 80, 70, 110, 130],
-    smooth: true,
-    itemStyle: { color: '#409EFF' }
-  }]
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      name: 'Email',
+      type: 'line',
+      stack: 'Total',
+      data: []
+    },
+    {
+      name: 'Union Ads',
+      type: 'line',
+      stack: 'Total',
+      data: []
+    },
+  ]
+});
+
+// 异步获取数据
+const getLineChartOption = async () => {
+  loading.value = true;
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  lineChartOption.value.series[0].data = [120, 132, 101, 134, 90, 230, 210];
+  lineChartOption.value.series[1].data = [220, 182, 191, 234, 290, 330, 310];
+  loading.value = false;
+};
+
+const clearLineChartOption = () => {
+  lineChartOption.value.series[0].data = [];
+  lineChartOption.value.series[1].data = [];
+};
+
+const isEmpty = computed(() => {
+  return lineChartOption?.value?.series?.[0]?.data?.length === 0 && lineChartOption?.value?.series?.[1]?.data?.length === 0;
 });
 
 // 柱状图配置

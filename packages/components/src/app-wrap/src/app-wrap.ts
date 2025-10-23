@@ -126,6 +126,12 @@ export interface AppWrapProps {
     features?: string[];
     /** 需要预加载的渲染器类型 */
     renderers?: string[];
+    /** 初始化参数 */
+    initOpts?: any;
+    /** 主题 */
+    theme?: string | object;
+    /** 空状态配置 */
+    emptyProps?: EmptyProps;
   };
   [key: string]: any;
 }

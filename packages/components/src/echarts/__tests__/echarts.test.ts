@@ -29,6 +29,11 @@ vi.mock('echarts/renderers', () => ({
   SVGRenderer: 'SVGRenderer'
 }));
 
+vi.mock('echarts/features', () => ({
+  LabelLayout: 'LabelLayout',
+  UniversalTransition: 'UniversalTransition'
+}));
+
 describe('YEcharts', () => {
   it('渲染正常', () => {
     const wrapper = mount(YEcharts);
@@ -69,6 +74,41 @@ describe('YEcharts', () => {
 
     const wrapper = mount(YEcharts, {
       props: { option }
+    });
+
+    expect(wrapper.exists()).toBe(true);
+  });
+
+  it('支持 features 属性', () => {
+    const wrapper = mount(YEcharts, {
+      props: {
+        features: ['LabelLayout', 'UniversalTransition']
+      }
+    });
+
+    expect(wrapper.exists()).toBe(true);
+  });
+
+  it('支持完整的模块配置', () => {
+    const wrapper = mount(YEcharts, {
+      props: {
+        chartTypes: ['BarChart', 'LineChart'],
+        components: ['GridComponent', 'TooltipComponent', 'LegendComponent'],
+        renderers: ['CanvasRenderer'],
+        features: ['LabelLayout']
+      }
+    });
+
+    expect(wrapper.exists()).toBe(true);
+  });
+
+  it('未指定props时使用默认配置', () => {
+    const wrapper = mount(YEcharts, {
+      props: {
+        option: {
+          series: [{ data: [1, 2, 3], type: 'line' }]
+        }
+      }
     });
 
     expect(wrapper.exists()).toBe(true);
