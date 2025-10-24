@@ -12,7 +12,7 @@ import Layout from './components/layout.vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
 import logo from './assets/test.png'
-import Example from './components/echarts-example.vue'
+import Example from './components/echarts/echarts-example.vue'
 
 const appWrapConfig = {
   dialog: {

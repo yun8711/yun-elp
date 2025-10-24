@@ -7,7 +7,7 @@ description: CronPicker 定时选择器
 
 CronPicker 是一个定时任务选择器组件，支持多种调度周期（分钟、小时、日、周、月、年）的配置，可以生成标准的 Cron 表达式，并提供执行时间的预览功能。
 
-注意：该组件依赖 [cron-parser](https://www.npmjs.com/package/cron-parser)  库，需要单独安装
+注意：该组件依赖 [cron-parser ^5.3.1](https://www.npmjs.com/package/cron-parser)  库，需要单独安装
 
 ## 基础用法
 

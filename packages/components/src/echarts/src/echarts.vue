@@ -75,10 +75,10 @@ function destroyChart() {
 
 // 监听配置变化
 watch(
-  () => [option.value],
-  () => {
-    if (chartInstance) {
-      chartInstance.setOption(option.value, false);
+  () => option.value,
+  (newVal: any) => {
+    if (chartInstance && newVal) {
+      chartInstance.setOption(newVal, false);
     }
   },
   { deep: true }

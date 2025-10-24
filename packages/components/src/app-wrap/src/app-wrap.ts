@@ -130,8 +130,6 @@ export interface AppWrapProps {
     initOpts?: any;
     /** 主题 */
     theme?: string | object;
-    /** 空状态配置 */
-    emptyProps?: EmptyProps;
   };
   [key: string]: any;
 }
