@@ -1,10 +1,8 @@
 <template>
   <div class="demo-container">
-
     <div class="charts-section">
-
-      <div style="width: 500px; height: 300px;border: 1px solid red;">
-        <y-echarts :option="lineChartOption" :loading="loading" :empty="isEmpty" :config="echartsConfig1" >
+      <div style="width: 500px; height: 300px; border: 1px solid red">
+        <y-echarts :option="lineChartOption" :loading="loading" :config="echartsConfig1">
         </y-echarts>
       </div>
 
@@ -14,14 +12,20 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted, computed } from 'vue';
 
 const loading = ref(false);
 
 const echartsConfig1 = ref({
   chartTypes: ['LineChart'],
-  components: ['GridComponent', 'TooltipComponent', 'LegendComponent', 'TitleComponent', 'ToolboxComponent'],
+  components: [
+    'GridComponent',
+    'TooltipComponent',
+    'LegendComponent',
+    'TitleComponent',
+    'ToolboxComponent'
+  ],
   features: ['UniversalTransition']
 });
 
@@ -33,14 +37,14 @@ const lineChartOption = ref({
   tooltip: {
     trigger: 'axis'
   },
-  legend: {
-    data: ['Email', 'Union Ads', 'Video Ads']
-  },
+  // legend: {
+  //   data: ['Email', 'Union Ads']
+  // },
   grid: {
     left: '3%',
     right: '4%',
-    bottom: '15%',
-    containLabel: true
+    bottom: '15%'
+    // outerBounds: true
   },
   toolbox: {
     feature: {
@@ -67,26 +71,50 @@ const lineChartOption = ref({
       type: 'line',
       stack: 'Total',
       data: []
-    },
+    }
   ]
 });
+
+// const newOption = ref({});
 
 // 异步获取数据
 const getLineChartOption = async () => {
   loading.value = true;
   await new Promise(resolve => setTimeout(resolve, 1000));
-  lineChartOption.value.series[0].data = [120, 132, 101, 134, 90, 230, 210];
-  lineChartOption.value.series[1].data = [220, 182, 191, 234, 290, 330, 310];
+  lineChartOption.value = {
+    legend: {
+      data: ['Email', 'Union Ads']
+    },
+    series: [
+      {
+        data: [120, 132, 101, 134, 90, 230, 210]
+      },
+      {
+        data: [220, 182, 191, 234, 290, 330, 310]
+      }
+    ]
+  };
   loading.value = false;
 };
 
 const clearLineChartOption = () => {
-  lineChartOption.value.series[0].data = [];
-  lineChartOption.value.series[1].data = [];
+  lineChartOption.value = {
+    series: [
+      {
+        data: []
+      },
+      {
+        data: []
+      }
+    ]
+  };
 };
 
 const isEmpty = computed(() => {
-  return lineChartOption?.value?.series?.[0]?.data?.length === 0 && lineChartOption?.value?.series?.[1]?.data?.length === 0;
+  return (
+    lineChartOption?.value?.series?.[0]?.data?.length === 0 &&
+    lineChartOption?.value?.series?.[1]?.data?.length === 0
+  );
 });
 
 // 柱状图配置
@@ -100,12 +128,14 @@ const barChartOption = ref({
     data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
   },
   yAxis: { type: 'value' },
-  series: [{
-    name: '柱状图',
-    type: 'bar',
-    data: [5, 20, 36, 10, 10, 20],
-    itemStyle: { color: '#67C23A' }
-  }]
+  series: [
+    {
+      name: '柱状图',
+      type: 'bar',
+      data: [5, 20, 36, 10, 10, 20],
+      itemStyle: { color: '#67C23A' }
+    }
+  ]
 });
 
 // 饼图配置
@@ -113,25 +143,27 @@ const pieChartOption = ref({
   title: { text: '完整组件 - 饼图', left: 'center' },
   tooltip: { trigger: 'item' },
   legend: { orient: 'vertical', left: 'left' },
-  series: [{
-    name: '饼图',
-    type: 'pie',
-    radius: '50%',
-    data: [
-      { value: 1048, name: '搜索引擎' },
-      { value: 735, name: '直接访问' },
-      { value: 580, name: '邮件营销' },
-      { value: 484, name: '联盟广告' },
-      { value: 300, name: '视频广告' }
-    ],
-    emphasis: {
-      itemStyle: {
-        shadowBlur: 10,
-        shadowOffsetX: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.5)'
+  series: [
+    {
+      name: '饼图',
+      type: 'pie',
+      radius: '50%',
+      data: [
+        { value: 1048, name: '搜索引擎' },
+        { value: 735, name: '直接访问' },
+        { value: 580, name: '邮件营销' },
+        { value: 484, name: '联盟广告' },
+        { value: 300, name: '视频广告' }
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
       }
     }
-  }]
+  ]
 });
 
 onMounted(async () => {

@@ -1,15 +1,9 @@
 import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
-import type { EmptyProps } from '../../empty/src/empty';
-
 export interface EchartsProps {
-  /** 图表配置项 */
+  /** 图表动态更新的配置项 */
   option?: any;
   /** 是否显示加载状态 */
   loading?: boolean;
-  /** 是否显示空状态 */
-  empty?: boolean;
-  /** 空状态配置 */
-  emptyProps?: EmptyProps;
   // 要加载的echarts模块
   config?: {
     /** 主题  */
@@ -35,14 +29,6 @@ export const echartsProps = {
   loading: {
     type: Boolean,
     default: false
-  },
-  empty: {
-    type: Boolean,
-    default: false
-  },
-  emptyProps: {
-    type: Object as PropType<EchartsProps['emptyProps']>,
-    default: () => ({})
   },
   config: {
     type: Object as PropType<EchartsProps['config']>,

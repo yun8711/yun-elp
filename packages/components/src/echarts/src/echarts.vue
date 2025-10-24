@@ -1,15 +1,11 @@
 <template>
   <div class="y-echarts" ref="chartWrapperRef" v-loading="loading">
-    <slot name="empty" v-if="empty">
-      <y-empty v-bind="emptyComponentProps" />
-    </slot>
-    <div v-else ref="chartRef" :style="{ width: width + 'px', height: height + 'px' }"></div>
+    <div ref="chartRef" :style="{ width: width + 'px', height: height + 'px' }"></div>
   </div>
-
 </template>
 
 <script setup lang="ts">
-import { toRefs, useTemplateRef, onMounted, onUnmounted, watch, nextTick, computed } from '@vue/runtime-core';
+import { toRefs, useTemplateRef, onMounted, onUnmounted, watch, nextTick } from '@vue/runtime-core';
 import { useElementSize } from '@vueuse/core';
 import { echartsProps } from './echarts';
 import { EchartsLoader } from './echarts-loader';
@@ -22,53 +18,48 @@ defineOptions({
 
 const echartsConfig = useAppConfig('echarts');
 const props = defineProps(echartsProps);
-const { option, config, loading, empty, emptyProps } = toRefs(props);
-// console.log(empty.value);
+const { option, config, loading } = toRefs(props);
 const chartWrapperRef = useTemplateRef<HTMLElement>('chartWrapperRef');
 const chartRef = useTemplateRef<HTMLElement>('chartRef');
 let chartInstance: any = null;
 // 使用 useElementSize 自动获取容器尺寸
 const { width, height } = useElementSize(chartWrapperRef);
-console.log(width.value, height.value);
-
-const emptyComponentProps = computed(() => {
-  return {
-    ...(echartsConfig.value?.emptyProps || {}),
-    ...(emptyProps.value || {}),
-  }
-});
 
 // 初始化图表
 async function initChart() {
-  // console.log('initChart', empty.value);
-  if (!chartRef.value || empty.value) return;
-  // console.log('initChart2');
-
+  if (!chartRef.value) return;
   try {
     const { init } = await import('echarts/core');
     const loader = EchartsLoader.getInstance();
 
     // 合并各类配置
     const configModules = {
-      chartTypes: [...(echartsConfig.value?.chartTypes || []), ...(config.value?.chartTypes || [])],
-      components: [...(echartsConfig.value?.components || []), ...(config.value?.components || [])],
-      renderers: ['CanvasRenderer', ...(echartsConfig.value?.renderers || []), ...(config.value?.renderers || [])],
-      features: [...(echartsConfig.value?.features || []), ...(config.value?.features || [])]
+      chartTypes: [
+        ...(echartsConfig?.value?.chartTypes || []),
+        ...(config.value?.chartTypes || [])
+      ],
+      components: [
+        ...(echartsConfig?.value?.components || []),
+        ...(config.value?.components || [])
+      ],
+      renderers: [
+        'CanvasRenderer',
+        ...(echartsConfig?.value?.renderers || []),
+        ...(config.value?.renderers || [])
+      ],
+      features: [...(echartsConfig?.value?.features || []), ...(config.value?.features || [])]
     };
-    // console.log('configModules', configModules);
 
     await loader.preloadModules(configModules);
 
-    chartInstance = init(chartRef.value, config.value?.theme || echartsConfig?.theme, {
+    chartInstance = init(chartRef.value, config.value?.theme || echartsConfig?.value?.theme, {
       renderer: 'canvas',
-      ...(config.value?.initOpts || echartsConfig.value?.initOpts || {})
+      ...(config.value?.initOpts || echartsConfig?.value?.initOpts || {})
     });
 
     if (option.value) {
-      console.log('setOption');
       chartInstance.setOption(option.value);
     }
-
   } catch (error) {
     console.error('ECharts初始化失败:', error);
   }
@@ -82,25 +73,16 @@ function destroyChart() {
   }
 }
 
-// 更新图表配置
-function updateChart() {
-  if (chartInstance && option.value) {
-    chartInstance.setOption(option, true);
-  }
-}
-
-watch(() => empty.value, (newVal: boolean) => {
-  if (newVal) {
-    destroyChart();
-  } else {
-    nextTick(() => {
-      initChart();
-    });
-  }
-});
-
 // 监听配置变化
-watch(() => [option.value], updateChart, { deep: true });
+watch(
+  () => [option.value],
+  () => {
+    if (chartInstance) {
+      chartInstance.setOption(option.value, false);
+    }
+  },
+  { deep: true }
+);
 
 // 监听容器尺寸变化，自动调整图表大小
 watch([width, height], () => {
@@ -123,6 +105,6 @@ onUnmounted(() => {
 
 // 暴露方法给父组件
 defineExpose({
-  getChartInstance: () => chartInstance,
+  getChartInstance: () => chartInstance
 });
 </script>
