@@ -8,12 +8,11 @@ description: 用于向子组件传递全局配置
 AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 
 - 向内部的后代组件传递默认配置，方便定制组件属性的默认值
-- 设置组件库的语言选项
+- 设置本组件库及 `element-plus` 组件库的语言选项
 
 注意：
 
-- AppWrap 向后代组件传递的配置参数只是为了从全局角度简化组件的配置和使用，所以它的优先级最低
-- 对于使用了 element-plus 原生组件的组件，[el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) 也会影响组件属性
+- 向后代组件传递的配置参数只是为了从全局角度简化组件的配置和使用，所以它的优先级最低
 
 ## API
 
@@ -22,9 +21,9 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | 属性名          | 说明                                                                                | 类型                                | 默认值  |
 | --------------- | ----------------------------------------------------------------------------------- | ----------------------------------- | ------- |
 | elpConfig       | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`ElConfigProviderProps`    | —       |
-| locale          | yun-elp的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
-| borderLabel     | y-border-label组件全局配置，[见下表](#border-label-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
-| pageHeader      | y-page-header组件全局配置，[见下表](#page-header-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
+| locale          | `yun-elp`的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
+| borderLabel     | `y-border-label`组件全局配置，[见下表](#border-label-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
+| pageHeader      | `y-page-header`组件全局配置，[见下表](#page-header-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
 | pageFooter      | y-page-footer组件全局配置，[见下表](#page-footer-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
 | button          | y-button组件全局配置，[见下表](#button-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
 | drawer          | y-drawer组件全局配置，[见下表](#drawer-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
@@ -35,6 +34,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | table           | y-table组件全局配置，[见下表](#table-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
 | columnForm      | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)        | ^[object]`Ref<record<string, any>>` | —       |
 | columnOperation | y-column-operation 组件全局配置，[见下表](#column-operation-attribute)              | ^[object]`Ref<record<string, any>>` | —       |
+| echarts         | y-echarts 组件全局配置，[见下表](#echarts-attribute)                                | ^[object]`Ref<record<string, any>>` | —       |
 
 #### border-label Attribute
 
@@ -142,6 +142,17 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | 参数               | 描述                                | 类型      | 默认值 |
 | ------------------ | ----------------------------------- | --------- | ------ |
 | disabledDefaultTip | 按钮禁用状态时默认的tooltip提示文本 | ^[string] | —      |
+
+#### echarts Attribute
+
+| 参数       | 描述                                                                                        | 类型                  | 默认值               |
+| ---------- | ------------------------------------------------------------------------------------------- | --------------------- | -------------------- |
+| theme      | 图表主题，参见[ECharts 中的样式简介](https://echarts.apache.org/handbook/zh/concepts/style) | ^[string] / ^[object] | —                    |
+| chartTypes | 需要动态导入的图表类型，如 `['LineChart', 'BarChart']`                                      | ^[array]`string[]`    | `[]`                 |
+| components | 需要动态导入的组件类型，如 `['GridComponent', 'TooltipComponent']`                          | ^[array]`string[]`    | `[]`                 |
+| renderers  | 需要动态导入的渲染器类型，如 `['CanvasRenderer']`                                           | ^[array]`string[]`    | `['CanvasRenderer']` |
+| features   | 需要动态导入的特性功能，如 `['LabelLayout', 'UniversalTransition']`                         | ^[array]`string[]`    | `[]`                 |
+| initOpts   | 初始化参数，参见[echarts init](https://echarts.apache.org/zh/api.html#echarts.init)         | ^[object]             | `{}`                 |
 
 ### Slots
 

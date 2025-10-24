@@ -116,6 +116,21 @@ export interface AppWrapProps {
   columnOperation?: {
     disabledDefaultTip?: string;
   };
+  // echarts配置
+  echarts?: {
+    /** 需要预加载的图表类型 */
+    chartTypes?: string[];
+    /** 需要预加载的组件类型 */
+    components?: string[];
+    /** 需要预加载的特性类型 */
+    features?: string[];
+    /** 需要预加载的渲染器类型 */
+    renderers?: string[];
+    /** 初始化参数 */
+    initOpts?: any;
+    /** 主题 */
+    theme?: string | object;
+  };
   [key: string]: any;
 }
 
@@ -167,6 +182,10 @@ export const appWrapProps = {
   },
   table: {
     type: Object as PropType<AppWrapProps['table']>,
+    default: () => ({})
+  },
+  echarts: {
+    type: Object as PropType<AppWrapProps['echarts']>,
     default: () => ({})
   }
 } as const;

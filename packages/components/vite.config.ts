@@ -133,7 +133,9 @@ export default defineConfig({
         /^node_modules\/.*/,
         '@constants',
         '@vueuse/shared',
-        '@vueuse/core'
+        '@vueuse/core',
+        /^echarts\/.*/,
+        'cron-parser'
       ],
       output: {
         globals: {
