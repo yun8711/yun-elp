@@ -61,6 +61,11 @@
         "text": "pop 弹出框",
         "link": "/components/pop/",
         "activeMatch": "/components/pop/"
+      },
+      {
+        "text": "sticky-page 侧边吸顶页面",
+        "link": "/components/sticky-page/",
+        "activeMatch": "/components/sticky-page/"
       }
     ]
   },

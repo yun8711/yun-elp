@@ -30,3 +30,4 @@ export * from './column-form';
 export * from './column-operation';
 export * from './step';
 export * from './echarts';
+export * from './sticky-page';
