@@ -1,10 +1,10 @@
-.y-sticky-page {
+.y-sticky-layout {
   position: relative;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
 
-  .y-sticky-page__left {
+  .y-sticky-layout__left {
     position: absolute;
     top: 0;
     left: 0;
@@ -15,7 +15,7 @@
     contain: layout style paint;
   }
 
-  .y-sticky-page__right {
+  .y-sticky-layout__right {
     position: absolute;
     top: 0;
     right: 0;
@@ -26,7 +26,7 @@
     contain: layout style paint;
   }
 
-  .y-sticky-page__content {
+  .y-sticky-layout__content {
     position: relative;
     box-sizing: border-box;
   }

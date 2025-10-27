@@ -1,55 +1,49 @@
 <template>
-  <div ref="containerRef" class="y-sticky-page">
+  <div ref="containerRef" class="y-sticky-layout">
     <!-- 左侧区域 -->
-    <div v-if="$slots.left" ref="leftRef" class="y-sticky-page__left"
-      :style="{ height: sideHeight + 'px', top: sideTop + 'px' }">
+    <div
+      v-if="$slots.left"
+      ref="leftRef"
+      class="y-sticky-layout__left"
+      :style="{ height: sideHeight + 'px', top: sideTop + 'px' }"
+    >
       <slot name="left" :height="sideHeight"></slot>
     </div>
 
     <!-- 内容区域 -->
-    <div class="y-sticky-page__content" :style="contentStyle">
-      <slot>
-      </slot>
+    <div class="y-sticky-layout__content" :style="contentStyle">
+      <slot> </slot>
     </div>
 
-
-
     <!-- 右侧区域 -->
-    <div v-if="$slots.right" ref="rightRef" class="y-sticky-page__right"
-      :style="{ height: sideHeight + 'px', top: sideTop + 'px' }">
+    <div
+      v-if="$slots.right"
+      ref="rightRef"
+      class="y-sticky-layout__right"
+      :style="{ height: sideHeight + 'px', top: sideTop + 'px' }"
+    >
       <slot name="right" :height="sideHeight"></slot>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, nextTick, useTemplateRef } from '@vue/runtime-core';
-import { useResizeObserver, useElementBounding, useElementSize, useScroll } from '@vueuse/core';
-import { type StickyPageProps } from './sticky-page';
+import { ref, computed, watch, onMounted, nextTick } from '@vue/runtime-core';
+import { useResizeObserver, useScroll } from '@vueuse/core';
+import { type StickyLayoutProps } from './sticky-layout';
 
 defineOptions({
-  name: 'YStickyPage',
+  name: 'YStickyLayout',
   inheritAttrs: true
 });
 
-const props = withDefaults(defineProps<StickyPageProps>(), {
-  leftSticky: true,
-  rightSticky: true,
-  leftBorder: true,
-  rightBorder: true,
-  topBorder: true,
-  extTop: 0,
-  bottom: 0
-});
+const props = defineProps<StickyLayoutProps>();
 
 // DOM 引用
 const scrollContainerEl = ref<HTMLElement | Window>();
 const containerRef = ref<HTMLElement>();
 const leftRef = ref<HTMLElement>();
 const rightRef = ref<HTMLElement>();
-
-
-// 状态
 const extHeight = ref<number>(0); // 初始距离外部容器顶部的距离
 const sideHeight = ref<number>(0); // 侧栏高度
 const sideTop = ref<number>(0); // 侧栏顶部距离外部容器顶部的距离
@@ -77,9 +71,12 @@ const initElements = () => {
 
 // 获取初始距离外部容器顶部的距离
 const initExtTop = () => {
-  if (containerRef.value) {
+  if (containerRef.value && scrollContainerEl.value) {
     const rect = containerRef.value.getBoundingClientRect();
-    const scrollContainerRect = scrollContainerEl.value.getBoundingClientRect();
+    const scrollContainerRect =
+      scrollContainerEl.value instanceof HTMLElement
+        ? scrollContainerEl.value.getBoundingClientRect()
+        : { top: 0 };
     extHeight.value = rect.top - scrollContainerRect.top;
   }
 };
@@ -105,9 +102,12 @@ const contentStyle = computed<Record<string, string | number>>(() => {
 
 // 更新布局
 const updateLayout = () => {
-  if (!containerRef.value) return;
+  if (!containerRef.value || !scrollContainerEl.value) return;
 
-  const scrollContainerRect = scrollContainerEl.value.getBoundingClientRect();
+  const scrollContainerRect =
+    scrollContainerEl.value instanceof HTMLElement
+      ? scrollContainerEl.value.getBoundingClientRect()
+      : { height: window.innerHeight };
   const containerRect = containerRef.value.getBoundingClientRect();
   wrapRect.value = {
     left: containerRect.left,
@@ -115,7 +115,7 @@ const updateLayout = () => {
   };
 
   const containerContentHeight = scrollContainerRect.height;
-  sideHeight.value = containerContentHeight - Math.max((extHeight.value - scrollTop.value), 0);
+  sideHeight.value = containerContentHeight - Math.max(extHeight.value - scrollTop.value, 0);
   if (extHeight.value > scrollTop.value) {
     // 组件本身position:relative
     containerRef.value.style.position = 'relative';
@@ -124,23 +124,19 @@ const updateLayout = () => {
     // 移除组件本身position:relative，容器组件position:relative
     containerRef.value.style.position = '';
     sideTop.value = scrollTop.value - extHeight.value;
-    scrollContainerEl.value.style.position = 'relative';
+    if (scrollContainerEl.value instanceof HTMLElement) {
+      scrollContainerEl.value.style.position = 'relative';
+    }
   }
 };
 
 // 监听滚动位置变化
-watch(() => scrollTop.value, (val: number) => {
-  updateLayout();
-  // 判断左侧是否应该固定
-  // if (props.leftSticky && leftWidth.value > 0) {
-  //   leftFixed.value = props.extTop + extHeight.value - val < 0;
-  // }
-
-  // // 判断右侧是否应该固定
-  // if (props.rightSticky && rightWidth.value > 0) {
-  //   rightFixed.value = props.extTop + extHeight.value - val < 0;
-  // }
-});
+watch(
+  () => scrollTop.value,
+  () => {
+    updateLayout();
+  }
+);
 
 // 使用 ResizeObserver 监听容器尺寸变化
 useResizeObserver(containerRef, () => {
@@ -150,7 +146,7 @@ useResizeObserver(containerRef, () => {
 });
 
 // 监听左侧插槽内容尺寸变化
-useResizeObserver(leftRef, (entries) => {
+useResizeObserver(leftRef, entries => {
   const entry = entries[0];
   if (entry) {
     const { width } = entry.contentRect;
@@ -159,14 +155,13 @@ useResizeObserver(leftRef, (entries) => {
 });
 
 // 监听右侧插槽内容尺寸变化
-useResizeObserver(rightRef, (entries) => {
+useResizeObserver(rightRef, entries => {
   const entry = entries[0];
   if (entry) {
     const { width } = entry.contentRect;
     rightWidth.value = width;
   }
 });
-
 
 // 组件挂载后初始化
 onMounted(() => {
