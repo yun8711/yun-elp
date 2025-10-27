@@ -1,0 +1,33 @@
+.y-sticky-layout {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+
+  .y-sticky-layout__left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    /* GPU 加速优化 */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    contain: layout style paint;
+  }
+
+  .y-sticky-layout__right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-sizing: border-box;
+    /* GPU 加速优化 */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    contain: layout style paint;
+  }
+
+  .y-sticky-layout__content {
+    position: relative;
+    box-sizing: border-box;
+  }
+}

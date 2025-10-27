@@ -27,6 +27,7 @@ import { YColumnForm } from './src/column-form';
 import { YColumnOperation } from './src/column-operation';
 import { YStep } from './src/step';
 import { YEcharts } from './src/echarts';
+import { YStickyLayout } from './src/sticky-layout';
 
 export default [
   YAppWrap,
@@ -57,4 +58,5 @@ export default [
   YColumnOperation,
   YStep,
   YEcharts,
+  YStickyLayout
 ] as Plugin[];
