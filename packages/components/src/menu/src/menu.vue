@@ -2,7 +2,7 @@
   <el-menu
     v-bind="{ ...$attrs, ...elMenuProps }"
     class="y-menu"
-    :style="{ '--menu-indent': indent + 'px' }"
+    :style="indentStyle"
     ref="menuRef"
   >
     <!-- 数据驱动模式 -->
@@ -30,6 +30,14 @@ defineOptions({
 // 组件 Props
 const props = withDefaults(defineProps<MenuProps>(), {
   indent: 20
+});
+
+// 设置每一层级的缩进，如果indent是数组，则根据层级设置缩进
+const indentStyle = computed(() => {
+  if (Array.isArray(props.indent)) {
+    return props.indent.map((item: number, index: number) => `--menu-indent-${index}: ${item}px;`);
+  }
+  return `{ '--menu-indent': ${props.indent}px; }`;
 });
 
 // 模板引用

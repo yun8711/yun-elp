@@ -3,11 +3,14 @@
     <h3>YMenu 无限级菜单组件</h3>
     <p>支持：组件图标、renderIcon函数、层级缩进、无图标</p>
 
-    <h4>基础用法</h4>
+    <h4>基础用法（默认缩进10px）</h4>
     <y-menu :data="menuData" />
 
-    <h4>自定义缩进</h4>
+    <h4>数字缩进（所有层级相同）</h4>
     <y-menu :data="menuData" :indent="30" mode="vertical" />
+
+    <h4>数组缩进（各层级不同）</h4>
+    <y-menu :data="menuData" :indent="[20, 20, 20, 20]" mode="vertical" />
   </div>
 </template>
 <script setup>

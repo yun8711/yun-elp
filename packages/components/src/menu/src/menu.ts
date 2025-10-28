@@ -25,7 +25,7 @@ export type RenderIconFunction = (params: RenderIconParams) => VNode | Component
 export interface MenuProps extends Partial<ElMenuProps> {
   data: MenuItem[]; // 菜单数据（必需，用于数据驱动）
   renderIcon?: RenderIconFunction; // 图标渲染函数
-  indent?: number; // 层级缩进距离(px)
+  indent?: number | number[]; // 层级缩进距离(px)，数字表示所有层级相同，数组表示各层级不同
 }
 
 export const menuProps = {
@@ -38,8 +38,8 @@ export const menuProps = {
     default: null
   },
   indent: {
-    type: Number,
-    default: 20
+    type: [Number, Array] as PropType<number | number[]>,
+    default: 10
   }
 } as const;
 

@@ -1,26 +1,28 @@
 .y-menu {
   // 主菜单容器样式
-  --menu-indent: 20px; // 默认缩进距离，通过组件的 indent prop 动态设置
+  // --menu-indent: 20px; // 默认缩进距离，通过组件的 indent prop 动态设置
 
   .y-menu-item {
     // 层级缩进控制
-    padding-left: calc(var(--menu-level, 0) * var(--menu-indent));
+    padding-left: calc(var(--menu-level, 0) * var(--menu-indent-level,var(--menu-indent)))!important;
 
     // 子菜单项的额外缩进
     &.y-menu-item__submenu {
       .el-sub-menu__title {
-        padding-left: calc(
-          var(--el-menu-base-level-padding) + var(--menu-level, 0) * var(--menu-indent) + 10px
-        );
+        // padding-left: calc(
+        //   var(--el-menu-base-level-padding) + var(--menu-level, 0) * var(--menu-indent)
+        // );
+        padding-left: calc(var(--menu-level, 0) * var(--menu-indent));
       }
 
       // 子菜单内容区域的缩进
       .el-menu {
         .el-menu-item,
         .el-sub-menu__title {
-          padding-left: calc(
-            var(--el-menu-base-level-padding) + (var(--menu-level, 0) + 1) * var(--menu-indent)
-          );
+          // padding-left: calc(
+          //   var(--el-menu-base-level-padding) + var(--menu-level, 0) * var(--menu-indent)
+          // );
+          padding-left: calc(var(--menu-level, 0) * var(--menu-indent));
         }
       }
     }
