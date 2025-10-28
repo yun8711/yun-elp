@@ -31,3 +31,4 @@ export * from './column-operation';
 export * from './step';
 export * from './echarts';
 export * from './sticky-layout';
+export * from './menu';

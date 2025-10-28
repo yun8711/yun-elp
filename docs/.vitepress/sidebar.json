@@ -26,6 +26,11 @@
         "text": "step 步骤条",
         "link": "/components/step/",
         "activeMatch": "/components/step/"
+      },
+      {
+        "text": "menu 菜单",
+        "link": "/components/menu/",
+        "activeMatch": "/components/menu/"
       }
     ]
   },

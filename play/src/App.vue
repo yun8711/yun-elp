@@ -16,7 +16,7 @@ import Layout from './components/layout.vue';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import en from 'element-plus/dist/locale/en.mjs';
 import logo from './assets/test.png';
-import Example from './components/sticky-page/index.vue';
+import Example from './components/menu/index.vue';
 
 const appWrapConfig = {
   dialog: {
