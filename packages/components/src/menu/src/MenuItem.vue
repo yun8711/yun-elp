@@ -1,0 +1,115 @@
+<template>
+  <!-- 无子菜单：渲染普通菜单项 -->
+  <el-menu-item
+    v-if="!hasChildren"
+    :index="item.index"
+    :disabled="item.disabled"
+    class="y-menu-item"
+    :style="{ '--menu-level': level - 1 }"
+  >
+    <!-- 图标渲染 -->
+    <component
+      v-if="iconVNode"
+      :is="iconVNode"
+      class="y-menu-item__icon"
+      style="width: 16px; height: 16px; font-size: 16px; margin-right: 5px"
+    />
+
+    <!-- 菜单文本 -->
+    <span>{{ item.label }}</span>
+  </el-menu-item>
+
+  <!-- 有子菜单：渲染子菜单 -->
+  <el-sub-menu
+    v-else
+    :index="item.index"
+    :disabled="item.disabled"
+    class="y-menu-item y-menu-item__submenu"
+    :style="{ '--menu-level': level - 1 }"
+  >
+    <!-- 子菜单标题 -->
+    <template #title>
+      <!-- 图标渲染 -->
+      <component
+        v-if="iconVNode"
+        :is="iconVNode"
+        class="y-menu-item__submenu-icon"
+        style="width: 16px; height: 16px; font-size: 16px; margin-right: 5px"
+      />
+      <span>{{ item.label }}</span>
+    </template>
+
+    <!-- 递归渲染子菜单项 -->
+    <y-menu-item
+      v-for="child in item.children"
+      :key="child.index"
+      :item="child"
+      :render-icon="renderIcon"
+      :level="level + 1"
+    />
+  </el-sub-menu>
+</template>
+
+<script setup lang="ts">
+import { computed } from '@vue/runtime-core';
+import { ElMenuItem, ElSubMenu } from 'element-plus';
+import type { MenuItem, RenderIconFunction } from './menu';
+
+// 组件 Props
+interface MenuItemProps {
+  item: MenuItem; // 菜单项数据
+  renderIcon?: RenderIconFunction; // 图标渲染函数
+  level: number; // 当前层级
+}
+
+const props = withDefaults(defineProps<MenuItemProps>(), {
+  level: 1
+});
+
+// 计算属性
+const hasChildren = computed(() => {
+  return props.item.children && props.item.children.length > 0;
+});
+
+// 图标渲染结果
+const iconVNode = computed(() => {
+  // 优先使用 renderIcon 函数
+  if (props.renderIcon) {
+    try {
+      return props.renderIcon({
+        item: props.item,
+        level: props.level,
+        isExpanded: false // TODO: 可以从 el-sub-menu 的状态获取
+      });
+    } catch (error) {
+      console.warn('[YMenu] renderIcon function error:', error);
+      return null;
+    }
+  }
+
+  // 如果没有 renderIcon 函数，检查 item.icon
+  if (props.item.icon) {
+    try {
+      // 如果是函数，调用它
+      if (typeof props.item.icon === 'function') {
+        return (props.item.icon as RenderIconFunction)({
+          item: props.item,
+          level: props.level,
+          isExpanded: false
+        });
+      }
+      // 如果是组件，直接返回
+      return props.item.icon;
+    } catch (error) {
+      console.warn('[YMenu] item.icon error:', error);
+      return null;
+    }
+  }
+
+  return null;
+});
+
+defineOptions({
+  name: 'YMenuItem'
+});
+</script>

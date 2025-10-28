@@ -1,3 +1,80 @@
 .y-menu {
-  // 组件样式
+  // 主菜单容器样式
+  --menu-indent: 20px; // 默认缩进距离，通过组件的 indent prop 动态设置
+
+  .y-menu-item {
+    // 层级缩进控制
+    padding-left: calc(var(--menu-level, 0) * var(--menu-indent));
+
+    // 子菜单项的额外缩进
+    &.y-menu-item__submenu {
+      .el-sub-menu__title {
+        padding-left: calc(
+          var(--el-menu-base-level-padding) + var(--menu-level, 0) * var(--menu-indent) + 10px
+        );
+      }
+
+      // 子菜单内容区域的缩进
+      .el-menu {
+        .el-menu-item,
+        .el-sub-menu__title {
+          padding-left: calc(
+            var(--el-menu-base-level-padding) + (var(--menu-level, 0) + 1) * var(--menu-indent)
+          );
+        }
+      }
+    }
+
+    // 图标和文字的间距
+    .el-menu-item,
+    .el-sub-menu__title {
+      display: flex;
+      align-items: center;
+
+      // 图标尺寸控制 - 覆盖所有可能的图标类型
+      i,
+      svg,
+      [class*='el-icon'],
+      [class*='icon'],
+      .y-menu-item__icon {
+        flex-shrink: 0;
+        width: 16px !important;
+        height: 16px !important;
+        font-size: 16px !important;
+        line-height: 16px !important;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+
+        // 确保SVG图标也能正确缩放
+        svg {
+          width: 100% !important;
+          height: 100% !important;
+          font-size: 16px !important;
+        }
+
+        // Element Plus 图标组件的特殊处理
+        &[class*='el-icon'] {
+          display: inline-flex !important;
+          align-items: center;
+          justify-content: center;
+        }
+
+        // 通用图标组件样式重置
+        * {
+          width: inherit !important;
+          height: inherit !important;
+          font-size: inherit !important;
+        }
+      }
+
+      span {
+        flex: 1;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
 }
