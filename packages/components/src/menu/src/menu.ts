@@ -4,10 +4,11 @@ import type { MenuProps as ElMenuProps } from 'element-plus';
 // 菜单项数据结构
 export interface MenuItem {
   index: string; // 菜单唯一标识
+  route?: string | object; // 路由地址
   label: string; // 菜单显示文本
-  children?: MenuItem[]; // 子菜单
   disabled?: boolean; // 是否禁用
   icon?: Component | RenderIconFunction; // 图标配置（组件或render函数）
+  children?: MenuItem[]; // 子菜单
   [key: string]: any; // 其他扩展属性
 }
 
@@ -22,10 +23,11 @@ export interface RenderIconParams {
 export type RenderIconFunction = (params: RenderIconParams) => VNode | Component | string | null;
 
 // 组件 Props
-export interface MenuProps extends Partial<ElMenuProps> {
-  data: MenuItem[]; // 菜单数据（必需，用于数据驱动）
-  renderIcon?: RenderIconFunction; // 图标渲染函数
-  indent?: number | number[]; // 层级缩进距离(px)，数字表示所有层级相同，数组表示各层级不同
+export interface MenuProps {
+  // 菜单数据
+  data: MenuItem[];
+  // 层级缩进距离(px)，数字表示所有层级相同，数组表示各层级不同，相对于顶级菜单的缩进距离
+  indent?: number | number[];
 }
 
 export const menuProps = {
@@ -33,14 +35,10 @@ export const menuProps = {
     type: Array as PropType<MenuItem[]>,
     required: true
   },
-  renderIcon: {
-    type: Function as PropType<RenderIconFunction>,
-    default: null
-  },
   indent: {
     type: [Number, Array] as PropType<number | number[]>,
-    default: 10
-  }
+    default: 20
+  },
 } as const;
 
 export type menuInstance = ExtractPublicPropTypes<typeof menuProps>;

@@ -1,30 +1,19 @@
 .y-menu {
-  // 主菜单容器样式
-  // --menu-indent: 20px; // 默认缩进距离，通过组件的 indent prop 动态设置
-
   .y-menu-item {
-    // &:not(.y-menu-item__submenu) {
-    // 层级缩进控制
-    padding-left: calc(var(--menu-indent-level, var(--menu-indent)));
-    // }
+    // 直接子菜单，排除submenu，否则会给submenu整体增加额外缩进
+    &:not(.y-menu-item__submenu) {
+      padding-left: var(--menu-indent) !important;
+    }
 
-    // 子菜单项的额外缩进
+    // submenu的title的缩进
     &.y-menu-item__submenu {
-      .el-sub-menu__title {
-        // padding-left: calc(
-        //   var(--el-menu-base-level-padding) + var(--menu-level, 0) * var(--menu-indent)
-        // );
-        padding-left: calc(var(--menu-level, 0) * var(--menu-indent));
+      > .el-sub-menu__title {
+        padding-left: var(--menu-indent) !important;
       }
-
-      // 子菜单内容区域的缩进
-      .el-menu {
-        .el-menu-item,
-        .el-sub-menu__title {
-          // padding-left: calc(
-          //   var(--el-menu-base-level-padding) + var(--menu-level, 0) * var(--menu-indent)
-          // );
-          padding-left: calc(var(--menu-level, 0) * var(--menu-indent));
+      // submenu的title的激活状态
+      &.is-active {
+        > .el-sub-menu__title {
+          color: var(--el-menu-active-color) !important;
         }
       }
     }
@@ -42,10 +31,10 @@
       [class*='icon'],
       .y-menu-item__icon {
         flex-shrink: 0;
-        width: 16px !important;
-        height: 16px !important;
-        font-size: 16px !important;
-        line-height: 16px !important;
+        width: var(--menu-icon-width) !important;
+        height: var(--menu-icon-height) !important;
+        font-size: var(--menu-icon-font-size,var(--menu-icon-height)) !important;
+        line-height: var(--menu-icon-line-height,var(--menu-icon-height)) !important;
         display: inline-flex !important;
         align-items: center;
         justify-content: center;
@@ -54,7 +43,7 @@
         svg {
           width: 100% !important;
           height: 100% !important;
-          font-size: 16px !important;
+          font-size: var(--menu-icon-font-size,var(--menu-icon-height)) !important;
         }
 
         // Element Plus 图标组件的特殊处理
