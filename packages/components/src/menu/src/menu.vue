@@ -1,17 +1,13 @@
 <template>
-  <el-menu
-    v-bind="{ ...$attrs, ...elMenuProps }"
-    class="y-menu"
-    :style="indentStyle"
-    ref="menuRef"
-  >
+  <el-menu v-bind="{ ...$attrs, ...elMenuProps }" class="y-menu" :style="indentStyle" ref="menuRef">
     <!-- 数据驱动模式 -->
     <y-menu-item
       v-for="item in data"
       :key="item.index"
       :item="item"
       :render-icon="renderIcon"
-      :level="1"
+      :level="0"
+      :indent="indent"
     />
   </el-menu>
 </template>
@@ -35,9 +31,11 @@ const props = withDefaults(defineProps<MenuProps>(), {
 // 设置每一层级的缩进，如果indent是数组，则根据层级设置缩进
 const indentStyle = computed(() => {
   if (Array.isArray(props.indent)) {
-    return props.indent.map((item: number, index: number) => `--menu-indent-${index}: ${item}px;`);
+    return props.indent
+      .map((item: number, index: number) => `--menu-indent-${index}: ${item}px;`)
+      .join(' ');
   }
-  return `{ '--menu-indent': ${props.indent}px; }`;
+  return `--menu-indent: ${props.indent}px;`;
 });
 
 // 模板引用

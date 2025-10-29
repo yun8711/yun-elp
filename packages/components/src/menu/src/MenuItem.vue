@@ -5,7 +5,7 @@
     :index="item.index"
     :disabled="item.disabled"
     class="y-menu-item"
-    :style="{ '--menu-level': level - 1 }"
+    :style="itemStyle"
   >
     <!-- 图标渲染 -->
     <component
@@ -24,8 +24,8 @@
     v-else
     :index="item.index"
     :disabled="item.disabled"
-    class="y-menu-item y-menu-item__submenu"
-    :style="{ '--menu-level': level - 1 }"
+    class="y-menu-item__submenu"
+    :style="itemStyle"
   >
     <!-- 子菜单标题 -->
     <template #title>
@@ -46,6 +46,7 @@
       :item="child"
       :render-icon="renderIcon"
       :level="level + 1"
+      :indent="indent"
     />
   </el-sub-menu>
 </template>
@@ -60,11 +61,26 @@ interface MenuItemProps {
   item: MenuItem; // 菜单项数据
   renderIcon?: RenderIconFunction; // 图标渲染函数
   level: number; // 当前层级
+  indent?: number | number[]; // 缩进配置，从父组件传递
 }
 
 const props = withDefaults(defineProps<MenuItemProps>(), {
   level: 1
 });
+
+// 计算当前层级的缩进值
+const currentIndent = computed(() => {
+  if (Array.isArray(props.indent)) {
+    return props.indent[props.level] ?? props.indent[props.indent.length - 1] ?? 20;
+  }
+  return props.indent ?? 20;
+});
+
+// 计算样式对象
+const itemStyle = computed(() => ({
+  '--menu-level': props.level,
+  '--menu-indent': `${currentIndent.value}px`
+}));
 
 // 计算属性
 const hasChildren = computed(() => {

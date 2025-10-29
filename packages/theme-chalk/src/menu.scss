@@ -3,8 +3,10 @@
   // --menu-indent: 20px; // 默认缩进距离，通过组件的 indent prop 动态设置
 
   .y-menu-item {
+    // &:not(.y-menu-item__submenu) {
     // 层级缩进控制
-    padding-left: calc(var(--menu-level, 0) * var(--menu-indent-level,var(--menu-indent)))!important;
+    padding-left: calc(var(--menu-indent-level, var(--menu-indent)));
+    // }
 
     // 子菜单项的额外缩进
     &.y-menu-item__submenu {
