@@ -3,12 +3,12 @@
     <h4>各种形式的图标</h4>
     <el-switch v-model="isCollapse" />
     <div style="width: 300px;border: 1px solid #ccc;">
-      <y-menu :collapse="isCollapse" :data="menuData0" />
+      <y-menu :collapse="isCollapse" :data="menuData0" :style="{ '--y-menu-collapse-width': '40px', '--y-submenu-active-bg-color': '#f0f2f5','--y-menu-active-bg-color':'#f0f2f5' }" />
     </div>
 
 
     <h4>数字缩进（所有层级相同）</h4>
-    <y-menu :data="menuData" :indent="30" />
+    <y-menu :data="menuData" :indent="30" :collapse="isCollapse" :style="{ '--y-menu-collapse-width': '40px','--y-submenu-active-bg-color':'#f0f2f5','--y-menu-active-bg-color':'#f0f2f5' }" />
 
     <h4>数组缩进（各层级不同）</h4>
     <!-- <y-menu :data="menuData" :indent="[20, 20, 20, 20]" mode="vertical" /> -->
@@ -19,6 +19,8 @@
 import { Menu as MenuIcon, Setting, User } from '@element-plus/icons-vue'
 import { h, ref } from 'vue'
 import testImg from '@/assets/test.png'
+import folder from '@/assets/folder.svg'
+import baobiao from '@/assets/baobiao.svg'
 
 defineOptions({
   name: 'Menu',
@@ -32,6 +34,7 @@ const createIcon = iconName => {
   return h('i', { class: iconName })
 }
 
+// 创建SVG图标函数（作为img使用）
 // 创建图片图标函数
 const createImageIcon = (src, alt = 'icon') => {
   return h('img', {
@@ -39,6 +42,8 @@ const createImageIcon = (src, alt = 'icon') => {
     alt,
   })
 }
+
+
 
 const menuData0 = [
   {
@@ -54,7 +59,12 @@ const menuData0 = [
   {
     index: '3',
     label: '无图标',
-    icon: null,
+    icon: () => createImageIcon(folder, '菜单3图标'),
+  },
+  {
+    index: '4',
+    label: '无图标',
+    icon: () => createImageIcon(baobiao, '菜单4图标'),
   }
 ]
 
@@ -78,6 +88,7 @@ const menuData = [
       {
         index: '2-2',
         label: '子菜单2-2',
+        icon: User, // 用户图标组件
         children: [
           {
             index: '2-2-1',

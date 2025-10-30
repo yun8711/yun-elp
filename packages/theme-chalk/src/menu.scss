@@ -1,72 +1,134 @@
 .y-menu {
-  .y-menu-item {
+  .el-menu-item {
+    display: flex;
+    align-items: center;
+    .y-menu-item__icon {
+      margin-right: 5px;
+    }
     // 直接子菜单，排除submenu，否则会给submenu整体增加额外缩进
-    &:not(.y-menu-item__submenu) {
+    &:not(.el-sub-menu) {
       padding-left: var(--menu-indent) !important;
     }
 
-    // submenu的title的缩进
-    &.y-menu-item__submenu {
-      > .el-sub-menu__title {
-        padding-left: var(--menu-indent) !important;
-      }
-      // submenu的title的激活状态
-      &.is-active {
-        > .el-sub-menu__title {
-          color: var(--el-menu-active-color) !important;
-        }
+    &.is-active {
+      background-color: var(--y-menu-active-bg-color);
+      .y-menu-item__icon {
+        color: var(--el-menu-active-color);
       }
     }
 
     // 图标和文字的间距
-    .el-menu-item,
+    // .el-menu-item,
+    // .el-sub-menu__title {
+    // display: flex;
+    // align-items: center;
+
+    // 图标尺寸控制 - 覆盖所有可能的图标类型
+    // i,
+    // svg,
+    // [class*='el-icon'],
+    // [class*='icon'],
+    // .y-menu-item__icon:not(.el-sub-menu__icon-arrow) {
+    //   flex-shrink: 0;
+    //   width: var(--menu-icon-width) !important;
+    //   height: var(--menu-icon-height) !important;
+    //   font-size: var(--menu-icon-font-size, var(--menu-icon-height)) !important;
+    //   line-height: var(--menu-icon-line-height, var(--menu-icon-height)) !important;
+    //   display: inline-flex !important;
+    //   align-items: center;
+    //   justify-content: center;
+
+    //   // 确保SVG图标也能正确缩放
+    //   svg {
+    //     width: 100% !important;
+    //     height: 100% !important;
+    //     font-size: var(--menu-icon-font-size, var(--menu-icon-height)) !important;
+    //   }
+
+    //   // Element Plus 图标组件的特殊处理
+    //   &[class*='el-icon'] {
+    //     display: inline-flex !important;
+    //     align-items: center;
+    //     justify-content: center;
+    //   }
+
+    //   // 通用图标组件样式重置
+    //   * {
+    //     width: inherit !important;
+    //     height: inherit !important;
+    //     font-size: inherit !important;
+    //   }
+    // }
+
+    // span {
+    //   flex: 1;
+    //   min-width: 0;
+    //   white-space: nowrap;
+    //   overflow: hidden;
+    //   text-overflow: ellipsis;
+    // }
+    // }
+  }
+
+  // submenu的title的缩进
+  .el-sub-menu {
     .el-sub-menu__title {
       display: flex;
       align-items: center;
-
-      // 图标尺寸控制 - 覆盖所有可能的图标类型
-      i,
-      svg,
-      [class*='el-icon'],
-      [class*='icon'],
-      .y-menu-item__icon {
-        flex-shrink: 0;
-        width: var(--menu-icon-width) !important;
-        height: var(--menu-icon-height) !important;
-        font-size: var(--menu-icon-font-size,var(--menu-icon-height)) !important;
-        line-height: var(--menu-icon-line-height,var(--menu-icon-height)) !important;
-        display: inline-flex !important;
-        align-items: center;
-        justify-content: center;
-
-        // 确保SVG图标也能正确缩放
-        svg {
-          width: 100% !important;
-          height: 100% !important;
-          font-size: var(--menu-icon-font-size,var(--menu-icon-height)) !important;
-        }
-
-        // Element Plus 图标组件的特殊处理
-        &[class*='el-icon'] {
-          display: inline-flex !important;
-          align-items: center;
-          justify-content: center;
-        }
-
-        // 通用图标组件样式重置
-        * {
-          width: inherit !important;
-          height: inherit !important;
-          font-size: inherit !important;
-        }
+      padding-left: var(--menu-indent) !important;
+      .y-menu-item__submenu-icon {
+        margin-right: 5px;
       }
+    }
+    // submenu的title的激活状态
+    &.is-active {
+      > .el-sub-menu__title {
+        color: var(--el-menu-active-color) !important;
+        background-color: var(--y-submenu-active-bg-color);
+      }
+    }
+  }
 
-      span {
-        flex: 1;
-        min-width: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+  // 收起状态下
+  &.el-menu--collapse {
+    width: var(--y-menu-collapse-width);
+    // 覆盖收起后样式，可自定义宽度，保证图标剧中
+    .el-menu-item {
+      padding: 0 !important;
+      justify-content: center;
+      align-items: center;
+      .y-menu-item__icon {
+        margin-right: 0;
+      }
+    }
+    .el-sub-menu__title {
+      padding: 0 !important;
+      justify-content: center;
+      .y-menu-item__submenu-icon {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.y-menu-popper {
+  .el-menu-item {
+    &.is-active {
+      background-color: var(--y-menu-active-bg-color);
+    }
+    .y-menu-item__icon {
+      margin-right: 5px;
+    }
+  }
+
+  .el-sub-menu {
+    &.is-active {
+      > .el-sub-menu__title {
+        color: var(--el-menu-active-color) !important;
+        background-color: var(--y-submenu-active-bg-color);
+        .y-menu-item__submenu-icon {
+          margin-right: 5px;
+        }
       }
     }
   }

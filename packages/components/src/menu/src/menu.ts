@@ -28,6 +28,10 @@ export interface MenuProps {
   data: MenuItem[];
   // 层级缩进距离(px)，数字表示所有层级相同，数组表示各层级不同，相对于顶级菜单的缩进距离
   indent?: number | number[];
+  // 图标样式
+  iconStyle?: Record<string, string | number>;
+  // // 收起后宽度
+  // collapseWidth?: number;
 }
 
 export const menuProps = {
@@ -39,6 +43,14 @@ export const menuProps = {
     type: [Number, Array] as PropType<number | number[]>,
     default: 20
   },
+  iconStyle: {
+    type: Object as PropType<Record<string, string | number>>,
+    default: () => ({})
+  },
+  // collapseWidth: {
+  //   type: Number as PropType<number>,
+  //   default: 64
+  // }
 } as const;
 
 export type menuInstance = ExtractPublicPropTypes<typeof menuProps>;
