@@ -1,0 +1,27 @@
+:root {
+  --y-submenu-active-bg-color: #f0f2f5; // submenu 激活背景色
+  --y-menu-active-bg-color: #f0f2f5; // menu 激活背景色
+  --y-menu-collapse-width: 40px; // menu 收起宽度
+  --y-menu-icon-width: 16px; // menu 图标宽度
+  --y-menu-icon-height: 16px; // menu 图标高度
+  --y-menu-icon-font-size: 16px;
+  --y-menu-icon-line-height: 16px;
+  --y-menu-icon-color: #000;
+  --y-menu-icon-margin-right: 10px;
+  // el-menu 变量
+  --el-menu-active-color: var(--el-color-primary);
+  --el-menu-text-color: var(--el-text-color-primary);
+  --el-menu-hover-text-color: var(--el-color-primary);
+  --el-menu-bg-color: var(--el-fill-color-blank);
+  --el-menu-hover-bg-color: var(--el-color-primary-light-9);
+  --el-menu-item-height: 56px;
+  --el-menu-sub-item-height: calc(var(--el-menu-item-height) - 6px);
+  --el-menu-horizontal-height: 60px;
+  --el-menu-horizontal-sub-item-height: 36px;
+  --el-menu-item-font-size: var(--el-font-size-base);
+  --el-menu-item-hover-fill: var(--el-color-primary-light-9);
+  --el-menu-border-color: var(--el-border-color);
+  --el-menu-base-level-padding: 20px;
+  --el-menu-level-padding: 20px;
+  --el-menu-icon-width: 24px;
+}

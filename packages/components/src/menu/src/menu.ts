@@ -1,5 +1,4 @@
 import type { ExtractPublicPropTypes, PropType, VNode, Component } from '@vue/runtime-core';
-import type { MenuProps as ElMenuProps } from 'element-plus';
 
 // 菜单项数据结构
 export interface MenuItem {
@@ -7,7 +6,7 @@ export interface MenuItem {
   route?: string | object; // 路由地址
   label: string; // 菜单显示文本
   disabled?: boolean; // 是否禁用
-  icon?: Component | RenderIconFunction; // 图标配置（组件或render函数）
+  icon?: Component; // 图标配置（组件或render函数）
   children?: MenuItem[]; // 子菜单
   [key: string]: any; // 其他扩展属性
 }
@@ -28,10 +27,6 @@ export interface MenuProps {
   data: MenuItem[];
   // 层级缩进距离(px)，数字表示所有层级相同，数组表示各层级不同，相对于顶级菜单的缩进距离
   indent?: number | number[];
-  // 图标样式
-  iconStyle?: Record<string, string | number>;
-  // // 收起后宽度
-  // collapseWidth?: number;
 }
 
 export const menuProps = {
@@ -43,14 +38,6 @@ export const menuProps = {
     type: [Number, Array] as PropType<number | number[]>,
     default: 20
   },
-  iconStyle: {
-    type: Object as PropType<Record<string, string | number>>,
-    default: () => ({})
-  },
-  // collapseWidth: {
-  //   type: Number as PropType<number>,
-  //   default: 64
-  // }
 } as const;
 
 export type menuInstance = ExtractPublicPropTypes<typeof menuProps>;

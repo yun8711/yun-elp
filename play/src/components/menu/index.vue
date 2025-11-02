@@ -1,17 +1,36 @@
 <template>
   <div>
     <h4>各种形式的图标</h4>
+    <!-- <div class="i-icon:card size-16"></div> -->
+    <!-- <i class="i-icon:android size-16"></i> -->
     <el-switch v-model="isCollapse" />
     <div style="width: 300px;border: 1px solid #ccc;">
-      <y-menu :collapse="isCollapse" :data="menuData0" :style="{ '--y-menu-collapse-width': '40px', '--y-submenu-active-bg-color': '#f0f2f5','--y-menu-active-bg-color':'#f0f2f5' }" />
+      <!-- <y-menu :collapse="isCollapse" :data="menuData0" /> -->
     </div>
 
 
     <h4>数字缩进（所有层级相同）</h4>
-    <y-menu :data="menuData" :indent="30" :collapse="isCollapse" :style="{ '--y-menu-collapse-width': '40px','--y-submenu-active-bg-color':'#f0f2f5','--y-menu-active-bg-color':'#f0f2f5' }" />
+    <y-menu :data="menuData" :indent="[10, 30, 0, 40]" :collapse="isCollapse" @open="handleOpen" @close="handleClose" />
 
     <h4>数组缩进（各层级不同）</h4>
-    <!-- <y-menu :data="menuData" :indent="[20, 20, 20, 20]" mode="vertical" /> -->
+    <!-- <y-menu :data="menuData" :indent="[30, 30, 30, 20]" :collapse="isCollapse" /> -->
+
+    <h4>使用插槽自定义菜单项内容</h4>
+    <!-- <y-menu :data="menuData0" :indent="20" :collapse="isCollapse">
+      <template #label="{ item }">
+        <span>{{ item.label }}</span>
+        <el-badge v-if="item.index === '2' && !isCollapse" :value="3" style="margin-left: 5px;"></el-badge>
+      </template>
+      <template #item-1="{ item }">
+        <span style="color: #409eff; font-weight: bold;">{{ item.label }}</span>
+        <el-tag size="small" style="margin-left: 5px;" v-if="!isCollapse">New</el-tag>
+      </template>
+      <template #item-icon-3="{ item }">
+        <el-icon class="y-menu-item__icon" style="color: #f56c6c;">
+          <Setting />
+        </el-icon>
+      </template>
+    </y-menu> -->
   </div>
 </template>
 <script setup>
@@ -20,7 +39,7 @@ import { Menu as MenuIcon, Setting, User } from '@element-plus/icons-vue'
 import { h, ref } from 'vue'
 import testImg from '@/assets/test.png'
 import folder from '@/assets/folder.svg'
-import baobiao from '@/assets/baobiao.svg'
+import baobiao from '@/assets/svg/icon/baobiao.svg'
 
 defineOptions({
   name: 'Menu',
@@ -43,12 +62,19 @@ const createImageIcon = (src, alt = 'icon') => {
   })
 }
 
+// 创建 UnoCSS 图标的函数
+const createUnoIcon = (iconName) => {
+  return h('i', {
+    class: `i-icon:${iconName}`,
+  })
+}
+
 
 
 const menuData0 = [
   {
     index: '1',
-    label: '图片图标',
+    label: '图片图标图片',
     icon: () => createImageIcon(testImg, '菜单2图标'),
   },
   {
@@ -64,7 +90,7 @@ const menuData0 = [
   {
     index: '4',
     label: '无图标',
-    icon: () => createImageIcon(baobiao, '菜单4图标'),
+    icon: () => createUnoIcon('android'),
   }
 ]
 
@@ -135,6 +161,14 @@ const renderIcon = params => {
     return h('i', { class: 'el-icon-star-on' }) // 顶级菜单使用星星图标
   }
   return null // 其他情况不渲染图标
+}
+
+const handleOpen = (key, keyPath) => {
+  console.log('open', key, keyPath)
+}
+
+const handleClose = (key, keyPath) => {
+  console.log('close', key, keyPath)
 }
 </script>
 <style scoped>

@@ -1,10 +1,24 @@
+// 定义图标样式的 mixin（规则集的复用）
+@mixin menu-icon-style {
+  margin-right: var(--y-menu-icon-margin-right, 5px);
+  width: var(--y-menu-icon-width, 16px);
+  height: var(--y-menu-icon-height, 16px);
+  font-size: var(--y-menu-icon-font-size, 16px);
+  line-height: var(--y-menu-icon-line-height, 16px);
+  color: var(--y-menu-icon-color, var(--el-menu-text-color));
+}
+
+// 定义多语言文本换行的 mixin
+@mixin menu-text-wrap {
+  overflow-wrap: break-word;
+  word-break: normal;
+  white-space: normal;
+}
+
 .y-menu {
   .el-menu-item {
     display: flex;
     align-items: center;
-    .y-menu-item__icon {
-      margin-right: 5px;
-    }
     // 直接子菜单，排除submenu，否则会给submenu整体增加额外缩进
     &:not(.el-sub-menu) {
       padding-left: var(--menu-indent) !important;
@@ -17,57 +31,10 @@
       }
     }
 
-    // 图标和文字的间距
-    // .el-menu-item,
-    // .el-sub-menu__title {
-    // display: flex;
-    // align-items: center;
-
-    // 图标尺寸控制 - 覆盖所有可能的图标类型
-    // i,
-    // svg,
-    // [class*='el-icon'],
-    // [class*='icon'],
-    // .y-menu-item__icon:not(.el-sub-menu__icon-arrow) {
-    //   flex-shrink: 0;
-    //   width: var(--menu-icon-width) !important;
-    //   height: var(--menu-icon-height) !important;
-    //   font-size: var(--menu-icon-font-size, var(--menu-icon-height)) !important;
-    //   line-height: var(--menu-icon-line-height, var(--menu-icon-height)) !important;
-    //   display: inline-flex !important;
-    //   align-items: center;
-    //   justify-content: center;
-
-    //   // 确保SVG图标也能正确缩放
-    //   svg {
-    //     width: 100% !important;
-    //     height: 100% !important;
-    //     font-size: var(--menu-icon-font-size, var(--menu-icon-height)) !important;
-    //   }
-
-    //   // Element Plus 图标组件的特殊处理
-    //   &[class*='el-icon'] {
-    //     display: inline-flex !important;
-    //     align-items: center;
-    //     justify-content: center;
-    //   }
-
-    //   // 通用图标组件样式重置
-    //   * {
-    //     width: inherit !important;
-    //     height: inherit !important;
-    //     font-size: inherit !important;
-    //   }
-    // }
-
-    // span {
-    //   flex: 1;
-    //   min-width: 0;
-    //   white-space: nowrap;
-    //   overflow: hidden;
-    //   text-overflow: ellipsis;
-    // }
-    // }
+    // 菜单文本多语言换行支持
+    span {
+      @include menu-text-wrap;
+    }
   }
 
   // submenu的title的缩进
@@ -76,8 +43,10 @@
       display: flex;
       align-items: center;
       padding-left: var(--menu-indent) !important;
-      .y-menu-item__submenu-icon {
-        margin-right: 5px;
+
+      // 菜单文本多语言换行支持
+      span {
+        @include menu-text-wrap;
       }
     }
     // submenu的title的激活状态
@@ -85,6 +54,9 @@
       > .el-sub-menu__title {
         color: var(--el-menu-active-color) !important;
         background-color: var(--y-submenu-active-bg-color);
+        .y-menu-item__submenu-icon {
+          color: var(--el-menu-active-color);
+        }
       }
     }
   }
@@ -109,15 +81,18 @@
       }
     }
   }
+
+  // 使用 mixin 应用图标样式
+  .y-menu-item__icon,
+  .y-menu-item__submenu-icon {
+    @include menu-icon-style;
+  }
 }
 
 .y-menu-popper {
   .el-menu-item {
     &.is-active {
       background-color: var(--y-menu-active-bg-color);
-    }
-    .y-menu-item__icon {
-      margin-right: 5px;
     }
   }
 
@@ -131,5 +106,11 @@
         }
       }
     }
+  }
+
+  // 使用 mixin 应用图标样式
+  .y-menu-item__icon,
+  .y-menu-item__submenu-icon {
+    @include menu-icon-style;
   }
 }

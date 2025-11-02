@@ -6,6 +6,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import ElementPlus from 'unplugin-element-plus/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import UnoCSS from 'unocss/vite';
 import type { UserConfig } from 'vite';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
@@ -13,6 +14,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 export default defineConfig({
   plugins: [
     vue(),
+    UnoCSS(),
     ElementPlus({
       useSource: true
     }),
