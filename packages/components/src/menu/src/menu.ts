@@ -15,7 +15,6 @@ export interface MenuItem {
 export interface RenderIconParams {
   item: MenuItem; // 当前菜单项
   level: number; // 当前层级
-  isExpanded: boolean; // 是否展开（用于子菜单）
 }
 
 // 图标渲染函数类型
@@ -37,7 +36,7 @@ export const menuProps = {
   indent: {
     type: [Number, Array] as PropType<number | number[]>,
     default: 20
-  },
+  }
 } as const;
 
 export type menuInstance = ExtractPublicPropTypes<typeof menuProps>;

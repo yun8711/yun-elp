@@ -1,13 +1,11 @@
 :root {
-  --y-submenu-active-bg-color: #f0f2f5; // submenu 激活背景色
-  --y-menu-active-bg-color: #f0f2f5; // menu 激活背景色
-  --y-menu-collapse-width: 40px; // menu 收起宽度
-  --y-menu-icon-width: 16px; // menu 图标宽度
-  --y-menu-icon-height: 16px; // menu 图标高度
-  --y-menu-icon-font-size: 16px;
-  --y-menu-icon-line-height: 16px;
-  --y-menu-icon-color: #000;
-  --y-menu-icon-margin-right: 10px;
+  // --y-menu-sub-active-bg-color: #f0f2f5; // menu submenu 激活背景色
+  // --y-menu-item-active-bg-color: #f0f2f5; // menu 激活背景色
+  // --y-menu-collapse-width: 40px; // menu 收起宽度
+  // --y-menu-icon-size: 16px; // menu 图标宽度
+  // --y-menu-icon-color: #000; // menu 图标默认颜色
+  // --y-menu-icon-active-color: red; // menu 激活时的图标颜色
+  // --y-menu-icon-margin-right: 5px;
   // el-menu 变量
   --el-menu-active-color: var(--el-color-primary);
   --el-menu-text-color: var(--el-text-color-primary);

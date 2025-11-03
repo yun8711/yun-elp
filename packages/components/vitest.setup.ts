@@ -118,6 +118,24 @@ beforeAll(() => {
     'el-icon': {
       template: '<i class="el-icon" v-bind="$attrs"><slot></slot></i>',
       inheritAttrs: true
+    },
+    'el-menu': {
+      template: '<div class="el-menu" v-bind="$attrs"><slot></slot></div>',
+      props: ['collapse', 'mode', 'defaultActive'],
+      emits: ['open', 'close', 'select'],
+      inheritAttrs: true
+    },
+    'el-menu-item': {
+      template:
+        '<div class="el-menu-item" :class="{ \'is-disabled\': disabled }" v-bind="$attrs"><slot></slot></div>',
+      props: ['index', 'disabled'],
+      inheritAttrs: true
+    },
+    'el-sub-menu': {
+      template:
+        '<div class="el-sub-menu"><div class="el-sub-menu__title"><slot name="title" /></div><slot /></div>',
+      props: ['index', 'disabled'],
+      inheritAttrs: true
     }
   };
 

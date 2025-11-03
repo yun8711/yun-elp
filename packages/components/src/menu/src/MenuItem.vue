@@ -1,17 +1,24 @@
 <template>
   <!-- 无子菜单：渲染普通菜单项 -->
-  <el-menu-item v-if="!hasChildren" :index="item.index" :disabled="item.disabled" :style="itemStyle">
+  <el-menu-item
+    v-if="!hasChildren"
+    :index="item.index"
+    :disabled="item.disabled"
+    :style="itemStyle"
+  >
     <slot :name="`icon-${item.index}`" :item="item" :level="level">
       <slot name="icon" :item="item" :level="level">
         <component v-if="iconVNode" :is="iconVNode" class="y-menu-item__icon" />
       </slot>
     </slot>
     <!-- 插槽优先级：item-{index} > item-label > 默认 label -->
-    <slot :name="`label-${item.index}`" :item="item" :level="level">
-      <slot name="label" :item="item" :level="level">
-        <span>{{ item.label }}</span>
+    <template #title>
+      <slot :name="`label-${item.index}`" :item="item" :level="level">
+        <slot name="label" :item="item" :level="level">
+          <span>{{ item.label }}</span>
+        </slot>
       </slot>
-    </slot>
+    </template>
   </el-menu-item>
 
   <!-- 有子菜单：渲染子菜单 -->
@@ -19,7 +26,7 @@
     <template #title>
       <slot :name="`icon-${item.index}`" :item="item" :level="level">
         <slot name="icon" :item="item" :level="level">
-          <component v-if="iconVNode" :is="iconVNode" class="y-menu-item__submenu-icon" />
+          <component v-if="iconVNode" :is="iconVNode" class="y-menu-item__icon" />
         </slot>
       </slot>
       <!-- 插槽优先级：item-{index} > item-label > 默认 label -->
@@ -31,8 +38,14 @@
     </template>
 
     <!-- 递归渲染子菜单项，递归传递插槽 -->
-    <y-menu-item v-for="child in item.children" :key="child.index" :item="child" :level="level + 1" :indent="indent"
-      :parent-indent="currentIndent">
+    <y-menu-item
+      v-for="child in item.children"
+      :key="child.index"
+      :item="child"
+      :level="level + 1"
+      :indent="indent"
+      :parent-indent="currentIndent"
+    >
       <!-- 递归传递所有插槽给子菜单项 -->
       <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
         <slot :name="slotName" v-bind="slotProps"></slot>
@@ -43,7 +56,7 @@
 
 <script setup lang="ts">
 import { computed } from '@vue/runtime-core';
-import { ElMenuItem, ElSubMenu } from 'element-plus';
+import { ElMenuItem, ElSubMenu, ElCollapseTransition } from 'element-plus';
 import type { MenuItem, RenderIconFunction } from './menu';
 
 // 组件 Props
@@ -57,7 +70,7 @@ interface MenuItemProps {
 const props = withDefaults(defineProps<MenuItemProps>(), {
   level: 0,
   indent: 20,
-  parentIndent: 0,
+  parentIndent: 0
 });
 
 // 计算当前层级的缩进值
@@ -71,12 +84,11 @@ const currentIndent = computed(() => {
     v = props.indent ?? 20;
   }
 
-  return (v + props.parentIndent) || 0;
+  return v + props.parentIndent || 0;
 });
 
 // 计算样式对象
 const itemStyle = computed(() => ({
-
   '--menu-indent': `${currentIndent.value}px`
 }));
 
@@ -94,8 +106,7 @@ const iconVNode = computed(() => {
       if (typeof props.item.icon === 'function') {
         return (props.item.icon as RenderIconFunction)({
           item: props.item,
-          level: props.level,
-          isExpanded: false
+          level: props.level
         });
       }
       // 如果是组件，直接返回

@@ -1,11 +1,22 @@
 // 定义图标样式的 mixin（规则集的复用）
 @mixin menu-icon-style {
   margin-right: var(--y-menu-icon-margin-right, 5px);
-  width: var(--y-menu-icon-width, 16px);
-  height: var(--y-menu-icon-height, 16px);
-  font-size: var(--y-menu-icon-font-size, 16px);
-  line-height: var(--y-menu-icon-line-height, 16px);
-  color: var(--y-menu-icon-color, var(--el-menu-text-color));
+  width: var(--y-menu-icon-size, 16px) !important;
+  height: var(--y-menu-icon-size, 16px) !important;
+  font-size: var(--y-menu-icon-size, 16px) !important;
+  line-height: var(--y-menu-icon-size, 16px) !important;
+  color: var(--y-menu-icon-color, var(--el-menu-text-color)) !important;
+
+  img {
+    width: 100%;
+    height: 100%;
+    // object-fit: contain;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    // object-fit: contain;
+  }
 }
 
 // 定义多语言文本换行的 mixin
@@ -25,9 +36,9 @@
     }
 
     &.is-active {
-      background-color: var(--y-menu-active-bg-color);
+      background-color: var(--y-menu-item-active-bg-color);
       .y-menu-item__icon {
-        color: var(--el-menu-active-color);
+        color: var(--y-menu-icon-active-color, var(--el-menu-active-color));
       }
     }
 
@@ -53,9 +64,9 @@
     &.is-active {
       > .el-sub-menu__title {
         color: var(--el-menu-active-color) !important;
-        background-color: var(--y-submenu-active-bg-color);
-        .y-menu-item__submenu-icon {
-          color: var(--el-menu-active-color);
+        background-color: var(--y-menu-sub-active-bg-color);
+        .y-menu-item__icon {
+          color: var(--y-menu-icon-active-color, var(--el-menu-active-color));
         }
       }
     }
@@ -63,12 +74,18 @@
 
   // 收起状态下
   &.el-menu--collapse {
-    width: var(--y-menu-collapse-width);
+    width: var(
+      --y-menu-collapse-width,
+      calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding) * 2)
+    );
     // 覆盖收起后样式，可自定义宽度，保证图标剧中
     .el-menu-item {
       padding: 0 !important;
       justify-content: center;
       align-items: center;
+      .el-menu-tooltip__trigger {
+        justify-content: center;
+      }
       .y-menu-item__icon {
         margin-right: 0;
       }
@@ -76,15 +93,13 @@
     .el-sub-menu__title {
       padding: 0 !important;
       justify-content: center;
-      .y-menu-item__submenu-icon {
+      .y-menu-item__icon {
         margin-right: 0;
       }
     }
   }
 
-  // 使用 mixin 应用图标样式
-  .y-menu-item__icon,
-  .y-menu-item__submenu-icon {
+  .y-menu-item__icon {
     @include menu-icon-style;
   }
 }
@@ -93,6 +108,9 @@
   .el-menu-item {
     &.is-active {
       background-color: var(--y-menu-active-bg-color);
+      .y-menu-item__icon {
+        color: var(--y-menu-icon-active-color, var(--el-menu-active-color));
+      }
     }
   }
 
@@ -100,17 +118,17 @@
     &.is-active {
       > .el-sub-menu__title {
         color: var(--el-menu-active-color) !important;
-        background-color: var(--y-submenu-active-bg-color);
-        .y-menu-item__submenu-icon {
+        background-color: var(--y-menu-sub-active-bg-color);
+        .y-menu-item__icon {
           margin-right: 5px;
+          color: var(--y-menu-icon-active-color, var(--el-menu-active-color));
         }
       }
     }
   }
 
   // 使用 mixin 应用图标样式
-  .y-menu-item__icon,
-  .y-menu-item__submenu-icon {
+  .y-menu-item__icon {
     @include menu-icon-style;
   }
 }
