@@ -1,0 +1,123 @@
+# ============================================
+# GitHub Actions 工作流：组件库文档自动部署
+# ============================================
+# 此工作流会在推送到main分支时自动构建和部署组件文档到GitHub Pages
+
+# 工作流名称 - 显示在Actions标签页中
+name: Deploy Docs
+
+# ============================================
+# 触发条件配置
+# ============================================
+on:
+  # 当推送到main分支时触发
+  push:
+    branches:
+      - main
+  # 允许手动触发工作流
+  workflow_dispatch:
+
+# ============================================
+# 权限配置
+# ============================================
+permissions:
+  # 读取仓库内容的权限（用于checkout代码）
+  contents: read
+  # 写入GitHub Pages的权限（用于部署）
+  pages: write
+  # 写入ID令牌的权限（用于GitHub Pages部署验证）
+  id-token: write
+
+# ============================================
+# 并发控制配置
+# ============================================
+concurrency:
+  # 并发组名称 - 相同组的工作流会相互取消
+  group: "pages"
+  # 是否取消正在进行中的同组工作流
+  cancel-in-progress: false
+
+# ============================================
+# 作业定义
+# ============================================
+jobs:
+  # 构建作业 - 负责构建组件库和文档
+  build:
+    # 运行环境：最新版Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步骤1: 获取代码
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # 获取完整历史记录（用于生成changelog等功能）
+          fetch-depth: 0
+
+      # 步骤2: 设置Node.js环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          # 使用Node.js 18版本
+          node-version: '18'
+          # 启用pnpm缓存以加速安装
+          cache: 'pnpm'
+
+      # 步骤3: 设置pnpm包管理器
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          # 使用pnpm版本9
+          version: 9
+
+      # 步骤4: 安装项目依赖
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 步骤5: 构建组件库核心代码
+      - name: Build components
+        run: pnpm build:comp
+
+      # 步骤6: 构建样式主题
+      - name: Build theme
+        run: pnpm build:style
+
+      # 步骤7: 构建组件解析器（用于IDE支持）
+      - name: Build resolver
+        run: pnpm build:resolver
+
+      # 步骤8: 构建文档网站
+      - name: Build docs
+        # 设置生产环境变量，确保base URL正确配置
+        run: NODE_ENV=production pnpm docs:build
+
+      # 步骤9: 配置GitHub Pages环境
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 步骤10: 上传构建产物
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 上传docs构建后的dist目录
+          path: ./docs/.vitepress/dist
+
+  # 部署作业 - 负责将构建产物部署到GitHub Pages
+  deploy:
+    # 部署环境配置
+    environment:
+      name: github-pages
+      # 部署完成后会显示最终的页面URL
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # 运行环境：最新版Ubuntu
+    runs-on: ubuntu-latest
+
+    # 依赖于build作业，必须build成功后才执行
+    needs: build
+
+    steps:
+      # 部署步骤: 将上传的artifact部署到GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

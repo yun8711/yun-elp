@@ -14,20 +14,44 @@ export default {
       scope: '选择影响范围:',
       subject: '填写简短的变更描述:',
       breaking: '列举非兼容性重大的变更（可选）。使用 "|" 换行 :\n',
-      confirmCommit: '是否提交或修改commit ?',
+      confirmCommit: '是否提交或修改commit ?'
     },
     // 自定义选择类型提示
     types: [
       { value: 'feat', name: 'feat:     新功能 | A new feature', emoji: ':sparkles:' },
       { value: 'fix', name: 'fix:      问题修复 | A bug fix', emoji: ':bug:' },
       { value: 'docs', name: 'docs:     文档更新 | Documentation only changes', emoji: ':memo:' },
-      { value: 'style', name: 'style:    代码格式 | Changes that do not affect the meaning of the code', emoji: ':lipstick:' },
-      { value: 'refactor', name: 'refactor: 代码重构 | A code change that neither fixes a bug nor adds a feature', emoji: ':recycle:' },
-      { value: 'perf', name: 'perf:     性能优化 | A code change that improves performance', emoji: ':zap:' },
-      { value: 'test', name: 'test:     测试相关 | Adding missing tests or correcting existing tests', emoji: ':white_check_mark:' },
-      { value: 'build', name: 'build:    构建相关 | Changes that affect the build system or external dependencies', emoji: ':package:' },
+      {
+        value: 'style',
+        name: 'style:    代码格式 | Changes that do not affect the meaning of the code',
+        emoji: ':lipstick:'
+      },
+      {
+        value: 'refactor',
+        name: 'refactor: 代码重构 | A code change that neither fixes a bug nor adds a feature',
+        emoji: ':recycle:'
+      },
+      {
+        value: 'perf',
+        name: 'perf:     性能优化 | A code change that improves performance',
+        emoji: ':zap:'
+      },
+      {
+        value: 'test',
+        name: 'test:     测试相关 | Adding missing tests or correcting existing tests',
+        emoji: ':white_check_mark:'
+      },
+      {
+        value: 'build',
+        name: 'build:    构建相关 | Changes that affect the build system or external dependencies',
+        emoji: ':package:'
+      },
       { value: 'revert', name: 'revert:   回退代码 | Revert to a commit', emoji: ':rewind:' },
-      { value: 'chore', name: 'chore:    其他修改 | Other changes that do not modify src or test files', emoji: ':hammer:' }
+      {
+        value: 'chore',
+        name: 'chore:    其他修改 | Other changes that do not modify src or test files',
+        emoji: ':hammer:'
+      }
     ],
     scopes: [
       { value: 'core', name: 'core:       核心代码，包含组件、工具函数、样式等' },
@@ -62,9 +86,7 @@ export default {
     // 指定的哪些问题不显示:'scope' | 'body' | 'breaking' | 'footerPrefix' | 'footer' | 'confirmCommit'
     skipQuestions: ['body', 'footerPrefix', 'footer', 'confirmCommit'],
     // 自定义选择issue前缀
-    issuePrefixs: [
-      { value: 'closed', name: 'closed:   ISSUES has been processed' }
-    ],
+    issuePrefixs: [{ value: 'closed', name: 'closed:   ISSUES has been processed' }],
     // 设置 自定义选择issue前缀 的 位于头部位置 "top" | "bottom"
     customIssuePrefixsAlign: 'top',
     // 空 自定义选择issue前缀 的 别名
@@ -84,4 +106,4 @@ export default {
     // 设置 变更描述 的最小长度
     minSubjectLength: 0
   }
-}
+};

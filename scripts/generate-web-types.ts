@@ -84,7 +84,12 @@ function parseMarkdownTable(content: string): MarkdownTableRow[] {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     // 检查是否是表格行（包含 | 且不是描述文字）
-    if (line.includes('|') && !line.includes('除了') && !line.includes('支持') && !line.includes('组件')) {
+    if (
+      line.includes('|') &&
+      !line.includes('除了') &&
+      !line.includes('支持') &&
+      !line.includes('组件')
+    ) {
       tableStartIndex = i;
       break;
     }
@@ -206,19 +211,29 @@ function parseType(type: string): string | string[] {
     const extractedType = customTypeMatch[1];
     // 检查提取的类型是否包含联合类型
     if (extractedType.includes('|') && !extractedType.includes('\\|')) {
-      return extractedType.split('|').map(t => t.trim()).join(' | ');
+      return extractedType
+        .split('|')
+        .map(t => t.trim())
+        .join(' | ');
     }
     return extractedType;
   }
 
   // 处理复杂数据类型，提取反引号中的内容（排除已经处理的函数、对象、枚举类型）
-  if (!type.startsWith('^[Function]`') && !type.startsWith('^[object]`') && !type.startsWith('^[enum]`')) {
+  if (
+    !type.startsWith('^[Function]`') &&
+    !type.startsWith('^[object]`') &&
+    !type.startsWith('^[enum]`')
+  ) {
     const backtickMatch = type.match(/`([^`]+)`/);
     if (backtickMatch) {
       const extractedType = backtickMatch[1].trim();
       // 检查提取的类型是否包含联合类型
       if (extractedType.includes('|') && !extractedType.includes('\\|')) {
-        return extractedType.split('|').map(t => t.trim()).join(' | ');
+        return extractedType
+          .split('|')
+          .map(t => t.trim())
+          .join(' | ');
       }
       return extractedType;
     }
@@ -226,7 +241,10 @@ function parseType(type: string): string | string[] {
 
   // 处理联合类型，注意处理转义的竖线
   if (type.includes('|') && !type.includes('\\|')) {
-    return type.split('|').map(t => t.trim()).join(' | ');
+    return type
+      .split('|')
+      .map(t => t.trim())
+      .join(' | ');
   }
 
   // 处理包含转义竖线的类型
@@ -235,19 +253,17 @@ function parseType(type: string): string | string[] {
   }
 
   // 清理类型字符串，移除markdown格式和反引号
-  return type
-    .replace(/\^\[/g, '')
-    .replace(/\]/g, '')
-    .replace(/`/g, '')
-    .trim();
+  return type.replace(/\^\[/g, '').replace(/\]/g, '').replace(/`/g, '').trim();
 }
 
 function parseDefaultValue(value: string): string | undefined {
   if (value === '—' || !value) return undefined;
 
   // 处理字符串，移除多余的引号（单引号或反引号）
-  if ((value.startsWith("'") && value.endsWith("'")) ||
-      (value.startsWith("`") && value.endsWith("`"))) {
+  if (
+    (value.startsWith("'") && value.endsWith("'")) ||
+    (value.startsWith('`') && value.endsWith('`'))
+  ) {
     return value.slice(1, -1);
   }
 
@@ -285,14 +301,18 @@ function generateWebTypes(): void {
     const componentName = data.title.split(' ')[0];
 
     // 只解析API文档中特定章节下的表格
-    const attributes = parseMarkdownTable(extractApiSection(markdownContent, 'Attributes'))
-      .filter(isValidTableRow);
-    const slots = parseMarkdownTable(extractApiSection(markdownContent, 'Slots'))
-      .filter(isValidTableRow);
-    const events = parseMarkdownTable(extractApiSection(markdownContent, 'Events'))
-      .filter(isValidTableRow);
-    const exposes = parseMarkdownTable(extractApiSection(markdownContent, 'Exposes'))
-      .filter(isValidTableRow);
+    const attributes = parseMarkdownTable(extractApiSection(markdownContent, 'Attributes')).filter(
+      isValidTableRow
+    );
+    const slots = parseMarkdownTable(extractApiSection(markdownContent, 'Slots')).filter(
+      isValidTableRow
+    );
+    const events = parseMarkdownTable(extractApiSection(markdownContent, 'Events')).filter(
+      isValidTableRow
+    );
+    const exposes = parseMarkdownTable(extractApiSection(markdownContent, 'Exposes')).filter(
+      isValidTableRow
+    );
 
     const webType: WebType = {
       name: `Y${componentName}`,
@@ -300,38 +320,46 @@ function generateWebTypes(): void {
       source: {
         symbol: `Y${componentName}`
       },
-      slots: slots.map(slot => {
-        const slotData: WebTypeSlot = {
-          name: toKebabCase(slot['插槽名'] || slot['名称'] || slot['name']),
-          description: slot['说明'] || slot['description']
-        };
+      slots: slots
+        .map(slot => {
+          const slotData: WebTypeSlot = {
+            name: toKebabCase(slot['插槽名'] || slot['名称'] || slot['name']),
+            description: slot['说明'] || slot['description']
+          };
 
-        const type = slot['参数'] || slot['类型'] || slot['type'];
-        if (type && type !== '—') {
-          slotData.type = parseType(type);
-        }
+          const type = slot['参数'] || slot['类型'] || slot['type'];
+          if (type && type !== '—') {
+            slotData.type = parseType(type);
+          }
 
-        return slotData;
-      }).filter(slot => slot.name && slot.name !== '参数'),
-      props: attributes.map(attr => ({
-        name: toKebabCase(attr['参数'] || attr['属性名'] || attr['name']),
-        description: attr['说明'] || attr['description'],
-        type: parseType(attr['类型'] || attr['type']),
-        default: parseDefaultValue(attr['默认值'] || attr['default'])
-      })).filter(prop => prop.name && prop.name !== '参数'),
+          return slotData;
+        })
+        .filter(slot => slot.name && slot.name !== '参数'),
+      props: attributes
+        .map(attr => ({
+          name: toKebabCase(attr['参数'] || attr['属性名'] || attr['name']),
+          description: attr['说明'] || attr['description'],
+          type: parseType(attr['类型'] || attr['type']),
+          default: parseDefaultValue(attr['默认值'] || attr['default'])
+        }))
+        .filter(prop => prop.name && prop.name !== '参数'),
       js: {
-        events: events.map(event => ({
-          name: toKebabCase(event['事件名'] || event['name']),
-          description: event['说明'] || event['description'],
-          type: parseType(event['回调参数'] || event['类型'] || event['type']),
-          default: parseDefaultValue(event['默认值'] || event['default'])
-        })).filter(event => event.name && event.name !== '事件名')
+        events: events
+          .map(event => ({
+            name: toKebabCase(event['事件名'] || event['name']),
+            description: event['说明'] || event['description'],
+            type: parseType(event['回调参数'] || event['类型'] || event['type']),
+            default: parseDefaultValue(event['默认值'] || event['default'])
+          }))
+          .filter(event => event.name && event.name !== '事件名')
       },
-      exposes: exposes.map(expose => ({
-        name: toKebabCase(expose['名称'] || expose['name']),
-        description: expose['说明'] || expose['description'],
-        type: parseType(expose['类型'] || expose['type'])
-      })).filter(expose => expose.name && expose.name !== '名称')
+      exposes: exposes
+        .map(expose => ({
+          name: toKebabCase(expose['名称'] || expose['name']),
+          description: expose['说明'] || expose['description'],
+          type: parseType(expose['类型'] || expose['type'])
+        }))
+        .filter(expose => expose.name && expose.name !== '名称')
     };
 
     webTypes.push(webType);

@@ -164,6 +164,27 @@ pnpm build
 pnpm build:docs
 ```
 
+### 发布
+
+项目采用严格的发布流程确保版本质量：
+
+```bash
+# 发布前完整检查（推荐）
+pnpm pre-release
+
+# 发布新版本（会自动触发CI/CD发布到npm）
+pnpm release
+```
+
+发布前会自动进行：
+
+- 代码规范检查
+- 单元测试
+- 构建验证
+- 版本一致性检查
+
+详细的发布流程请参考 [RELEASE_PROCESS.md](./RELEASE_PROCESS.md)
+
 ### 代码规范
 
 项目使用以下工具进行代码规范：

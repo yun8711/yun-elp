@@ -1,0 +1,114 @@
+# ============================================
+# GitHub Actions 工作流：组件库发布
+# ============================================
+# 此工作流在推送到main分支且有版本标签时自动发布组件库
+# 确保代码质量和测试通过后再发布
+
+# 工作流名称 - 显示在Actions标签页中
+name: Publish Package
+
+# ============================================
+# 触发条件配置
+# ============================================
+on:
+  # 当推送版本标签时触发（例如 v1.0.0）
+  push:
+    tags:
+      - 'v*'
+  # 允许手动触发工作流
+  workflow_dispatch:
+
+# ============================================
+# 权限配置
+# ============================================
+permissions:
+  # 读取仓库内容的权限
+  contents: read
+  # 写入ID令牌的权限（用于npm发布）
+  id-token: write
+
+# ============================================
+# 作业定义
+# ============================================
+jobs:
+  # 测试作业 - 确保代码质量
+  test:
+    # 运行环境：最新版Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步骤1: 获取代码
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 步骤2: 设置Node.js环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      # 步骤3: 设置pnpm包管理器
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      # 步骤4: 安装项目依赖
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 步骤5: 运行代码规范检查
+      - name: Run linting
+        run: pnpm lint
+
+      # 步骤6: 运行组件测试
+      - name: Run tests
+        run: pnpm test --run
+
+      # 步骤7: 构建组件库
+      - name: Build components
+        run: pnpm build
+
+  # 发布作业 - 发布到npm
+  publish:
+    # 只有测试作业成功后才执行
+    needs: test
+    # 运行环境：最新版Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步骤1: 获取代码
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 步骤2: 设置Node.js环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      # 步骤3: 设置pnpm包管理器
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      # 步骤4: 安装项目依赖
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 步骤5: 构建发布产物
+      - name: Build for publish
+        run: pnpm build
+
+      # 步骤6: 设置npm认证
+      - name: Setup npm auth
+        run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+
+      # 步骤7: 发布到npm
+      - name: Publish to npm
+        run: cd dist && npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

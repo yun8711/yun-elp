@@ -30,6 +30,7 @@
     "lint:style": "stylelint \"**/*.{vue,scss,css}\" --fix",
     "commit": "czg",
     "release": "release-it --config release-it.config.cjs",
+    "pre-release": "node scripts/pre-publish-check.cjs",
     "prepare": "husky install",
     "publish": "cd dist && npm publish --registry=https://registry.npmjs.org/"
   },
@@ -46,6 +47,7 @@
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@element-plus/icons-vue": "^2.3.1",
+    "@eslint/js": "^9.39.0",
     "@release-it/conventional-changelog": "^8.0.2",
     "@types/glob": "^8.1.0",
     "@types/lodash-es": "^4.17.12",
@@ -85,7 +87,8 @@
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
     "vite": "^5.4.15",
-    "vue": "^3.5.14"
+    "vue": "^3.5.14",
+    "vue-eslint-parser": "^10.2.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

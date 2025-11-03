@@ -1,7 +1,7 @@
 module.exports = {
   git: {
     // Git标签的格式
-    tagName: "v${version}",
+    tagName: 'v${version}',
     // 是否推送变更到远程仓库
     push: true,
     // 是否使用使用分支的标签来确定最新标签，默认 false，即只考虑主分支
@@ -15,30 +15,30 @@ module.exports = {
     // 是否允许空提交，也就是在发新版本前，到上个版本之间，必须有commit，默认为false，即允许空提交
     requireCommits: true, // 不允许空提交发版
     // 完成升级后，提交的消息
-    commitMessage: 'chore(release): 升级版本 ${version}',
+    commitMessage: 'chore(release): 升级版本 ${version}'
   },
   npm: {
-    // 不发布到npm仓库
+    // 不发布到npm仓库，由GitHub Actions处理
     publish: false,
     //忽略 package.json 中的version 字段，使用git tag，默认 false
-    ignoreVersion: false,
+    ignoreVersion: false
   },
   github: {
     // 是否创建GitHub发布
     release: true,
     // 发布的名称格式
-    releaseName: "v${version}"
+    releaseName: 'v${version}'
   },
   hooks: {
     // 在版本号更新后同步到 elp 包
     'after:version': 'tsx scripts/sync-version.ts'
   },
   plugins: {
-    "@release-it/conventional-changelog": {
+    '@release-it/conventional-changelog': {
       infile: 'CHANGELOG.md',
       header: '# 📋 更新历史 \n\n',
       // 使用Angular提交规范
-      preset: "angular",
+      preset: 'angular'
     }
   }
-}
+};
