@@ -29,6 +29,10 @@ module.exports = {
     // 发布的名称格式
     releaseName: "v${version}"
   },
+  hooks: {
+    // 在版本号更新后同步到 elp 包
+    'after:version': 'tsx scripts/sync-version.ts'
+  },
   plugins: {
     "@release-it/conventional-changelog": {
       infile: 'CHANGELOG.md',
