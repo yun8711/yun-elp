@@ -1,5 +1,5 @@
 <template>
-  <el-button class="y-button" @click="handleClick" ref="buttonRef">
+  <el-button ref="buttonRef" class="y-button" @click="handleClick">
     <slot />
     <slot name="icon" />
     <slot name="loading" />

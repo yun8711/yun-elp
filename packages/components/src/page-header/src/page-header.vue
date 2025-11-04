@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { computed } from '@vue/runtime-core';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
-import { YPageHeaderProps } from './page-header';
+import { PageHeaderProps } from './page-header';
 import { useRoute } from 'vue-router';
 import { get, isEmpty } from 'lodash-es';
 
@@ -29,7 +29,7 @@ defineOptions({
   inheritAttrs: true
 });
 
-const props = withDefaults(defineProps<YPageHeaderProps>(), {
+const props = withDefaults(defineProps<PageHeaderProps>(), {
   title: '',
   titleStyle: () => ({}),
   border: true

@@ -1,47 +1,96 @@
 <template>
   <div class="y-cron-picker__group">
     <div class="y-cron-picker__row">
-      <el-radio v-model="cronForm.radio" value="start" style="margin-right: 0" @change="emitChange">
-        <span></span>
+      <el-radio
+        v-model="cronForm.radio"
+        value="start"
+        style="margin-right: 0"
+        @change="emitChange">
+        <span />
       </el-radio>
       <span style="margin-right: 4px;">{{ t('cronPicker.from') }}</span>
-      <el-time-picker v-model="cronForm.startTime" style="width: 90px" value-format="HH:mm" format="HH:mm"
-        :clearable="false" :placeholder="t('cronPicker.startTime')" :disabled="startDisabled" @change="emitChange" :teleported="false">
-      </el-time-picker>
+      <el-time-picker
+        v-model="cronForm.startTime"
+        style="width: 90px"
+        value-format="HH:mm"
+        format="HH:mm"
+        :clearable="false"
+        :placeholder="t('cronPicker.startTime')"
+        :disabled="startDisabled"
+        :teleported="false"
+        @change="emitChange" />
       <span style="margin:0 4px;">{{ t('cronPicker.to') }}</span>
-      <el-time-picker v-model="cronForm.endTime" style="width: 90px" value-format="HH:mm" format="HH:mm"
+      <el-time-picker
+        v-model="cronForm.endTime"
+        style="width: 90px"
+        value-format="HH:mm"
+        format="HH:mm"
         :picker-options="{
           selectableRange: `${cronForm.startTime}:00 - 23:59:00`,
-        }" :disabled="startDisabled" :placeholder="t('cronPicker.endTime')" @change="endTimeChange" :clearable="false" :teleported="false">
-      </el-time-picker>
+        }"
+        :disabled="startDisabled"
+        :placeholder="t('cronPicker.endTime')"
+        :clearable="false"
+        :teleported="false"
+        @change="endTimeChange" />
       <span style="margin-left: 4px;">{{ t('cronPicker.at') }}</span>
     </div>
 
     <div class="y-cron-picker__row y-cron-picker__row-interval">
       <span>{{ t('cronPicker.interval') }}</span>
-      <el-select v-model="cronForm.perHour" style="width: 120px;margin:0 4px;" :disabled="startDisabled"
-        @change="emitChange" :teleported="false">
-        <el-option v-for="item in perHourOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      <el-select
+        v-model="cronForm.perHour"
+        style="width: 120px;margin:0 4px;"
+        :disabled="startDisabled"
+        :teleported="false"
+        @change="emitChange">
+        <el-option
+          v-for="item in perHourOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value" />
       </el-select>
       <span>{{ t('cronPicker.runOnce') }}</span>
     </div>
 
     <div class="y-cron-picker__row">
-      <el-radio v-model="cronForm.radio" value="assign" style="margin-right: 0" @change="emitChange">
-        <span></span>
+      <el-radio
+        v-model="cronForm.radio"
+        value="assign"
+        style="margin-right: 0"
+        @change="emitChange">
+        <span />
       </el-radio>
       <span style="margin-right: 8px;" :style="{ width: labelWidth }">{{ t('cronPicker.assignHours') }}</span>
-      <el-select v-model="cronForm.assignHours" multiple collapse-tags :disabled="assignDisabled" style="width:180px"
-        @change="selectMultipleChange($event, 'assignHours')" :teleported="false">
-        <el-option v-for="item in hourOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      <el-select
+        v-model="cronForm.assignHours"
+        multiple
+        collapse-tags
+        :disabled="assignDisabled"
+        style="width:180px"
+        :teleported="false"
+        @change="selectMultipleChange($event, 'assignHours')">
+        <el-option
+          v-for="item in hourOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value" />
       </el-select>
     </div>
 
     <div class="y-cron-picker__row y-cron-picker__row-interval">
       <span style="margin-right: 8px;" :style="{ width: labelWidth }">{{ t('cronPicker.assignMinutes') }}</span>
-      <el-select v-model="cronForm.assignMinute" :disabled="assignDisabled" @change="emitChange" style="width:180px"
-        :teleported="false">
-        <el-option v-for="item in minuteOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      <el-select
+        v-model="cronForm.assignMinute"
+        :disabled="assignDisabled"
+        style="width:180px"
+        :teleported="false"
+        @change="emitChange">
+        <el-option
+          v-for="item in minuteOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value" />
       </el-select>
     </div>
   </div>

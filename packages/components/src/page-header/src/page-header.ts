@@ -1,6 +1,6 @@
 import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
 
-export interface YPageHeaderProps {
+export interface PageHeaderProps {
   height?: string;
   title?: string;
   border?: boolean;
@@ -9,7 +9,7 @@ export interface YPageHeaderProps {
   titleStyle?: Record<string, any>;
 }
 
-export const YPageHeaderProps = {
+export const pageHeaderProps = {
   height: {
     type: String as PropType<string>,
     default: undefined
@@ -32,4 +32,4 @@ export const YPageHeaderProps = {
   }
 } as const;
 
-export type YPageHeaderInstance = ExtractPublicPropTypes<typeof YPageHeaderProps>;
+export type PageHeaderInstance = ExtractPublicPropTypes<typeof pageHeaderProps>;

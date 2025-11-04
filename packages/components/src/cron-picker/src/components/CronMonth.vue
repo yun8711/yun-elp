@@ -1,16 +1,31 @@
 <template>
   <div class="y-cron-picker__group">
     <div class="y-cron-picker__row">
-      <el-select v-model="cronForm.days" multiple collapse-tags style="width: 260px"
-        @change="selectMultipleChange($event, 'days')" :teleported="false">
-        <el-option v-for="item in dayOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      <el-select
+        v-model="cronForm.days"
+        multiple
+        collapse-tags
+        style="width: 260px"
+        :teleported="false"
+        @change="selectMultipleChange($event, 'days')">
+        <el-option
+          v-for="item in dayOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value" />
       </el-select>
     </div>
 
     <div class="y-cron-picker__row">
-      <el-time-picker v-model="cronForm.timePicker" style="width: 260px" value-format="HH:mm" format="HH:mm"
-        :clearable="false" :placeholder="t('cronPicker.time')" @change="emitChange" :teleported="false">
-      </el-time-picker>
+      <el-time-picker
+        v-model="cronForm.timePicker"
+        style="width: 260px"
+        value-format="HH:mm"
+        format="HH:mm"
+        :clearable="false"
+        :placeholder="t('cronPicker.time')"
+        :teleported="false"
+        @change="emitChange" />
     </div>
   </div>
 </template>

@@ -1,8 +1,8 @@
 <template>
   <el-empty class="y-empty" v-bind="componentProps" :style="styles">
-    <slot></slot>
-    <slot name="image"></slot>
-    <slot name="description"></slot>
+    <slot />
+    <slot name="image" />
+    <slot name="description" />
   </el-empty>
 </template>
 

@@ -7,12 +7,12 @@
       class="y-sticky-layout__left"
       :style="{ height: sideHeight + 'px', top: sideTop + 'px' }"
     >
-      <slot name="left" :height="sideHeight"></slot>
+      <slot name="left" :height="sideHeight" />
     </div>
 
     <!-- 内容区域 -->
     <div class="y-sticky-layout__content" :style="contentStyle">
-      <slot> </slot>
+      <slot />
     </div>
 
     <!-- 右侧区域 -->
@@ -22,7 +22,7 @@
       class="y-sticky-layout__right"
       :style="{ height: sideHeight + 'px', top: sideTop + 'px' }"
     >
-      <slot name="right" :height="sideHeight"></slot>
+      <slot name="right" :height="sideHeight" />
     </div>
   </div>
 </template>

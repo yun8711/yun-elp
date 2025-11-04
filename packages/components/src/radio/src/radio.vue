@@ -1,5 +1,5 @@
 <template>
-  <el-radio-group class="y-radio" v-model="radioValue" v-bind="$attrs">
+  <el-radio-group v-model="radioValue" class="y-radio" v-bind="$attrs">
     <template v-for="option in compOptions" :key="option.value">
       <component :is="comName" v-bind="option">
         <slot v-bind="option">

@@ -6,7 +6,11 @@
   >
     <template #default="scope">
       <template v-for="item in getOptions(scope).normalList" :key="item.prop">
-        <slot :name="item.prop" :scope="scope" :row="scope.row" :prop="item.prop">
+        <slot
+          :name="item.prop"
+          :scope="scope"
+          :row="scope.row"
+          :prop="item.prop">
           <y-pop v-bind="getPopProps(item)" v-on="getPopEvents(scope, item)">
             <y-button
               type="primary"
@@ -23,13 +27,13 @@
 
       <el-popover
         v-if="getOptions(scope).dropdownList.length > 0"
+        ref="popoverRef"
         placement="bottom"
         width="0"
         popper-class="y-column-operation__dropdown"
         trigger="click"
         :visible="getDropdownVisible(scope.$index)"
         @update:visible="setDropdownVisible(scope.$index, $event)"
-        ref="popoverRef"
       >
         <template #reference>
           <el-icon class="y-column-operation__dropdown-icon">
@@ -302,7 +306,7 @@ const setupRouteWatcher = () => {
           watch(() => routePath.value, handleRouteChange);
         }
       }
-    } catch (error) {
+    } catch (_error) { // eslint-disable-line @typescript-eslint/no-unused-vars
       // 如果没有vue-router，使用浏览器原生事件
       // 监听浏览器前进后退按钮
       window.addEventListener('popstate', handleRouteChange);

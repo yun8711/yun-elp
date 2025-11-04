@@ -1,18 +1,18 @@
 <template>
   <div class="y-border-label" :style="{ height: height, width: width }">
     <!-- 前置插槽 -->
-    <div class="y-border-label__prefix" v-if="$slots.prefix">
-      <slot name="prefix"></slot>
+    <div v-if="$slots.prefix" class="y-border-label__prefix">
+      <slot name="prefix" />
     </div>
     <div class="y-border-label__label" :class="{ 'y-border-label__label--no-border': props.noBorder }">
       <slot name="label">{{ props.label }}</slot>
     </div>
     <div class="y-border-label__content">
-      <slot></slot>
+      <slot />
     </div>
     <!-- 后置插槽 -->
-    <div class="y-border-label__suffix" v-if="$slots.suffix">
-      <slot name="suffix"></slot>
+    <div v-if="$slots.suffix" class="y-border-label__suffix">
+      <slot name="suffix" />
     </div>
   </div>
 </template>

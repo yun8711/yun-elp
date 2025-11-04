@@ -1,6 +1,6 @@
 <template>
   <div class="y-page-footer" :style="style">
-    <slot :height="style.height"></slot>
+    <slot :height="style.height" />
   </div>
 </template>
 

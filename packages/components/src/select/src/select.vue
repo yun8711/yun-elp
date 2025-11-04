@@ -2,7 +2,7 @@
   <el-select ref="selectRef" v-model="modelValue" v-bind="$attrs">
     <!-- 透传所有插槽到 el-select -->
     <template v-for="(_, name) in $slots" #[name]="slotData">
-      <slot :name="name" v-bind="slotData" :key="name" />
+      <slot v-bind="slotData" :key="name" :name="name" />
     </template>
 
     <!-- 如果没有提供插槽，则渲染选项 -->

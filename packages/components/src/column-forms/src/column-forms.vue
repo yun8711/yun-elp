@@ -3,18 +3,27 @@
     <template #default="scope">
       <div class="y-column-forms__content" :class="[inline ? 'is-line' : 'is-flex']">
         <div v-for="item in mergedFormArr(scope)" :key="`${scope.$index}_${item.prop}`" :style="item.style">
-          <el-form-item :style="{ width: item.width || 'auto' }" v-bind="item.formAttrs"
+          <el-form-item
+            :style="{ width: item.width || 'auto' }"
+            v-bind="item.formAttrs"
             :prop="`${tableName}.${scope.$index}.${item.prop}`"
-            @mouseenter.native="handleMouseEnter(`${scope.$index}_${item.prop}`)"
-            @mouseleave.native="handleMouseLeave(`${scope.$index}_${item.prop}`)">
+            @mouseenter="handleMouseEnter(`${scope.$index}_${item.prop}`)"
+            @mouseleave="handleMouseLeave(`${scope.$index}_${item.prop}`)">
             <!-- 这里使用slot，方便在外部定义表单项 -->
-            <slot :name="item.prop" :scope="scope" :row="scope.row" :prop="item.prop"></slot>
+            <slot
+              :name="item.prop"
+              :scope="scope"
+              :row="scope.row"
+              :prop="item.prop" />
             <!-- 这里是el-form-item的错误提示，以tooltip的形式展示-->
             <template #error="{ error }">
               <div>
-                <el-tooltip v-bind="item.tooltipAttrs" :content="error" :disabled="!error"
+                <el-tooltip
+                  v-bind="item.tooltipAttrs"
+                  :content="error"
+                  :disabled="!error"
                   :visible="errorMessageMap[`${scope.$index}_${item.prop}`]">
-                  <span class="y-column-form__error" :class="{ 'is-hidden': !error }"></span>
+                  <span class="y-column-form__error" :class="{ 'is-hidden': !error }" />
                 </el-tooltip>
               </div>
             </template>

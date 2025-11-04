@@ -1,15 +1,19 @@
 <template>
   <div class="y-pop">
-    <el-tooltip v-bind="tooltipProps" :disabled="disabledTooltip" ref="tooltipRef">
+    <el-tooltip v-bind="tooltipProps" ref="tooltipRef" :disabled="disabledTooltip">
       <!-- 重要 -->
       <span>
-        <el-popover v-bind="popoverProps" v-model:visible="showPopover" :disabled="noPop" ref="popoverRef">
+        <el-popover
+          v-bind="popoverProps"
+          ref="popoverRef"
+          v-model:visible="showPopover"
+          :disabled="noPop">
           <slot name="pop-content">
             <p>{{ popoverProps.content }}</p>
-            <div class="y-pop__popover-footer" v-if="!props.noFooter">
+            <div v-if="!props.noFooter" class="y-pop__popover-footer">
               <slot name="pop-footer">
-                <y-button v-bind="cancelProps" v-if="!props.noCancel" @click="cancelClick">{{ cancelText }}</y-button>
-                <y-button v-bind="confirmBtnProps" v-if="!props.noConfirm" @click="confirmClick">
+                <y-button v-if="!props.noCancel" v-bind="cancelProps" @click="cancelClick">{{ cancelText }}</y-button>
+                <y-button v-if="!props.noConfirm" v-bind="confirmBtnProps" @click="confirmClick">
                   {{ confirmText }}
                 </y-button>
               </slot>
@@ -17,13 +21,13 @@
           </slot>
 
           <template #reference>
-            <slot name="default"></slot>
+            <slot name="default" />
           </template>
         </el-popover>
       </span>
 
       <template #content>
-        <slot name="tip-content"></slot>
+        <slot name="tip-content" />
       </template>
     </el-tooltip>
   </div>

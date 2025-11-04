@@ -1,11 +1,3 @@
-<!--
- * @Author: liuyun liuyun.dev@qq.com
- * @Date: 2025-07-28 10:01:33
- * @LastEditors: liuyun liuyun.dev@qq.com
- * @LastEditTime: 2025-09-11 20:08:52
- * @FilePath: /yun-elp/packages/components/src/table-search/src/table-search.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- -->
 <template>
   <div class="y-table-search">
     <div class="y-table-search__left" :class="{ 'y-table-search__left-show-more': hasMore }">
@@ -31,7 +23,7 @@
                 :is="item.comp"
                 v-model="form[item.prop]"
                 v-bind="item.innerAttrs"
-                @update:modelValue="handleValueUpdate(item.prop, $event)"
+                @update:model-value="handleValueUpdate(item.prop, $event)"
               />
             </template>
           </y-border-label>
@@ -64,7 +56,7 @@
                 :is="item.comp"
                 v-model="form[item.prop]"
                 v-bind="item.innerAttrs"
-                @update:modelValue="handleValueUpdate(item.prop, $event)"
+                @update:model-value="handleValueUpdate(item.prop, $event)"
               />
             </template>
           </y-border-label>
@@ -72,7 +64,7 @@
           <div>
             <el-button type="primary" @click="onSearch">查询</el-button>
             <el-button @click="onReset">重置</el-button>
-            <el-link @click="toggleFold" style="margin-left: 8px" underline="never">
+            <el-link style="margin-left: 8px" underline="never" @click="toggleFold">
               {{ isFold ? unFoldText : foldText }}
               <el-icon class="el-icon--right">
                 <ArrowDown v-if="isFold" />
@@ -83,7 +75,7 @@
         </div>
         <!-- 使用 Transition 包裹 -->
         <el-collapse-transition :style="{ 'transition-duration': `${props.duration}s` }">
-          <div class="y-table-search__left-more" v-show="!isFold">
+          <div v-show="!isFold" class="y-table-search__left-more">
             <y-border-label
               v-for="item in moreOptions.filter((item: TableSearchItem) => !item.hidden)"
               :key="item.prop"
@@ -103,7 +95,7 @@
                   :is="item.comp"
                   v-model="form[item.prop]"
                   v-bind="item.innerAttrs"
-                  @update:modelValue="handleValueUpdate(item.prop, $event)"
+                  @update:model-value="handleValueUpdate(item.prop, $event)"
                 />
               </template>
             </y-border-label>
@@ -220,7 +212,7 @@ function getDefaultValue(item: TableSearchOption, params: DynamicPropsParams) {
     case 'ElSelect':
       defaultValue = innerAttrs.multiple ? [] : '';
       break;
-    case 'ElDatePicker':
+    case 'ElDatePicker': {
       const dateType = innerAttrs.type || 'date';
       if (['datetimerange', 'daterange', 'monthrange', 'yearrange'].includes(dateType)) {
         defaultValue = [];
@@ -228,6 +220,7 @@ function getDefaultValue(item: TableSearchOption, params: DynamicPropsParams) {
         defaultValue = '';
       }
       break;
+    }
     case 'ElInputNumber':
       defaultValue = null;
       break;

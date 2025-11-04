@@ -1,9 +1,15 @@
 <template>
   <div class="y-cron-picker__group">
     <div class="y-cron-picker__row">
-      <el-time-picker v-model="cronForm.timePicker" style="width: 260px" value-format="HH:mm" format="HH:mm"
-        :placeholder="t('cronPicker.time')" :clearable="false" @change="emitChange" :teleported="false">
-      </el-time-picker>
+      <el-time-picker
+        v-model="cronForm.timePicker"
+        style="width: 260px"
+        value-format="HH:mm"
+        format="HH:mm"
+        :placeholder="t('cronPicker.time')"
+        :clearable="false"
+        :teleported="false"
+        @change="emitChange" />
     </div>
   </div>
 </template>

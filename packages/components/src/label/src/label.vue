@@ -1,8 +1,8 @@
 <template>
   <div class="y-label" :style="{ '--label-height': height }">
     <!-- 前置插槽 -->
-    <div class="y-label__prefix" v-if="$slots.prefix">
-      <slot name="prefix"></slot>
+    <div v-if="$slots.prefix" class="y-label__prefix">
+      <slot name="prefix" />
     </div>
     <!-- 标签 -->
     <div class="y-label__label" :style="labelStyle">
@@ -15,11 +15,11 @@
     </div>
     <!-- 内容 -->
     <div class="y-label__content" :style="contentStyle">
-      <slot></slot>
+      <slot />
     </div>
     <!-- 后置插槽 -->
-    <div class="y-label__suffix" v-if="$slots.suffix">
-      <slot name="suffix"></slot>
+    <div v-if="$slots.suffix" class="y-label__suffix">
+      <slot name="suffix" />
     </div>
   </div>
 </template>

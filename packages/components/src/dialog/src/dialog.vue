@@ -1,7 +1,7 @@
 <template>
   <el-dialog
-    v-model="dialogVisible"
     ref="dialogRef"
+    v-model="dialogVisible"
     v-bind="dialogAttrs"
     class="y-dialog"
     :style="{
@@ -18,19 +18,19 @@
       </slot>
     </template>
     <template #default>
-      <slot></slot>
+      <slot />
     </template>
-    <template #footer v-if="props.showFooter">
+    <template v-if="props.showFooter" #footer>
       <slot name="footer">
         <slot name="confirm">
-          <y-button v-if="!props.noConfirm" v-bind="confirmBtnProps" @click="confirmClick">{{
-            confirmText
-          }}</y-button>
+          <y-button v-if="!props.noConfirm" v-bind="confirmBtnProps" @click="confirmClick">
+            {{ confirmText }}
+          </y-button>
         </slot>
         <slot name="cancel">
-          <y-button v-if="!props.noCancel" v-bind="cancelProps" @click="cancelClick">{{
-            cancelText
-          }}</y-button>
+          <y-button v-if="!props.noCancel" v-bind="cancelProps" @click="cancelClick">
+            {{ cancelText }}
+          </y-button>
         </slot>
       </slot>
     </template>

@@ -18,7 +18,7 @@ export default {
   // 在对象，数组括号与文字之间加空格，(true：有，false：没有)
   bracketSpacing: true,
   // 将 > 多行元素放在最后一行的末尾，而不是单独放在下一行 (true：放末尾，false：单独一行)
-  bracketSameLine: false,
+  bracketSameLine: true,
   // 箭头函数参数只有一个时是否要有小括号 (avoid：省略括号，always：不省略括号)
   arrowParens: 'avoid',
   // 仅格式化在文件顶部以特殊注释标明的代码（称为编译指示）
@@ -33,9 +33,9 @@ export default {
   // 控制在 Vue SFC中 <script> 和 <style> 标签内的代码缩进方式
   vueIndentScriptAndStyle: false,
   // 使用LF作为行尾序列
-  endOfLine: 'lf',
+  endOfLine: 'auto',
   // [2.1+] 自动格式化嵌套的代码
-  embeddedLanguageFormatting: 'auto',
+  embeddedLanguageFormatting: 'off',
   // [2.6+] 在 HTML、Vue 和 JSX 中强制每行使用单一属性
   singleAttributePerLine: false,
   // 这两个选项可用于格式化以给定字符偏移量（分别包括和不包括）开始和结束的代码

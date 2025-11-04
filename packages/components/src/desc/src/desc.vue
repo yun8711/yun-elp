@@ -1,7 +1,7 @@
 <template>
   <div
-    class="y-desc"
     ref="descRef"
+    class="y-desc"
     :style="containerStyle"
     :class="{
       'y-desc--bordered': isBorder

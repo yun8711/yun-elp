@@ -1,16 +1,24 @@
 <template>
   <div class="y-step">
-    <div class="y-step__item" v-for="(step, index) in computedOptions" :key="index"
+    <div
+      v-for="(step, index) in computedOptions"
+      :key="index"
+      class="y-step__item"
       :class="{ 'is-active': index <= activeIndex }">
-      <slot name="default" :step="step" :index="index" :active="index <= activeIndex">
+      <slot
+        name="default"
+        :step="step"
+        :index="index"
+        :active="index <= activeIndex">
         <div class="y-step__item-content" :class="{ 'is-inline': inlineLabel }">
           <div class="y-step__item-index"> {{ index + 1 }}</div>
-          <div class="y-step__item-label" v-if="step"> {{ step }} </div>
+          <div v-if="step" class="y-step__item-label"> {{ step }} </div>
         </div>
       </slot>
-      <div class="y-step__item-line" :class="{ 'is-active': index < activeIndex }"
-        v-if="index < computedOptions.length - 1">
-      </div>
+      <div
+        v-if="index < computedOptions.length - 1"
+        class="y-step__item-line"
+        :class="{ 'is-active': index < activeIndex }" />
     </div>
   </div>
 </template>

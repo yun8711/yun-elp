@@ -1,9 +1,19 @@
 <template>
   <div class="y-cron-picker">
-    <el-popover :visible="popoverVisible" :width="372" placement="bottom" popper-style="padding: 0">
+    <el-popover
+      :visible="popoverVisible"
+      :width="372"
+      placement="bottom"
+      popper-style="padding: 0">
       <template #reference>
-        <el-input v-model="editCronValueTrunk" :placeholder="t('cronPicker.placeholder')" clearable
-          @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" readonly @click="openPopover">
+        <el-input
+          v-model="editCronValueTrunk"
+          :placeholder="t('cronPicker.placeholder')"
+          clearable
+          readonly
+          @mouseenter="handleMouseEnter"
+          @mouseleave="handleMouseLeave"
+          @click="openPopover">
           <template #suffix>
             <el-icon v-if="isDeleteIcon" class="y-cron-picker__clearable-icon" @click.stop="deleteClick">
               <CircleClose />
@@ -12,7 +22,7 @@
         </el-input>
       </template>
 
-      <div class="y-cron-picker__content" ref="popoverRef">
+      <div ref="popoverRef" class="y-cron-picker__content">
         <!--调度周期-->
         <div class="y-cron-picker__content-item">
           <div class="y-cron-picker__form-label">
@@ -20,10 +30,18 @@
           </div>
           <div class="y-cron-picker__form-item">
             <el-select v-model="period" style="width: 260px" :teleported="false">
-              <el-option v-for="item in periodOptions" :key="item.value" :label="item.label"
-                :disabled="disabledPeriod?.includes(item.value)" :value="item.value" />
+              <el-option
+                v-for="item in periodOptions"
+                :key="item.value"
+                :label="item.label"
+                :disabled="disabledPeriod?.includes(item.value)"
+                :value="item.value" />
             </el-select>
-            <component :is="currentComponent" ref="picker" :period="period" :new-default-value="newDefaultValue"
+            <component
+              :is="currentComponent"
+              ref="picker"
+              :period="period"
+              :new-default-value="newDefaultValue"
               @change="onChange" />
           </div>
         </div>
@@ -41,12 +59,22 @@
           <div class="y-cron-picker__form-label">
             {{ t('cronPicker.preview') }}
           </div>
-          <el-input type="textarea" style="width: 260px; height: 100%" :model-value="preTimeList" resize="none"
+          <el-input
+            type="textarea"
+            style="width: 260px; height: 100%"
+            :model-value="preTimeList"
+            resize="none"
             readonly />
         </div>
 
         <div class="y-cron-picker__content-actions">
-          <el-button type="default" size="small" text @click="reset">{{ t('common.reset') }}</el-button>
+          <el-button
+            type="default"
+            size="small"
+            text
+            @click="reset">
+            {{ t('common.reset') }}
+          </el-button>
           <el-button plain size="small" @click="confirm">{{ t('common.confirm') }}</el-button>
         </div>
       </div>

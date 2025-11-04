@@ -1,17 +1,17 @@
 <template>
-  <div class="y-table" v-loading="loading">
-    <el-table v-bind="tableProps" class="y-table__table" ref="tableRef">
-      <slot></slot>
+  <div v-loading="loading" class="y-table">
+    <el-table v-bind="tableProps" ref="tableRef" class="y-table__table">
+      <slot />
       <template #empty>
         <slot name="empty">
-          <y-empty v-bind="emptyProps"></y-empty>
+          <y-empty v-bind="emptyProps" />
         </slot>
       </template>
       <template #append>
-        <slot name="append"></slot>
+        <slot name="append" />
       </template>
     </el-table>
-    <div class="y-table__footer" v-if="showFooter">
+    <div v-if="showFooter" class="y-table__footer">
       <slot name="footer">
         <div class="y-table__footer-default">
           <div class="y-table__footer-total">
@@ -19,7 +19,11 @@
             <span class="y-table__footer-total-num">{{ paginationProps.total }}</span>
             <span>{{ t('table.items') }}</span>
           </div>
-          <el-pagination class="y-table__footer-pagination" v-bind="paginationProps" @change="paginationChange" ref="paginationRef" />
+          <el-pagination
+            v-bind="paginationProps"
+            ref="paginationRef"
+            class="y-table__footer-pagination"
+            @change="paginationChange" />
         </div>
       </slot>
     </div>

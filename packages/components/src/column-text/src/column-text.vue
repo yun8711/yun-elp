@@ -2,7 +2,10 @@
   <el-table-column class="y-column-text" v-bind="mergedAttrs">
     <template #default="scope">
       <slot :scope="scope" :value="formatterCellValue(scope)">
-        <span :style="textStyle" class="y-column-text__content" :class="{ 'y-column-text__link': link }"
+        <span
+          :style="textStyle"
+          class="y-column-text__content"
+          :class="{ 'y-column-text__link': link }"
           @click="handleClick(scope, $event)">
           {{ formatterCellValue(scope) }}
         </span>
@@ -14,7 +17,7 @@
       </slot>
     </template>
     <template #expand="{ expanded }">
-      <slot name="expand" :expanded="expanded"></slot>
+      <slot name="expand" :expanded="expanded" />
     </template>
   </el-table-column>
 </template>

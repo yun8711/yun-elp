@@ -1,6 +1,6 @@
 <template>
-  <div class="y-echarts" ref="chartWrapperRef" v-loading="loading">
-    <div ref="chartRef" :style="{ width: width + 'px', height: height + 'px' }"></div>
+  <div ref="chartWrapperRef" v-loading="loading" class="y-echarts">
+    <div ref="chartRef" :style="{ width: width + 'px', height: height + 'px' }" />
   </div>
 </template>
 

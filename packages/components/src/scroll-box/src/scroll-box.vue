@@ -25,7 +25,7 @@
         @scroll="handleScroll"
       >
         <div ref="contentRef" class="y-scroll-box__content">
-          <slot></slot>
+          <slot />
         </div>
       </el-scrollbar>
     </div>

@@ -1,10 +1,10 @@
 <template>
   <el-tooltip v-bind="tooltipAttrs" :disabled="!showTooltip" class="y-text-tooltip">
     <div ref="textRef" class="y-text-tooltip__content" :style="textStyle">
-      <slot></slot>
+      <slot />
     </div>
     <template #content>
-      <slot name="content"></slot>
+      <slot name="content" />
     </template>
   </el-tooltip>
 </template>

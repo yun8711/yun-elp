@@ -1,16 +1,30 @@
 <template>
   <el-table-column class="y-column-form" v-bind="mergedColumnAttrs">
     <template #default="scope">
-      <slot v-if="noFrom" name="default" :scope="scope" :row="scope.row" :prop="prop"></slot>
-      <el-form-item v-else v-bind="mergedFormAttrs(scope)"
-        @mouseenter.native="handleMouseEnter(`${scope.$index}_${prop}`)"
-        @mouseleave.native="handleMouseLeave(`${scope.$index}_${prop}`)">
-        <slot name="default" :scope="scope" :row="scope.row" :prop="prop"></slot>
+      <slot
+        v-if="noFrom"
+        name="default"
+        :scope="scope"
+        :row="scope.row"
+        :prop="prop" />
+      <el-form-item
+        v-else
+        v-bind="mergedFormAttrs(scope)"
+        @mouseenter="handleMouseEnter(`${scope.$index}_${prop}`)"
+        @mouseleave="handleMouseLeave(`${scope.$index}_${prop}`)">
+        <slot
+          name="default"
+          :scope="scope"
+          :row="scope.row"
+          :prop="prop" />
         <template #error="{ error }">
           <div>
-            <el-tooltip v-bind="mergedTipProps" :content="error" :disabled="!error"
+            <el-tooltip
+              v-bind="mergedTipProps"
+              :content="error"
+              :disabled="!error"
               :visible="errorMessageMap[`${scope.$index}_${prop}`]">
-              <span class="y-column-form__error" :class="{ 'is-hidden': !error }"></span>
+              <span class="y-column-form__error" :class="{ 'is-hidden': !error }" />
             </el-tooltip>
           </div>
         </template>

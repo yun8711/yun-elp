@@ -2,22 +2,42 @@
   <div class="y-cron-picker__group">
     <div class="y-cron-picker__row">
       <span style="margin-right: 4px">{{ t('cronPicker.from') }}</span>
-      <el-time-picker v-model="cronForm.startTime" style="width: 98px" value-format="HH:mm" format="HH:mm"
-        :clearable="false" :placeholder="t('cronPicker.startTime')" @change="emitChange" :teleported="false">
-      </el-time-picker>
+      <el-time-picker
+        v-model="cronForm.startTime"
+        style="width: 98px"
+        value-format="HH:mm"
+        format="HH:mm"
+        :clearable="false"
+        :placeholder="t('cronPicker.startTime')"
+        :teleported="false"
+        @change="emitChange" />
       <span style="margin:0 4px">{{ t('cronPicker.to') }}</span>
-      <el-time-picker v-model="cronForm.endTime" style="width: 98px" value-format="HH:mm" format="HH:mm"
-        :clearable="false" :picker-options="{
+      <el-time-picker
+        v-model="cronForm.endTime"
+        style="width: 98px"
+        value-format="HH:mm"
+        format="HH:mm"
+        :clearable="false"
+        :picker-options="{
           selectableRange: `${cronForm.startTime}:00 - 23:59:00`,
-        }" :placeholder="t('cronPicker.endTime')" @change="emitChange" :teleported="false">
-      </el-time-picker>
+        }"
+        :placeholder="t('cronPicker.endTime')"
+        :teleported="false"
+        @change="emitChange" />
       <span style="margin-left: 4px">{{ t('cronPicker.at') }}</span>
     </div>
     <div class="y-cron-picker__row">
       <span>{{ t('cronPicker.interval') }}</span>
-      <el-select v-model="cronForm.perMinute" style="width: 120px;margin:0 4px;" @change="emitChange"
-        :teleported="false">
-        <el-option v-for="item in minuteOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      <el-select
+        v-model="cronForm.perMinute"
+        style="width: 120px;margin:0 4px;"
+        :teleported="false"
+        @change="emitChange">
+        <el-option
+          v-for="item in minuteOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value" />
       </el-select>
       <span>{{ t('cronPicker.runOnce') }}</span>
     </div>

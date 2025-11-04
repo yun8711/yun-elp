@@ -1,5 +1,9 @@
 <template>
-  <el-drawer v-model="drawerVisible" ref="drawerRef" v-bind="drawerAttrs" class="y-drawer">
+  <el-drawer
+    ref="drawerRef"
+    v-model="drawerVisible"
+    v-bind="drawerAttrs"
+    class="y-drawer">
     <template #header>
       <slot name="header">
         <div class="y-drawer__header-title" :style="titleStyle">
@@ -10,19 +14,19 @@
       </slot>
     </template>
     <template #default>
-      <slot></slot>
+      <slot />
     </template>
-    <template #footer v-if="props.showFooter">
+    <template v-if="props.showFooter" #footer>
       <slot name="footer">
         <slot name="confirm">
-          <y-button v-if="!props.noConfirm" v-bind="confirmBtnProps" @click="confirmClick">{{
-            confirmText
-          }}</y-button>
+          <y-button v-if="!props.noConfirm" v-bind="confirmBtnProps" @click="confirmClick">
+            {{ confirmText }}
+          </y-button>
         </slot>
         <slot name="cancel">
-          <y-button v-if="!props.noCancel" v-bind="cancelBtnProps" @click="cancelClick">{{
-            cancelText
-          }}</y-button>
+          <y-button v-if="!props.noCancel" v-bind="cancelBtnProps" @click="cancelClick">
+            {{ cancelText }}
+          </y-button>
         </slot>
       </slot>
     </template>

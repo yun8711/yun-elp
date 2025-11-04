@@ -5,11 +5,11 @@
         <slot>{{ props.title }}</slot>
       </span>
       <div class="y-part-title__left-extra">
-        <slot name="extra"></slot>
+        <slot name="extra" />
       </div>
     </div>
     <div class="y-part-title__right">
-      <slot name="right"></slot>
+      <slot name="right" />
     </div>
   </div>
 </template>

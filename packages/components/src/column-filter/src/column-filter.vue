@@ -2,7 +2,9 @@
   <el-table-column class="y-column-filter" v-bind="mergedAttrs">
     <template #default="scope">
       <slot :scope="scope" :value="formatterCellValue(scope)">
-        <span :style="getStyle(scope)" class="y-column-filter__content"
+        <span
+          :style="getStyle(scope)"
+          class="y-column-filter__content"
           :class="{ 'y-column-filter__status': !noStatus }">
           {{ formatterCellValue(scope) }}
         </span>
@@ -14,10 +16,10 @@
       </slot>
     </template>
     <template #expand="{ expanded }">
-      <slot name="expand" :expanded="expanded"></slot>
+      <slot name="expand" :expanded="expanded" />
     </template>
     <template #filter-icon="{ filterOpened }">
-      <slot name="filter-icon" :filterOpened="filterOpened"></slot>
+      <slot name="filter-icon" :filter-opened="filterOpened" />
     </template>
   </el-table-column>
 </template>

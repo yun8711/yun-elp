@@ -1,9 +1,16 @@
 <template>
   <div class="y-group-select">
     <el-button-group>
-      <el-button :type="modelValue === item.value ? 'primary' : 'default'" v-for="(item, index) in options"
-        :key="item.value" :class="['item', itemClass]" :icon="item.icon" :loading="item.loading"
-        :disabled="item.disabled" :style="itemStyles" @click="onClick(item.value, item, index, $event)">
+      <el-button
+        v-for="(item, index) in options"
+        :key="item.value"
+        :type="modelValue === item.value ? 'primary' : 'default'"
+        :class="['item', itemClass]"
+        :icon="item.icon"
+        :loading="item.loading"
+        :disabled="item.disabled"
+        :style="itemStyles"
+        @click="onClick(item.value, item, index, $event)">
         <slot v-bind="{ item, index }">
           {{ item.label }}
         </slot>
