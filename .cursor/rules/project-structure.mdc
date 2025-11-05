@@ -1,0 +1,37 @@
+---
+alwaysApply: true
+---
+
+# 项目总览
+
+## 基本概况
+
+本项目名为yun-elp，是一个基于element-plus创建的业务组件库，目的是在成熟的 element-plus 组件库基础上构建一个与实际业务更贴合的前端组件库。
+
+采用pnpm monorepo模式管理代码仓库，包含组件源码、调试项目、组件文档、加载器。
+
+提供按需加载、自动导入等支持。
+
+## 技术栈
+
+本项目使用了与element-plus相同的技术栈，实现最大程序的兼容：
+
+- 基础依赖：vue 3.5+、element-plus 2.10.0+、typescript 5+
+- 样式库：scss
+- 其他主要三方库：vueuse 13、lodash-es
+- 构建工具：vite 5
+- 包管理器：pnpm 9+
+- 代码规范：stylelint 16+、eslint 9+、prettier、release-it、commitlint
+
+## 项目结构
+
+```ini
+/
+├── .husky                # lint-staged 脚本
+├── packages              # 子项目目录
+├── routerEach.js         # 路由守卫
+├── async-routes/         # 异步路由配置
+│   ├── index.js         # 异步路由主入口
+│   ├── xxx.js           # 其他子模块路由配置
+└── test-routes.js       # 测试路由
+```
