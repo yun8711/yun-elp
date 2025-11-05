@@ -20,11 +20,13 @@
     "clipboard-copy": "^4.0.1",
     "element-plus": "^2.10.2",
     "normalize.css": "^8.0.1",
-    "nprogress": "^0.2.0"
+    "nprogress": "^0.2.0",
+    "vue": "~3.5.14"
   },
   "devDependencies": {
     "@iconify-json/ri": "^1.2.5",
     "@mdit-vue/shared": "^2.1.4",
+    "@rollup/rollup-win32-x64-msvc": "^4.52.5",
     "@types/node": "^20.17.46",
     "@vitejs/plugin-vue": "^5.0.0",
     "@vitejs/plugin-vue-jsx": "^3.1.0",

@@ -82,9 +82,12 @@ const copyCode = async () => {
 
   <div class="example">
     <!-- 组件示例 -->
-    <div class="example-showcase">
-      <slot name="source" />
-    </div>
+    <ClientOnly>
+      <div class="example-showcase">
+        <slot name="source" />
+      </div>
+    </ClientOnly>
+
 
     <ElDivider class="m-0" />
 
