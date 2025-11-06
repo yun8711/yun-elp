@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { nextTick } from 'vue';
+import { nextTick, h } from 'vue';
 import YDesc from '../src/desc.vue';
 import type { DescItem } from '../src/desc';
 
@@ -8,10 +8,9 @@ import type { DescItem } from '../src/desc';
 vi.mock('../../text-tooltip/src/text-tooltip.vue', () => ({
   default: {
     name: 'YTextTooltip',
-    template: '<div class="y-text-tooltip"><slot /></div>',
     props: ['placement'],
     render() {
-      return this.$createElement('div', { class: 'y-text-tooltip' }, this.$slots.default);
+      return h('div', { class: 'y-text-tooltip' }, this.$slots.default?.());
     }
   }
 }));
@@ -118,6 +117,29 @@ describe('YDesc 组件测试', () => {
     const items = wrapper.findAll('.y-desc__item');
     expect(items[0].find('.y-desc__item-content').text()).toBe('ABC公司');
     expect(items[1].find('.y-desc__item-content').text()).toBe('前端工程师');
+  });
+
+  it('未指定path时使用label作为取值路径', async () => {
+    const configWithLabelAsPath: DescItem[] = [
+      { label: 'name', prop: 'name' } as DescItem, // label作为路径，应该获取到mockData.name
+      { label: 'age', prop: 'age' } as DescItem,   // label作为路径，应该获取到mockData.age
+      { label: '不存在的字段', prop: 'nonexistent' } as DescItem // 不存在的路径，应该显示emptyText
+    ];
+
+    const wrapper = mount(YDesc, {
+      props: {
+        data: mockData,
+        config: configWithLabelAsPath,
+        emptyText: '暂无数据'
+      }
+    });
+
+    await nextTick();
+
+    const items = wrapper.findAll('.y-desc__item');
+    expect(items[0].find('.y-desc__item-content').text()).toBe('张三');
+    expect(items[1].find('.y-desc__item-content').text()).toBe('25');
+    expect(items[2].find('.y-desc__item-content').text()).toBe('暂无数据');
   });
 
   it('支持格式化函数', async () => {
@@ -419,6 +441,75 @@ describe('YDesc 组件测试', () => {
     expect(contentSlot.exists()).toBe(true);
     expect(labelSlot.text()).toBe('自定义标签');
     expect(contentSlot.text()).toBe('自定义内容');
+  });
+
+  it('支持默认插槽功能', async () => {
+    const configWithDefaultSlots: DescItem[] = [
+      { label: '默认标签项目1', path: 'name' } as DescItem,
+      { label: '默认标签项目2', path: 'age' } as DescItem
+    ];
+
+    const wrapper = mount(YDesc, {
+      props: {
+        data: mockData,
+        config: configWithDefaultSlots
+      },
+      slots: {
+        label: ({ item }: any) => h('span', { class: 'default-label' }, [`★${item.label}`]),
+        content: ({ item, index }: any) => {
+          // 在默认插槽中，我们需要手动获取值，就像组件内部一样
+          const value = item.content || (item.path ? mockData[item.path] : mockData) || '';
+          return h('span', { class: 'default-content' }, [String(value)]);
+        }
+      }
+    });
+
+    await nextTick();
+
+    const defaultLabels = wrapper.findAll('.y-desc__item-label .default-label');
+    const defaultContents = wrapper.findAll('.y-desc__item-content .default-content');
+
+    expect(defaultLabels.length).toBe(2);
+    expect(defaultContents.length).toBe(2);
+    expect(defaultLabels[0].text()).toContain('默认标签项目1');
+    expect(defaultLabels[1].text()).toContain('默认标签项目2');
+    expect(defaultContents[0].text()).toContain('张三');
+    expect(defaultContents[1].text()).toContain('25');
+  });
+
+  it('优先使用prop插槽而非默认插槽', async () => {
+    const configWithMixedSlots: DescItem[] = [
+      { label: '有prop项目', path: 'name', prop: 'name' } as DescItem,
+      { label: '无prop项目', path: 'age' } as DescItem
+    ];
+
+    const wrapper = mount(YDesc, {
+      props: {
+        data: mockData,
+        config: configWithMixedSlots
+      },
+      slots: {
+        'name-label': () => h('em', 'prop标签'),
+        'name-content': () => h('strong', 'prop内容'),
+        label: ({ item }: any) => h('span', { class: 'default-label' }, `默认标签-${item.label}`),
+        content: ({ item }: any) => h('span', { class: 'default-content' }, `默认内容-${item.content || '无'}`)
+      }
+    });
+
+    await nextTick();
+
+    // 有prop的项目应该使用prop插槽
+    const propLabel = wrapper.find('.y-desc__item-label em');
+    const propContent = wrapper.find('.y-desc__item-content strong');
+
+    // 无prop的项目应该使用默认插槽
+    const defaultLabel = wrapper.find('.y-desc__item-label .default-label');
+    const defaultContent = wrapper.find('.y-desc__item-content .default-content');
+
+    expect(propLabel.exists()).toBe(true);
+    expect(propContent.exists()).toBe(true);
+    expect(defaultLabel.exists()).toBe(true);
+    expect(defaultContent.exists()).toBe(true);
   });
 
   it('正确处理项目key', async () => {

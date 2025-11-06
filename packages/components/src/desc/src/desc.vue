@@ -16,13 +16,29 @@
         :style="getItemStyle(index)"
       >
         <div class="y-desc__item-label" :style="getLabelStyle(item, index)">
-          <slot v-if="item?.prop" :name="`${item.prop}-label`" v-bind="{ item, index }">
+          <slot
+            v-if="item?.prop && slots[`${item.prop}-label`]"
+            :name="`${item.prop}-label`"
+            v-bind="{ item, index }"
+          >
+          </slot>
+          <slot v-else-if="slots.label" name="label" v-bind="{ item, index }">
             <span>{{ item.label }}</span>
           </slot>
           <span v-else>{{ item.label }}</span>
         </div>
         <div class="y-desc__item-content" :style="getContentStyle(item)">
-          <slot v-if="item?.prop" :name="`${item.prop}-content`" v-bind="{ item, index }">
+          <slot
+            v-if="item?.prop && slots[`${item.prop}-content`]"
+            :name="`${item.prop}-content`"
+            v-bind="{ item, index }"
+          >
+            <y-text-tooltip v-if="isItemTooltip(item)" v-bind="item?.textTooltip || {}">
+              {{ getValue(item) }}
+            </y-text-tooltip>
+            <span v-else>{{ getValue(item) }}</span>
+          </slot>
+          <slot v-else-if="slots.content" name="content" v-bind="{ item, index }">
             <y-text-tooltip v-if="isItemTooltip(item)" v-bind="item?.textTooltip || {}">
               {{ getValue(item) }}
             </y-text-tooltip>
@@ -43,7 +59,7 @@
 <script setup lang="ts">
 import type { DescProps, DescItem } from './desc';
 import { get } from 'lodash-es';
-import { computed, useAttrs, useTemplateRef } from '@vue/runtime-core';
+import { computed, useAttrs, useSlots, useTemplateRef } from '@vue/runtime-core';
 import { hasOwn } from '@vueuse/shared';
 import { useElementSize } from '@vueuse/core';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
@@ -57,6 +73,7 @@ defineOptions({
 
 const descConfig = useAppConfig('desc');
 const attrs = useAttrs();
+const slots = useSlots();
 const descRef = useTemplateRef<HTMLElement | null>('descRef');
 const { width } = useElementSize(descRef);
 const props = defineProps<DescProps>() as DescProps;
@@ -105,7 +122,9 @@ const getValue = (item: DescItem) => {
   if (item?.content) {
     value = item.content;
   } else {
-    const v0 = item.path ? get(props.data, item.path) : props.data;
+    // 如果未指定path，使用label作为取值路径
+    const dataPath = item.path || item.label;
+    const v0 = dataPath ? get(props.data, dataPath) : props.data;
     if (v0 !== undefined && v0 !== null) {
       if (typeof item?.format === 'function') {
         value = item.format(v0);
