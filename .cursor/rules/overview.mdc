@@ -29,7 +29,19 @@ alwaysApply: true
 /
 ├── .husky                # lint-staged 脚本
 ├── packages              # 子项目目录
-├── routerEach.js         # 路由守卫
+│   ├── components         # 组件
+│   │   ├── constants         # 全局变量
+│   │   ├── hooks         # 全局hook
+│   │   ├── locale         # 多语言
+│   │   ├── src         # 组件源码目录
+│   │   │   └── xxx         # 某个组件源码目录
+│   │   │       ├── __tests__         # 某个组件测试文件目录
+│   │   │       ├── src         # 某个组件源码目录
+│   │   │       │   ├── xxx.ts         # 某个组件的类型定义
+│   │   │       │   └── xxx.vue         # 某个组件的源码
+│   │   │       └── index.tx         # 某个组件主文件
+│   │   ├── utils         # 组件库函数源码目录
+│   │   │   ├── xxx.ts         # 函数源码
 ├── async-routes/         # 异步路由配置
 │   ├── index.js         # 异步路由主入口
 │   ├── xxx.js           # 其他子模块路由配置
