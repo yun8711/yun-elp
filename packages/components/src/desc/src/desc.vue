@@ -48,6 +48,7 @@ import { hasOwn } from '@vueuse/shared';
 import { useElementSize } from '@vueuse/core';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { getSizeValue } from '../../../utils/other';
+import YTextTooltip from '../../text-tooltip/src/text-tooltip.vue';
 
 defineOptions({
   name: 'YDesc',
@@ -58,7 +59,7 @@ const descConfig = useAppConfig('desc');
 const attrs = useAttrs();
 const descRef = useTemplateRef<HTMLElement | null>('descRef');
 const { width } = useElementSize(descRef);
-const props = defineProps<DescProps>();
+const props = defineProps<DescProps>() as DescProps;
 
 const mergedProps = computed(() => {
   const desc = descConfig || {};
@@ -89,7 +90,7 @@ const isAllTooltip = computed(() => {
 });
 
 // 单个配置是否显示tooltip
-const isItemTooltip = (item: DescItem) => {
+const isItemTooltip = (item: DescItem): boolean => {
   // 如果 item.noTooltip 有明确的值（true 或 false），就使用它
   if (item?.noTooltip !== undefined && item?.noTooltip !== null) {
     return !item.noTooltip;

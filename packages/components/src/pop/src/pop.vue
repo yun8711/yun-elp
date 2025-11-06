@@ -39,6 +39,7 @@ import type { PopProps } from './pop';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import { useExternalListener } from '../../../hooks/use-external-listener';
+import YButton from '../../button/src/button.vue';
 
 defineOptions({
   name: 'YPop',

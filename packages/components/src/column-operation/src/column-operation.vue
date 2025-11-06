@@ -88,6 +88,8 @@ import type { PopProps } from '../../pop/src/pop';
 import { merge } from 'lodash-es';
 import { MoreFilled } from '@element-plus/icons-vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
+import YPop from '../../pop/src/pop.vue';
+import YButton from '../../button/src/button.vue';
 
 defineOptions({
   name: 'YColumnOperation',

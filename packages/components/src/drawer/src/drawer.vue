@@ -40,6 +40,7 @@ import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import { useExternalListener } from '../../../hooks/use-external-listener';
 import { omit } from 'lodash-es';
+import YButton from '../../button/src/button.vue';
 
 defineOptions({
   name: 'YDrawer',

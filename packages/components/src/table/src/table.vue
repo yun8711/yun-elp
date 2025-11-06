@@ -36,6 +36,7 @@ import type { TableProps } from './table';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import type { EmptyProps } from '../../empty/src/empty';
+import YEmpty from '../../empty/src/empty.vue';
 
 defineOptions({
   name: 'YTable',
