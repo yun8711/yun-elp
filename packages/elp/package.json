@@ -31,6 +31,9 @@
     "./theme": {
       "import": "./theme-chalk/index.css"
     },
+    "./theme-chalk/*": {
+      "import": "./theme-chalk/*"
+    },
     "./locale": {
       "import": "./es/locale/index.mjs"
     },

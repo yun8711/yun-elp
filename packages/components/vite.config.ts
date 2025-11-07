@@ -5,6 +5,8 @@ import dts from 'vite-plugin-dts';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { resolve } from 'path';
 import generateTypes from './vite-plugin-generate-types';
+import Components from 'unplugin-vue-components/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 
 export default defineConfig({
   /**
@@ -20,6 +22,14 @@ export default defineConfig({
      * @see defineModel https://github.com/vuejs/rfcs/discussions/503
      */
     vue(),
+    /**
+     * 组件自动导入插件
+     * 用于在构建组件库时自动导入Element Plus组件
+     */
+    Components({
+      resolvers: [ElementPlusResolver()],
+      dts: false // 不生成d.ts文件，因为我们已经有dts插件了
+    }),
     /**
      * 打包类型声明文件
      * @see vite-plugin-dts https://github.com/qmhc/vite-plugin-dts

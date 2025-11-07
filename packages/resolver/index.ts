@@ -18,9 +18,12 @@ type SideEffectsInfo = (ImportInfo | string)[] | ImportInfo | string | undefined
 /**
  * 将 PascalCase 转换为 kebab-case
  */
-function kebabCase(key: string) {
-  const result = key.replace(/([A-Z])/g, ' $1').trim();
-  return result.split(' ').join('-').toLowerCase();
+function kebabCase(componentName: string) {
+  return componentName
+    .replace('Y', '')
+    .replace(/([A-Z])/g, '-$1')
+    .replace(/^-/, '')
+    .toLowerCase();
 }
 
 /**
@@ -42,14 +45,23 @@ export interface YunElpResolverOptions {
   noStylesComponents?: string[];
 }
 
-type YunElpResolverOptionsResolved = Required<Omit<YunElpResolverOptions, 'exclude'>> &
-  Pick<YunElpResolverOptions, 'exclude'>;
+type YunElpResolverOptionsResolved = {
+  importStyle: boolean | 'css' | 'scss';
+  exclude?: RegExp;
+  noStylesComponents: string[];
+};
 
 function getSideEffects(
   dirName: string,
   options: YunElpResolverOptionsResolved
 ): SideEffectsInfo | undefined {
   const { importStyle } = options;
+
+  // 如果 importStyle 为 false，不导入样式
+  if (importStyle === false) {
+    return undefined;
+  }
+
   const themeFolder = `${PACKAGE_NAME}/theme-chalk`;
 
   if (importStyle === 'scss') {
@@ -57,6 +69,8 @@ function getSideEffects(
   } else if (importStyle === true || importStyle === 'css') {
     return [`${themeFolder}/${dirName}.css`];
   }
+
+  return undefined;
 }
 
 function resolveComponent(
@@ -72,11 +86,11 @@ function resolveComponent(
     return;
   }
   // 获取组件名 YLabel -> label
-  const kebabName = kebabCase(name.slice(1));
+  const kebabName = kebabCase(name);
   const sideEffects = getSideEffects(kebabName, options);
   return {
     name,
-    from: `${PACKAGE_NAME}/es`,
+    from: `${PACKAGE_NAME}`,
     sideEffects
   };
 }
@@ -121,6 +135,7 @@ export function YunElpResolver(options: YunElpResolverOptions = {}): ComponentRe
   return {
     type: 'component',
     resolve: async (name: string) => {
+      // name-组件名称，如YButton
       const options = await resolveOptions();
       if (options.noStylesComponents.includes(name)) {
         return resolveComponent(name, { ...options, importStyle: false });
