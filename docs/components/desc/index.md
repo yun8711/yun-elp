@@ -86,9 +86,9 @@ desc/slot
 
 ### Slots
 
-| 名称           | 说明                                       | 参数                                         |
-| -------------- | ------------------------------------------ | -------------------------------------------- |
-| [prop]-label   | 每一项的自定义标签内容（优先级最高）       | ^[object]`{ item: DescItem, index: number }` |
-| [prop]-content | 每一项的自定义内容（优先级最高）           | ^[object]`{ item: DescItem, index: number }` |
-| label          | 默认标签插槽，当未指定 prop-label 时使用   | ^[object]`{ item: DescItem, index: number }` |
-| content        | 默认内容插槽，当未指定 prop-content 时使用 | ^[object]`{ item: DescItem, index: number }` |
+| 名称           | 说明                                       | 参数                                                          |
+| -------------- | ------------------------------------------ | ------------------------------------------------------------- |
+| [prop]-label   | 每一项的自定义标签内容（优先级最高）       | ^[object]`{ item: DescItem, index: number }`                  |
+| [prop]-content | 每一项的自定义内容（优先级最高）           | ^[object]`{ item: DescItem, content: string, index: number }` |
+| label          | 默认标签插槽，当未指定 prop-label 时使用   | ^[object]`{ item: DescItem, index: number }`                  |
+| content        | 默认内容插槽，当未指定 prop-content 时使用 | ^[object]`{ item: DescItem, content: string, index: number }`  |
