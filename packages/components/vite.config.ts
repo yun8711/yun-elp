@@ -21,7 +21,14 @@ export default defineConfig({
      * @see vite-plugin-vue https://github.com/vitejs/vite-plugin-vue
      * @see defineModel https://github.com/vuejs/rfcs/discussions/503
      */
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          // 优化编译选项，减少不必要的导入
+          hoistStatic: true
+        }
+      }
+    }),
     /**
      * 组件自动导入插件
      * 用于在构建组件库时自动导入Element Plus组件
@@ -29,7 +36,7 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()],
       dts: false // 不生成d.ts文件，因为我们已经有dts插件了
-    }),
+    }) as unknown as PluginOption,
     /**
      * 打包类型声明文件
      * @see vite-plugin-dts https://github.com/qmhc/vite-plugin-dts
@@ -163,6 +170,11 @@ export default defineConfig({
           }
           return '[name][extname]';
         }
+      },
+      onwarn(warning, warn) {
+        // 忽略特定的未使用导入警告
+        if (warning.code === 'UNUSED_EXTERNAL_IMPORT') return;
+        warn(warning);
       }
     },
     cssCodeSplit: true,
