@@ -6,12 +6,7 @@ import YSelect from '../src/select.vue';
 const MockElSelect = {
   name: 'ElSelect',
   template: '<div class="el-select"><slot /></div>',
-  props: {
-    modelValue: {},
-    multiple: { type: Boolean, default: false },
-    placeholder: { type: String },
-    clearable: { type: Boolean, default: false }
-  },
+  props: ['modelValue', 'multiple', 'placeholder', 'clearable'],
   emits: ['update:modelValue', 'change', 'visible-change']
 };
 
@@ -90,8 +85,12 @@ describe('YSelect', () => {
     expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['1']);
   });
 
-  it('应该支持多选', () => {
-    const options = [{ label: '选项1', value: '1' }];
+  it('应该支持多选', async () => {
+    const options = [
+      { label: '选项1', value: '1' },
+      { label: '选项2', value: '2' },
+      { label: '选项3', value: '3' }
+    ];
 
     const wrapper = mount(YSelect, {
       props: {
@@ -108,11 +107,17 @@ describe('YSelect', () => {
       }
     });
 
-    // 检查组件是否正确接收了 multiple 属性
-    expect(wrapper.props('multiple')).toBe(true);
+    // 检查是否正确渲染了选项
+    const optionElements = wrapper.findAllComponents(MockElOption);
+    expect(optionElements).toHaveLength(3);
 
-    // 检查组件是否正确接收了 modelValue 数组（多选模式）
-    expect(wrapper.props('modelValue')).toEqual([]);
+    // 模拟多选操作
+    const selectComponent = wrapper.findComponent(MockElSelect);
+    await selectComponent.vm.$emit('update:modelValue', ['1', '3']);
+
+    // 检查是否正确触发了事件
+    expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([['1', '3']]);
   });
 
   it('应该支持disabledMethod参数', () => {

@@ -7,14 +7,12 @@
       '--item-width': itemWidth,
       '--height': isFold ? minHeight + 'px' : maxHeight + 'px',
       '--gap': gap
-    }"
-  >
+    }">
     <!-- 左侧 label -->
     <div
       class="y-row-select__label"
       :class="{ 'y-row-select__label--separator': props.separator }"
-      :style="labelStyles"
-    >
+      :style="labelStyles">
       {{ props.labelText }}
     </div>
 
@@ -27,8 +25,7 @@
             class="y-row-select__item"
             :class="{ 'is-active': selectAll }"
             :style="optionsItemStyles"
-            data-index="$all"
-          >
+            data-index="$all">
             <slot name="all">
               {{ props.allText }}
             </slot>
@@ -49,8 +46,7 @@
             item[props.defineProps?.disabled || 'disabled']
               ? undefined
               : item[props.defineProps?.value || 'value']
-          "
-        >
+          ">
           <div class="y-row-select__item-text">
             <slot v-bind="item" :index="index">
               {{ item[props.defineProps?.label || 'label'] }}
@@ -66,8 +62,7 @@
         v-if="showMore"
         class="y-row-select__fold-inner"
         :style="btnStyles"
-        @click="() => trigger()"
-      >
+        @click="() => trigger()">
         <el-icon class="el-icon--right" :class="{ 'el-icon--right--reverse': !isFold }">
           <ArrowDown />
         </el-icon>
@@ -406,13 +401,21 @@ defineExpose({
   trigger,
   clear: () => {
     keySet.value.clear();
-    selectedKey.value = '';
+    if (!props.single) {
+      emit('update:modelValue', []);
+    } else {
+      emit('update:modelValue', '');
+    }
     emit('change', '');
   },
   reset: () => {
     isFold.value = true;
     keySet.value.clear();
-    selectedKey.value = '';
+    if (!props.single) {
+      emit('update:modelValue', []);
+    } else {
+      emit('update:modelValue', '');
+    }
     emit('change', '');
   }
 });

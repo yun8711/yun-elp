@@ -1,15 +1,17 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { mount, flushPromises } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import YRowSelect from '../src/row-select.vue';
+import YRowSelect from '../index';
 import type { RowSelectOption } from '../src/row-select';
 
 // 模拟 ResizeObserver
-global.ResizeObserver = vi.fn().mockImplementation(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
-}));
+global.ResizeObserver = vi.fn().mockImplementation(function () {
+  return {
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn()
+  };
+});
 
 // 模拟 setTimeout
 vi.useFakeTimers();
@@ -20,7 +22,7 @@ describe('YRowSelect', () => {
     { label: '选项2', value: '2' },
     { label: '选项3', value: '3' },
     { label: '选项4', value: '4' },
-    { label: '选项5', value: '5' },
+    { label: '选项5', value: '5' }
   ];
 
   beforeEach(() => {
@@ -141,7 +143,7 @@ describe('YRowSelect', () => {
           modelValue: ''
         }
       });
-      expect(wrapper.vm.single).toBe(true);
+      expect(wrapper.props('single')).toBe(true);
     });
 
     it('单选模式下点击选项应该更新值', async () => {
@@ -158,9 +160,9 @@ describe('YRowSelect', () => {
       await nextTick();
 
       expect(wrapper.emitted('update:modelValue')).toBeTruthy();
-      expect(wrapper.emitted('update:modelValue')![0]).toEqual(['1']);
+      expect(wrapper.emitted('update:modelValue')![0][0]).toEqual('1');
       expect(wrapper.emitted('change')).toBeTruthy();
-      expect(wrapper.emitted('change')![0]).toEqual(['1']);
+      expect(wrapper.emitted('change')![0][0]).toEqual('1');
     });
 
     it('单选模式下应该正确显示选中状态', async () => {
@@ -191,9 +193,9 @@ describe('YRowSelect', () => {
       await nextTick();
 
       expect(wrapper.emitted('update:modelValue')).toBeTruthy();
-      expect(wrapper.emitted('update:modelValue')![0]).toEqual(['']);
+      expect(wrapper.emitted('update:modelValue')![0][0]).toEqual('');
       expect(wrapper.emitted('change')).toBeTruthy();
-      expect(wrapper.emitted('change')![0]).toEqual(['']);
+      expect(wrapper.emitted('change')![0][0]).toEqual('');
     });
   });
 
@@ -206,7 +208,7 @@ describe('YRowSelect', () => {
           modelValue: []
         }
       });
-      expect(wrapper.vm.single).toBe(false);
+      expect(wrapper.props('single')).toBe(false);
     });
 
     it('多选模式下点击选项应该添加到选中列表', async () => {
@@ -308,7 +310,7 @@ describe('YRowSelect', () => {
 
       await nextTick();
       // 在测试环境中，由于DOM渲染和scrollHeight计算的限制，showMore可能为false
-      const foldButton = wrapper.find('.y-row-select__fold-inner');
+      wrapper.find('.y-row-select__fold-inner');
       // 不强制要求按钮存在，因为这是正常的初始状态
     });
 
@@ -355,12 +357,12 @@ describe('YRowSelect', () => {
         expect(foldText.text()).toBe('展开更多');
       } else {
         // 如果按钮不存在，测试默认的折叠文字配置
-        expect(wrapper.vm.foldText).toBe('展开更多');
-        expect(wrapper.vm.unfoldText).toBe('收起');
+        expect(wrapper.props('foldText')).toBe('展开更多');
+        expect(wrapper.props('unfoldText')).toBe('收起');
       }
     });
 
-        it('应该测试showMore逻辑的边界情况', async () => {
+    it('应该测试showMore逻辑的边界情况', async () => {
       // 测试showMore的初始状态
       const wrapper = mount(YRowSelect, {
         props: {
@@ -432,7 +434,8 @@ describe('YRowSelect', () => {
           options: mockOptions
         },
         slots: {
-          default: '<template #default="{ label, value }"><span>{{ label }} - {{ value }}</span></template>'
+          default:
+            '<template #default="{ label, value }"><span>{{ label }} - {{ value }}</span></template>'
         }
       });
 
@@ -478,9 +481,9 @@ describe('YRowSelect', () => {
       await nextTick();
 
       expect(wrapper.emitted('update:modelValue')).toBeTruthy();
-      expect(wrapper.emitted('update:modelValue')![0]).toEqual(['']);
+      expect(wrapper.emitted('update:modelValue')![0][0]).toEqual('');
       expect(wrapper.emitted('change')).toBeTruthy();
-      expect(wrapper.emitted('change')![0]).toEqual(['']);
+      expect(wrapper.emitted('change')![0][0]).toEqual('');
     });
 
     it('应该支持reset方法', async () => {
@@ -496,9 +499,9 @@ describe('YRowSelect', () => {
       await nextTick();
 
       expect(wrapper.emitted('update:modelValue')).toBeTruthy();
-      expect(wrapper.emitted('update:modelValue')![0]).toEqual(['']);
+      expect(wrapper.emitted('update:modelValue')![0][0]).toEqual('');
       expect(wrapper.emitted('change')).toBeTruthy();
-      expect(wrapper.emitted('change')![0]).toEqual(['']);
+      expect(wrapper.emitted('change')![0][0]).toEqual('');
     });
 
     it('应该支持trigger方法', async () => {

@@ -14,7 +14,10 @@ export interface GroupSelectProps {
 }
 
 export interface GroupSelectEmits {
-  change: [value: string | number, item: GroupSelectOption, index: number];
+  'update:modelValue': [value: string | number];
+  change: [
+    payload: { value: string | number; item: GroupSelectOption; index: number; event: MouseEvent }
+  ];
 }
 
 export const groupSelectProps = {

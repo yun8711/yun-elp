@@ -2,6 +2,20 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import YButton from '../src/button.vue';
+import { useAppConfig } from '../../app-wrap/src/use-app-config';
+
+// Mock app-wrap配置
+vi.mock('../../app-wrap/src/use-app-config', () => ({
+  useAppConfig: vi.fn((key?: string) => {
+    if (key === 'button') {
+      return {
+        delay: 500,
+        maxWait: 1000
+      };
+    }
+    return {};
+  })
+}));
 
 describe('YButton 防抖按钮组件', () => {
   beforeEach(() => {
@@ -92,6 +106,7 @@ describe('YButton 防抖按钮组件', () => {
       const onClick = vi.fn();
       const wrapper = mount(YButton, {
         props: {
+          delay: 300, // 显式设置延迟时间，避免受Mock配置影响
           onClick
         }
       });
@@ -108,6 +123,7 @@ describe('YButton 防抖按钮组件', () => {
       const onClick = vi.fn();
       const wrapper = mount(YButton, {
         props: {
+          delay: 300, // 显式设置延迟时间，避免受Mock配置影响
           onClick
         }
       });
@@ -269,6 +285,7 @@ describe('YButton 防抖按钮组件', () => {
 
       const wrapper = mount(YButton, {
         props: {
+          delay: 300, // 显式设置延迟时间，避免受Mock配置影响
           onClick
         }
       });
@@ -283,6 +300,100 @@ describe('YButton 防抖按钮组件', () => {
       vi.advanceTimersByTime(100);
       await nextTick();
 
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('默认值测试', () => {
+    it('应该使用默认延迟300ms（无app-wrap配置时）', async () => {
+      // 测试目的：验证当没有传入delay且没有app-wrap配置时，组件使用硬编码默认延迟300ms
+      vi.mocked(useAppConfig).mockReturnValue({}); // 模拟无配置的情况
+
+      const onClick = vi.fn();
+      const wrapper = mount(YButton, {
+        props: {
+          onClick
+        }
+      });
+
+      await wrapper.trigger('click');
+      // 立即检查，应该还没有触发（因为默认延迟300ms）
+      expect(onClick).toHaveBeenCalledTimes(0);
+
+      // 等待默认防抖时间300ms
+      vi.advanceTimersByTime(300);
+      await nextTick();
+
+      // 应该触发一次
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('应该使用默认maxWait（无app-wrap配置时）', async () => {
+      // 测试目的：验证当没有传入maxWait且没有app-wrap配置时，组件使用硬编码默认maxWait（undefined）
+      vi.mocked(useAppConfig).mockReturnValue({}); // 模拟无配置的情况
+
+      const onClick = vi.fn();
+      const wrapper = mount(YButton, {
+        props: {
+          delay: 300,
+          onClick
+        }
+      });
+
+      // 快速连续点击多次
+      await wrapper.trigger('click');
+      await wrapper.trigger('click');
+      await wrapper.trigger('click');
+
+      // 等待超过默认maxWait的时间（应该没有限制）
+      vi.advanceTimersByTime(1000);
+      await nextTick();
+
+      // 由于没有maxWait限制，应该只触发一次
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('应该使用app-wrap配置的延迟时间', async () => {
+      // 测试目的：验证当没有传入delay时，组件使用app-wrap配置的延迟时间500ms
+      const onClick = vi.fn();
+      const wrapper = mount(YButton, {
+        props: {
+          onClick
+        }
+      });
+
+      await wrapper.trigger('click');
+      // 立即检查，应该还没有触发（因为配置延迟500ms）
+      expect(onClick).toHaveBeenCalledTimes(0);
+
+      // 等待配置的延迟时间500ms
+      vi.advanceTimersByTime(500);
+      await nextTick();
+
+      // 应该触发一次
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('应该使用app-wrap配置的maxWait时间', async () => {
+      // 测试目的：验证当没有传入maxWait时，组件使用app-wrap配置的maxWait时间1000ms
+      const onClick = vi.fn();
+      const wrapper = mount(YButton, {
+        props: {
+          delay: 300,
+          onClick
+        }
+      });
+
+      // 快速连续点击多次
+      await wrapper.trigger('click');
+      await wrapper.trigger('click');
+      await wrapper.trigger('click');
+
+      // 等待超过maxWait的时间1000ms
+      vi.advanceTimersByTime(1100);
+      await nextTick();
+
+      // 由于maxWait限制，应该至少触发一次
       expect(onClick).toHaveBeenCalledTimes(1);
     });
   });

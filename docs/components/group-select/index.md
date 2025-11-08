@@ -40,14 +40,14 @@ group-select/test
 
 ### Events
 
-| 事件名 | 说明           | 类型                                                                                               |
-| ------ | -------------- | -------------------------------------------------------------------------------------------------- |
-| change | 选择变化时触发 | ^[function]`(value: string \| number, item: GroupSelectOption, index: number, event:PointerEvent)` |
+| 事件名 | 说明           | 类型                                                                                                           |
+| ------ | -------------- | -------------------------------------------------------------------------------------------------------------- |
+| change | 选择变化时触发 | ^[function]`(payload: { value: string \| number, item: GroupSelectOption, index: number, event: MouseEvent })` |
 
 ### Slots
 
-| 插槽名  | 说明           | 参数                                         |
-| ------- | -------------- | -------------------------------------------- |
-| default | 自定义选项内容 | `{ item: GroupSelectOption, index: number }` |
-| icon    | 自定义图标     | —                                            |
-| loading | 自定义加载状态 | —                                            |
+| 插槽名  | 说明           | 参数                                                  |
+| ------- | -------------- | ----------------------------------------------------- |
+| default | 自定义选项内容 | ^[object]`{ item: GroupSelectOption, index: number }` |
+| icon    | 自定义图标     | —                                                     |
+| loading | 自定义加载状态 | —                                                     |

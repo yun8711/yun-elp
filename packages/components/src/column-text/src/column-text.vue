@@ -66,21 +66,25 @@ const mergedAttrs = computed(() => {
   return obj;
 });
 
+// 使用 computed 确保属性正确获取
+const propKey = computed(() => attrs.prop || 'name');
+
 const cellValue = (row: any) => {
-  return row[attrs.prop as string];
+  if (!row || !propKey.value) return '';
+  return row[propKey.value as string];
 }
 
 const formatterCellValue = (scope: any) => {
-  const { row } = scope;
+  const { row } = scope || {};
+  if (!row) return '';
   const value = cellValue(row);
   return formatter.value ? formatter.value(value, row, scope) : value;
 }
 
 const handleClick = (scope: any, event: MouseEvent) => {
-  if (link.value && hasExternalListener('click')) {
+  if (link.value && hasExternalListener('click') && scope) {
     const { row } = scope;
     emit('click', row, formatterCellValue(scope), scope, event);
   }
 }
-
 </script>

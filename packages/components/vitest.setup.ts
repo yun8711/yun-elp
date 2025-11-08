@@ -1,6 +1,9 @@
 import { beforeAll, afterEach, afterAll, vi } from 'vitest';
 import { config } from '@vue/test-utils';
 
+// Element Plus select 组件的注入 key
+const SELECT_INJECTION_KEY = Symbol('ElSelect');
+
 // 全局测试设置
 beforeAll(() => {
   // 设置测试环境变量
@@ -77,7 +80,7 @@ beforeAll(() => {
     },
     'el-input': {
       template:
-        '<input class="el-input__inner" v-bind="$attrs" :value="modelValue" @input="$emit(\'update:modelValue\', $event.target.value)" @blur="$emit(\'blur\', $event)" @focus="$emit(\'focus\', $event)" @change="$emit(\'change\', $event)" />',
+        '<div class="el-input" v-bind="$attrs"><div class="el-input__wrapper" tabindex="-1"><input class="el-input__inner" :value="modelValue" @input="$emit(\'update:modelValue\', $event.target.value)" @blur="$emit(\'blur\', $event)" @focus="$emit(\'focus\', $event)" @change="$emit(\'change\', $event)" /></div></div>',
       props: ['modelValue', 'placeholder', 'disabled', 'readonly', 'type'],
       emits: ['update:modelValue', 'blur', 'focus', 'change'],
       inheritAttrs: true
@@ -92,6 +95,30 @@ beforeAll(() => {
     'el-select': {
       template: '<div class="el-select" v-bind="$attrs"><slot></slot></div>',
       props: ['modelValue', 'placeholder', 'disabled', 'multiple', 'options'],
+      emits: ['update:modelValue', 'change'],
+      inheritAttrs: true,
+      provide() {
+        return {
+          [SELECT_INJECTION_KEY]: {
+            props: this.$props,
+            selectOption: () => {},
+            removeOption: () => {},
+            updateOptions: () => {}
+          }
+        };
+      }
+    },
+    'el-option': {
+      template: '<div class="el-option" v-bind="$attrs"></div>',
+      props: ['label', 'value', 'disabled'],
+      inheritAttrs: true,
+      inject: {
+        select: { from: SELECT_INJECTION_KEY, default: null }
+      }
+    },
+    'el-cascader': {
+      template: '<div class="el-cascader" v-bind="$attrs"></div>',
+      props: ['modelValue', 'options', 'placeholder', 'disabled'],
       emits: ['update:modelValue', 'change'],
       inheritAttrs: true
     },
@@ -117,6 +144,56 @@ beforeAll(() => {
     },
     'el-icon': {
       template: '<i class="el-icon" v-bind="$attrs"><slot></slot></i>',
+      inheritAttrs: true
+    },
+    'el-scrollbar': {
+      template:
+        '<div class="el-scrollbar" v-bind="$attrs"><div class="el-scrollbar__wrap" ref="wrapRef"><div class="el-scrollbar__view"><slot></slot></div></div><div class="el-scrollbar__bar is-horizontal"><div class="el-scrollbar__thumb"></div></div></div>',
+      props: [
+        'height',
+        'maxHeight',
+        'native',
+        'wrapStyle',
+        'wrapClass',
+        'viewStyle',
+        'viewClass',
+        'noresize',
+        'tag',
+        'always',
+        'minSize'
+      ],
+      data() {
+        return {
+          wrapRef: null
+        };
+      },
+      mounted() {
+        this.wrapRef = this.$refs.wrapRef;
+        if (this.wrapRef) {
+          // 使用Object.defineProperty来模拟DOM属性
+          Object.defineProperty(this.wrapRef, 'scrollLeft', {
+            value: 0,
+            writable: true
+          });
+          Object.defineProperty(this.wrapRef, 'scrollWidth', {
+            value: 200,
+            writable: true
+          });
+          Object.defineProperty(this.wrapRef, 'clientWidth', {
+            value: 100,
+            writable: true
+          });
+        }
+      },
+      methods: {
+        setScrollLeft(left: number) {
+          if (this.wrapRef) {
+            this.wrapRef.scrollLeft = left;
+            this.$emit('scroll', { scrollLeft: left });
+          }
+        }
+      },
+      emits: ['scroll'],
       inheritAttrs: true
     }
   };

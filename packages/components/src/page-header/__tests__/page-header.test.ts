@@ -1,23 +1,32 @@
 import { describe, it, expect, vi } from 'vitest';
-import { mount } from '@vue/test-utils';
+import { mount, flushPromises } from '@vue/test-utils';
 import YPageHeader from '../src/page-header.vue';
+import { useAppConfig } from '../../app-wrap/src/use-app-config';
+import { useRoute } from 'vue-router';
 
 // Mock vue-router
 vi.mock('vue-router', () => ({
-  useRoute: () => ({
+  useRoute: vi.fn(() => ({
     meta: {
       title: '路由标题'
     }
-  })
+  }))
 }));
 
 // Mock lodash-es
 vi.mock('lodash-es', () => ({
   get: (obj: any, path: string, defaultValue: any) => {
-    if (path === 'meta.title') {
-      return obj.meta?.title || defaultValue;
+    // Handle different path formats
+    const keys = path.split('.');
+    let value = obj;
+    for (const key of keys) {
+      if (value && typeof value === 'object' && key in value) {
+        value = value[key];
+      } else {
+        return defaultValue;
+      }
     }
-    return defaultValue;
+    return value;
   },
   isEmpty: (value: any) => {
     return value === undefined || value === null || value === '';
@@ -26,10 +35,33 @@ vi.mock('lodash-es', () => ({
 
 // Mock app-wrap配置
 vi.mock('../../app-wrap/src/use-app-config', () => ({
-  useAppConfig: () => ({})
+  useAppConfig: vi.fn((key?: string) => {
+    if (key === 'pageHeader') {
+      return {
+        height: '40px',
+        border: true,
+        paddingX: ['24px', '24px']
+      };
+    }
+    return {};
+  })
 }));
 
 describe('YPageHeader 组件测试', () => {
+  beforeEach(() => {
+    // 重置useAppConfig的mock到默认状态
+    vi.mocked(useAppConfig).mockImplementation((key?: string) => {
+      if (key === 'pageHeader') {
+        return {
+          height: '40px',
+          border: true,
+          paddingX: ['24px', '24px']
+        };
+      }
+      return {};
+    });
+  });
+
   describe('基础渲染测试', () => {
     it('应该正确渲染组件基础结构', () => {
       // 测试目的：验证组件的基础DOM结构是否正确渲染
@@ -58,6 +90,37 @@ describe('YPageHeader 组件测试', () => {
       const wrapper = mount(YPageHeader);
 
       expect(wrapper.find('.y-page-header__left-title').text()).toBe('路由标题');
+    });
+
+    it('应该使用app-wrap配置的titlePath获取标题', async () => {
+      // 测试目的：验证当appConfig有titlePath配置时，组件会从路由中按指定路径获取标题
+
+      // 先清除之前的mock
+      vi.mocked(useAppConfig).mockClear();
+      vi.mocked(useRoute).mockClear();
+
+      // Mock app config with titlePath
+      vi.mocked(useAppConfig).mockReturnValue({
+        height: '40px',
+        border: true,
+        paddingX: ['24px', '24px'],
+        titlePath: 'custom.title'
+      });
+
+      // Mock vue-router with custom title path
+      vi.mocked(useRoute).mockReturnValue({
+        meta: {
+          title: '路由标题',
+          custom: {
+            title: '自定义路径标题'
+          }
+        }
+      } as any);
+
+      const wrapper = mount(YPageHeader);
+      await flushPromises();
+
+      expect(wrapper.find('.y-page-header__left-title').text()).toBe('自定义路径标题');
     });
   });
 
@@ -193,23 +256,62 @@ describe('YPageHeader 组件测试', () => {
   });
 
   describe('默认值测试', () => {
-    it('应该使用默认高度40px', () => {
-      // 测试目的：验证当没有传入height时，组件使用默认高度40px
+    it('应该使用默认高度40px（无app-wrap配置时）', () => {
+      // 测试目的：验证当没有传入height且没有app-wrap配置时，组件使用硬编码默认高度40px
+      vi.mocked(useAppConfig).mockReturnValue({}); // 模拟无配置的情况
+
       const wrapper = mount(YPageHeader);
 
       const container = wrapper.find('.y-page-header');
       expect(container.attributes('style')).toContain('height: 40px');
     });
 
-    it('应该使用默认边框样式', () => {
-      // 测试目的：验证当没有传入border时，组件默认显示边框
-      const wrapper = mount(YPageHeader);
+    it('应该使用默认边框样式（无app-wrap配置时）', () => {
+      // 测试目的：验证当没有传入border且没有app-wrap配置时，组件默认显示边框
+      vi.mocked(useAppConfig).mockReturnValue({}); // 模拟无配置的情况
+
+      const wrapper = mount(YPageHeader, {
+        props: {
+          border: undefined
+        }
+      });
 
       expect(wrapper.find('.y-page-header--border').exists()).toBe(true);
     });
 
-    it('应该使用默认内边距24px', () => {
-      // 测试目的：验证当没有传入paddingX时，组件使用默认左右内边距24px
+    it('应该使用app-wrap配置的边框样式为true', () => {
+      // 测试目的：验证当没有传入border时，组件使用app-wrap配置的border值（true）
+      const wrapper = mount(YPageHeader, {
+        props: {
+          border: undefined
+        }
+      });
+
+      expect(wrapper.find('.y-page-header--border').exists()).toBe(true);
+    });
+
+    it('应该使用app-wrap配置的边框样式为false', () => {
+      // 测试目的：验证当app-wrap配置border为false时，组件不显示边框
+      vi.mocked(useAppConfig).mockClear();
+      vi.mocked(useAppConfig).mockReturnValue({
+        height: '40px',
+        border: false,
+        paddingX: ['24px', '24px']
+      });
+
+      const wrapper = mount(YPageHeader, {
+        props: {
+          border: undefined // 明确设置为undefined，让组件使用app-wrap配置
+        }
+      });
+
+      expect(wrapper.find('.y-page-header--border').exists()).toBe(false);
+    });
+
+    it('应该使用默认内边距24px（无app-wrap配置时）', () => {
+      // 测试目的：验证当没有传入paddingX且没有app-wrap配置时，组件使用默认左右内边距24px
+      vi.mocked(useAppConfig).mockReturnValue({}); // 模拟无配置的情况
+
       const wrapper = mount(YPageHeader);
 
       const container = wrapper.find('.y-page-header');
