@@ -41,7 +41,7 @@ defineOptions({
   inheritAttrs: true
 });
 
-const props = withDefaults(defineProps<AppWrapProps>(), defaultConfig);
+const props = withDefaults(defineProps<AppWrapProps>(), defaultConfig as any);
 
 // 深度合并props和默认配置，确保嵌套对象也能正确合并
 const mergedProps = computed(() => {
