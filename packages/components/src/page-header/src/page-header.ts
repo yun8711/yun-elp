@@ -20,7 +20,7 @@ export const pageHeaderProps = {
   },
   border: {
     type: Boolean as PropType<boolean>,
-    default: true
+    default: undefined
   },
   paddingX: {
     type: [String, Array] as PropType<string | [string, string]>,

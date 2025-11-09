@@ -129,6 +129,30 @@ beforeAll(() => {
         select: { from: SELECT_INJECTION_KEY, default: null }
       }
     },
+    'el-cascader': {
+      template: '<div class="el-cascader" v-bind="$attrs"></div>',
+      props: ['modelValue', 'options', 'placeholder', 'disabled'],
+      emits: ['update:modelValue', 'change'],
+      inheritAttrs: true,
+      provide() {
+        return {
+          [SELECT_INJECTION_KEY]: {
+            props: this.$props,
+            selectOption: () => {},
+            removeOption: () => {},
+            updateOptions: () => {}
+          }
+        };
+      }
+    },
+    'el-option': {
+      template: '<div class="el-option" v-bind="$attrs"></div>',
+      props: ['label', 'value', 'disabled'],
+      inheritAttrs: true,
+      inject: {
+        select: { from: SELECT_INJECTION_KEY, default: null }
+      }
+    },
     'el-radio-group': {
       template: '<div class="el-radio-group" v-bind="$attrs"><slot></slot></div>',
       props: ['modelValue', 'disabled'],

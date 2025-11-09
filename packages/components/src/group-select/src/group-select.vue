@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { groupSelectProps, type GroupSelectOption } from './group-select';
+import { groupSelectProps, type GroupSelectOption, type GroupSelectEmits } from './group-select';
 
 defineOptions({
   name: 'YGroupSelect',
@@ -30,7 +30,7 @@ defineOptions({
 });
 
 const props = defineProps(groupSelectProps);
-const emit = defineEmits(['update:modelValue', 'change']);
+const emit = defineEmits<GroupSelectEmits>();
 
 const onClick = (value: string | number, item: GroupSelectOption, index: number, event: MouseEvent) => {
   if (value === props.modelValue) {
@@ -46,5 +46,4 @@ const onClick = (value: string | number, item: GroupSelectOption, index: number,
     }
   );
 };
-
 </script>

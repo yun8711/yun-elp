@@ -1,5 +1,8 @@
 <template>
-  <div class="y-page-header" :class="{ 'y-page-header--border': showBorder }" :style="containerStyle">
+  <div
+    class="y-page-header"
+    :class="{ 'y-page-header--border': showBorder }"
+    :style="containerStyle">
     <div class="y-page-header__left">
       <div class="y-page-header__left-title" :style="titleStyle">
         <slot name="title">
@@ -32,7 +35,6 @@ defineOptions({
 const props = withDefaults(defineProps<PageHeaderProps>(), {
   title: '',
   titleStyle: () => ({}),
-  border: true
 });
 
 // 从app-wrap配置中获取默认值
@@ -40,12 +42,24 @@ const appConfig = useAppConfig('pageHeader');
 
 // 计算显示的高度
 const displayHeight = computed(() => {
-  return props.height ?? appConfig?.height ?? '40px';
+  if (props.height !== undefined && props.height !== null && props.height !== '') {
+    return props.height;
+  }
+  if (appConfig?.height !== undefined && appConfig?.height !== null && appConfig?.height !== '') {
+    return appConfig.height;
+  }
+  return '40px';
 });
 
 // 计算是否显示边框
 const showBorder = computed(() => {
-  return props.border ?? appConfig?.border ?? true;
+  if (props.border !== undefined) {
+    return props.border;
+  }
+  if (appConfig?.border !== undefined) {
+    return appConfig.border;
+  }
+  return true;
 });
 
 // 计算内边距, 支持字符串、数字、数组, 数组格式为 [left, right],转换为字符串

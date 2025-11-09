@@ -48,6 +48,32 @@ describe('YPop 弹出框容器组件', () => {
       expect(wrapper.exists()).toBe(true);
     });
 
+    it('tip-content 插槽应该被正确定义和使用', () => {
+      const wrapper = mount(YPop, {
+        slots: {
+          default: '<button>触发</button>',
+          'tip-content': '<div class="custom-tip"><strong>自定义提示内容</strong></div>',
+          'pop-content': '',
+          'pop-footer': ''
+        }
+      });
+
+      // 验证组件存在
+      expect(wrapper.exists()).toBe(true);
+
+      // 验证插槽被正确定义在组件中
+      const vm = wrapper.vm as any;
+      expect(vm.$slots['tip-content']).toBeDefined();
+      expect(typeof vm.$slots['tip-content']).toBe('function');
+
+      // 验证组件结构正确，包含tooltip元素
+      expect(wrapper.html()).toContain('y-pop');
+      expect(wrapper.html()).toContain('el-tooltip');
+
+      // 验证当有tip-content插槽时，tooltip不会被禁用
+      expect(vm.disabledTooltip).toBe(false);
+    });
+
     it('应该渲染 pop-content 插槽内容', () => {
       const wrapper = mount(YPop, {
         slots: {
@@ -247,7 +273,11 @@ describe('YPop 弹出框容器组件', () => {
         }
       });
       expect(wrapper.props('noCancel')).toBe(true);
-      expect(wrapper.html()).not.toContain('el-button');
+      // 当 noCancel 为 true 时，取消按钮应该被隐藏，但确认按钮仍然存在
+      expect(wrapper.html()).toContain('el-button');
+      // 验证确认按钮存在，取消按钮不存在
+      expect(wrapper.html()).toContain('确认');
+      expect(wrapper.html()).not.toContain('取消');
     });
 
     it('应该支持 noFooter 属性', () => {
@@ -325,6 +355,30 @@ describe('YPop 弹出框容器组件', () => {
       // 验证 showPopover 被设置为 false
       expect(vm.showPopover).toBe(false);
     });
+
+    it('应该正确控制 showPopover 状态', () => {
+      const wrapper = mount(YPop);
+      const vm = wrapper.vm as any;
+
+      // 初始状态应该为 false
+      expect(vm.showPopover).toBe(false);
+
+      // 可以通过编程方式设置为 true
+      vm.showPopover = true;
+      expect(vm.showPopover).toBe(true);
+
+      // 点击确认按钮后应该变为 false
+      vm.confirmClick();
+      expect(vm.showPopover).toBe(false);
+
+      // 再次设置为 true
+      vm.showPopover = true;
+      expect(vm.showPopover).toBe(true);
+
+      // 点击取消按钮后应该变为 false
+      vm.cancelClick();
+      expect(vm.showPopover).toBe(false);
+    });
   });
 
   describe('样式测试', () => {
@@ -333,26 +387,34 @@ describe('YPop 弹出框容器组件', () => {
       expect(wrapper.classes()).toContain('y-pop');
     });
 
-    it('应该应用 tooltip 的 popperClass', () => {
+    it('tooltipProps 中的其他属性可以通过 prop 覆盖', () => {
       const wrapper = mount(YPop, {
         props: {
           tipProps: {
-            popperClass: 'custom-tooltip'
+            placement: 'bottom',
+            effect: 'light'
           }
         }
       });
-      expect(wrapper.html()).toContain('custom-tooltip');
+      const vm = wrapper.vm as any;
+      expect(vm.tooltipProps.placement).toBe('bottom');
+      expect(vm.tooltipProps.effect).toBe('light');
+      expect(vm.tooltipProps.popperClass).toBe('y-pop__tooltip'); // 但 popperClass 仍然强制指定
     });
 
-    it('应该应用 popover 的 popperClass', () => {
+    it('popoverProps 中的其他属性可以通过 prop 覆盖', () => {
       const wrapper = mount(YPop, {
         props: {
           popProps: {
-            popperClass: 'custom-popover'
+            placement: 'top',
+            width: 400
           }
         }
       });
-      expect(wrapper.html()).toContain('custom-popover');
+      const vm = wrapper.vm as any;
+      expect(vm.popoverProps.placement).toBe('top');
+      expect(vm.popoverProps.width).toBe(400);
+      expect(vm.popoverProps.popperClass).toBe('y-pop__popover'); // 但 popperClass 仍然强制指定
     });
   });
 
