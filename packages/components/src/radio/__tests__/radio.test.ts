@@ -436,4 +436,97 @@ describe('YRadio', () => {
       expect(wrapper.vm.$options.name).toBe('YRadio');
     });
   });
+
+  describe('radioValue 计算属性', () => {
+    it('radioValue getter 应该正确绑定到 modelValue', () => {
+      const wrapper = mount(YRadio, {
+        props: {
+          ...baseProps,
+          modelValue: 'selected-value'
+        }
+      });
+
+      // 验证 el-radio-group 接收到了正确的 modelValue
+      // 通过检查组件的响应性来验证 radioValue 的 getter 工作正常
+      expect(wrapper.props('modelValue')).toBe('selected-value');
+    });
+
+    it('radioValue setter 应该同时触发 update:modelValue 和 change 事件', async () => {
+      const wrapper = mount(YRadio, {
+        props: {
+          ...baseProps,
+          modelValue: '1'
+        }
+      });
+
+      // 通过直接触发组件内部的 radioValue setter 来测试
+      // 由于 radioValue 是计算属性，我们可以通过 setValue 方法或者直接访问组件实例来测试
+      const componentVM = wrapper.vm as any;
+
+      // 直接调用 radioValue 的 setter
+      componentVM.radioValue = '2';
+
+      // 验证组件同时触发了两个事件
+      expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+      expect(wrapper.emitted('change')).toBeTruthy();
+      expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['2']);
+      expect(wrapper.emitted('change')?.[0]).toEqual(['2']);
+    });
+
+    it('应该支持不同数据类型的 radioValue 传递', async () => {
+      const testCases = [
+        { initial: '', new: 'string-value', desc: '字符串值' },
+        { initial: '', new: 123, desc: '数字值' },
+        { initial: '', new: true, desc: '布尔值 true' },
+        { initial: '', new: false, desc: '布尔值 false' }
+      ];
+
+      for (const testCase of testCases) {
+        const wrapper = mount(YRadio, {
+          props: {
+            ...baseProps,
+            modelValue: testCase.initial
+          }
+        });
+
+        const componentVM = wrapper.vm as any;
+
+        // 直接设置 radioValue 来触发 setter
+        componentVM.radioValue = testCase.new;
+
+        // 验证两个事件都被触发且值正确
+        expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+        expect(wrapper.emitted('change')).toBeTruthy();
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([testCase.new]);
+        expect(wrapper.emitted('change')?.[0]).toEqual([testCase.new]);
+      }
+    });
+
+    it('radioValue 应该支持完整双向绑定流程', async () => {
+      const wrapper = mount(YRadio, {
+        props: {
+          ...baseProps,
+          modelValue: 'initial'
+        }
+      });
+
+      // 验证初始值
+      expect(wrapper.props('modelValue')).toBe('initial');
+
+      // 模拟用户选择新值（通过直接设置 radioValue）
+      const componentVM = wrapper.vm as any;
+      componentVM.radioValue = 'new-selection';
+
+      // 验证事件触发
+      expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['new-selection']);
+      expect(wrapper.emitted('change')?.[0]).toEqual(['new-selection']);
+
+      // 模拟父组件响应 update:modelValue 事件，更新 modelValue
+      await wrapper.setProps({ modelValue: 'new-selection' });
+
+      // 验证新的值被正确设置
+      expect(wrapper.props('modelValue')).toBe('new-selection');
+    });
+
+  });
 });

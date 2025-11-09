@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from '@vue/runtime-core';
-import type { YSelectProps, SelectOption } from './select';
+import type { YSelectProps, SelectOption, SelectEmits } from './select';
 import { isPlainObject } from 'lodash-es';
 
 defineOptions({
@@ -67,9 +67,7 @@ const getOptions = (options: SelectOption[]) => {
   );
 };
 
-const emit = defineEmits<{
-  'update:modelValue': [value: any];
-}>();
+const emit = defineEmits<SelectEmits>();
 
 // 计算属性
 const modelValue = computed({
@@ -80,15 +78,11 @@ const modelValue = computed({
 // 获取 el-select 的引用
 const selectRef = ref();
 
-// 暴露 el-select 的方法
-defineExpose({
-  // 聚焦方法
-  focus: () => selectRef.value?.focus?.(),
-  // 失焦方法
-  blur: () => selectRef.value?.blur?.(),
-  // 获取当前选中的标签
-  getSelectedLabel: () => selectRef.value?.selectedLabel,
-  // 获取 el-select 实例，以便访问其他方法
-  getSelectInstance: () => selectRef.value
-});
+// 自动代理 el-select 的所有方法
+defineExpose(
+  new Proxy({}, {
+    get: (_target, key) => selectRef.value?.[key as keyof typeof selectRef.value],
+    has: (_target, key) => key in (selectRef.value || {})
+  })
+);
 </script>

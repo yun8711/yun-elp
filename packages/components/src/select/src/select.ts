@@ -1,5 +1,20 @@
 import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
 
+// emits接口 - 包含我们新增的事件和透传的el-select事件
+export interface SelectEmits {
+  // 新增的事件
+  'update:modelValue': [value: any];
+
+  // 透传的el-select事件
+  change: [value: any];
+  'visible-change': [visible: boolean];
+  'remove-tag': [tag: any];
+  clear: [];
+  blur: [event: FocusEvent];
+  focus: [event: FocusEvent];
+  'popup-scroll': [event: Event];
+}
+
 // 选项:如果为对象则与 el-option 的属性保持一致，也支持其他简单类型，会自动转换为对象
 export type SelectOption =
   | any
@@ -41,12 +56,6 @@ export const selectProps = {
   }
 } as const;
 
-// 暴露的方法类型
-export interface SelectExposes {
-  focus: () => void;
-  blur: () => void;
-  getSelectedLabel: () => string;
-  getSelectInstance: () => any;
-}
+// 使用 Proxy 自动代理 el-select 的所有方法，无需预定义接口
 
 export type SelectInstance = ExtractPublicPropTypes<typeof selectProps>;
