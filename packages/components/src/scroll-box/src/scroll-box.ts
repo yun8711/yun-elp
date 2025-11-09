@@ -86,7 +86,7 @@ export const scrollBoxProps = {
   },
   continuousStep: {
     type: Number,
-    default: 30
+    default: 20
   }
 } as const;
 

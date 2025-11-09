@@ -134,7 +134,7 @@ defineOptions({
 const props = withDefaults(defineProps<TableSearchProps>(), {
   foldText: '',
   unFoldText: '',
-  defaultFold: false,
+  defaultFold: true,
   duration: 0.2,
   disabledFirst: true,
   clearOnFold: true

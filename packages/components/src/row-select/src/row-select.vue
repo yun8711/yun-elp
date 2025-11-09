@@ -7,14 +7,12 @@
       '--item-width': itemWidth,
       '--height': isFold ? minHeight + 'px' : maxHeight + 'px',
       '--gap': gap
-    }"
-  >
+    }">
     <!-- 左侧 label -->
     <div
       class="y-row-select__label"
       :class="{ 'y-row-select__label--separator': props.separator }"
-      :style="labelStyles"
-    >
+      :style="labelStyles">
       {{ props.labelText }}
     </div>
 
@@ -27,8 +25,7 @@
             class="y-row-select__item"
             :class="{ 'is-active': selectAll }"
             :style="optionsItemStyles"
-            data-index="$all"
-          >
+            data-index="$all">
             <slot name="all">
               {{ props.allText }}
             </slot>
@@ -49,8 +46,7 @@
             item[props.defineProps?.disabled || 'disabled']
               ? undefined
               : item[props.defineProps?.value || 'value']
-          "
-        >
+          ">
           <div class="y-row-select__item-text">
             <slot v-bind="item" :index="index">
               {{ item[props.defineProps?.label || 'label'] }}
@@ -66,9 +62,8 @@
         v-if="showMore"
         class="y-row-select__fold-inner"
         :style="btnStyles"
-        @click="() => trigger()"
-      >
-        <el-icon class="el-icon--right" :class="{ 'el-icon--right--reverse': !isFold }">
+        @click="() => trigger()">
+        <el-icon v-if="props.showIcon" class="el-icon--right" :class="{ 'el-icon--right--reverse': !isFold }">
           <ArrowDown />
         </el-icon>
         <div class="y-row-select__fold-text">
@@ -157,7 +152,9 @@ const itemHeight = computed(() => {
 // 选项间距
 const gap = computed(() => {
   const gapArr = props.gap.split(',');
-  return gapArr.map((item: string) => (item.match(/^\d+$/) ? item + 'px' : item)).join(' ');
+  const processedGap = gapArr.map((item: string) => (item.match(/^\d+$/) ? item + 'px' : item));
+  // 确保至少有两个值，第二个值默认为第一个值
+  return [processedGap[0], processedGap[1] || processedGap[0]].join(' ');
 });
 // 垂直间距，用于计算高度,去除单位，返回数字
 const rowGap = computed(() => {
@@ -175,12 +172,13 @@ const optionsItemStyles = computed(() => {
   };
 });
 
-// 是否选中“全部”
+// 是否选中"全部"
 const selectAll = computed(() => {
   let b = true;
   if (props.showAll) {
     if (!props.single) {
-      b = (props.modelValue as any[])?.length === 0;
+      // 在多选模式下，当 keySet 为空或者 modelValue 为空数组时，认为"全部"被选中
+      b = keySet.value.size === 0 || (props.modelValue as any[])?.length === 0;
     } else {
       // 修复：在单选模式下，需要区分 0 和空字符串
       // 当 modelValue 为 undefined、null、空字符串时，才认为是选中"全部"
@@ -252,9 +250,13 @@ const onItemClick = (e: Event) => {
 
   if (!props.single) {
     if (key === '$all') {
-      // 选中“全部”时，清空选中项
+      // 选中"全部"时，清空选中项
       keySet.value.clear();
       res = [];
+      // 强制触发响应式更新，确保 selectAll 计算属性重新计算
+      nextTick(() => {
+        // 这里不需要做任何事，只是为了触发响应式更新
+      });
     } else {
       // 统一使用字符串进行匹配
       const option = props.options.find((item: any) => {
@@ -406,14 +408,24 @@ defineExpose({
   trigger,
   clear: () => {
     keySet.value.clear();
-    selectedKey.value = '';
-    emit('change', '');
+    if (!props.single) {
+      emit('update:modelValue', []);
+      emit('change', []);
+    } else {
+      emit('update:modelValue', '');
+      emit('change', '');
+    }
   },
   reset: () => {
     isFold.value = true;
     keySet.value.clear();
-    selectedKey.value = '';
-    emit('change', '');
+    if (!props.single) {
+      emit('update:modelValue', []);
+      emit('change', []);
+    } else {
+      emit('update:modelValue', '');
+      emit('change', '');
+    }
   }
 });
 </script>

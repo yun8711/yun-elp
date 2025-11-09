@@ -67,17 +67,27 @@ const mergedAttrs = computed(() => {
 });
 
 const cellValue = (row: any) => {
+  if (!row) return '';
   return row[attrs.prop as string];
 }
 
 const formatterCellValue = (scope: any) => {
   const { row } = scope;
   const value = cellValue(row);
-  return formatter.value ? formatter.value(value, row, scope) : value;
+  if (formatter.value) {
+    try {
+      return formatter.value(value, row, scope);
+    } catch (error) {
+      // 如果formatter抛出异常，返回原始值
+      console.warn('[YColumnText] formatter函数执行出错:', error);
+      return value;
+    }
+  }
+  return value;
 }
 
 const handleClick = (scope: any, event: MouseEvent) => {
-  if (link.value && hasExternalListener('click')) {
+  if (link.value && hasExternalListener('click') && scope) {
     const { row } = scope;
     emit('click', row, formatterCellValue(scope), scope, event);
   }

@@ -5,10 +5,12 @@ import { appConfigKey } from '../../app-wrap/src/use-app-config';
 
 // 通用的全局 stubs，确保可点击与读取样式
 const globalStubs = {
-  // 将 el-dialog 简化为容器，透传 attrs 与插槽
+  // 将 el-dialog 简化为容器，支持 v-model 并透传 attrs 与插槽
   'el-dialog': {
+    props: ['modelValue'],
+    emits: ['update:modelValue'],
     template:
-      '<div class="el-dialog" v-bind="$attrs"><slot name="header"></slot><slot></slot><slot name="footer"></slot></div>'
+      '<div class="el-dialog" :modelvalue="modelValue ? \'true\' : \'false\'" v-bind="$attrs"><slot name="header"></slot><slot></slot><slot name="footer"></slot></div>'
   },
   // 用原生 button 模拟 y-button，便于触发 click 与读取文本/属性
   'y-button': {
@@ -160,6 +162,76 @@ describe('YDialog', () => {
     });
     const style = wrapper.find('.el-dialog').attributes('style') || '';
     expect(style.replace(/\s/g, '')).toContain('--body-max-height:300px');
+  });
+
+  it('dialogVisible 与 el-dialog 的 v-model 正确绑定', async () => {
+    const wrapper = mount(YDialog, {
+      props: { modelValue: false },
+      global: { stubs: globalStubs }
+    });
+
+    // 测试 modelValue=false 时，el-dialog 的 modelValue 应该是 false
+    expect(wrapper.find('.el-dialog').attributes('modelvalue')).toBe('false');
+
+    // 更新 props，验证响应性
+    await wrapper.setProps({ modelValue: true });
+    expect(wrapper.find('.el-dialog').attributes('modelvalue')).toBe('true');
+  });
+
+  it('dialogVisible computed 属性正确响应外部更新', async () => {
+    const wrapper = mount(YDialog, {
+      props: { modelValue: true },
+      global: { stubs: globalStubs }
+    });
+
+    // 验证初始状态
+    expect(wrapper.find('.el-dialog').attributes('modelvalue')).toBe('true');
+
+    // 模拟父组件更新 modelValue（比如点击外部关闭按钮）
+    await wrapper.setProps({ modelValue: false });
+
+    // 验证 el-dialog 接收到新的值
+    expect(wrapper.find('.el-dialog').attributes('modelvalue')).toBe('false');
+  });
+
+  it('dialogVisible 作为受控组件的完整双向绑定测试', async () => {
+    const onUpdateModelValue = vi.fn();
+    const wrapper = mount(YDialog, {
+      props: {
+        modelValue: true,
+        'onUpdate:modelValue': onUpdateModelValue
+      },
+      global: { stubs: globalStubs }
+    });
+
+    // 验证初始状态
+    expect(wrapper.find('.el-dialog').attributes('modelvalue')).toBe('true');
+
+    // 模拟用户通过其他方式关闭 dialog（比如点击确认按钮）
+    const confirmButton = wrapper.findAll('button.y-button')[0];
+    await confirmButton.trigger('click');
+
+    // 验证触发了 update:modelValue 事件
+    expect(onUpdateModelValue).toHaveBeenCalledWith(false);
+  });
+
+  it('el-dialog 的 v-model 变化时触发 dialogVisible setter（点击关闭按钮或遮罩）', async () => {
+    const onUpdateModelValue = vi.fn();
+    const wrapper = mount(YDialog, {
+      props: {
+        modelValue: true,
+        'onUpdate:modelValue': onUpdateModelValue
+      },
+      global: { stubs: globalStubs }
+    });
+
+    // 模拟 el-dialog 触发 update:modelValue 事件（比如点击关闭按钮）
+    // 直接设置 dialogVisible 来触发 setter（这会模拟 v-model 的双向绑定）
+    wrapper.vm.dialogVisible = false;
+
+    // 验证触发了父组件的 update:modelValue 监听器
+    expect(onUpdateModelValue).toHaveBeenCalledWith(false);
+    expect(onUpdateModelValue).toHaveBeenCalledTimes(1);
   });
 });
 

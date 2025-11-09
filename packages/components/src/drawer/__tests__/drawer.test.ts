@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import YDrawer from '../src/drawer.vue';
@@ -217,5 +217,24 @@ describe('YDrawer', () => {
     // 挂载后应可访问到（可能为 null 或子组件实例，视运行时而定）
     // 仅校验不为 undefined
     expect(vmAny.drawerRef).not.toBeUndefined();
+  });
+
+  it('el-drawer 的 v-model 变化时触发 drawerVisible setter（点击关闭按钮或遮罩）', async () => {
+    const onUpdateModelValue = vi.fn();
+    const wrapper = mount(YDrawer, {
+      props: {
+        modelValue: true,
+        'onUpdate:modelValue': onUpdateModelValue
+      },
+      global: { stubs: globalStubs }
+    });
+
+    // 模拟 el-drawer 触发 update:modelValue 事件（比如点击关闭按钮）
+    // 直接设置 drawerVisible 来触发 setter（这会模拟 v-model 的双向绑定）
+    wrapper.vm.drawerVisible = false;
+
+    // 验证触发了父组件的 update:modelValue 监听器
+    expect(onUpdateModelValue).toHaveBeenCalledWith(false);
+    expect(onUpdateModelValue).toHaveBeenCalledTimes(1);
   });
 });

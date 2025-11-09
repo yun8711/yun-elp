@@ -1,11 +1,11 @@
 <template>
   <div ref="chartWrapperRef" v-loading="loading" class="y-echarts">
-    <div ref="chartRef" :style="{ width: width + 'px', height: height + 'px' }" />
+    <div ref="chartRef" :style="chartStyle" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { toRefs, useTemplateRef, onMounted, onUnmounted, watch, nextTick } from '@vue/runtime-core';
+import { toRefs, useTemplateRef, onMounted, onUnmounted, watch, nextTick, computed } from '@vue/runtime-core';
 import { useElementSize } from '@vueuse/core';
 import { echartsProps } from './echarts';
 import { EchartsLoader } from './echarts-loader';
@@ -25,11 +25,17 @@ let chartInstance: any = null;
 // 使用 useElementSize 自动获取容器尺寸
 const { width, height } = useElementSize(chartWrapperRef);
 
+// 图表容器样式
+const chartStyle = computed(() => ({
+  width: `${width.value}px`,
+  height: `${height.value}px`
+}));
+
 // 初始化图表
 async function initChart() {
   if (!chartRef.value) return;
   try {
-    const { init } = await import('echarts/core');
+    const { init, use } = await import('echarts/core');
     const loader = EchartsLoader.getInstance();
 
     // 合并各类配置
@@ -50,16 +56,19 @@ async function initChart() {
       features: [...(echartsConfig?.value?.features || []), ...(config.value?.features || [])]
     };
 
-    await loader.preloadModules(configModules);
+    // 加载并注册模块
+    const modulesToLoad = await loader.preloadModules(configModules);
+    if (modulesToLoad.length > 0) {
+      use(modulesToLoad);
+    }
 
     chartInstance = init(chartRef.value, config.value?.theme || echartsConfig?.value?.theme, {
       renderer: 'canvas',
       ...(config.value?.initOpts || echartsConfig?.value?.initOpts || {})
     });
 
-    if (option.value) {
-      chartInstance.setOption(option.value);
-    }
+    // 总是设置初始 option，即使是空对象
+    chartInstance.setOption(option.value || {});
   } catch (error) {
     console.error('ECharts初始化失败:', error);
   }
@@ -76,22 +85,24 @@ function destroyChart() {
 // 监听配置变化
 watch(
   () => option.value,
-  (newVal: any) => {
-    if (chartInstance && newVal) {
-      chartInstance.setOption(newVal, false);
+  (newVal: any, oldVal: any) => {
+    if (chartInstance && newVal !== oldVal) {
+      chartInstance.setOption(newVal || {}, false);
     }
   },
   { deep: true }
 );
 
 // 监听容器尺寸变化，自动调整图表大小
-watch([width, height], () => {
-  nextTick(() => {
-    if (chartInstance) {
+watch([width, height], ([newWidth, newHeight]) => {
+  // 确保尺寸是有效的数字
+  if (typeof newWidth === 'number' && typeof newHeight === 'number' &&
+      newWidth > 0 && newHeight > 0 && chartInstance) {
+    nextTick(() => {
       chartInstance.resize();
-    }
-  });
-});
+    });
+  }
+}, { immediate: false });
 
 onMounted(() => {
   nextTick(() => {

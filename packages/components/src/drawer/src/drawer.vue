@@ -100,15 +100,21 @@ const titleStyle = computed(() => {
 });
 
 const confirmBtnProps = computed(() => {
+  const defaultProps = { type: 'primary' };
+  const configProps = drawerConfig?.confirmProps || {};
   return {
-    type: 'primary',
+    ...defaultProps,
+    ...configProps,
     ...props.confirmProps
   };
 });
 
 const cancelBtnProps = computed(() => {
+  const defaultProps = { type: 'default' };
+  const configProps = drawerConfig?.cancelProps || {};
   return {
-    type: 'default',
+    ...defaultProps,
+    ...configProps,
     ...props.cancelProps
   };
 });

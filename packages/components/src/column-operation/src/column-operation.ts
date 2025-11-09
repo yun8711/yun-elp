@@ -29,10 +29,8 @@ export interface ColumnOperationItemType {
   disabled?:
     | ColumnOperationItemDisabledReturn
     | ((scope: TableItemScope, item: ColumnOperationItemType) => ColumnOperationItemDisabledReturn);
-  // 按钮是否显示，但是仍会占位
+  // 按钮是否显示
   show?: boolean | ((scope: TableItemScope, item: ColumnOperationItemType) => boolean);
-  // 按钮是否隐藏
-  hide?: boolean | ((scope: TableItemScope, item: ColumnOperationItemType) => boolean);
   // 是否以dropdown的形式展示
   dropdown?: boolean | ((scope: TableItemScope, item: ColumnOperationItemType) => boolean);
   // 是否显示popover，默认不显示

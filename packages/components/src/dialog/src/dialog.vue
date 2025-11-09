@@ -108,22 +108,22 @@ const titleStyle = computed(() => {
 });
 
 const confirmBtnProps = computed(() => {
+  const defaultProps = { type: 'primary' };
   const configProps = dialogConfig?.confirmProps || {};
-  const propProps = props.confirmProps || {};
   return {
-    type: 'primary',
+    ...defaultProps,
     ...configProps,
-    ...propProps
+    ...props.confirmProps
   };
 });
 
 const cancelProps = computed(() => {
+  const defaultProps = { type: 'default' };
   const configProps = dialogConfig?.cancelProps || {};
-  const propProps = props.cancelProps || {};
   return {
-    type: 'default',
+    ...defaultProps,
     ...configProps,
-    ...propProps
+    ...props.cancelProps
   };
 });
 

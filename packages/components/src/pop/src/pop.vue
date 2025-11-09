@@ -12,7 +12,12 @@
             <p>{{ popoverProps.content }}</p>
             <div v-if="!props.noFooter" class="y-pop__popover-footer">
               <slot name="pop-footer">
-                <y-button v-if="!props.noCancel" v-bind="cancelProps" @click="cancelClick">{{ cancelText }}</y-button>
+                <y-button
+                  v-if="!props.noCancel"
+                  v-bind="cancelProps"
+                  @click="cancelClick"
+                  >{{ cancelText }}</y-button
+                >
                 <y-button v-if="!props.noConfirm" v-bind="confirmBtnProps" @click="confirmClick">
                   {{ confirmText }}
                 </y-button>
@@ -63,6 +68,7 @@ const confirmText = computed(() => {
   return props?.confirmText || popConfig?.confirmText || t('common.confirm')
 })
 
+// 确认按钮属性
 const confirmBtnProps = computed(() => {
   const configProps = popConfig?.confirmProps || {};
   const propProps = props.confirmProps || {};
@@ -78,6 +84,7 @@ const cancelText = computed(() => {
   return props?.cancelText || popConfig?.cancelText || t('common.cancel')
 })
 
+// 取消按钮属性
 const cancelProps = computed(() => {
   const configProps = popConfig?.cancelProps || {};
   const propProps = props.cancelProps || {};
@@ -103,10 +110,11 @@ const confirmClick = () => {
   showPopover.value = false
 }
 
-
+// tooltip属性合并计算
 const tooltipProps = computed(() => {
   const configProps = popConfig?.tipProps || {};
   const propProps = props.tipProps || {};
+
   return {
     content: props.tipContent || "",
     placement: popConfig?.tipPlacement || props.tipPlacement || 'top',
@@ -125,6 +133,7 @@ const showPopover = ref(false);
 const popoverProps = computed(() => {
   const configProps = popConfig?.popProps || {};
   const propProps = props.popProps || {};
+
   return {
     placement: popConfig?.popPlacement || props?.popPlacement || 'bottom',
     width: popConfig?.popWidth ?? props?.popWidth ?? 226,

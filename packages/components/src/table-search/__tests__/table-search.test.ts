@@ -182,6 +182,64 @@ describe('YTableSearch', () => {
       expect(vm.form.date).toEqual([]);
     });
 
+    it('应该正确设置ElInputNumber、ElTimePicker、ElTreeSelect的默认值', () => {
+      const options: TableSearchOption[] = [
+        {
+          prop: 'inputNumber',
+          label: '数字输入',
+          comp: markRaw({ name: 'ElInputNumber' } as any),
+          first: true
+        },
+        {
+          prop: 'timePicker',
+          label: '时间选择',
+          comp: markRaw({ name: 'ElTimePicker' } as any),
+          innerAttrs: {
+            isRange: false
+          }
+        },
+        {
+          prop: 'timePickerRange',
+          label: '时间范围选择',
+          comp: markRaw({ name: 'ElTimePicker' } as any),
+          innerAttrs: {
+            isRange: true
+          }
+        },
+        {
+          prop: 'treeSelect',
+          label: '树形选择',
+          comp: markRaw({ name: 'ElTreeSelect' } as any),
+          innerAttrs: {
+            multiple: false
+          }
+        },
+        {
+          prop: 'treeSelectMultiple',
+          label: '树形多选',
+          comp: markRaw({ name: 'ElTreeSelect' } as any),
+          innerAttrs: {
+            multiple: true
+          }
+        }
+      ];
+
+      wrapper = mount(YTableSearch, {
+        props: { options },
+        global: {
+          components: globalComponents
+        }
+      });
+
+      // 验证表单数据初始化
+      const vm = wrapper.vm;
+      expect(vm.form.inputNumber).toBeNull();
+      expect(vm.form.timePicker).toBe('');
+      expect(vm.form.timePickerRange).toEqual([]);
+      expect(vm.form.treeSelect).toBe('');
+      expect(vm.form.treeSelectMultiple).toEqual([]);
+    });
+
     it('应该处理组件为null的情况，使用默认ElInput', () => {
       const options: TableSearchOption[] = [
         {
@@ -821,6 +879,143 @@ describe('YTableSearch', () => {
       await flushPromises();
 
       expect(onChange).toHaveBeenCalledWith({ name: '新值' });
+    });
+
+    it('应该正确格式化表单数据（无valueFormat）', () => {
+      const options: TableSearchOption[] = [
+        {
+          prop: 'name',
+          label: '姓名',
+          first: true
+        },
+        {
+          prop: 'age',
+          label: '年龄'
+        }
+      ];
+
+      wrapper = mount(YTableSearch, {
+        props: { options },
+        global: {
+          components: globalComponents
+        }
+      });
+
+      const vm = wrapper.vm;
+      vm.form.name = '张三';
+      vm.form.age = 25;
+
+      // 调用updateFormatForm方法
+      vm.updateFormatForm();
+
+      expect(vm.formatForm.name).toBe('张三');
+      expect(vm.formatForm.age).toBe(25);
+    });
+
+    it('应该正确格式化表单数据（有valueFormat返回简单值）', () => {
+      const options: TableSearchOption[] = [
+        {
+          prop: 'name',
+          label: '姓名',
+          valueFormat: (value: string) => value?.toUpperCase(),
+          first: true
+        },
+        {
+          prop: 'age',
+          label: '年龄',
+          valueFormat: (value: number) => value * 2
+        }
+      ];
+
+      wrapper = mount(YTableSearch, {
+        props: { options },
+        global: {
+          components: globalComponents
+        }
+      });
+
+      const vm = wrapper.vm;
+      vm.form.name = '张三';
+      vm.form.age = 25;
+
+      // 调用updateFormatForm方法
+      vm.updateFormatForm();
+
+      expect(vm.formatForm.name).toBe('张三');
+      expect(vm.formatForm.age).toBe(50);
+    });
+
+    it('应该正确格式化表单数据（有valueFormat返回对象）', () => {
+      const options: TableSearchOption[] = [
+        {
+          prop: 'dateRange',
+          label: '日期范围',
+          valueFormat: (value: string[]) => ({
+            startDate: value[0],
+            endDate: value[1]
+          }),
+          first: true
+        },
+        {
+          prop: 'name',
+          label: '姓名'
+        }
+      ];
+
+      wrapper = mount(YTableSearch, {
+        props: { options },
+        global: {
+          components: globalComponents
+        }
+      });
+
+      const vm = wrapper.vm;
+      vm.form.dateRange = ['2023-01-01', '2023-01-31'];
+      vm.form.name = '张三';
+
+      // 调用updateFormatForm方法
+      vm.updateFormatForm();
+
+      expect(vm.formatForm.startDate).toBe('2023-01-01');
+      expect(vm.formatForm.endDate).toBe('2023-01-31');
+      expect(vm.formatForm.name).toBe('张三');
+      expect(vm.formatForm.dateRange).toBeUndefined(); // 对象格式化会移除原字段
+    });
+
+    it('应该正确处理值更新', () => {
+      const options: TableSearchOption[] = [
+        {
+          prop: 'name',
+          label: '姓名',
+          first: true
+        },
+        {
+          prop: 'age',
+          label: '年龄',
+          valueFormat: (value: number) => value * 2
+        }
+      ];
+
+      wrapper = mount(YTableSearch, {
+        props: { options },
+        global: {
+          components: globalComponents
+        }
+      });
+
+      const vm = wrapper.vm;
+
+      // 调用handleValueUpdate方法
+      vm.handleValueUpdate('name', '张三');
+      vm.handleValueUpdate('age', 25);
+
+      // 验证原始表单数据已更新
+      expect(vm.form.name).toBe('张三');
+      expect(vm.form.age).toBe(25);
+
+      // 验证格式化数据已更新
+      expect(vm.formatForm.name).toBe('张三');
+      expect(vm.formatForm.age).toBe(50); // 通过valueFormat格式化
     });
   });
 

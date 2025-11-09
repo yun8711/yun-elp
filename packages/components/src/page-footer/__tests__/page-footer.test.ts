@@ -1,17 +1,25 @@
 /// <reference types="vitest/globals" />
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { nextTick, reactive } from 'vue';
+import { nextTick } from 'vue';
 import YPageFooter from '../src/page-footer.vue';
+import { useAppConfig } from '../../app-wrap/src/use-app-config';
 
 // Mock lodash-es
 vi.mock('lodash-es', () => ({
   isNumber: vi.fn((value) => typeof value === 'number')
 }));
 
+// Mock app-wrap配置
+vi.mock('../../app-wrap/src/use-app-config', () => ({
+  useAppConfig: vi.fn()
+}));
+
 describe('YPageFooter 组件', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // 重置useAppConfig的mock到默认状态
+    vi.mocked(useAppConfig).mockReturnValue({});
   });
 
   describe('基础渲染', () => {
@@ -295,6 +303,91 @@ describe('YPageFooter 组件', () => {
 
       await wrapper.find('.y-page-footer').trigger('click');
       expect(onClick).toHaveBeenCalled();
+    });
+  });
+
+  describe('pageFooterConfig 配置测试', () => {
+    it('当 props height 为空时，使用 pageFooterConfig height 配置', () => {
+      // Mock useAppConfig 返回配置
+      vi.mocked(useAppConfig).mockReturnValue({ height: 100 });
+
+      const wrapper = mount(YPageFooter, {
+        props: { height: undefined }
+      });
+
+      const element = wrapper.find('.y-page-footer');
+      expect(element.attributes('style')).toContain('height: 100px');
+    });
+
+    it('当 props left 为空时，使用 pageFooterConfig left 配置', () => {
+      // Mock useAppConfig 返回配置
+      vi.mocked(useAppConfig).mockReturnValue({ left: 50 });
+
+      const wrapper = mount(YPageFooter, {
+        props: { left: undefined }
+      });
+
+      const element = wrapper.find('.y-page-footer');
+      expect(element.attributes('style')).toContain('left: 50px');
+    });
+
+    it('当 props right 为空时，使用 pageFooterConfig right 配置', () => {
+      // Mock useAppConfig 返回配置
+      vi.mocked(useAppConfig).mockReturnValue({ right: 75 });
+
+      const wrapper = mount(YPageFooter, {
+        props: { right: undefined }
+      });
+
+      const element = wrapper.find('.y-page-footer');
+      expect(element.attributes('style')).toContain('right: 75px');
+    });
+
+    it('pageFooterConfig 配置值为字符串时直接使用', () => {
+      // Mock useAppConfig 返回字符串配置
+      vi.mocked(useAppConfig).mockReturnValue({ height: '120px' });
+
+      const wrapper = mount(YPageFooter, {
+        props: { height: undefined }
+      });
+
+      const element = wrapper.find('.y-page-footer');
+      expect(element.attributes('style')).toContain('height: 120px');
+    });
+
+    it('pageFooterConfig 配置值为数字时添加 px 单位', () => {
+      // Mock useAppConfig 返回数字配置
+      vi.mocked(useAppConfig).mockReturnValue({ height: 90 });
+
+      const wrapper = mount(YPageFooter, {
+        props: { height: undefined }
+      });
+
+      const element = wrapper.find('.y-page-footer');
+      expect(element.attributes('style')).toContain('height: 90px');
+    });
+
+    it('多个 pageFooterConfig 配置同时使用', () => {
+      // Mock useAppConfig 返回多个配置
+      vi.mocked(useAppConfig).mockReturnValue({
+        height: 80,
+        left: 30,
+        right: 40
+      });
+
+      const wrapper = mount(YPageFooter, {
+        props: {
+          height: undefined,
+          left: undefined,
+          right: undefined
+        }
+      });
+
+      const element = wrapper.find('.y-page-footer');
+      const style = element.attributes('style');
+      expect(style).toContain('height: 80px');
+      expect(style).toContain('left: 30px');
+      expect(style).toContain('right: 40px');
     });
   });
 

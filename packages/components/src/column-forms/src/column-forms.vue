@@ -111,7 +111,7 @@ const mergedFormArr = (scope: any) => {
   return options.value?.map((item: any) => {
     return {
       prop: item.prop,
-      show: typeof item.show === 'function' ? item.show(scope, item.prop) : item.show || true,
+      show: typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
       formAttrs: mergedItemFormAttrs(scope, item),
       tooltipAttrs: mergedItemTooltipAttrs(scope, item),
       width: typeof item.width === 'function' ? item.width(scope, item.prop) : item.width || 'auto',

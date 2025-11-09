@@ -46,12 +46,17 @@ const props = withDefaults(defineProps<ColumnFilterProps>(), {
 
 const { noStatus, noFilter, formatter, headerStyle, config, textStyle } = toRefs(props);
 
+// 使用 computed 确保属性正确获取
+const propKey = computed(() => attrs.prop || 'name');
+
 const cellValue = (row: any) => {
-  return row[attrs.prop as string];
+  if (!row || !propKey.value) return '';
+  return row[propKey.value as string];
 }
 
 const formatterCellValue = (scope: any) => {
-  const { row } = scope;
+  const { row } = scope || {};
+  if (!row) return '';
   const value = cellValue(row);
   let res = "";
   if (typeof formatter.value === 'boolean' && formatter.value) {
@@ -84,7 +89,18 @@ const mergedAttrs = computed(() => {
 });
 
 const getStyle = (scope: any) => {
-  const configItem = config.value.find((item: ColumnFilterConfig) => item.value === cellValue(scope.row));
+  const { row } = scope || {};
+  if (!row) {
+    const obj: any = {
+      ...(textStyle?.value || {}),
+    }
+    if (!noStatus.value) {
+      obj.color = '';
+      obj.backgroundColor = '';
+    }
+    return obj;
+  }
+  const configItem = config.value.find((item: ColumnFilterConfig) => item.value === cellValue(row));
   const obj: any = {
     ...(textStyle?.value || {}),
   }
@@ -94,5 +110,4 @@ const getStyle = (scope: any) => {
   }
   return obj;
 }
-
 </script>
