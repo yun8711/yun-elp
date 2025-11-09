@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const model = ref<'fixed' | 'absolute'>('fixed');
+const model = ref<'fixed' | 'absolute'>('absolute');
 
 const handleClick = () => {
   model.value = model.value === 'fixed' ? 'absolute' : 'fixed';

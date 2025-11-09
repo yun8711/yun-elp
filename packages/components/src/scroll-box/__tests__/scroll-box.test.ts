@@ -32,6 +32,11 @@ describe('YScrollBox', () => {
     vi.mocked(global.ResizeObserver).mockClear();
     vi.mocked(mockResizeObserver.observe).mockClear();
     vi.mocked(mockResizeObserver.unobserve).mockClear();
+  });
+
+  afterEach(() => {
+    // 清理所有定时器，防止测试间的干扰
+    vi.clearAllTimers();
     vi.mocked(mockResizeObserver.disconnect).mockClear();
   });
 

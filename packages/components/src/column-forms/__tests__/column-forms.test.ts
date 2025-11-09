@@ -507,7 +507,13 @@ describe('YColumnForms 表单列组件', () => {
         }];
 
         const wrapper = mount(YColumnForms, {
-          props: { options }
+          props: { options },
+          slots: {
+            name: '<input />'
+          },
+          global: {
+            stubs: ['el-form-item', 'el-tooltip']
+          }
         });
 
         const vm = wrapper.vm as any;
@@ -543,7 +549,14 @@ describe('YColumnForms 表单列组件', () => {
         ];
 
         const wrapper = mount(YColumnForms, {
-          props: { options }
+          props: { options },
+          slots: {
+            name: '<input />',
+            email: '<input />'
+          },
+          global: {
+            stubs: ['el-form-item', 'el-tooltip']
+          }
         });
 
         const vm = wrapper.vm as any;
@@ -560,17 +573,24 @@ describe('YColumnForms 表单列组件', () => {
           {
             prop: 'adminField',
             label: '管理员字段',
-            show: (scope) => scope.row.isAdmin
+            show: (scope) => scope.row?.isAdmin
           },
           {
             prop: 'userField',
             label: '用户字段',
-            show: (scope) => !scope.row.isAdmin
+            show: (scope) => !scope.row?.isAdmin
           }
         ];
 
         const wrapper = mount(YColumnForms, {
-          props: { options }
+          props: { options },
+          slots: {
+            adminField: '<input />',
+            userField: '<input />'
+          },
+          global: {
+            stubs: ['el-form-item', 'el-tooltip']
+          }
         });
 
         const vm = wrapper.vm as any;
@@ -592,12 +612,18 @@ describe('YColumnForms 表单列组件', () => {
         const options = [{
           prop: 'test',
           label: '测试',
-          width: (scope) => scope.row.width || '100px',
-          style: (scope) => ({ color: scope.row.color || 'red' })
+          width: (scope) => scope.row?.width || '100px',
+          style: (scope) => ({ color: scope.row?.color || 'red' })
         }];
 
         const wrapper = mount(YColumnForms, {
-          props: { options }
+          props: { options },
+          slots: {
+            test: '<input />'
+          },
+          global: {
+            stubs: ['el-form-item', 'el-tooltip']
+          }
         });
 
         const vm = wrapper.vm as any;
@@ -618,7 +644,13 @@ describe('YColumnForms 表单列组件', () => {
         }];
 
         const wrapper = mount(YColumnForms, {
-          props: { options }
+          props: { options },
+          slots: {
+            test: '<input />'
+          },
+          global: {
+            stubs: ['el-form-item', 'el-tooltip']
+          }
         });
 
         const vm = wrapper.vm as any;
@@ -639,7 +671,13 @@ describe('YColumnForms 表单列组件', () => {
         }];
 
         const wrapper = mount(YColumnForms, {
-          props: { options }
+          props: { options },
+          slots: {
+            test: '<input />'
+          },
+          global: {
+            stubs: ['el-form-item', 'el-tooltip']
+          }
         });
 
         const vm = wrapper.vm as any;
@@ -678,7 +716,13 @@ describe('YColumnForms 表单列组件', () => {
         }];
 
         const wrapper = mount(YColumnForms, {
-          props: { options }
+          props: { options },
+          slots: {
+            complex: '<input />'
+          },
+          global: {
+            stubs: ['el-form-item', 'el-tooltip']
+          }
         });
 
         const vm = wrapper.vm as any;

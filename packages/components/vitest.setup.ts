@@ -160,7 +160,7 @@ beforeAll(() => {
       inheritAttrs: true
     },
     'el-radio': {
-      template: '<div class="el-radio" v-bind="$attrs"><slot></slot></div>',
+      template: '<div class="el-radio" v-bind="$attrs" :class="{ \'is-disabled\': disabled }"><slot></slot></div>',
       props: ['label', 'value', 'disabled'],
       inheritAttrs: true
     },
@@ -189,8 +189,14 @@ beforeAll(() => {
       inheritAttrs: true
     },
     'el-popover': {
-      template:
-        '<div class="el-popover" v-bind="$attrs"><slot></slot><slot name="reference"></slot></div>',
+      template: `
+        <div class="el-popover" v-bind="$attrs">
+          <slot name="reference"></slot>
+          <div class="el-popover__content" v-if="visible">
+            <slot></slot>
+          </div>
+        </div>
+      `,
       props: ['placement', 'width', 'popperClass', 'trigger', 'visible'],
       emits: ['update:visible'],
       inheritAttrs: true

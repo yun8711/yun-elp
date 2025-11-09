@@ -139,7 +139,6 @@ const getOptions = (scope: TableItemScope) => {
       label: '',
       disabled: false,
       show: true,
-      hide: false,
       dropdown: false,
       noPop: true,
       popProps: {} as Partial<PopProps>,
@@ -157,8 +156,6 @@ const getOptions = (scope: TableItemScope) => {
 
     defaultObj.show =
       typeof item.show === 'function' ? item.show(scope, item) : (item.show ?? true);
-    defaultObj.hide =
-      typeof item.hide === 'function' ? item.hide(scope, item) : (item.hide ?? false);
     defaultObj.dropdown =
       typeof item.dropdown === 'function' ? item.dropdown(scope, item) : (item.dropdown ?? false);
     // 是否显示popover，默认不显示
@@ -182,6 +179,7 @@ const getOptions = (scope: TableItemScope) => {
     );
 
     // 如果按钮隐藏，则不展示
+    // show 为 false 时隐藏
     if (!defaultObj.show) return;
 
     // 根据dropdown的值，将操作项添加到对应的列表中
@@ -260,7 +258,7 @@ const getDisabledValue = (
   }
   return [
     res[0],
-    res[1] || (disabledDefaultTip.value ?? columnOperationConfig?.disabledDefaultTip)
+    res[1] || (disabledDefaultTip.value ?? columnOperationConfig?.disabledDefaultTip ?? '')
   ];
 };
 

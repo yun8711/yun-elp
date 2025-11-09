@@ -1,29 +1,7 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import YRadio from '../src/radio.vue';
 import type { RadioOption } from '../src/radio';
-
-// 模拟 Element Plus 组件
-vi.mock('element-plus', () => ({
-  ElRadio: {
-    name: 'ElRadio',
-    template: '<div class="el-radio" :class="{ disabled: disabled }"><slot></slot></div>',
-    props: ['label', 'disabled', 'value'],
-    emits: ['change']
-  },
-  ElRadioButton: {
-    name: 'ElRadioButton',
-    template: '<div class="el-radio-button" :class="{ disabled: disabled }"><slot></slot></div>',
-    props: ['label', 'disabled', 'value'],
-    emits: ['change']
-  },
-  ElRadioGroup: {
-    name: 'ElRadioGroup',
-    template: '<div class="el-radio-group"><slot></slot></div>',
-    props: ['modelValue'],
-    emits: ['update:modelValue', 'change']
-  }
-}));
 
 describe('YRadio', () => {
   const mockOptions: RadioOption[] = [
@@ -161,7 +139,7 @@ describe('YRadio', () => {
       });
 
       const radioElements = wrapper.findAll('.el-radio');
-      expect(radioElements[2].classes()).toContain('disabled');
+      expect(radioElements[2].classes()).toContain('is-disabled');
     });
 
     it('应该处理所有选项都禁用的情况', () => {
@@ -179,7 +157,7 @@ describe('YRadio', () => {
 
       const radioElements = wrapper.findAll('.el-radio');
       radioElements.forEach(element => {
-        expect(element.classes()).toContain('disabled');
+        expect(element.classes()).toContain('is-disabled');
       });
     });
   });
@@ -324,9 +302,9 @@ describe('YRadio', () => {
       });
 
       const radioElements = wrapper.findAll('.el-radio');
-      expect(radioElements[0].classes()).not.toContain('disabled');
-      expect(radioElements[1].classes()).toContain('disabled');
-      expect(radioElements[2].classes()).toContain('disabled'); // 这个已经在原始数据中禁用了
+      expect(radioElements[0].classes()).not.toContain('is-disabled');
+      expect(radioElements[1].classes()).toContain('is-disabled');
+      expect(radioElements[2].classes()).toContain('is-disabled'); // 这个已经在原始数据中禁用了
     });
 
     it('应该优先使用选项本身的 disabled 属性', () => {
@@ -346,9 +324,9 @@ describe('YRadio', () => {
       });
 
       const radioElements = wrapper.findAll('.el-radio');
-      expect(radioElements[0].classes()).not.toContain('disabled'); // 明确设置为不禁用
-      expect(radioElements[1].classes()).toContain('disabled'); // 被disabledMethod禁用
-      expect(radioElements[2].classes()).toContain('disabled'); // 明确设置为禁用
+      expect(radioElements[0].classes()).not.toContain('is-disabled'); // 明确设置为不禁用
+      expect(radioElements[1].classes()).toContain('is-disabled'); // 被disabledMethod禁用
+      expect(radioElements[2].classes()).toContain('is-disabled'); // 明确设置为禁用
     });
   });
 

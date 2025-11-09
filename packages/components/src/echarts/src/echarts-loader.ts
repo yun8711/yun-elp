@@ -17,8 +17,7 @@ export class EchartsLoader {
     components?: string[];
     renderers?: string[];
     features?: string[];
-  }) {
-    const { use } = await import('echarts/core');
+  }): Promise<any[]> {
     const modulesToLoad: any[] = [];
 
     // 加载图表类型
@@ -73,10 +72,7 @@ export class EchartsLoader {
       }
     }
 
-    // 一次性注册所有模块
-    if (modulesToLoad.length > 0) {
-      use(modulesToLoad);
-    }
+    return modulesToLoad;
   }
 
   private async loadChartType(type: string): Promise<any> {

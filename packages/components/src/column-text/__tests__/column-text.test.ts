@@ -246,7 +246,8 @@ describe('YColumnText 表格列文本组件', () => {
             label: '姓名'
           },
           slots: {
-            default: ({ value }: { value: any }) => h('span', { class: 'custom-content' }, `${value}-自定义`)
+            default: ({ value }: { value: any }) =>
+              h('span', { class: 'custom-content' }, `${value}-自定义`)
           },
           global: {
             stubs: {
@@ -286,7 +287,8 @@ describe('YColumnText 表格列文本组件', () => {
             label: '姓名'
           },
           slots: {
-            header: ({ column }: { column: any }) => h('span', { class: 'custom-header' }, `${column.label}-自定义`)
+            header: ({ column }: { column: any }) =>
+              h('span', { class: 'custom-header' }, `${column.label}-自定义`)
           },
           global: {
             stubs: {
@@ -328,7 +330,8 @@ describe('YColumnText 表格列文本组件', () => {
             label: '姓名'
           },
           slots: {
-            expand: ({ expanded }: { expanded: boolean }) => h('div', { class: 'expand-content' }, expanded ? '展开' : '收起')
+            expand: ({ expanded }: { expanded: boolean }) =>
+              h('div', { class: 'expand-content' }, expanded ? '展开' : '收起')
           },
           global: {
             stubs: {
@@ -361,7 +364,8 @@ describe('YColumnText 表格列文本组件', () => {
             label: '姓名'
           },
           slots: {
-            expand: ({ expanded }: { expanded: boolean }) => h('div', { class: 'expand-content-collapsed' }, expanded ? '展开内容' : '点击展开')
+            expand: ({ expanded }: { expanded: boolean }) =>
+              h('div', { class: 'expand-content-collapsed' }, expanded ? '展开内容' : '点击展开')
           },
           global: {
             stubs: {
@@ -640,12 +644,15 @@ describe('YColumnText 表格列文本组件', () => {
     });
 
     it('应该支持设置数组处理类型的 formatter 函数', () => {
-      const arrayFormatter = (value: any) => Array.isArray(value) ? value.join(', ') : value;
-      const wrapper = createBasicTest({
-        formatter: arrayFormatter
-      }, {
-        prop: 'tags'
-      });
+      const arrayFormatter = (value: any) => (Array.isArray(value) ? value.join(', ') : value);
+      const wrapper = createBasicTest(
+        {
+          formatter: arrayFormatter
+        },
+        {
+          prop: 'tags'
+        }
+      );
 
       expect(typeof wrapper.props('formatter')).toBe('function');
       expect(wrapper.exists()).toBe(true);
@@ -719,11 +726,14 @@ describe('YColumnText 表格列文本组件', () => {
 
     it('应该处理复杂的对象数据结构', () => {
       const objectFormatter = vi.fn((value: any) => value?.displayName || '无名');
-      const wrapper = createBasicTest({
-        formatter: objectFormatter
-      }, {
-        prop: 'user'
-      });
+      const wrapper = createBasicTest(
+        {
+          formatter: objectFormatter
+        },
+        {
+          prop: 'user'
+        }
+      );
 
       expect(typeof wrapper.props('formatter')).toBe('function');
       expect(wrapper.exists()).toBe(true);
@@ -762,9 +772,17 @@ describe('YColumnText 表格列文本组件', () => {
       });
 
       const vm = wrapper.vm as any;
-      const scope = { row: { person: { fullName: '张三丰', name: '张三' } }, column: { property: 'person' }, $index: 0 };
+      const scope = {
+        row: { person: { fullName: '张三丰', name: '张三' } },
+        column: { property: 'person' },
+        $index: 0
+      };
       const result = vm.formatterCellValue(scope);
-      expect(nestedFormatter).toHaveBeenCalledWith({ fullName: '张三丰', name: '张三' }, { person: { fullName: '张三丰', name: '张三' } }, scope);
+      expect(nestedFormatter).toHaveBeenCalledWith(
+        { fullName: '张三丰', name: '张三' },
+        { person: { fullName: '张三丰', name: '张三' } },
+        scope
+      );
       expect(result).toBe('张三丰');
     });
 
@@ -1483,11 +1501,19 @@ describe('YColumnText 表格列文本组件', () => {
       expect(result2).toBe('张三');
 
       // 测试row为null的情况
-      const result3 = vm2.formatterCellValue({ row: null, column: { property: 'name' }, $index: 0 });
+      const result3 = vm2.formatterCellValue({
+        row: null,
+        column: { property: 'name' },
+        $index: 0
+      });
       expect(result3).toBe('');
 
       // 测试row为undefined的情况
-      const result4 = vm2.formatterCellValue({ row: undefined, column: { property: 'name' }, $index: 0 });
+      const result4 = vm2.formatterCellValue({
+        row: undefined,
+        column: { property: 'name' },
+        $index: 0
+      });
       expect(result4).toBe('');
 
       // 测试空对象的情况

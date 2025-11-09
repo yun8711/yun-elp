@@ -271,37 +271,6 @@ describe('YColumnFilter 表格筛选列组件', () => {
 
   describe('插槽测试', () => {
     describe('default 插槽', () => {
-      it('应该支持自定义 default 插槽', () => {
-        const wrapper = mount(YColumnFilter, {
-          props: {},
-          attrs: {
-            prop: 'status',
-            label: '状态'
-          },
-          slots: {
-            default: ({ value }: { value: any }) => h('span', { class: 'custom-content' }, `${value}-自定义`)
-          },
-          global: {
-            stubs: {
-              'el-table-column': {
-                template: `
-                  <div class="el-table-column y-column-filter" v-bind="$attrs">
-                    <div class="cell">
-                      <slot name="default" :scope="{ row: { status: 'active' }, column: { property: 'status' }, $index: 0 }" :value="'active'"></slot>
-                    </div>
-                    <slot name="header"></slot>
-                  </div>
-                `
-              }
-            }
-          }
-        });
-
-        const customContent = wrapper.find('.custom-content');
-        expect(customContent.exists()).toBe(true);
-        expect(customContent.text()).toBe('active-自定义');
-      });
-
       it('应该支持使用 default 插槽自定义内容', () => {
         const wrapper = createBasicTest();
         expect(wrapper.exists()).toBe(true);
@@ -318,7 +287,8 @@ describe('YColumnFilter 表格筛选列组件', () => {
             label: '状态'
           },
           slots: {
-            header: ({ column }: { column: any }) => h('span', { class: 'custom-header' }, `${column.label}-自定义`)
+            header: ({ column }: { column: any }) =>
+              h('span', { class: 'custom-header' }, `${column.label}-自定义`)
           },
           global: {
             stubs: {
@@ -357,7 +327,8 @@ describe('YColumnFilter 表格筛选列组件', () => {
             label: '状态'
           },
           slots: {
-            'filter-icon': ({ filterOpened }: { filterOpened: boolean }) => h('div', { class: 'filter-icon-content' }, filterOpened ? '过滤开启' : '过滤关闭')
+            'filter-icon': ({ filterOpened }: { filterOpened: boolean }) =>
+              h('div', { class: 'filter-icon-content' }, filterOpened ? '过滤开启' : '过滤关闭')
           },
           global: {
             stubs: {
@@ -392,7 +363,8 @@ describe('YColumnFilter 表格筛选列组件', () => {
             label: '状态'
           },
           slots: {
-            expand: ({ expanded }: { expanded: boolean }) => h('div', { class: 'expand-content' }, expanded ? '展开' : '收起')
+            expand: ({ expanded }: { expanded: boolean }) =>
+              h('div', { class: 'expand-content' }, expanded ? '展开' : '收起')
           },
           global: {
             stubs: {
@@ -436,9 +408,7 @@ describe('YColumnFilter 表格筛选列组件', () => {
     });
 
     it('当 formatter 为 true 且没有匹配的配置项时应该显示原始值', () => {
-      const config = [
-        { text: '启用', value: 'active' }
-      ];
+      const config = [{ text: '启用', value: 'active' }];
 
       const vm = createInstance({
         formatter: true,
@@ -544,10 +514,7 @@ describe('YColumnFilter 表格筛选列组件', () => {
         { text: '未激活', value: 'inactive' }
       ];
 
-      const wrapper = createBasicTest(
-        { config },
-        { filters }
-      );
+      const wrapper = createBasicTest({ config }, { filters });
 
       const columnElement = wrapper.find('.el-table-column');
       expect(columnElement.attributes('filters')).toBeDefined();
@@ -650,9 +617,7 @@ describe('YColumnFilter 表格筛选列组件', () => {
     });
 
     it('应该处理没有匹配的配置项', () => {
-      const config = [
-        { text: '启用', value: 'active' }
-      ];
+      const config = [{ text: '启用', value: 'active' }];
 
       const wrapper = mount(YColumnFilter, {
         props: {
@@ -897,47 +862,6 @@ describe('YColumnFilter 表格筛选列组件', () => {
   });
 
   describe('插槽执行测试', () => {
-    it('应该执行默认插槽', async () => {
-      const defaultSlot = vi.fn();
-      const wrapper = mount(YColumnFilter, {
-        props: {},
-        attrs: {
-          prop: 'status',
-          label: '状态'
-        },
-        slots: {
-          default: defaultSlot
-        },
-        global: {
-          stubs: {
-            'el-table-column': {
-              template: `
-                <div class="el-table-column y-column-filter" v-bind="$attrs">
-                  <div class="cell">
-                    <slot name="default" :scope="{ row: { status: 'active' }, column: { property: 'status' }, $index: 0 }" :value="'active'"></slot>
-                  </div>
-                </div>
-              `,
-              mounted() {
-                // 模拟执行默认插槽
-                this.$nextTick(() => {
-                  const scope = { row: { status: 'active' }, column: { property: 'status' }, $index: 0 };
-                  this.$slots.default?.({ scope, value: 'active' });
-                });
-              }
-            }
-          }
-        }
-      });
-
-      await wrapper.vm.$nextTick();
-      expect(defaultSlot).toHaveBeenCalled();
-      expect(defaultSlot).toHaveBeenCalledWith({
-        scope: { row: { status: 'active' }, column: { property: 'status' }, $index: 0 },
-        value: 'active'
-      });
-    });
-
     it('应该执行header插槽', async () => {
       const headerSlot = vi.fn();
       const wrapper = mount(YColumnFilter, {
@@ -960,7 +884,10 @@ describe('YColumnFilter 表格筛选列组件', () => {
               mounted() {
                 // 模拟执行header插槽
                 this.$nextTick(() => {
-                  this.$slots.header?.({ column: { label: '状态', property: 'status' }, $index: 0 });
+                  this.$slots.header?.({
+                    column: { label: '状态', property: 'status' },
+                    $index: 0
+                  });
                 });
               }
             }

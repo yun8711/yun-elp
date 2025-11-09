@@ -29,7 +29,17 @@ defineOptions({
 
 const props = defineProps<BorderLabelProps>();
 const labelConfig = useAppConfig('borderLabel');
-// 使用计算属性来处理默认值
-const height = computed(() => props.height || labelConfig?.height || '32px');
-const width = computed(() => props.width || labelConfig?.width || 'auto');
+
+// 使用计算属性来处理默认值，优先级：用户传入值 > 全局配置 > 组件默认值
+const height = computed(() => {
+  if (props.height !== undefined) return props.height;  // 用户传入的值（最高优先级）
+  if (labelConfig?.height) return labelConfig.height;   // 全局配置（中等优先级）
+  return '32px';                                       // 组件默认值（最低优先级）
+});
+
+const width = computed(() => {
+  if (props.width !== undefined) return props.width;    // 用户传入的值（最高优先级）
+  if (labelConfig?.width) return labelConfig.width;     // 全局配置（中等优先级）
+  return 'auto';                                        // 组件默认值（最低优先级）
+});
 </script>

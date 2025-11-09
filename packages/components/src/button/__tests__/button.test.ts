@@ -216,7 +216,7 @@ describe('YButton 防抖按钮组件', () => {
       // 检查类型相关的class是否正确应用
       expect(button.classes()).toContain('el-button--primary');
       // 检查disabled状态是否通过class反映
-      expect(button.classes()).toContain('disabled');
+      expect(button.classes()).toContain('is-disabled');
     });
 
     it('应该支持 el-button 的原生事件', async () => {
