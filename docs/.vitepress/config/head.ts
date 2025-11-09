@@ -3,7 +3,7 @@ import type { HeadConfig } from 'vitepress';
 
 export default [
   //
-  ['link', { rel: 'icon', type: 'image/svg+xml', href: baseUrl + 'logo.svg' }],
+  ['link', { rel: 'icon', href:'/logo_icon.ico' }],
   ['meta', { name: 'og:description', content: '基于element-plus 的业务组件库' }],
   // 添加谷歌字体
   [

@@ -2,30 +2,31 @@
 title: 快速开始
 ---
 
-<h1>快速开始</h1>
+## 兼容性
 
-## 完整引入
+保持与 [Element Plus](https://element-plus.org/zh-CN/guide/installation#%E5%85%BC%E5%AE%B9%E6%80%A7) 一致
 
-如果你对打包后的文件大小不是很在乎，那么使用完整导入会更方便。
+## 安装
 
-```ts
-// main.ts
-import { createApp } from 'vue';
-import KdElp from 'element-plus';
-import 'kd-elp/style';
-import App from './App.vue';
+Yun-Elp 作为一个二开的业务组件库，考虑到它的使用场景是在更加具体的实际项目中，因此它依赖了 vue、elemtn-plus、@element-plus/icon、lodash-es这些基础库，及其他的一些业务中经常用到的依赖库，比如 cron-parser、echarts等。
 
-const app = createApp(App);
+在现代成熟的前端工程下，基于 tree-shaking 的优化，这些依赖不会对项目产生太大的影响。
 
-app.use(KdElp);
-app.mount('#app');
+推荐使用 pnpm 作为项目的包管理器。
+
+```shell
+# 安装必要依赖
+pnpm add yun-elp @vue/runtim-core^3.5.14 element-plus^2.10.2 @element-plus/icons-vue^2.3.1 lodash-es^4.17.21
+
+# 安装可选依赖，根据所使用的组件而定
+pnpm add cron-parser^5.3.1 echarts^6.0.0
 ```
 
-## 按需引入（推荐）
+## 自动按需导入（推荐）
 
 需要使用额外的插件来自动导入要使用的组件
 
-```bash
+```shell
 pnpm add -D unplugin-vue-components unplugin-auto-import
 ```
 
@@ -39,7 +40,7 @@ import { defineConfig } from 'vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import { KdElpResolver } from 'kd-elp';
+import { YunElpResolver } from 'yun-elp/resolver';
 
 export default defineConfig({
   // ...
@@ -48,37 +49,53 @@ export default defineConfig({
     AutoImport({
       dts: 'types/auto-imports.d.ts',
       resolvers: [
-        // 自动导入element相关函数，如：ElMessage, ElMessageBox..
         ElementPlusResolver(),
       ],
-      // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
       imports: ['vue'],
     }),
     Components({
       dts: 'types/components.d.ts',
-      // 自动导入组件库
       resolvers: [
         ElementPlusResolver({
           importStyle: 'sass',
         }),
-        // kd-elp的自动导出解析器
-        KdElpResolver(),
+        // yun-elp的自动导出解析器
+        YunElpResolver({
+          importStyle: 'scss',
+        }),
       ],
     }),
   ],
 });
 ```
 
-### Webpack（待测试）
+## 完整引入
+
+如果你对打包后的文件大小不是很在乎，那么使用完整导入会更方便。
+
+```ts
+// main.ts
+import { createApp } from 'vue';
+import YunElp from 'yun-elp';
+import 'yun-elp/style';
+// 导入预设主题，否则使用elememt-plus的默认样式
+import App from './App.vue';
+
+const app = createApp(App);
+
+app.use(YunElp);
+app.mount('#app');
+```
+
 
 ## Volar 支持
 
-如果您使用 Volar，请在 tsconfig.json 中通过 compilerOptions.type 指定全局组件类型。
+如果使用 Volar，请在 tsconfig.json 中通过 compilerOptions.type 指定全局组件类型。
 
 ```json
 {
   "compilerOptions": {
-    "types": ["kd-elp/global.d.ts"]
+    "types": ["yun-elp/global.d.ts"]
   }
 }
 ```

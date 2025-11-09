@@ -35,15 +35,17 @@ const setupConfig = configEnv => {
         label: '内容大纲'
       },
       lastUpdatedText: '',
+      siteTitle: false,
       // 显示在导航栏中网站标题
-      logo: baseUrl + 'logo.svg',
+      logo: baseUrl + 'logo_title.png',
       // 搜索框
       search: {
         // 使用本地搜索
         provider: 'local'
       },
+      // 社交链接
+      socialLinks: [{ icon: 'github', link: 'https://github.com/yun-elp' }],
       nav: [
-        { text: '主页', link: '/', activeMatch: '^/$' },
         { text: '指南', link: '/guide/', activeMatch: '^/guide/' },
         { text: '组件', link: firstLink!, activeMatch: '^/components/' },
         { text: '工具函数', link: '/utils/', activeMatch: '^/utils/' }
@@ -52,14 +54,24 @@ const setupConfig = configEnv => {
       sidebar: {
         '/guide/': [
           {
+            text: '基础',
             items: [
-              {
-                text: '使用',
-                items: [
-                  { text: '安装', link: '/guide/installation' },
-                  { text: '快速开始', link: '/guide/quickstart' }
-                ]
-              }
+              { text: '总览', link: '/guide/overview' },
+              { text: '快速开始', link: '/guide/quickstart' }
+            ]
+          },
+          {
+            text: '进阶',
+            items: [
+              { text: '国际化', link: '/guide/i18n' },
+              { text: '主题', link: '/guide/theme' },
+              { text: 'MCP', link: '/guide/mcp' }
+            ]
+          },
+          {
+            text: '开发',
+            items: [
+              { text: '开发指南', link: '/guide/development' }
             ]
           }
         ],
@@ -76,22 +88,12 @@ const setupConfig = configEnv => {
         ]
       },
 
-      socialLinks: [],
-
       footer: {
         message: '',
         copyright: ''
       }
     },
     vite: getViteConfig(configEnv) as any,
-
-    // vite: {
-    //   resolve: {
-    //     alias: {
-    //       '@': resolve(__dirname, '../../packages/components/src')
-    //     }
-    //   }
-    // },
 
     markdown: {
       config: md => mdPlugin(md)

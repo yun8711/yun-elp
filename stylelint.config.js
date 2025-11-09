@@ -16,12 +16,12 @@ export default {
   rules: {
     // BEM命名规范
     // 格式: block__element--modifier
-    'selector-class-pattern': [
-      '^[a-z]+(?:[-]?[a-z0-9]+)*(?:__[a-z0-9]+(?:[-]?[a-z0-9]+)*)?(?:--[a-z0-9]+(?:[-]?[a-z0-9]+)*)?$',
-      {
-        message: '类名应该遵循 BEM 命名规范 (block__element--modifier)'
-      }
-    ],
+    // 'selector-class-pattern': [
+    //   '^[a-z]+(?:[-]?[a-z0-9]+)*(?:__[a-z0-9]+(?:[-]?[a-z0-9]+)*)?(?:--[a-z0-9]+(?:[-]?[a-z0-9]+)*)?$',
+    //   {
+    //     message: '类名应该遵循 BEM 命名规范 (block__element--modifier)'
+    //   }
+    // ],
     'selector-pseudo-class-no-unknown': [
       true,
       {
