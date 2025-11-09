@@ -171,6 +171,11 @@
         "text": "dialog 对话框",
         "link": "/components/dialog/",
         "activeMatch": "/components/dialog/"
+      },
+      {
+        "text": "page-progress 页面进度条",
+        "link": "/components/page-progress/",
+        "activeMatch": "/components/page-progress/"
       }
     ]
   },
