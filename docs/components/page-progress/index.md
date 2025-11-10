@@ -21,16 +21,12 @@ page-progress/test
 
 | 属性名      | 说明                   | 类型                  | 默认值   |
 |-------------|------------------------|-----------------------|----------|
-| show        | 是否显示进度条         | ^[boolean]            | `false`  |
-| percentage  | 进度值 (0-1)          | ^[number]             | `0`      |
-| minimum     | 最小进度值 (0-1)      | ^[number]             | `0.08`   |
-| showSpinner | 是否显示加载图标       | ^[boolean]            | `true`   |
-| easing      | 动画缓动函数           | ^[string]             | `ease`   |
-| speed       | 动画速度 (ms)          | ^[number]             | `200`    |
-| trickle     | 是否启用自动增量       | ^[boolean]            | `true`   |
-| trickleSpeed| 自动增量速度 (ms)      | ^[number]             | `200`    |
-| parent      | 父容器选择器           | ^[string]             | `body`   |
-| color       | 进度条颜色             | ^[string]             | `#29d`   |
+| modelValue  | 进度条显示状态 (v-model)| ^[boolean]            | `false` |
+| step        | 步进距离 (0-100)      | ^[number]             | `8`      |
+| spinner     | 是否显示加载图标       | ^[boolean]            | `true`   |
+| delay       | 完成后的延迟隐藏时间 (ms) | ^[number]             | `200`    |
+| speed       | 自动增量速度 (ms)      | ^[number]             | `200`    |
+| color       | 进度条颜色             | ^[string]             | `#409eff` |
 
 ### Events
 
@@ -76,8 +72,7 @@ progressRef.value.done();
 ```vue
 <template>
   <y-page-progress
-    :trickle="true"
-    :trickle-speed="200"
+    :speed="200"
   />
 </template>
 ```
@@ -104,8 +99,8 @@ const app = createApp(App);
 app.use(createAppConfig({
   pageProgress: {
     color: '#007acc',
-    speed: 300,
-    minimum: 0.1
+    delay: 300,
+    step: 10
   }
 }));
 ```
