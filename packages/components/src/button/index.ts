@@ -5,4 +5,5 @@ import type { SFCWithInstall } from 'element-plus/es/utils';
 export const YButton: SFCWithInstall<typeof Button> = withInstall(Button);
 export default YButton;
 
-export * from './src/button';
+// 导出组件的props类型和emits类型
+export type { ButtonProps, ButtonEmits } from './src/button';
