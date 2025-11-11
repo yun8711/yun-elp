@@ -1,5 +1,9 @@
 import type { ExtractPublicPropTypes } from '@vue/runtime-core';
 
+export interface PageProgressEmits {
+  'update:modelValue': [value: boolean];
+}
+
 export interface PageProgressProps {
   /**
    * 进度条显示状态 (v-model)

@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, onUnmounted, useAttrs, toRefs } from '@vue/runtime-core';
 import { ElProgress } from 'element-plus';
-import type { PageProgressProps } from './page-progress';
+import type { PageProgressProps,PageProgressEmits } from './page-progress';
 
 defineOptions({
   name: 'YPageProgress',
@@ -27,9 +27,7 @@ const props = withDefaults(defineProps<PageProgressProps>(), {
   speed: 200,
 });
 
-const emit = defineEmits<{
-  'update:modelValue': [value: boolean];
-}>();
+const emit = defineEmits<PageProgressEmits>();
 
 const { step, delay, speed } = toRefs(props);
 
@@ -227,5 +225,4 @@ onUnmounted(() => {
   stopTrickle();
   queue.value = [];
 });
-
 </script>
