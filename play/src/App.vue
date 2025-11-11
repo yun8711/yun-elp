@@ -6,17 +6,63 @@
       :locale="locale"
       v-bind="appWrapConfig"
     >
-      <example />
+      <!-- 组件选择器 -->
+      <div class="component-selector">
+        <el-select v-model="currentComponent" placeholder="选择要查看的组件" @change="handleComponentChange" style="width: 200px;">
+          <el-option label="Sticky Page" value="sticky-page" />
+          <el-option label="Page Progress" value="page-progress" />
+          <el-option label="Button" value="button" />
+          <el-option label="Table" value="table" />
+          <el-option label="Text Tooltip" value="text-tooltip" />
+          <el-option label="Desc" value="desc" />
+          <el-option label="Empty" value="empty" />
+          <el-option label="Pop" value="pop" />
+          <el-option label="Select" value="select" />
+          <el-option label="Step" value="step" />
+          <el-option label="ECharts" value="echarts" />
+        </el-select>
+      </div>
+
+      <!-- 动态组件 -->
+      <component :is="currentComponentComponent" />
     </y-app-wrap>
   </Layout>
 </template>
 
 <script setup>
+import { ref, computed, defineAsyncComponent } from 'vue';
 import Layout from './components/layout.vue';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import en from 'element-plus/dist/locale/en.mjs';
 import logo from './assets/test.png';
-import Example from './components/sticky-page/index.vue';
+
+// 组件映射 - 使用 defineAsyncComponent 包装动态导入
+const componentMap = {
+  'sticky-page': defineAsyncComponent(() => import('./components/sticky-page/index.vue')),
+  'page-progress': defineAsyncComponent(() => import('./components/page-progress-example.vue')),
+  'button': defineAsyncComponent(() => import('./components/button-example.vue')),
+  'table': defineAsyncComponent(() => import('./components/table-example.vue')),
+  'text-tooltip': defineAsyncComponent(() => import('./components/text-tooltip-example.vue')),
+  'desc': defineAsyncComponent(() => import('./components/desc-example.vue')),
+  'empty': defineAsyncComponent(() => import('./components/empty-example.vue')),
+  'pop': defineAsyncComponent(() => import('./components/pop-example.vue')),
+  'select': defineAsyncComponent(() => import('./components/select-example.vue')),
+  'step': defineAsyncComponent(() => import('./components/step-example.vue')),
+  'echarts': defineAsyncComponent(() => import('./components/echarts/echarts-example.vue'))
+};
+
+// 当前选中的组件
+const currentComponent = ref('page-progress');
+
+// 当前组件实例
+const currentComponentComponent = computed(() => {
+  return componentMap[currentComponent.value];
+});
+
+// 组件切换处理
+const handleComponentChange = (value) => {
+  console.log('切换组件:', value);
+};
 
 const appWrapConfig = {
   dialog: {
@@ -48,6 +94,22 @@ const appWrapConfig = {
 </script>
 
 <style lang="scss" scoped>
+.component-selector {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--el-bg-color);
+  border: 1px solid var(--el-border-color-light);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  span {
+    font-weight: 500;
+    color: var(--el-text-color-primary);
+  }
+}
+
 .demo-container {
   padding: 20px;
   max-width: 1200px;

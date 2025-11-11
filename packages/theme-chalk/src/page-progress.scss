@@ -1,0 +1,75 @@
+// 基于el-progress的页面进度条样式
+.y-page-progress {
+  // 固定在页面顶部
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 1031 !important; // 参考 NProgress 的 z-index
+  pointer-events: none !important;
+
+  // 隐藏默认的背景和边框
+  .el-progress-bar__outer {
+    background-color: transparent !important;
+    border-radius: 0 !important;
+  }
+
+  // 进度条样式
+  .el-progress-bar__inner {
+    border-radius: 0 !important;
+    transition: width 200ms linear !important;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+
+    // 添加光泽动画效果
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.6),
+        transparent
+      );
+      animation: shimmer 2s infinite;
+    }
+  }
+
+  // Spinner 样式（使用伪元素）
+  &__spinner::after {
+    content: '';
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 18px;
+    height: 18px;
+    box-sizing: border-box;
+    border: solid 2px transparent;
+    border-top-color: var(--el-color-primary);
+    border-left-color: var(--el-color-primary);
+    border-radius: 50%;
+    animation: y-page-progress-spinner 400ms linear infinite;
+    pointer-events: none;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes y-page-progress-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
