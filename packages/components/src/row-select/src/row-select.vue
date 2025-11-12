@@ -76,9 +76,10 @@
 
 <script setup lang="ts">
 import { ArrowDown } from '@element-plus/icons-vue';
+import { ElIcon } from 'element-plus';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from '@vue/runtime-core';
 import { getSizeValue } from '../../../utils/other';
-import type { RowSelectProps } from './row-select';
+import type { RowSelectProps, RowSelectEmits } from './row-select';
 
 defineOptions({
   name: 'YRowSelect',
@@ -112,11 +113,7 @@ const props = withDefaults(defineProps<RowSelectProps>(), {
 });
 
 // 定义事件
-const emit = defineEmits<{
-  'update:modelValue': [value: string | string[] | number | number[]];
-  change: [value: string | string[] | number | number[]];
-  fold: [value: boolean];
-}>();
+const emit = defineEmits<RowSelectEmits>();
 
 // 响应式数据
 const optionsBoxRef = ref<HTMLElement>();

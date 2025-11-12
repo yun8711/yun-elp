@@ -56,17 +56,6 @@ const maxWait = computed(() => {
   return undefined
 })
 
-// 模式：debounce 或 throttle，不设置时为 undefined
-// const model = computed(() => {
-//   if (props.model !== undefined && props.model !== null) {
-//     return props.model
-//   }
-//   if (buttonConfig?.model !== undefined && buttonConfig?.model !== null) {
-//     return buttonConfig.model
-//   }
-//   return undefined // 不设置默认值，默认不启用防抖或节流
-// })
-
 // 双击检测时间阈值，最少300ms
 const dblDelay = computed(() => {
   const delayValue = delay.value

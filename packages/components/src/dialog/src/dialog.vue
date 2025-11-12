@@ -6,8 +6,7 @@
     class="y-dialog"
     :style="{
       '--body-max-height': bodyMaxHeight
-    }"
-  >
+    }">
     <template #header>
       <slot name="header">
         <div class="y-dialog__header-title" :style="titleStyle">
@@ -39,11 +38,12 @@
 
 <script setup lang="ts">
 import { ref, computed, useAttrs } from '@vue/runtime-core';
-import { DialogProps } from './dialog';
+import { DialogProps, DialogEmits } from './dialog';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import { useExternalListener } from '../../../hooks/use-external-listener';
 import { omit } from 'lodash-es';
+import { ElDialog } from 'element-plus';
 import YButton from '../../button/src/button.vue';
 
 defineOptions({
@@ -51,7 +51,7 @@ defineOptions({
   inheritAttrs: true
 });
 
-const emit = defineEmits(['confirm', 'cancel', 'update:modelValue']);
+const emit = defineEmits<DialogEmits>();
 
 const dialogConfig = useAppConfig('dialog');
 const attrs = useAttrs();
@@ -108,7 +108,7 @@ const titleStyle = computed(() => {
 });
 
 const confirmBtnProps = computed(() => {
-  const defaultProps = { type: 'primary' };
+  const defaultProps = { type: 'primary', model: 'debounce' };
   const configProps = dialogConfig?.confirmProps || {};
   return {
     ...defaultProps,
@@ -118,7 +118,7 @@ const confirmBtnProps = computed(() => {
 });
 
 const cancelProps = computed(() => {
-  const defaultProps = { type: 'default' };
+  const defaultProps = { type: 'default', model: 'debounce' };
   const configProps = dialogConfig?.cancelProps || {};
   return {
     ...defaultProps,

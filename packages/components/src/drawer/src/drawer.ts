@@ -1,6 +1,12 @@
 import type { ExtractPublicPropTypes } from '@vue/runtime-core';
 import type { ButtonProps } from '../../button/src/button';
 
+export type DrawerEmits = {
+  (e: 'confirm'): void;
+  (e: 'cancel'): void;
+  (e: 'update:modelValue', value: boolean): void;
+}
+
 export interface DrawerProps {
   modelValue?: boolean;
   title?: string;

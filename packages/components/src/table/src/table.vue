@@ -21,7 +21,6 @@
           </div>
           <el-pagination
             v-bind="paginationProps"
-            ref="paginationRef"
             class="y-table__footer-pagination"
             @change="paginationChange" />
         </div>
@@ -32,11 +31,12 @@
 
 <script setup lang="ts">
 import { computed, provide, useAttrs, useTemplateRef } from '@vue/runtime-core';
-import type { TableProps } from './table';
+import type { TableProps, TableEmits } from './table';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import type { EmptyProps } from '../../empty/src/empty';
 import YEmpty from '../../empty/src/empty.vue';
+import { ElTable, ElPagination } from 'element-plus';
 
 defineOptions({
   name: 'YTable',
@@ -44,9 +44,7 @@ defineOptions({
 });
 
 
-const emit = defineEmits<{
-  (e: 'paginationChange', obj: { currentPage: number, pageSize: number }): void
-}>();
+const emit = defineEmits<TableEmits>();
 
 const attrs = useAttrs();
 const slots = defineSlots<{
@@ -104,12 +102,21 @@ const paginationChange = (currentPage: number, pageSize: number) => {
 }
 
 const tableRef = useTemplateRef('tableRef')
-const paginationRef = useTemplateRef('paginationRef')
 
-defineExpose({
-  tableRef,
-  paginationRef
-})
+defineExpose(new Proxy({}, {
+  get: (_target, key) => {
+    return tableRef.value?.[key];
+  },
+  has: (_target, key) => {
+    return !!(tableRef.value && key in tableRef.value);
+  },
+  ownKeys: () => {
+    return tableRef.value ? [...Object.keys(tableRef.value)] : [];
+  },
+  getOwnPropertyDescriptor: (_target, key) => {
+    return tableRef.value ? Object.getOwnPropertyDescriptor(tableRef.value, key) : undefined;
+  }
+}))
 
 provide('tableData', attrs.data);
 provide('formTableProp', props.formTableProp);

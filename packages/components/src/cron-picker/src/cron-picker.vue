@@ -84,7 +84,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, nextTick, useTemplateRef } from '@vue/runtime-core'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElButton, ElInput, ElSelect, ElOption, ElPopover, ElIcon } from 'element-plus'
 import CronMinute from './components/CronMinute.vue'
 import CronHour from './components/CronHour.vue'
 import CronDay from './components/CronDay.vue'

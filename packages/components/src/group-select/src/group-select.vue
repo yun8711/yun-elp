@@ -22,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElButtonGroup, ElButton } from 'element-plus';
 import { groupSelectProps, type GroupSelectOption, type GroupSelectEmits } from './group-select';
 
 defineOptions({

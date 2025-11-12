@@ -14,13 +14,8 @@
           :key="group.label"
           :label="group.label"
           :disabled="group.disabled"
-          v-bind="group"
-        >
-          <el-option
-            v-for="option in getOptions(group.options || [])"
-            :key="option.value"
-            v-bind="option"
-          />
+          v-bind="group">
+          <el-option v-for="option in getOptions(group.options || [])" :key="option.value" v-bind="option" />
         </el-option-group>
       </template>
 
@@ -34,6 +29,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from '@vue/runtime-core';
+import { ElSelect, ElOption, ElOptionGroup } from 'element-plus';
 import type { YSelectProps, SelectOption, SelectEmits } from './select';
 import { isPlainObject } from 'lodash-es';
 
@@ -72,7 +68,7 @@ const emit = defineEmits<SelectEmits>();
 // 计算属性
 const modelValue = computed({
   get: () => (props as any).modelValue,
-  set: (value: any) => emit('update:modelValue', value)
+  set: (value: any) => { emit('update:modelValue', value); emit('change', value); }
 });
 
 // 获取 el-select 的引用

@@ -94,7 +94,7 @@ watch(
 );
 
 // 监听容器尺寸变化，自动调整图表大小
-watch([width, height], ([newWidth, newHeight]) => {
+watch([width, height], ([newWidth, newHeight]: [number, number]) => {
   // 确保尺寸是有效的数字
   if (typeof newWidth === 'number' && typeof newHeight === 'number' &&
       newWidth > 0 && newHeight > 0 && chartInstance) {

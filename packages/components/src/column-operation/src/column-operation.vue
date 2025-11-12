@@ -69,6 +69,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElTableColumn, ElPopover, ElIcon } from 'element-plus';
 import type {
   ColumnOperationProps,
   TableItemScope,

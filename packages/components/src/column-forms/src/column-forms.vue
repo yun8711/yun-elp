@@ -40,6 +40,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElTableColumn, ElFormItem, ElTooltip } from 'element-plus';
 import type { ColumnFormsProps } from './column-forms';
 import { withDefaults, toRefs, useAttrs, computed, inject, ref } from '@vue/runtime-core';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';

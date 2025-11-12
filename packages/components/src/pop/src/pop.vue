@@ -16,7 +16,7 @@
                   v-if="!props.noCancel"
                   v-bind="cancelProps"
                   @click="cancelClick"
-                  >{{ cancelText }}</y-button
+                >{{ cancelText }}</y-button
                 >
                 <y-button v-if="!props.noConfirm" v-bind="confirmBtnProps" @click="confirmClick">
                   {{ confirmText }}
@@ -40,11 +40,12 @@
 
 <script setup lang="ts">
 import { ref, computed, defineSlots, useTemplateRef } from "@vue/runtime-core";
-import type { PopProps } from './pop';
+import type { PopProps, PopEmits } from './pop';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import { useExternalListener } from '../../../hooks/use-external-listener';
 import YButton from '../../button/src/button.vue';
+import { ElTooltip, ElPopover } from 'element-plus';
 
 defineOptions({
   name: 'YPop',
@@ -58,7 +59,7 @@ const slots = defineSlots<{
   'pop-footer'(): any
 }>()
 
-const emit = defineEmits(['confirm', 'cancel'])
+const emit = defineEmits<PopEmits>();
 const popConfig = useAppConfig('pop');
 const props = defineProps<PopProps>();
 const { t } = useLocale();
@@ -75,6 +76,7 @@ const confirmBtnProps = computed(() => {
   return {
     type: 'primary',
     size: 'small',
+    model: 'debounce',
     ...configProps,
     ...propProps,
   }
@@ -91,6 +93,7 @@ const cancelProps = computed(() => {
   return {
     type: 'default',
     size: 'small',
+    model: 'debounce',
     ...configProps,
     ...propProps,
   }

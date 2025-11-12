@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { ref, computed, useAttrs } from '@vue/runtime-core';
-import { DrawerProps } from './drawer';
+import { DrawerProps, DrawerEmits } from './drawer';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import { useExternalListener } from '../../../hooks/use-external-listener';
@@ -47,7 +47,7 @@ defineOptions({
   inheritAttrs: true
 });
 
-const emit = defineEmits(['confirm', 'cancel', 'update:modelValue']);
+const emit = defineEmits<DrawerEmits>();
 
 const drawerConfig = useAppConfig('drawer');
 const attrs = useAttrs();
@@ -100,7 +100,7 @@ const titleStyle = computed(() => {
 });
 
 const confirmBtnProps = computed(() => {
-  const defaultProps = { type: 'primary' };
+  const defaultProps = { type: 'primary',model: 'debounce' };
   const configProps = drawerConfig?.confirmProps || {};
   return {
     ...defaultProps,
@@ -110,7 +110,7 @@ const confirmBtnProps = computed(() => {
 });
 
 const cancelBtnProps = computed(() => {
-  const defaultProps = { type: 'default' };
+  const defaultProps = { type: 'default',model: 'debounce' };
   const configProps = drawerConfig?.cancelProps || {};
   return {
     ...defaultProps,

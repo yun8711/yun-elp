@@ -15,6 +15,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElTimePicker } from 'element-plus'
 import { computed, onMounted, reactive } from '@vue/runtime-core'
 import { useLocale } from '../../../../hooks/use-locale'
 

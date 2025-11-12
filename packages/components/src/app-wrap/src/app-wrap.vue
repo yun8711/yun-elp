@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts">
+import { ElConfigProvider } from 'element-plus';
 import type { AppWrapProps } from './app-wrap';
 
 // 默认配置 - 在模块级别声明，避免Vue编译器限制

@@ -1,20 +1,29 @@
 <template>
-  <div ref="descRef" class="y-desc" :style="containerStyle" :class="{
-    'y-desc--bordered': isBorder
-  }">
+  <div
+    ref="descRef"
+    class="y-desc"
+    :style="containerStyle"
+    :class="{
+      'y-desc--bordered': isBorder
+    }">
     <div class="y-desc__body">
-      <div v-for="(item, index) in props.config" :key="getItemKey(item, index)" class="y-desc__item" :class="itemClass"
+      <div
+        v-for="(item, index) in props.config"
+        :key="getItemKey(item, index)"
+        class="y-desc__item"
+        :class="itemClass"
         :style="getItemStyle(index)">
         <div class="y-desc__item-label" :style="getLabelStyle(item, index)">
-          <slot v-if="item?.prop && slots[`${item.prop}-label`]" :name="`${item.prop}-label`" v-bind="{ item, index }">
-          </slot>
+          <slot v-if="item?.prop && slots[`${item.prop}-label`]" :name="`${item.prop}-label`" v-bind="{ item, index }" />
           <slot v-else-if="slots.label" name="label" v-bind="{ item, index }">
             <span>{{ item.label }}</span>
           </slot>
           <span v-else>{{ item.label }}</span>
         </div>
         <div class="y-desc__item-content" :style="getContentStyle(item)">
-          <slot v-if="item?.prop && slots[`${item.prop}-content`]" :name="`${item.prop}-content`"
+          <slot
+            v-if="item?.prop && slots[`${item.prop}-content`]"
+            :name="`${item.prop}-content`"
             v-bind="{ item, index, content: getValue(item) }">
             <y-text-tooltip v-if="isItemTooltip(item)" v-bind="item?.textTooltip || {}">
               {{ getValue(item) }}

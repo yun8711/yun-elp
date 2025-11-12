@@ -2,6 +2,11 @@ import type { ExtractPublicPropTypes } from '@vue/runtime-core';
 import type { PopoverProps, ElTooltipProps } from 'element-plus';
 import type { ButtonProps } from '../../button/src/button';
 
+export type PopEmits = {
+  (e: 'confirm'): void;
+  (e: 'cancel'): void;
+}
+
 type PlacementType =
   | 'top'
   | 'bottom'

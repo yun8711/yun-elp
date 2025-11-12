@@ -7,29 +7,26 @@
           <y-border-label
             v-for="item in firstOptions.filter((item: TableSearchItem) => !item.hidden)"
             :key="item.prop"
-            v-bind="item.borderAttrs"
-          >
+            v-bind="item.borderAttrs">
             <template v-if="item.custom">
               <slot
                 :name="item.prop"
                 :prop="item.prop"
                 :value="form[item.prop]"
                 :item="item"
-                :form="form"
-              />
+                :form="form" />
             </template>
             <template v-else>
               <component
                 :is="item.comp"
                 v-model="form[item.prop]"
                 v-bind="item.innerAttrs"
-                @update:model-value="handleValueUpdate(item.prop, $event)"
-              />
+                @update:model-value="handleValueUpdate(item.prop, $event)" />
             </template>
           </y-border-label>
           <div>
-            <el-button type="primary" @click="onSearch">查询</el-button>
-            <el-button @click="onReset">重置</el-button>
+            <y-button type="primary" model="debounce" @click="onSearch">查询</y-button>
+            <y-button model="debounce" @click="onReset">重置</y-button>
           </div>
         </div>
       </template>
@@ -40,37 +37,34 @@
           <y-border-label
             v-for="item in firstOptions.filter((item: TableSearchItem) => !item.hidden)"
             :key="item.prop"
-            v-bind="item.borderAttrs"
-          >
+            v-bind="item.borderAttrs">
             <template v-if="item.custom">
               <slot
                 :name="item.prop"
                 :prop="item.prop"
                 :value="form[item.prop]"
                 :item="item"
-                :form="form"
-              />
+                :form="form" />
             </template>
             <template v-else>
               <component
                 :is="item.comp"
                 v-model="form[item.prop]"
                 v-bind="item.innerAttrs"
-                @update:model-value="handleValueUpdate(item.prop, $event)"
-              />
+                @update:model-value="handleValueUpdate(item.prop, $event)" />
             </template>
           </y-border-label>
 
           <div>
-            <el-button type="primary" @click="onSearch">查询</el-button>
-            <el-button @click="onReset">重置</el-button>
-            <el-link style="margin-left: 8px" underline="never" @click="toggleFold">
+            <y-button type="primary" model="debounce" @click="onSearch">查询</y-button>
+            <y-button model="debounce" @click="onReset">重置</y-button>
+            <el-button link type="primary" @click="toggleFold">
               {{ isFold ? unFoldText : foldText }}
               <el-icon class="el-icon--right">
                 <ArrowDown v-if="isFold" />
                 <ArrowUp v-else />
               </el-icon>
-            </el-link>
+            </el-button>
           </div>
         </div>
         <!-- 使用 Transition 包裹 -->
@@ -79,24 +73,21 @@
             <y-border-label
               v-for="item in moreOptions.filter((item: TableSearchItem) => !item.hidden)"
               :key="item.prop"
-              v-bind="item.borderAttrs"
-            >
+              v-bind="item.borderAttrs">
               <template v-if="item.custom">
                 <slot
                   :name="item.prop"
                   :prop="item.prop"
                   :value="form[item.prop]"
                   :item="item"
-                  :form="form"
-                />
+                  :form="form" />
               </template>
               <template v-else>
                 <component
                   :is="item.comp"
                   v-model="form[item.prop]"
                   v-bind="item.innerAttrs"
-                  @update:model-value="handleValueUpdate(item.prop, $event)"
-                />
+                  @update:model-value="handleValueUpdate(item.prop, $event)" />
               </template>
             </y-border-label>
           </div>
@@ -115,6 +106,7 @@ import { ref, computed, watch, markRaw } from '@vue/runtime-core';
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import YBorderLabel from '../../border-label/src/border-label.vue';
+import YButton from '../../button/src/button.vue';
 import type {
   TableSearchProps,
   TableSearchOption,
@@ -122,8 +114,7 @@ import type {
   DynamicPropsParams,
   TableSearchEmits
 } from './table-search';
-// @ts-ignore
-import { ElCollapseTransition, ElInput, ElAutocomplete } from 'element-plus';
+import { ElCollapseTransition, ElInput, ElButton, ElIcon } from 'element-plus';
 
 defineOptions({
   name: 'YTableSearch',

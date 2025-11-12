@@ -23,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElTableColumn } from 'element-plus';
 import type { ColumnTextProps } from './column-text';
 import { withDefaults, toRefs, useAttrs, computed } from '@vue/runtime-core';
 import { useExternalListener } from '../../../hooks/use-external-listener';
