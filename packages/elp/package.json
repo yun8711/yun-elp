@@ -50,6 +50,10 @@
       "types": "./resolver.d.ts",
       "import": "./resolver.mjs"
     },
+    "./mcp-server": {
+      "import": "./mcp-server/src/index.js",
+      "types": "./mcp-server/index.d.ts"
+    },
     "./*": "./*"
   },
   "keywords": [
