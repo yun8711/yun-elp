@@ -33,29 +33,31 @@ column-filter/test
 
 ### Attributes
 
-| 属性名      | 说明                           | 类型                                                        | 默认值  |
-| ----------- | ------------------------------ | ----------------------------------------------------------- | ------- |
-| noStatus    | 是否不显示状态样式             | `boolean`                                                   | `false` |
-| noFilter    | 是否不启用筛选功能             | `boolean`                                                   | `false` |
-| formatter   | 值格式化函数                   | `boolean \| ((value: any, row: any, scope: any) => string)` | `true`  |
-| config      | 配置筛选选项、状态样式和格式化 | `ColumnFilterConfig[]`                                      | `[]`    |
-| headerStyle | 自定义表头样式                 | `Record<string, any>`                                       | `{}`    |
-| textStyle   | 自定义文本样式                 | `Record<string, any>`                                       | —       |
+详见 [`el-table-column`](https://element-plus.org/zh-CN/component/table#table-column-%E5%B1%9E%E6%80%A7)
+
+| 属性名      | 说明                           | 类型                                                      | 默认值  |
+| ----------- | ------------------------------ | --------------------------------------------------------- | ------- |
+| noStatus    | 是否不显示状态样式，默认显示   | ^[boolean]                                                | `false` |
+| noFilter    | 是否不启用筛选功能，默认显示   | ^[boolean]                                                | `false` |
+| formatter   | 值格式化函数                   | ^[function]`(value: any, row: any, scope: any) => string` | —       |
+| config      | 配置筛选选项、状态样式和格式化 | ^[array]`ColumnFilterConfig[]`                            | `[]`    |
+| headerStyle | 自定义表头样式                 | ^[object]`Record<string, any>`                            | `{}`    |
+| textStyle   | 自定义文本样式                 | ^[object]`Record<string, any>`                            | —       |
 
 ### ColumnFilterConfig
 
-| 属性名  | 说明                                           | 类型     | 默认值 |
-| ------- | ---------------------------------------------- | -------- | ------ |
-| text    | 同el-table-column filter配置的text，即显示文本 | `string` | —      |
-| value   | 值                                             | `any`    | —      |
-| color   | 文字颜色                                       | `string` | —      |
-| bgColor | 背景颜色                                       | `string` | —      |
+| 属性名  | 说明                                           | 类型       | 默认值 |
+| ------- | ---------------------------------------------- | ---------- | ------ |
+| text    | 同el-table-column filter配置的text，即显示文本 | ^[string]  | —      |
+| value   | 值                                             | ^[any]     | —      |
+| color   | 文字颜色                                       | ^[string]` | —      |
+| bgColor | 背景颜色                                       | ^[string]  | —      |
 
 ### Slots
 
-| 名称        | 说明                       | 参数                |
-| ----------- | -------------------------- | ------------------- |
-| —           | 默认插槽，自定义单元格内容 | `{ scope, value }`  |
-| header      | 自定义表头内容             | `{ column, index }` |
-| expand      | 展开行插槽                 | `{ expanded }`      |
-| filter-icon | 自定义筛选图标             | `{ filterOpened }`  |
+| 名称        | 说明                       | 参数                                                    |
+| ----------- | -------------------------- | ------------------------------------------------------- |
+| default     | 默认插槽，自定义单元格内容 | ^[object]`{ scope, value }`                             |
+| header      | 自定义表头内容             | ^[object]`{ column: TableColumnCtx<T>, index: number }` |
+| expand      | 展开行插槽                 | ^[object]`{ expanded: boolean }`                        |
+| filter-icon | 自定义筛选图标             | ^[object]`{ filterOpened: boolean }`                    |

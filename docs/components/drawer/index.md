@@ -5,7 +5,7 @@ description: Drawer 抽屉
 
 # Drawer 抽屉
 
-主要是修改了 el-drawer 组件内置样式，footer插槽默认内置了"确定"、"取消"按钮
+主要是修改了 `el-drawer` 组件内置样式，footer 插槽默认内置了"确定"、"取消"按钮，并且默认都是防抖的
 
 ## 用法
 
@@ -17,24 +17,24 @@ drawer/test
 
 ## API
 
-除下面的属性外，其他属性同 [el-drawer](https://element-plus.org/zh-CN/component/drawer.html#api)
+除下面的属性外，其他属性与 [el-drawer](https://element-plus.org/zh-CN/component/drawer.html#api) 一致
 
 ### Attributes
 
-| 属性名       | 说明                         | 类型                           | 默认值                      |
-| ------------ | ---------------------------- | ------------------------------ | --------------------------- |
-| size         | 抽屉尺寸                     | ^[string] / ^[number]          | `'640px'`                   |
-| headerClass  | header 部分的自定义 class 名 | ^[string]                      | `'y-drawer__header'`        |
-| bodyClass    | body 部分的自定义 class 名   | ^[string]                      | `'y-drawer__body'`          |
-| footerClass  | footer 部分的自定义 class 名 | ^[string]                      | `'y-drawer__footer'`        |
-| titleStyle   | 标题样式                     | ^[object]`CSSProperties` | —                           |
-| showFooter   | 是否显示底部按钮区域         | ^[boolean]                     | `true`                      |
-| noConfirm    | 是否隐藏确认按钮             | ^[boolean]                     | `false`                     |
-| confirmText  | 确认按钮文本                 | ^[string]                      | `'确定'`                    |
-| confirmProps | 确认按钮属性                 | ^[object]`YButtonProps`        | ^[object]`{type:'primary'}` |
-| noCancel     | 是否隐藏取消按钮             | ^[boolean]                     | `false`                     |
-| cancelText   | 取消按钮文本                 | ^[string]                      | `'取消'`                    |
-| cancelProps  | 取消按钮属性                 | ^[object]`YButtonProps`        | ^[object]`{type:'default'}` |
+| 属性名       | 说明                         | 类型                     | 默认值                                       |
+| ------------ | ---------------------------- | ------------------------ | -------------------------------------------- |
+| size         | 抽屉尺寸                     | ^[string] / ^[number]    | `'640px'`                                    |
+| headerClass  | header 部分的自定义 class 名 | ^[string]                | `'y-drawer__header'`                         |
+| bodyClass    | body 部分的自定义 class 名   | ^[string]                | `'y-drawer__body'`                           |
+| footerClass  | footer 部分的自定义 class 名 | ^[string]                | `'y-drawer__footer'`                         |
+| titleStyle   | 标题样式                     | ^[object]`CSSProperties` | —                                            |
+| showFooter   | 是否显示底部按钮区域         | ^[boolean]               | `true`                                       |
+| noConfirm    | 是否隐藏确认按钮             | ^[boolean]               | `false`                                      |
+| confirmText  | 确认按钮文本                 | ^[string]                | `'确定'`                                     |
+| confirmProps | 确认按钮属性                 | ^[object]`YButtonProps`  | ^[object]`{type:'primary',model:'debounce'}` |
+| noCancel     | 是否隐藏取消按钮             | ^[boolean]               | `false`                                      |
+| cancelText   | 取消按钮文本                 | ^[string]                | `'取消'`                                     |
+| cancelProps  | 取消按钮属性                 | ^[object]`YButtonProps`  | ^[object]`{type:'default',model:'debounce'}` |
 
 ### Slots
 
