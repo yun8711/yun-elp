@@ -9,8 +9,8 @@ export default defineConfig({
   },
   splitting: false,
   sourcemap: true,
-  // 构建到 dist 目录下的 mcp-server 子目录
-  outDir: resolve(__dirname, '../../dist/mcp-server'),
+  // 构建到 dist 目录
+  outDir: resolve(__dirname, 'dist'),
   outExtension() {
     return {
       js: '.js'
