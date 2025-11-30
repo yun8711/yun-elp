@@ -1,9 +1,9 @@
 ---
-title: PageHeader 页面头部
-description: 用于展示路由title
+title: PageHeader
+description: 展示页面标题
 ---
 
-# Page Header 页面头部
+# Page Header 页面标题
 
 用于展示页面标题的组件，默认使用路由元数据的 route.meta.title
 

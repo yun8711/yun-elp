@@ -1,9 +1,11 @@
 ---
-title: Radio 单选框
-description: Radio 单选框
+title: Radio
+description: 配置更方便的单选框
 ---
 
 # Radio 单选框
+
+基于 `el-radio` 封装，简化了选项配置
 
 ## 基础用法
 
@@ -17,12 +19,12 @@ radio/test
 
 ### Attributes
 
-| 属性名         | 说明                                     | 类型                                          | 默认值    |
-| -------------- | ---------------------------------------- | --------------------------------------------- | --------- |
-| modelValue     | 绑定值                                   | ^[string] / ^[number] / ^[boolean]            | `''`      |
-| options        | 选项值                                   | ^[object]`RadioOption[]`                      | `[]`      |
-| childType      | 子元素类型，即el-radio-group支持的子组件 | ^[enum]`'radio' \| 'button'`                  | `'radio'` |
-| disabledMethod | 选项禁用方法                             | ^[Function]`(option: RadioOption) => boolean` | —         |
+| 属性名                | 说明                                     | 类型                                          | 默认值    |
+| --------------------- | ---------------------------------------- | --------------------------------------------- | --------- |
+| model-value / v-model | 绑定值                                   | ^[string] / ^[number] / ^[boolean]            | `''`      |
+| options               | 选项值                                   | ^[object]`RadioOption[]`                      | `[]`      |
+| child-type            | 子元素类型，即el-radio-group支持的子组件 | ^[enum]`'radio' \| 'button'`                  | `'radio'` |
+| disabled-method       | 选项禁用方法                             | ^[Function]`(option: RadioOption) => boolean` | —         |
 
 ### RadioOption
 

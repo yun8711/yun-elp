@@ -50,15 +50,9 @@ export interface ColumnOperationProps {
   options: ColumnOperationItemType[] | ((scope: TableItemScope) => ColumnOperationItemType[]);
   // 禁用默认提示文案
   disabledDefaultTip?: string;
-  // 表头样式
-  headerStyle?: Record<string, string | number>;
 }
 
 export const columnOperationProps = {
-  headerStyle: {
-    type: Object as PropType<Record<string, string | number>>,
-    default: () => ({})
-  },
   disabledDefaultTip: {
     type: String,
     default: () => ''

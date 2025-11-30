@@ -1,5 +1,5 @@
 <template>
-  <el-table-column class="y-column-filter" v-bind="mergedAttrs">
+  <el-table-column v-bind="mergedAttrs">
     <template #default="scope">
       <slot :scope="scope" :value="formatterCellValue(scope)">
         <span
@@ -12,7 +12,7 @@
     </template>
     <template #header="{ column, $index }">
       <slot name="header" :column="column" :index="$index">
-        <span :style="headerStyle">{{ attrs.label }}</span>
+        <span>{{ attrs.label }}</span>
       </slot>
     </template>
     <template #expand="{ expanded }">
@@ -40,12 +40,11 @@ const props = withDefaults(defineProps<ColumnFilterProps>(), {
   noStatus: false,
   noFilter: false,
   formatter: true,
-  headerStyle: undefined,
   config: () => [],
   textStyle: undefined
 });
 
-const { noStatus, noFilter, formatter, headerStyle, config, textStyle } = toRefs(props);
+const { noStatus, noFilter, formatter, config, textStyle } = toRefs(props);
 
 // 使用 computed 确保属性正确获取
 const propKey = computed(() => attrs.prop || 'name');
@@ -77,6 +76,7 @@ const mergedAttrs = computed(() => {
     'min-width': attrs?.['min-width'] || 100,
     width: attrs?.width || 'auto',
     'column-key': attrs?.['column-key'] || attrs.prop,
+    'class-name': attrs?.['class-name'] || 'y-column-filter',
   }
 
   if (!noFilter.value) {

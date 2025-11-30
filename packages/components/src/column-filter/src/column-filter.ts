@@ -18,8 +18,6 @@ export interface ColumnFilterProps {
   // 值格式化函数
   formatter?: boolean | ((value: any, row: any, scope: any) => string);
   config?: ColumnFilterConfig[];
-  // 自定义表头样式
-  headerStyle?: Record<string, any>;
   // 自定义文本样式
   textStyle?: Record<string, any>;
 }
@@ -40,10 +38,6 @@ export const columnFilterProps = {
   config: {
     type: Array as PropType<ColumnFilterConfig[]>,
     default: () => []
-  },
-  headerStyle: {
-    type: Object as PropType<Record<string, any>>,
-    default: () => ({})
   },
   textStyle: {
     type: Object as PropType<Record<string, any>>,

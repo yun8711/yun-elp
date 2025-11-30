@@ -1,5 +1,5 @@
 <template>
-  <el-table-column class="y-column-text" v-bind="mergedAttrs">
+  <el-table-column v-bind="mergedAttrs">
     <template #default="scope">
       <slot :scope="scope" :value="formatterCellValue(scope)">
         <span
@@ -13,7 +13,7 @@
     </template>
     <template #header="{ column, $index }">
       <slot name="header" :column="column" :index="$index">
-        <span :style="headerStyle">{{ attrs.label }}</span>
+        <span>{{ attrs.label }}</span>
       </slot>
     </template>
     <template #expand="{ expanded }">
@@ -43,7 +43,6 @@ const props = withDefaults(defineProps<ColumnTextProps>(), {
   formatter: undefined,
   noTip: false,
   tipProps: undefined,
-  headerStyle: undefined
 });
 
 const { formatter, link, noTip, tipProps } = toRefs(props);
@@ -53,6 +52,7 @@ const mergedAttrs = computed(() => {
     ...attrs,
     'min-width': attrs?.['min-width'] || 100,
     width: attrs?.width || 'auto',
+    'class-name': attrs?.['class-name'] || 'y-column-text',
   }
 
   if (noTip.value) {

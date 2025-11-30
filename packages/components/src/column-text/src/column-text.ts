@@ -8,8 +8,6 @@ export interface ColumnTextProps {
   formatter?: (value: any, row: any, scope: any) => string;
   // 自定义文本样式
   textStyle?: Record<string, any>;
-  // 自定义表头样式
-  headerStyle?: Record<string, any>;
   // 是否禁用tooltip
   noTip?: boolean;
   // 自定义toolti属性，在noTip为true时生效
@@ -26,10 +24,6 @@ export const columnTextProps = {
     default: () => ''
   },
   textStyle: {
-    type: Object as PropType<Record<string, any>>,
-    default: () => ({})
-  },
-  headerStyle: {
     type: Object as PropType<Record<string, any>>,
     default: () => ({})
   },

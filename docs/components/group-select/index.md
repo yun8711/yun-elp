@@ -1,17 +1,15 @@
 ---
-title: GroupSelect 组选择器
-description: GroupSelect 组选择器，基于 ElButtonGroup 组件封装的按钮组选择器
+title: GroupSelect
+description: 按钮组选择器
 ---
 
 # GroupSelect 组选择器
 
-GroupSelect 是基于 ElButtonGroup 组件封装的按钮组选择器，提供了一种简洁的方式来创建单选按钮组
+基于 `el-button-group` 封装，提供了一种简洁的方式来创建单选按钮组
 
 ## 基础用法
 
-最基本的用法，通过 `v-model` 绑定选中值，通过 `options` 配置选项。
-
-:::demo
+:::demo 最基本的用法，通过 `v-model` 绑定选中值，通过 `options` 配置选项。
 
 group-select/test
 

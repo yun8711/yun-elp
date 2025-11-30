@@ -1,11 +1,11 @@
 ---
-title: Select 选择器
-description: Select 选择器，基于 el-select 封装，内置 options 处理
+title: Select
+description: 配置简化的 Select 选择器，内置 options 处理
 ---
 
 # Select 选择器
 
-Select 是基于 Element Plus 的 Select 组件封装的简化版本，主要特点是内置了 options 和 groupOptions 处理，使用可以直接传入选项数组而不需要手动创建 `el-option` 组件。
+基于 `el-select` 组件封装的简化版本，主要特点是内置了 options 和 groupOptions 处理，使用可以直接传入选项数组而不需要手动创建 `el-option` 组件。
 
 ## 基础用法
 
@@ -45,11 +45,11 @@ select/group
 
 除了以下属性外，Select 支持 ElSelect 组件的所有属性。
 
-| 属性名         | 说明         | 类型                                           | 默认值 |
-| -------------- | ------------ | ---------------------------------------------- | ------ |
-| options        | 选项数组     | ^[array]`SelectOption[]`                       | `[]`   |
-| optionGroups   | 选项分组数组 | ^[array]`SelectOptionGroup[]`                  | `[]`   |
-| disabledMethod | 选项禁用方法 | ^[Function]`(option: SelectOption) => boolean` | —      |
+| 属性名          | 说明         | 类型                                           | 默认值 |
+| --------------- | ------------ | ---------------------------------------------- | ------ |
+| options         | 选项数组     | ^[array]`SelectOption[]`                       | `[]`   |
+| option-groups   | 选项分组数组 | ^[array]`SelectOptionGroup[]`                  | `[]`   |
+| disabled-method | 选项禁用方法 | ^[Function]`(option: SelectOption) => boolean` | —      |
 
 ### SelectOption Properties
 

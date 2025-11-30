@@ -1,6 +1,6 @@
 ---
-title: PageFooter 页脚
-description: PageFooter 页脚
+title: PageFooter
+description: 页面或区域吸底组件
 ---
 
 # PageFooter 页脚

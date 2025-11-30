@@ -13,6 +13,7 @@
           <el-option label="Page Progress" value="page-progress" />
           <el-option label="Button" value="button" />
           <el-option label="Table" value="table" />
+          <el-option label="Table Filter" value="table-filter" />
           <el-option label="Text Tooltip" value="text-tooltip" />
           <el-option label="Desc" value="desc" />
           <el-option label="Empty" value="empty" />
@@ -42,6 +43,7 @@ const componentMap = {
   'page-progress': defineAsyncComponent(() => import('./components/page-progress-example.vue')),
   'button': defineAsyncComponent(() => import('./components/button-example.vue')),
   'table': defineAsyncComponent(() => import('./components/table-example.vue')),
+  'table-filter': defineAsyncComponent(() => import('./components/table-filter.vue')),
   'text-tooltip': defineAsyncComponent(() => import('./components/text-tooltip-example.vue')),
   'desc': defineAsyncComponent(() => import('./components/desc-example.vue')),
   'empty': defineAsyncComponent(() => import('./components/empty-example.vue')),

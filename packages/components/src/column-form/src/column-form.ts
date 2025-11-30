@@ -12,8 +12,6 @@ export interface ColumnFormProps {
   formProps?: Partial<FormItemProps>;
   // 表单项错误提示的tooltip属性
   tipProps?: Partial<ElTooltipProps>;
-  // 表头样式
-  headerStyle?: Record<string, string | number>;
 }
 
 export const columnFormProps = {
@@ -37,10 +35,6 @@ export const columnFormProps = {
     type: Object as PropType<Partial<ElTooltipProps>>,
     default: undefined
   },
-  headerStyle: {
-    type: Object as PropType<Record<string, string | number>>,
-    default: undefined
-  }
 } as const;
 
 export type columnFormInstance = ExtractPublicPropTypes<typeof columnFormProps>;

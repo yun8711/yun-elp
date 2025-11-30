@@ -1,13 +1,11 @@
 ---
-title: ScrollBox 可滚动容器
-description: ScrollBox 可滚动容器
+title: ScrollBox
+description: 可滚动容器
 ---
 
 # ScrollBox 可滚动容器
 
-基于 [el-scrollbar 组件](https://element-plus.org/zh-CN/component/scrollbar.html)封装的可水平方向滚动的容器组件。
-
-> 垂直滚动一般不需要箭头，所以可以直接使用 el-scrollbar 组件
+基于 `el-scrollbar` 封装，可在水平方向滚动的容器组件。（因为垂直滚动一般不需要箭头，可以直接使用 el-scrollbar 组件）
 
 ## 基础用法
 
@@ -19,7 +17,7 @@ scroll-box/basic
 
 ## 滚轮功能和连续滚动
 
-:::demo wheelScroll 属性控制是否开启鼠标滚轮触发水平滚动的功能；continuous 属性控制是否启用连续滚动功能，长按箭头按钮可以连续滚动内容；出于性能考虑，这两个功能默认都是关闭的
+:::demo `wheelScroll` 属性控制是否开启鼠标滚轮触发水平滚动的功能；`continuous` 属性控制是否启用连续滚动功能，长按箭头按钮可以连续滚动内容；出于性能考虑，这两个功能默认都是关闭的
 
 scroll-box/continuous
 

@@ -1,6 +1,6 @@
 ---
-title: Desc 描述列表
-description: Desc 描述列表
+title: Desc
+description: 描述列表
 ---
 
 # Desc 描述列表
@@ -53,18 +53,18 @@ desc/slot
 
 ### Attributes
 
-| 属性名       | 说明                         | 类型                                               | 默认值         |
-| ------------ | ---------------------------- | -------------------------------------------------- | -------------- |
-| config       | 配置项数组                   | ^[object]`DescItem[]`                              | —              |
-| data         | 数据对象                     | ^[object]`Record<string, any>`                     | —              |
-| direction    | 布局方向，同 el-descriptions | ^[enum]`'horizontal' \| 'vertical'`                | `'horizontal'` |
-| column       | 列数                         | ^[number] / ^[function]`(width: number) => number` | `3`            |
-| labelWidth   | label 宽度                   | ^[string] / ^[number]                              | `'auto'`       |
-| labelStyle   | label 样式                   | ^[object]`CSSProperties`                           | —              |
-| contentStyle | content 样式                 | ^[object]`CSSProperties`                           | —              |
-| labelAlign   | label 文本对齐方式           | ^[enum]`'left' \| 'center' \| 'right'`             | `'left'`       |
-| contentAlign | content 文本对齐方式         | ^[enum]`'left' \| 'center' \| 'right'`             | `'left'`       |
-| emptyText    | content 内容为空时显示的内容 | ^[string]                                          | `''`           |
+| 属性名        | 说明                         | 类型                                               | 默认值         |
+| ------------- | ---------------------------- | -------------------------------------------------- | -------------- |
+| config        | 配置项数组                   | ^[object]`DescItem[]`                              | —              |
+| data          | 数据对象                     | ^[object]`Record<string, any>`                     | —              |
+| direction     | 布局方向，同 el-descriptions | ^[enum]`'horizontal' \| 'vertical'`                | `'horizontal'` |
+| column        | 列数                         | ^[number] / ^[function]`(width: number) => number` | `3`            |
+| labelWidth    | label 宽度                   | ^[string] / ^[number]                              | `'auto'`       |
+| label-style   | label 样式                   | ^[object]`CSSProperties`                           | —              |
+| content-style | content 样式                 | ^[object]`CSSProperties`                           | —              |
+| label-align   | label 文本对齐方式           | ^[enum]`'left' \| 'center' \| 'right'`             | `'left'`       |
+| content-align | content 文本对齐方式         | ^[enum]`'left' \| 'center' \| 'right'`             | `'left'`       |
+| empty-text    | content 内容为空时显示的内容 | ^[string]                                          | `''`           |
 
 ### DescItem Properties
 
@@ -86,9 +86,9 @@ desc/slot
 
 ### Slots
 
-| 名称           | 说明                                       | 参数                                                          |
-| -------------- | ------------------------------------------ | ------------------------------------------------------------- |
-| [prop]-label   | 每一项的自定义标签内容（优先级最高）       | ^[object]`{ item: DescItem, index: number }`                  |
-| [prop]-content | 每一项的自定义内容（优先级最高）           | ^[object]`{ item: DescItem, content: string, index: number }` |
-| label          | 默认标签插槽，当未指定 prop-label 时使用   | ^[object]`{ item: DescItem, index: number }`                  |
-| content        | 默认内容插槽，当未指定 prop-content 时使用 | ^[object]`{ item: DescItem, content: string, index: number }`  |
+| 名称           | 说明                                           | 参数                                                          |
+| -------------- | ---------------------------------------------- | ------------------------------------------------------------- |
+| [prop]-label   | 具名插槽，每一项的自定义标签内容（优先级最高） | ^[object]`{ item: DescItem, index: number }`                  |
+| [prop]-content | 具名插槽，每一项的自定义内容（优先级最高）     | ^[object]`{ item: DescItem, content: string, index: number }` |
+| label          | 默认标签插槽，当未指定 `[prop]-label` 时使用   | ^[object]`{ item: DescItem, index: number }`                  |
+| content        | 默认内容插槽，当未指定 `[prop]-content` 时使用 | ^[object]`{ item: DescItem, content: string, index: number }` |

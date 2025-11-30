@@ -1,14 +1,15 @@
 ---
-title: Button 防抖按钮
-description: Button 防抖按钮
+title: Button
+description: 功能增强的按钮
 ---
 
-# Button 按钮
+# Button 增强按钮
 
-基于 el-button 组件和 [useDebounceFn](https://vueuse.org/shared/useDebounceFn/#usedebouncefn) / [useThrottleFn](https://vueuse.org/shared/useThrottleFn/#usethrottlefn) 函数封装，可以配置click 事件的防抖或节流行为：
+基于 el-button 组件和 [useDebounceFn](https://vueuse.org/shared/useDebounceFn/#usedebouncefn) / [useThrottleFn](https://vueuse.org/shared/useThrottleFn/#usethrottlefn) 函数封装，可以配置 `click`、`dblclick`、防抖、节流行为：
 
-- **仅绑定单击事件**：不设置 `delay` 时立即响应，与普通按钮行为一致；设置 `delay` 时根据 `model` 决定是否应用防抖或节流（设置 `model` 时 `delay` 默认为300ms）
-- **同时绑定单击和双击事件**：经过双击检测时间（`dbl-delay`）后响应，然后根据 `delay` 和 `model` 设置决定是否应用防抖或节流
+（1）仅绑定单击事件：不设置 `delay` 时立即响应，与普通按钮行为一致；设置 `delay` 时根据 `model` 决定是否应用防抖或节流（设置 `model` 时 `delay` 默认为300ms）
+
+（2）同时绑定单击和双击事件：经过双击检测时间（`dbl-delay`）后响应，然后根据 `delay` 和 `model` 设置决定是否应用防抖或节流
 
 组件内部实现了单击和双击的智能区分机制，双击时不会触发单击事件，确保交互体验的准确性。`dbl-delay` 参数仅在绑定双击事件时生效，用于控制双击检测时间阈值，必须大于等于 `delay` 参数
 

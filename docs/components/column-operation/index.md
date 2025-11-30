@@ -1,13 +1,17 @@
 ---
-title: ColumnOperation 操作列
-description: ColumnOperation 操作列
+title: ColumnOperation
+description: 单元格内展示操作按钮的列
 ---
 
 # ColumnOperation 操作列
 
 ## 概述
 
-ColumnOperation 是一个用于表格操作列的组件，基于 Element Plus 的表格组件进行封装。它提供了丰富的功能，包括按钮禁用状态管理、tooltip提示、下拉菜单展示、确认对话框等常用功能。
+基于 `el-table-column` 封装，主要用于为表格内行数据提供各种操作按钮，包括按钮禁用状态管理、tooltip提示、下拉菜单展示、确认对话框等常用功能。
+
+（1）每个按钮都使用 `y-button` 组件，也就是默认支持防抖、节流、单击、双击等特性
+
+（2）每个按钮都使用 `y-pop` 组件包裹，也就是默认支持 `el-tooltip` 和 `el-popover` 特性
 
 ## 基础用法
 
@@ -25,7 +29,7 @@ column-operation/test
 
 - boolean值表示按钮是否禁用
 - string值表示按钮禁用时的提示，未明确设置时会使用默认提示文本
-- ColumnOperation 组件的 disabledDefaultTip 属性和appWrap组件的 columnOpertaion.disabledDefaultTip 都可以设置按钮禁用时的默认提示文本，前者优先级较高
+- ColumnOperation 组件的 `disabledDefaultTip` 属性和 `appWrap` 组件的 `columnOpertaion.disabledDefaultTip` 都可以设置按钮禁用时的默认提示文本，前者优先级较高
 
 :::demo
 
@@ -49,15 +53,24 @@ column-operation/popover
 
 ### Attributes
 
-| 属性名             | 说明                     | 类型                                                                                                    | 默认值 |
-| ------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------- | ------ |
-| options            | 操作项配置数组或函数     | ^[array]`[ColumnOperationItemType]>`/ ^[Function]`(scope: TableItemScope) => ColumnOperationItemType[]` | `[]`   |
-| disabledDefaultTip | 按钮禁用时的默认提示文本 | ^[string]                                                                                               | `''`   |
-| headerStyle        | 表头样式                 | ^[object]`Record<string, string \| number>`                                                             | `{}`   |
+| 属性名                | 说明                                                           | 类型                                                                                                   | 默认值            |
+| --------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ----------------- |
+| options               | 操作项配置数组或函数                                           | ^[array]`ColumnOperationItemType[]`/ ^[Function]`(scope: TableItemScope) => ColumnOperationItemType[]` | `[]`              |
+| disabledDefaultTip    | 按钮禁用时的默认提示文本                                       | ^[string]                                                                                              | `''`              |
+| label                 | 显示的列标题                                                   | ^[string]                                                                                              | —                 |
+| prop                  | 列内容的字段名， 也可以使用 property属性                       | ^[string]                                                                                              | —                 |
+| width                 | 列的宽度，固定的                                               | ^[string] / ^[number]                                                                                  | 'auto'            |
+| min-width             | 列的最小宽度，会把剩余宽度按比例分配给设置了 min-width 的列    | ^[string] / ^[number]                                                                                  | `100`             |
+| fixed                 | 列是否固定在左侧或者右侧。 true 表示固定在左侧 `true`          | ^[enum]`'left' \| 'right'` / ^[boolean]                                                                | `'right'`           |
+| render-header         | 列标题 Label 区域渲染的函数                                    | ^[Function]`(data: { column: any, $index: number }) => void`                                           | —                 |
+| resizable             | 是否可以通过拖动改变宽度（需要在 el-table 上设置 border=true） | ^[boolean]                                                                                             | `true`            |
+| show-overflow-tooltip | 当内容过长被隐藏时显示 tooltip                                 | ^[boolean] / [`object`](#table-attributes)                                                             | `false`           |
+| align                 | 内容对齐方式                                                   | ^[enum]`'left' \| 'center' \| 'right'`                                                                 | `'left'`          |
+| header-align          | 表头对齐方式， 若不设置该项，则使用表格的对齐方式              | ^[enum]`'left' \| 'center' \| 'right'`                                                                 | `'left'`          |
+| class-name            | 列的 className                                                 | ^[string]                                                                                              | `'y-column-operation'` |
+| label-class-name      | 当前列标题的自定义类名                                         | ^[string]                                                                                              | —                 |
 
 ### ColumnOperationItemType
-
-`options` 属性接收一个 `ColumnOperationItemType[]` 类型的数组，每个操作项支持以下配置：
 
 | 属性     | 说明                                  | 类型                                                                                                                                                  | 默认值  |
 | -------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |

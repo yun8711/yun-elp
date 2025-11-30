@@ -1,23 +1,21 @@
 ---
-title: TableSearch 表格搜索
-description: 表格搜索组件，支持多种搜索字段类型、动态属性和自定义组件
+title: TableSearch
+description: 表格查询组件，支持多种搜索字段类型、动态属性和自定义组件
 ---
 
-# TableSearch 表格搜索
+# TableSearch 表格查询
 
-表格搜索组件，一般与表格组件配合使用，用于查询条件处理，支持多种搜索字段类型、动态属性、自定义组件和函数式配置。
+一般与表格组件配合使用，用于处理查询条件，支持多种搜索字段类型、动态属性、自定义组件和函数式配置。
 
-1、每一个表单项都使用y-border-label组件包裹，兼容现有的所有的element-plus 表单组件，同时也允许通过插槽自定义
+（1）每一个表单项都使用y-border-label组件包裹，兼容现有的所有的element-plus 表单组件，同时也允许通过插槽自定义
 
-2、组件内部会自动根据配置项的组件类型和 label 自动生成placeholder（使用slot的自定义表单项除外）
+（2）组件内部会自动根据配置项的组件类型和 label 自动生成placeholder（使用slot的自定义表单项除外）
 
-3、需要注意的是：配置项的 comp 属性接收一个组件，但是需要使用 [`markRaw()`](https://cn.vuejs.org/api/reactivity-advanced.html#markraw) 包装
+（3）需要注意的是：配置项的 comp 属性接收一个组件，但是需要使用 [`markRaw()`](https://cn.vuejs.org/api/reactivity-advanced.html#markraw) 包装
 
 ## 多行模式
 
-通常用于首行为模糊搜索，例如关键词，更多精准的搜索条件需要通过展开操作才展示。需要展示在首行的配置项设置 first:true 即可
-
-:::demo
+:::demo 通常用于首行为模糊搜索，例如关键词，更多精准的搜索条件需要通过展开操作才展示。需要展示在首行的配置项设置 first:true 即可
 
 table-search/basic
 
@@ -25,9 +23,7 @@ table-search/basic
 
 ## 单行模式
 
-当options配置项中没有配置项为 first:true 时，即为单行模式，所有表单项平铺展示，且没有展开/收起操作
-
-:::demo
+:::demo 当options配置项中没有配置项为 first:true 时，即为单行模式，所有表单项平铺展示，且没有展开/收起操作
 
 table-search/multi-row
 
@@ -35,9 +31,7 @@ table-search/multi-row
 
 ## 动态属性和值格式化
 
-支持根据表单状态和组件状态动态调整字段的显示、禁用等属性。同时支持值格式化，可以在值更新时对值进行处理。
-
-:::demo
+:::demo 支持根据表单状态和组件状态动态调整字段的显示、禁用等属性。同时支持值格式化，可以在值更新时对值进行处理
 
 table-search/dynamic
 
@@ -47,15 +41,15 @@ table-search/dynamic
 
 ### Attributes
 
-| 参数          | 说明                                     | 类型                                                                                              | 默认值   |
-| ------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------- | -------- |
-| options       | 字段配置                                 | ^[object]`TableSearchOption[]` / ^[Function]`(params: DynamicPropsParams) => TableSearchOption[]` | []       |
-| foldText      | 收起按钮文本                             | ^[string]                                                                                         | 收起     |
-| unFoldText    | 展开按钮文本                             | ^[string]                                                                                         | 高级搜索 |
-| defaultFold   | 默认是否折叠                             | ^[boolean]                                                                                        | false    |
-| duration      | 折叠过渡时间                             | ^[number]                                                                                         | 0.2      |
-| disabledFirst | 多行模式下，展开时是否自动禁用第一行     | ^[boolean]                                                                                        | true     |
-| clearOnFold   | 多行模式下，展开、收起时是否自动清空数据 | ^[boolean]                                                                                        | true     |
+| 参数           | 说明                                     | 类型                                                                                              | 默认值   |
+| -------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------- | -------- |
+| options        | 字段配置                                 | ^[object]`TableSearchOption[]` / ^[Function]`(params: DynamicPropsParams) => TableSearchOption[]` | []       |
+| fold-text      | 收起按钮文本                             | ^[string]                                                                                         | 收起     |
+| un-fold-text   | 展开按钮文本                             | ^[string]                                                                                         | 高级搜索 |
+| default-fold   | 默认是否折叠                             | ^[boolean]                                                                                        | false    |
+| duration       | 折叠过渡时间                             | ^[number]                                                                                         | 0.2      |
+| disabled-first | 多行模式下，展开时是否自动禁用第一行     | ^[boolean]                                                                                        | true     |
+| clear-on-fold  | 多行模式下，展开、收起时是否自动清空数据 | ^[boolean]                                                                                        | true     |
 
 ### TableSearchOption Attribute
 

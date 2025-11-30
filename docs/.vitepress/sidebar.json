@@ -3,7 +3,7 @@
     "text": "通用",
     "items": [
       {
-        "text": "button 按钮",
+        "text": "button 增强按钮",
         "link": "/components/button/",
         "activeMatch": "/components/button/"
       }
@@ -138,7 +138,7 @@
         "activeMatch": "/components/column-filter/"
       },
       {
-        "text": "column-form 表单列",
+        "text": "column-form 单表单列",
         "link": "/components/column-form/",
         "activeMatch": "/components/column-form/"
       },
