@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from '@vue/runtime-core';
+import { computed, ref } from 'vue';
 import { ElSelect, ElOption, ElOptionGroup } from 'element-plus';
 import type { YSelectProps, SelectOption, SelectEmits } from './select';
 import { isPlainObject } from 'lodash-es';

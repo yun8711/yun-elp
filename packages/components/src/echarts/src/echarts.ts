@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 export interface EchartsProps {
   /** 图表动态更新的配置项 */
   option?: any;

@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive } from '@vue/runtime-core'
+import { computed, onMounted, reactive } from 'vue'
 import { ElMessage, ElSelect, ElOption, ElTimePicker } from 'element-plus'
 import { useLocale } from '../../../../hooks/use-locale'
 

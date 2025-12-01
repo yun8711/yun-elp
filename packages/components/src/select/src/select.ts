@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 
 // emits接口 - 包含我们新增的事件和透传的el-select事件
 export interface SelectEmits {

@@ -1,4 +1,4 @@
-import { getCurrentInstance } from '@vue/runtime-core'
+import { getCurrentInstance } from 'vue'
 
 /**
  * 检测是否有外部事件监听器的Hook

@@ -1,6 +1,6 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 import type { BorderLabelProps } from '../../border-label/src/border-label';
-import type { Component } from '@vue/runtime-core';
+import type { Component } from 'vue';
 
 // 定义动态属性函数的参数类型
 export interface DynamicPropsParams {

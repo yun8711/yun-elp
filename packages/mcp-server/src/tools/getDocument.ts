@@ -41,7 +41,7 @@ export function registerGetDocument(server: McpServer) {
             },
           ],
         };
-      } catch (error) {
+      } catch (_error) {
         return {
           structuredContent: {
             content: '',

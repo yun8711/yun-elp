@@ -65,7 +65,6 @@ import type {
   ColumnOperationItemType
 } from './column-operation';
 import {
-  withDefaults,
   toRefs,
   useAttrs,
   computed,
@@ -73,7 +72,7 @@ import {
   watch,
   onUnmounted,
   nextTick
-} from '@vue/runtime-core';
+} from 'vue';
 import type { PopProps } from '../../pop/src/pop';
 import { merge } from 'lodash-es';
 import { MoreFilled } from '@element-plus/icons-vue';

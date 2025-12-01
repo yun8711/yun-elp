@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 import type { TableColumnCtx } from 'element-plus';
 import type { PopProps } from '../../pop/src/pop';
 

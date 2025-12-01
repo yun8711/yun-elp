@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import { ElTableColumn, ElFormItem, ElTooltip } from 'element-plus';
 import type { ColumnFormProps } from './column-form';
-import { withDefaults, toRefs, useAttrs, computed, inject, ref } from '@vue/runtime-core';
+import { toRefs, useAttrs, computed, inject, ref } from 'vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 
 defineOptions({
@@ -77,7 +77,7 @@ const mergedColumnAttrs = computed(() => {
     'show-overflow-tooltip': false,
     'class-name': attrs?.['class-name'] || 'y-column-form',
     ...attrs,
-  }
+    }
 });
 
 const mergedFormAttrs = (scope: any) => {

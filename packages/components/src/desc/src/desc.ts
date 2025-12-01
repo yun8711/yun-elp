@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 import type { DescriptionItemProps } from 'element-plus';
 import type { TextTooltipProps } from '@/text-tooltip/src/text-tooltip';
 

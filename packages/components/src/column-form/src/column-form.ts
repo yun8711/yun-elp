@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 import type { FormRules, FormItemProps, ElTooltipProps } from 'element-plus';
 
 export interface ColumnFormProps {

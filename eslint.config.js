@@ -35,7 +35,7 @@ export default [
     ...config,
     rules: {
       ...config.rules,
-      'vue/prefer-import-from-vue': 'off'
+      // 'vue/prefer-import-from-vue': 'off'
     }
   })),
   // TypeScript 推荐规则

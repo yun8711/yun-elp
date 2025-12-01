@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes } from 'vue';
 import type { PopoverProps, ElTooltipProps } from 'element-plus';
 import type { ButtonProps } from '../../button/src/button';
 

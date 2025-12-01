@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, useAttrs } from '@vue/runtime-core';
+import { ref, computed, useAttrs } from 'vue';
 import { DrawerProps, DrawerEmits } from './drawer';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';

@@ -102,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, markRaw } from '@vue/runtime-core';
+import { ref, computed, watch, markRaw } from 'vue';
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import YBorderLabel from '../../border-label/src/border-label.vue';

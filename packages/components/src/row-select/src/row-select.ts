@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 
 export type RowSelectEmits = {
   (e: 'update:modelValue', value: string | string[] | number | number[]): void;

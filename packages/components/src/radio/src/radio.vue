@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from '@vue/runtime-core';
+import { computed } from 'vue';
 import type { RadioProps, RadioOption } from './radio';
 import { ElRadioGroup, ElRadio, ElRadioButton } from 'element-plus';
 import { isPlainObject } from 'lodash-es';

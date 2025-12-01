@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineSlots, useTemplateRef } from "@vue/runtime-core";
+import { ref, computed, useTemplateRef } from "vue";
 import type { PopProps, PopEmits } from './pop';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';

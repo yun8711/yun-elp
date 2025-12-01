@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import type { LabelProps } from './label';
-import { computed } from '@vue/runtime-core';
+import { computed } from 'vue';
 import { isNumber } from 'lodash-es';
 
 defineOptions({

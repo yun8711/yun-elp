@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes } from 'vue';
 import type { ButtonProps } from '../../button/src/button';
 
 export type DrawerEmits = {

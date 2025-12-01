@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import { ElTableColumn } from 'element-plus';
-import { withDefaults, toRefs, useAttrs, computed } from '@vue/runtime-core';
+import { toRefs, useAttrs, computed } from 'vue';
 import type { ColumnFilterProps, ColumnFilterConfig } from './column-filter';
 import { isEmpty } from 'lodash-es';
 

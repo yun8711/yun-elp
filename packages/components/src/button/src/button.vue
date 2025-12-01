@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { ElButton } from 'element-plus'
 import { useDebounceFn, useThrottleFn } from '@vueuse/core'
-import { computed, ref, defineExpose, useAttrs, watch } from '@vue/runtime-core'
+import { computed, ref, useAttrs, watch } from 'vue'
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useExternalListener } from '../../../hooks/use-external-listener';
 import type { ButtonCustomProps, ButtonEmits } from './button';

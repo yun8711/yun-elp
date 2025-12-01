@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 import type { ElTooltipProps, FormItemProps } from 'element-plus';
 
 // 组件中表单项配置

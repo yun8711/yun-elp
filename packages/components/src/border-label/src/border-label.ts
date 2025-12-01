@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes } from 'vue';
 
 // 定义组件的属性接口
 export interface BorderLabelProps {

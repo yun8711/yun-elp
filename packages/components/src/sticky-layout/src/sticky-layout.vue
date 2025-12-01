@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, nextTick } from '@vue/runtime-core';
+import { ref, computed, watch, onMounted, nextTick } from 'vue';
 import { useResizeObserver, useScroll } from '@vueuse/core';
 import { type StickyLayoutProps } from './sticky-layout';
 

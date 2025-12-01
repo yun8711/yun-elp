@@ -19,7 +19,7 @@ import {
   onUnmounted,
   useTemplateRef,
   watch
-} from '@vue/runtime-core';
+} from 'vue';
 import { ElTooltip } from 'element-plus';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 

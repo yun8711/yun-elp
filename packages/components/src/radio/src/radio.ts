@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 import type { RadioGroupProps, RadioProps as ElRadioProps, RadioButtonProps } from 'element-plus';
 
 // 选项类型
