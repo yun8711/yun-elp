@@ -20,10 +20,14 @@ type SideEffectsInfo = (ImportInfo | string)[] | ImportInfo | string | undefined
  */
 function kebabCase(componentName: string) {
   return componentName
-    .replace('Y', '')
-    .replace(/([A-Z])/g, '-$1')
-    .replace(/^-/, '')
-    .toLowerCase();
+    .replace(/^Y/, '') // 移除开头的 Y
+    .replace(/([A-Z])/g, (match, offset, string) => {
+      // 如果不是第一个字符，且前一个字符不是大写，则添加连字符
+      return offset > 0 && string[offset - 1] >= 'A' && string[offset - 1] <= 'Z'
+        ? match.toLowerCase()
+        : '-' + match.toLowerCase();
+    })
+    .replace(/^-/, ''); // 移除开头的连字符（如果有的话）
 }
 
 /**
