@@ -28,8 +28,8 @@
       "import": "./es/*.mjs"
     },
     "./style": "./theme-chalk/index.css",
-    "./theme": {
-      "import": "./theme-chalk/index.css"
+    "./themes/*": {
+      "import": "./theme-chalk/src/themes/*"
     },
     "./theme-chalk/*": {
       "import": "./theme-chalk/*"
@@ -86,6 +86,11 @@
   ],
   "vetur": {
     "tags": "tags.json"
+  },
+  "contributes": {
+    "html": {
+      "customData": "tags.json"
+    }
   },
   "web-types": "web-types.json",
   "browserslist": [

@@ -1,78 +1,66 @@
-/**
- * 覆盖 Element Plus 的默认主题变量
- */
-
-// 使用更具体的选择器提高优先级
-html body {
-  font-family:
-    'nunito_for_arco', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+:root {
   // 主题色覆盖
-  --el-color-primary: var(--color-primary, #409eff);
+  --el-color-primary: #365edf;
   // button type=primary:hover
-  --el-color-primary-light-3: var(--color-primary-hover, rgb(121.3, 187.1, 255));
+  --el-color-primary-light-3: #4080ff;
   // button type=primary:disabled
-  --el-color-primary-light-5: var(--color-primary-disabled, rgb(159.5, 206.5, 255));
+  --el-color-primary-light-5: #94bfff;
   // button type=primary:active
-  --el-color-primary-dark-2: var(--color-primary-active, rgb(51.2, 126.4, 204));
+  --el-color-primary-dark-2: #0e42d2;
   // button type=null：active
-  --el-color-primary-light-9: var(--color-primary-light, rgb(235.9, 245.3, 255));
+  --el-color-primary-light-9: #e8f3ff;
 
   // 功能色success
-  --el-color-success: var(--color-success, #67c23a);
+  --el-color-success: #00b42a;
   // button type=success:active
-  --el-color-success-dark-2: var(--color-success-active, rgb(82.4, 155.2, 46.4));
+  --el-color-success-dark-2: #009a29;
   // button type=success:disabled
-  --el-color-success-light-5: var(--color-success-disabled, rgb(179, 224.5, 156.5));
+  --el-color-success-light-5: #ffcf8b;
   // button type=success:hover
-  --el-color-success-light-3: var(--color-success-hover, rgb(148.6, 212.3, 117.1));
+  --el-color-success-light-3: #ff9a2e;
 
   // 功能色warning
-  --el-color-warning: var(--color-warning, #e6a23c);
+  --el-color-warning: #ff7d00;
   // button type=warning:active
-  --el-color-warning-dark-2: var(--color-warning-active, rgb(184, 129.6, 48));
+  --el-color-warning-dark-2: #d25f00;
   // button type=warning:disabled
-  --el-color-warning-light-5: var(--color-warning-disabled, rgb(242.5, 208.5, 157.5));
+  --el-color-warning-light-5: #ffcf8b;
   // button type=warning:hover
-  --el-color-warning-light-3: var(--color-warning-hover, rgb(237.5, 189.9, 118.5));
+  --el-color-warning-light-3: #ff9a2e;
 
   // 功能色danger
-  --el-color-danger: var(--color-danger, #f56c6c);
+  --el-color-danger: #f53f3f;
   // button type=danger:active
-  --el-color-danger-dark-2: var(--color-danger-active, rgb(196, 86.4, 86.4));
+  --el-color-danger-dark-2: #cb2634;
   // button type=danger:disabled
-  --el-color-danger-light-5: var(--color-danger-disabled, rgb(250, 181.5, 181.5));
+  --el-color-danger-light-5: #fbaca3;
   // button type=danger:hover
-  --el-color-danger-light-3: var(--color-danger-hover, rgb(248, 152.1, 152.1));
+  --el-color-danger-light-3: #f76560;
 
   // 文本颜色覆盖
-  --el-text-color-primary: var(--color-text-10, #303133);
-  --el-text-color-regular: var(--color-text-8, #606266);
-  --el-text-color-secondary: var(--color-text-8, #909399);
-  --el-text-color-placeholder: var(--color-text-6, #a8abb2);
-  --el-text-color-disabled: var(--color-text-4, #c0c4cc);
+  --el-text-color-primary: #1d2129;
+  --el-text-color-regular: #4e5969;
+  --el-text-color-secondary: #4e5969;
+  --el-text-color-placeholder: #86909c;
+  --el-text-color-disabled: #c9cdd4;
 
   // 边框颜色覆盖
-  --el-border-color: var(--color-line, #dcdcdc);
-  --el-border-color-light: var(--color-split-line, #e3e6e8);
+  --el-border-color: #e5e6eb;
+  --el-border-color-light: #e3e6e8;
 
   // 字体大小覆盖
-  --el-font-size-small: var(--font-size-small, 12px);
-  --el-font-size-base: var(--font-size-base, 14px);
+  --el-font-size-small: 12px;
+  --el-font-size-base: 12px;
   // --el-font-size-large: var(--font-size-large, 14px);
 
   // 圆角覆盖
-  --el-border-radius-base: var(--border-radius-base, 4px);
-
-  // 分页器样式覆盖
-  // --el-pagination-font-size: var(--el-font-size-base, 12px);
+  --el-border-radius-base: 2px;
 
   // yun-elp的全局样式
   --y-tooltip-popper-max-width: 316px;
   --y-tooltip-popper-max-height: 200px;
 }
 
-// 全局样式
 // y-text-tooltip弹出框样式
 // y-column-text__tooltip 用于覆盖column-text组件的tooltip样式
 // y-column-forms__error-tooltip 用于覆盖column-forms、column-form组件的tooltip样式
@@ -121,13 +109,10 @@ html body {
 }
 
 .el-table {
-  // border: 1px solid var(--el-border-color-light);
-  // border-bottom: none;
   --el-table-header-bg-color: #f7f8fa; // 表头背景色
   --el-table-header-text-color: var(--el-text-color-primary); // 表头文字颜色
   width: 100%;
 
-  // 表头增加分隔线样式
   .el-table__header:hover th:not(:last-child)::after {
     position: absolute;
     top: 12px;
@@ -139,7 +124,6 @@ html body {
     background: rgb(25 39 62 / 8%);
   }
 
-  // 隐藏表格竖线
   &.el-table--border .el-table__cell {
     border-right: none;
   }
