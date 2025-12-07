@@ -30,13 +30,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide, useAttrs, useTemplateRef } from '@vue/runtime-core';
+import { computed, provide, useAttrs, useTemplateRef } from 'vue';
 import type { TableProps, TableEmits } from './table';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import type { EmptyProps } from '../../empty/src/empty';
 import YEmpty from '../../empty/src/empty.vue';
-import { ElTable, ElPagination } from 'element-plus';
+import { ElTable, ElPagination, type TableInstance } from 'element-plus';
 
 defineOptions({
   name: 'YTable',
@@ -101,9 +101,9 @@ const paginationChange = (currentPage: number, pageSize: number) => {
   emit('paginationChange', { currentPage, pageSize });
 }
 
-const tableRef = useTemplateRef('tableRef')
+const tableRef = useTemplateRef<TableInstance>('tableRef')
 
-defineExpose(new Proxy({}, {
+defineExpose(new Proxy<TableInstance>({}, {
   get: (_target, key) => {
     return tableRef.value?.[key];
   },

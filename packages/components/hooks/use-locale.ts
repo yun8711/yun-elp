@@ -2,7 +2,7 @@
  * 国际化钩子函数
  * 用于在组件中使用国际化文本
  */
-import { computed, inject, type Ref } from '@vue/runtime-core';
+import { computed, inject, type Ref } from 'vue';
 import { getLocale, localeContextKey } from '../locale';
 import type { LocaleType } from '../locale';
 import type { YunElpLanguage } from '../locale/type';

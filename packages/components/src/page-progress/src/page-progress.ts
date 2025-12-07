@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes } from 'vue';
 
 export interface PageProgressEmits {
   'update:modelValue': [value: boolean];

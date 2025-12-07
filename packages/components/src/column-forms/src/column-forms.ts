@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 import type { ElTooltipProps, FormItemProps } from 'element-plus';
 
 // 组件中表单项配置
@@ -17,7 +17,7 @@ export interface ColumnFormsItem {
   show?: boolean | ((scope: any, prop: string) => boolean);
   width?: string | ((scope: any, prop: string) => string);
   // 表单项错误提示的tooltip属性
-  tooltipAttrs?: Partial<ElTooltipProps> | ((scope: any, prop: string) => Partial<ElTooltipProps>);
+  tipProps?: Partial<ElTooltipProps> | ((scope: any, prop: string) => Partial<ElTooltipProps>);
 
   style?: Record<string, any> | ((scope: any, prop: string) => Record<string, any>);
 }
@@ -29,8 +29,6 @@ export interface ColumnFormsProps {
   inline?: boolean;
   //form中table字段名，用于绑定校验组
   tName?: string;
-  // 自定义表头样式
-  headerStyle?: Record<string, string | number>;
 }
 
 export const columnFormsProps = {
@@ -46,10 +44,6 @@ export const columnFormsProps = {
     type: String,
     default: ''
   },
-  headerStyle: {
-    type: Object as PropType<Record<string, string | number>>,
-    default: () => ({})
-  }
 } as const;
 
 export type columnFormsInstance = ExtractPublicPropTypes<typeof columnFormsProps>;

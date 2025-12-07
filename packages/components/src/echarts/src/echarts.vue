@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, useTemplateRef, onMounted, onUnmounted, watch, nextTick, computed } from '@vue/runtime-core';
+import { toRefs, useTemplateRef, onMounted, onUnmounted, watch, nextTick, computed } from 'vue';
 import { useElementSize } from '@vueuse/core';
 import { echartsProps } from './echarts';
 import { EchartsLoader } from './echarts-loader';

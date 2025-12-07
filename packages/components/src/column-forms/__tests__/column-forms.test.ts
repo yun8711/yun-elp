@@ -6,10 +6,13 @@ describe('YColumnForms 表单列组件', () => {
   describe('基础渲染', () => {
     it('应该正常渲染', () => {
       const wrapper = mount(YColumnForms, {
-        props: { options: [] }
+        props: { options: [] },
+        global: {
+          stubs: ['el-form-item', 'el-tooltip']
+        }
       });
       expect(wrapper.exists()).toBe(true);
-      expect(wrapper.classes()).toContain('y-column-forms');
+      expect(wrapper.classes()).toContain('el-table-column');
     });
   });
 
@@ -34,23 +37,22 @@ describe('YColumnForms 表单列组件', () => {
 
       expect(wrapper.vm.tName).toBe('customTable');
     });
-
-    it('应该支持headerStyle属性', () => {
-      const headerStyle = { color: 'red', fontSize: '14px' };
-      const wrapper = mount(YColumnForms, {
-        props: { options: [], headerStyle }
-      });
-
-      expect(wrapper.vm.headerStyle).toEqual(headerStyle);
-    });
   });
 
   describe('样式和UI', () => {
     it('应该有正确的CSS类名', () => {
       const wrapper = mount(YColumnForms, {
-        props: { options: [] }
+        props: { options: [] },
+        global: {
+          stubs: ['el-form-item', 'el-tooltip']
+        }
       });
-      expect(wrapper.classes()).toContain('y-column-forms');
+      // 根元素应该是 el-table-column
+      expect(wrapper.classes()).toContain('el-table-column');
+
+      // 内部内容区域应该有 y-column-forms__content 类名
+      const contentDiv = wrapper.find('.y-column-forms__content');
+      expect(contentDiv.exists()).toBe(true);
     });
 
     it('应该支持inline布局', () => {
@@ -204,7 +206,7 @@ describe('YColumnForms 表单列组件', () => {
       });
     });
 
-    it('应该支持tooltipAttrs为对象的情况', () => {
+    it('应该支持tipProps为对象的情况', () => {
       const wrapper = mount(YColumnForms, {
         props: { options: [] }
       });
@@ -212,7 +214,7 @@ describe('YColumnForms 表单列组件', () => {
       const scope = { $index: 0, row: { test: 'value' } };
       const item = {
         prop: 'test',
-        tooltipAttrs: {
+        tipProps: {
           placement: 'bottom',
           showArrow: true
         }
@@ -229,20 +231,20 @@ describe('YColumnForms 表单列组件', () => {
       });
     });
 
-    it('应该支持tooltipAttrs为函数的情况', () => {
+    it('应该支持tipProps为函数的情况', () => {
       const wrapper = mount(YColumnForms, {
         props: { options: [] }
       });
 
       const scope = { $index: 0, row: { test: 'value' } };
-      const tooltipAttrsFn = (scope: any, _prop: string) => ({
+      const tipPropsFn = (scope: any, _prop: string) => ({
         placement: scope.row.placement || 'left',
         showArrow: true
       });
 
       const item = {
         prop: 'test',
-        tooltipAttrs: tooltipAttrsFn
+        tipProps: tipPropsFn
       };
 
       const result = (wrapper.vm as any).mergedItemTooltipAttrs(scope, item);
@@ -290,7 +292,7 @@ describe('YColumnForms 表单列组件', () => {
           prop: item.prop,
           show: typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
           formAttrs: (wrapper.vm as any).mergedItemFormAttrs(scope, item),
-          tooltipAttrs: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
+          tipProps: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
           width: typeof item.width === 'function' ? item.width(scope, item.prop) : item.width || 'auto',
           style: typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {},
         }
@@ -321,7 +323,7 @@ describe('YColumnForms 表单列组件', () => {
           prop: item.prop,
           show: typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
           formAttrs: (wrapper.vm as any).mergedItemFormAttrs(scope, item),
-          tooltipAttrs: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
+          tipProps: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
           width: typeof item.width === 'function' ? item.width(scope, item.prop) : item.width || 'auto',
           style: typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {},
         }
@@ -344,7 +346,7 @@ describe('YColumnForms 表单列组件', () => {
           prop: item.prop,
           show: typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
           formAttrs: (wrapper.vm as any).mergedItemFormAttrs(scope, item),
-          tooltipAttrs: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
+          tipProps: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
           width: typeof item.width === 'function' ? item.width(scope, item.prop) : item.width || 'auto',
           style: typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {},
         }
@@ -366,7 +368,7 @@ describe('YColumnForms 表单列组件', () => {
         width: '150px',
         style: { margin: '10px' },
         formAttrs: { size: 'small' },
-        tooltipAttrs: { placement: 'bottom' }
+        tipProps: { placement: 'bottom' }
       }];
 
       const scope = { $index: 0, row: { test: 'value' } };
@@ -376,7 +378,7 @@ describe('YColumnForms 表单列组件', () => {
           prop: item.prop,
           show: typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
           formAttrs: (wrapper.vm as any).mergedItemFormAttrs(scope, item),
-          tooltipAttrs: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
+          tipProps: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
           width: typeof item.width === 'function' ? item.width(scope, item.prop) : item.width || 'auto',
           style: typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {},
         }
@@ -390,7 +392,7 @@ describe('YColumnForms 表单列组件', () => {
       expect(result[0].formAttrs.label).toBe('测试字段');
       expect(result[0].formAttrs['label-width']).toBe('120px');
       expect(result[0].formAttrs.size).toBe('small');
-      expect(result[0].tooltipAttrs.placement).toBe('bottom');
+      expect(result[0].tipProps.placement).toBe('bottom');
     });
   });
 
@@ -530,7 +532,7 @@ describe('YColumnForms 表单列组件', () => {
             'label-width': 'auto',
             rules: undefined
           },
-          tooltipAttrs: {
+          tipProps: {
             popperClass: 'y-column-form__error-tooltip',
             effect: 'dark',
             placement: 'top',
@@ -565,7 +567,7 @@ describe('YColumnForms 表单列组件', () => {
         const result = vm.mergedFormArr(scope);
 
         expect(result.length).toBe(2);
-        expect(result.map(item => item.prop)).toEqual(['name', 'email']);
+        expect(result.map((item: any) => item.prop)).toEqual(['name', 'email']);
       });
 
       it('应该支持show为函数的情况', () => {
@@ -573,12 +575,12 @@ describe('YColumnForms 表单列组件', () => {
           {
             prop: 'adminField',
             label: '管理员字段',
-            show: (scope) => scope.row?.isAdmin
+            show: (scope: any) => scope.row?.isAdmin
           },
           {
             prop: 'userField',
             label: '用户字段',
-            show: (scope) => !scope.row?.isAdmin
+            show: (scope: any) => !scope.row?.isAdmin
           }
         ];
 
@@ -612,8 +614,8 @@ describe('YColumnForms 表单列组件', () => {
         const options = [{
           prop: 'test',
           label: '测试',
-          width: (scope) => scope.row?.width || '100px',
-          style: (scope) => ({ color: scope.row?.color || 'red' })
+          width: (scope: any) => scope.row?.width || '100px',
+          style: (scope: any) => ({ color: scope.row?.color || 'red' })
         }];
 
         const wrapper = mount(YColumnForms, {
@@ -662,12 +664,12 @@ describe('YColumnForms 表单列组件', () => {
         expect(result[0].style).toEqual({ margin: '10px' });
       });
 
-      it('应该正确合并formAttrs和tooltipAttrs', () => {
+      it('应该正确合并formAttrs和tipProps', () => {
         const options = [{
           prop: 'test',
           label: '测试',
-          formAttrs: { size: 'small', required: true },
-          tooltipAttrs: { placement: 'bottom', showArrow: true }
+          formAttrs: { size: 'small' as const, required: true },
+          tipProps: { placement: 'bottom', showArrow: true }
         }];
 
         const wrapper = mount(YColumnForms, {
@@ -693,7 +695,7 @@ describe('YColumnForms 表单列组件', () => {
           required: true
         });
 
-        expect(result[0].tooltipAttrs).toEqual({
+        expect(result[0].tipProps).toEqual({
           popperClass: 'y-column-form__error-tooltip',
           effect: 'dark',
           placement: 'bottom',
@@ -711,8 +713,8 @@ describe('YColumnForms 表单列组件', () => {
           show: true,
           width: '200px',
           style: { padding: '5px' },
-          formAttrs: { size: 'large' },
-          tooltipAttrs: { placement: 'left' }
+          formAttrs: { size: 'large' as const },
+          tipProps: { placement: 'left' }
         }];
 
         const wrapper = mount(YColumnForms, {
@@ -742,7 +744,7 @@ describe('YColumnForms 表单列组件', () => {
             rules: [{ required: true, message: '必填' }],
             size: 'large'
           },
-          tooltipAttrs: {
+          tipProps: {
             popperClass: 'y-column-form__error-tooltip',
             effect: 'dark',
             placement: 'left',
@@ -764,7 +766,8 @@ describe('YColumnForms 表单列组件', () => {
         expect(result).toEqual({
           'show-overflow-tooltip': false,
           'min-width': 100,
-          width: 'auto'
+          width: 'auto',
+          'class-name': 'y-column-forms'
         });
       });
 
@@ -785,7 +788,27 @@ describe('YColumnForms 表单列组件', () => {
           'show-overflow-tooltip': false,
           'min-width': 150,
           width: 200,
-          fixed: 'right'
+          fixed: 'right',
+          'class-name': 'y-column-forms'
+        });
+      });
+
+      it('应该支持自定义class-name属性', () => {
+        const wrapper = mount(YColumnForms, {
+          props: { options: [] },
+          attrs: {
+            'class-name': 'custom-column-class'
+          }
+        });
+
+        const vm = wrapper.vm as any;
+        const result = vm.manageAttrs;
+
+        expect(result).toEqual({
+          'show-overflow-tooltip': false,
+          'min-width': 100,
+          width: 'auto',
+          'class-name': 'custom-column-class'
         });
       });
     });

@@ -61,10 +61,13 @@ describe('YColumnOperation 表格操作列组件', () => {
   describe('基本功能', () => {
     it('应该正常渲染', () => {
       const wrapper = mount(YColumnOperation, {
-        props: { options: [] }
+        props: { options: [] },
+        global: {
+          stubs: ['y-pop', 'y-button', 'el-dropdown', 'el-dropdown-menu', 'el-dropdown-item']
+        }
       });
       expect(wrapper.exists()).toBe(true);
-      expect(wrapper.html()).toContain('y-column-operation');
+      expect(wrapper.classes()).toContain('el-table-column');
     });
 
     it('应该支持自定义列属性', () => {
@@ -74,6 +77,9 @@ describe('YColumnOperation 表格操作列组件', () => {
           width: 150,
           'min-width': 120,
           fixed: 'left'
+        },
+        global: {
+          stubs: ['el-table-column', 'y-pop', 'y-button', 'el-dropdown', 'el-dropdown-menu', 'el-dropdown-item']
         }
       });
       expect(wrapper.exists()).toBe(true);
@@ -105,16 +111,6 @@ describe('YColumnOperation 表格操作列组件', () => {
       });
 
       expect(typeof wrapper.props('options')).toBe('function');
-    });
-
-    it('应该支持 headerStyle 属性', () => {
-      const headerStyle = { color: 'red', fontSize: '14px' };
-
-      const wrapper = mount(YColumnOperation, {
-        props: { headerStyle, options: [] }
-      });
-
-      expect(wrapper.props('headerStyle')).toEqual(headerStyle);
     });
 
     it('应该支持 disabledDefaultTip 属性', () => {
@@ -1257,7 +1253,10 @@ describe('YColumnOperation 表格操作列组件', () => {
       const wrapper = mount(YColumnOperation, {
         props: { options: [] }
       });
-      expect(wrapper.classes()).toContain('y-column-operation');
+
+      const vm = wrapper.vm as any;
+      // 检查mergedColumnAttrs是否正确设置了class-name
+      expect(vm.mergedColumnAttrs['class-name']).toBe('y-column-operation');
     });
   });
 
@@ -1823,7 +1822,8 @@ describe('YColumnOperation 表格操作列组件', () => {
           'min-width': 100,
           width: 'auto',
           'show-overflow-tooltip': false,
-          fixed: 'right'
+          fixed: 'right',
+          'class-name': 'y-column-operation'
         });
       });
 
@@ -1844,7 +1844,8 @@ describe('YColumnOperation 表格操作列组件', () => {
           'min-width': 150,
           width: 200,
           'show-overflow-tooltip': false,
-          fixed: 'left'
+          fixed: 'left',
+          'class-name': 'y-column-operation'
         });
       });
     });

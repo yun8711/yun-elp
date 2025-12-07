@@ -1,5 +1,5 @@
 <template>
-  <el-table-column class="y-column-form" v-bind="mergedColumnAttrs">
+  <el-table-column v-bind="mergedColumnAttrs">
     <template #default="scope">
       <slot
         v-if="noFrom"
@@ -32,7 +32,7 @@
     </template>
     <template #header="{ column, $index }">
       <slot name="header" :column="column" :index="$index">
-        <span :style="headerStyle">{{ attrs.label }}</span>
+        <span>{{ attrs.label }}</span>
       </slot>
     </template>
   </el-table-column>
@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import { ElTableColumn, ElFormItem, ElTooltip } from 'element-plus';
 import type { ColumnFormProps } from './column-form';
-import { withDefaults, toRefs, useAttrs, computed, inject, ref } from '@vue/runtime-core';
+import { toRefs, useAttrs, computed, inject, ref } from 'vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 
 defineOptions({
@@ -59,9 +59,8 @@ const props = withDefaults(defineProps<ColumnFormProps>(), {
   rules: undefined,
   formProps: undefined,
   tipProps: undefined,
-  headerStyle: undefined
 });
-const { noFrom, tName, rules, formProps, tipProps, headerStyle } = toRefs(props);
+const { noFrom, tName, rules, formProps, tipProps } = toRefs(props);
 
 // 类型安全的 prop 值
 const prop = computed(() => attrs.prop as string);
@@ -73,10 +72,11 @@ const tableName = computed(() => {
 
 const mergedColumnAttrs = computed(() => {
   return {
+    ...attrs,
     'min-width': attrs?.['min-width'] || 100,
     width: attrs?.width || 'auto',
     'show-overflow-tooltip': false,
-    ...attrs,
+    'class-name': attrs?.['class-name'] || 'y-column-form',
   }
 });
 
@@ -93,7 +93,6 @@ const mergedFormAttrs = (scope: any) => {
 const mergedTipProps = computed(() => {
   return {
     popperClass: columnFormConig?.popperClass || 'y-column-form__error-tooltip',
-    effect: 'dark',
     placement: columnFormConig?.placement || 'top',
     enterable: false,
     ...(tipProps?.value || {}),

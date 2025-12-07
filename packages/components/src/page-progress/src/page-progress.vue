@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, onUnmounted, useAttrs, toRefs } from '@vue/runtime-core';
+import { computed, ref, watch, onUnmounted, useAttrs, toRefs } from 'vue';
 import { ElProgress } from 'element-plus';
 import type { PageProgressProps,PageProgressEmits } from './page-progress';
 

@@ -1,5 +1,4 @@
 import DefaultTheme from 'vitepress/theme';
-import { App } from 'vue';
 import ElementPlus, { ID_INJECTION_KEY, ZINDEX_INJECTION_KEY } from 'element-plus';
 import 'element-plus/dist/index.css';
 import YunElp from '../../../packages/components';

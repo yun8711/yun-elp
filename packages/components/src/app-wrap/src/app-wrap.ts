@@ -8,7 +8,7 @@ import type {
   PopoverProps,
   PaginationProps
 } from 'element-plus';
-import type { PropType, ExtractPublicPropTypes } from '@vue/runtime-core';
+import type { PropType, ExtractPublicPropTypes } from 'vue';
 import type { ButtonProps as YButtonProps } from '../../button/src/button';
 import type { EmptyProps } from '../../empty/src/empty';
 

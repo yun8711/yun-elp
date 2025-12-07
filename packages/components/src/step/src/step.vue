@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, toRefs } from '@vue/runtime-core';
+import { computed, toRefs } from 'vue';
 import type { StepProps } from './step';
 
 defineOptions({

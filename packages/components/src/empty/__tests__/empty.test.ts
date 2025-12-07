@@ -31,7 +31,7 @@ vi.mock('../../../hooks/use-locale', () => ({
 const ElEmpty = {
   name: 'ElEmpty',
   template: `
-    <div class="el-empty" :data-image="image" :data-image-size="imageSize" :data-description="description" v-bind="$attrs">
+    <div class="el-empty" v-bind="$attrs">
       <slot />
       <slot name="image" />
       <slot name="description" />
@@ -77,8 +77,8 @@ describe('YEmpty 组件', () => {
         ...globalConfig,
         props: { image: 'custom-image.png' }
       });
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-image')).toBe('custom-image.png');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('image')).toBe('custom-image.png');
     });
 
     it('传递 imageSize 属性', () => {
@@ -86,8 +86,8 @@ describe('YEmpty 组件', () => {
         ...globalConfig,
         props: { imageSize: 150 }
       });
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-image-size')).toBe('150');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('imageSize')).toBe(150);
     });
 
     it('传递 description 属性', () => {
@@ -95,8 +95,8 @@ describe('YEmpty 组件', () => {
         ...globalConfig,
         props: { description: '自定义描述' }
       });
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-description')).toBe('自定义描述');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('description')).toBe('自定义描述');
     });
 
     it('传递 style 属性', () => {
@@ -117,20 +117,20 @@ describe('YEmpty 组件', () => {
   describe('默认值处理', () => {
     it('未传递 image 时使用配置默认值', () => {
       const wrapper = mount(YEmpty, globalConfig);
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-image')).toBe('default-image.png');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('image')).toBe('default-image.png');
     });
 
     it('未传递 imageSize 时使用配置默认值', () => {
       const wrapper = mount(YEmpty, globalConfig);
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-image-size')).toBe('120');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('imageSize')).toBe(120);
     });
 
     it('未传递 description 时使用配置默认值', () => {
       const wrapper = mount(YEmpty, globalConfig);
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-description')).toBe('默认描述');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('description')).toBe('默认描述');
     });
 
     it('未传递 style 时使用配置默认样式', () => {
@@ -222,8 +222,8 @@ describe('YEmpty 组件', () => {
         ...globalConfig,
         props: { image: '' }
       });
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-image')).toBe('default-image.png');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('image')).toBe('default-image.png');
     });
 
     it('imageSize 为 0 时使用配置默认值', () => {
@@ -231,8 +231,8 @@ describe('YEmpty 组件', () => {
         ...globalConfig,
         props: { imageSize: 0 }
       });
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-image-size')).toBe('120');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('imageSize')).toBe(120);
     });
 
     it('description 为空字符串时使用配置默认值', () => {
@@ -240,8 +240,8 @@ describe('YEmpty 组件', () => {
         ...globalConfig,
         props: { description: '' }
       });
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-description')).toBe('默认描述');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('description')).toBe('默认描述');
     });
 
     it('style 为空对象', () => {
@@ -275,10 +275,10 @@ describe('YEmpty 组件', () => {
           description: 'props描述'
         }
       });
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-image')).toBe('props-image.png');
-      expect(elEmpty.attributes('data-image-size')).toBe('200');
-      expect(elEmpty.attributes('data-description')).toBe('props描述');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('image')).toBe('props-image.png');
+      expect(elEmpty.props('imageSize')).toBe(200);
+      expect(elEmpty.props('description')).toBe('props描述');
     });
 
     it('部分 props 未传递时使用配置值', () => {
@@ -289,29 +289,27 @@ describe('YEmpty 组件', () => {
           // 不传递 imageSize 和 description
         }
       });
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-image')).toBe('props-image.png');
-      expect(elEmpty.attributes('data-image-size')).toBe('120'); // 使用配置值
-      expect(elEmpty.attributes('data-description')).toBe('默认描述'); // 使用配置值
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('image')).toBe('props-image.png');
+      expect(elEmpty.props('imageSize')).toBe(120); // 使用配置值
+      expect(elEmpty.props('description')).toBe('默认描述'); // 使用配置值
     });
   });
 
   describe('国际化支持', () => {
     it('使用国际化描述文本', () => {
       const wrapper = mount(YEmpty, globalConfig);
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-description')).toBe('默认描述');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('description')).toBe('默认描述');
     });
-
-
 
     it('props description 覆盖国际化文本', () => {
       const wrapper = mount(YEmpty, {
         ...globalConfig,
         props: { description: '自定义描述' }
       });
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-description')).toBe('自定义描述');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('description')).toBe('自定义描述');
     });
   });
 
@@ -331,10 +329,10 @@ describe('YEmpty 组件', () => {
           description: '测试描述'
         }
       });
-      const elEmpty = wrapper.find('.el-empty');
-      expect(elEmpty.attributes('data-image')).toBe('test.png');
-      expect(elEmpty.attributes('data-image-size')).toBe('100');
-      expect(elEmpty.attributes('data-description')).toBe('测试描述');
+      const elEmpty = wrapper.findComponent(ElEmpty);
+      expect(elEmpty.props('image')).toBe('test.png');
+      expect(elEmpty.props('imageSize')).toBe(100);
+      expect(elEmpty.props('description')).toBe('测试描述');
     });
   });
 });

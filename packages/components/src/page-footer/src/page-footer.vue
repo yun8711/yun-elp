@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import type { PageFooterProps } from './page-footer';
-import { computed } from '@vue/runtime-core';
+import { computed } from 'vue';
 import { isNumber } from 'lodash-es';
 
 defineOptions({

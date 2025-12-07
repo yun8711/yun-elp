@@ -1,13 +1,11 @@
-import type { Plugin } from '@vue/runtime-core';
+import type { Plugin } from 'vue';
 import { YAppWrap } from './src/app-wrap';
 import { YLabel } from './src/label';
 import { YBorderLabel } from './src/border-label';
 import { YPartTitle } from './src/part-title';
 import { YPageHeader } from './src/page-header';
 import { YTableSearch } from './src/table-search';
-import { YSelect } from './src/select';
 import { YRowSelect } from './src/row-select';
-import { YRadio } from './src/radio';
 import { YTextTooltip } from './src/text-tooltip';
 import { YButton } from './src/button';
 import { YPageFooter } from './src/page-footer';
@@ -31,34 +29,32 @@ import { YStickyLayout } from './src/sticky-layout';
 import { YPageProgress } from './src/page-progress';
 
 export default [
-  YAppWrap,,
-  YLabel,,
-  YBorderLabel,,
-  YPartTitle,,
-  YPageHeader,,
-  YTableSearch,,
-  YSelect,,
-  YRowSelect,,
-  YRadio,,
-  YTextTooltip,,
-  YButton,,
-  YPageFooter,,
-  YDrawer,,
-  YDialog,,
-  YScrollBox,,
-  YGroupSelect,,
-  YEmpty,,
-  YDesc,,
-  YPop,,
-  YCronPicker,,
-  YTable,,
-  YColumnText,,
-  YColumnFilter,,
-  YColumnForms,,
-  YColumnForm,,
-  YColumnOperation,,
-  YStep,,
-  YEcharts,,
+  YAppWrap,
+  YLabel,
+  YBorderLabel,
+  YPartTitle,
+  YPageHeader,
+  YTableSearch,
+  YRowSelect,
+  YTextTooltip,
+  YButton,
+  YPageFooter,
+  YDrawer,
+  YDialog,
+  YScrollBox,
+  YGroupSelect,
+  YEmpty,
+  YDesc,
+  YPop,
+  YCronPicker,
+  YTable,
+  YColumnText,
+  YColumnFilter,
+  YColumnForms,
+  YColumnForm,
+  YColumnOperation,
+  YStep,
+  YEcharts,
   YStickyLayout,
-  YPageProgress,
+  YPageProgress
 ] as Plugin[];

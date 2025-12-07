@@ -26,7 +26,8 @@ describe('YColumnFilter 表格筛选列组件', () => {
                 <slot name="filter-icon" :filter-opened="false"></slot>
                 <slot name="expand" :expanded="false"></slot>
               </div>
-            `
+            `,
+            inheritAttrs: false
           }
         }
       }
@@ -44,7 +45,10 @@ describe('YColumnFilter 表格筛选列组件', () => {
       },
       global: {
         stubs: {
-          'el-table-column': true // 完全stub掉el-table-column
+          'el-table-column': {
+            template: '<div class="el-table-column" v-bind="$attrs"></div>',
+            inheritAttrs: false
+          }
         }
       }
     });
@@ -55,7 +59,7 @@ describe('YColumnFilter 表格筛选列组件', () => {
     it('应该正常渲染', () => {
       const wrapper = createBasicTest();
       expect(wrapper.exists()).toBe(true);
-      expect(wrapper.html()).toContain('y-column-filter');
+      expect(wrapper.classes()).toContain('y-column-filter');
     });
 
     it('应该渲染header插槽', () => {
@@ -161,25 +165,6 @@ describe('YColumnFilter 表格筛选列组件', () => {
       });
     });
 
-    describe('headerStyle 属性', () => {
-      it('应该支持自定义表头样式', () => {
-        const headerStyle = { color: 'blue', fontWeight: 'bold' };
-        const wrapper = createBasicTest({
-          headerStyle
-        });
-
-        expect(wrapper.props('headerStyle')).toEqual(headerStyle);
-      });
-
-      it('应该支持空表头样式对象', () => {
-        const wrapper = createBasicTest({
-          headerStyle: {}
-        });
-
-        expect(wrapper.props('headerStyle')).toEqual({});
-      });
-    });
-
     describe('textStyle 属性', () => {
       it('应该支持自定义文本样式', () => {
         const textStyle = { color: 'red', fontSize: '14px' };
@@ -201,13 +186,12 @@ describe('YColumnFilter 表格筛选列组件', () => {
   });
 
   describe('样式测试', () => {
-    it('应该应用 y-column-filter 类名', () => {
+    it('应该有正确的CSS类名', () => {
       const wrapper = createBasicTest();
-      expect(wrapper.html()).toContain('y-column-filter');
-    });
+      // 根元素应该是 y-column-filter
+      expect(wrapper.classes()).toContain('y-column-filter');
 
-    it('应该应用 y-column-filter__content 类名', () => {
-      const wrapper = createBasicTest();
+      // 内部内容区域应该有 y-column-filter__content 类名
       const contentSpan = wrapper.find('.y-column-filter__content');
       expect(contentSpan.exists()).toBe(true);
     });
@@ -246,9 +230,8 @@ describe('YColumnFilter 表格筛选列组件', () => {
         }
       );
 
-      const columnElement = wrapper.find('.el-table-column');
-      expect(columnElement.attributes('width')).toBe('200');
-      expect(columnElement.attributes('min-width')).toBe('150');
+      expect(wrapper.attributes('width')).toBe('200');
+      expect(wrapper.attributes('min-width')).toBe('150');
     });
 
     it('应该支持 filters 属性', () => {
@@ -264,8 +247,7 @@ describe('YColumnFilter 表格筛选列组件', () => {
         }
       );
 
-      const columnElement = wrapper.find('.el-table-column');
-      expect(columnElement.attributes('filters')).toBeDefined();
+      expect(wrapper.attributes('filters')).toBeDefined();
     });
   });
 
@@ -484,8 +466,7 @@ describe('YColumnFilter 表格筛选列组件', () => {
         config
       });
 
-      const columnElement = wrapper.find('.el-table-column');
-      expect(columnElement.attributes('filters')).toBeDefined();
+      expect(wrapper.attributes('filters')).toBeDefined();
     });
 
     it('当 noFilter 为 true 时不应该设置 filters', () => {
@@ -516,8 +497,7 @@ describe('YColumnFilter 表格筛选列组件', () => {
 
       const wrapper = createBasicTest({ config }, { filters });
 
-      const columnElement = wrapper.find('.el-table-column');
-      expect(columnElement.attributes('filters')).toBeDefined();
+      expect(wrapper.attributes('filters')).toBeDefined();
     });
   });
 
@@ -748,6 +728,7 @@ describe('YColumnFilter 表格筛选列组件', () => {
       expect(attrs['min-width']).toBe(100);
       expect(attrs.width).toBe(150);
       expect(attrs['column-key']).toBe('status');
+      expect(attrs['class-name']).toBe('y-column-filter');
       expect(attrs.filters).toEqual(config);
     });
 

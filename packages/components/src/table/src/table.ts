@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 import type { PaginationProps } from 'element-plus';
 import type { EmptyProps } from '../../empty/src/empty';
 

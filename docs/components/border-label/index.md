@@ -1,13 +1,17 @@
 ---
-title: BorderLabel 边框标签
-description: 用于展示表单的标签
+title: BorderLabel
+description: 为表单项增加标签和边框
 ---
 
 # BorderLabel 边框标签
 
-BorderLabel 是一个容器组件，主要用于与 Element Plus 中的各种表单组件进行组合使用。它提供了一个带有边框的标签容器，可以包含前缀、标签、内容和后缀等部分。
+## 说明
 
-## 基础用法
+主要用于与 Element Plus 中的各种表单组件组合使用，提供了一个带有 lable 和边框的标签容器，还支持自定义前缀、标签、内容、后缀。
+
+## 用法示例
+
+### 基础用法
 
 :::demo
 
@@ -15,17 +19,17 @@ border-label/form
 
 :::
 
-## 无边框
+### 无边框
 
-:::demo 通过 no-border 属性可以隐藏边框。
+:::demo 通过 `no-border` 属性可以隐藏边框。
 
 border-label/border
 
 :::
 
-## 插槽用法
+### 插槽用法
 
-:::demo 组件提供了 prefix 和 suffix 插槽，可以用于添加前置和后置内容，如图标等。
+:::demo 组件提供了 `prefix` 和 `suffix` 插槽，可以用于添加前置和后置内容，如图标等。
 
 border-label/slot
 
@@ -35,12 +39,12 @@ border-label/slot
 
 ### Attributes
 
-| 属性名   | 说明           | 类型                  | 默认值  |
-| -------- | -------------- | --------------------- | ------- |
-| label    | 标签文本       | ^[string]             |         |
-| width    | 组件总宽度     | ^[string] / ^[number] | `auto`  |
-| height   | 组件高度       | ^[string] / ^[number] | `32px`  |
-| noBorder | 是否不显示边框 | ^[boolean]            | `false` |
+| 属性名   | 说明           | 类型                  | 默认值   |
+| -------- | -------------- | --------------------- | -------- |
+| label    | 标签文本       | ^[string]             | `''`     |
+| width    | 组件总宽度     | ^[string] / ^[number] | `'auto'` |
+| height   | 组件高度       | ^[string] / ^[number] | `'32px'` |
+| noBorder | 是否不显示边框 | ^[boolean]            | `false`  |
 
 ### Slots
 

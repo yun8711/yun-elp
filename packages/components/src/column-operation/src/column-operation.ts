@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 import type { TableColumnCtx } from 'element-plus';
 import type { PopProps } from '../../pop/src/pop';
 
@@ -50,15 +50,9 @@ export interface ColumnOperationProps {
   options: ColumnOperationItemType[] | ((scope: TableItemScope) => ColumnOperationItemType[]);
   // 禁用默认提示文案
   disabledDefaultTip?: string;
-  // 表头样式
-  headerStyle?: Record<string, string | number>;
 }
 
 export const columnOperationProps = {
-  headerStyle: {
-    type: Object as PropType<Record<string, string | number>>,
-    default: () => ({})
-  },
   disabledDefaultTip: {
     type: String,
     default: () => ''

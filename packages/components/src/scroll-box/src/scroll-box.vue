@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick, onMounted, onUnmounted, watch } from '@vue/runtime-core';
+import { ref, computed, nextTick, onMounted, onUnmounted, watch } from 'vue';
 import { useThrottleFn, useResizeObserver } from '@vueuse/core';
 import { ElScrollbar, ElIcon, ElButton } from 'element-plus';
 import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue';

@@ -3,7 +3,7 @@
     "text": "通用",
     "items": [
       {
-        "text": "button 按钮",
+        "text": "button 增强按钮",
         "link": "/components/button/",
         "activeMatch": "/components/button/"
       }
@@ -78,19 +78,9 @@
         "activeMatch": "/components/table-search/"
       },
       {
-        "text": "select 选择器",
-        "link": "/components/select/",
-        "activeMatch": "/components/select/"
-      },
-      {
         "text": "row-select 行选择器",
         "link": "/components/row-select/",
         "activeMatch": "/components/row-select/"
-      },
-      {
-        "text": "radio 单选框",
-        "link": "/components/radio/",
-        "activeMatch": "/components/radio/"
       },
       {
         "text": "group-select 组选择器",
@@ -138,7 +128,7 @@
         "activeMatch": "/components/column-filter/"
       },
       {
-        "text": "column-form 表单列",
+        "text": "column-form 单表单列",
         "link": "/components/column-form/",
         "activeMatch": "/components/column-form/"
       },

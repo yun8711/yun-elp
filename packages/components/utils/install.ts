@@ -1,4 +1,4 @@
-import type { App, Component } from '@vue/runtime-core';
+import type { App, Component } from 'vue';
 
 /**
  * 为组件添加install方法，实现组件的全局注册

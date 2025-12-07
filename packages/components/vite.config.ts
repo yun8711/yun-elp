@@ -3,7 +3,7 @@ import type { PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
 import { visualizer } from 'rollup-plugin-visualizer';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import generateTypes from './vite-plugin-generate-types';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -60,7 +60,7 @@ export default defineConfig({
         // 确保类型声明文件可以在 JS 项目中使用
         skipLibCheck: true,
         // 将类型依赖标记为可选
-        types: ['vue', '@vue/shared']
+        types: ['vue']
       },
       // 在类型声明文件中添加类型引用
       beforeWriteFile: (filePath, content) => {
@@ -141,7 +141,6 @@ export default defineConfig({
     rollupOptions: {
       external: [
         'vue',
-        '@vue/runtime-core',
         'vue-router',
         'element-plus',
         'lodash-es',

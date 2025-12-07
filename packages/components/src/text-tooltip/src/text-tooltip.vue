@@ -1,6 +1,10 @@
 <template>
-  <el-tooltip v-bind="tooltipAttrs" :disabled="!showTooltip" class="y-text-tooltip">
-    <div ref="textRef" class="y-text-tooltip__content" :style="textStyle">
+  <el-tooltip
+    ref="tooltipRef"
+    v-bind="tooltipAttrs"
+    :disabled="!showTooltip"
+    class="y-text-tooltip">
+    <div ref="textRef" class="y-text-tooltip__content" :style="computedTextStyle">
       <slot />
     </div>
     <template #content>
@@ -18,14 +22,16 @@ import {
   onUpdated,
   onUnmounted,
   useTemplateRef,
-  watch
-} from '@vue/runtime-core';
+  watch,
+  toRefs,
+  nextTick
+} from 'vue';
 import { ElTooltip } from 'element-plus';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 
 defineOptions({
   name: 'YTextTooltip',
-  inheritAttrs: false
+  inheritAttrs: true
 });
 
 const textTooltipConfig = useAppConfig('textTooltip');
@@ -33,36 +39,35 @@ const props = withDefaults(defineProps<TextTooltipProps>(), {
   lineClamp: 1,
   width: '100%',
   model: 'auto',
-  tooltipProps: () => ({}),
   textStyle: () => ({})
 });
+
+const { lineClamp, width, model, textStyle, ...otherProps } = toRefs(props);
 
 // 合并tooltipProps
 const tooltipAttrs = computed(() => {
   const configAttrs = textTooltipConfig?.tooltipProps || {};
-  const propAttrs = props?.tooltipProps || {};
+  const propAttrs = otherProps.value || {};
   return {
     placement: 'top',
     showAfter: 50,
     hideAfter: 50,
     enterable: false,
     popperClass: 'y-text-tooltip__popper',
+    teleported: false,
+    persistent:false,
     content: getSlotContent(),
     ...configAttrs,
     ...propAttrs
   };
 });
 
-const lineClamp = computed(() => {
-  return typeof props.lineClamp === 'number' ? props.lineClamp : Number(props.lineClamp);
-});
-
-const textStyle = computed(() => {
+const computedTextStyle = computed(() => {
   return {
-    width: typeof props.width === 'number' ? `${props.width}px` : props.width,
+    width: typeof width.value === 'number' ? `${width.value}px` : width.value,
     '-webkit-line-clamp': lineClamp.value,
     'white-space': lineClamp.value > 1 ? 'normal' : 'nowrap',
-    ...props.textStyle
+    ...textStyle.value
   };
 });
 
@@ -79,11 +84,11 @@ let resizeObserver: ResizeObserver | null = null;
 
 // 判断是否需要显示tooltip，即内容是否超长
 const getIsOverflow = () => {
-  if (props.model === 'none') {
+  if (model.value === 'none') {
     showTooltip.value = false;
-  } else if (props.model === 'always') {
+  } else if (model.value === 'always') {
     showTooltip.value = true;
-  } else if (props.model === 'auto') {
+  } else if (model.value === 'auto') {
     if (lineClamp.value === 1) {
       // 获取可视宽度
       const width = textRef.value?.offsetWidth;
@@ -99,22 +104,24 @@ const getIsOverflow = () => {
 };
 
 onMounted(() => {
-  getIsOverflow();
+  nextTick(() => {
+    getIsOverflow();
 
-  // 创建ResizeObserver监听容器宽度变化
-  if (props.model === 'auto' && textRef.value) {
-    resizeObserver = new ResizeObserver(() => {
-      getIsOverflow();
-    });
-    resizeObserver.observe(textRef.value);
-  }
+    // 创建ResizeObserver监听容器大小变化
+    if (model.value === 'auto' && textRef.value) {
+      resizeObserver = new ResizeObserver(() => {
+        getIsOverflow();
+      });
+      resizeObserver.observe(textRef.value);
+    }
+  });
 });
 
 onUpdated(getIsOverflow);
 
 // 监听相关属性变化，重新计算是否显示tooltip
 watch(
-  [() => props.model, () => props.lineClamp, () => props.width],
+  [() => model.value, () => lineClamp.value, () => width.value],
   () => {
     // 先清理之前的ResizeObserver
     if (resizeObserver) {
@@ -125,7 +132,7 @@ watch(
     getIsOverflow();
 
     // 如果model为auto且有DOM元素，重新创建ResizeObserver
-    if (props.model === 'auto' && textRef.value) {
+    if (model.value === 'auto' && textRef.value) {
       resizeObserver = new ResizeObserver(() => {
         getIsOverflow();
       });
@@ -142,4 +149,20 @@ onUnmounted(() => {
     resizeObserver = null;
   }
 });
+
+const tooltipRef = useTemplateRef<HTMLElement>('tooltipRef');
+defineExpose(new Proxy({}, {
+  get: (_target, key) => {
+    return tooltipRef.value?.[key];
+  },
+  has: (_target, key) => {
+    return !!(tooltipRef.value && key in tooltipRef.value);
+  },
+  ownKeys: () => {
+    return tooltipRef.value ? [...Object.keys(tooltipRef.value)] : [];
+  },
+  getOwnPropertyDescriptor: (_target, key) => {
+    return tooltipRef.value ? Object.getOwnPropertyDescriptor(tooltipRef.value, key) : undefined;
+  }
+}));
 </script>

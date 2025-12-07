@@ -1,38 +1,15 @@
-/**
- * KD-ELP 样式入口文件
- */
-
-// 导入 Element Plus 样式
-// @use 'element-plus/dist/index.css' as element;
-
-// 导入自定义主题 (覆盖Element Plus变量)
-@use './theme/index2.scss' as theme;
-
-// 导入样式覆盖 (确保优先级高于 Element Plus)
-@use './theme/override.scss' as override;
-
-// 导入公共混入工具
-// @use './mixins/index.scss' as mixins;
-
-// 导入一些全局样式重置或通用样式
-// @use './common/index.scss' as common;
-
-// 组件样式通过各组件自身的样式文件按需导入
 @use './label.scss';
 @use './border-label.scss';
 @use './part-title.scss';
 @use './page-header.scss';
 @use './table-search.scss';
-@use './select.scss';
 @use './row-select.scss';
 @use './radio.scss';
 @use './text-tooltip.scss';
-@use './button.scss';
 @use './page-footer.scss';
 @use './drawer.scss';
 @use './dialog.scss';
 @use './scroll-box.scss';
-@use './group-select.scss';
 @use './empty.scss';
 @use './desc.scss';
 @use './pop.scss';

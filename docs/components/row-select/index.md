@@ -1,11 +1,17 @@
 ---
-title: RowSelect 行选择器
-description: RowSelect 行选择器组件，支持单选和多选模式，具有折叠展开功能
+title: RowSelect
+description: 行选择器组件，支持单选和多选模式，具有折叠展开功能
 ---
 
 # RowSelect 行选择器
 
-## 多选模式
+## 说明
+
+一个支持单选、多选的选择器，用于按行展示选项值，并且可以展开、隐藏过多的选项。
+
+## 用法示例
+
+### 多选模式
 
 :::demo 默认情况下为多选模式
 
@@ -13,7 +19,7 @@ row-select/multipl
 
 :::
 
-## 单选模式
+### 单选模式
 
 :::demo
 
@@ -21,7 +27,7 @@ row-select/single
 
 :::
 
-## 高级用法
+### 高级用法
 
 :::demo 可以将多个 RowSelect 组合成为高级筛选组件
 
@@ -33,30 +39,30 @@ row-select/advance
 
 ### Attributes
 
-| 属性名       | 说明                                           | 类型                                                   | 默认值                                                    |
-| ------------ | ---------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------- |
-| modelValue   | 绑定值                                         | ^[string] / ^[number] / ^[array]`string[] \| number[]` | `''`                                                      |
-| single       | 是否为单选模式                                 | ^[boolean]                                             | `false`                                                   |
-| duration     | 收缩展开动画时长，单位ms                       | ^[number]                                              | `200`                                                     |
-| defaultLines | 默认显示行数                                   | ^[number]                                              | `1`                                                       |
-| labelWidth   | label宽度                                      | ^[string]                                              | `'auto'`                                                  |
-| labelAlign   | label水平对齐方式，对应text-align属性的值      | ^[enum]`'left' \| 'center' \| 'right'`                 | `'left'`                                                  |
-| labelText    | label文字                                      | ^[string]                                              | `'选项'`                                                  |
-| separator    | 是否显示分隔符                                 | ^[boolean]                                             | `true`                                                    |
-| labelStyles  | label文字的样式                                | ^[object]`CSSProperties`                               | —                                                         |
-| foldText     | 右侧按钮折叠状态时文字                         | ^[string]                                              | `'更多'`                                                  |
-| unfoldText   | 右侧按钮展开状态时文字                         | ^[string]                                              | `'收起'`                                                  |
-| showIcon     | 是否显示箭头图标                               | ^[boolean]                                             | `true`                                                    |
-| iconPosition | 图标位于按钮方位                               | ^[enum]`'left' \| 'right'`                             | `'left'`                                                  |
-| btnStyles    | 右侧按钮样式                                   | ^[object]`CSSProperties`                               | —                                                         |
-| options      | 选项数组                                       | ^[object]`RowSelectOption[]`                           | `[]`                                                      |
-| showAll      | 是否显示全部选项                               | ^[boolean]                                             | `true`                                                    |
-| allText      | 全部选项文字                                   | ^[string]                                              | `'全部'`                                                  |
-| itemHeight   | 选项高度，只支持px单位                         | ^[string] / ^[number]                                  | `'24px'`                                                  |
-| itemWidth    | 选项宽度                                       | ^[string] / ^[number]                                  | `'auto'`                                                  |
-| gap          | 选项间距，支持数字或带px单位，多个值用逗号分隔 | ^[string]                                              | `'8'`                                                     |
-| defineProps  | 定义选项的属性映射                             | ^[object]`RowSelectDefineProps`                        | `{ label: 'label', value: 'value', disabled: 'disabled'}` |
-| itemStyles   | 选项样式集                                     | ^[object]`CSSProperties`                               | —                                                         |
+| 属性名                | 说明                                           | 类型                                                   | 默认值                                                    |
+| --------------------- | ---------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------- |
+| model-value / v-model | 绑定值                                         | ^[string] / ^[number] / ^[array]`string[] \| number[]` | `''`                                                      |
+| single                | 是否为单选模式                                 | ^[boolean]                                             | `false`                                                   |
+| duration              | 收缩展开动画时长，单位ms                       | ^[number]                                              | `200`                                                     |
+| defaultLines          | 默认显示行数                                   | ^[number]                                              | `1`                                                       |
+| label-width           | label宽度                                      | ^[string]                                              | `'auto'`                                                  |
+| label-align           | label水平对齐方式，对应text-align属性的值      | ^[enum]`'left' \| 'center' \| 'right'`                 | `'left'`                                                  |
+| label-text            | label文字                                      | ^[string]                                              | `'选项'`                                                  |
+| separator             | 是否显示分隔符                                 | ^[boolean]                                             | `true`                                                    |
+| label-styles          | label文字的样式                                | ^[object]`CSSProperties`                               | —                                                         |
+| fold-text             | 右侧按钮折叠状态时文字                         | ^[string]                                              | `'更多'`                                                  |
+| unfold-text           | 右侧按钮展开状态时文字                         | ^[string]                                              | `'收起'`                                                  |
+| show-icon             | 是否显示箭头图标                               | ^[boolean]                                             | `true`                                                    |
+| icon-position         | 图标位于按钮方位                               | ^[enum]`'left' \| 'right'`                             | `'left'`                                                  |
+| btn-styles            | 右侧按钮样式                                   | ^[object]`CSSProperties`                               | —                                                         |
+| options               | 选项数组                                       | ^[object]`RowSelectOption[]`                           | `[]`                                                      |
+| show-all              | 是否显示全部选项                               | ^[boolean]                                             | `true`                                                    |
+| all-text              | 全部选项文字                                   | ^[string]                                              | `'全部'`                                                  |
+| item-height           | 选项高度，只支持px单位                         | ^[string] / ^[number]                                  | `'24px'`                                                  |
+| item-width            | 选项宽度                                       | ^[string] / ^[number]                                  | `'auto'`                                                  |
+| gap                   | 选项间距，支持数字或带px单位，多个值用逗号分隔 | ^[string]                                              | `'8'`                                                     |
+| define-props          | 定义选项的属性映射                             | ^[object]`RowSelectDefineProps`                        | `{ label: 'label', value: 'value', disabled: 'disabled'}` |
+| item-styles           | 选项样式集                                     | ^[object]`CSSProperties`                               | —                                                         |
 
 ### RowSelectOption
 

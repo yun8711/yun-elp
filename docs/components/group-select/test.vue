@@ -1,5 +1,5 @@
 <template>
-  <div class="group-select-demo">
+  <div>
     <h3>基础用法</h3>
     <y-group-select
       v-model="selectedValue1"
@@ -32,50 +32,3 @@ const handleChange = ({ value, item, index, event }: { value: string | number, i
   console.log('选择变化:', { value, item, index, event })
 }
 </script>
-
-<style scoped>
-.group-select-demo {
-  padding: 20px;
-}
-
-.group-select-demo h3 {
-  margin: 20px 0 10px 0;
-  color: #333;
-  font-size: 16px;
-}
-
-.group-select-demo p {
-  margin: 10px 0;
-  color: #666;
-  font-size: 14px;
-}
-
-.custom-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
-  color: white;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.custom-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
-
-.custom-label {
-  font-weight: 500;
-  color: #409eff;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .group-select-demo {
-    padding: 10px;
-  }
-
-  .group-select-demo h3 {
-    font-size: 14px;
-  }
-}
-</style>

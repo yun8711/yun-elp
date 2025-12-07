@@ -51,7 +51,7 @@
 <script setup lang="ts">
 import type { DescProps, DescItem } from './desc';
 import { get } from 'lodash-es';
-import { computed, useAttrs, useSlots, useTemplateRef } from '@vue/runtime-core';
+import { computed, useAttrs, useSlots, useTemplateRef } from 'vue';
 import { hasOwn } from '@vueuse/shared';
 import { useElementSize } from '@vueuse/core';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';

@@ -1,4 +1,4 @@
-import { inject, type InjectionKey } from '@vue/runtime-core';
+import { inject, type InjectionKey } from 'vue';
 import type { AppWrapProps } from './app-wrap';
 
 export const appConfigKey: InjectionKey<AppWrapProps> = Symbol('yun-elp-app-config');

@@ -1,5 +1,5 @@
 <template>
-  <el-table-column class="y-column-forms" v-bind="manageAttrs">
+  <el-table-column v-bind="manageAttrs">
     <template #default="scope">
       <div class="y-column-forms__content" :class="[inline ? 'is-line' : 'is-flex']">
         <div v-for="item in mergedFormArr(scope)" :key="`${scope.$index}_${item.prop}`" :style="item.style">
@@ -19,7 +19,7 @@
             <template #error="{ error }">
               <div>
                 <el-tooltip
-                  v-bind="item.tooltipAttrs"
+                  v-bind="item.tipProps"
                   :content="error"
                   :disabled="!error"
                   :visible="errorMessageMap[`${scope.$index}_${item.prop}`]">
@@ -33,7 +33,7 @@
     </template>
     <template #header="{ column, $index }">
       <slot name="header" :column="column" :index="$index">
-        <span :style="headerStyle">{{ attrs.label }}</span>
+        <span>{{ attrs.label }}</span>
       </slot>
     </template>
   </el-table-column>
@@ -42,7 +42,7 @@
 <script setup lang="ts">
 import { ElTableColumn, ElFormItem, ElTooltip } from 'element-plus';
 import type { ColumnFormsProps } from './column-forms';
-import { withDefaults, toRefs, useAttrs, computed, inject, ref } from '@vue/runtime-core';
+import { toRefs, useAttrs, computed, inject, ref } from 'vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 
 defineOptions({
@@ -58,10 +58,9 @@ const props = withDefaults(defineProps<ColumnFormsProps>(), {
   options: () => [],
   inline: true,
   tName: '',
-  headerStyle: () => ({})
 });
 
-const { options, inline, tName, headerStyle } = toRefs(props);
+const { options, inline, tName } = toRefs(props);
 // 每个表单项的错误信息
 const errorMessageMap = ref<Record<string, any>>({});
 // form中table字段名，用于绑定校验组
@@ -71,10 +70,11 @@ const tableName = computed(() => {
 
 const manageAttrs = computed(() => {
   return {
+    ...attrs,
     'show-overflow-tooltip': false,
     'min-width': attrs?.['min-width'] || 100,
     width: attrs?.width || 'auto',
-    ...attrs,
+    'class-name': attrs?.['class-name'] || 'y-column-forms',
   };
 });
 
@@ -100,7 +100,7 @@ const mergedItemTooltipAttrs = (scope: any, item: any) => {
     placement: columnFormConig?.placement || 'top',
     enterable: false,
   }
-  const compObj = typeof item.tooltipAttrs === 'function' ? item.tooltipAttrs(scope, item.prop) : item.tooltipAttrs
+  const compObj = typeof item.tipProps === 'function' ? item.tipProps(scope, item.prop) : item.tipProps
   return {
     ...defaultObj,
     ...compObj
@@ -114,7 +114,7 @@ const mergedFormArr = (scope: any) => {
       prop: item.prop,
       show: typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
       formAttrs: mergedItemFormAttrs(scope, item),
-      tooltipAttrs: mergedItemTooltipAttrs(scope, item),
+      tipProps: mergedItemTooltipAttrs(scope, item),
       width: typeof item.width === 'function' ? item.width(scope, item.prop) : item.width || 'auto',
       style: typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {},
     }

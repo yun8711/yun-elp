@@ -102,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, markRaw } from '@vue/runtime-core';
+import { ref, computed, watch, markRaw } from 'vue';
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import YBorderLabel from '../../border-label/src/border-label.vue';
@@ -192,18 +192,21 @@ function resolveDynamicProp<T>(
  * 获取组件的默认值
  */
 function getDefaultValue(item: TableSearchOption, params: DynamicPropsParams) {
-  const compName = item.comp?.name || '';
+  const compName = typeof item.comp === 'string' ? item.comp : item.comp?.name || '';
   let defaultValue: any = '';
   const innerAttrs = resolveDynamicProp(item.innerAttrs, params) || {};
 
   switch (compName) {
     case 'ElCascader':
+    case 'el-cascader':
       defaultValue = [];
       break;
     case 'ElSelect':
+    case 'el-select':
       defaultValue = innerAttrs.multiple ? [] : '';
       break;
-    case 'ElDatePicker': {
+    case 'ElDatePicker':
+    case 'el-date-picker': {
       const dateType = innerAttrs.type || 'date';
       if (['datetimerange', 'daterange', 'monthrange', 'yearrange'].includes(dateType)) {
         defaultValue = [];
@@ -213,14 +216,19 @@ function getDefaultValue(item: TableSearchOption, params: DynamicPropsParams) {
       break;
     }
     case 'ElInputNumber':
+    case 'el-input-number':
       defaultValue = null;
       break;
     case 'ElTimePicker':
+    case 'el-time-picker':
       defaultValue = innerAttrs.isRange ? [] : '';
       break;
     case 'ElTreeSelect':
+    case 'el-tree-select':
       defaultValue = innerAttrs.multiple ? [] : '';
       break;
+    case 'ElInput':
+    case 'el-input':
     default:
       defaultValue = '';
       break;
@@ -246,7 +254,7 @@ function processOption(item: TableSearchOption): TableSearchItem {
   const resolvedHidden = resolveDynamicProp(item.hidden, params);
   const resolvedDisabled = resolveDynamicProp(item.disabled, params);
   const label = item.label ?? '';
-  const compName = item.comp?.name || 'ElInput';
+  const compName = typeof item.comp === 'string' ? item.comp : item.comp?.name || 'ElInput';
 
   // 智能 placeholder 处理
   let newInnerAttrs = { ...resolvedInnerAttrs };
@@ -256,21 +264,21 @@ function processOption(item: TableSearchOption): TableSearchItem {
   const hasEndPlaceholder = 'endPlaceholder' in newInnerAttrs || 'end-placeholder' in newInnerAttrs;
 
   // 输入类
-  const inputComps = ['ElInput', 'ElInputNumber', 'ElAutocomplete'];
+  const inputComps = ['ElInput', 'el-input', 'ElInputNumber', 'el-input-number', 'ElAutocomplete', 'el-autocomplete'];
   // 选择类
   const selectComps = [
-    'ElSelect',
-    'ElCascader',
-    'ElTreeSelect',
-    'ElRadioGroup',
-    'ElCheckboxGroup',
-    'ElDatePicker',
-    'ElTimePicker'
+    'ElSelect', 'el-select',
+    'ElCascader', 'el-cascader',
+    'ElTreeSelect', 'el-tree-select',
+    'ElRadioGroup', 'el-radio-group',
+    'ElCheckboxGroup', 'el-checkbox-group',
+    'ElDatePicker', 'el-date-picker',
+    'ElTimePicker', 'el-time-picker'
   ];
 
   // 范围选择
   const isRange =
-    (compName === 'ElDatePicker' || compName === 'ElTimePicker') &&
+    (compName === 'ElDatePicker' || compName === 'el-date-picker' || compName === 'ElTimePicker' || compName === 'el-time-picker') &&
     newInnerAttrs.type?.includes('range');
 
   if (!hasPlaceholder && !isRange) {
@@ -293,7 +301,7 @@ function processOption(item: TableSearchOption): TableSearchItem {
     value: item.value ?? getDefaultValue(item, params),
     hidden: resolvedHidden ?? false,
     valueFormat: item.valueFormat,
-    comp: markRaw(item.comp ?? ElInput),
+    comp: markRaw(typeof item.comp === 'string' ? item.comp : item.comp ?? ElInput),
     borderAttrs: {
       label: item.label ?? '',
       width: resolvedBorderAttrs.width ?? borderLabelConfig?.width ?? '220px',

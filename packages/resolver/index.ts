@@ -20,10 +20,14 @@ type SideEffectsInfo = (ImportInfo | string)[] | ImportInfo | string | undefined
  */
 function kebabCase(componentName: string) {
   return componentName
-    .replace('Y', '')
-    .replace(/([A-Z])/g, '-$1')
-    .replace(/^-/, '')
-    .toLowerCase();
+    .replace(/^Y/, '') // 移除开头的 Y
+    .replace(/([A-Z])/g, (match, offset, string) => {
+      // 如果不是第一个字符，且前一个字符不是大写，则添加连字符
+      return offset > 0 && string[offset - 1] >= 'A' && string[offset - 1] <= 'Z'
+        ? match.toLowerCase()
+        : '-' + match.toLowerCase();
+    })
+    .replace(/^-/, ''); // 移除开头的连字符（如果有的话）
 }
 
 /**
@@ -39,10 +43,6 @@ export interface YunElpResolverOptions {
    * 排除组件名称，如果匹配则不解析组件
    */
   exclude?: RegExp;
-  /**
-   * 没有样式的组件名称列表，因此应该避免解析它们的样式文件
-   */
-  noStylesComponents?: string[];
 }
 
 type YunElpResolverOptionsResolved = {
@@ -50,6 +50,8 @@ type YunElpResolverOptionsResolved = {
   exclude?: RegExp;
   noStylesComponents: string[];
 };
+
+const noStylesComponents = ['YAppWrap', 'YButton', 'YGroupSelect'];
 
 function getSideEffects(
   dirName: string,
@@ -127,7 +129,7 @@ export function YunElpResolver(options: YunElpResolverOptions = {}): ComponentRe
     optionsResolved = {
       importStyle: options?.importStyle || 'scss',
       exclude: options?.exclude,
-      noStylesComponents: ['YAppWrap', ...(options.noStylesComponents || [])]
+      noStylesComponents: noStylesComponents,
     };
     return optionsResolved;
   }

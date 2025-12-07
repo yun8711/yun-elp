@@ -77,7 +77,7 @@
 <script setup lang="ts">
 import { ArrowDown } from '@element-plus/icons-vue';
 import { ElIcon } from 'element-plus';
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from '@vue/runtime-core';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { getSizeValue } from '../../../utils/other';
 import type { RowSelectProps, RowSelectEmits } from './row-select';
 

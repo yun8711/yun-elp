@@ -32,7 +32,7 @@ export const defaultConfig: AppWrapProps = {
 </script>
 
 <script setup lang="ts">
-import { provide, computed } from '@vue/runtime-core';
+import { provide, computed } from 'vue';
 import { omit, merge } from 'lodash-es';
 import { localeContextKey } from '../../../locale';
 import { appConfigKey } from './use-app-config';

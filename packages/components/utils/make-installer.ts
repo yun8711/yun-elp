@@ -4,7 +4,7 @@ import { INSTALLED_KEY } from '../constants/key';
 // import { provideGlobalConfig } from '@element-plus/components/config-provider'
 // import { version } from './version'
 
-import type { App, Plugin } from '@vue/runtime-core';
+import type { App, Plugin } from 'vue';
 // import type { ConfigProviderContext } from '@element-plus/components/config-provider'
 
 // 全局安装器，用于全局注册组件

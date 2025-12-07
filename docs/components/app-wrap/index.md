@@ -1,18 +1,21 @@
 ---
-title: AppWrap 应用容器
-description: 用于向子组件传递全局配置
+title: AppWrap
+description: 向后代组件传递全局配置
 ---
 
 # AppWrap 应用容器
 
+## 说明
+
 AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 
-- 向内部的后代组件传递默认配置，方便定制组件属性的默认值
-- 设置本组件库及 `element-plus` 组件库的语言选项
+（1）向内部的后代组件（`element-plus` 及 `yun-elp`）传递默认配置，方便设置组件属性的默认值，简化配置
+
+（2）设置 `yun-elp` 及 `element-plus` 组件库的语言选项
 
 注意：
 
-- 向后代组件传递的配置参数只是为了从全局角度简化组件的配置和使用，所以它的优先级最低
+向后代组件传递的配置参数只是为了从全局角度简化组件的配置和使用，所以它的优先级最低
 
 ## API
 
@@ -21,9 +24,9 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | 属性名          | 说明                                                                                | 类型                                | 默认值  |
 | --------------- | ----------------------------------------------------------------------------------- | ----------------------------------- | ------- |
 | elpConfig       | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`ElConfigProviderProps`    | —       |
-| locale          | `yun-elp`的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
-| borderLabel     | `y-border-label`组件全局配置，[见下表](#border-label-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
-| pageHeader      | `y-page-header`组件全局配置，[见下表](#page-header-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
+| locale          | yun-elp的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
+| borderLabel     | y-border-label组件全局配置，[见下表](#border-label-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
+| pageHeader      | y-page-header组件全局配置，[见下表](#page-header-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
 | pageFooter      | y-page-footer组件全局配置，[见下表](#page-footer-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
 | button          | y-button组件全局配置，[见下表](#button-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
 | drawer          | y-drawer组件全局配置，[见下表](#drawer-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
@@ -40,8 +43,8 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 
 | 参数   | 描述       | 类型      | 默认值 |
 | ------ | ---------- | --------- | ------ |
-| width  | 组件总宽度 | ^[string] | auto   |
-| height | 组件高度   | ^[string] | 32px   |
+| width  | 组件总宽度 | ^[string] | `'auto'`   |
+| height | 组件高度   | ^[string] | `'32px'`   |
 
 #### page-header Attribute
 
@@ -68,7 +71,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | 参数    | 描述                 | 类型                  | 默认值      |
 | ------- | -------------------- | --------------------- | ----------- |
 | delay   | 防抖间隔时间，单位ms | ^[string] / ^[number] | `300`       |
-| maxWait | 最大等待时间，单位ms | ^[string] / ^[number] | `undefined` |
+| maxWait | 最大等待时间，单位ms | ^[string] / ^[number] | — |
 
 #### drawer Attribute
 

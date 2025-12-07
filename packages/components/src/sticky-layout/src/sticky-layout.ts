@@ -1,4 +1,4 @@
-import type { ExtractPublicPropTypes, PropType } from '@vue/runtime-core';
+import type { ExtractPublicPropTypes, PropType } from 'vue';
 
 export interface StickyLayoutProps {
   // 滚动容器（支持 CSS 选择器字符串或 HTMLElement）

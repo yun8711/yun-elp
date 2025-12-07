@@ -1,0 +1,2547 @@
+{
+  "version": "0.2.0",
+  "components": [
+    {
+      "name": "YTextTooltip",
+      "description": "用于文本溢出时显示tooltip提示的组件",
+      "slots": [
+        {
+          "name": "default",
+          "description": "默认插槽，用于放置文本内容"
+        },
+        {
+          "name": "content",
+          "description": "tooltip内容插槽，用于自定义tooltip显示内容"
+        }
+      ],
+      "props": [
+        {
+          "name": "line-clamp",
+          "description": "展示最大行数",
+          "type": "string | number",
+          "default": "1"
+        },
+        {
+          "name": "width",
+          "description": "文本容器宽度",
+          "type": "string | number",
+          "default": "'100%'"
+        },
+        {
+          "name": "placement",
+          "description": "tooltip显示位置，同 el-tooltip 的 placement",
+          "type": "'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end'",
+          "default": "'top'"
+        },
+        {
+          "name": "model",
+          "description": "tooltip显示方式",
+          "type": "'auto' | 'none' | 'always'",
+          "default": "'auto'"
+        },
+        {
+          "name": "tooltip-props",
+          "description": "tooltip配置属性，详见[el-tooltip](https://element-plus.org/zh-CN/component/tooltip.html#attributes)",
+          "type": "Partial<ElTooltipProps>",
+          "default": "{placement: 'top',showAfter: 50,hideAfter: 50,enterable: false,popperClass: 'y-text-tooltip__popper'}"
+        },
+        {
+          "name": "text-style",
+          "description": "自定义文本样式",
+          "type": "Record<string, any>",
+          "default": "{}"
+        }
+      ],
+      "events": [],
+      "exposes": [
+        {
+          "name": "text-ref",
+          "description": "文本容器的DOM引用",
+          "type": "HTMLElement"
+        }
+      ]
+    },
+    {
+      "name": "YTableSearch",
+      "description": "表格搜索组件，支持多种搜索字段类型、动态属性和自定义组件",
+      "slots": [
+        {
+          "name": "right",
+          "description": "右侧内容"
+        },
+        {
+          "name": "prop",
+          "description": "自定义字段组件，{prop} 为字段名",
+          "type": "{ prop: string, value: any, item: TableSearchItem, form: Record<string, any> }"
+        }
+      ],
+      "props": [
+        {
+          "name": "options",
+          "description": "字段配置",
+          "type": "object | Function",
+          "default": "[]"
+        },
+        {
+          "name": "fold-text",
+          "description": "收起按钮文本",
+          "type": "string",
+          "default": "收起"
+        },
+        {
+          "name": "un-fold-text",
+          "description": "展开按钮文本",
+          "type": "string",
+          "default": "高级搜索"
+        },
+        {
+          "name": "default-fold",
+          "description": "默认是否折叠",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "duration",
+          "description": "折叠过渡时间",
+          "type": "number",
+          "default": "0.2"
+        },
+        {
+          "name": "disabled-first",
+          "description": "多行模式下，展开时是否自动禁用第一行",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "clear-on-fold",
+          "description": "多行模式下，展开、收起时是否自动清空数据",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "events": [
+        {
+          "name": "search",
+          "description": "点击搜索按钮时触发",
+          "type": "()=>{form: Record<string, any>}"
+        },
+        {
+          "name": "reset",
+          "description": "点击重置按钮时触发",
+          "type": "()=>{form: Record<string, any>}"
+        },
+        {
+          "name": "change",
+          "description": "表单值变化时触发",
+          "type": "()=>{form: Record<string, any>}"
+        },
+        {
+          "name": "fold",
+          "description": "折叠状态变化时触发",
+          "type": "()=>{isFold: boolean,form:Record<string, any>}"
+        }
+      ],
+      "exposes": []
+    },
+    {
+      "name": "YTable",
+      "description": "Table 表格",
+      "slots": [
+        {
+          "name": "default",
+          "description": "表格内容插槽"
+        },
+        {
+          "name": "empty",
+          "description": "空状态插槽"
+        },
+        {
+          "name": "footer",
+          "description": "底部区域插槽"
+        },
+        {
+          "name": "append",
+          "description": "表格追加内容插槽"
+        }
+      ],
+      "props": [
+        {
+          "name": "loading",
+          "description": "是否显示加载状态",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "empty-props",
+          "description": "空状态配置",
+          "type": "EmptyProps"
+        },
+        {
+          "name": "show-footer",
+          "description": "是否显示底部区域",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "pagination-props",
+          "description": "分页配置",
+          "type": "PaginationProps"
+        },
+        {
+          "name": "form-table-prop",
+          "description": "在表单对象中嵌套的 table 数据的键名，用于绑定校验",
+          "type": "string",
+          "default": "tableData"
+        }
+      ],
+      "events": [
+        {
+          "name": "pagination-change",
+          "description": "分页变化时触发",
+          "type": "function"
+        }
+      ],
+      "exposes": [
+        {
+          "name": "clear-selection",
+          "description": "用于多选表格，清空用户的选择 selection",
+          "type": "() => void"
+        },
+        {
+          "name": "get-selection-rows",
+          "description": "返回当前选中的行 rows",
+          "type": "() => any[]"
+        },
+        {
+          "name": "toggle-row-selection",
+          "description": "用于多选表格，切换某一行的选中状态， 如果使用了第二个参数，则可直接设置这一行选中与否",
+          "type": "(row: any, selected?: boolean, ignoreSelectable = true) => void"
+        },
+        {
+          "name": "toggle-all-selection",
+          "description": "用于多选表格，切换全选和全不选all",
+          "type": "() => void"
+        },
+        {
+          "name": "toggle-row-expansion",
+          "description": "用于可扩展的表格或树表格，如果某行被扩展，则切换。 使用第二个参数，您可以直接设置该行应该被扩展或折叠",
+          "type": "(row: any, expanded?: boolean) => void"
+        },
+        {
+          "name": "set-current-row",
+          "description": "用于单选表格，设定某一行为选中行， 如果调用时不加参数，则会取消目前高亮行的选中状态",
+          "type": "(row: any) => void"
+        },
+        {
+          "name": "clear-sort",
+          "description": "用于清空排序条件，数据会恢复成未排序的状态 order",
+          "type": "() => void"
+        },
+        {
+          "name": "clear-filter",
+          "description": "传入由columnKey 组成的数组以清除指定列的过滤条件。 如果没有参数，清除所有过滤器",
+          "type": "(columnKeys?: string[]) => void"
+        },
+        {
+          "name": "do-layout",
+          "description": "对 Table 进行重新布局。 当表格可见性变化时，您可能需要调用此方法以获得正确的布局",
+          "type": "() => void"
+        },
+        {
+          "name": "sort",
+          "description": "手动排序表格。 参数 prop 属性指定排序列，order 指定排序顺序",
+          "type": "(prop: string, order: string) => void"
+        },
+        {
+          "name": "scroll-to",
+          "description": "滚动到一组特定坐标 coordinates",
+          "type": "(options: number | ScrollToOptions, yCoord?: number) => void"
+        },
+        {
+          "name": "set-scroll-top",
+          "description": "设置垂直滚动位置",
+          "type": "(top?: number) => void"
+        },
+        {
+          "name": "set-scroll-left",
+          "description": "设置水平滚动位置",
+          "type": "(left?: number) => void"
+        },
+        {
+          "name": "columns",
+          "description": "获取表列的 context",
+          "type": "array"
+        },
+        {
+          "name": "update-key-children",
+          "description": "适用于 lazy Table, 需要设置 rowKey, 更新 key children",
+          "type": "(key: string, data: T[]) => void"
+        }
+      ]
+    },
+    {
+      "name": "YStickyLayout",
+      "description": "StickyLayout 侧边吸顶布局",
+      "slots": [
+        {
+          "name": "default",
+          "description": "主要内容区域，会根据左右侧边栏的内容自动调整宽度"
+        },
+        {
+          "name": "left",
+          "description": "左侧边栏区域",
+          "type": "{ height: number }"
+        },
+        {
+          "name": "right",
+          "description": "右侧边栏区域",
+          "type": "{ height: number }"
+        }
+      ],
+      "props": [
+        {
+          "name": "scroll-container",
+          "description": "指定滚动容器，可以是CSS选择器字符串或HTMLElement对象。默认为 window",
+          "type": "string"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YStep",
+      "description": "Step 步骤条",
+      "slots": [
+        {
+          "name": "default",
+          "description": "每个step的插槽，不包含连接线",
+          "type": "{step:string,index:number,active:boolean}"
+        }
+      ],
+      "props": [
+        {
+          "name": "options",
+          "description": "步骤选项数组，用于显示步骤标签",
+          "type": "array",
+          "default": "[]"
+        },
+        {
+          "name": "step-number",
+          "description": "步骤数量，当options为空时使用此属性生成步骤数，不小于2",
+          "type": "number",
+          "default": "2"
+        },
+        {
+          "name": "active-index",
+          "description": "当前激活步骤的索引",
+          "type": "number",
+          "default": "0"
+        },
+        {
+          "name": "inline-label",
+          "description": "标签是否与步骤序号同行显示",
+          "type": "boolean",
+          "default": "true"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YSelect",
+      "description": "Select 选择器，基于 el-select 封装，内置 options 处理",
+      "slots": [
+        {
+          "name": "default",
+          "description": "选项内容"
+        },
+        {
+          "name": "prefix",
+          "description": "Select 组件头部内容"
+        },
+        {
+          "name": "empty",
+          "description": "无选项时的列表内容"
+        }
+      ],
+      "props": [
+        {
+          "name": "options",
+          "description": "选项数组",
+          "type": "array",
+          "default": "[]"
+        },
+        {
+          "name": "option-groups",
+          "description": "选项分组数组",
+          "type": "array",
+          "default": "[]"
+        },
+        {
+          "name": "disabled-method",
+          "description": "选项禁用方法",
+          "type": "(option: SelectOption) => boolean"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YScrollBox",
+      "description": "ScrollBox 可滚动容器",
+      "slots": [
+        {
+          "name": "default",
+          "description": "内容区域"
+        }
+      ],
+      "props": [
+        {
+          "name": "height",
+          "description": "容器高度",
+          "type": "string | number",
+          "default": "'100%'"
+        },
+        {
+          "name": "width",
+          "description": "容器宽度",
+          "type": "string | number",
+          "default": "'100%'"
+        },
+        {
+          "name": "arrow-model",
+          "description": "箭头显示模式",
+          "type": "'always' | 'auto'",
+          "default": "'auto'"
+        },
+        {
+          "name": "arrow-style",
+          "description": "箭头样式",
+          "type": "CSSProperties",
+          "default": "{}"
+        },
+        {
+          "name": "scrollbar-props",
+          "description": "el-scroll滚动条组件配置",
+          "type": "ElScrollbarProps",
+          "default": "{}"
+        },
+        {
+          "name": "step",
+          "description": "单击滚动时的步进距离",
+          "type": "number",
+          "default": "30"
+        },
+        {
+          "name": "wheel-scroll",
+          "description": "是否开启鼠标滚轮触发水平滚动",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "continuous",
+          "description": "是否启用连续滚动功能，即长按会持续滚动",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "continuous-time",
+          "description": "鼠标按下后多长时间触发连续滚动",
+          "type": "number",
+          "default": "200"
+        },
+        {
+          "name": "continuous-step",
+          "description": "连续滚动时的步进距离",
+          "type": "number",
+          "default": "30"
+        }
+      ],
+      "events": [
+        {
+          "name": "scroll",
+          "description": "滚动时触发",
+          "type": "(scrollLeft:number) => void"
+        }
+      ],
+      "exposes": [
+        {
+          "name": "scrollbar-ref",
+          "description": "el-scrollbar组件实例",
+          "type": "ElScrollbarInstance"
+        },
+        {
+          "name": "scroll-to",
+          "description": "滚动到某个位置（距左侧的距离）",
+          "type": "(scrollLeft: undefined | number | 'start' | 'end') => void"
+        },
+        {
+          "name": "scroll-to-start",
+          "description": "滚动到最左侧位置",
+          "type": "() => void"
+        },
+        {
+          "name": "scroll-to-end",
+          "description": "滚动到最右侧位置",
+          "type": "() => void"
+        }
+      ]
+    },
+    {
+      "name": "YRowSelect",
+      "description": "RowSelect 行选择器组件，支持单选和多选模式，具有折叠展开功能",
+      "slots": [
+        {
+          "name": "default",
+          "description": "选项内容插槽",
+          "type": "{ item: RowSelectOption, index: number }"
+        },
+        {
+          "name": "all",
+          "description": "\"全部\"选项内容插槽"
+        }
+      ],
+      "props": [
+        {
+          "name": "model-value",
+          "description": "绑定值",
+          "type": "string | number | array",
+          "default": "''"
+        },
+        {
+          "name": "single",
+          "description": "是否为单选模式",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "duration",
+          "description": "收缩展开动画时长，单位ms",
+          "type": "number",
+          "default": "200"
+        },
+        {
+          "name": "default-lines",
+          "description": "默认显示行数",
+          "type": "number",
+          "default": "1"
+        },
+        {
+          "name": "label-width",
+          "description": "label宽度",
+          "type": "string",
+          "default": "'auto'"
+        },
+        {
+          "name": "label-align",
+          "description": "label水平对齐方式，对应text-align属性的值",
+          "type": "'left' | 'center' | 'right'",
+          "default": "'left'"
+        },
+        {
+          "name": "label-text",
+          "description": "label文字",
+          "type": "string",
+          "default": "'选项'"
+        },
+        {
+          "name": "separator",
+          "description": "是否显示分隔符",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "label-styles",
+          "description": "label文字的样式",
+          "type": "CSSProperties"
+        },
+        {
+          "name": "fold-text",
+          "description": "右侧按钮折叠状态时文字",
+          "type": "string",
+          "default": "'更多'"
+        },
+        {
+          "name": "unfold-text",
+          "description": "右侧按钮展开状态时文字",
+          "type": "string",
+          "default": "'收起'"
+        },
+        {
+          "name": "show-icon",
+          "description": "是否显示箭头图标",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "icon-position",
+          "description": "图标位于按钮方位",
+          "type": "'left' | 'right'",
+          "default": "'left'"
+        },
+        {
+          "name": "btn-styles",
+          "description": "右侧按钮样式",
+          "type": "CSSProperties"
+        },
+        {
+          "name": "options",
+          "description": "选项数组",
+          "type": "RowSelectOption[]",
+          "default": "[]"
+        },
+        {
+          "name": "show-all",
+          "description": "是否显示全部选项",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "all-text",
+          "description": "全部选项文字",
+          "type": "string",
+          "default": "'全部'"
+        },
+        {
+          "name": "item-height",
+          "description": "选项高度，只支持px单位",
+          "type": "string | number",
+          "default": "'24px'"
+        },
+        {
+          "name": "item-width",
+          "description": "选项宽度",
+          "type": "string | number",
+          "default": "'auto'"
+        },
+        {
+          "name": "gap",
+          "description": "选项间距，支持数字或带px单位，多个值用逗号分隔",
+          "type": "string",
+          "default": "'8'"
+        },
+        {
+          "name": "define-props",
+          "description": "定义选项的属性映射",
+          "type": "RowSelectDefineProps",
+          "default": "{ label: 'label', value: 'value', disabled: 'disabled'}"
+        },
+        {
+          "name": "item-styles",
+          "description": "选项样式集",
+          "type": "CSSProperties"
+        }
+      ],
+      "events": [
+        {
+          "name": "change",
+          "description": "选择变化时触发",
+          "type": "(value: string | string[] | number | number[])=>void"
+        },
+        {
+          "name": "fold",
+          "description": "折叠状态变化时触发",
+          "type": "(value: boolean)=>void"
+        }
+      ],
+      "exposes": [
+        {
+          "name": "trigger",
+          "description": "触发折叠/展开",
+          "type": "(fold?: boolean) => void"
+        },
+        {
+          "name": "clear",
+          "description": "清空值",
+          "type": "() => void"
+        },
+        {
+          "name": "reset",
+          "description": "重置组件状态，包括值",
+          "type": "() => void"
+        }
+      ]
+    },
+    {
+      "name": "YRadio",
+      "description": "Radio 单选框",
+      "slots": [
+        {
+          "name": "default",
+          "description": "选项内容插槽",
+          "type": "{ item: RadioOption }"
+        }
+      ],
+      "props": [
+        {
+          "name": "model-value",
+          "description": "绑定值",
+          "type": "string | number | boolean",
+          "default": "''"
+        },
+        {
+          "name": "options",
+          "description": "选项值",
+          "type": "RadioOption[]",
+          "default": "[]"
+        },
+        {
+          "name": "child-type",
+          "description": "子元素类型，即el-radio-group支持的子组件",
+          "type": "'radio' | 'button'",
+          "default": "'radio'"
+        },
+        {
+          "name": "disabled-method",
+          "description": "选项禁用方法",
+          "type": "(option: RadioOption) => boolean"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YPop",
+      "description": "Pop 弹出框容器",
+      "slots": [
+        {
+          "name": "default",
+          "description": "默认插槽，通常放置触发元素"
+        },
+        {
+          "name": "tip-content",
+          "description": "el-tooltip 自定义内容"
+        },
+        {
+          "name": "pop-content",
+          "description": "el-popover 自定义内容"
+        },
+        {
+          "name": "pop-footer",
+          "description": "el-popover 底部自定义内容"
+        }
+      ],
+      "props": [
+        {
+          "name": "tip-content",
+          "description": "tooltip 显示的内容",
+          "type": "string",
+          "default": "''"
+        },
+        {
+          "name": "tip-placement",
+          "description": "tooltip 出现位置",
+          "type": "PlacementType",
+          "default": "'top'"
+        },
+        {
+          "name": "tip-props",
+          "description": "[el-tooltip](https://element-plus.org/zh-CN/component/tooltip) 完整配置",
+          "type": "Partial<ElTooltipProps>",
+          "default": "{}"
+        },
+        {
+          "name": "no-pop",
+          "description": "是否禁用 popover",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "pop-title",
+          "description": "popover 标题",
+          "type": "string | number",
+          "default": "'提示'"
+        },
+        {
+          "name": "pop-content",
+          "description": "popover 内容",
+          "type": "string",
+          "default": "'是否执行该操作？'"
+        },
+        {
+          "name": "pop-placement",
+          "description": "popover 出现位置",
+          "type": "PlacementType",
+          "default": "'bottom'"
+        },
+        {
+          "name": "pop-width",
+          "description": "popover 宽度",
+          "type": "number",
+          "default": "226"
+        },
+        {
+          "name": "pop-props",
+          "description": "[el-popover](https://element-plus.org/zh-CN/component/popover) 完整配置",
+          "type": "Partial<PopoverProps>",
+          "default": "{}"
+        },
+        {
+          "name": "no-footer",
+          "description": "是否隐藏底部操作区域",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "no-confirm",
+          "description": "是否隐藏确认按钮",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "confirm-text",
+          "description": "确认按钮文本",
+          "type": "string",
+          "default": "'确认'"
+        },
+        {
+          "name": "confirm-props",
+          "description": "确认按钮属性配置",
+          "type": "Partial<YButtonProps>",
+          "default": "{}"
+        },
+        {
+          "name": "no-cancel",
+          "description": "是否隐藏取消按钮",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "cancel-text",
+          "description": "取消按钮文本",
+          "type": "string",
+          "default": "'取消'"
+        },
+        {
+          "name": "cancel-props",
+          "description": "取消按钮属性配置",
+          "type": "Partial<YButtonProps>",
+          "default": "{}"
+        }
+      ],
+      "events": [
+        {
+          "name": "confirm",
+          "description": "点击确认按钮时触发",
+          "type": "function"
+        },
+        {
+          "name": "cancel",
+          "description": "点击取消按钮时触发",
+          "type": "function"
+        }
+      ],
+      "exposes": [
+        {
+          "name": "tip-ref",
+          "description": "组件内的 el-tooltip 组件实例",
+          "type": "Ref<ElTooltipInstance \\| undefined>"
+        },
+        {
+          "name": "pop-ref",
+          "description": "组件内的 el-popover 组件实例",
+          "type": "Ref<ElPopoverInstance \\| undefined>"
+        }
+      ]
+    },
+    {
+      "name": "YPartTitle",
+      "description": "用于展示页面部分的标题，支持左侧装饰块和右侧操作区域。",
+      "slots": [
+        {
+          "name": "default",
+          "description": "默认插槽，用于自定义标题内容，会覆盖 title 属性"
+        },
+        {
+          "name": "extra",
+          "description": "左侧额外内容插槽，用于在标题后添加标签、图标等"
+        },
+        {
+          "name": "right",
+          "description": "右侧内容插槽，用于放置操作按钮、链接等"
+        }
+      ],
+      "props": [
+        {
+          "name": "title",
+          "description": "标题文本",
+          "type": "string",
+          "default": ""
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YPageProgress",
+      "description": "PageProgress 页面进度条",
+      "slots": [],
+      "props": [
+        {
+          "name": "model-value",
+          "description": "进度条开启/停止状态",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "step",
+          "description": "步进距离 (0-100)",
+          "type": "number",
+          "default": "8"
+        },
+        {
+          "name": "spinner",
+          "description": "是否显示右上角的加载图标",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "delay",
+          "description": "完成后的延迟隐藏时间 (ms)",
+          "type": "number",
+          "default": "200"
+        },
+        {
+          "name": "speed",
+          "description": "自动增量速度 (ms)，即间隔 speed 增长 step",
+          "type": "number",
+          "default": "200"
+        },
+        {
+          "name": "color",
+          "description": "进度条颜色",
+          "type": "string",
+          "default": "var(--el-color-primary)"
+        },
+        {
+          "name": "stroke-width",
+          "description": "进度条宽度",
+          "type": "number",
+          "default": "2"
+        }
+      ],
+      "events": [
+        {
+          "name": "model-valuev-model",
+          "description": "显示状态，true-开始，false-停止",
+          "type": "boolean"
+        }
+      ],
+      "exposes": []
+    },
+    {
+      "name": "YPageHeader",
+      "description": "用于展示路由title",
+      "slots": [
+        {
+          "name": "default",
+          "description": "标题内容"
+        },
+        {
+          "name": "extra",
+          "description": "标题右侧附加内容"
+        },
+        {
+          "name": "right",
+          "description": "组件右侧区域"
+        }
+      ],
+      "props": [
+        {
+          "name": "height",
+          "description": "组件高度",
+          "type": "string | number",
+          "default": "40px"
+        },
+        {
+          "name": "title",
+          "description": "标题文本",
+          "type": "string",
+          "default": "route.meta.title"
+        },
+        {
+          "name": "border",
+          "description": "是否显示下边框",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "padding-x",
+          "description": "左右内边距",
+          "type": "string | array",
+          "default": "24px "
+        },
+        {
+          "name": "title-style",
+          "description": "标题样式",
+          "type": "CSSProperties"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YPageFooter",
+      "description": "PageFooter 页脚",
+      "slots": [
+        {
+          "name": "default",
+          "description": "内容",
+          "type": "{height:string}"
+        }
+      ],
+      "props": [
+        {
+          "name": "height",
+          "description": "组件高度，有效的css尺寸值",
+          "type": "string | number",
+          "default": "'56px'"
+        },
+        {
+          "name": "left",
+          "description": "组件左侧距离，有效的css尺寸值",
+          "type": "string | number",
+          "default": "0"
+        },
+        {
+          "name": "rifht",
+          "description": "组件右侧距离，有效的css尺寸值",
+          "type": "string | number",
+          "default": "0"
+        },
+        {
+          "name": "model",
+          "description": "组件固定时相对于页面或者父元素",
+          "type": "'fixed' | 'absolute'",
+          "default": "'fixed'"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YLabel",
+      "description": "用于展示键值对数据。",
+      "slots": [
+        {
+          "name": "default",
+          "description": "默认插槽，用于放置内容"
+        },
+        {
+          "name": "prefix",
+          "description": "前置插槽，用于放置图标等前置内容"
+        },
+        {
+          "name": "suffix",
+          "description": "后置插槽，用于放置图标等后置内容"
+        },
+        {
+          "name": "label",
+          "description": "标签文本插槽，用于自定义标签内容"
+        }
+      ],
+      "props": [
+        {
+          "name": "label",
+          "description": "标签文本",
+          "type": "string"
+        },
+        {
+          "name": "label-width",
+          "description": "标签宽度",
+          "type": "string | number",
+          "default": "auto"
+        },
+        {
+          "name": "align",
+          "description": "标签文本对齐方式",
+          "type": "'left' | 'center' | 'right'",
+          "default": "left"
+        },
+        {
+          "name": "height",
+          "description": "组件高度",
+          "type": "string | number",
+          "default": "32px"
+        },
+        {
+          "name": "border",
+          "description": "是否显示边框",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "colon",
+          "description": "标签后分隔符，border为false时有效",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label-style",
+          "description": "标签自定义样式",
+          "type": "CSSProperties"
+        },
+        {
+          "name": "content-style",
+          "description": "内容区域自定义样式",
+          "type": "CSSProperties"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YGroupSelect",
+      "description": "GroupSelect 组选择器，基于 ElButtonGroup 组件封装的按钮组选择器",
+      "slots": [
+        {
+          "name": "default",
+          "description": "自定义选项内容",
+          "type": "{ item: GroupSelectOption, index: number }"
+        },
+        {
+          "name": "icon",
+          "description": "自定义图标"
+        },
+        {
+          "name": "loading",
+          "description": "自定义加载状态"
+        }
+      ],
+      "props": [
+        {
+          "name": "model-valuev-model",
+          "description": "绑定值",
+          "type": "string \\| number",
+          "default": "''"
+        },
+        {
+          "name": "options",
+          "description": "选项数组",
+          "type": "GroupSelectOption[]",
+          "default": "[]"
+        },
+        {
+          "name": "item-class",
+          "description": "按钮的自定义类名",
+          "type": "string",
+          "default": "''"
+        },
+        {
+          "name": "item-styles",
+          "description": "按钮的自定义样式对象",
+          "type": "Record<string, any>",
+          "default": "{}"
+        }
+      ],
+      "events": [
+        {
+          "name": "change",
+          "description": "选择变化时触发",
+          "type": "function"
+        }
+      ],
+      "exposes": []
+    },
+    {
+      "name": "YEmpty",
+      "description": "空状态组件，用于展示空数据状态",
+      "slots": [
+        {
+          "name": "default",
+          "description": "自定义内容"
+        },
+        {
+          "name": "image",
+          "description": "自定义图片"
+        },
+        {
+          "name": "description",
+          "description": "自定义描述"
+        }
+      ],
+      "props": [
+        {
+          "name": "image",
+          "description": "图片地址",
+          "type": "string"
+        },
+        {
+          "name": "image-size",
+          "description": "图片尺寸",
+          "type": "number",
+          "default": "100"
+        },
+        {
+          "name": "description",
+          "description": "描述文字",
+          "type": "string",
+          "default": "'暂无数据'"
+        },
+        {
+          "name": "style",
+          "description": "el-empty支持的样式，包括css变量",
+          "type": "CSSProperties"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YEcharts",
+      "description": "基于 ECharts 的基础图表组件",
+      "slots": [],
+      "props": [
+        {
+          "name": "option",
+          "description": "[Echarts 图表配置项](https://echarts.apache.org/zh/option.html#title)",
+          "type": "object",
+          "default": "{}"
+        },
+        {
+          "name": "loading",
+          "description": "是否显示加载状态",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "config",
+          "description": "按需加载的模块配置",
+          "type": "EchartsConfig",
+          "default": "{renderers:['CanvasRenderer']}"
+        },
+        {
+          "name": "theme",
+          "description": "图表主题，参见[ECharts 中的样式简介](https://echarts.apache.org/handbook/zh/concepts/style)",
+          "type": "string | object"
+        },
+        {
+          "name": "chart-types",
+          "description": "需要动态导入的图表类型，如 `['LineChart', 'BarChart']`",
+          "type": "array",
+          "default": "[]"
+        },
+        {
+          "name": "components",
+          "description": "需要动态导入的组件类型，如 `['GridComponent', 'TooltipComponent']`",
+          "type": "array",
+          "default": "[]"
+        },
+        {
+          "name": "renderers",
+          "description": "需要动态导入的渲染器类型，如 `['CanvasRenderer']`",
+          "type": "array",
+          "default": "['CanvasRenderer']"
+        },
+        {
+          "name": "features",
+          "description": "需要动态导入的特性功能，如 `['LabelLayout', 'UniversalTransition']`",
+          "type": "array",
+          "default": "[]"
+        },
+        {
+          "name": "init-opts",
+          "description": "初始化参数，参见[echarts init](https://echarts.apache.org/zh/api.html#echarts.init)",
+          "type": "object",
+          "default": "{}"
+        }
+      ],
+      "events": [],
+      "exposes": [
+        {
+          "name": "get-chart-instance",
+          "description": "获取图表实例",
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "name": "YDrawer",
+      "description": "Drawer 抽屉",
+      "slots": [
+        {
+          "name": "default",
+          "description": "抽屉内容，同el-drawer的default"
+        },
+        {
+          "name": "header",
+          "description": "自定义头部内容，同el-drawer的header"
+        },
+        {
+          "name": "title",
+          "description": "自定义标题内容"
+        },
+        {
+          "name": "footer",
+          "description": "自定义底部内容，同el-drawer的footer"
+        },
+        {
+          "name": "confirm",
+          "description": "自定义确认按钮"
+        },
+        {
+          "name": "cancel",
+          "description": "自定义取消按钮"
+        }
+      ],
+      "props": [
+        {
+          "name": "size",
+          "description": "抽屉尺寸",
+          "type": "string | number",
+          "default": "'640px'"
+        },
+        {
+          "name": "header-class",
+          "description": "header 部分的自定义 class 名",
+          "type": "string",
+          "default": "'y-drawer__header'"
+        },
+        {
+          "name": "body-class",
+          "description": "body 部分的自定义 class 名",
+          "type": "string",
+          "default": "'y-drawer__body'"
+        },
+        {
+          "name": "footer-class",
+          "description": "footer 部分的自定义 class 名",
+          "type": "string",
+          "default": "'y-drawer__footer'"
+        },
+        {
+          "name": "title-style",
+          "description": "标题样式",
+          "type": "CSSProperties"
+        },
+        {
+          "name": "show-footer",
+          "description": "是否显示底部按钮区域",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "no-confirm",
+          "description": "是否隐藏确认按钮",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "confirm-text",
+          "description": "确认按钮文本",
+          "type": "string",
+          "default": "'确定'"
+        },
+        {
+          "name": "confirm-props",
+          "description": "确认按钮属性",
+          "type": "YButtonProps",
+          "default": "^[object]`{type:'primary',model:'debounce'}`"
+        },
+        {
+          "name": "no-cancel",
+          "description": "是否隐藏取消按钮",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "cancel-text",
+          "description": "取消按钮文本",
+          "type": "string",
+          "default": "'取消'"
+        },
+        {
+          "name": "cancel-props",
+          "description": "取消按钮属性",
+          "type": "YButtonProps",
+          "default": "^[object]`{type:'default',model:'debounce'}`"
+        }
+      ],
+      "events": [
+        {
+          "name": "confirm",
+          "description": "点击确认按钮时触发",
+          "type": "function"
+        },
+        {
+          "name": "cancel",
+          "description": "点击取消按钮时触发",
+          "type": "function"
+        }
+      ],
+      "exposes": [
+        {
+          "name": "open",
+          "description": "打开抽屉",
+          "type": "function"
+        },
+        {
+          "name": "close",
+          "description": "关闭抽屉",
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "name": "YDialog",
+      "description": "Dialog 对话框组件，基于 el-dialog 封装，提供更便捷的配置和事件处理",
+      "slots": [
+        {
+          "name": "default",
+          "description": "对话框内容"
+        },
+        {
+          "name": "header",
+          "description": "自定义头部内容"
+        },
+        {
+          "name": "title",
+          "description": "自定义标题内容"
+        },
+        {
+          "name": "footer",
+          "description": "自定义底部内容"
+        },
+        {
+          "name": "confirm",
+          "description": "自定义确认按钮"
+        },
+        {
+          "name": "cancel",
+          "description": "自定义取消按钮"
+        }
+      ],
+      "props": [
+        {
+          "name": "model-value",
+          "description": "对话框显示状态",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "title",
+          "description": "对话框标题",
+          "type": "string",
+          "default": "''"
+        },
+        {
+          "name": "title-style",
+          "description": "标题样式",
+          "type": "CSSProperties",
+          "default": "{}"
+        },
+        {
+          "name": "show-footer",
+          "description": "是否显示底部按钮",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "no-confirm",
+          "description": "是否隐藏确认按钮",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "confirm-text",
+          "description": "确认按钮文本",
+          "type": "string",
+          "default": "'确定'"
+        },
+        {
+          "name": "confirm-props",
+          "description": "确认按钮属性",
+          "type": "YButtonProps",
+          "default": "{ type: 'primary',model:'debounce' }"
+        },
+        {
+          "name": "no-cancel",
+          "description": "是否隐藏取消按钮",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "cancel-text",
+          "description": "取消按钮文本",
+          "type": "string",
+          "default": "'取消'"
+        },
+        {
+          "name": "cancel-props",
+          "description": "取消按钮属性",
+          "type": "YButtonProps",
+          "default": "{ type: 'default',model:'debounce' }"
+        },
+        {
+          "name": "body-max-height",
+          "description": "body 区域最大高",
+          "type": "string",
+          "default": "'50vh'"
+        }
+      ],
+      "events": [
+        {
+          "name": "confirm",
+          "description": "点击确认按钮时触发",
+          "type": "() => void"
+        },
+        {
+          "name": "cancel",
+          "description": "点击取消按钮时触发",
+          "type": "() => void"
+        },
+        {
+          "name": "updatemodel-value",
+          "description": "对话框显示状态变化时触发",
+          "type": "(value: boolean) => void"
+        }
+      ],
+      "exposes": [
+        {
+          "name": "dialog-ref",
+          "description": "el-dialog组件实例",
+          "type": "Ref<ElDialogInstance>"
+        }
+      ]
+    },
+    {
+      "name": "YDesc",
+      "description": "Desc 描述列表",
+      "slots": [
+        {
+          "name": "prop-label",
+          "description": "每一项的自定义标签内容（优先级最高）",
+          "type": "{ item: DescItem, index: number }"
+        },
+        {
+          "name": "prop-content",
+          "description": "每一项的自定义内容（优先级最高）",
+          "type": "{ item: DescItem, content: string, index: number }"
+        },
+        {
+          "name": "label",
+          "description": "默认标签插槽，当未指定 prop-label 时使用",
+          "type": "{ item: DescItem, index: number }"
+        },
+        {
+          "name": "content",
+          "description": "默认内容插槽，当未指定 prop-content 时使用",
+          "type": "{ item: DescItem, content: string, index: number }"
+        }
+      ],
+      "props": [
+        {
+          "name": "config",
+          "description": "配置项数组",
+          "type": "DescItem[]"
+        },
+        {
+          "name": "data",
+          "description": "数据对象",
+          "type": "Record<string, any>"
+        },
+        {
+          "name": "direction",
+          "description": "布局方向，同 el-descriptions",
+          "type": "'horizontal' | 'vertical'",
+          "default": "'horizontal'"
+        },
+        {
+          "name": "column",
+          "description": "列数",
+          "type": "number | function",
+          "default": "3"
+        },
+        {
+          "name": "label-width",
+          "description": "label 宽度",
+          "type": "string | number",
+          "default": "'auto'"
+        },
+        {
+          "name": "label-style",
+          "description": "label 样式",
+          "type": "CSSProperties"
+        },
+        {
+          "name": "content-style",
+          "description": "content 样式",
+          "type": "CSSProperties"
+        },
+        {
+          "name": "label-align",
+          "description": "label 文本对齐方式",
+          "type": "'left' | 'center' | 'right'",
+          "default": "'left'"
+        },
+        {
+          "name": "content-align",
+          "description": "content 文本对齐方式",
+          "type": "'left' | 'center' | 'right'",
+          "default": "'left'"
+        },
+        {
+          "name": "empty-text",
+          "description": "content 内容为空时显示的内容",
+          "type": "string",
+          "default": "''"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YCronPicker",
+      "description": "CronPicker 定时选择器",
+      "slots": [],
+      "props": [
+        {
+          "name": "model-value",
+          "description": "Cron表达式值",
+          "type": "string",
+          "default": "''"
+        },
+        {
+          "name": "disabled-period",
+          "description": "禁止下拉周期选项",
+          "type": "array",
+          "default": "[]"
+        },
+        {
+          "name": "edit-default-value",
+          "description": "修改默认值，例如切换到年时默认选中的时间",
+          "type": "Record<string, any>",
+          "default": "{}"
+        },
+        {
+          "name": "default-period",
+          "description": "默认调度周期",
+          "type": "'MINUTE' | 'HOUR' | 'DAY' | 'WEEK' | 'MONTH' | 'YEAR'",
+          "default": "'MINUTE'"
+        },
+        {
+          "name": "placeholder",
+          "description": "占位符",
+          "type": "string"
+        }
+      ],
+      "events": [
+        {
+          "name": "change",
+          "description": "Cron表达式值变化",
+          "type": "function"
+        }
+      ],
+      "exposes": [
+        {
+          "name": "focus",
+          "description": "聚焦输入框",
+          "type": "function"
+        },
+        {
+          "name": "blur",
+          "description": "失焦输入框",
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "name": "YColumnText",
+      "description": "ColumnText 文本列",
+      "slots": [
+        {
+          "name": "default",
+          "description": "单元格内容插槽，如果设置了 `formatter`，则value是转换后的值",
+          "type": "{ value, scope }"
+        },
+        {
+          "name": "header",
+          "description": "el-table-column的表头插槽",
+          "type": "{ column, index }"
+        },
+        {
+          "name": "expand",
+          "description": "el-table-column的展开列插槽",
+          "type": "{ expanded }"
+        }
+      ],
+      "props": [
+        {
+          "name": "link",
+          "description": "是否以链接样式展示，开启后点击会触发 `click` 事件",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "formatter",
+          "description": "自定义单元格文本格式化函数，作用同 el-table-column的 formatter，只是修改了参数顺序",
+          "type": "function",
+          "default": "undefined"
+        },
+        {
+          "name": "text-style",
+          "description": "文本样式，透传到内部文本",
+          "type": "CSSProperties",
+          "default": "-"
+        },
+        {
+          "name": "header-style",
+          "description": "表头样式，透传到表头元素",
+          "type": "CSSProperties",
+          "default": "undefined"
+        },
+        {
+          "name": "no-tip",
+          "description": "是否禁用溢出 Tooltip，作用于 `show-overflow-tooltip`",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "tip-props",
+          "description": "Tooltip 配置对象；传入对象时将作为 `show-overflow-tooltip` 的配置",
+          "type": "Partial<ElTooltipProps>",
+          "default": "undefined"
+        }
+      ],
+      "events": [
+        {
+          "name": "click",
+          "description": "当 `link` 为 `true` 时点击文本触发",
+          "type": "function"
+        }
+      ],
+      "exposes": []
+    },
+    {
+      "name": "YColumnOperation",
+      "description": "ColumnOperation 操作列",
+      "slots": [
+        {
+          "name": "header",
+          "description": "自定义表头内容",
+          "type": "{ column, index }"
+        },
+        {
+          "name": "prop",
+          "description": "自定义操作项内容，prop为操作项的prop值",
+          "type": "{ scope, row, prop }"
+        }
+      ],
+      "props": [
+        {
+          "name": "options",
+          "description": "操作项配置数组或函数",
+          "type": "array | Function",
+          "default": "[]"
+        },
+        {
+          "name": "disabled-default-tip",
+          "description": "按钮禁用时的默认提示文本",
+          "type": "string",
+          "default": "''"
+        },
+        {
+          "name": "header-style",
+          "description": "表头样式",
+          "type": "Record<string, string \\| number>",
+          "default": "{}"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YColumnForms",
+      "description": "ColumnForm 多表单列",
+      "slots": [
+        {
+          "name": "prop",
+          "description": "动态插槽，根据 options 中每个表单项的 prop 属性命名，用于自定义表单项内容",
+          "type": "{ scope: any, row: any, prop: string }"
+        },
+        {
+          "name": "header",
+          "description": "自定义表头内容",
+          "type": "{ column: any, index: number }"
+        }
+      ],
+      "props": [
+        {
+          "name": "options",
+          "description": "表单项配置数组",
+          "type": "ColumnFormsItem[]",
+          "default": "[]"
+        },
+        {
+          "name": "inline",
+          "description": "`flex-wrap` 行为来控制表单排列",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "t-name",
+          "description": "form中table字段名，用于绑定校验组",
+          "type": "string",
+          "default": "'tableData'"
+        },
+        {
+          "name": "header-style",
+          "description": "自定义表头样式",
+          "type": "Record<string, string \\| number>",
+          "default": "{}"
+        },
+        {
+          "name": "prop",
+          "description": "表单项的字段名，必填",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "description": "表单项的标签",
+          "type": "string"
+        },
+        {
+          "name": "label-width",
+          "description": "表单项标签宽度",
+          "type": "string | number"
+        },
+        {
+          "name": "rules",
+          "description": "表单验证规则",
+          "type": "object | Function"
+        },
+        {
+          "name": "form-attrs",
+          "description": "表单项的其他属性",
+          "type": "object | Function"
+        },
+        {
+          "name": "show",
+          "description": "是否显示表单项",
+          "type": "boolean | Function",
+          "default": "true"
+        },
+        {
+          "name": "width",
+          "description": "表单项宽度",
+          "type": "string | Function",
+          "default": "auto"
+        },
+        {
+          "name": "tooltip-attrs",
+          "description": "错误提示tooltip的属性",
+          "type": "object | Function"
+        },
+        {
+          "name": "style",
+          "description": "表单项样式",
+          "type": "object | Function"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YColumnForm",
+      "description": "ColumnForm 表单列",
+      "slots": [
+        {
+          "name": "default",
+          "description": "表单项内容插槽",
+          "type": "{ scope: any, row: any, prop: string }"
+        },
+        {
+          "name": "header",
+          "description": "自定义表头内容",
+          "type": "{ column: any, index: number }"
+        }
+      ],
+      "props": [
+        {
+          "name": "no-from",
+          "description": "是否不使用 el-form-item 包裹，仅作为普通列显示",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "t-name",
+          "description": "form中table字段名，用于绑定校验组",
+          "type": "string",
+          "default": "'tableData'"
+        },
+        {
+          "name": "rules",
+          "description": "表单验证规则",
+          "type": "object | Function"
+        },
+        {
+          "name": "form-props",
+          "description": "表单项的其他属性",
+          "type": "Partial<FormItemProps>"
+        },
+        {
+          "name": "tip-props",
+          "description": "错误提示tooltip的属性",
+          "type": "Partial<ElTooltipProps>"
+        },
+        {
+          "name": "header-style",
+          "description": "自定义表头样式",
+          "type": "Record<string, string \\| number>"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YColumnFilter",
+      "description": "ColumnFilter 筛选列",
+      "slots": [
+        {
+          "name": "default",
+          "description": "默认插槽，自定义单元格内容",
+          "type": "{ scope, value }"
+        },
+        {
+          "name": "header",
+          "description": "自定义表头内容",
+          "type": "{ column: TableColumnCtx<T>, index: number }"
+        },
+        {
+          "name": "expand",
+          "description": "展开行插槽",
+          "type": "{ expanded: boolean }"
+        },
+        {
+          "name": "filter-icon",
+          "description": "自定义筛选图标",
+          "type": "{ filterOpened: boolean }"
+        }
+      ],
+      "props": [
+        {
+          "name": "no-status",
+          "description": "是否不显示状态样式，默认显示",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "no-filter",
+          "description": "是否不启用筛选功能，默认显示",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "formatter",
+          "description": "值格式化函数",
+          "type": "function"
+        },
+        {
+          "name": "config",
+          "description": "配置筛选选项、状态样式和格式化",
+          "type": "array",
+          "default": "[]"
+        },
+        {
+          "name": "header-style",
+          "description": "自定义表头样式",
+          "type": "Record<string, any>",
+          "default": "{}"
+        },
+        {
+          "name": "text-style",
+          "description": "自定义文本样式",
+          "type": "Record<string, any>"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YButton",
+      "description": "Button 防抖按钮",
+      "slots": [
+        {
+          "name": "default",
+          "description": "自定义默认内容"
+        },
+        {
+          "name": "loading",
+          "description": "自定义加载中组件"
+        },
+        {
+          "name": "icon",
+          "description": "自定义图标组件"
+        }
+      ],
+      "props": [
+        {
+          "name": "model",
+          "description": "模式选择：debounce（防抖）或 throttle（节流），不设置时不启用防抖或节流",
+          "type": "'debounce' | 'throttle'"
+        },
+        {
+          "name": "delay",
+          "description": "防抖/节流间隔时间，单位ms，不设置时如果设置了model则默认为300ms",
+          "type": "number",
+          "default": "300"
+        },
+        {
+          "name": "max-wait",
+          "description": "最大等待时间，单位ms，仅在防抖模式下生效",
+          "type": "number"
+        },
+        {
+          "name": "dbl-delay",
+          "description": "双击检测时间阈值，单位ms，用于区分单击和双击，必须大于等于delay",
+          "type": "number",
+          "default": "300"
+        },
+        {
+          "name": "size",
+          "description": "尺寸",
+          "type": "'large' | 'default' | 'small'"
+        },
+        {
+          "name": "type",
+          "description": "按钮类型；color 属性优先级更高",
+          "type": "'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text' (deprecated)"
+        },
+        {
+          "name": "plain",
+          "description": "是否为朴素按钮，即无背景颜色",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "text",
+          "description": "是否为文字按钮",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "bg",
+          "description": "是否显示文字按钮背景颜色",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "link",
+          "description": "是否为链接按钮",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "round",
+          "description": "是否为圆角按钮",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "circle",
+          "description": "是否为圆形按钮",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "loading",
+          "description": "是否为加载中状态",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "loading-icon",
+          "description": "自定义加载中状态图标组件",
+          "type": "string | Component",
+          "default": "Loading"
+        },
+        {
+          "name": "disabled",
+          "description": "按钮是否为禁用状态",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "icon",
+          "description": "图标组件",
+          "type": "string | Component"
+        },
+        {
+          "name": "autofocus",
+          "description": "原生 `autofocus` 属性",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "native-type",
+          "description": "原生 `type` 属性",
+          "type": "'button' | 'submit' | 'reset'",
+          "default": "button"
+        },
+        {
+          "name": "auto-insert-space",
+          "description": "两个中文字符之间自动插入空格(仅当文本长度为 2 且所有字符均为中文时才生效)",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "color",
+          "description": "自定义按钮颜色, 并自动计算 `hover` 和 `active` 触发后的颜色",
+          "type": "string"
+        },
+        {
+          "name": "dark",
+          "description": "dark 模式, 意味着自动设置 color 为 dark 模式的颜色",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "tag",
+          "description": "自定义元素标签",
+          "type": "string | Component",
+          "default": "button"
+        }
+      ],
+      "events": [],
+      "exposes": [
+        {
+          "name": "ref",
+          "description": "按钮 html 元素",
+          "type": "Ref<HTMLButtonElement>"
+        },
+        {
+          "name": "size",
+          "description": "按钮尺寸",
+          "type": "ComputedRef<'' \\| 'small' \\| 'default' \\| 'large'>"
+        },
+        {
+          "name": "type",
+          "description": "按钮类型",
+          "type": "ComputedRef<'' \\| 'default' \\| 'primary' \\| 'success' \\| 'warning' \\| 'info' \\| 'danger' \\| 'text'>"
+        },
+        {
+          "name": "disabled",
+          "description": "按钮已禁用",
+          "type": "ComputedRef<boolean>"
+        },
+        {
+          "name": "should-add-space",
+          "description": "是否在两个字符之间插入空格",
+          "type": "ComputedRef<boolean>"
+        }
+      ]
+    },
+    {
+      "name": "YBorderLabel",
+      "description": "用于展示表单的标签",
+      "slots": [
+        {
+          "name": "default",
+          "description": "默认内容"
+        },
+        {
+          "name": "prefix",
+          "description": "前置内容"
+        },
+        {
+          "name": "label",
+          "description": "标签内容"
+        },
+        {
+          "name": "suffix",
+          "description": "后置内容"
+        }
+      ],
+      "props": [
+        {
+          "name": "label",
+          "description": "标签文本",
+          "type": "string"
+        },
+        {
+          "name": "width",
+          "description": "组件总宽度",
+          "type": "string | number",
+          "default": "auto"
+        },
+        {
+          "name": "height",
+          "description": "组件高度",
+          "type": "string | number",
+          "default": "32px"
+        },
+        {
+          "name": "no-border",
+          "description": "是否不显示边框",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    },
+    {
+      "name": "YAppWrap",
+      "description": "用于向子组件传递全局配置",
+      "slots": [
+        {
+          "name": "default",
+          "description": "默认插槽，用于放置内容"
+        }
+      ],
+      "props": [
+        {
+          "name": "elp-config",
+          "description": "[el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html)",
+          "type": "ElConfigProviderProps"
+        },
+        {
+          "name": "locale",
+          "description": "`yun-elp`的语言配置",
+          "type": "'zh-cn' | 'en'",
+          "default": "zh-cn"
+        },
+        {
+          "name": "border-label",
+          "description": "`y-border-label`组件全局配置，[见下表](#border-label-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "page-header",
+          "description": "`y-page-header`组件全局配置，[见下表](#page-header-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "page-footer",
+          "description": "y-page-footer组件全局配置，[见下表](#page-footer-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "button",
+          "description": "y-button组件全局配置，[见下表](#button-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "drawer",
+          "description": "y-drawer组件全局配置，[见下表](#drawer-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "dialog",
+          "description": "y-dialog组件全局配置，[见下表](#dialog-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "empty",
+          "description": "y-empty组件全局配置，[见下表](#empty-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "text-tooltip",
+          "description": "y-text-tooltip组件全局配置，[见下表](#desc-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "desc",
+          "description": "y-desc组件全局配置，[见下表](#desc-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "table",
+          "description": "y-table组件全局配置，[见下表](#table-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "column-form",
+          "description": "y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "column-operation",
+          "description": "y-column-operation 组件全局配置，[见下表](#column-operation-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "echarts",
+          "description": "y-echarts 组件全局配置，[见下表](#echarts-attribute)",
+          "type": "Ref<record<string, any>>"
+        },
+        {
+          "name": "width",
+          "description": "组件总宽度",
+          "type": "string",
+          "default": "auto"
+        },
+        {
+          "name": "height",
+          "description": "组件高度",
+          "type": "string",
+          "default": "32px"
+        },
+        {
+          "name": "height",
+          "description": "组件高度",
+          "type": "string"
+        },
+        {
+          "name": "title-path",
+          "description": "从路径元数据中获取title的取值路径",
+          "type": "string"
+        },
+        {
+          "name": "border",
+          "description": "组件默认是否显示下边框",
+          "type": "boolean"
+        },
+        {
+          "name": "padding-x",
+          "description": "组件水平内边距",
+          "type": "string | array"
+        },
+        {
+          "name": "title-text-style",
+          "description": "组件文本样式",
+          "type": "CSSProperties"
+        },
+        {
+          "name": "height",
+          "description": "组件高度，有效的css尺寸值",
+          "type": "string | number",
+          "default": "'56px'"
+        },
+        {
+          "name": "left",
+          "description": "组件左侧距离，有效的css尺寸值",
+          "type": "string | number",
+          "default": "0"
+        },
+        {
+          "name": "right",
+          "description": "组件右侧距离，有效的css尺寸值",
+          "type": "string | number",
+          "default": "0"
+        },
+        {
+          "name": "el-buttonhttpselement-plusorgzh-cncomponentbuttonhtmlbutton-attributes",
+          "type": ""
+        },
+        {
+          "name": "delay",
+          "description": "防抖间隔时间，单位ms",
+          "type": "string | number",
+          "default": "300"
+        },
+        {
+          "name": "max-wait",
+          "description": "最大等待时间，单位ms",
+          "type": "string | number",
+          "default": "undefined"
+        },
+        {
+          "name": "el-drawerhttpselement-plusorgzh-cncomponentdrawerhtmle5b19ee680a7",
+          "type": ""
+        },
+        {
+          "name": "confirm-text",
+          "description": "确认按钮文本",
+          "type": "string",
+          "default": "'确定'"
+        },
+        {
+          "name": "confirm-props",
+          "description": "确认按钮属性",
+          "type": "YButtonProps",
+          "default": "{type:'primary'}"
+        },
+        {
+          "name": "cancel-text",
+          "description": "取消按钮文本",
+          "type": "string",
+          "default": "'取消'"
+        },
+        {
+          "name": "cancel-props",
+          "description": "取消按钮属性",
+          "type": "YButtonProps",
+          "default": "{type:'default'}"
+        },
+        {
+          "name": "title-style",
+          "description": "组件默认是否显示下边框",
+          "type": "CSSProperties"
+        },
+        {
+          "name": "el-dialoghttpselement-plusorgzh-cncomponentdialoghtmlattributes",
+          "type": ""
+        },
+        {
+          "name": "confirm-text",
+          "description": "确认按钮文本",
+          "type": "string",
+          "default": "'确定'"
+        },
+        {
+          "name": "confirm-props",
+          "description": "确认按钮属性",
+          "type": "YButtonProps",
+          "default": "{type:'primary'}"
+        },
+        {
+          "name": "cancel-text",
+          "description": "取消按钮文本",
+          "type": "string",
+          "default": "'取消'"
+        },
+        {
+          "name": "cancel-props",
+          "description": "取消按钮属性",
+          "type": "YButtonProps",
+          "default": "{type:'default'}"
+        },
+        {
+          "name": "title-style",
+          "description": "标题文本样式",
+          "type": "CSSProperties"
+        },
+        {
+          "name": "el-emptyhttpselement-plusorgzh-cncomponentemptyhtmlattributes",
+          "type": ""
+        },
+        {
+          "name": "style",
+          "description": "组件样式，包括el-empty支持的css变量",
+          "type": "CSSProperties"
+        },
+        {
+          "name": "image",
+          "description": "自定义图片",
+          "type": "string"
+        },
+        {
+          "name": "image-size",
+          "description": "自定义图片大小",
+          "type": "number",
+          "default": "100"
+        },
+        {
+          "name": "description",
+          "description": "自定义描述",
+          "type": "string",
+          "default": "'暂无数据'"
+        },
+        {
+          "name": "placement",
+          "description": "tooltip显示位置",
+          "type": "'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end'",
+          "default": "'top'"
+        },
+        {
+          "name": "tooltip-props",
+          "description": "tooltip配置属性，详见[el-tooltip](https://element-plus.org/zh-CN/component/tooltip.html#attributes)",
+          "type": "Partial<ElTooltipProps>",
+          "default": "{}"
+        },
+        {
+          "name": "label-width",
+          "description": "label 宽度",
+          "type": "string | number",
+          "default": "'auto'"
+        },
+        {
+          "name": "label-style",
+          "description": "label 样式",
+          "type": "CSSProperties"
+        },
+        {
+          "name": "content-style",
+          "description": "content 样式",
+          "type": "CSSProperties"
+        },
+        {
+          "name": "label-align",
+          "description": "label 文本对齐方式",
+          "type": "'left' | 'center' | 'right'",
+          "default": "'left'"
+        },
+        {
+          "name": "content-align",
+          "description": "content 文本对齐方式",
+          "type": "'left' | 'center' | 'right'",
+          "default": "'left'"
+        },
+        {
+          "name": "empty-text",
+          "description": "content 内容为空时显示的内容",
+          "type": "string",
+          "default": "''"
+        },
+        {
+          "name": "empty-props",
+          "description": "空数据时 y-empty 配置",
+          "type": "YEmptyProps",
+          "default": "'auto'"
+        },
+        {
+          "name": "pagination-props",
+          "description": "label 样式",
+          "type": "ElPaginationProps",
+          "default": "{}"
+        },
+        {
+          "name": "placement",
+          "description": "错误提示tooltip弹出位置",
+          "type": "'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end'",
+          "default": "'auto'"
+        },
+        {
+          "name": "popper-class",
+          "description": "错误提示tooltip 的 popper 类名",
+          "type": "string",
+          "default": "'y-column-form__error-tooltip'"
+        },
+        {
+          "name": "disabled-default-tip",
+          "description": "按钮禁用状态时默认的tooltip提示文本",
+          "type": "string"
+        },
+        {
+          "name": "theme",
+          "description": "图表主题，参见[ECharts 中的样式简介](https://echarts.apache.org/handbook/zh/concepts/style)",
+          "type": "string | object"
+        },
+        {
+          "name": "chart-types",
+          "description": "需要动态导入的图表类型，如 `['LineChart', 'BarChart']`",
+          "type": "array",
+          "default": "[]"
+        },
+        {
+          "name": "components",
+          "description": "需要动态导入的组件类型，如 `['GridComponent', 'TooltipComponent']`",
+          "type": "array",
+          "default": "[]"
+        },
+        {
+          "name": "renderers",
+          "description": "需要动态导入的渲染器类型，如 `['CanvasRenderer']`",
+          "type": "array",
+          "default": "['CanvasRenderer']"
+        },
+        {
+          "name": "features",
+          "description": "需要动态导入的特性功能，如 `['LabelLayout', 'UniversalTransition']`",
+          "type": "array",
+          "default": "[]"
+        },
+        {
+          "name": "init-opts",
+          "description": "初始化参数，参见[echarts init](https://echarts.apache.org/zh/api.html#echarts.init)",
+          "type": "object",
+          "default": "{}"
+        }
+      ],
+      "events": [],
+      "exposes": []
+    }
+  ]
+}

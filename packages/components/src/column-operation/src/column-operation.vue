@@ -1,9 +1,5 @@
 <template>
-  <el-table-column
-    class="y-column-operation"
-    v-bind="mergedColumnAttrs"
-    class-name="y-column-operation"
-  >
+  <el-table-column v-bind="mergedColumnAttrs">
     <template #default="scope">
       <template v-for="item in getOptions(scope).normalList" :key="item.prop">
         <slot
@@ -17,8 +13,7 @@
               link
               :disabled="item.disabled"
               :loading="item.loading"
-              v-on="getButtonEvents(scope, item)"
-            >
+              v-on="getButtonEvents(scope, item)">
               {{ item.label }}
             </y-button>
           </y-pop>
@@ -27,32 +22,25 @@
 
       <el-popover
         v-if="getOptions(scope).dropdownList.length > 0"
-        ref="popoverRef"
         placement="bottom"
         width="0"
         popper-class="y-column-operation__dropdown"
         trigger="click"
         :visible="getDropdownVisible(scope.$index)"
-        @update:visible="setDropdownVisible(scope.$index, $event)"
-      >
+        @update:visible="setDropdownVisible(scope.$index, $event)">
         <template #reference>
           <el-icon class="y-column-operation__dropdown-icon">
             <MoreFilled />
           </el-icon>
         </template>
-        <div
-          v-for="item in getOptions(scope).dropdownList"
-          :key="item.prop"
-          class="y-column-operation__dropdown-item"
-        >
+        <div v-for="item in getOptions(scope).dropdownList" :key="item.prop" class="y-column-operation__dropdown-item">
           <y-pop v-bind="getPopProps(item)" v-on="getPopEvents(scope, item)">
             <y-button
               type="primary"
               link
               :disabled="item.disabled"
               :loading="item.loading"
-              v-on="getButtonEvents(scope, item)"
-            >
+              v-on="getButtonEvents(scope, item)">
               {{ item.label }}
             </y-button>
           </y-pop>
@@ -62,7 +50,7 @@
 
     <template #header="{ column, $index }">
       <slot name="header" :column="column" :index="$index">
-        <span :style="headerStyle">{{ attrs.label }}</span>
+        <span>{{ attrs.label }}</span>
       </slot>
     </template>
   </el-table-column>
@@ -76,7 +64,6 @@ import type {
   ColumnOperationItemType
 } from './column-operation';
 import {
-  withDefaults,
   toRefs,
   useAttrs,
   computed,
@@ -84,7 +71,7 @@ import {
   watch,
   onUnmounted,
   nextTick
-} from '@vue/runtime-core';
+} from 'vue';
 import type { PopProps } from '../../pop/src/pop';
 import { merge } from 'lodash-es';
 import { MoreFilled } from '@element-plus/icons-vue';
@@ -101,19 +88,19 @@ const columnOperationConfig = useAppConfig('columnOperation');
 const attrs = useAttrs();
 const props = withDefaults(defineProps<ColumnOperationProps>(), {
   options: () => [],
-  headerStyle: () => ({}),
   disabledDefaultTip: undefined as string | undefined
 });
 
-const { options, headerStyle, disabledDefaultTip } = toRefs(props);
+const { options, disabledDefaultTip } = toRefs(props);
 
 const mergedColumnAttrs = computed(() => {
   return {
+    ...attrs,
     'min-width': attrs?.['min-width'] || 100,
     width: attrs?.width || 'auto',
     'show-overflow-tooltip': false,
     fixed: attrs?.fixed || 'right',
-    ...attrs
+    'class-name': attrs?.['class-name'] || 'y-column-operation',
   };
 });
 
@@ -269,9 +256,9 @@ const getPopEvents = (scope: TableItemScope, item: ColumnOperationItemType) => {
   // 只有当 noPop 为 false 时，才绑定 confirm 和 cancel 事件到 y-pop
   return noPop === false
     ? {
-        confirm: (e: MouseEvent) => item.confirm?.(scope, item, e),
-        cancel: (e: MouseEvent) => item.cancel?.(scope, item, e)
-      }
+      confirm: (e: MouseEvent) => item.confirm?.(scope, item, e),
+      cancel: (e: MouseEvent) => item.cancel?.(scope, item, e)
+    }
     : {};
 };
 
@@ -281,8 +268,8 @@ const getButtonEvents = (scope: TableItemScope, item: ColumnOperationItemType) =
   // 只有当 noPop 不为 false 时，才绑定 click 事件到按钮
   return noPop !== false
     ? {
-        click: (e: MouseEvent) => item.confirm?.(scope, item, e)
-      }
+      click: (e: MouseEvent) => item.confirm?.(scope, item, e)
+    }
     : {};
 };
 
