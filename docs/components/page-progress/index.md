@@ -5,9 +5,13 @@ description: 页面进度条
 
 # PageProgress 页面进度条
 
+## 说明
+
 基于 `el-progress` 封装，页面级进度条组件，借鉴 [NProgress](https://www.npmjs.com/package/nprogress) 库的实现。
 
-## 基础用法
+## 用法示例
+
+### 基础用法
 
 :::demo
 

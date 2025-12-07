@@ -78,19 +78,9 @@
         "activeMatch": "/components/table-search/"
       },
       {
-        "text": "select 选择器",
-        "link": "/components/select/",
-        "activeMatch": "/components/select/"
-      },
-      {
         "text": "row-select 行选择器",
         "link": "/components/row-select/",
         "activeMatch": "/components/row-select/"
-      },
-      {
-        "text": "radio 单选框",
-        "link": "/components/radio/",
-        "activeMatch": "/components/radio/"
       },
       {
         "text": "group-select 组选择器",

@@ -5,6 +5,8 @@ description: 向后代组件传递全局配置
 
 # AppWrap 应用容器
 
+## 说明
+
 AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 
 （1）向内部的后代组件（`element-plus` 及 `yun-elp`）传递默认配置，方便设置组件属性的默认值，简化配置
@@ -41,8 +43,8 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 
 | 参数   | 描述       | 类型      | 默认值 |
 | ------ | ---------- | --------- | ------ |
-| width  | 组件总宽度 | ^[string] | auto   |
-| height | 组件高度   | ^[string] | 32px   |
+| width  | 组件总宽度 | ^[string] | `'auto'`   |
+| height | 组件高度   | ^[string] | `'32px'`   |
 
 #### page-header Attribute
 
@@ -69,7 +71,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | 参数    | 描述                 | 类型                  | 默认值      |
 | ------- | -------------------- | --------------------- | ----------- |
 | delay   | 防抖间隔时间，单位ms | ^[string] / ^[number] | `300`       |
-| maxWait | 最大等待时间，单位ms | ^[string] / ^[number] | `undefined` |
+| maxWait | 最大等待时间，单位ms | ^[string] / ^[number] | — |
 
 #### drawer Attribute
 

@@ -5,6 +5,8 @@ description: 单元格内展示各种自定义文本的列
 
 # ColumnText 文本列
 
+## 说明
+
 基于 `el-table-column` 的封装，支持单元格内文本链接形式、格式化显示、自定义样式、文本溢出 Tooltip 等能力。
 
 （1）可用于 `el-table` 和 `y-table`
@@ -13,7 +15,9 @@ description: 单元格内展示各种自定义文本的列
 
 （3）`formatter` 函数参数顺序与 `el-table-column` 有所不同
 
-## 综合示例
+## 用法示例
+
+### 基础用法
 
 ::::demo
 

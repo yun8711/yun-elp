@@ -5,9 +5,13 @@ description: 页面或区域吸底组件
 
 # PageFooter 页脚
 
+## 说明
+
 主要用于页面底部（吸底）区域内容展示，比如编辑页面的操作按钮等。model=fixed 表示相对于页面吸底，model=absolute 表示相对于父元素（需要position:relative）吸底
 
-## 用法
+## 用法示例
+
+### 基础用法
 
 :::demo
 

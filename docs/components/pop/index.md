@@ -5,6 +5,8 @@ description: 集成el-tooltip和el-popover的弹出框容器
 
 # Pop 弹出框容器
 
+## 说明
+
 基于 `el-tooltip` 和 `el-popover` 封装，可以用于复杂交互操作场景
 
 （1）默认插槽可以放置任何内容，与基本组件可以完美配合使用
@@ -13,7 +15,9 @@ description: 集成el-tooltip和el-popover的弹出框容器
 
 （3）popover弹出框默认使用 `y-button` 显示“取消”、“确定”按钮，也就是支持防抖、节流等特性
 
-## 基础用法
+## 用法示例
+
+### 基础用法
 
 :::demo
 
@@ -21,7 +25,7 @@ pop/basic
 
 :::
 
-## tooltip 用法
+### tooltip 用法
 
 :::demo 默认情况下，只有配置了 `tipContent` 才会启用内部的 el-tooltip；`tipProps` 支持完整的 el-tooltip 配置
 
@@ -29,7 +33,7 @@ pop/tip
 
 :::
 
-## popover 用法
+### popover 用法
 
 :::demo 组件内的el-popover主要是为了满足二次确认的场景，但是也支持完全自定义；设置 `no-pop` 则会隐藏内部的 el-popover；`popProps` 支持完整的 el-popover 配置；popover中的操作按钮使用了 y-button，也就是默认支持防抖
 

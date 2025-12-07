@@ -5,7 +5,7 @@ description: 单元格内展示操作按钮的列
 
 # ColumnOperation 操作列
 
-## 概述
+## 说明
 
 基于 `el-table-column` 封装，主要用于为表格内行数据提供各种操作按钮，包括按钮禁用状态管理、tooltip提示、下拉菜单展示、确认对话框等常用功能。
 
@@ -13,7 +13,9 @@ description: 单元格内展示操作按钮的列
 
 （2）每个按钮都使用 `y-pop` 组件包裹，也就是默认支持 `el-tooltip` 和 `el-popover` 特性
 
-## 基础用法
+## 用法示例
+
+### 基础用法
 
 :::demo
 
@@ -21,7 +23,7 @@ column-operation/test
 
 :::
 
-## 按钮禁用及tooltip提示
+### 按钮禁用及tooltip提示
 
 内部使用 `y-pop` 组件展示 `tooltip`
 
@@ -37,7 +39,7 @@ column-operation/disabled
 
 :::
 
-## 按钮popover
+### 按钮popover
 
 内部使用 `y-pop` 组件显示 `popover`
 
@@ -59,7 +61,7 @@ column-operation/popover
 | disabledDefaultTip    | 按钮禁用时的默认提示文本                                       | ^[string]                                                                                              | `''`              |
 | label                 | 显示的列标题                                                   | ^[string]                                                                                              | —                 |
 | prop                  | 列内容的字段名， 也可以使用 property属性                       | ^[string]                                                                                              | —                 |
-| width                 | 列的宽度，固定的                                               | ^[string] / ^[number]                                                                                  | 'auto'            |
+| width                 | 列的宽度，固定的                                               | ^[string] / ^[number]                                                                                  | `'auto'`            |
 | min-width             | 列的最小宽度，会把剩余宽度按比例分配给设置了 min-width 的列    | ^[string] / ^[number]                                                                                  | `100`             |
 | fixed                 | 列是否固定在左侧或者右侧。 true 表示固定在左侧 `true`          | ^[enum]`'left' \| 'right'` / ^[boolean]                                                                | `'right'`           |
 | render-header         | 列标题 Label 区域渲染的函数                                    | ^[Function]`(data: { column: any, $index: number }) => void`                                           | —                 |

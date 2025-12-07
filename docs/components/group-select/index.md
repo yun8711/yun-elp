@@ -5,9 +5,13 @@ description: 按钮组选择器
 
 # GroupSelect 组选择器
 
+## 说明
+
 基于 `el-button-group` 封装，提供了一种简洁的方式来创建单选按钮组
 
-## 基础用法
+## 用法示例
+
+### 基础用法
 
 :::demo 最基本的用法，通过 `v-model` 绑定选中值，通过 `options` 配置选项。
 

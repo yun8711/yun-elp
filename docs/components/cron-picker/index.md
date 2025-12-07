@@ -5,11 +5,15 @@ description: 定时选择器
 
 # CronPicker 定时选择器
 
+## 说明
+
 基于 [`cron-parser^5.3.1`](https://www.npmjs.com/package/cron-parser) 封装的定时选择器组件，支持多种调度周期（分钟、小时、日、周、月、年）的配置，可以生成标准的 Cron 表达式，并提供执行时间的预览功能。
 
 注意：需要单独安装 `cron-parser`
 
-## 基础用法
+## 用法示例
+
+### 基础用法
 
 :::demo
 
@@ -17,7 +21,7 @@ cron-picker/test
 
 :::
 
-## 自定义默认值
+### 自定义默认值
 
 通过 `editDefaultValue` 属性可以自定义不同调度周期的默认配置：
 
@@ -40,8 +44,6 @@ cron-picker/custom-defaults
 | placeholder           | 占位符                                   | ^[string]                                                           | —          |
 
 ### editDefaultValue 配置项
-
-editDefaultValue 对象的详细配置项如下：
 
 #### MINUTE（分钟周期）
 
@@ -94,11 +96,11 @@ editDefaultValue 对象的详细配置项如下：
 
 | 事件名 | 说明             | 类型                                 |
 | ------ | ---------------- | ------------------------------------ |
-| change | Cron表达式值变化 | ^[function]`(value: string) => void` |
+| change | Cron表达式值变化 | ^[Function]`(value: string) => void` |
 
 ### Exposes
 
 | 名称  | 说明       | 类型                    |
 | ----- | ---------- | ----------------------- |
-| focus | 聚焦输入框 | ^[function]`() => void` |
-| blur  | 失焦输入框 | ^[function]`() => void` |
+| focus | 聚焦输入框 | ^[Function]`() => void` |
+| blur  | 失焦输入框 | ^[Function]`() => void` |

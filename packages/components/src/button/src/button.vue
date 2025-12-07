@@ -58,7 +58,6 @@ const maxWait = computed(() => {
 
 // 双击检测时间阈值，最少300ms
 const dblDelay = computed(() => {
-  const delayValue = delay.value
   let dblDelayValue = 300 // 默认值
 
   // 获取配置的双击检测时间
@@ -68,10 +67,11 @@ const dblDelay = computed(() => {
     dblDelayValue = buttonConfig.dblDelay
   }
 
-  // 确保双击检测时间不小于防抖延迟
-  if (dblDelayValue < delayValue) {
-    console.warn(`[YButton] dblDelay (${dblDelayValue}ms) should be greater than or equal to delay (${delayValue}ms). Using delay value instead.`)
-    return delayValue
+  // 发出警告：双击检测时间应该不小于防抖延迟（只有当用户显式设置了dblDelay时才比较）
+  const delayValue = delay.value
+  const isExplicitDblDelay = props.dblDelay !== undefined || buttonConfig?.dblDelay !== undefined
+  if (isExplicitDblDelay && delayValue !== undefined && delayValue !== null && dblDelayValue < delayValue) {
+    console.warn(`[YButton] dblDelay (${dblDelayValue}ms) should be greater than or equal to delay (${delayValue}ms).`)
   }
 
   return dblDelayValue
@@ -105,11 +105,14 @@ const hasDblClickListener = computed(() => {
   return hasExternalListener('dblclick')
 })
 
+// 确保dblDelay在组件挂载时就被计算（用于触发警告）
+const _dblDelayTrigger = dblDelay.value
+
 
 // 单击(click)：mousedown，mouseout，click；
 // 双击(dblclick)：mousedown，mouseout，click ， mousedown，mouseout，click，dblclick；
 // 区分单击和双击的逻辑
-let clickTimer: number | null = null
+let clickTimer: ReturnType<typeof setTimeout> | null = null
 // 点击次数，用于区分单击和双击。
 // 每次click都会+1，超过dblDelay.value后重置为0。超过dblDelay.value后，如果点击次数为1，则认为是单击，否则认为是双击
 let clickCount = 0
@@ -126,7 +129,7 @@ const handleClick = (event: MouseEvent) => {
     }
 
     // 设置定时器，延迟执行单击事件
-    clickTimer = window.setTimeout(() => {
+    clickTimer = setTimeout(() => {
       // 如果点击次数为1，说明是真正的单击
       if (clickCount === 1) {
         // 根据配置调用相应的处理函数

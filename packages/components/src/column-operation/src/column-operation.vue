@@ -22,7 +22,6 @@
 
       <el-popover
         v-if="getOptions(scope).dropdownList.length > 0"
-        ref="popoverRef"
         placement="bottom"
         width="0"
         popper-class="y-column-operation__dropdown"
@@ -96,12 +95,12 @@ const { options, disabledDefaultTip } = toRefs(props);
 
 const mergedColumnAttrs = computed(() => {
   return {
+    ...attrs,
     'min-width': attrs?.['min-width'] || 100,
     width: attrs?.width || 'auto',
     'show-overflow-tooltip': false,
     fixed: attrs?.fixed || 'right',
     'class-name': attrs?.['class-name'] || 'y-column-operation',
-    ...attrs
   };
 });
 

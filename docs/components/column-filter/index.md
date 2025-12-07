@@ -5,6 +5,8 @@ description: 表格筛选及状态标签显示的列
 
 # ColumnFilter 筛选列
 
+## 说明
+
 基于 `el-table-column` 封装的筛选+状态显示列，因为一般状态显示与筛选功能会同时使用，所以该组件主要是为了简化该场景下的配置。
 
 （1）可用于 `el-table` 和 `y-table`
@@ -21,7 +23,9 @@ description: 表格筛选及状态标签显示的列
 
 （5）筛选优先级：`attrs.filters` > `config`（当未设置 `noFilter` 时）
 
-## 基础用法
+## 用法示例
+
+### 基础用法
 
 :::demo
 
@@ -43,7 +47,7 @@ column-filter/test
 | label                 | 显示的列标题                                                                                | ^[string]                                                                                                                                                                   | —                   |
 | column-key            | column 的 key，如果需要使用 filter-change 事件，则需要此属性标识是哪个 column 的筛选条件    | ^[string]                                                                                                                                                                   | —                   |
 | prop                  | 列内容的字段名， 也可以使用 property属性                                                    | ^[string]                                                                                                                                                                   | —                   |
-| width                 | 列的宽度，固定的                                                                            | ^[string] / ^[number]                                                                                                                                                       | 'auto'                  |
+| width                 | 列的宽度，固定的                                                                            | ^[string] / ^[number]                                                                                                                                                       | `'auto'`                  |
 | min-width             | 列的最小宽度，会把剩余宽度按比例分配给设置了 min-width 的列                                 | ^[string] / ^[number]                                                                                                                                                       | `100`                  |
 | fixed                 | 列是否固定在左侧或者右侧。 true 表示固定在左侧 `true`                                       | ^[enum]`'left' \| 'right'` / ^[boolean]                                                                                                                                     | `false`               |
 | render-header         | 列标题 Label 区域渲染使用的 Function                                                        | ^[Function]`(data: { column: any, $index: number }) => void`                                                                                                                | —                   |

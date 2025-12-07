@@ -5,9 +5,7 @@ import { YBorderLabel } from './src/border-label';
 import { YPartTitle } from './src/part-title';
 import { YPageHeader } from './src/page-header';
 import { YTableSearch } from './src/table-search';
-import { YSelect } from './src/select';
 import { YRowSelect } from './src/row-select';
-import { YRadio } from './src/radio';
 import { YTextTooltip } from './src/text-tooltip';
 import { YButton } from './src/button';
 import { YPageFooter } from './src/page-footer';
@@ -37,9 +35,7 @@ export default [
   YPartTitle,
   YPageHeader,
   YTableSearch,
-  YSelect,
   YRowSelect,
-  YRadio,
   YTextTooltip,
   YButton,
   YPageFooter,
@@ -60,5 +56,5 @@ export default [
   YStep,
   YEcharts,
   YStickyLayout,
-  YPageProgress,
+  YPageProgress
 ] as Plugin[];

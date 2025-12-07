@@ -97,7 +97,6 @@ describe('YColumnForm 表单列组件', () => {
         expect(wrapper.props('rules')).toEqual({ required: true, message: '必填' });
         expect(wrapper.props('formProps')).toEqual({ label: '自定义标签' });
         expect(wrapper.props('tipProps')).toEqual({ placement: 'bottom' });
-        expect(wrapper.props('headerStyle')).toEqual({ fontSize: '14px' });
       }
     });
   });
@@ -138,12 +137,6 @@ describe('YColumnForm 表单列组件', () => {
       const tipProps = { placement: 'top', effect: 'light', content: '提示' };
       const wrapper = createWrapper({ tipProps });
       if (wrapper) expect(wrapper.props('tipProps')).toEqual(tipProps);
-    });
-
-    it('headerStyle 应该支持样式对象', () => {
-      const headerStyle = { color: 'red', fontSize: '16px', fontWeight: 'bold' };
-      const wrapper = createWrapper({ headerStyle });
-      if (wrapper) expect(wrapper.props('headerStyle')).toEqual(headerStyle);
     });
   });
 
@@ -391,6 +384,7 @@ describe('YColumnForm 表单列组件', () => {
           { 'min-width': 150, width: 200, fixed: 'left' }
         );
 
+        expect(wrapper).toBeTruthy();
         if (wrapper) {
           const vm = wrapper.vm as any;
           const result = vm.mergedColumnAttrs;
@@ -399,7 +393,8 @@ describe('YColumnForm 表单列组件', () => {
             'min-width': 150,
             width: 200,
             'show-overflow-tooltip': false,
-            fixed: 'left'
+            fixed: 'left',
+            'class-name': 'y-column-form'
           });
         }
       });

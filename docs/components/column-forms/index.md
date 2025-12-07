@@ -5,11 +5,15 @@ description: 单元格内展示多个表单项的列
 
 # ColumnForms 多表单列
 
+## 说明
+
 基于 `el-table-column` + `el-form-item` 封装，用于在表格的单元格内展示多个表单项，支持表单验证、条件显示等功能。
 
-该组件需要配合 `y-table` 使用，每个表单项通过具名插槽的方式自定义内容，插槽名称与每个表单项配置的 `prop` 属性对应。
+该组件需要配合 `y-table` 和 `el-form` 使用，每个表单项通过具名插槽的方式自定义内容，插槽名称与每个表单项配置的 `prop` 属性对应。
 
-## 基础用法
+## 用法示例
+
+### 基础用法
 
 :::demo
 
@@ -28,7 +32,7 @@ column-forms/test
 | t-name                | form中table字段名，用于绑定校验组                              | ^[string]                                                    | `'tableData'`      |
 | label                 | 显示的列标题                                                   | ^[string]                                                    | —                  |
 | prop                  | 列内容的字段名， 也可以使用 property属性                       | ^[string]                                                    | —                  |
-| width                 | 列的宽度，固定的                                               | ^[string] / ^[number]                                        | 'auto'             |
+| width                 | 列的宽度，固定的                                               | ^[string] / ^[number]                                        | `'auto'`             |
 | min-width             | 列的最小宽度，会把剩余宽度按比例分配给设置了 min-width 的列    | ^[string] / ^[number]                                        | `100`              |
 | fixed                 | 列是否固定在左侧或者右侧。 true 表示固定在左侧 `true`          | ^[enum]`'left' \| 'right'` / ^[boolean]                      | `false`            |
 | render-header         | 列标题 Label 区域渲染的函数                                    | ^[Function]`(data: { column: any, $index: number }) => void` | —                  |

@@ -1,5 +1,6 @@
 import type { ExtractPublicPropTypes } from 'vue';
 import type { ButtonProps } from '../../button/src/button';
+// import type { DrawerProps as ElDrawerProps } from 'element-plus';
 
 export type DrawerEmits = {
   (e: 'confirm'): void;

@@ -5,6 +5,8 @@ description: 侧边吸顶布局组件
 
 # StickyLayout 侧边吸顶布局
 
+## 说明
+
 一个侧边吸顶布局组件，适用于具有固定侧边栏且自动吸顶的页面。当页面滚动时，侧边栏会相对于父容器（默认为页面）自动吸顶显示，同时内容区域会根据侧边栏宽度自动调整内边距
 
 （1）外部可滚动容器不要设置padding、border等属性，否则会影响内部尺寸计算
@@ -14,6 +16,8 @@ description: 侧边吸顶布局组件
 （3）在嵌套使用本组件时，需要正确设置 `scrollContainer` 属性来指定父级容器
 
 ## 用法示例
+
+### 基础用法
 
 :::demo 当组件在嵌套的滚动容器中使用时，可以通过 `scrollContainer` 属性指定父级容器
 
@@ -27,7 +31,7 @@ sticky-layout/test
 
 | 属性名          | 说明                                                                | 类型                                | 默认值 |
 | --------------- | ------------------------------------------------------------------- | ----------------------------------- | ------ |
-| scroll-container | 指定滚动容器，可以是CSS选择器字符串或HTMLElement对象。默认为 window | ^[string] \| ^[object]`HTMLElement` | —      |
+| scroll-container | 指定滚动容器，可以是CSS选择器字符串或HTMLElement对象。默认为 window | ^[string] / ^[object]`HTMLElement` | —      |
 
 ### Slots
 

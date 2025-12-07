@@ -145,6 +145,6 @@ const confirmClick = () => {
 
 const drawerRef = ref(null);
 defineExpose({
-  drawerRef
+  handleClose:drawerRef.value?.handleClose
 });
 </script>

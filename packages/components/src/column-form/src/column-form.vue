@@ -72,12 +72,12 @@ const tableName = computed(() => {
 
 const mergedColumnAttrs = computed(() => {
   return {
+    ...attrs,
     'min-width': attrs?.['min-width'] || 100,
     width: attrs?.width || 'auto',
     'show-overflow-tooltip': false,
     'class-name': attrs?.['class-name'] || 'y-column-form',
-    ...attrs,
-    }
+  }
 });
 
 const mergedFormAttrs = (scope: any) => {

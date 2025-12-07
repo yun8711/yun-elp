@@ -63,7 +63,8 @@ const getViteConfig = ({ mode }: { mode: string }): ViteConfig => {
     css: {
       preprocessorOptions: {
         scss: {
-          silenceDeprecations: ['legacy-js-api']
+          silenceDeprecations: ['legacy-js-api'],
+          additionalData: `@use "@yun-elp/theme-chalk/src/themes/kd.scss" as *;`,
         }
       }
     },

@@ -1,7 +1,7 @@
 /// <reference types="vitest/globals" />
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { nextTick } from '@vue/runtime-core';
+import { nextTick } from 'vue';
 import YPageProgress from '../src/page-progress.vue';
 
 describe('YPageProgress', () => {

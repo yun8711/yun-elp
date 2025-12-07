@@ -10,7 +10,7 @@
   &__left {
     display: flex;
     align-items: center;
-    padding-left: var(--gap-base);
+    padding-left: var(--gap-base,8px);
 
     &-block {
       width: 3px;

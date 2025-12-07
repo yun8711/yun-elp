@@ -47,17 +47,50 @@ beforeAll(() => {
   config.global.stubs = {
     'el-button': {
       template:
-        '<button class="el-button" :class="[type ? `el-button--${type}` : \'\', disabled ? \'is-disabled\' : \'\', $attrs.class]" :style="style" v-bind="$attrs" @click="$emit(\'click\', $event)" @focus="$emit(\'focus\', $event)"><slot></slot></button>',
-      props: ['type', 'icon', 'loading', 'disabled', 'style'],
+        '<component :is="link ? \'a\' : \'button\'" class="el-button" :class="[type ? `el-button--${type}` : \'\', disabled ? \'is-disabled\' : \'\', link ? \'el-button--link\' : \'\', $attrs.class]" :style="style" v-bind="$attrs" @click="$emit(\'click\', $event)" @focus="$emit(\'focus\', $event)"><slot></slot></component>',
+      props: ['type', 'icon', 'loading', 'disabled', 'style', 'link'],
       emits: ['click', 'focus'],
       inheritAttrs: true
     },
     'el-button-group': {
       template: '<div class="el-button-group"><slot></slot></div>'
     },
+    'YTable': {
+      template: `
+        <div class="y-table">
+          <el-table class="y-table__table" v-bind="$attrs">
+            <slot />
+            <template #empty>
+              <slot name="empty">
+                <y-empty />
+              </slot>
+            </template>
+            <template #append>
+              <slot name="append" />
+            </template>
+          </el-table>
+          <div class="y-table__footer">
+            <slot name="footer">
+              <div class="y-table__footer-default">
+                <div class="y-table__footer-total">
+                  共 <span class="y-table__footer-total-num">{{ $attrs.paginationProps?.total || 0 }}</span> 项数据
+                </div>
+                <el-pagination
+                  v-bind="$attrs.paginationProps || {}"
+                  class="y-table__footer-pagination"
+                  @change="$emit('paginationChange', { currentPage: arguments[0], pageSize: arguments[1] })" />
+              </div>
+            </slot>
+          </div>
+        </div>
+      `,
+      props: ['loading', 'showFooter', 'emptyProps', 'paginationProps', 'onPaginationChange'],
+      inheritAttrs: true,
+      name: 'YTable'
+    },
     'el-table': {
       template:
-        '<div class="el-table" v-bind="$attrs" :class="{ \'is-loading\': loading }"><slot></slot><slot name="empty"></slot><slot name="append"></slot></div>',
+        '<div class="el-table y-table__table" v-bind="$attrs" :class="{ \'is-loading\': loading }"><slot></slot><slot name="empty"></slot><slot name="append"></slot></div>',
       props: ['data', 'border', 'size', 'loading', 'height', 'maxHeight'],
       inheritAttrs: true
     },
@@ -129,30 +162,6 @@ beforeAll(() => {
         select: { from: SELECT_INJECTION_KEY, default: null }
       }
     },
-    'el-cascader': {
-      template: '<div class="el-cascader" v-bind="$attrs"></div>',
-      props: ['modelValue', 'options', 'placeholder', 'disabled'],
-      emits: ['update:modelValue', 'change'],
-      inheritAttrs: true,
-      provide() {
-        return {
-          [SELECT_INJECTION_KEY]: {
-            props: this.$props,
-            selectOption: () => {},
-            removeOption: () => {},
-            updateOptions: () => {}
-          }
-        };
-      }
-    },
-    'el-option': {
-      template: '<div class="el-option" v-bind="$attrs"></div>',
-      props: ['label', 'value', 'disabled'],
-      inheritAttrs: true,
-      inject: {
-        select: { from: SELECT_INJECTION_KEY, default: null }
-      }
-    },
     'el-radio-group': {
       template: '<div class="el-radio-group" v-bind="$attrs"><slot></slot></div>',
       props: ['modelValue', 'disabled'],
@@ -203,6 +212,24 @@ beforeAll(() => {
     },
     'el-icon': {
       template: '<i class="el-icon" v-bind="$attrs"><slot></slot></i>',
+      inheritAttrs: true
+    },
+    'el-link': {
+      template: '<a class="el-link" v-bind="$attrs" @click="$emit(\'click\', $event)"><slot></slot></a>',
+      props: ['type', 'underline', 'disabled', 'href', 'icon'],
+      emits: ['click'],
+      inheritAttrs: true
+    },
+    'el-date-picker': {
+      template: '<div class="el-date-picker" v-bind="$attrs"><input class="el-input__inner" :value="modelValue" @input="$emit(\'update:modelValue\', $event.target.value)" /></div>',
+      props: ['modelValue', 'type', 'placeholder', 'disabled', 'startPlaceholder', 'endPlaceholder'],
+      emits: ['update:modelValue', 'change'],
+      inheritAttrs: true
+    },
+    'el-collapse-transition': {
+      name: 'ElCollapseTransition',
+      template: '<div><slot /></div>',
+      props: ['style'],
       inheritAttrs: true
     },
     'el-scrollbar': {

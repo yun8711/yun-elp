@@ -22,7 +22,7 @@ describe('YColumnText 表格列文本组件', () => {
                 <div class="cell">
                   <slot name="default" :scope="{ row: { name: '张三' }, column: { property: 'name' }, $index: 0 }" :value="'张三'"></slot>
                 </div>
-                <slot name="header"></slot>
+                <slot name="header" :column="{ label: '姓名', property: 'name' }" :index="0"></slot>
               </div>
             `
           }
@@ -35,12 +35,22 @@ describe('YColumnText 表格列文本组件', () => {
     it('应该正常渲染', () => {
       const wrapper = createBasicTest();
       expect(wrapper.exists()).toBe(true);
-      expect(wrapper.html()).toContain('y-column-text');
+      expect(wrapper.classes()).toContain('el-table-column');
     });
 
     it('应该渲染header插槽', () => {
       const wrapper = createBasicTest();
       expect(wrapper.text()).toContain('姓名');
+    });
+
+    it('应该有正确的CSS类名', () => {
+      const wrapper = createBasicTest();
+      // 根元素应该是 el-table-column
+      expect(wrapper.classes()).toContain('el-table-column');
+
+      // 内部内容区域应该有 y-column-text__content 类名
+      const contentSpan = wrapper.find('.y-column-text__content');
+      expect(contentSpan.exists()).toBe(true);
     });
   });
 
@@ -150,28 +160,6 @@ describe('YColumnText 表格列文本组件', () => {
       });
     });
 
-    describe('headerStyle 属性', () => {
-      it('应该支持自定义表头样式', () => {
-        const headerStyle = { color: 'blue', fontWeight: 'bold' };
-        const wrapper = createBasicTest({
-          headerStyle
-        });
-
-        expect(wrapper.props('headerStyle')).toEqual(headerStyle);
-
-        // 检查样式是否应用到表头元素上
-        const headerSpan = wrapper.find('span[style*="color: blue"]');
-        expect(headerSpan.exists()).toBe(true);
-      });
-
-      it('应该支持空表头样式对象', () => {
-        const wrapper = createBasicTest({
-          headerStyle: {}
-        });
-
-        expect(wrapper.props('headerStyle')).toEqual({});
-      });
-    });
   });
 
   describe('样式测试', () => {
@@ -659,7 +647,7 @@ describe('YColumnText 表格列文本组件', () => {
     });
 
     it('应该处理 formatter 函数返回 null 的情况', () => {
-      const nullFormatter = vi.fn(() => null);
+      const nullFormatter = vi.fn(() => null as any);
       const wrapper = mount(YColumnText, {
         props: {
           formatter: nullFormatter
@@ -692,7 +680,7 @@ describe('YColumnText 表格列文本组件', () => {
     });
 
     it('应该处理 formatter 函数返回 undefined 的情况', () => {
-      const undefinedFormatter = vi.fn(() => undefined);
+      const undefinedFormatter = vi.fn(() => undefined as any);
       const wrapper = mount(YColumnText, {
         props: {
           formatter: undefinedFormatter
@@ -740,7 +728,7 @@ describe('YColumnText 表格列文本组件', () => {
     });
 
     it('应该处理嵌套对象的 formatter 函数', () => {
-      const nestedFormatter = vi.fn((value: any, row: any) => {
+      const nestedFormatter = vi.fn((value: any) => {
         if (typeof value === 'object' && value !== null) {
           return value.fullName || value.name || '未知';
         }
@@ -1413,7 +1401,7 @@ describe('YColumnText 表格列文本组件', () => {
       // 在formatterCellValue方法测试中已经验证了参数传递
       const wrapper = mount(YColumnText, {
         props: {
-          formatter: (value: any, row: any, scope: any) => `格式化: ${value}`
+          formatter: (value: any) => `格式化: ${value}`
         },
         attrs: {
           prop: 'name',

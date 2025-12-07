@@ -51,7 +51,7 @@ type YunElpResolverOptionsResolved = {
   noStylesComponents: string[];
 };
 
-const noStylesComponents = ['YAppWrap', 'YButton', 'YGroupSelect', 'YSelect'];
+const noStylesComponents = ['YAppWrap', 'YButton', 'YGroupSelect'];
 
 function getSideEffects(
   dirName: string,

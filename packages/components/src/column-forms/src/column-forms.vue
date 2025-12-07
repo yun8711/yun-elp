@@ -70,11 +70,11 @@ const tableName = computed(() => {
 
 const manageAttrs = computed(() => {
   return {
+    ...attrs,
     'show-overflow-tooltip': false,
     'min-width': attrs?.['min-width'] || 100,
     width: attrs?.width || 'auto',
     'class-name': attrs?.['class-name'] || 'y-column-forms',
-    ...attrs,
   };
 });
 
