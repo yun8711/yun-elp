@@ -295,18 +295,20 @@ const setupRouteWatcher = () => {
         }
       }
     } catch (_error) { // eslint-disable-line @typescript-eslint/no-unused-vars
-      // 如果没有vue-router，使用浏览器原生事件
-      // 监听浏览器前进后退按钮
-      window.addEventListener('popstate', handleRouteChange);
+      // 如果没有vue-router，使用浏览器原生事件，但仅在浏览器环境中
+      if (typeof window !== 'undefined') {
+        // 监听浏览器前进后退按钮
+        window.addEventListener('popstate', handleRouteChange);
 
-      // 监听hash变化（适用于hash模式路由）
-      window.addEventListener('hashchange', handleRouteChange);
+        // 监听hash变化（适用于hash模式路由）
+        window.addEventListener('hashchange', handleRouteChange);
 
-      // 清理函数
-      onUnmounted(() => {
-        window.removeEventListener('popstate', handleRouteChange);
-        window.removeEventListener('hashchange', handleRouteChange);
-      });
+        // 清理函数
+        onUnmounted(() => {
+          window.removeEventListener('popstate', handleRouteChange);
+          window.removeEventListener('hashchange', handleRouteChange);
+        });
+      }
     }
   });
 };

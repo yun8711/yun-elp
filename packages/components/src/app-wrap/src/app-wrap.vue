@@ -1,5 +1,5 @@
 <template>
-  <el-config-provider v-bind="props.elpConfig">
+  <el-config-provider v-bind="elpConfig">
     <slot />
   </el-config-provider>
 </template>
