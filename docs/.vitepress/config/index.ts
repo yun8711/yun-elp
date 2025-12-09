@@ -6,12 +6,12 @@ import type { UserConfig } from 'vitepress';
 import sidebarList from '../sidebar.json';
 const firstLink = sidebarList.find((x: { items: string | any[] }) => x.items.length > 0)?.items?.[0]
   ?.link;
-export const baseUrl = '/';
+export const baseUrl = '/yun-elp/';
 
 const setupConfig = configEnv => {
   const config: UserConfig = {
     title: 'YUN-ELP',
-    description: '基于element-plus 的业务组件库',
+    description: '基于element-plus的业务组件库',
     lang: 'zh-CN',
     // 在html 的head 标签中显现的其他元素，这里添加了icon 图标
     head,
@@ -37,7 +37,7 @@ const setupConfig = configEnv => {
       lastUpdatedText: '',
       siteTitle: false,
       // 显示在导航栏中网站标题
-      logo: baseUrl + 'logo_title.png',
+      logo: '/logo_title.png',
       // 搜索框
       search: {
         // 使用本地搜索
@@ -48,7 +48,7 @@ const setupConfig = configEnv => {
       nav: [
         { text: '指南', link: '/guide/', activeMatch: '^/guide/' },
         { text: '组件', link: firstLink!, activeMatch: '^/components/' },
-        { text: '工具函数', link: '/utils/', activeMatch: '^/utils/' }
+        // { text: '工具函数', link: '/utils/', activeMatch: '^/utils/' }
       ],
 
       sidebar: {
@@ -64,8 +64,8 @@ const setupConfig = configEnv => {
             text: '进阶',
             items: [
               { text: '国际化', link: '/guide/i18n' },
-              { text: '主题', link: '/guide/theme' },
-              { text: 'MCP', link: '/guide/mcp' }
+              // { text: '主题', link: '/guide/theme' },
+              // { text: 'MCP', link: '/guide/mcp' }
             ]
           },
           {
@@ -76,16 +76,16 @@ const setupConfig = configEnv => {
           }
         ],
         '/components/': sidebarList,
-        '/utils/': [
-          {
-            text: '工具函数',
-            items: [
-              { text: '日期工具', link: '/utils/date' },
-              { text: '字符串工具', link: '/utils/string' },
-              { text: '对象工具', link: '/utils/object' }
-            ]
-          }
-        ]
+        // '/utils/': [
+        //   {
+        //     text: '工具函数',
+        //     items: [
+        //       { text: '日期工具', link: '/utils/date' },
+        //       { text: '字符串工具', link: '/utils/string' },
+        //       { text: '对象工具', link: '/utils/object' }
+        //     ]
+        //   }
+        // ]
       },
 
       footer: {

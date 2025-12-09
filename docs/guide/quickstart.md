@@ -8,7 +8,7 @@ title: 快速开始
 
 ## 安装
 
-Yun-Elp 作为一个二开的业务组件库，考虑到它的使用场景是在更加具体的实际项目中，因此它依赖了 vue、elemtn-plus、@element-plus/icon、lodash-es这些基础库，及其他的一些业务中经常用到的依赖库，比如 cron-parser、echarts等。
+Yun-Elp 作为一个二开的业务组件库，考虑到它的使用场景是在更加具体的实际项目中，因此它依赖了 vue、elemtn-plus、@element-plus/icon、lodash-es、vueuse、echarts等常用的基础库，及其他的一些业务中经常用到的依赖。
 
 在现代成熟的前端工程下，基于 tree-shaking 的优化，这些依赖不会对项目产生太大的影响。
 
@@ -16,10 +16,10 @@ Yun-Elp 作为一个二开的业务组件库，考虑到它的使用场景是在
 
 ```shell
 # 安装必要依赖
-pnpm add yun-elp @vue/runtim-core^3.5.14 element-plus^2.10.2 @element-plus/icons-vue^2.3.1 lodash-es^4.17.21
+pnpm add yun-elp vue@^3.5.14 element-plus@^2.11.9 @element-plus/icons-vue@^2.3.2 lodash-es@^4.17.21
 
 # 安装可选依赖，根据所使用的组件而定
-pnpm add cron-parser^5.3.1 echarts^6.0.0
+pnpm add cron-parser@^5.3.1 echarts@^6.0.0
 ```
 
 ## 自动按需导入（推荐）
@@ -30,7 +30,7 @@ pnpm add cron-parser^5.3.1 echarts^6.0.0
 pnpm add -D unplugin-vue-components unplugin-auto-import
 ```
 
-然后在 Vite 或 Webpack（待测试） 的配置文件中增加如下配置：
+然后在 Vite 的配置文件中增加如下配置：
 
 ### Vite
 
@@ -66,27 +66,16 @@ export default defineConfig({
       ],
     }),
   ],
+  css:{
+    preprocessorOptions: {
+      scss: {
+        // 添加kd主题样式文件
+        additionalData: `@use "yun-elp/themes/kd.scss" as *;`,
+      },
+    },
+  }
 });
 ```
-
-## 完整引入
-
-如果你对打包后的文件大小不是很在乎，那么使用完整导入会更方便。
-
-```ts
-// main.ts
-import { createApp } from 'vue';
-import YunElp from 'yun-elp';
-import 'yun-elp/style';
-// 导入预设主题，否则使用elememt-plus的默认样式
-import App from './App.vue';
-
-const app = createApp(App);
-
-app.use(YunElp);
-app.mount('#app');
-```
-
 
 ## Volar 支持
 

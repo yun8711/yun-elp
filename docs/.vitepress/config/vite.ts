@@ -48,7 +48,7 @@ const alias: AliasOptions = [
   {
     find: /^@yun-elp\/(es|lib)\/(.*)$/,
     replacement: `${path.resolve(projRoot, 'packages')}/$2`
-  }
+  },
 ];
 
 const getViteConfig = ({ mode }: { mode: string }): ViteConfig => {
@@ -64,7 +64,7 @@ const getViteConfig = ({ mode }: { mode: string }): ViteConfig => {
       preprocessorOptions: {
         scss: {
           silenceDeprecations: ['legacy-js-api'],
-          additionalData: `@use "@yun-elp/theme-chalk/src/themes/kd.scss" as *;`,
+          additionalData: `@use "@yun-elp/theme-chalk/src/themes/kd.scss" as *;`
         }
       }
     },
