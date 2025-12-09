@@ -1,6 +1,6 @@
 {
   "name": "yun-elp",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "基于 Element Plus 的业务组件库",
   "private": false,
   "type": "module",
