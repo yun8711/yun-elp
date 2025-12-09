@@ -77,6 +77,7 @@
     "url": "git+https://github.com/element-plus/element-plus.git"
   },
   "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "style": "theme-chalk/index.css",

@@ -25,7 +25,7 @@ module.exports = {
   },
   github: {
     // 是否创建GitHub发布
-    release: true,
+    release: false,
     // 发布的名称格式
     releaseName: 'v${version}'
   },
