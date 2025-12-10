@@ -54,12 +54,15 @@ export default {
       }
     ],
     scopes: [
-      { value: 'core', name: 'core:       核心代码，包含组件、工具函数、样式等' },
-      { value: 'build', name: 'build:     构建相关' },
-      { value: 'style', name: 'style:      代码风格' },
-      { value: 'docs', name: 'docs:       文档' },
-      { value: 'play', name: 'play:       演示' },
-      { value: 'other', name: 'other:      其他' }
+      { value: 'components', name: 'components: 组件相关（源码、测试、类型等）' },
+      { value: 'docs', name: 'docs:       文档相关（VitePress、示例等）' },
+      { value: 'locale', name: 'locale:     国际化翻译' },
+      { value: 'utils', name: 'utils:      工具函数和公共方法' },
+      { value: 'theme', name: 'theme:      样式和主题（theme-chalk）' },
+      { value: 'play', name: 'play:       开发演示子项目' },
+      { value: 'scripts', name: 'scripts:   项目脚本（构建、模板等）' },
+      { value: 'build', name: 'build:     构建工具和依赖（pnpm、vite等）' },
+      { value: 'other', name: 'other:      其他杂项' }
     ],
     // 是否开启 commit message 带有 Emoji 字符
     useEmoji: true,
