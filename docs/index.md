@@ -1,16 +1,16 @@
 ---
 layout: home
 hero:
-  name: KD-ELP
+  name: YUN-ELP
   text: 基于 Element Plus 的业务组件库
   tagline: 高效、易用、专注于业务场景的组件封装
   image:
     src: /logo.svg
-    alt: KD-ELP
+    alt: YUN-ELP
   actions:
     - theme: brand
-      text: 快速开始
-      link: /guide/
+      text: 开始
+      link: /guide/overview
     - theme: alt
       text: 在 GitHub 上查看
       link: https://github.com/yun8711/yun-elp

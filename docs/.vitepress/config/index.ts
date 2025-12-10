@@ -46,8 +46,8 @@ const setupConfig = configEnv => {
       // 社交链接
       socialLinks: [{ icon: 'github', link: 'https://github.com/yun-elp' }],
       nav: [
-        { text: '指南', link: '/guide/', activeMatch: '^/guide/' },
-        { text: '组件', link: firstLink!, activeMatch: '^/components/' },
+        { text: '指南', link: '/guide/overview/', activeMatch: '^/guide/' },
+        { text: '组件', link: firstLink!, activeMatch: '^/components/' }
         // { text: '工具函数', link: '/utils/', activeMatch: '^/utils/' }
       ],
 
@@ -64,18 +64,16 @@ const setupConfig = configEnv => {
             text: '进阶',
             items: [
               { text: '国际化', link: '/guide/i18n' },
-              // { text: '主题', link: '/guide/theme' },
+              { text: '主题', link: '/guide/theme' }
               // { text: 'MCP', link: '/guide/mcp' }
             ]
           },
           {
             text: '开发',
-            items: [
-              { text: '开发指南', link: '/guide/development' }
-            ]
+            items: [{ text: '开发指南', link: '/guide/development' }]
           }
         ],
-        '/components/': sidebarList,
+        '/components/': sidebarList
         // '/utils/': [
         //   {
         //     text: '工具函数',

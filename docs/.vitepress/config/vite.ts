@@ -95,7 +95,7 @@ const getViteConfig = ({ mode }: { mode: string }): ViteConfig => {
           //   }
           // }
         ],
-        include: [/\.vue$/, /\.vue\?vue/, /\.md$/]
+        include: [/\.vue$/, /\.vue\?vue/]
       }) as PluginOption,
 
       // 图标自动导入
