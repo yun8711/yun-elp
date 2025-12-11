@@ -299,6 +299,12 @@ function generateWebTypes(): void {
     const { data, content: markdownContent } = matter(content);
 
     const componentName = data.title.split(' ')[0];
+    // 移除 Y 前缀（如果存在），并转换为 kebab-case
+    const componentNameWithoutPrefix = componentName.startsWith('Y')
+      ? componentName.slice(1)
+      : componentName;
+    const componentKebabName = toKebabCase(componentNameWithoutPrefix);
+    const docUrl = `http://www.liuyun.pro/yun-elp/components/${componentKebabName}/`;
 
     // 只解析API文档中特定章节下的表格
     const attributes = parseMarkdownTable(extractApiSection(markdownContent, 'Attributes')).filter(
@@ -317,6 +323,7 @@ function generateWebTypes(): void {
     const webType: WebType = {
       name: `Y${componentName}`,
       description: data.description,
+      'doc-url': docUrl,
       source: {
         symbol: `Y${componentName}`
       },

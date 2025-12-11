@@ -74,8 +74,8 @@ export default [
       'vue/multi-word-component-names': 'off',
       // 允许使用v-html指令
       'vue/no-v-html': 'off',
-      // 限制console使用，但允许console.warn和console.error
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      // 限制console使用，但允许console.warn、console.error和console.info
+      'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
       // 禁止使用debugger
       'no-debugger': 'warn',
       // 允许使用any类型

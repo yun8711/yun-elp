@@ -50,10 +50,6 @@
       "types": "./resolver.d.ts",
       "import": "./resolver.mjs"
     },
-    "./mcp-server": {
-      "import": "./mcp-server/src/index.js",
-      "types": "./mcp-server/index.d.ts"
-    },
     "./*": "./*"
   },
   "keywords": [
@@ -74,7 +70,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/element-plus/element-plus.git"
+    "url": "git+https://github.com/yun8711/yun-elp.git"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
