@@ -1,5 +1,5 @@
 ---
-title: CronPicke
+title: CronPicker
 description: 定时选择器
 ---
 
@@ -23,9 +23,7 @@ cron-picker/test
 
 ### 自定义默认值
 
-通过 `editDefaultValue` 属性可以自定义不同调度周期的默认配置：
-
-:::demo
+:::demo 通过 `editDefaultValue` 属性可以自定义不同调度周期的默认配置
 
 cron-picker/custom-defaults
 
