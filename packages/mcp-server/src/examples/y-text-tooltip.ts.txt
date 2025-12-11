@@ -1,0 +1,36 @@
+// NOTE: 此文件仅作为文本内容使用，不会被 TypeScript 编译或导入
+// 文件中的导入路径可能不正确，但不影响使用，因为此文件仅作为字符串内容返回
+import type { ExtractPublicPropTypes } from 'vue';
+import type { ElTooltipProps } from 'element-plus';
+
+export type TextTooltipProps = Partial<ElTooltipProps> & {
+  // 展示最大行数
+  lineClamp?: number;
+  // 宽度，默认100%
+  width?: string | number;
+  // tooltip显示方式
+  model?: 'auto' | 'none' | 'always';
+  textStyle?: Record<string, any>;
+}
+
+export const textTooltipProps = {
+  lineClamp: {
+    type: Number,
+    default: 1
+  },
+  width: {
+    type: [String, Number],
+    default: '100%'
+  },
+  model: {
+    type: String,
+    default: 'auto',
+    validator: (value: string) => ['auto', 'none', 'always'].includes(value)
+  },
+  textStyle: {
+    type: Object,
+    default: () => ({})
+  },
+} as const;
+
+export type TextTooltipInstance = ExtractPublicPropTypes<typeof textTooltipProps>;

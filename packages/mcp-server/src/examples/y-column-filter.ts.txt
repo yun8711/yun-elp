@@ -1,0 +1,50 @@
+// NOTE: 此文件仅作为文本内容使用，不会被 TypeScript 编译或导入
+// 文件中的导入路径可能不正确，但不影响使用，因为此文件仅作为字符串内容返回
+import type { ExtractPublicPropTypes, PropType } from 'vue';
+
+export interface ColumnFilterConfig {
+  text: string;
+  value: any;
+  color?: string;
+  bgColor?: string;
+}
+
+export interface ColumnFilterConfig2 {
+  [key: string]: any;
+}
+
+export interface ColumnFilterProps {
+  // TODO: 定义属性
+  noStatus?: boolean;
+  noFilter?: boolean;
+  // 值格式化函数
+  formatter?: boolean | ((value: any, row: any, scope: any) => string);
+  config?: ColumnFilterConfig[];
+  // 自定义文本样式
+  textStyle?: Record<string, any>;
+}
+
+export const columnFilterProps = {
+  noStatus: {
+    type: Boolean,
+    default: false
+  },
+  noFilter: {
+    type: Boolean,
+    default: false
+  },
+  formatter: {
+    type: [Boolean, Function] as PropType<boolean | ((value: any, row: any, scope: any) => string)>,
+    default: () => ''
+  },
+  config: {
+    type: Array as PropType<ColumnFilterConfig[]>,
+    default: () => []
+  },
+  textStyle: {
+    type: Object as PropType<Record<string, any>>,
+    default: () => ({})
+  }
+} as const;
+
+export type columnFilterInstance = ExtractPublicPropTypes<typeof columnFilterProps>;

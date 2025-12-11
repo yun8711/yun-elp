@@ -1,0 +1,31 @@
+// NOTE: 此文件仅作为文本内容使用，不会被 TypeScript 编译或导入
+// 文件中的导入路径可能不正确，但不影响使用，因为此文件仅作为字符串内容返回
+import type { ExtractPublicPropTypes } from 'vue';
+
+export interface EmptyProps {
+  image?: string;
+  imageSize?: number;
+  description?: string;
+  style?: Record<string, any>;
+};
+
+export const emptyProps = {
+  image: {
+    type: String,
+    default: ''
+  },
+  imageSize: {
+    type: Number,
+    default: 100
+  },
+  description: {
+    type: String,
+    default: ''
+  },
+  style: {
+    type: Object,
+    default: () => ({})
+  }
+} as const;
+
+export type emptyInstance = ExtractPublicPropTypes<typeof emptyProps>;

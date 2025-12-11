@@ -1,0 +1,26 @@
+// NOTE: 此文件仅作为文本内容使用，不会被 TypeScript 编译或导入
+// 文件中的导入路径可能不正确，但不影响使用，因为此文件仅作为字符串内容返回
+import type { ExtractPublicPropTypes, PropType } from 'vue';
+
+export interface StickyLayoutProps {
+  // 滚动容器（支持 CSS 选择器字符串或 HTMLElement）
+  scrollContainer?: string | HTMLElement;
+}
+
+export interface StickyLayoutSlots {
+  // 默认插槽（内容区域）
+  default?: () => any;
+  // 左侧区域插槽
+  left?: (props: { height: number }) => any;
+  // 右侧区域插槽
+  right?: (props: { height: number }) => any;
+}
+
+export const stickyLayoutProps = {
+  scrollContainer: {
+    type: [String, Object] as PropType<string | HTMLElement>,
+    default: undefined
+  }
+} as const;
+
+export type StickyLayoutInstance = ExtractPublicPropTypes<typeof stickyLayoutProps>;

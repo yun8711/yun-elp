@@ -1,0 +1,20 @@
+// NOTE: 此文件仅作为文本内容使用，不会被 TypeScript 编译或导入
+// 文件中的导入路径可能不正确，但不影响使用，因为此文件仅作为字符串内容返回
+import type { ExtractPublicPropTypes } from 'vue';
+
+export interface PartTitleProps {
+  /**
+   * 标题文本
+   * @default ''
+   */
+  title?: string;
+}
+
+export const partTitleProps = {
+  title: {
+    type: String,
+    default: ''
+  }
+} as const;
+
+export type PartTitleInstance = ExtractPublicPropTypes<typeof partTitleProps>;

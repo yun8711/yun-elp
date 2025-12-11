@@ -1,0 +1,70 @@
+// NOTE: 此文件仅作为文本内容使用，不会被 TypeScript 编译或导入
+// 文件中的导入路径可能不正确，但不影响使用，因为此文件仅作为字符串内容返回
+import type { ExtractPublicPropTypes, PropType } from 'vue';
+
+// 定义组件的属性接口
+export interface LabelProps {
+  /**
+   * 标签文本
+   */
+  label?: string;
+  /**
+   * 组件高度
+   */
+  height?: string | number;
+  /**
+   * 标签宽度
+   */
+  labelWidth?: string | number;
+  /**
+   * 标签文本水平对齐方式
+   */
+  labelAlign?: 'left' | 'center' | 'right';
+  /**
+   * 标签后分隔符，默认无，border为false时有效
+   */
+  colon?: string;
+  /**
+   * 自定义样式
+   */
+  labelStyle?: Record<string, string | number>;
+  /**
+   * 自定义内容样式
+   */
+  contentStyle?: Record<string, string | number>;
+}
+
+// 定义 props 对象
+export const labelProps = {
+  label: {
+    type: String,
+    default: ''
+  },
+  height: {
+    type: String,
+    default: ''
+  },
+  labelWidth: {
+    type: String,
+    default: 'auto'
+  },
+  labelAlign: {
+    type: String as PropType<'left' | 'center' | 'right'>,
+    default: 'left'
+  },
+  colon: {
+    type: String,
+    default: ''
+  },
+  labelStyle: {
+    type: Object as PropType<Record<string, string | number>>,
+    default: () => ({})
+  },
+  contentStyle: {
+    type: Object as PropType<Record<string, string | number>>,
+    default: () => ({})
+  }
+} as const;
+
+// 导出实例类型
+export type LabelInstance = ExtractPublicPropTypes<typeof labelProps>;

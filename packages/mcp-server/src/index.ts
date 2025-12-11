@@ -1,33 +1,31 @@
-#!/usr/bin/env node
-import process from 'node:process';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { DOC_DIR } from './constants/path.js';
-import registryTools from './tools/index.js';
+import { registerListComponents } from './tools/list-components.js';
+import { registerGetComponent } from './tools/get-component.js';
+import { registerSearchComponents } from './tools/search-components.js';
+import { registerGetComponentExamples } from './tools/get-component-examples.js';
 
-async function main() {
+export function createServer() {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
   const VERSION = (
-    JSON.parse(fs.readFileSync(path.join(DOC_DIR, 'package.json'), 'utf8')) as { version: string }
+    JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8')) as {
+      version: string;
+    }
   ).version;
 
   const server = new McpServer({
-    name: 'yun-elp-mcp',
-    version: VERSION,
-    capabilities: {
-      tools: {}
-    }
+    name: 'element-ui-mcp',
+    version: VERSION
   });
 
-  // 注册工具
-  registryTools(server);
+  // Register tool modules
+  registerListComponents(server);
+  registerGetComponent(server);
+  registerSearchComponents(server);
+  registerGetComponentExamples(server);
 
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
+  return server;
 }
-
-main().catch(err => {
-  console.error('[yun-elp-mcp] fatal:', err);
-  process.exit(1);
-});

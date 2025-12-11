@@ -1,27 +1,18 @@
 import { defineConfig } from 'tsup';
-import { resolve } from 'path';
 
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: ['./src/index.ts', './src/stdio.ts', './src/tools/**/*.ts', './src/metadata/**/*.ts'],
+  external: ['./src/types/', './src/examples/'],
   format: ['esm'],
-  dts: {
-    entry: 'src/index.ts'
-  },
-  splitting: false,
-  sourcemap: true,
-  // 构建到 dist 目录
-  outDir: resolve(__dirname, 'dist'),
-  outExtension() {
-    return {
-      js: '.js'
-    };
-  },
-  banner: {
-    js: '#!/usr/bin/env node'
-  },
-  noExternal: [/^@modelcontextprotocol/],
+  clean: true,
+  splitting: true, // 启用代码分割
+  treeshake: true, // 启用 tree shaking
+  target: 'es2022',
+  minify: true,
+  platform: 'node',
+  // 保留目录结构的关键配置
+  bundle: false, // 不打包成单个文件，保持模块化
   esbuildOptions(options) {
-    options.outbase = '.';
+    options.charset = 'utf8'; // 添加这行来保留中文字符
   }
 });
-
