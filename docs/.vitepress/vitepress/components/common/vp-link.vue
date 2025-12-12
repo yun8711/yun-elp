@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { isExternal } from '../../utils'
+// @ts-ignore - unplugin-icons 自动生成的类型
+import IconRiExternalLinkLine from '~icons/ri/external-link-line'
 
 defineProps<{
   href?: string
@@ -18,7 +20,7 @@ defineProps<{
   >
     <slot />
     <ElIcon v-if="isExternal(href) && !noIcon">
-      <i-ri-external-link-line class="link-icon" />
+      <IconRiExternalLinkLine class="link-icon" />
     </ElIcon>
   </component>
 </template>

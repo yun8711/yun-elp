@@ -36,7 +36,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | desc            | y-desc组件全局配置，[见下表](#desc-attribute)                                       | ^[object]`Ref<record<string, any>>` | —       |
 | table           | y-table组件全局配置，[见下表](#table-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
 | columnForm      | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)        | ^[object]`Ref<record<string, any>>` | —       |
-| columnOperation | y-column-operation 组件全局配置，[见下表](#column-operation-attribute)              | ^[object]`Ref<record<string, any>>` | —       |
+| columnOp | y-column-op 组件全局配置，[见下表](#column-op-attribute)              | ^[object]`Ref<record<string, any>>` | —       |
 | echarts         | y-echarts 组件全局配置，[见下表](#echarts-attribute)                                | ^[object]`Ref<record<string, any>>` | —       |
 
 #### border-label Attribute

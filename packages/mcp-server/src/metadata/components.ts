@@ -114,8 +114,8 @@ export default {
         "required": false
       },
       {
-        "name": "column-operation",
-        "description": "y-column-operation 组件全局配置，[见下表](#column-operation-attribute)",
+        "name": "columnOp",
+        "description": "y-column-op 组件全局配置，[见下表](#column-op-attribute)",
         "type": {
           "raw": "Ref<record<string, any>>"
         },
@@ -1523,11 +1523,11 @@ export default {
     ],
     "methods": []
   },
-  "y-column-operation": {
-    "tagName": "y-column-operation",
+  "y-column-op": {
+    "tagName": "y-column-op",
     "description": "单元格内展示操作按钮的列",
     "detailedDescription": "基于 `el-table-column` 封装，主要用于为表格内行数据提供各种操作按钮，包括按钮禁用状态管理、tooltip提示、下拉菜单展示、确认对话框等常用功能。\n（1）每个按钮都使用 `y-button` 组件，也就是默认支持防抖、节流、单击、双击等特性\n（2）每个按钮都使用 `y-pop` 组件包裹，也就是默认支持 `el-tooltip` 和 `el-popover` 特性",
-    "docUrl": "http://www.liuyun.pro/yun-elp/components/column-operation/",
+    "docUrl": "http://www.liuyun.pro/yun-elp/components/column-op/",
     "props": [
       {
         "name": "options",
@@ -1641,7 +1641,7 @@ export default {
           "raw": "string"
         },
         "required": false,
-        "default": "'y-column-operation'"
+        "default": "'y-column-op'"
       },
       {
         "name": "label-class-name",

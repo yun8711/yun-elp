@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import YColumnOperation from '../src/column-operation.vue';
-import type { ColumnOperationItemType, TableItemScope } from '../src/column-operation';
+import YColumnOp from '../src/column-op.vue';
+import type { ColumnOpItemType, TableItemScope } from '../src/column-op';
 
 // Mock vue-router
 vi.mock('vue-router', () => ({
@@ -57,10 +57,10 @@ Object.defineProperty(window, 'VueRouter', {
   writable: true
 });
 
-describe('YColumnOperation 表格操作列组件', () => {
+describe('YColumnOp 表格操作列组件', () => {
   describe('基本功能', () => {
     it('应该正常渲染', () => {
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options: [] },
         global: {
           stubs: ['y-pop', 'y-button', 'el-dropdown', 'el-dropdown-menu', 'el-dropdown-item']
@@ -71,7 +71,7 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('应该支持自定义列属性', () => {
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options: [] },
         attrs: {
           width: 150,
@@ -88,12 +88,12 @@ describe('YColumnOperation 表格操作列组件', () => {
 
   describe('Props 测试', () => {
     it('应该支持 options 属性', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '编辑', prop: 'edit' },
         { label: '删除', prop: 'delete' }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options }
       });
 
@@ -106,7 +106,7 @@ describe('YColumnOperation 表格操作列组件', () => {
         { label: '删除', prop: 'delete' }
       ]);
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options: optionsFn }
       });
 
@@ -116,7 +116,7 @@ describe('YColumnOperation 表格操作列组件', () => {
     it('应该支持 disabledDefaultTip 属性', () => {
       const tip = '操作被禁用';
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { disabledDefaultTip: tip, options: [] }
       });
 
@@ -126,12 +126,12 @@ describe('YColumnOperation 表格操作列组件', () => {
 
   describe('Disabled状态复杂逻辑测试', () => {
     it('应该正确处理boolean类型的disabled', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '禁用按钮', prop: 'disabled', disabled: true },
         { label: '启用按钮', prop: 'enabled', disabled: false }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -159,12 +159,12 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('应该正确处理[boolean, string]类型的disabled', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '禁用按钮', prop: 'disabled', disabled: [true, '无权限'] },
         { label: '启用按钮', prop: 'enabled', disabled: [false, '其他原因'] }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -192,7 +192,7 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('应该正确处理多条件disabled数组', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         {
           label: '多条件禁用',
           prop: 'multi',
@@ -204,7 +204,7 @@ describe('YColumnOperation 表格操作列组件', () => {
         }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -232,11 +232,11 @@ describe('YColumnOperation 表格操作列组件', () => {
 
     it('应该正确处理函数类型的disabled', () => {
       const disabledFn = vi.fn().mockReturnValue([true, '测试禁用']);
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '函数禁用', prop: 'func', disabled: disabledFn }
       ];
 
-      mount(YColumnOperation, {
+      mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -265,11 +265,11 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('应该使用默认禁用提示文案', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '无提示禁用', prop: 'noTip', disabled: true }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -299,7 +299,7 @@ describe('YColumnOperation 表格操作列组件', () => {
 
   describe('PopProps属性测试', () => {
     it('应该支持对象类型的popProps', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         {
           label: '操作',
           prop: 'action',
@@ -310,7 +310,7 @@ describe('YColumnOperation 表格操作列组件', () => {
         }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -350,7 +350,7 @@ describe('YColumnOperation 表格操作列组件', () => {
         noPop: false
       }));
 
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         {
           label: '操作',
           prop: 'action',
@@ -358,7 +358,7 @@ describe('YColumnOperation 表格操作列组件', () => {
         }
       ];
 
-      mount(YColumnOperation, {
+      mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -387,7 +387,7 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('应该正确merge默认popProps配置', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         {
           label: '操作',
           prop: 'action',
@@ -401,7 +401,7 @@ describe('YColumnOperation 表格操作列组件', () => {
         }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -440,12 +440,12 @@ describe('YColumnOperation 表格操作列组件', () => {
   describe('Show属性函数测试', () => {
     it('应该支持函数形式的show属性', () => {
       const showFn = vi.fn((scope: TableItemScope) => scope.row?.status === 'active');
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '激活操作', prop: 'active', show: showFn },
         { label: '隐藏操作', prop: 'hidden', show: false }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -475,13 +475,13 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('应该正确处理show的优先级', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '显示项', prop: 'showFirst', show: true },
         { label: '隐藏项', prop: 'hideFirst', show: false },
         { label: '都显示', prop: 'bothShow', show: true }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -513,13 +513,13 @@ describe('YColumnOperation 表格操作列组件', () => {
 
   describe('Loading状态测试', () => {
     it('应该正确显示loading状态', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '加载中', prop: 'loading', loading: true },
         { label: '正常', prop: 'normal', loading: false },
         { label: '默认', prop: 'default' } // 不设置loading，默认应该是false
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -559,11 +559,11 @@ describe('YColumnOperation 表格操作列组件', () => {
 
     it('应该支持函数形式的loading配置', () => {
       const loadingFn = vi.fn().mockReturnValue(true) as any;
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '动态加载', prop: 'dynamic', loading: loadingFn }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -595,7 +595,7 @@ describe('YColumnOperation 表格操作列组件', () => {
 
   describe('操作项配置测试', () => {
     it('应该支持各种操作项状态', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '编辑', prop: 'edit', loading: true },
         { label: '删除', prop: 'delete', disabled: true },
         { label: '查看', prop: 'view', show: true },
@@ -603,7 +603,7 @@ describe('YColumnOperation 表格操作列组件', () => {
         { label: '更多', prop: 'more', dropdown: true }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options }
       });
 
@@ -611,7 +611,7 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('应该支持复杂的disabled配置', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '编辑', prop: 'edit', disabled: [true, '无权限编辑'] },
         {
           label: '删除',
@@ -624,7 +624,7 @@ describe('YColumnOperation 表格操作列组件', () => {
         { label: '查看', prop: 'view', disabled: vi.fn(() => false) }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options }
       });
 
@@ -636,7 +636,7 @@ describe('YColumnOperation 表格操作列组件', () => {
       const showFn = vi.fn(() => true);
       const confirmFn = vi.fn();
 
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         {
           label: labelFn,
           prop: 'edit',
@@ -645,11 +645,11 @@ describe('YColumnOperation 表格操作列组件', () => {
         }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options }
       });
 
-      const propsOptions = wrapper.props('options') as ColumnOperationItemType[];
+      const propsOptions = wrapper.props('options') as ColumnOpItemType[];
       expect(typeof propsOptions[0].label).toBe('function');
       expect(typeof propsOptions[0].show).toBe('function');
       expect(typeof propsOptions[0].confirm).toBe('function');
@@ -658,7 +658,7 @@ describe('YColumnOperation 表格操作列组件', () => {
 
   describe('插槽测试', () => {
     it('应该支持header插槽', () => {
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options: [] },
         slots: {
           header: '<span>操作</span>'
@@ -669,7 +669,7 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('应该支持操作项的具名插槽', () => {
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options: [] },
         slots: {
           edit: '<span>自定义编辑按钮</span>',
@@ -686,16 +686,16 @@ describe('YColumnOperation 表格操作列组件', () => {
       const wrapper = mount({
         template: `
           <el-table :data="tableData">
-            <y-column-operation :options="options" />
+            <y-column-op :options="options" />
           </el-table>
         `,
-        components: { YColumnOperation },
+        components: { YColumnOp },
         setup() {
           const tableData = [
             { id: 1, name: '项目1' },
             { id: 2, name: '项目2' }
           ];
-          const options: ColumnOperationItemType[] = [
+          const options: ColumnOpItemType[] = [
             { label: '编辑', prop: 'edit' },
             { label: '删除', prop: 'delete' }
           ];
@@ -704,7 +704,7 @@ describe('YColumnOperation 表格操作列组件', () => {
         }
       });
 
-      const columnOperation = wrapper.findComponent(YColumnOperation);
+      const columnOperation = wrapper.findComponent(YColumnOp);
       expect(columnOperation.exists()).toBe(true);
     });
 
@@ -712,21 +712,21 @@ describe('YColumnOperation 表格操作列组件', () => {
       const wrapper = mount({
         template: `
           <div>
-            <y-column-operation
+            <y-column-op
               v-for="(item, index) in tableData"
               :key="item.id"
               :options="getOptions(item, index)"
             />
           </div>
         `,
-        components: { YColumnOperation },
+        components: { YColumnOp },
         setup() {
           const tableData = [
             { id: 1, name: '项目1', status: 'active' },
             { id: 2, name: '项目2', status: 'inactive' }
           ];
 
-          const getOptions = (row: any): ColumnOperationItemType[] => [
+          const getOptions = (row: any): ColumnOpItemType[] => [
             {
               label: '编辑',
               prop: 'edit',
@@ -739,19 +739,19 @@ describe('YColumnOperation 表格操作列组件', () => {
         }
       });
 
-      const operations = wrapper.findAllComponents(YColumnOperation);
+      const operations = wrapper.findAllComponents(YColumnOp);
       expect(operations).toHaveLength(2);
     });
   });
 
   describe('Dropdown菜单测试', () => {
     it('应该正确渲染dropdown菜单', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '操作1', prop: 'action1', dropdown: true },
         { label: '操作2', prop: 'action2', dropdown: true }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -781,13 +781,13 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('应该正确区分normal和dropdown操作项', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '普通操作', prop: 'normal' },
         { label: '下拉操作1', prop: 'dropdown1', dropdown: true },
         { label: '下拉操作2', prop: 'dropdown2', dropdown: true }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -830,11 +830,11 @@ describe('YColumnOperation 表格操作列组件', () => {
 
     it('应该支持函数形式的dropdown配置', () => {
       const dropdownFn = vi.fn(() => true);
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '操作', prop: 'action', dropdown: dropdownFn }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -858,12 +858,12 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('当没有dropdown操作项时不应该渲染popover', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '普通操作1', prop: 'normal1' },
         { label: '普通操作2', prop: 'normal2' }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -892,12 +892,12 @@ describe('YColumnOperation 表格操作列组件', () => {
 
   describe('路由变化测试', () => {
     it('应该在路由变化时关闭dropdown', async () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '操作1', prop: 'action1', dropdown: true },
         { label: '操作2', prop: 'action2', dropdown: true }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -927,11 +927,11 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('应该在hash变化时关闭dropdown', async () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '操作1', prop: 'action1', dropdown: true }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -963,7 +963,7 @@ describe('YColumnOperation 表格操作列组件', () => {
   describe('事件处理测试', () => {
     it('应该正确调用confirm函数', async () => {
       const confirmMock = vi.fn();
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         {
           label: '确认',
           prop: 'confirm',
@@ -971,7 +971,7 @@ describe('YColumnOperation 表格操作列组件', () => {
         }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -1013,7 +1013,7 @@ describe('YColumnOperation 表格操作列组件', () => {
     it('应该在popover模式下正确调用confirm和cancel函数', async () => {
       const confirmMock = vi.fn();
       const cancelMock = vi.fn();
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         {
           label: '删除',
           prop: 'delete',
@@ -1026,7 +1026,7 @@ describe('YColumnOperation 表格操作列组件', () => {
         }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -1071,7 +1071,7 @@ describe('YColumnOperation 表格操作列组件', () => {
 
   describe('集成测试和边界情况', () => {
     it('应该处理空options数组', () => {
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options: [] },
         global: {
           stubs: {
@@ -1104,9 +1104,9 @@ describe('YColumnOperation 表格操作列组件', () => {
         return [
           { label: '查看', prop: 'view' }
         ];
-      }) as (scope: TableItemScope) => ColumnOperationItemType[];
+      }) as (scope: TableItemScope) => ColumnOpItemType[];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options: optionsFn },
         global: {
           stubs: {
@@ -1152,7 +1152,7 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('应该处理各种边界情况', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '', prop: 'emptyLabel' }, // 空标签
         { label: '无标签', prop: 'noLabel' }, // 没有标签
         { label: '完整配置', prop: 'full', show: true, disabled: false, loading: false, dropdown: false },
@@ -1161,7 +1161,7 @@ describe('YColumnOperation 表格操作列组件', () => {
         { label: '下拉项目', prop: 'dropdown', dropdown: true }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -1213,13 +1213,13 @@ describe('YColumnOperation 表格操作列组件', () => {
     });
 
     it('应该正确处理noPop属性的各种情况', () => {
-      const options: ColumnOperationItemType[] = [
+      const options: ColumnOpItemType[] = [
         { label: '默认', prop: 'default' }, // 默认noPop: true
         { label: '显示弹框', prop: 'withPop', noPop: false },
         { label: '函数控制', prop: 'funcPop', noPop: (scope: TableItemScope) => !(scope.row?.needConfirm ?? false) }
       ];
 
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
           stubs: {
@@ -1250,20 +1250,20 @@ describe('YColumnOperation 表格操作列组件', () => {
 
   describe('样式测试', () => {
     it('应该应用正确的CSS类名', () => {
-      const wrapper = mount(YColumnOperation, {
+      const wrapper = mount(YColumnOp, {
         props: { options: [] }
       });
 
       const vm = wrapper.vm as any;
       // 检查mergedColumnAttrs是否正确设置了class-name
-      expect(vm.mergedColumnAttrs['class-name']).toBe('y-column-operation');
+      expect(vm.mergedColumnAttrs['class-name']).toBe('y-column-op');
     });
   });
 
   describe('核心方法直接测试', () => {
     describe('getDisabledValue 方法测试', () => {
       it('应该正确处理boolean类型的disabled', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
 
@@ -1277,7 +1277,7 @@ describe('YColumnOperation 表格操作列组件', () => {
       });
 
       it('应该正确处理[boolean, string]类型的disabled', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
 
@@ -1294,7 +1294,7 @@ describe('YColumnOperation 表格操作列组件', () => {
       });
 
       it('应该正确处理多条件disabled数组', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
 
@@ -1315,7 +1315,7 @@ describe('YColumnOperation 表格操作列组件', () => {
       });
 
       it('应该正确处理函数类型的disabled', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
 
@@ -1347,7 +1347,7 @@ describe('YColumnOperation 表格操作列组件', () => {
       });
 
       it('应该使用disabledDefaultTip作为默认提示', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [], disabledDefaultTip: '默认禁用提示' }
         });
 
@@ -1360,7 +1360,7 @@ describe('YColumnOperation 表格操作列组件', () => {
       });
 
       it('应该使用appConfig的disabledDefaultTip当没有自定义提示时', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
 
@@ -1381,7 +1381,7 @@ describe('YColumnOperation 表格操作列组件', () => {
           { label: '删除', prop: 'delete', disabled: true }
         ];
 
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options }
         });
 
@@ -1404,7 +1404,7 @@ describe('YColumnOperation 表格操作列组件', () => {
           { label: '删除', prop: 'delete' }
         ]);
 
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: optionsFn }
         });
 
@@ -1426,7 +1426,7 @@ describe('YColumnOperation 表格操作列组件', () => {
           { label: '条件显示', prop: 'conditional', show: (scope: TableItemScope) => scope.row?.showConditional ?? false }
         ];
 
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options }
         });
 
@@ -1450,7 +1450,7 @@ describe('YColumnOperation 表格操作列组件', () => {
           { label: '条件下拉', prop: 'conditional', dropdown: (scope: TableItemScope) => scope.row?.useDropdown ?? false }
         ];
 
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options }
         });
 
@@ -1472,10 +1472,10 @@ describe('YColumnOperation 表格操作列组件', () => {
 
       it('应该正确处理label为函数的情况', () => {
         const options = [
-          { label: (scope: TableItemScope, item: ColumnOperationItemType) => `操作${scope.$index}_${item.prop}`, prop: 'dynamic' }
+          { label: (scope: TableItemScope, item: ColumnOpItemType) => `操作${scope.$index}_${item.prop}`, prop: 'dynamic' }
         ];
 
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options }
         });
 
@@ -1496,7 +1496,7 @@ describe('YColumnOperation 表格操作列组件', () => {
           }
         ];
 
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options }
         });
 
@@ -1517,7 +1517,7 @@ describe('YColumnOperation 表格操作列组件', () => {
 
     describe('getPopProps 和事件方法测试', () => {
       it('getPopProps应该返回正确的弹框属性', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
 
@@ -1531,7 +1531,7 @@ describe('YColumnOperation 表格操作列组件', () => {
       });
 
       it('getPopEvents应该根据noPop返回正确的事件', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
 
@@ -1553,7 +1553,7 @@ describe('YColumnOperation 表格操作列组件', () => {
       });
 
       it('getButtonEvents应该根据noPop返回正确的事件', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
 
@@ -1575,7 +1575,7 @@ describe('YColumnOperation 表格操作列组件', () => {
 
     describe('dropdown控制方法测试', () => {
       it('getDropdownVisible和setDropdownVisible应该正确工作', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
 
@@ -1596,7 +1596,7 @@ describe('YColumnOperation 表格操作列组件', () => {
       });
 
       it('应该支持多个索引的独立控制', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
 
@@ -1612,12 +1612,12 @@ describe('YColumnOperation 表格操作列组件', () => {
       });
 
       it('setDropdownVisible应该在dropdown显示时正确更新状态', () => {
-        const options: ColumnOperationItemType[] = [
+        const options: ColumnOpItemType[] = [
           { label: '操作1', prop: 'action1', dropdown: true },
           { label: '操作2', prop: 'action2', dropdown: true }
         ];
 
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options },
           global: {
             stubs: {
@@ -1659,7 +1659,7 @@ describe('YColumnOperation 表格操作列组件', () => {
 
         // 重新挂载组件验证状态保持
         wrapper.unmount();
-        const newWrapper = mount(YColumnOperation, {
+        const newWrapper = mount(YColumnOp, {
           props: { options },
           global: {
             stubs: {
@@ -1693,11 +1693,11 @@ describe('YColumnOperation 表格操作列组件', () => {
       });
 
       it('setupRouteWatcher应该在路由变化时关闭所有dropdown', async () => {
-        const options: ColumnOperationItemType[] = [
+        const options: ColumnOpItemType[] = [
           { label: '操作1', prop: 'action1', dropdown: true }
         ];
 
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options },
           global: {
             stubs: {
@@ -1756,11 +1756,11 @@ describe('YColumnOperation 表格操作列组件', () => {
           }))
         };
 
-        const options: ColumnOperationItemType[] = [
+        const options: ColumnOpItemType[] = [
           { label: '操作1', prop: 'action1', dropdown: true }
         ];
 
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options },
           global: {
             stubs: {
@@ -1811,7 +1811,7 @@ describe('YColumnOperation 表格操作列组件', () => {
 
     describe('mergedColumnAttrs 计算属性测试', () => {
       it('应该正确设置默认列属性', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
 
@@ -1823,12 +1823,12 @@ describe('YColumnOperation 表格操作列组件', () => {
           width: 'auto',
           'show-overflow-tooltip': false,
           fixed: 'right',
-          'class-name': 'y-column-operation'
+          'class-name': 'y-column-op'
         });
       });
 
       it('应该合并attrs中的属性', () => {
-        const wrapper = mount(YColumnOperation, {
+        const wrapper = mount(YColumnOp, {
           props: { options: [] },
           attrs: {
             width: 200,
@@ -1845,7 +1845,7 @@ describe('YColumnOperation 表格操作列组件', () => {
           width: 200,
           'show-overflow-tooltip': false,
           fixed: 'left',
-          'class-name': 'y-column-operation'
+          'class-name': 'y-column-op'
         });
       });
     });

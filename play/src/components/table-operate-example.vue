@@ -2,19 +2,19 @@
   <y-table :data="tableData">
     <y-column-text prop="name" label="姓名" />
 
-    <y-column-operation label="label函数" :options="options1" />
-    <y-column-operation label="显示/隐藏" :options="options2" width="140" />
-    <y-column-operation label="按钮组" :options="options3" />
+    <y-column-op label="label函数" :options="options1" />
+    <y-column-op label="显示/隐藏" :options="options2" width="140" />
+    <y-column-op label="按钮组" :options="options3" />
 
     <!-- 禁用但不显示提示文案 -->
-    <y-column-operation label="无tooltip" :options="options4" />
+    <y-column-op label="无tooltip" :options="options4" />
     <!-- 禁用并显示默认提示文案 -->
-    <y-column-operation label="默认tooltip" :options="options4" disabledDefaultTip="无权限" />
+    <y-column-op label="默认tooltip" :options="options4" disabledDefaultTip="无权限" />
     <!-- 禁用并自定义提示文案 -->
-    <y-column-operation label="动态tooltip" :options="options5" />
+    <y-column-op label="动态tooltip" :options="options5" />
 
     <!-- 自定义popover -->
-    <y-column-operation label="自定义popover" :options="options6" />
+    <y-column-op label="自定义popover" :options="options6" />
   </y-table>
 </template>
 

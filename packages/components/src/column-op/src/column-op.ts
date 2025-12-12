@@ -1,0 +1,73 @@
+import type { ExtractPublicPropTypes, PropType } from 'vue';
+import type { TableColumnCtx } from 'element-plus';
+import type { PopProps } from '../../pop/src/pop';
+
+// 表格项的scope
+export type TableItemScope = {
+  row: any;
+  column: TableColumnCtx<Record<PropertyKey, any>>;
+  $index: number;
+};
+// disabled的返回值：
+// 如果只有1个boolean，则只表示是否禁用；
+// 如果有2个参数，则第一个参数表示是否禁用，第二个参数表示禁用原因；
+// 如果有多个[boolean, string]参数，则表示多个禁用条件和原因
+export type ColumnOpItemDisabledReturn =
+  | boolean
+  | [boolean, string]
+  | Array<[boolean, string]>;
+
+// 操作项的配置
+export interface ColumnOpItemType {
+  // 操作项的文本
+  label: string | ((scope: TableItemScope, item: ColumnOpItemType) => string);
+  // 操作项的prop，作用同key，唯一标识
+  prop: string;
+  // 按钮是否加载中
+  loading?: boolean;
+  // 按钮是否禁用
+  disabled?:
+    | ColumnOpItemDisabledReturn
+    | ((scope: TableItemScope, item: ColumnOpItemType) => ColumnOpItemDisabledReturn);
+  // 按钮是否显示
+  show?: boolean | ((scope: TableItemScope, item: ColumnOpItemType) => boolean);
+  // 是否以dropdown的形式展示
+  dropdown?: boolean | ((scope: TableItemScope, item: ColumnOpItemType) => boolean);
+  // 是否显示popover，默认不显示
+  noPop?: boolean | ((scope: TableItemScope, item: ColumnOpItemType) => boolean);
+  // popover完整属性配置
+  popProps?:
+    | Partial<PopProps>
+    | ((scope: TableItemScope, item: ColumnOpItemType) => Partial<PopProps>);
+  // 操作项的确认函数
+  confirm?: (scope: TableItemScope, item: ColumnOpItemType, e: MouseEvent) => any;
+  // 操作项的取消函数
+  cancel?: (scope: TableItemScope, item: ColumnOpItemType, e: MouseEvent) => any;
+}
+
+// 操作列的配置
+export interface ColumnOpProps {
+  options: ColumnOpItemType[] | ((scope: TableItemScope) => ColumnOpItemType[]);
+  // 禁用默认提示文案
+  disabledDefaultTip?: string;
+}
+
+export const columnOpProps = {
+  disabledDefaultTip: {
+    type: String,
+    default: () => ''
+  },
+  options: {
+    type: Array as PropType<ColumnOpItemType[]>,
+    default: () => []
+  }
+} as const;
+
+export type columnOpInstance = ExtractPublicPropTypes<typeof columnOpProps>;
+
+// 向后兼容的类型别名
+export type ColumnOperationItemDisabledReturn = ColumnOpItemDisabledReturn;
+export type ColumnOperationItemType = ColumnOpItemType;
+export type ColumnOperationProps = ColumnOpProps;
+export const columnOperationProps = columnOpProps;
+export type columnOperationInstance = columnOpInstance;

@@ -24,16 +24,16 @@
         v-if="getOptions(scope).dropdownList.length > 0"
         placement="bottom"
         width="0"
-        popper-class="y-column-operation__dropdown"
+        popper-class="y-column-op__dropdown"
         trigger="click"
         :visible="getDropdownVisible(scope.$index)"
         @update:visible="setDropdownVisible(scope.$index, $event)">
         <template #reference>
-          <el-icon class="y-column-operation__dropdown-icon">
+          <el-icon class="y-column-op__dropdown-icon">
             <MoreFilled />
           </el-icon>
         </template>
-        <div v-for="item in getOptions(scope).dropdownList" :key="item.prop" class="y-column-operation__dropdown-item">
+        <div v-for="item in getOptions(scope).dropdownList" :key="item.prop" class="y-column-op__dropdown-item">
           <y-pop v-bind="getPopProps(item)" v-on="getPopEvents(scope, item)">
             <y-button
               type="primary"
@@ -59,10 +59,10 @@
 <script setup lang="ts">
 import { ElTableColumn, ElPopover, ElIcon } from 'element-plus';
 import type {
-  ColumnOperationProps,
+  ColumnOpProps,
   TableItemScope,
-  ColumnOperationItemType
-} from './column-operation';
+  ColumnOpItemType
+} from './column-op';
 import {
   toRefs,
   useAttrs,
@@ -80,13 +80,13 @@ import YPop from '../../pop/src/pop.vue';
 import YButton from '../../button/src/button.vue';
 
 defineOptions({
-  name: 'YColumnOperation',
+  name: 'YColumnOp',
   inheritAttrs: true
 });
 
-const columnOperationConfig = useAppConfig('columnOperation');
+const columnOpConfig = useAppConfig('columnOp');
 const attrs = useAttrs();
-const props = withDefaults(defineProps<ColumnOperationProps>(), {
+const props = withDefaults(defineProps<ColumnOpProps>(), {
   options: () => [],
   disabledDefaultTip: undefined as string | undefined
 });
@@ -100,7 +100,7 @@ const mergedColumnAttrs = computed(() => {
     width: attrs?.width || 'auto',
     'show-overflow-tooltip': false,
     fixed: attrs?.fixed || 'right',
-    'class-name': attrs?.['class-name'] || 'y-column-operation',
+    'class-name': attrs?.['class-name'] || 'y-column-op',
   };
 });
 
@@ -116,12 +116,12 @@ const setDropdownVisible = (index: number, visible: boolean) => {
 
 const getOptions = (scope: TableItemScope) => {
   // 正常展示的操作项
-  const normalList = ref<ColumnOperationItemType[]>([]);
+  const normalList = ref<ColumnOpItemType[]>([]);
   // 以dropdown的形式展示的操作项
-  const dropdownList = ref<ColumnOperationItemType[]>([]);
+  const dropdownList = ref<ColumnOpItemType[]>([]);
   const optionsArr = typeof options.value === 'function' ? options.value(scope) : options.value;
 
-  optionsArr?.forEach((item: ColumnOperationItemType) => {
+  optionsArr?.forEach((item: ColumnOpItemType) => {
     const defaultObj = {
       prop: item.prop,
       label: '',
@@ -184,13 +184,13 @@ const getOptions = (scope: TableItemScope) => {
   };
 };
 
-const getPopProps = (item: ColumnOperationItemType) => {
+const getPopProps = (item: ColumnOpItemType) => {
   return item.popProps || {};
 };
 
 const getDisabledValue = (
   scope: TableItemScope,
-  item: ColumnOperationItemType
+  item: ColumnOpItemType
 ): [boolean, string] => {
   let res: [boolean, string];
 
@@ -246,11 +246,11 @@ const getDisabledValue = (
   }
   return [
     res[0],
-    res[1] || (disabledDefaultTip.value ?? columnOperationConfig?.disabledDefaultTip ?? '')
+    res[1] || (disabledDefaultTip.value ?? columnOpConfig?.disabledDefaultTip ?? '')
   ];
 };
 
-const getPopEvents = (scope: TableItemScope, item: ColumnOperationItemType) => {
+const getPopEvents = (scope: TableItemScope, item: ColumnOpItemType) => {
   const noPop = item.noPop as boolean;
 
   // 只有当 noPop 为 false 时，才绑定 confirm 和 cancel 事件到 y-pop
@@ -262,7 +262,7 @@ const getPopEvents = (scope: TableItemScope, item: ColumnOperationItemType) => {
     : {};
 };
 
-const getButtonEvents = (scope: TableItemScope, item: ColumnOperationItemType) => {
+const getButtonEvents = (scope: TableItemScope, item: ColumnOpItemType) => {
   const noPop = item.noPop as boolean;
 
   // 只有当 noPop 不为 false 时，才绑定 click 事件到按钮

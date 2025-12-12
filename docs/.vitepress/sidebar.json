@@ -113,9 +113,9 @@
         "activeMatch": "/components/column-forms/"
       },
       {
-        "text": "column-operation 操作列",
-        "link": "/components/column-operation/",
-        "activeMatch": "/components/column-operation/"
+        "text": "column-op 操作列",
+        "link": "/components/column-op/",
+        "activeMatch": "/components/column-op/"
       },
       {
         "text": "column-text 文本列",

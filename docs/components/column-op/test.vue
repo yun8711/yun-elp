@@ -1,9 +1,9 @@
 <template>
   <y-table :data="tableData">
     <y-column-text prop="name" label="姓名" />
-    <y-column-operation label="label函数" :options="options1" />
-    <y-column-operation label="显示/隐藏" :options="options2" />
-    <y-column-operation label="按钮组" :options="options3" />
+    <y-column-op label="label函数" :options="options1" />
+    <y-column-op label="显示/隐藏" :options="options2" />
+    <y-column-op label="按钮组" :options="options3" />
   </y-table>
 </template>
 

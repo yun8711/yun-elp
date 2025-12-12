@@ -1,7 +1,7 @@
 <template>
   <y-table :data="tableData">
     <y-column-text prop="name" label="姓名" />
-    <y-column-operation label="popover" :options="options6" />
+    <y-column-op label="popover" :options="options6" />
   </y-table>
 </template>
 
