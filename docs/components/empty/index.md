@@ -32,8 +32,6 @@ empty/test
 
 ### Slots
 
-同 [el-empty slots](https://element-plus.org/zh-CN/component/empty.html#%E6%8F%92%E6%A7%BD)
-
 | 名称        | 说明           | 参数 |
 | ----------- | -------------- | ---- |
 | default     | 自定义底部内容 | —    |

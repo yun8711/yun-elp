@@ -34,3 +34,7 @@ import 'yun-elp/style';
 import 'yun-elp/themes/kd.scss';
 // ...
 ```
+
+## 自定义主题
+
+可以参考yun-elp内置的 [kd主题文件](https://github.com/yun8711/yun-elp/blob/main/packages/theme-chalk/src/themes/kd.scss) 在项目中重新定义一份scss文件

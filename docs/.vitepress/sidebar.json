@@ -98,31 +98,6 @@
     "text": "数据展示",
     "items": [
       {
-        "text": "text-tooltip 提示文本",
-        "link": "/components/text-tooltip/",
-        "activeMatch": "/components/text-tooltip/"
-      },
-      {
-        "text": "empty 空状态",
-        "link": "/components/empty/",
-        "activeMatch": "/components/empty/"
-      },
-      {
-        "text": "desc 描述列表",
-        "link": "/components/desc/",
-        "activeMatch": "/components/desc/"
-      },
-      {
-        "text": "table 表格",
-        "link": "/components/table/",
-        "activeMatch": "/components/table/"
-      },
-      {
-        "text": "column-text 文本列",
-        "link": "/components/column-text/",
-        "activeMatch": "/components/column-text/"
-      },
-      {
         "text": "column-filter 筛选列",
         "link": "/components/column-filter/",
         "activeMatch": "/components/column-filter/"
@@ -143,9 +118,34 @@
         "activeMatch": "/components/column-operation/"
       },
       {
+        "text": "column-text 文本列",
+        "link": "/components/column-text/",
+        "activeMatch": "/components/column-text/"
+      },
+      {
+        "text": "desc 描述列表",
+        "link": "/components/desc/",
+        "activeMatch": "/components/desc/"
+      },
+      {
         "text": "echarts 基础图表",
         "link": "/components/echarts/",
         "activeMatch": "/components/echarts/"
+      },
+      {
+        "text": "empty 空状态",
+        "link": "/components/empty/",
+        "activeMatch": "/components/empty/"
+      },
+      {
+        "text": "table 表格",
+        "link": "/components/table/",
+        "activeMatch": "/components/table/"
+      },
+      {
+        "text": "text-tooltip 提示文本",
+        "link": "/components/text-tooltip/",
+        "activeMatch": "/components/text-tooltip/"
       }
     ]
   },
