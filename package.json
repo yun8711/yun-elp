@@ -18,7 +18,6 @@
     "build": "pnpm build:clean && pnpm build:comp && pnpm build:style && pnpm build:resolver && pnpm build:mcp && pnpm build:pkg && pnpm build:web-types && pnpm build:tags",
     "build:clean": "rimraf dist",
     "build:comp": "pnpm -C packages/components build",
-    "build:style-vars": "tsx scripts/generate-style-vars.ts --module node16",
     "build:style": "pnpm -C packages/theme-chalk build",
     "build:resolver": "pnpm -C packages/resolver build",
     "build:pkg": "tsx scripts/copy-pkg.ts",
