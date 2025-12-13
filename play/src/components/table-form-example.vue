@@ -18,13 +18,13 @@
 
         <y-column-form prop="method" label="请求类型" :rules="rules.method">
           <template #default="{ row }">
-            <y-select v-model="row.method" placeholder="请选择请求类型" :options="methodList"></y-select>
+            <el-select v-model="row.method" placeholder="请选择请求类型" :options="methodList"></el-select>
           </template>
         </y-column-form>
 
         <y-column-form prop="columnType" label="参数类型" :rules="rules.columnType">
           <template #default="{ row, prop }">
-            <y-select v-model="row[prop]" placeholder="参数类型" :options="columnTypeOptions"></y-select>
+            <el-select v-model="row[prop]" placeholder="参数类型" :options="columnTypeOptions"></el-select>
           </template>
         </y-column-form>
 
@@ -84,12 +84,11 @@ const rules = {
   columnType: [{ required: true, message: '请选择参数类型', trigger: ['blur', 'change'] }],
 }
 
-const methodList = ['GET', 'POST', 'PUT', 'DELETE'];
-const columnTypeOptions = ['STRING', 'NUMBER'];
-const fieldTypeOptions = ['TINYINT', 'SMALLINT', 'INT', 'BIGINT', 'DECIMAL', 'VARCHAR', 'CHAR'];
+const methodList = [{ label: 'GET', value: 'GET' }, { label: 'POST', value: 'POST' }, { label: 'PUT', value: 'PUT' }, { label: 'DELETE', value: 'DELETE' }];
+const columnTypeOptions = [{ label: 'STRING', value: 'STRING' }, { label: 'NUMBER', value: 'NUMBER' }];
 
-const handleValueRules = (scope) => {
-  const { row } = scope;
+const handleValueRules = (scope: any) => {
+  const { row }: any = scope;
   if (row.columnType === 'STRING') {
     return [{ required: true, message: '请输入参数值', trigger: 'blur' }];
   }
@@ -98,7 +97,7 @@ const handleValueRules = (scope) => {
   }
   return [];
 }
-const validateNumber = (rule, value, callback) => {
+const validateNumber = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('请输入参数值'));
   } else {
