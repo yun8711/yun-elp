@@ -32,12 +32,11 @@ export default {
     // 导入nprogress库
     const nprogress = await import('nprogress');
     // 监听页面路由变化，显示进度条
-    router.onBeforeRouteChange = to => {
+    router.onBeforePageLoad = () => {
       nprogress.start();
-      return true;
     };
     // 监听页面路由变化，隐藏进度条
-    router.onAfterRouteChange = to => {
+    router.onAfterRouteChanged = () => {
       nprogress.done();
     };
   }
