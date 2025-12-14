@@ -2,12 +2,11 @@
 
 
 
-# [1.0.0](https://github.com/yun8711/yun-elp/compare/v0.1.0...v1.0.0) (2025-12-09)
+## [1.0.0](https://github.com/yun8711/yun-elp/compare/v0.1.0...v1.0.0) (2025-12-09)
 
 
 ### Bug Fixes
 
-* **build:** :bug: 优化vite配置，忽略构建过程中的警告 ([74c1770](https://github.com/yun8711/yun-elp/commit/74c17700e4e939a4526188133a7580dbe7029779))
 * **component:** :bug: 修复table-search组件问题 ([d39c45b](https://github.com/yun8711/yun-elp/commit/d39c45b3b7e5dff45aad0d3895e1219f31c39026))
 * **component:** :bug: 修改table-search组件配置项问题 ([bf9fc16](https://github.com/yun8711/yun-elp/commit/bf9fc16878f29edff7231e56ed6864aaaee6fb93))
 * **component:** :bug: 修改table-search组件fold事件参数 ([2bdeb63](https://github.com/yun8711/yun-elp/commit/2bdeb630eeeb96138a1ebebcc2b3a838d34b0d88))
@@ -65,25 +64,13 @@
 * **core:** ✨ 删除select、radio组件；优化组件逻辑；完善组件文档 ([#8](https://github.com/yun8711/yun-elp/issues/8)) ([cc09ff5](https://github.com/yun8711/yun-elp/commit/cc09ff502d148dfa38f04732a05ddce3a71103bb))
 * **core:** ✨ 新增page-progress页面进度条组件 ([#7](https://github.com/yun8711/yun-elp/issues/7)) ([a65920a](https://github.com/yun8711/yun-elp/commit/a65920abd9406fccb7a7286a24e19c3614508555))
 * **core:** ✨ 新增y-echarts基础图表组件 ([886f8d4](https://github.com/yun8711/yun-elp/commit/886f8d48355caa146340467d522ac710ab0114d1))
-* **docs:** :sparkles: 完善readme文档 ([db53d83](https://github.com/yun8711/yun-elp/commit/db53d837cd946375a087a52f9fb52fe60193f367))
 
 
 ### BREAKING CHANGES
 
 * **core:** 移除y-button组件的tooltip功能
 
-# [0.2.0](https://github.com/yun8711/yun-elp/compare/v0.1.0...v0.2.0) (2025-06-16)
-
-
-### Features
-
-* **docs:** :sparkles: 完善readme文档 ([db53d83](https://github.com/yun8711/yun-elp/commit/db53d837cd946375a087a52f9fb52fe60193f367))
-
-# 📋 更新历史 
-
-
-
-# 0.1.0 (2025-06-16)
+## 0.1.0 (2025-06-16)
 
 
 ### Bug Fixes

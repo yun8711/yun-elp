@@ -30,15 +30,23 @@ module.exports = {
     releaseName: 'v${version}'
   },
   hooks: {
-    // 在版本号更新后同步到 elp 包
-    'after:version': 'tsx scripts/sync-version.ts'
+    // 在版本号更新后同步到 elp 包，并将修改加入 git 暂存区
+    'after:bump': 'tsx scripts/sync-version.ts && git add packages/elp/package.json'
   },
   plugins: {
     '@release-it/conventional-changelog': {
       infile: 'CHANGELOG.md',
       header: '# 📋 更新历史 \n\n',
-      // 使用Angular提交规范
-      preset: 'angular'
+      preset: {
+        name: 'conventionalcommits',
+        types: [
+          { type: 'feat', section: 'Features' },
+          { type: 'fix', section: 'Bug Fixes' },
+          { type: 'style', section: 'Styles' },
+          { type: 'refactor', section: 'Refactors' },
+          { type: 'perf', section: 'Performance Improvements' },
+        ]
+      }
     }
   }
-};
+}
