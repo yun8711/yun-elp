@@ -2,6 +2,13 @@
 
 
 
+## [1.1.0](https://github.com/yun8711/yun-elp/compare/v1.0.1...v1.1.0) (2025-12-14)
+
+
+### Features
+
+* **components:** :recycle: 重命名column-operation为column-op ([8111709](https://github.com/yun8711/yun-elp/commit/811170955f98582ecf5f1be80927ca02c1630214))
+
 ## [1.0.0](https://github.com/yun8711/yun-elp/compare/v0.1.0...v1.0.0) (2025-12-09)
 
 
