@@ -21,7 +21,7 @@
     <span style="margin-left: 20px;">line-clamp：</span>
     <el-input-number v-model="num" :min="1" :max="5" :step="1" />
     <span style="margin-left: 20px;">tooltip：</span>
-    <y-select v-model="model" :options="tooltipOptions" style="width: 100px;" />
+    <el-select v-model="model" :options="tooltipOptions" style="width: 100px;" />
   </div>
 </template>
 

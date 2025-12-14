@@ -114,7 +114,7 @@ export default {
         "required": false
       },
       {
-        "name": "columnOp",
+        "name": "column-op",
         "description": "y-column-op 组件全局配置，[见下表](#column-op-attribute)",
         "type": {
           "raw": "Ref<record<string, any>>"

@@ -115,7 +115,7 @@ export interface AppWrapProps {
     placement?: PlacementType;
     popperClass?: string;
   };
-  columnOp?: {
+  columnOperation?: {
     disabledDefaultTip?: string;
   };
   // echarts配置

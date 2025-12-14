@@ -16,7 +16,7 @@
 
         <y-column-forms label="字段配置（inline布局）" :options="formArr" width="400px">
           <template #type="{ row, prop }">
-            <y-select v-model="row[prop]" placeholder="字段类型" :options="fieldTypeOptions"></y-select>
+            <el-select v-model="row[prop]" placeholder="字段类型" :options="fieldTypeOptions"></el-select>
           </template>
           <template #length="{ row, prop }">
             <el-input v-model.trim.number="row[prop]" placeholder="长度"></el-input>
@@ -28,7 +28,7 @@
 
         <y-column-forms label="字段配置（flex布局）" :options="formArr1" :inline="false">
           <template #type="{ row, prop }">
-            <y-select v-model="row[prop]" placeholder="字段类型" :options="fieldTypeOptions" type="simple"></y-select>
+            <el-select v-model="row[prop]" placeholder="字段类型" :options="fieldTypeOptions" type="simple"></el-select>
           </template>
           <template #length="{ row, prop }">
             <el-input v-model="row[prop]" placeholder="长度"></el-input>
@@ -75,7 +75,15 @@ const form = ref({
   ]
 })
 
-const fieldTypeOptions = ['TINYINT', 'SMALLINT', 'INT', 'BIGINT', 'DECIMAL', 'VARCHAR', 'CHAR'];
+const fieldTypeOptions = [
+  { label: 'TINYINT', value: 'TINYINT' },
+  { label: 'SMALLINT', value: 'SMALLINT' },
+  { label: 'INT', value: 'INT' },
+  { label: 'BIGINT', value: 'BIGINT' },
+  { label: 'DECIMAL', value: 'DECIMAL' },
+  { label: 'VARCHAR', value: 'VARCHAR' },
+  { label: 'CHAR', value: 'CHAR' },
+];
 
 const nameFormOptions = [
   {

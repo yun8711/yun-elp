@@ -62,6 +62,7 @@ export default {
       { value: 'play', name: 'play:       开发演示子项目' },
       { value: 'scripts', name: 'scripts:   项目脚本（构建、模板等）' },
       { value: 'build', name: 'build:     构建工具和依赖（pnpm、vite等）' },
+      { value: 'mcp', name: 'mcp:        MCP server' },
       { value: 'other', name: 'other:      其他杂项' }
     ],
     // 是否开启 commit message 带有 Emoji 字符
