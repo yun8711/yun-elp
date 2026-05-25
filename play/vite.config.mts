@@ -1,0 +1,57 @@
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import { resolve } from 'path';
+import { fileURLToPath } from 'url';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import ElementPlus from 'unplugin-element-plus/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import type { UserConfig } from 'vite';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+
+export default defineConfig({
+  plugins: [
+    vueJsx(),
+    vue(),
+    ElementPlus({
+      useSource: true
+    }),
+    AutoImport({
+      resolvers: [ElementPlusResolver({
+        importStyle: 'sass'
+      })]
+    }),
+    Components({
+      resolvers: [ElementPlusResolver({
+        importStyle: 'sass'
+      })]
+    })
+  ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler'
+        // additionalData: `@use "~/styles/element/index.scss" as *;`,
+      }
+    }
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src'),
+      '@yun-elp/components': resolve(__dirname, '../packages/components/src'),
+      '@yun-elp/components/locale': resolve(__dirname, '../packages/components/src/locale'),
+      '@yun-elp/components/hooks': resolve(__dirname, '../packages/components/src/hooks'),
+      '~': resolve(__dirname, '../packages/components/src')
+      // '@kd-elp/utils': resolve(__dirname, '../packages/utils/src')
+    }
+  },
+  server: {
+    port: 3000,
+    open: true
+  },
+  optimizeDeps: {
+    include: ['vue', 'element-plus']
+  }
+} as UserConfig);
