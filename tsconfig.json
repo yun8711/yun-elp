@@ -1,35 +1,20 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "skipLibCheck": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "preserve",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@yun-elp/*": ["./packages/*"]
+      "@yun-elp/components": ["./packages/components/index.ts"],
+      "@yun-elp/components/*": ["./packages/components/*"],
+      "@yun-elp/theme-chalk": ["./packages/theme-chalk/src"],
+      "@yun-elp/theme-chalk/*": ["./packages/theme-chalk/*"],
+      "@yun-elp/resolver": ["./packages/resolver/index.ts"]
     },
     "types": ["node", "vite/client"]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
     "packages/**/*.ts",
-    "packages/**/*.d.ts",
-    "packages/**/*.tsx",
     "packages/**/*.vue",
     "scripts/**/*.ts"
-  ]
+  ],
+  "exclude": ["node_modules", "dist", "**/__tests__/**", "**/*.test.ts", "**/*.spec.ts"]
 }

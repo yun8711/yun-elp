@@ -1,121 +1,76 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vitest/config';
-import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path';
+import { defineConfig, mergeConfig } from 'vitest/config';
+import viteConfig from './vite.config';
 
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src'),
-      '~': resolve(__dirname, '.'),
-      '@yun-elp/theme-chalk': resolve(__dirname, '../theme-chalk/src')
-    }
-  },
-  test: {
-    // 测试名称
-    name: 'components',
-
-    // 测试环境 - 使用 node 环境，默认适合单元测试
-    environment: 'happy-dom',
-
-    // 全局变量支持
-    globals: true,
-
-    // 全局设置文件
-    setupFiles: ['./vitest.setup.ts'],
-
-    // 测试文件匹配模式
-    include: [
-      '**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
-      '**/__tests__/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'
-    ],
-
-    // 排除文件
-    exclude: ['node_modules/**', 'dist/**', '**/*.d.ts', 'coverage/**'],
-
-    // 测试超时设置
-    testTimeout: 10000,
-    hookTimeout: 10000,
-
-    // 模拟和清理配置
-    mockReset: false,
-    clearMocks: true,
-
-    // 确保测试顺序一致
-    sequence: {
-      shuffle: false
-    },
-
-    // 测试失败时不立即停止
-    // bail: false,
-
-    // 禁用某些检查以避免linter误报
-    expect: {
-      requireAssertions: false
-    },
-
-    // 禁用mock检查
-    restoreMocks: false,
-
-    // 禁用类型检查相关的警告
-    typecheck: {
-      enabled: false
-    },
-
-    // 使用threads池而不是forks来避免进程管理问题
-    pool: 'threads',
-    poolOptions: {
-      threads: {
-        singleThread: true
-      }
-    },
-
-    // 控制台日志过滤
-    onConsoleLog(log: string) {
-      if (log.includes('Unhandled error during execution of component event handler')) {
-        return false;
-      }
-      return true;
-    },
-
-    // 覆盖率配置
-    coverage: {
-      // 是否开启覆盖率，默认false
-      enabled: true,
-      // @see https://cn.vitest.dev/config/#coverage-provider
-      // provider: 'v8',
-      // 报告类型: html-以html网页形式查看
-      reporter: ['html'],
-      // 生成报告的目录
-      reportsDirectory: '../../.coverage',
-      // 在测试失败时生成报告，默认为false，如果有测试不通过，则不会生成报告
-      reportOnFailure: true,
-      // 覆盖率统计时包含的文件
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      name: 'components',
+      environment: 'happy-dom',
+      globals: true,
+      setupFiles: ['./vitest.setup.ts'],
       include: [
-        'src/**/*.vue',
-        '!src/**/*.d.ts',
-        '!src/**/*.test.{ts,tsx}',
-        '!src/**/__tests__/**'
+        '**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+        '**/__tests__/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'
       ],
-      // 覆盖率统计时排除的文件，
-      exclude: [
-        'node_modules/**',
-        '**/*.config.{ts,js}',
-        '**/index.ts',
-        '**/types.ts',
-        'src/**/*.ts', // 排除所有组件源码的.ts文件，只统计.vue文件
-        // 下面的组件源码，不统计覆盖率
-        'locale/lang/**',
-        'hooks/**',
-        'utils/**',
-        'cron-picker/src/components/**'
-      ],
-
-      // 覆盖率阈值，一般用来在CI/CD中检查覆盖率是否达到要求，这里不需要设置
-      thresholds: {
-        statements: 90
+      exclude: ['node_modules/**', 'dist/**', '**/*.d.ts', 'coverage/**'],
+      testTimeout: 10000,
+      hookTimeout: 10000,
+      mockReset: false,
+      clearMocks: true,
+      sequence: {
+        shuffle: false
+      },
+      expect: {
+        requireAssertions: false
+      },
+      restoreMocks: false,
+      typecheck: {
+        enabled: false
+      },
+      // Vitest 4：poolOptions 已废弃，改为顶层 singleThread
+      pool: 'threads',
+      singleThread: true,
+      // Element Plus 2.14+ 会引入 CSS，需内联预构建避免 Node 直接加载 .css 报错
+      server: {
+        deps: {
+          inline: ['element-plus', '@element-plus/icons-vue']
+        }
+      },
+      css: true,
+      onConsoleLog(log: string) {
+        if (log.includes('Unhandled error during execution of component event handler')) {
+          return false;
+        }
+        return true;
+      },
+      coverage: {
+        enabled: true,
+        reporter: ['html'],
+        reportsDirectory: '../../.coverage',
+        reportOnFailure: true,
+        include: [
+          'src/**/*.vue',
+          '!src/**/*.d.ts',
+          '!src/**/*.test.{ts,tsx}',
+          '!src/**/__tests__/**'
+        ],
+        exclude: [
+          'node_modules/**',
+          '**/*.config.{ts,js}',
+          '**/index.ts',
+          '**/types.ts',
+          'src/**/*.ts',
+          'locale/lang/**',
+          'hooks/**',
+          'utils/**',
+          'cron-picker/src/components/**'
+        ],
+        thresholds: {
+          statements: 90
+        }
       }
     }
-  }
-});
+  })
+);

@@ -9,7 +9,7 @@
     "dev": "tsup --watch"
   },
   "devDependencies": {
-    "tsup": "^8.0.2",
-    "unplugin-vue-components": "^0.26.0"
+    "tsup": "^8.5.1",
+    "unplugin-vue-components": "catalog:"
   }
 }

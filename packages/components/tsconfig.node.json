@@ -1,12 +1,17 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "composite": true,
     "lib": ["ESNext"],
     "types": ["node"],
-    "skipLibCheck": true,
+    "baseUrl": ".",
     "paths": {
       "~/*": ["./*"]
     }
   },
-  "include": ["vite.config.ts", "vite-plugin-generate-types.ts", "../../scripts/*.ts"]
+  "include": [
+    "vite.config.ts",
+    "vite-plugin-generate-types.ts",
+    "vitest.config.ts",
+    "../../scripts/*.ts"
+  ]
 }

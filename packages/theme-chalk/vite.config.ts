@@ -4,6 +4,7 @@ import { readdirSync, statSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import copyScssPlugin from './vite-plugin-copy-scss';
+import { scssPreprocessorOptions } from '../../scripts/vite-shared';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -37,15 +38,11 @@ const styleEntries = components.reduce(
 //   'label.scss': 'C:\\Users\\liuyun\\Documents\\ly\\yun-elp\\packages\\theme-chalk\\src\\label.scss'
 // }
 
-// @ts-ignore - Suppress CJS Node API deprecation warning
+// @ts-expect-error Suppress CJS Node API deprecation warning
 export default defineConfig({
   plugins: [copyScssPlugin()],
   css: {
-    preprocessorOptions: {
-      scss: {
-        api: 'modern-compiler'
-      }
-    }
+    preprocessorOptions: scssPreprocessorOptions
   },
   build: {
     outDir: '../../dist/theme-chalk',

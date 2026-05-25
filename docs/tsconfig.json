@@ -1,24 +1,23 @@
 {
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "skipLibCheck": true,
-    "jsx": "preserve",
-    "lib": ["ESNext", "DOM"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "yun-elp": ["../packages/elp"],
+      "@/*": ["./*"],
+      "yun-elp": ["../packages/components/index.ts"],
+      "@yun-elp/components": ["../packages/components/index.ts"],
+      "@yun-elp/components/*": ["../packages/components/*"],
+      "@yun-elp/theme-chalk": ["../packages/theme-chalk/src"],
+      "@yun-elp/theme-chalk/*": ["../packages/theme-chalk/src/*"],
       "~/*": ["./.vitepress/vitepress/*"]
-    }
+    },
+    "types": ["node"]
   },
-  "include": ["**/*", "**/*.vue", ".vitepress/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    ".vitepress/**/*",
+    "components/**/*",
+    "guide/**/*",
+    "**/*.vue"
+  ],
+  "exclude": ["node_modules", "dist"]
 }

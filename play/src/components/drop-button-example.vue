@@ -55,4 +55,9 @@ const columnFun = (width) => {
   console.log(width)
   if (width < 500) {
     return 1
-  } else if (width < 700
+  } else if (width < 700) {
+    return 2
+  }
+  return 3
+}
+</script>

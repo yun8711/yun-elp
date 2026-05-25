@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { resolve } from 'node:path';
+import { createComponentsAliases, scssPreprocessorOptions } from '../../scripts/vite-shared';
 import generateTypes from './vite-plugin-generate-types';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -51,7 +52,7 @@ export default defineConfig({
         'utils/*.ts',
         'index.ts',
         'components.ts',
-        'default.ts'
+        'defaults.ts'
       ],
       outDir: '../../dist/es',
       staticImport: true,
@@ -90,8 +91,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        // additionalData: `@use "@/styles/variables.scss" as *;`,
-        api: 'modern-compiler',
+        ...scssPreprocessorOptions.scss,
         sassOptions: {
           outputStyle: 'expanded'
         }
@@ -187,10 +187,6 @@ export default defineConfig({
     // 如果不是相对路径，会检查是否是绝对路径（以 / 开头）
     // 如果都不是，会尝试从 node_modules 中查找
     // 最后会检查 resolve.alias 配置
-    alias: {
-      '@': resolve(__dirname, 'src'),
-      '~': resolve(__dirname, '.'),
-      '@yun-elp/theme-chalk': resolve(__dirname, '../theme-chalk/src')
-    }
+    alias: createComponentsAliases(__dirname)
   }
 });
