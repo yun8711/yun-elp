@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import 'normalize.css'
 import YunElp from '../../packages/components/index'
 import '@yun-elp/theme-chalk/src/index.scss'
+import '@yun-elp/theme-chalk/src/themes/kd.scss'
 import './styles/index.scss'
 import App from './App.vue'
 

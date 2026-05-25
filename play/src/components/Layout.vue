@@ -24,6 +24,9 @@
         <span class="size-info">{{ Math.round(width) }} x {{ Math.round(height) }}px</span>
         <el-switch v-model="isLocked" active-text="锁定" inactive-text="解锁" style="margin-left: 10px;" />
       </div>
+
+          <!-- element-plus链接 -->
+      <el-link type="primary" href="https://element-plus.org/zh-CN/" target="_blank">Element Plus 文档<el-icon><Link /></el-icon></el-link>
     </div>
 
     <!-- 使用KD-ELP的ConfigProvider -->
@@ -31,12 +34,15 @@
       <slot :locale="locale" :backgroundColor="backgroundColor"></slot>
     </section>
 
+
+
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { useElementSize } from '@vueuse/core'
+import { Link } from '@element-plus/icons-vue'
 
 // 当前语言
 const locale = ref('zh-cn')

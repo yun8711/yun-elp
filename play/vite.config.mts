@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import AutoImport from 'unplugin-auto-import/vite';
@@ -12,6 +13,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig({
   plugins: [
+    vueJsx(),
     vue(),
     ElementPlus({
       useSource: true

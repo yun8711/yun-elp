@@ -21,6 +21,7 @@
           <el-option label="Select" value="select" />
           <el-option label="Step" value="step" />
           <el-option label="ECharts" value="echarts" />
+          <el-option label="Table V2" value="table-v2" />
         </el-select>
       </div>
 
@@ -48,9 +49,9 @@ const componentMap = {
   'desc': defineAsyncComponent(() => import('./components/desc-example.vue')),
   'empty': defineAsyncComponent(() => import('./components/empty-example.vue')),
   'pop': defineAsyncComponent(() => import('./components/pop-example.vue')),
-  'select': defineAsyncComponent(() => import('./components/select-example.vue')),
   'step': defineAsyncComponent(() => import('./components/step-example.vue')),
-  'echarts': defineAsyncComponent(() => import('./components/echarts/echarts-example.vue'))
+  'echarts': defineAsyncComponent(() => import('./components/echarts/echarts-example.vue')),
+  'table-v2': defineAsyncComponent(() => import('./components/table-v2/index.vue'))
 };
 
 // 当前选中的组件
