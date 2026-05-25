@@ -218,10 +218,11 @@ const getItemStyle = (index: number) => {
   }
 
   // 最后一行不显示border-bottom
-  const lastRowIndex = Math.floor(totalItems / column.value) * column.value;
-  if (index === lastRowIndex) {
-    obj.borderBottom = 'none';
-  }
+  const lastRowCount = totalItems % column.value || column.value;
+      const lastRowStartIndex = totalItems - lastRowCount;
+      if (index >= lastRowStartIndex) {
+        obj.borderBottom = 'none';
+      }
 
   return obj;
 };

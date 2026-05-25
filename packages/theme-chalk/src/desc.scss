@@ -2,6 +2,7 @@
   width: 100%;
   font-size: var(--el-font-size-base);
   color: var(--el-text-color-primary);
+  background-color: var(--el-bg-color);
 
   // 主体内容区域 - 使用Grid布局
   &__body {
@@ -56,10 +57,6 @@
       border: none;
       border-bottom: 1px solid var(--el-border-color-lighter);
       min-height: 41px;
-
-      &:last-child {
-        border-bottom: none;
-      }
     }
 
     .y-desc__item-label {
