@@ -2,7 +2,10 @@
   <el-table-column v-bind="manageAttrs">
     <template #default="scope">
       <div class="y-column-forms__content" :class="[inline ? 'is-line' : 'is-flex']">
-        <div v-for="item in mergedFormArr(scope)" :key="`${scope.$index}_${item.prop}`" :style="item.style">
+        <div
+          v-for="item in mergedFormArr(scope)"
+          :key="`${scope.$index}_${item.prop}`"
+          :style="item.style">
           <el-form-item
             :style="{ width: item.width || 'auto' }"
             v-bind="item.formAttrs"
@@ -10,11 +13,7 @@
             @mouseenter="handleMouseEnter(`${scope.$index}_${item.prop}`)"
             @mouseleave="handleMouseLeave(`${scope.$index}_${item.prop}`)">
             <!-- 这里使用slot，方便在外部定义表单项 -->
-            <slot
-              :name="item.prop"
-              :scope="scope"
-              :row="scope.row"
-              :prop="item.prop" />
+            <slot :name="item.prop" :scope="scope" :row="scope.row" :prop="item.prop" />
             <!-- 这里是el-form-item的错误提示，以tooltip的形式展示-->
             <template #error="{ error }">
               <div>
@@ -42,18 +41,22 @@
 <script setup lang="ts">
 import { ElTableColumn, ElFormItem, ElTooltip } from 'element-plus';
 import type { ColumnFormsProps } from './column-forms';
-import { toRefs, useAttrs, computed, inject, ref } from 'vue';
+import { toRefs, computed, inject, ref } from 'vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
+import { useTableColumnAttrs } from '../../../hooks/use-table-column-attrs';
 
 defineOptions({
   name: 'YColumnForms',
   inheritAttrs: true
 });
 
-const columnFormConig = useAppConfig('columnForm')
+const columnFormConfig = useAppConfig('columnForm')
 // y-table下发的，最外层el-form中el-table绑定的字段名
 const formTableProp = inject('formTableProp', 'tableData');
-const attrs = useAttrs();
+const { attrs, mergedColumnAttrs: manageAttrs } = useTableColumnAttrs({
+  className: 'y-column-forms',
+  showOverflowTooltip: false,
+});
 const props = withDefaults(defineProps<ColumnFormsProps>(), {
   options: () => [],
   inline: true,
@@ -66,16 +69,6 @@ const errorMessageMap = ref<Record<string, any>>({});
 // form中table字段名，用于绑定校验组
 const tableName = computed(() => {
   return tName.value || formTableProp || 'tableData';
-});
-
-const manageAttrs = computed(() => {
-  return {
-    ...attrs,
-    'show-overflow-tooltip': false,
-    'min-width': attrs?.['min-width'] || 100,
-    width: attrs?.width || 'auto',
-    'class-name': attrs?.['class-name'] || 'y-column-forms',
-  };
 });
 
 // 合并表单项的属性
@@ -95,9 +88,9 @@ const mergedItemFormAttrs = (scope: any, item: any) => {
 // 合并表单项错误提示的tooltip属性
 const mergedItemTooltipAttrs = (scope: any, item: any) => {
   const defaultObj = {
-    popperClass: columnFormConig?.popperClass || 'y-column-form__error-tooltip',
+    popperClass: columnFormConfig?.popperClass || 'y-column-form__error-tooltip',
     effect: 'dark',
-    placement: columnFormConig?.placement || 'top',
+    placement: columnFormConfig?.placement || 'top',
     enterable: false,
   }
   const compObj = typeof item.tipProps === 'function' ? item.tipProps(scope, item.prop) : item.tipProps

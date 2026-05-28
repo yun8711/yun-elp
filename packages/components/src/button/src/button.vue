@@ -106,7 +106,7 @@ const hasDblClickListener = computed(() => {
 })
 
 // 确保dblDelay在组件挂载时就被计算（用于触发警告）
-const _dblDelayTrigger = dblDelay.value
+void dblDelay.value
 
 
 // 单击(click)：mousedown，mouseout，click；

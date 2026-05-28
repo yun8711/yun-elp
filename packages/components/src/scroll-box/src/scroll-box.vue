@@ -134,7 +134,7 @@ const checkScrollStatus = useThrottleFn(() => {
 
 // 连续滚动相关状态
 const isContinuous = ref(false);
-const continuousTimer = ref<number | null>(null);
+const continuousTimer = ref<ReturnType<typeof setTimeout> | null>(null);
 const continuousAnimationId = ref<number | null>(null);
 const continuousDirection = ref<'prev' | 'next' | null>(null);
 const continuousBoundaries = ref<{ min: number; max: number } | null>(null);

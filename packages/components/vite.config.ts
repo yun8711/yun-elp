@@ -54,7 +54,7 @@ export default defineConfig({
         'components.ts',
         'defaults.ts'
       ],
-      outDir: '../../dist/es',
+      outDirs: ['../../dist/es'],
       staticImport: true,
       compilerOptions: {
         sourceMap: false,
@@ -89,14 +89,7 @@ export default defineConfig({
     }) as PluginOption
   ],
   css: {
-    preprocessorOptions: {
-      scss: {
-        ...scssPreprocessorOptions.scss,
-        sassOptions: {
-          outputStyle: 'expanded'
-        }
-      }
-    }
+    preprocessorOptions: scssPreprocessorOptions as Record<string, unknown>,
   },
   build: {
     /**
@@ -107,16 +100,7 @@ export default defineConfig({
     // 禁用代码压缩
     minify: false,
     // 使用更保守的压缩配置
-    terserOptions: {
-      compress: {
-        keep_fnames: true, // 保留函数名
-        keep_classnames: true // 保留类名
-      },
-      mangle: {
-        keep_fnames: true, // 保留函数名
-        keep_classnames: true // 保留类名
-      }
-    },
+    terserOptions: {} as Record<string, unknown>,
     /**
      * 库模式
      *

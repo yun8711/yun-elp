@@ -27,7 +27,7 @@ export function registerGetComponentExamples(server: McpServer) {
       }),
     },
     async ({ tagName }) => {
-      const component = componentObject[tagName]
+      const component = componentObject[tagName as keyof typeof componentObject]
 
       if (!component) {
         throw new Error(`Component "${tagName}" not found. Available components: ${Object.keys(componentObject).join(', ')}`)

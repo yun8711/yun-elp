@@ -37,7 +37,7 @@ export default defineConfig({
     })
   ],
   css: {
-    preprocessorOptions: scssPreprocessorOptions
+    preprocessorOptions: scssPreprocessorOptions as unknown as { scss: Record<string, unknown> }
   },
   resolve: {
     alias: createYunElpAliases({ projectRoot: __dirname })

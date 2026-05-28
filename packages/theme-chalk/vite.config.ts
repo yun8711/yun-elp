@@ -38,11 +38,11 @@ const styleEntries = components.reduce(
 //   'label.scss': 'C:\\Users\\liuyun\\Documents\\ly\\yun-elp\\packages\\theme-chalk\\src\\label.scss'
 // }
 
-// @ts-expect-error Suppress CJS Node API deprecation warning
 export default defineConfig({
   plugins: [copyScssPlugin()],
   css: {
-    preprocessorOptions: scssPreprocessorOptions
+    // `api: 'modern-compiler'` 是 Vite 支持但类型定义未更新的属性
+    preprocessorOptions: scssPreprocessorOptions as unknown as { scss: Record<string, unknown> }
   },
   build: {
     outDir: '../../dist/theme-chalk',
