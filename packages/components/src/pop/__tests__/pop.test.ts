@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import YPop from '../src/pop.vue';
 
 describe('YPop 弹出框容器组件', () => {
@@ -660,6 +661,99 @@ describe('YPop 弹出框容器组件', () => {
 
       // 验证组件仍然能正常渲染
       expect(wrapper.html()).toContain('y-pop');
+    });
+  });
+
+  describe('默认底部按钮模板', () => {
+    it('应渲染默认取消和确认按钮', async () => {
+      const wrapper = mount(YPop, {
+        props: {
+          confirmText: '确定',
+          cancelText: '取消',
+          popContent: '确认删除吗？',
+        },
+        slots: {
+          default: '<button class="trigger">触发</button>',
+        },
+      });
+
+      const vm = wrapper.vm as any;
+      vm.showPopover = true;
+      await nextTick();
+
+      expect(wrapper.find('.y-pop__popover-footer').exists()).toBe(true);
+      const buttons = wrapper.findAll('.y-pop__popover-footer button');
+      expect(buttons.length).toBeGreaterThanOrEqual(2);
+      expect(buttons[0]?.text()).toBe('取消');
+      expect(buttons[1]?.text()).toBe('确定');
+    });
+
+    it('点击默认确认按钮应触发 confirm 并关闭 popover', async () => {
+      const onConfirm = vi.fn();
+      const wrapper = mount(YPop, {
+        props: { confirmText: '确定', cancelText: '取消' },
+        attrs: { onConfirm },
+        slots: { default: '<button>触发</button>' },
+      });
+
+      const vm = wrapper.vm as any;
+      vi.spyOn(vm, 'hasExternalListener').mockReturnValue(true);
+      vm.showPopover = true;
+      await nextTick();
+
+      const confirmBtn = wrapper.findAll('.y-pop__popover-footer button').at(1);
+      await confirmBtn?.trigger('click');
+
+      expect(onConfirm).toHaveBeenCalledTimes(1);
+      expect(vm.showPopover).toBe(false);
+    });
+
+    it('点击默认取消按钮应触发 cancel 并关闭 popover', async () => {
+      const onCancel = vi.fn();
+      const wrapper = mount(YPop, {
+        props: { confirmText: '确定', cancelText: '取消' },
+        attrs: { onCancel },
+        slots: { default: '<button>触发</button>' },
+      });
+
+      const vm = wrapper.vm as any;
+      vi.spyOn(vm, 'hasExternalListener').mockReturnValue(true);
+      vm.showPopover = true;
+      await nextTick();
+
+      const cancelBtn = wrapper.findAll('.y-pop__popover-footer button').at(0);
+      await cancelBtn?.trigger('click');
+
+      expect(onCancel).toHaveBeenCalledTimes(1);
+      expect(vm.showPopover).toBe(false);
+    });
+
+    it('noFooter 为 true 时不应渲染底部按钮区域', async () => {
+      const wrapper = mount(YPop, {
+        props: { noFooter: true, popContent: '内容' },
+        slots: { default: '<button>触发</button>' },
+      });
+
+      const vm = wrapper.vm as any;
+      vm.showPopover = true;
+      await nextTick();
+
+      expect(wrapper.find('.y-pop__popover-footer').exists()).toBe(false);
+    });
+
+    it('noCancel 为 true 时不应渲染取消按钮', async () => {
+      const wrapper = mount(YPop, {
+        props: { noCancel: true, confirmText: '确定' },
+        slots: { default: '<button>触发</button>' },
+      });
+
+      const vm = wrapper.vm as any;
+      vm.showPopover = true;
+      await nextTick();
+
+      const buttons = wrapper.findAll('.y-pop__popover-footer button');
+      expect(buttons).toHaveLength(1);
+      expect(buttons[0]?.text()).toBe('确定');
     });
   });
 });

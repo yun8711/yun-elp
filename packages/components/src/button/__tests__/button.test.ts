@@ -3,8 +3,11 @@ import { mount } from '@vue/test-utils';
 import { nextTick, h } from 'vue';
 import YButton from '../src/button.vue';
 // Mock VueUse functions
-vi.mock('@vueuse/core', () => ({
-  useDebounceFn: vi.fn((fn, delay, options) => {
+vi.mock('@vueuse/core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@vueuse/core')>();
+  return {
+    ...actual,
+    useDebounceFn: vi.fn((fn, delay, options) => {
     let timeoutId: NodeJS.Timeout;
     let maxWaitTimeoutId: NodeJS.Timeout | undefined;
     let hasExecuted = false;
@@ -76,7 +79,8 @@ vi.mock('@vueuse/core', () => ({
 
     return throttledFn;
   })
-}));
+  };
+});
 
 // Mock useAppConfig hook，让它在测试中返回可配置的值
 let mockAppConfig: Record<string, any> = { delay: 500, maxWait: 1000 };

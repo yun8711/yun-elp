@@ -12,13 +12,32 @@ export const scssPreprocessorOptions = {
   }
 };
 
+/**
+ * element-plus package exports 将 `./es/*` 映射为 `./es/*.mjs`，
+ * 而 `es/utils` 是目录（index.mjs），Vite 无法解析裸路径 `element-plus/es/utils`。
+ */
+export const elementPlusEsUtilsAlias: Alias = {
+  find: 'element-plus/es/utils',
+  replacement: path.join(projRoot, 'node_modules/element-plus/es/utils/index.mjs')
+};
+
 /** components 包内部 alias（构建 / 测试用） */
 export function createComponentsAliases(packageRoot: string): AliasOptions {
-  return {
-    '@': path.join(packageRoot, 'src'),
-    '~': packageRoot,
-    '@yun-elp/theme-chalk': path.join(styleRoot, 'src')
-  };
+  return [
+    elementPlusEsUtilsAlias,
+    {
+      find: '@',
+      replacement: path.join(packageRoot, 'src')
+    },
+    {
+      find: '~',
+      replacement: packageRoot
+    },
+    {
+      find: '@yun-elp/theme-chalk',
+      replacement: path.join(styleRoot, 'src')
+    }
+  ];
 }
 
 /**
@@ -34,6 +53,7 @@ export function createYunElpAliases(
   } = {}
 ): AliasOptions {
   const aliases: Alias[] = [
+    elementPlusEsUtilsAlias,
     {
       find: '@yun-elp/components/locale',
       replacement: path.join(compRoot, 'locale')

@@ -1,6 +1,13 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import YColumnForms from '../src/column-forms.vue';
+
+vi.mock('../../app-wrap/src/use-app-config', () => ({
+  useAppConfig: vi.fn(() => ({
+    popperClass: 'mock-popper-class',
+    placement: 'bottom',
+  })),
+}));
 
 describe('YColumnForms 表单列组件', () => {
   describe('基础渲染', () => {
@@ -199,9 +206,9 @@ describe('YColumnForms 表单列组件', () => {
       const result = (wrapper.vm as any).mergedItemTooltipAttrs(scope, item);
 
       expect(result).toEqual({
-        popperClass: 'y-column-form__error-tooltip',
+        popperClass: 'mock-popper-class',
         effect: 'dark',
-        placement: 'top',
+        placement: 'bottom',
         enterable: false
       });
     });
@@ -223,7 +230,7 @@ describe('YColumnForms 表单列组件', () => {
       const result = (wrapper.vm as any).mergedItemTooltipAttrs(scope, item);
 
       expect(result).toEqual({
-        popperClass: 'y-column-form__error-tooltip',
+        popperClass: 'mock-popper-class',
         effect: 'dark',
         placement: 'bottom',
         enterable: false,
@@ -250,7 +257,7 @@ describe('YColumnForms 表单列组件', () => {
       const result = (wrapper.vm as any).mergedItemTooltipAttrs(scope, item);
 
       expect(result).toEqual({
-        popperClass: 'y-column-form__error-tooltip',
+        popperClass: 'mock-popper-class',
         effect: 'dark',
         placement: 'left',
         enterable: false,
@@ -533,9 +540,9 @@ describe('YColumnForms 表单列组件', () => {
             rules: undefined
           },
           tipProps: {
-            popperClass: 'y-column-form__error-tooltip',
+            popperClass: 'mock-popper-class',
             effect: 'dark',
-            placement: 'top',
+            placement: 'bottom',
             enterable: false
           },
           width: 'auto',
@@ -696,7 +703,7 @@ describe('YColumnForms 表单列组件', () => {
         });
 
         expect(result[0].tipProps).toEqual({
-          popperClass: 'y-column-form__error-tooltip',
+          popperClass: 'mock-popper-class',
           effect: 'dark',
           placement: 'bottom',
           enterable: false,
@@ -745,7 +752,7 @@ describe('YColumnForms 表单列组件', () => {
             size: 'large'
           },
           tipProps: {
-            popperClass: 'y-column-form__error-tooltip',
+            popperClass: 'mock-popper-class',
             effect: 'dark',
             placement: 'left',
             enterable: false
@@ -811,6 +818,128 @@ describe('YColumnForms 表单列组件', () => {
           'class-name': 'custom-column-class'
         });
       });
+    });
+  });
+
+  describe('模板渲染集成测试', () => {
+    const tableColumnStub = {
+      template: `
+        <div class="el-table-column y-column-forms" v-bind="$attrs">
+          <div class="cell">
+            <slot name="default" v-bind="{ row: { name: '张三' }, column: {}, $index: 0 }"></slot>
+          </div>
+          <slot name="header" :column="{ label: '操作' }" :index="0"></slot>
+        </div>
+      `,
+      inheritAttrs: false,
+    };
+
+    const formItemStub = {
+      template: `
+        <div class="el-form-item" v-bind="$attrs">
+          <slot />
+          <slot name="error" error="字段错误" />
+        </div>
+      `,
+      emits: ['mouseenter', 'mouseleave'],
+      mounted() {
+        const el = this.$el as HTMLElement;
+        el.addEventListener('mouseenter', () => this.$emit('mouseenter'));
+        el.addEventListener('mouseleave', () => this.$emit('mouseleave'));
+      },
+    };
+
+    const createRenderWrapper = (
+      props: Record<string, unknown> = {},
+      slots: Record<string, string> = {},
+      attrs: Record<string, unknown> = {},
+    ) => {
+      return mount(YColumnForms, {
+        props: { options: [], ...props },
+        attrs: { label: '表单列', ...attrs },
+        slots,
+        global: {
+          stubs: {
+            'el-table-column': tableColumnStub,
+            'el-form-item': formItemStub,
+          },
+        },
+      });
+    };
+
+    it('应渲染多个表单项并应用 flex 布局', () => {
+      const wrapper = createRenderWrapper(
+        {
+          inline: false,
+          options: [
+            { prop: 'name', label: '姓名' },
+            { prop: 'age', label: '年龄' },
+          ],
+        },
+        {
+          name: '<input class="name-input" />',
+          age: '<input class="age-input" />',
+        },
+      );
+
+      expect(wrapper.find('.y-column-forms__content.is-flex').exists()).toBe(true);
+      expect(wrapper.find('.name-input').exists()).toBe(true);
+      expect(wrapper.find('.age-input').exists()).toBe(true);
+      expect(wrapper.findAll('.el-form-item')).toHaveLength(2);
+    });
+
+    it('inline 为 true 时应应用 is-line 布局', () => {
+      const wrapper = createRenderWrapper(
+        {
+          inline: true,
+          options: [{ prop: 'name', label: '姓名' }],
+        },
+        { name: '<input class="name-input" />' },
+      );
+
+      expect(wrapper.find('.y-column-forms__content.is-line').exists()).toBe(true);
+    });
+
+    it('应渲染错误提示区域并响应鼠标事件', async () => {
+      const wrapper = createRenderWrapper(
+        {
+          options: [{ prop: 'name', label: '姓名' }],
+        },
+        { name: '<input class="name-input" />' },
+      );
+
+      expect(wrapper.find('.y-column-form__error').exists()).toBe(true);
+
+      const formItem = wrapper.find('.el-form-item');
+      await formItem.trigger('mouseenter');
+      expect((wrapper.vm as any).errorMessageMap['0_name']).toBe(true);
+
+      await formItem.trigger('mouseleave');
+      expect((wrapper.vm as any).errorMessageMap['0_name']).toBe(false);
+    });
+
+    it('应渲染 header 插槽并支持自定义 header', () => {
+      const wrapper = createRenderWrapper(
+        { options: [] },
+        { header: '<span class="custom-header">自定义列头</span>' },
+        { label: '默认列头' },
+      );
+
+      expect(wrapper.find('.custom-header').exists()).toBe(true);
+      expect(wrapper.text()).toContain('自定义列头');
+    });
+
+    it('表单项 prop 应包含 tableName 与行索引', () => {
+      const wrapper = createRenderWrapper(
+        {
+          tName: 'editTable',
+          options: [{ prop: 'name', label: '姓名' }],
+        },
+        { name: '<input class="name-input" />' },
+      );
+
+      const formItem = wrapper.find('.el-form-item');
+      expect(formItem.attributes('prop')).toBe('editTable.0.name');
     });
   });
 });

@@ -361,11 +361,14 @@ watch(
 
 // 组件卸载时清理资源
 onUnmounted(() => {
-  stopResizeObserver();
+  isContinuous.value = false;
+  continuousDirection.value = null;
   stopContinuousScroll();
   if (continuousTimer.value) {
     clearTimeout(continuousTimer.value);
+    continuousTimer.value = null;
   }
+  stopResizeObserver();
 });
 
 const scrollTo = (scrollLeft: undefined | number | 'start' | 'end') => {

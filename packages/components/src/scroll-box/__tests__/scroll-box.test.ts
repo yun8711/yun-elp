@@ -12,21 +12,32 @@ const mockResizeObserver = {
 
 global.ResizeObserver = vi.fn().mockImplementation(() => mockResizeObserver);
 
+// 避免测试结束后 rAF 回调触发 processImmediate 异常
+vi.stubGlobal('requestAnimationFrame', () => 0);
+vi.stubGlobal('cancelAnimationFrame', vi.fn());
+
 // Mock @vueuse/core
-vi.mock('@vueuse/core', () => ({
-  useThrottleFn: vi.fn((fn: Function) => {
-    // useThrottleFn 应该返回传入的函数本身，用于测试
-    return fn;
-  }),
-  useResizeObserver: vi.fn(() => ({
-    stop: vi.fn(() => {
-      // 模拟停止观察
-    })
-  }))
-}));
+vi.mock('@vueuse/core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@vueuse/core')>();
+  return {
+    ...actual,
+    useThrottleFn: vi.fn((fn: Function) => {
+      // useThrottleFn 应该返回传入的函数本身，用于测试
+      return fn;
+    }),
+    useResizeObserver: vi.fn(() => ({
+      stop: vi.fn(() => {
+        // 模拟停止观察
+      })
+    }))
+  };
+});
 
 describe('YScrollBox', () => {
+  const mountedWrappers: ReturnType<typeof mount>[] = [];
+
   beforeEach(() => {
+    vi.useRealTimers();
     vi.clearAllMocks();
     // 重置mock
     vi.mocked(global.ResizeObserver).mockClear();
@@ -34,14 +45,16 @@ describe('YScrollBox', () => {
     vi.mocked(mockResizeObserver.unobserve).mockClear();
   });
 
-  afterEach(() => {
-    // 清理所有定时器，防止测试间的干扰
-    vi.clearAllTimers();
+  afterEach(async () => {
+    mountedWrappers.forEach(wrapper => wrapper.unmount());
+    mountedWrappers.length = 0;
+    vi.useRealTimers();
+    await new Promise(resolve => setTimeout(resolve, 120));
     vi.mocked(mockResizeObserver.disconnect).mockClear();
   });
 
   const createWrapper = (props = {}, slots = {}) => {
-    return mount(YScrollBox, {
+    const wrapper = mount(YScrollBox, {
       props,
       slots,
       global: {
@@ -52,6 +65,8 @@ describe('YScrollBox', () => {
         }
       }
     });
+    mountedWrappers.push(wrapper);
+    return wrapper;
   };
 
   describe('基础渲染', () => {

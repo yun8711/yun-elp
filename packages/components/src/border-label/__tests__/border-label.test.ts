@@ -1,7 +1,7 @@
 /// <reference types="vitest/globals" />
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { ElInput, ElSelect, ElDatePicker, ElCascader, ElOption } from 'element-plus';
+import { ElInput, ElSelect, ElCascader, ElOption } from 'element-plus';
 import BorderLabel from '../src/border-label.vue';
 
 describe('BorderLabel', () => {
@@ -124,14 +124,9 @@ describe('BorderLabel', () => {
       },
       slots: {
         default: '<el-date-picker v-model="value" type="date" />'
-      },
-      global: {
-        components: {
-          ElDatePicker
-        }
       }
     });
-    expect(wrapper.find('.el-date-editor').exists()).toBe(true);
+    expect(wrapper.find('.el-date-picker').exists()).toBe(true);
   });
 
   it('应该正确集成el-cascader', () => {

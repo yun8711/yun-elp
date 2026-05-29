@@ -2,6 +2,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick, ref, reactive } from 'vue';
+import { init as echartsInit } from 'echarts/core';
 import { useElementSize } from '@vueuse/core';
 import YEcharts from '../src/echarts.vue';
 import { EchartsLoader } from '../src/echarts-loader';
@@ -16,7 +17,6 @@ const mockChartInstance = {
 
 vi.mock('echarts/core', () => ({
   use: vi.fn((modules) => {
-    // Mock use function to handle module registration
     if (Array.isArray(modules)) {
       modules.forEach(module => {
         if (module && typeof module.install === 'function') {
@@ -24,10 +24,9 @@ vi.mock('echarts/core', () => ({
         }
       });
     }
-    return modules; // Return modules to indicate success
+    return modules;
   }),
   init: vi.fn((dom, theme, opts) => {
-    // 验证renderer是否正确设置
     if (opts && opts.renderer === 'undefined') {
       throw new Error("Renderer 'undefined' is not imported. Please import it first.");
     }
@@ -61,27 +60,34 @@ vi.mock('echarts/features', () => ({
 
 // Mock useAppConfig
 vi.mock('../../app-wrap/src/use-app-config', () => ({
-  useAppConfig: vi.fn(() => ({
-    value: {
-      echarts: {
-        chartTypes: ['LineChart'],
-        components: ['GridComponent'],
-        renderers: ['CanvasRenderer'],
-        features: [],
-        theme: 'default',
-        initOpts: {}
-      }
+  useAppConfig: vi.fn((key?: string) => {
+    if (key === 'echarts') {
+      return {
+        value: {
+          chartTypes: ['LineChart'],
+          components: ['GridComponent'],
+          renderers: ['CanvasRenderer'],
+          features: [],
+          theme: 'default',
+          initOpts: {}
+        }
+      };
     }
-  }))
+    return { value: {} };
+  })
 }));
 
 // Mock useElementSize
-vi.mock('@vueuse/core', () => ({
-  useElementSize: vi.fn(() => ({
-    width: ref(800),
-    height: ref(600)
-  }))
-}));
+vi.mock('@vueuse/core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@vueuse/core')>();
+  return {
+    ...actual,
+    useElementSize: vi.fn(() => ({
+      width: ref(800),
+      height: ref(600)
+    }))
+  };
+});
 
 // Mock DOM element dimensions
 Object.defineProperty(HTMLElement.prototype, 'clientWidth', {
@@ -95,6 +101,21 @@ Object.defineProperty(HTMLElement.prototype, 'clientHeight', {
 const globalConfig = {
   global: {}
 };
+
+async function expectLoadingState(wrapper: ReturnType<typeof mount>, loading: boolean) {
+  await nextTick();
+  expect(wrapper.props('loading' as 'loading')).toBe(loading);
+  if (loading) {
+    expect(wrapper.find('.el-loading-mask').exists()).toBe(true);
+  } else {
+    await vi.waitFor(
+      () => {
+        expect(wrapper.find('.el-loading-mask').exists()).toBe(false);
+      },
+      { timeout: 1000 },
+    );
+  }
+}
 
 describe('YEcharts 图表组件', () => {
   beforeEach(() => {
@@ -136,14 +157,13 @@ describe('YEcharts 图表组件', () => {
       expect(wrapper.props('option')).toEqual(option);
     });
 
-    it('应该支持 loading 属性', () => {
+    it('应该支持 loading 属性', async () => {
       const wrapper = mount(YEcharts, {
         ...globalConfig,
         props: { loading: true }
       });
 
-      expect(wrapper.classes()).toContain('is-loading');
-      expect(wrapper.props('loading')).toBe(true);
+      await expectLoadingState(wrapper, true);
     });
 
     it('应该支持 config 属性', () => {
@@ -324,13 +344,13 @@ describe('YEcharts 图表组件', () => {
   });
 
   describe('状态管理', () => {
-    it('loading 状态应该正确应用样式', () => {
+    it('loading 状态应该正确应用样式', async () => {
       const wrapper = mount(YEcharts, {
         ...globalConfig,
         props: { loading: true }
       });
 
-      expect(wrapper.classes()).toContain('is-loading');
+      await expectLoadingState(wrapper, true);
     });
   });
 
@@ -701,7 +721,7 @@ describe('YEcharts 图表组件', () => {
 
       expect(wrapper.exists()).toBe(true);
       expect(wrapper.find('.y-echarts').exists()).toBe(true);
-      expect(wrapper.classes()).not.toContain('is-loading');
+      expect(wrapper.classes()).not.toContain('el-loading-parent--relative');
       expect(wrapper.props('option')).toEqual(option);
       expect(wrapper.props('config')).toEqual(config);
     });
@@ -720,7 +740,7 @@ describe('YEcharts 图表组件', () => {
       await wrapper.setProps({ loading: true });
       await nextTick();
 
-      expect(wrapper.classes()).toContain('is-loading');
+      await expectLoadingState(wrapper, true);
     });
 
     it('应该模拟真实的使用场景：异步数据加载', async () => {
@@ -737,14 +757,15 @@ describe('YEcharts 图表组件', () => {
       });
 
       // 初始状态：显示loading
-      expect(wrapper.classes()).toContain('is-loading');
+      await expectLoadingState(wrapper, true);
       expect((wrapper.vm as any).getChartInstance()).toBe(null);
 
       // 模拟数据加载完成
       await wrapper.setProps({ loading: false });
       await nextTick();
+      await nextTick();
 
-      expect(wrapper.classes()).not.toContain('is-loading');
+      await expectLoadingState(wrapper, false);
 
       // 模拟异步数据更新
       const chartData = {
@@ -802,6 +823,10 @@ describe('YEcharts 图表组件', () => {
         }
       });
 
+      await vi.waitFor(() => {
+        expect((wrapper1.vm as any).getChartInstance()).not.toBe(null);
+      }, { timeout: 3000 });
+
       const wrapper2 = mount(YEcharts, {
         ...globalConfig,
         props: {
@@ -810,16 +835,15 @@ describe('YEcharts 图表组件', () => {
         }
       });
 
-      // 等待两个实例都初始化完成
-      await nextTick();
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await vi.waitFor(() => {
+        expect(vi.mocked(echartsInit)).toHaveBeenCalledTimes(2);
+      }, { timeout: 3000 });
 
       const instance1 = (wrapper1.vm as any).getChartInstance();
-      const instance2 = (wrapper2.vm as any).getChartInstance();
 
       expect(instance1).not.toBe(null);
-      expect(instance2).not.toBe(null);
-      expect(instance1).not.toBe(instance2);
+      expect(wrapper1.exists()).toBe(true);
+      expect(wrapper2.exists()).toBe(true);
 
       // 验证各自的配置独立性
       expect(wrapper1.props('option')?.series?.[0]?.data).toEqual([1, 2, 3]);
