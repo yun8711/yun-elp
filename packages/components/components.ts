@@ -27,6 +27,7 @@ import { YStep } from './src/step';
 import { YEcharts } from './src/echarts';
 import { YStickyLayout } from './src/sticky-layout';
 import { YPageProgress } from './src/page-progress';
+import { YWebView } from './src/web-view';
 
 export default [
   YAppWrap,
@@ -56,5 +57,6 @@ export default [
   YStep,
   YEcharts,
   YStickyLayout,
-  YPageProgress
+  YPageProgress,
+  YWebView
 ] as Plugin[];

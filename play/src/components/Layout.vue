@@ -5,7 +5,7 @@
     <div style="display: flex; align-items: center; gap: 15px;margin-bottom: 20px;">
       <!-- 语言切换按钮 -->
       <div class="config-item">
-        <span>切换语言：</span>
+        <span>多语言：</span>
         <el-select v-model="locale" style="width: 120px" @change="handleLocaleChange">
           <el-option label="简体中文" value="zh-cn" />
           <el-option label="English" value="en" />
@@ -14,7 +14,7 @@
 
       <!-- 展示区域控制 -->
       <div class="config-item">
-        <span>背景颜色：</span>
+        <span>背景色：</span>
         <el-color-picker v-model="backgroundColor" show-alpha @change="handleBackgroundColorChange" />
       </div>
 
@@ -25,17 +25,21 @@
         <el-switch v-model="isLocked" active-text="锁定" inactive-text="解锁" style="margin-left: 10px;" />
       </div>
 
-          <!-- element-plus链接 -->
+      <div class="config-item">
+        <!-- 组件选择器 -->
+        <span>组件：</span>
+        <el-select v-model="curComponent" placeholder="选择要查看的组件" :options="examples" @change="handleComponentChange" style="width: 200px;">
+        </el-select>
+      </div>
+
+      <!-- element-plus链接 -->
       <el-link type="primary" href="https://element-plus.org/zh-CN/" target="_blank">Element Plus 文档<el-icon><Link /></el-icon></el-link>
     </div>
 
     <!-- 使用KD-ELP的ConfigProvider -->
     <section ref="sectionRef" class="demo-section" :class="{ 'is-locked': isLocked }" :style="{ backgroundColor }">
-      <slot :locale="locale" :backgroundColor="backgroundColor"></slot>
+      <slot :locale="locale" :backgroundColor="backgroundColor" :curComponent="curComponent"></slot>
     </section>
-
-
-
   </div>
 </template>
 
@@ -43,6 +47,13 @@
 import { ref } from 'vue'
 import { useElementSize } from '@vueuse/core'
 import { Link } from '@element-plus/icons-vue'
+
+const props = defineProps({
+  examples: {
+    type: Array,
+    required: true
+  }
+})
 
 // 当前语言
 const locale = ref('zh-cn')
@@ -70,6 +81,13 @@ const handleLocaleChange = newLocale => {
   console.log('切换语言为:', newLocale)
   // locale.value = newLocale
 }
+
+// 组件选择
+const curComponent = ref(props.examples.find(item => item.default)?.value || "")
+const handleComponentChange = (value) => {
+  console.log('切换组件:', value);
+};
+
 </script>
 
 <style lang="scss" scoped>
@@ -80,6 +98,16 @@ const handleLocaleChange = newLocale => {
   .config-item {
     display: flex;
     align-items: center;
+
+    &:before{
+      content: '';
+      display: inline-block;
+      width: 2px;
+      height: 20px;
+      background-color: #1b1717;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
 
     span {
       margin-right: 10px;

@@ -53,19 +53,24 @@
         "activeMatch": "/components/page-footer/"
       },
       {
-        "text": "scroll-box 滚动盒",
-        "link": "/components/scroll-box/",
-        "activeMatch": "/components/scroll-box/"
-      },
-      {
         "text": "pop 弹出框",
         "link": "/components/pop/",
         "activeMatch": "/components/pop/"
       },
       {
+        "text": "scroll-box 滚动盒",
+        "link": "/components/scroll-box/",
+        "activeMatch": "/components/scroll-box/"
+      },
+      {
         "text": "sticky-layout 侧边吸顶布局",
         "link": "/components/sticky-layout/",
         "activeMatch": "/components/sticky-layout/"
+      },
+      {
+        "text": "web-view 网页容器",
+        "link": "/components/web-view/",
+        "activeMatch": "/components/web-view/"
       }
     ]
   },

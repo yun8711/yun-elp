@@ -1,71 +1,39 @@
 <template>
-  <Layout #default="{ locale }">
+  <Layout #default="{ locale,curComponent }" :examples="examples">
     <y-app-wrap
       :key="locale"
       :elp-config="{ locale: locale === 'zh-cn' ? zhCn : en }"
       :locale="locale"
       v-bind="appWrapConfig"
     >
-      <!-- 组件选择器 -->
-      <div class="component-selector">
-        <el-select v-model="currentComponent" placeholder="选择要查看的组件" @change="handleComponentChange" style="width: 200px;">
-          <el-option label="Sticky Page" value="sticky-page" />
-          <el-option label="Page Progress" value="page-progress" />
-          <el-option label="Button" value="button" />
-          <el-option label="Table" value="table" />
-          <el-option label="Table Filter" value="table-filter" />
-          <el-option label="Text Tooltip" value="text-tooltip" />
-          <el-option label="Desc" value="desc" />
-          <el-option label="Empty" value="empty" />
-          <el-option label="Pop" value="pop" />
-          <el-option label="Select" value="select" />
-          <el-option label="Step" value="step" />
-          <el-option label="ECharts" value="echarts" />
-          <el-option label="Table V2" value="table-v2" />
-        </el-select>
-      </div>
-
-      <!-- 动态组件 -->
-      <component :is="currentComponentComponent" />
+      <component :is="examples.find(item => item.value === curComponent)?.component" />
     </y-app-wrap>
   </Layout>
 </template>
 
 <script setup>
 import { ref, computed, defineAsyncComponent } from 'vue';
-import Layout from './components/layout.vue';
+import Layout from './components/Layout.vue';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import en from 'element-plus/dist/locale/en.mjs';
 import logo from './assets/test.png';
 
 // 组件映射 - 使用 defineAsyncComponent 包装动态导入
-const componentMap = {
-  'sticky-page': defineAsyncComponent(() => import('./components/sticky-page/index.vue')),
-  'page-progress': defineAsyncComponent(() => import('./components/page-progress-example.vue')),
-  'button': defineAsyncComponent(() => import('./components/button-example.vue')),
-  'table': defineAsyncComponent(() => import('./components/table-example.vue')),
-  'table-filter': defineAsyncComponent(() => import('./components/table-filter.vue')),
-  'text-tooltip': defineAsyncComponent(() => import('./components/text-tooltip-example.vue')),
-  'desc': defineAsyncComponent(() => import('./components/desc-example.vue')),
-  'empty': defineAsyncComponent(() => import('./components/empty-example.vue')),
-  'pop': defineAsyncComponent(() => import('./components/pop-example.vue')),
-  'step': defineAsyncComponent(() => import('./components/step-example.vue')),
-  'echarts': defineAsyncComponent(() => import('./components/echarts/echarts-example.vue')),
-  'table-v2': defineAsyncComponent(() => import('./components/table-v2/index.vue'))
-};
-
-// 当前选中的组件
-const currentComponent = ref('page-progress');
-
-// 当前组件实例
-const currentComponentComponent = computed(() => {
-  return componentMap[currentComponent.value];
-});
-
-// 组件切换处理
-const handleComponentChange = (value) => {
-  console.log('切换组件:', value);
-};
+const examples = [
+  {label: 'Sticky Page', value: 'sticky-page',component: defineAsyncComponent(() => import('./components/sticky-page/index.vue'))},
+  {label: 'Page Progress', value: 'page-progress',component: defineAsyncComponent(() => import('./components/page-progress-example.vue'))},
+  {label: 'Button', value: 'button',component: defineAsyncComponent(() => import('./components/button-example.vue'))},
+  {label: 'Table', value: 'table',component: defineAsyncComponent(() => import('./components/table-example.vue'))},
+  {label: 'Table Filter', value: 'table-filter',component: defineAsyncComponent(() => import('./components/table-filter.vue'))},
+  {label: 'Text Tooltip', value: 'text-tooltip',component: defineAsyncComponent(() => import('./components/text-tooltip-example.vue'))},
+  {label: 'Desc', value: 'desc',component: defineAsyncComponent(() => import('./components/desc-example.vue'))},
+  {label: 'Empty', value: 'empty',component: defineAsyncComponent(() => import('./components/empty-example.vue'))},
+  {label: 'Pop', value: 'pop',component: defineAsyncComponent(() => import('./components/pop-example.vue'))},
+  {label: 'Step', value: 'step',component: defineAsyncComponent(() => import('./components/step-example.vue'))},
+  {label: 'ECharts', value: 'echarts',component: defineAsyncComponent(() => import('./components/echarts/echarts-example.vue'))},
+  {label: 'Table V2', value: 'table-v2',component: defineAsyncComponent(() => import('./components/table-v2/index.vue'))},
+  {label: '网页容器', value: 'web-view',default: true,component: defineAsyncComponent(() => import('./components/web-view/index.vue'))}
+]
 
 const appWrapConfig = {
   dialog: {
