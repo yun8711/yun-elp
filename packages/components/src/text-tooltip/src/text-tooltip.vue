@@ -2,10 +2,11 @@
   <el-tooltip
     ref="tooltipRef"
     v-bind="tooltipAttrs"
-    :disabled="!showTooltip"
-    class="y-text-tooltip">
-    <div ref="textRef" class="y-text-tooltip__content" :style="computedTextStyle">
-      <slot />
+    :disabled="!showTooltip">
+    <div class="y-text-tooltip">
+      <div ref="textRef" class="y-text-tooltip__content" :style="computedTextStyle">
+        <slot />
+      </div>
     </div>
     <template #content>
       <slot name="content" />
@@ -42,24 +43,23 @@ const props = withDefaults(defineProps<TextTooltipProps>(), {
   textStyle: () => ({})
 });
 
-const { lineClamp, width, model, textStyle, ...otherProps } = toRefs(props);
+const { lineClamp, width, model, textStyle } = toRefs(props);
 
 // 合并tooltipProps
-const tooltipAttrs = computed(() => {
-  const configAttrs = textTooltipConfig?.tooltipProps || {};
-  const propAttrs = otherProps.value || {};
-  return {
+const tooltipAttrs = computed((): Record<string, any> => {
+  const configAttrs: Record<string, any> = textTooltipConfig?.tooltipProps || {};
+  const { lineClamp: _, width: __, model: ___, textStyle: ____, ...restProps } = props;
+  const defaults = {
     placement: 'top',
     showAfter: 50,
     hideAfter: 50,
     enterable: false,
     popperClass: 'y-text-tooltip__popper',
     teleported: false,
-    persistent:false,
+    persistent: false,
     content: getSlotContent(),
-    ...configAttrs,
-    ...propAttrs
   };
+  return { ...defaults, ...configAttrs, ...restProps };
 });
 
 const computedTextStyle = computed(() => {
@@ -151,9 +151,9 @@ onUnmounted(() => {
 });
 
 const tooltipRef = useTemplateRef<HTMLElement>('tooltipRef');
-defineExpose(new Proxy({}, {
+defineExpose(new Proxy({} as HTMLElement, {
   get: (_target, key) => {
-    return tooltipRef.value?.[key];
+    return tooltipRef.value?.[key as keyof HTMLElement];
   },
   has: (_target, key) => {
     return !!(tooltipRef.value && key in tooltipRef.value);

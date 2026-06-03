@@ -26,16 +26,20 @@
 
 <script setup lang="ts">
 import { ElTableColumn } from 'element-plus';
-import { toRefs, useAttrs, computed } from 'vue';
+import { toRefs, computed } from 'vue';
 import type { ColumnFilterProps, ColumnFilterConfig } from './column-filter';
 import { isEmpty } from 'lodash-es';
+import { useTableColumnAttrs, type TableColumnMergedAttrs } from '../../../hooks/use-table-column-attrs';
 
 defineOptions({
   name: 'YColumnFilter',
   inheritAttrs: true
 });
 
-const attrs = useAttrs();
+const { attrs, mergedColumnAttrs: baseMergedAttrs } = useTableColumnAttrs({
+  className: 'y-column-filter',
+  columnKey: true,
+});
 const props = withDefaults(defineProps<ColumnFilterProps>(), {
   noStatus: false,
   noFilter: false,
@@ -71,19 +75,15 @@ const formatterCellValue = (scope: any) => {
 }
 
 const mergedAttrs = computed(() => {
-  const obj: any = {
-    ...attrs,
-    'min-width': attrs?.['min-width'] || 100,
-    width: attrs?.width || 'auto',
-    'column-key': attrs?.['column-key'] || attrs.prop,
-    'class-name': attrs?.['class-name'] || 'y-column-filter',
-  }
+  const obj: TableColumnMergedAttrs & { filters?: ColumnFilterConfig[] | unknown } = {
+    ...baseMergedAttrs.value,
+  };
 
   if (!noFilter.value) {
-    if (!isEmpty(attrs?.filters)) {
-      obj['filters'] = attrs.filters;
+    if (!isEmpty(attrs.filters)) {
+      obj.filters = attrs.filters;
     } else if (!isEmpty(config.value)) {
-      obj['filters'] = config.value;
+      obj.filters = config.value;
     }
   }
   return obj;

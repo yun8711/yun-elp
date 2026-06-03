@@ -1,9 +1,10 @@
-import { createApp } from 'vue'
-import 'normalize.css'
-import YunElp from '../../packages/components/index'
-import '@yun-elp/theme-chalk/src/index.scss'
-import './styles/index.scss'
-import App from './App.vue'
+import { createApp } from 'vue';
+import 'normalize.css';
+import YunElp from '@yun-elp/components';
+import '@yun-elp/theme-chalk/index.scss';
+import '@yun-elp/theme-chalk/themes/kd.scss';
+import './styles/index.scss';
+import App from './App.vue';
 
 const app = createApp(App)
 

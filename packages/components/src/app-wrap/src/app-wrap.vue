@@ -39,7 +39,7 @@ import { appConfigKey } from './use-app-config';
 
 defineOptions({
   name: 'YAppWrap',
-  inheritAttrs: true
+  inheritAttrs: false
 });
 
 const props = withDefaults(defineProps<AppWrapProps>(), defaultConfig as any);
@@ -48,6 +48,9 @@ const props = withDefaults(defineProps<AppWrapProps>(), defaultConfig as any);
 const mergedProps = computed(() => {
   return merge({}, defaultConfig, props);
 });
+
+// 提取 elpConfig 用于 el-config-provider
+const elpConfig = computed(() => mergedProps.value.elpConfig);
 
 // 从合并后的props中获取除elpConfig、locale以外的配置
 const configProps = computed(() => omit(mergedProps.value, ['elpConfig', 'locale']));

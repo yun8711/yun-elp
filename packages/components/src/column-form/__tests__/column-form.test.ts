@@ -416,6 +416,115 @@ describe('YColumnForm 表单列组件', () => {
           });
         }
       });
+
+      it('rules 未定义时应使用空对象', () => {
+        const wrapper = createWrapper({}, { prop: 'testField' });
+
+        if (wrapper) {
+          const vm = wrapper.vm as any;
+          const result = vm.mergedFormAttrs({ $index: 0, row: {} });
+
+          expect(result.rules).toEqual({});
+        }
+      });
+    });
+  });
+
+  describe('模板渲染集成测试', () => {
+    const tableColumnStub = {
+      template: `
+        <div class="el-table-column y-column-form" v-bind="$attrs">
+          <div class="cell">
+            <slot name="default" v-bind="{ row: { name: 'test' }, column: {}, $index: 0 }"></slot>
+          </div>
+          <slot name="header" :column="{ label: '列标题' }" :index="0"></slot>
+        </div>
+      `,
+      inheritAttrs: false,
+    };
+
+    const formItemStub = {
+      template: `
+        <div class="el-form-item" v-bind="$attrs">
+          <slot />
+          <slot name="error" error="校验失败" />
+        </div>
+      `,
+      emits: ['mouseenter', 'mouseleave'],
+      mounted() {
+        const el = this.$el as HTMLElement;
+        el.addEventListener('mouseenter', () => this.$emit('mouseenter'));
+        el.addEventListener('mouseleave', () => this.$emit('mouseleave'));
+      },
+    };
+
+    const createRenderWrapper = (
+      props: Partial<ColumnFormProps> = {},
+      attrs: Record<string, unknown> = {},
+      slots: Record<string, string> = {},
+    ) => {
+      return mount(YColumnForm, {
+        props,
+        attrs: { prop: 'name', label: '姓名', ...attrs },
+        slots,
+        global: {
+          stubs: {
+            'el-table-column': tableColumnStub,
+            'el-form-item': formItemStub,
+          },
+        },
+      });
+    };
+
+    it('noFrom 为 true 时应渲染 default 插槽且不渲染表单项', () => {
+      const wrapper = createRenderWrapper(
+        { noFrom: true },
+        {},
+        { default: '<input class="field-input" />' },
+      );
+
+      expect(wrapper.find('.field-input').exists()).toBe(true);
+      expect(wrapper.find('.el-form-item').exists()).toBe(false);
+    });
+
+    it('noFrom 为 false 时应渲染表单项、错误提示区域和 default 插槽', () => {
+      const wrapper = createRenderWrapper(
+        { noFrom: false },
+        { prop: 'name' },
+        { default: '<input class="field-input" />' },
+      );
+
+      expect(wrapper.find('.el-form-item').exists()).toBe(true);
+      expect(wrapper.find('.field-input').exists()).toBe(true);
+      expect(wrapper.find('.y-column-form__error').exists()).toBe(true);
+    });
+
+    it('鼠标进入/离开表单项应切换错误 tooltip 可见状态', async () => {
+      const wrapper = createRenderWrapper({ noFrom: false }, { prop: 'name' });
+      const formItem = wrapper.find('.el-form-item');
+
+      await formItem.trigger('mouseenter');
+      expect((wrapper.vm as any).errorMessageMap['0_name']).toBe(true);
+
+      await formItem.trigger('mouseleave');
+      expect((wrapper.vm as any).errorMessageMap['0_name']).toBe(false);
+    });
+
+    it('应渲染 header 插槽默认内容', () => {
+      const wrapper = createRenderWrapper({}, { label: '列标题' });
+
+      expect(wrapper.text()).toContain('列标题');
+    });
+
+    it('应支持自定义 header 插槽', () => {
+      const wrapper = createRenderWrapper(
+        {},
+        { label: '默认标题' },
+        { header: '<span class="custom-header">自定义标题</span>' },
+      );
+
+      expect(wrapper.find('.custom-header').exists()).toBe(true);
+      expect(wrapper.text()).toContain('自定义标题');
     });
   });
 });

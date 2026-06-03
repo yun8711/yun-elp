@@ -1,9 +1,8 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "lib": ["ESNext"],
-    "types": ["node"],
-    "skipLibCheck": true
+    "types": ["node"]
   },
-  "include": ["vite.config.ts", "vite-plugin-copy-scss.ts"]
+  "include": ["vite.config.ts", "vite-plugin-copy-scss.ts", "../../scripts/vite-shared.ts"]
 }

@@ -61,21 +61,21 @@ import { ElTableColumn, ElPopover, ElIcon } from 'element-plus';
 import type {
   ColumnOpProps,
   TableItemScope,
-  ColumnOpItemType
+  ColumnOpItemType,
+  ResolvedColumnOpItem
 } from './column-op';
 import {
   toRefs,
-  useAttrs,
   computed,
   ref,
   watch,
   onUnmounted,
   nextTick
 } from 'vue';
-import type { PopProps } from '../../pop/src/pop';
 import { merge } from 'lodash-es';
 import { MoreFilled } from '@element-plus/icons-vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
+import { useTableColumnAttrs } from '../../../hooks/use-table-column-attrs';
 import YPop from '../../pop/src/pop.vue';
 import YButton from '../../button/src/button.vue';
 
@@ -85,24 +85,17 @@ defineOptions({
 });
 
 const columnOpConfig = useAppConfig('columnOp');
-const attrs = useAttrs();
+const { attrs, mergedColumnAttrs } = useTableColumnAttrs({
+  className: 'y-column-op',
+  fixed: 'right',
+  showOverflowTooltip: false,
+});
 const props = withDefaults(defineProps<ColumnOpProps>(), {
   options: () => [],
   disabledDefaultTip: undefined as string | undefined
 });
 
 const { options, disabledDefaultTip } = toRefs(props);
-
-const mergedColumnAttrs = computed(() => {
-  return {
-    ...attrs,
-    'min-width': attrs?.['min-width'] || 100,
-    width: attrs?.width || 'auto',
-    'show-overflow-tooltip': false,
-    fixed: attrs?.fixed || 'right',
-    'class-name': attrs?.['class-name'] || 'y-column-op',
-  };
-});
 
 const showDropdownMap = ref(new Map<number, boolean>());
 
@@ -116,20 +109,20 @@ const setDropdownVisible = (index: number, visible: boolean) => {
 
 const getOptions = (scope: TableItemScope) => {
   // 正常展示的操作项
-  const normalList = ref<ColumnOpItemType[]>([]);
+  const normalList = ref<ResolvedColumnOpItem[]>([]);
   // 以dropdown的形式展示的操作项
-  const dropdownList = ref<ColumnOpItemType[]>([]);
+  const dropdownList = ref<ResolvedColumnOpItem[]>([]);
   const optionsArr = typeof options.value === 'function' ? options.value(scope) : options.value;
 
   optionsArr?.forEach((item: ColumnOpItemType) => {
-    const defaultObj = {
+    const defaultObj: ResolvedColumnOpItem = {
       prop: item.prop,
       label: '',
       disabled: false,
       show: true,
       dropdown: false,
       noPop: true,
-      popProps: {} as Partial<PopProps>,
+      popProps: {},
       confirm: item?.confirm || undefined,
       cancel: item?.cancel || undefined,
       loading: item?.loading || false
@@ -184,8 +177,8 @@ const getOptions = (scope: TableItemScope) => {
   };
 };
 
-const getPopProps = (item: ColumnOpItemType) => {
-  return item.popProps || {};
+const getPopProps = (item: ColumnOpItemType): Record<string, any> => {
+  return (item.popProps as Record<string, any>) || {};
 };
 
 const getDisabledValue = (

@@ -21,3 +21,16 @@ Yun-Elp 组件库是一个基于 Vue 3 的业务组件库，通过总结日常�
 ## 许可证
 
 本项目采用 MIT 许可证
+
+## 质量保障
+
+组件库使用 Vitest 对各 Vue 组件（`packages/components/src/**/*.vue`）维护单元测试，当前覆盖率如下（执行 `pnpm test:coverage` 可查看最新报告）：
+
+| 指标 | 覆盖率 |
+| --- | --- |
+| 语句（Statements） | 94.61% |
+| 行（Lines） | 95.02% |
+| 分支（Branches） | 84.47% |
+| 函数（Functions） | 91.62% |
+
+测试编写与运行说明见 [开发流程](./development) 及 `packages/components/TEST.md`。

@@ -13,9 +13,6 @@ class MockResizeObserver {
 
 global.ResizeObserver = MockResizeObserver;
 
-// 模拟 setTimeout
-vi.useFakeTimers();
-
 describe('YRowSelect', () => {
   const mockOptions: RowSelectOption[] = [
     { label: '选项1', value: '1' },

@@ -12,12 +12,16 @@ vi.mock('cron-parser', () => ({
 }));
 
 // Mock @vueuse/core
-vi.mock('@vueuse/core', () => ({
-  onClickOutside: vi.fn(),
-  useDateFormat: vi.fn(() => ({
-    value: '2025-01-01 10:00:00'
-  }))
-}));
+vi.mock('@vueuse/core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@vueuse/core')>();
+  return {
+    ...actual,
+    onClickOutside: vi.fn(),
+    useDateFormat: vi.fn(() => ({
+      value: '2025-01-01 10:00:00'
+    }))
+  };
+});
 
 // 通用的全局 stubs
 const globalStubs = {

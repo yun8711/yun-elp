@@ -1,4 +1,5 @@
 import type { App, Component } from 'vue';
+import { withPropsDefaultsSetter } from 'element-plus/es/utils';
 
 /**
  * 为组件添加install方法，实现组件的全局注册
@@ -18,5 +19,8 @@ export const withInstall = <T extends Component>(component: T, alias?: string) =
     }
   };
 
-  return component as T & { install: (app: App) => void };
+  // 添加 setPropsDefaults 方法，兼容 element-plus 2.14.0 的 SFCWithInstall 类型
+  withPropsDefaultsSetter(component as Parameters<typeof withPropsDefaultsSetter>[0]);
+
+  return component as T & { install: (app: App) => void; setPropsDefaults: (defaults: Record<string, unknown>) => void };
 };

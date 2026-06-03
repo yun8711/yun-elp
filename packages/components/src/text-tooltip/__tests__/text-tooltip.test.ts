@@ -1,7 +1,8 @@
 /// <reference types="vitest/globals" />
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { nextTick, defineComponent } from 'vue';
+import { nextTick, defineComponent, ref } from 'vue';
+import { ElTooltip } from 'element-plus';
 import YTextTooltip from '../src/text-tooltip.vue';
 import type { TextTooltipProps } from '../src/text-tooltip';
 
@@ -25,16 +26,10 @@ const createWrapper = (
   props: Partial<TextTooltipProps & Record<string, any>> = {},
   slots: Record<string, string> = {}
 ) => {
-  const wrapper = mount(YTextTooltip, {
+  return mount(YTextTooltip, {
     props,
     slots,
-    global: {
-      stubs: {
-        ElTooltip: true
-      }
-    }
   });
-  return wrapper;
 };
 
 // 辅助函数：查找body下的tooltip元素
@@ -115,7 +110,6 @@ describe('YTextTooltip 组件', () => {
   });
 
   afterEach(() => {
-    vi.clearAllTimers();
     // 清理ResizeObserver mock
     delete (global as any).ResizeObserver;
 
@@ -215,7 +209,7 @@ describe('YTextTooltip 组件', () => {
       const wrapper = createWrapper({ placement: 'bottom' });
       await nextTick();
       // 验证组件包含 tooltip 相关的类名
-      expect(wrapper.classes()).toContain('y-text-tooltip');
+      expect(wrapper.find('.y-text-tooltip').exists()).toBe(true);
       expect(wrapper.exists()).toBe(true);
     });
 
@@ -602,7 +596,7 @@ describe('YTextTooltip 组件', () => {
     });
 
     it('组件更新时重新计算overflow', async () => {
-      const wrapper = createWrapper(
+      let wrapper = createWrapper(
         {
           model: 'auto',
           lineClamp: 1
@@ -613,8 +607,17 @@ describe('YTextTooltip 组件', () => {
       );
       await nextTick();
       expect(wrapper.exists()).toBe(true);
-      // 模拟内容更新
-      await wrapper.setProps({ lineClamp: 2 });
+      // 模拟 props 更新
+      wrapper.unmount();
+      wrapper = createWrapper(
+        {
+          model: 'auto',
+          lineClamp: 2
+        },
+        {
+          default: '初始内容'
+        }
+      );
       await nextTick();
       // 验证组件更新后样式正确应用
       const contentEl = wrapper.find('.y-text-tooltip__content');
@@ -626,7 +629,7 @@ describe('YTextTooltip 组件', () => {
     });
 
     it('model变化时重新计算tooltip显示状态', async () => {
-      const wrapper = createWrapper(
+      let wrapper = createWrapper(
         {
           model: 'none'
         },
@@ -637,10 +640,17 @@ describe('YTextTooltip 组件', () => {
 
       await nextTick();
       expect(wrapper.exists()).toBe(true);
-      // 验证组件正常渲染
       expect(wrapper.find('.y-text-tooltip').exists()).toBe(true);
 
-      await wrapper.setProps({ model: 'always' });
+      wrapper.unmount();
+      wrapper = createWrapper(
+        {
+          model: 'always'
+        },
+        {
+          default: '测试内容'
+        }
+      );
       await nextTick();
 
       // 验证组件正常渲染
@@ -806,11 +816,12 @@ describe('YTextTooltip 组件', () => {
 
   describe('响应式数据测试', () => {
     it('基础props变化时组件更新', async () => {
-      const wrapper = createWrapper({ lineClamp: 1, width: 100 });
+      let wrapper = createWrapper({ lineClamp: 1, width: 100 });
       await nextTick();
       expect(wrapper.exists()).toBe(true);
 
-      await wrapper.setProps({ lineClamp: 3, width: 200 });
+      wrapper.unmount();
+      wrapper = createWrapper({ lineClamp: 3, width: 200 });
       await nextTick();
 
       // 验证组件更新后样式正确应用
@@ -822,15 +833,14 @@ describe('YTextTooltip 组件', () => {
     });
 
     it('model变化时tooltip显示状态更新', async () => {
-      const wrapper = createWrapper({ model: 'none' });
+      let wrapper = createWrapper({ model: 'none' });
 
       await nextTick();
       expect(wrapper.exists()).toBe(true);
-      // 验证初始 model 值
-      // 验证组件正常渲染
       expect(wrapper.find('.y-text-tooltip').exists()).toBe(true);
 
-      await wrapper.setProps({ model: 'always' });
+      wrapper.unmount();
+      wrapper = createWrapper({ model: 'always' });
       await nextTick();
 
       // 验证更新后的 model 值
@@ -842,17 +852,16 @@ describe('YTextTooltip 组件', () => {
     });
 
     it('tooltipProps变化时正确传递', async () => {
-      const wrapper = createWrapper({
+      let wrapper = createWrapper({
         tooltipProps: { showAfter: 100 }
       });
 
       await nextTick();
       expect(wrapper.exists()).toBe(true);
 
-      // 验证组件能正常响应props变化
-      // 通过组件重新渲染验证配置被应用
-
-      await wrapper.setProps({
+      wrapper.unmount();
+      wrapper = createWrapper({
+        tooltipProps: { showAfter: 100 },
         placement: 'bottom'
       });
 
@@ -863,13 +872,14 @@ describe('YTextTooltip 组件', () => {
     });
 
     it('textStyle变化时样式更新', async () => {
-      const wrapper = createWrapper({
+      let wrapper = createWrapper({
         textStyle: { color: 'red' }
       });
       await nextTick();
       expect(wrapper.exists()).toBe(true);
 
-      await wrapper.setProps({
+      wrapper.unmount();
+      wrapper = createWrapper({
         textStyle: { color: 'blue', fontSize: '16px' }
       });
       await nextTick();
@@ -882,15 +892,13 @@ describe('YTextTooltip 组件', () => {
     });
 
     it('placement变化时正确更新', async () => {
-      const wrapper = createWrapper({ placement: 'left' });
+      let wrapper = createWrapper({ placement: 'left' });
 
       await nextTick();
       expect(wrapper.exists()).toBe(true);
 
-      // 验证初始 placement 被应用
-      expect(wrapper.exists()).toBe(true);
-
-      await wrapper.setProps({ placement: 'bottom' });
+      wrapper.unmount();
+      wrapper = createWrapper({ placement: 'bottom' });
       await nextTick();
 
       // 验证更新后的 placement 被应用
@@ -1053,6 +1061,172 @@ describe('YTextTooltip 组件', () => {
       // 验证组件配置被正确应用
       // 验证组件结构完整
       expect(wrapper.find('.y-text-tooltip').exists()).toBe(true);
+    });
+  });
+
+  describe('溢出检测与 ResizeObserver', () => {
+    let resizeCallback: ResizeObserverCallback | null = null;
+    let mockDisconnect: ReturnType<typeof vi.fn>;
+    let mockObserve: ReturnType<typeof vi.fn>;
+
+    beforeEach(() => {
+      mockDisconnect = vi.fn();
+      mockObserve = vi.fn();
+      class CapturingResizeObserver {
+        observe = mockObserve;
+        disconnect = mockDisconnect;
+        unobserve = vi.fn();
+
+        constructor(callback: ResizeObserverCallback) {
+          resizeCallback = callback;
+        }
+      }
+
+      global.ResizeObserver = CapturingResizeObserver as any;
+    });
+
+    afterEach(() => {
+      resizeCallback = null;
+    });
+
+    const getTooltipDisabled = (wrapper: ReturnType<typeof createWrapper>) => {
+      return wrapper.findComponent(ElTooltip).props('disabled') as boolean;
+    };
+
+    const mockElementSize = (
+      wrapper: ReturnType<typeof createWrapper>,
+      sizes: {
+        offsetWidth?: number;
+        scrollWidth?: number;
+        offsetHeight?: number;
+        scrollHeight?: number;
+      },
+    ) => {
+      const el = wrapper.find('.y-text-tooltip__content').element as HTMLElement;
+      if (sizes.offsetWidth !== undefined) {
+        Object.defineProperty(el, 'offsetWidth', { configurable: true, value: sizes.offsetWidth });
+      }
+      if (sizes.scrollWidth !== undefined) {
+        Object.defineProperty(el, 'scrollWidth', { configurable: true, value: sizes.scrollWidth });
+      }
+      if (sizes.offsetHeight !== undefined) {
+        Object.defineProperty(el, 'offsetHeight', { configurable: true, value: sizes.offsetHeight });
+      }
+      if (sizes.scrollHeight !== undefined) {
+        Object.defineProperty(el, 'scrollHeight', { configurable: true, value: sizes.scrollHeight });
+      }
+    };
+
+    it('auto 模式单行文本溢出时应启用 tooltip', async () => {
+      const wrapper = createWrapper(
+        { model: 'auto', lineClamp: 1 },
+        { default: '很长的文本内容' },
+      );
+      await nextTick();
+
+      mockElementSize(wrapper, { offsetWidth: 50, scrollWidth: 120 });
+      resizeCallback?.([], {} as ResizeObserver);
+      await nextTick();
+
+      expect(getTooltipDisabled(wrapper)).toBe(false);
+    });
+
+    it('auto 模式单行文本未溢出时应禁用 tooltip', async () => {
+      const wrapper = createWrapper(
+        { model: 'auto', lineClamp: 1 },
+        { default: '短文本' },
+      );
+      await nextTick();
+
+      mockElementSize(wrapper, { offsetWidth: 200, scrollWidth: 100 });
+      resizeCallback?.([], {} as ResizeObserver);
+      await nextTick();
+
+      expect(getTooltipDisabled(wrapper)).toBe(true);
+    });
+
+    it('auto 模式多行文本溢出时应启用 tooltip', async () => {
+      const wrapper = createWrapper(
+        { model: 'auto', lineClamp: 2 },
+        { default: '多行\n文本\n内容' },
+      );
+      await nextTick();
+
+      mockElementSize(wrapper, { offsetHeight: 30, scrollHeight: 60 });
+      resizeCallback?.([], {} as ResizeObserver);
+      await nextTick();
+
+      expect(getTooltipDisabled(wrapper)).toBe(false);
+    });
+
+    it('挂载时 auto 模式应创建 ResizeObserver', async () => {
+      const wrapper = createWrapper(
+        { model: 'auto', lineClamp: 1 },
+        { default: '测试内容' },
+      );
+      await nextTick();
+      await nextTick();
+
+      expect(resizeCallback).toBeTypeOf('function');
+      expect(mockObserve).toHaveBeenCalled();
+      wrapper.unmount();
+      expect(mockDisconnect).toHaveBeenCalled();
+    });
+
+    it('props 变化时应重建 ResizeObserver', async () => {
+      const lineClamp = ref(1);
+      const width = ref(100);
+      const Host = defineComponent({
+        components: { YTextTooltip },
+        setup() {
+          return { lineClamp, width };
+        },
+        template: `
+          <y-text-tooltip :line-clamp="lineClamp" :width="width" model="auto">
+            测试内容
+          </y-text-tooltip>
+        `,
+      });
+
+      mount(Host);
+      await nextTick();
+      await nextTick();
+
+      mockDisconnect.mockClear();
+
+      lineClamp.value = 2;
+      width.value = 200;
+      await nextTick();
+      await nextTick();
+
+      expect(mockDisconnect).toHaveBeenCalled();
+      expect(mockObserve).toHaveBeenCalled();
+    });
+  });
+
+  describe('defineExpose 代理', () => {
+    it('应通过 Proxy 安全访问暴露的 tooltip 实例', async () => {
+      const wrapper = createWrapper({}, { default: '暴露测试' });
+      await nextTick();
+
+      const exposed = wrapper.vm as Record<string | symbol, unknown>;
+      expect(Reflect.has(exposed, 'nonExistentKey')).toBe(false);
+      expect(() => (exposed as any).nonExistentKey).not.toThrow();
+    });
+
+    it('可通过 ref 获取组件实例', async () => {
+      const Host = defineComponent({
+        components: { YTextTooltip },
+        template: '<y-text-tooltip ref="tipRef">暴露测试</y-text-tooltip>',
+        mounted() {
+          (this as any).child = this.$refs.tipRef;
+        },
+      });
+
+      const wrapper = mount(Host);
+      await nextTick();
+
+      expect((wrapper.vm as any).child).toBeDefined();
     });
   });
 });

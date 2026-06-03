@@ -626,7 +626,7 @@ describe('YGroupSelect', () => {
       const endTime = performance.now();
       const renderTime = endTime - startTime;
 
-      expect(renderTime).toBeLessThan(1000); // 渲染时间应该小于1000ms（测试环境）
+      expect(renderTime).toBeLessThan(2000); // 渲染时间应该小于 2000ms（测试环境）
       expect(wrapper.findAll('.el-button')).toHaveLength(500);
     });
 

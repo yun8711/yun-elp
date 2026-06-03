@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { resolve } from 'node:path';
+import { createComponentsAliases, scssPreprocessorOptions } from '../../scripts/vite-shared';
 import generateTypes from './vite-plugin-generate-types';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -51,9 +52,9 @@ export default defineConfig({
         'utils/*.ts',
         'index.ts',
         'components.ts',
-        'default.ts'
+        'defaults.ts'
       ],
-      outDir: '../../dist/es',
+      outDirs: ['../../dist/es'],
       staticImport: true,
       compilerOptions: {
         sourceMap: false,
@@ -88,15 +89,7 @@ export default defineConfig({
     }) as PluginOption
   ],
   css: {
-    preprocessorOptions: {
-      scss: {
-        // additionalData: `@use "@/styles/variables.scss" as *;`,
-        api: 'modern-compiler',
-        sassOptions: {
-          outputStyle: 'expanded'
-        }
-      }
-    }
+    preprocessorOptions: scssPreprocessorOptions as Record<string, unknown>,
   },
   build: {
     /**
@@ -107,16 +100,7 @@ export default defineConfig({
     // 禁用代码压缩
     minify: false,
     // 使用更保守的压缩配置
-    terserOptions: {
-      compress: {
-        keep_fnames: true, // 保留函数名
-        keep_classnames: true // 保留类名
-      },
-      mangle: {
-        keep_fnames: true, // 保留函数名
-        keep_classnames: true // 保留类名
-      }
-    },
+    terserOptions: {} as Record<string, unknown>,
     /**
      * 库模式
      *
@@ -187,10 +171,6 @@ export default defineConfig({
     // 如果不是相对路径，会检查是否是绝对路径（以 / 开头）
     // 如果都不是，会尝试从 node_modules 中查找
     // 最后会检查 resolve.alias 配置
-    alias: {
-      '@': resolve(__dirname, 'src'),
-      '~': resolve(__dirname, '.'),
-      '@yun-elp/theme-chalk': resolve(__dirname, '../theme-chalk/src')
-    }
+    alias: createComponentsAliases(__dirname)
   }
 });

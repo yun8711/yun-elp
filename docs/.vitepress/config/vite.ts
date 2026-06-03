@@ -1,8 +1,5 @@
 import path from 'path';
-// import Inspect from 'vite-plugin-inspect'
 import UnoCSS from 'unocss/vite';
-// import mkcert from 'vite-plugin-mkcert'
-// import glob from 'fast-glob';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import Components from 'unplugin-vue-components/vite';
 import Icons from 'unplugin-icons/vite';
@@ -10,61 +7,23 @@ import IconsResolver from 'unplugin-icons/resolver';
 import { loadEnv } from 'vitepress';
 import { groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import type { PluginOption } from 'vite';
-// import { docPackage, epPackage, getPackageDependencies, projRoot } from '@element-plus/build-utils';
-// import { MarkdownTransform } from '../plugins/markdown-transform';
 import { MdTransform } from '../plugins/md-transform';
-import type { Plugin, UserConfig } from 'vite';
-import { createLogger } from 'vite';
-import { pkgRoot, projRoot } from '../../../scripts/paths';
+import type { UserConfig } from 'vite';
+import { createYunElpAliases, scssPreprocessorOptions } from '../../../scripts/vite-shared';
 
 type ViteConfig = Required<UserConfig>;
-type ResolveOptions = Required<ViteConfig>['resolve'];
-type AliasOptions = Required<ResolveOptions>['alias'];
 
-// const { dependencies: epDeps } = getPackageDependencies(epPackage);
-// const { dependencies: docsDeps } = getPackageDependencies(docPackage);
-// const optimizeDeps = [...new Set([...epDeps, ...docsDeps])].filter(
-//   dep => !dep.startsWith('@types/') && !['@element-plus/metadata', 'element-plus'].includes(dep)
-// );
-// optimizeDeps.push(
-//   ...(await glob(['dayjs/plugin/*.js'], {
-//     cwd: path.resolve(projRoot, 'node_modules'),
-//     onlyFiles: true
-//   }))
-// );
-
-// 基础依赖预构建配置
 const optimizeDeps = ['vue', 'vue-router', 'dayjs', '@vueuse/core', 'markdown-it', 'prismjs'];
 
-const alias: AliasOptions = [
-  {
-    find: '~/',
-    replacement: `${path.resolve(__dirname, '../')}/`
-  },
-  {
-    find: /^@yun-elp(\/(es|lib))?$/,
-    replacement: path.resolve(pkgRoot, 'components/index.ts')
-  },
-  {
-    find: /^@yun-elp\/(es|lib)\/(.*)$/,
-    replacement: `${path.resolve(projRoot, 'packages')}/$2`
-  },
-];
-
 const getViteConfig = ({ mode }: { mode: string }): ViteConfig => {
-  const env = loadEnv(mode, process.cwd(), '');
+  loadEnv(mode, process.cwd(), '');
+
   return {
-    // root: process.cwd(),
-    // base: '/',
-    // publicDir: 'public',
-    // cacheDir: 'node_modules/.vite',
-    // mode,
-    // define: {},
     css: {
       preprocessorOptions: {
         scss: {
-          silenceDeprecations: ['legacy-js-api'],
-          additionalData: `@use "@yun-elp/theme-chalk/src/themes/kd.scss" as *;`
+          ...scssPreprocessorOptions.scss,
+          additionalData: `@use "@yun-elp/theme-chalk/themes/kd.scss" as *;`
         }
       }
     },
@@ -75,8 +34,9 @@ const getViteConfig = ({ mode }: { mode: string }): ViteConfig => {
       }
     },
     resolve: {
-      alias
-      // dedupe: ['vue']
+      alias: createYunElpAliases({
+        vitepressDir: path.resolve(__dirname, '../')
+      })
     },
     plugins: [
       vueJsx() as PluginOption,

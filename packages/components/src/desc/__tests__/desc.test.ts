@@ -16,12 +16,16 @@ vi.mock('../../text-tooltip/src/text-tooltip.vue', () => ({
 }));
 
 // Mock useElementSize
-vi.mock('@vueuse/core', () => ({
-  useElementSize: vi.fn(() => ({
-    width: { value: 800 },
-    height: { value: 600 }
-  }))
-}));
+vi.mock('@vueuse/core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@vueuse/core')>();
+  return {
+    ...actual,
+    useElementSize: vi.fn(() => ({
+      width: { value: 800 },
+      height: { value: 600 }
+    }))
+  };
+});
 
 describe('YDesc 组件测试', () => {
   const mockData = {

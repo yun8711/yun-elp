@@ -134,7 +134,7 @@ const checkScrollStatus = useThrottleFn(() => {
 
 // 连续滚动相关状态
 const isContinuous = ref(false);
-const continuousTimer = ref<number | null>(null);
+const continuousTimer = ref<ReturnType<typeof setTimeout> | null>(null);
 const continuousAnimationId = ref<number | null>(null);
 const continuousDirection = ref<'prev' | 'next' | null>(null);
 const continuousBoundaries = ref<{ min: number; max: number } | null>(null);
@@ -361,11 +361,14 @@ watch(
 
 // 组件卸载时清理资源
 onUnmounted(() => {
-  stopResizeObserver();
+  isContinuous.value = false;
+  continuousDirection.value = null;
   stopContinuousScroll();
   if (continuousTimer.value) {
     clearTimeout(continuousTimer.value);
+    continuousTimer.value = null;
   }
+  stopResizeObserver();
 });
 
 const scrollTo = (scrollLeft: undefined | number | 'start' | 'end') => {

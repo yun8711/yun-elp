@@ -28,13 +28,13 @@
     "README.md"
   ],
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.4",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@types/node": "^20.19.0",
-    "tsup": "^8.0.2",
-    "typescript": "^5.8.2"
+    "@types/node": "catalog:",
+    "tsup": "^8.5.1",
+    "typescript": "catalog:"
   },
   "engines": {
     "node": ">=20.0.0"

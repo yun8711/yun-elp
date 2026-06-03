@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@yun-elp/components": ["../packages/components/index.ts"],
+      "@yun-elp/components/*": ["../packages/components/*"],
+      "@yun-elp/theme-chalk": ["../packages/theme-chalk/src"],
+      "@yun-elp/theme-chalk/*": ["../packages/theme-chalk/src/*"],
+      "@yun-elp/resolver": ["../packages/resolver/index.ts"],
+      "yun-elp": ["../packages/components/index.ts"],
+      "yun-elp/theme-chalk": ["../packages/theme-chalk/src"],
+      "yun-elp/theme-chalk/*": ["../packages/theme-chalk/*"]
+    },
+    "types": ["vite/client"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue", "src/**/*.js", "vite.config.ts"],
+  "exclude": ["node_modules", "dist"]
+}

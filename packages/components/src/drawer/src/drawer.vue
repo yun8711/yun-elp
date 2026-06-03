@@ -1,9 +1,5 @@
 <template>
-  <el-drawer
-    ref="drawerRef"
-    v-model="drawerVisible"
-    v-bind="drawerAttrs"
-    class="y-drawer">
+  <el-drawer ref="drawerRef" v-model="drawerVisible" v-bind="drawerAttrs" class="y-drawer">
     <template #header>
       <slot name="header">
         <div class="y-drawer__header-title" :style="titleStyle">
@@ -34,8 +30,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, useAttrs } from 'vue';
+import { computed, useAttrs, useTemplateRef } from 'vue';
 import { DrawerProps, DrawerEmits } from './drawer';
+import type { DrawerInstance } from 'element-plus';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import { useExternalListener } from '../../../hooks/use-external-listener';
@@ -143,8 +140,9 @@ const confirmClick = () => {
   }
 };
 
-const drawerRef = ref(null);
+const drawerRef = useTemplateRef<DrawerInstance>('drawerRef');
+
 defineExpose({
-  handleClose:drawerRef.value?.handleClose
+  drawerRef
 });
 </script>

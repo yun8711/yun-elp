@@ -70,7 +70,7 @@ const tableProps = computed(() => {
     ...(attrs || {}),
     ...props,
     border: true,
-    size: 'large',
+    size: 'large' as const,
   }
 });
 
@@ -103,9 +103,9 @@ const paginationChange = (currentPage: number, pageSize: number) => {
 
 const tableRef = useTemplateRef<TableInstance>('tableRef')
 
-defineExpose(new Proxy<TableInstance>({}, {
+defineExpose(new Proxy({} as TableInstance, {
   get: (_target, key) => {
-    return tableRef.value?.[key];
+    return tableRef.value?.[key as keyof TableInstance];
   },
   has: (_target, key) => {
     return !!(tableRef.value && key in tableRef.value);

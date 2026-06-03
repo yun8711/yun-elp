@@ -13,10 +13,8 @@ export const projRoot = path.resolve(__dirname, '..');
 export const pkgRoot = path.resolve(projRoot, 'packages');
 // 组件库子项目目录
 export const compRoot = path.resolve(pkgRoot, 'components');
-// utils 子项目目录
-export const utilsRoot = path.resolve(pkgRoot, 'utils');
-// locale 子项目目录
-export const localeRoot = path.resolve(pkgRoot, 'locale');
+// 组件库 locale 目录（位于 components 包内）
+export const localeRoot = path.resolve(compRoot, 'locale');
 // 组件样式目录
 export const styleRoot = path.resolve(pkgRoot, 'theme-chalk');
 

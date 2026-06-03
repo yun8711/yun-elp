@@ -574,35 +574,31 @@ describe('YColumnText 表格列文本组件', () => {
     });
 
     it('应该支持设置可能抛出异常的 formatter 函数', () => {
+      const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
       const errorFormatter = vi.fn(() => {
         throw new Error('格式化错误');
       });
 
-      const wrapper = mount(YColumnText, {
-        props: {
-          formatter: errorFormatter
-        },
-        attrs: {
-          prop: 'name',
-          label: '姓名'
-        }
+      const wrapper = createBasicTest({
+        formatter: errorFormatter,
       });
 
       const vm = wrapper.vm as any;
       const scope = { row: { name: '测试' }, column: { property: 'name' }, $index: 0 };
 
-      // 验证函数可以设置
       expect(typeof wrapper.props('formatter')).toBe('function');
 
-      // 验证当formatter抛出异常时，formatterCellValue应该能够处理（返回原始值）
-      // 注意：在实际使用中，应该避免formatter抛出异常，这里只是测试边界情况
-      try {
-        vm.formatterCellValue(scope);
-        // 如果没有抛出异常，说明组件内部处理了formatter的异常
-      } catch (error) {
-        // 如果抛出了异常，验证是formatter的异常而不是组件的异常
-        expect(error.message).toBe('格式化错误');
-      }
+      // formatter 抛错时组件应捕获异常并返回原始值
+      const result = vm.formatterCellValue(scope);
+      expect(result).toBe('测试');
+      expect(errorFormatter).toHaveBeenCalled();
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        '[YColumnText] formatter函数执行出错:',
+        expect.any(Error),
+      );
+
+      consoleWarnSpy.mockRestore();
     });
 
     it('应该处理复杂的嵌套对象属性', () => {

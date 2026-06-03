@@ -32,13 +32,7 @@ vi.mock('../../border-label/src/border-label.vue', () => ({
   }
 }));
 
-// Mock Element Plus icons
-vi.mock('@element-plus/icons-vue', () => ({
-  ArrowDown: { name: 'ArrowDown', template: '<span>↓</span>' },
-  ArrowUp: { name: 'ArrowUp', template: '<span>↑</span>' }
-}));
-
-// 使用 vitest.setup.ts 中的全局组件注册
+// 使用 vitest.setup.ts 中的全局组件注册与 icons mock
 
 describe('YTableSearch', () => {
   let wrapper: any;

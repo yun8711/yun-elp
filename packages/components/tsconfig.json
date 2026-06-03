@@ -1,53 +1,31 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "skipLibCheck": true,
-    "moduleResolution": "node",
-    "allowImportingTsExtensions": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "preserve",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "dist",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
       "~/*": ["./*"],
-      "@vue/shared": ["../../node_modules/@vue/shared/dist/shared.d.ts"]
+      "@yun-elp/theme-chalk": ["../theme-chalk/src"],
+      "@yun-elp/theme-chalk/*": ["../theme-chalk/src/*"]
     },
-    "preserveSymlinks": true,
     "types": ["vue"]
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
     "src/**/*.vue",
     "hooks/**/*.ts",
     "locale/**/*.ts",
-    "locale/index.ts",
     "utils/**/*.ts",
-    "**/*.ts",
+    "index.ts",
+    "components.ts",
+    "defaults.ts",
     "vite-env.d.ts"
   ],
   "exclude": [
     "**/*.test.ts",
     "**/*.spec.ts",
-    "src/test-setup.ts",
-    "src/test-utils/**/*",
+    "**/__tests__/**",
     "node_modules",
     "dist"
-  ],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  ]
 }

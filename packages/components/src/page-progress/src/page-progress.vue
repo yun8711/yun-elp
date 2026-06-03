@@ -9,6 +9,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, onUnmounted, useAttrs, toRefs } from 'vue';
 import { ElProgress } from 'element-plus';
+import type { ProgressProps } from 'element-plus';
 import type { PageProgressProps,PageProgressEmits } from './page-progress';
 
 defineOptions({
@@ -16,7 +17,7 @@ defineOptions({
   inheritAttrs: true
 });
 
-const attrs = useAttrs();
+const attrs = useAttrs() as Partial<ProgressProps>;
 
 const props = withDefaults(defineProps<PageProgressProps>(), {
   auto: false,
@@ -35,7 +36,7 @@ const { step, delay, speed } = toRefs(props);
 // 合并、固定el-progress的属性
 const manageAttrs = computed(() => {
   return {
-    type: 'line',
+    type: 'line' as const,
     strokeWidth: attrs?.strokeWidth || 2,
     textInside: false,
     status: undefined,

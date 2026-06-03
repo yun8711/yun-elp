@@ -45,6 +45,16 @@ export interface ColumnOpItemType {
   cancel?: (scope: TableItemScope, item: ColumnOpItemType, e: MouseEvent) => any;
 }
 
+// 已解析的操作项类型（函数属性已求值，避免自引用导致类型无限展开）
+export interface ResolvedColumnOpItem extends Omit<ColumnOpItemType, 'label' | 'disabled' | 'show' | 'dropdown' | 'noPop' | 'popProps'> {
+  label: string;
+  disabled: boolean;
+  show: boolean;
+  dropdown: boolean;
+  noPop: boolean;
+  popProps: Record<string, any>;
+}
+
 // 操作列的配置
 export interface ColumnOpProps {
   options: ColumnOpItemType[] | ((scope: TableItemScope) => ColumnOpItemType[]);
