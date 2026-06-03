@@ -5,7 +5,7 @@ hero:
   text: 基于 Element Plus 的业务组件库
   tagline: 高效、易用、专注于业务场景的组件封装
   image:
-    src: /logo.svg
+    src: /home_index.png
     alt: YUN-ELP
   actions:
     - theme: brand
