@@ -4,6 +4,12 @@
   "description": "基于 Element Plus 的业务组件库",
   "module": "es/index.mjs",
   "types": "es/index.d.ts",
+  "author": "liuyun.dev@qq.com",
+  "homepage": "https://yun8711.github.io/yun-elp/",
+  "bugs": {
+    "url": "https://github.com/yun8711/yun-elp/issues"
+  },
+  "license": "MIT",
   "exports": {
     ".": {
       "types": "./es/index.d.ts",
