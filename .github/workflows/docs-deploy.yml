@@ -15,6 +15,9 @@ on:
     branches: [main]
     paths:
       - 'docs/**'
+      - 'scripts/generate-ai-docs.ts'
+      - 'package.json'
+      - 'docs/package.json'
       - '.github/workflows/docs-deploy.yml'
 
   # 允许手动触发

@@ -5,8 +5,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vitepress dev",
-    "build": "vitepress build",
+    "dev": "pnpm -C .. docs:ai && vitepress dev",
+    "build": "pnpm -C .. docs:ai && vitepress build",
     "preview": "vitepress preview",
     "typecheck": "vue-tsc --noEmit -p tsconfig.json",
     "generate:web-types": "tsx scripts/generate-web-types.ts"

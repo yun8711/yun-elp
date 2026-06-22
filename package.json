@@ -13,6 +13,7 @@
     "create": "tsx scripts/create-component.ts",
     "dev": "pnpm -C play dev",
     "docs:dev": "pnpm -C docs dev",
+    "docs:ai": "tsx scripts/generate-ai-docs.ts",
     "test": "pnpm -C packages/components test:coverage",
     "typecheck": "pnpm -C packages/components typecheck && pnpm -C play typecheck && pnpm -C docs typecheck",
     "commit": "czg",

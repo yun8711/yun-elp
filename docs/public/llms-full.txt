@@ -1,0 +1,1114 @@
+# YUN-ELP
+
+YUN-ELP 是基于 Element Plus 的 Vue 3 业务组件库，提供业务场景中的二次封装组件、自动导入 resolver、主题和国际化能力。
+
+## 核心入口
+
+- 文档首页: https://yun8711.github.io/yun-elp/
+- 快速开始: https://yun8711.github.io/yun-elp/guide/quickstart
+- AI 使用指南: https://yun8711.github.io/yun-elp/guide/ai-usage
+- 组件列表: https://yun8711.github.io/yun-elp/components/button/
+- 组件元数据: https://yun8711.github.io/yun-elp/metadata/components.json
+- npm: https://www.npmjs.com/package/yun-elp
+- GitHub: https://github.com/yun8711/yun-elp
+
+## 使用约定
+
+- 推荐使用 Vue 3.5+、Element Plus 2.14+ 和 TypeScript。
+- 推荐通过 YunElpResolver 和 YunElpAutoImportResolver 配置自动导入。
+- 组件标签统一使用 y- 前缀，例如 y-button、y-form、y-form-item。
+- YUN-ELP 是 Element Plus 的业务封装，不是 Element Plus 的替代品；未扩展的 API 通常透传给 Element Plus 原组件。
+
+## 组件文档
+
+- YAppWrap (y-app-wrap): https://yun8711.github.io/yun-elp/components/app-wrap/
+- YBorderLabel (y-border-label): https://yun8711.github.io/yun-elp/components/border-label/
+- YButton (y-button): https://yun8711.github.io/yun-elp/components/button/
+- YColumnFilter (y-column-filter): https://yun8711.github.io/yun-elp/components/column-filter/
+- YColumnForm (y-column-form): https://yun8711.github.io/yun-elp/components/column-form/
+- YColumnForms (y-column-forms): https://yun8711.github.io/yun-elp/components/column-forms/
+- YColumnOp (y-column-op): https://yun8711.github.io/yun-elp/components/column-op/
+- YColumnText (y-column-text): https://yun8711.github.io/yun-elp/components/column-text/
+- YCronPicker (y-cron-picker): https://yun8711.github.io/yun-elp/components/cron-picker/
+- YDesc (y-desc): https://yun8711.github.io/yun-elp/components/desc/
+- YDialog (y-dialog): https://yun8711.github.io/yun-elp/components/dialog/
+- YDrawer (y-drawer): https://yun8711.github.io/yun-elp/components/drawer/
+- YEcharts (y-echarts): https://yun8711.github.io/yun-elp/components/echarts/
+- YEmpty (y-empty): https://yun8711.github.io/yun-elp/components/empty/
+- YFormItem (y-form-item): https://yun8711.github.io/yun-elp/components/form-item/
+- YForm (y-form): https://yun8711.github.io/yun-elp/components/form/
+- YGroupSelect (y-group-select): https://yun8711.github.io/yun-elp/components/group-select/
+- YLabel (y-label): https://yun8711.github.io/yun-elp/components/label/
+- YPageFooter (y-page-footer): https://yun8711.github.io/yun-elp/components/page-footer/
+- YPageHeader (y-page-header): https://yun8711.github.io/yun-elp/components/page-header/
+- YPageProgress (y-page-progress): https://yun8711.github.io/yun-elp/components/page-progress/
+- YPartTitle (y-part-title): https://yun8711.github.io/yun-elp/components/part-title/
+- YPop (y-pop): https://yun8711.github.io/yun-elp/components/pop/
+- YRowSelect (y-row-select): https://yun8711.github.io/yun-elp/components/row-select/
+- YScrollBox (y-scroll-box): https://yun8711.github.io/yun-elp/components/scroll-box/
+- YStep (y-step): https://yun8711.github.io/yun-elp/components/step/
+- YStickyLayout (y-sticky-layout): https://yun8711.github.io/yun-elp/components/sticky-layout/
+- YTableSearch (y-table-search): https://yun8711.github.io/yun-elp/components/table-search/
+- YTable (y-table): https://yun8711.github.io/yun-elp/components/table/
+- YTextTooltip (y-text-tooltip): https://yun8711.github.io/yun-elp/components/text-tooltip/
+- YWebView (y-web-view): https://yun8711.github.io/yun-elp/components/web-view/
+
+
+# 组件摘要
+
+
+## YAppWrap (y-app-wrap)
+
+向后代组件传递全局配置
+
+- 分类: 容器和布局
+- 文档: https://yun8711.github.io/yun-elp/components/app-wrap/
+- 源码: packages/components/src/app-wrap
+
+### Props
+
+  - elpConfig: [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) (ElConfigProviderProps)
+  - locale: yun-elp的语言配置 ('zh-cn' | 'en')
+  - borderLabel: y-border-label组件全局配置，[见下表](#border-label-attribute) (Ref<record<string, any>>)
+  - pageHeader: y-page-header组件全局配置，[见下表](#page-header-attribute) (Ref<record<string, any>>)
+  - pageFooter: y-page-footer组件全局配置，[见下表](#page-footer-attribute) (Ref<record<string, any>>)
+  - button: y-button组件全局配置，[见下表](#button-attribute) (Ref<record<string, any>>)
+  - drawer: y-drawer组件全局配置，[见下表](#drawer-attribute) (Ref<record<string, any>>)
+  - dialog: y-dialog组件全局配置，[见下表](#dialog-attribute) (Ref<record<string, any>>)
+  - empty: y-empty组件全局配置，[见下表](#empty-attribute) (Ref<record<string, any>>)
+  - textTooltip: y-text-tooltip组件全局配置，[见下表](#desc-attribute) (Ref<record<string, any>>)
+  - desc: y-desc组件全局配置，[见下表](#desc-attribute) (Ref<record<string, any>>)
+  - table: y-table组件全局配置，[见下表](#table-attribute) (Ref<record<string, any>>)
+  - columnForm: y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute) (Ref<record<string, any>>)
+  - columnOp: y-column-op 组件全局配置，[见下表](#column-op-attribute) (Ref<record<string, any>>)
+  - echarts: y-echarts 组件全局配置，[见下表](#echarts-attribute) (Ref<record<string, any>>)
+  - width: 组件总宽度 (string)
+  - height: 组件高度，有效的css尺寸值 (string / number)
+  - titlePath: 从路径元数据中获取title的取值路径 (string)
+  - border: 组件默认是否显示下边框 (boolean)
+  - paddingX: 组件水平内边距 (string / [string, string])
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 默认插槽，用于放置内容
+
+
+## YBorderLabel (y-border-label)
+
+为表单项增加标签和边框
+
+- 分类: 容器和布局
+- 文档: https://yun8711.github.io/yun-elp/components/border-label/
+- 源码: packages/components/src/border-label
+
+### Props
+
+  - label: 标签文本 (string)
+  - width: 组件总宽度 (string / number)
+  - height: 组件高度 (string / number)
+  - noBorder: 是否不显示边框 (boolean)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 默认内容
+  - prefix: 前置内容
+  - label: 标签内容
+  - suffix: 后置内容
+
+
+## YButton (y-button)
+
+功能增强的按钮
+
+- 分类: 通用
+- 文档: https://yun8711.github.io/yun-elp/components/button/
+- 源码: packages/components/src/button
+
+### Props
+
+  - model: 模式选择：debounce（防抖）或 throttle（节流），不设置时不启用防抖或节流 ('debounce' | 'throttle')
+  - delay: 防抖/节流间隔时间，单位ms，不设置时如果设置了model则默认为300ms (number)
+  - max-wait: 最大等待时间，单位ms，仅在防抖模式下生效 (number)
+  - dbl-delay: 双击检测时间阈值，单位ms，用于区分单击和双击，必须大于等于delay (number)
+  - size: 尺寸 ('large' | 'default' | 'small')
+  - type: 按钮类型；color 属性优先级更高 ('primary' | 'success' | 'warning' | 'danger' | 'info' | 'text' (deprecated))
+  - plain: 是否为朴素按钮，即无背景颜色 (boolean)
+  - text: 是否为文字按钮 (boolean)
+  - bg: 是否显示文字按钮背景颜色 (boolean)
+  - link: 是否为链接按钮 (boolean)
+  - round: 是否为圆角按钮 (boolean)
+  - circle: 是否为圆形按钮 (boolean)
+  - loading: 是否为加载中状态 (boolean)
+  - loading-icon: 自定义加载中状态图标组件 (string / Component)
+  - disabled: 按钮是否为禁用状态 (boolean)
+  - icon: 图标组件 (string / Component)
+  - autofocus: 原生 autofocus 属性 (boolean)
+  - native-type: 原生 type 属性 ('button' | 'submit' | 'reset')
+  - auto-insert-space: 两个中文字符之间自动插入空格(仅当文本长度为 2 且所有字符均为中文时才生效) (boolean)
+  - color: 自定义按钮颜色, 并自动计算 hover 和 active 触发后的颜色 (string)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 自定义默认内容
+  - loading: 自定义加载中组件
+  - icon: 自定义图标组件
+
+
+## YColumnFilter (y-column-filter)
+
+表格筛选及状态标签显示的列
+
+- 分类: 数据展示
+- 文档: https://yun8711.github.io/yun-elp/components/column-filter/
+- 源码: packages/components/src/column-filter
+
+### Props
+
+  - no-status: 是否不显示状态样式，默认显示 (boolean)
+  - no-filter: 是否不启用筛选功能，默认显示 (boolean)
+  - formatter: 值格式化函数 (boolean / (value: any, row: any, scope: any) => string)
+  - config: 配置筛选选项、状态样式和格式化 (ColumnFilterConfig[])
+  - text-style: 自定义文本样式 (Record<string, any>)
+  - label: 显示的列标题 (string)
+  - column-key: column 的 key，如果需要使用 filter-change 事件，则需要此属性标识是哪个 column 的筛选条件 (string)
+  - prop: 列内容的字段名， 也可以使用 property属性 (string)
+  - width: 列的宽度，固定的 (string / number)
+  - min-width: 列的最小宽度，会把剩余宽度按比例分配给设置了 min-width 的列 (string / number)
+  - fixed: 列是否固定在左侧或者右侧。 true 表示固定在左侧 true ('left' | 'right' / boolean)
+  - render-header: 列标题 Label 区域渲染使用的 Function ((data: { column: any, $index: number }) => void)
+  - resizable: 是否可以通过拖动改变宽度（需要在 el-table 上设置 border=true） (boolean)
+  - show-overflow-tooltip: 当内容过长被隐藏时显示 tooltip (boolean / [object](#table-attributes))
+  - align: 内容对齐方式 ('left' | 'center' | 'right')
+  - header-align: 表头对齐方式， 若不设置该项，则使用表格的对齐方式 ('left' | 'center' | 'right')
+  - class-name: 列的 className (string)
+  - label-class-name: 当前列标题的自定义类名 (string)
+  - filters: 数据过滤的选项， 数组格式，每个元素都需要有 text 和 value 属性 (Array<{text: string, value: string}>)
+  - filter-placement: 过滤弹出框的定位 ('top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end')
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 默认插槽，自定义单元格内容
+  - header: 自定义表头内容
+  - expand: 展开行插槽
+  - filter-icon: 自定义筛选图标
+
+
+## YColumnForm (y-column-form)
+
+单元格内展示单个表单项的列
+
+- 分类: 数据展示
+- 文档: https://yun8711.github.io/yun-elp/components/column-form/
+- 源码: packages/components/src/column-form
+
+### Props
+
+  - no-from: 是否不使用 el-form-item 包裹，仅作为普通表单列显示，无校验、错误提示功能 (boolean)
+  - t-name: form中table字段名，用于数据绑定和校验 (string)
+  - rules: 表单验证规则 (FormRules / (scope: any, prop: string) => FormRules)
+  - form-props: 表单项的其他属性 (Partial<FormItemProps>)
+  - tip-props: 错误提示tooltip的属性 (Partial<ElTooltipProps>)
+  - label: 显示的列标题 (string)
+  - prop: 列内容的字段名， 也可以使用 property属性 (string)
+  - width: 列的宽度，固定的 (string / number)
+  - min-width: 列的最小宽度，会把剩余宽度按比例分配给设置了 min-width 的列 (string / number)
+  - fixed: 列是否固定在左侧或者右侧。 true 表示固定在左侧 true ('left' | 'right' / boolean)
+  - render-header: 列标题 Label 区域渲染的函数 ((data: { column: any, $index: number }) => void)
+  - resizable: 是否可以通过拖动改变宽度（需要在 el-table 上设置 border=true） (boolean)
+  - show-overflow-tooltip: 当内容过长被隐藏时显示 tooltip (boolean / [object](#table-attributes))
+  - align: 内容对齐方式 ('left' | 'center' | 'right')
+  - header-align: 表头对齐方式， 若不设置该项，则使用表格的对齐方式 ('left' | 'center' | 'right')
+  - class-name: 列的 className (string)
+  - label-class-name: 当前列标题的自定义类名 (string)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 表单项内容插槽
+  - header: 自定义表头内容
+
+
+## YColumnForms (y-column-forms)
+
+单元格内展示多个表单项的列
+
+- 分类: 数据展示
+- 文档: https://yun8711.github.io/yun-elp/components/column-forms/
+- 源码: packages/components/src/column-forms
+
+### Props
+
+  - options: 表单项配置数组 (ColumnFormsItem[])
+  - inline: flex-wrap 行为来控制表单排列 (boolean)
+  - t-name: form中table字段名，用于绑定校验组 (string)
+  - label: 表单项的标签 (string)
+  - prop: 表单项的字段名，必填 (string)
+  - width: 表单项宽度 (string / (scope: any, prop: string) => string)
+  - min-width: 列的最小宽度，会把剩余宽度按比例分配给设置了 min-width 的列 (string / number)
+  - fixed: 列是否固定在左侧或者右侧。 true 表示固定在左侧 true ('left' | 'right' / boolean)
+  - render-header: 列标题 Label 区域渲染的函数 ((data: { column: any, $index: number }) => void)
+  - resizable: 是否可以通过拖动改变宽度（需要在 el-table 上设置 border=true） (boolean)
+  - show-overflow-tooltip: 当内容过长被隐藏时显示 tooltip (boolean / [object](#table-attributes))
+  - align: 内容对齐方式 ('left' | 'center' | 'right')
+  - header-align: 表头对齐方式， 若不设置该项，则使用表格的对齐方式 ('left' | 'center' | 'right')
+  - class-name: 列的 className (string)
+  - label-class-name: 当前列标题的自定义类名 (string)
+  - labelWidth: 表单项标签宽度 (string / number)
+  - rules: 表单验证规则 (object / (scope: any, prop: string) => any)
+  - formAttrs: 表单项的其他属性 (Partial<FormItemProps> / (scope: any, prop: string) => Partial<FormItemProps>)
+  - show: 是否显示表单项 (boolean / (scope: any, prop: string) => boolean)
+  - tipProps: 错误提示tooltip的属性 (Partial<ElTooltipProps> / (scope: any, prop: string) => Partial<ElTooltipProps>)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - [prop]: 具名插槽，根据 options 中每个表单项的 prop 属性命名，用于自定义表单项内容
+  - header: 自定义表头内容
+
+
+## YColumnOp (y-column-op)
+
+单元格内展示操作按钮的列
+
+- 分类: 数据展示
+- 文档: https://yun8711.github.io/yun-elp/components/column-op/
+- 源码: packages/components/src/column-op
+
+### Props
+
+  - options: 操作项配置数组或函数 (ColumnOpItemType[]/ (scope: TableItemScope) => ColumnOpItemType[])
+  - disabledDefaultTip: 按钮禁用时的默认提示文本 (string)
+  - label: 显示的列标题 (string)
+  - prop: 列内容的字段名， 也可以使用 property属性 (string)
+  - width: 列的宽度，固定的 (string / number)
+  - min-width: 列的最小宽度，会把剩余宽度按比例分配给设置了 min-width 的列 (string / number)
+  - fixed: 列是否固定在左侧或者右侧。 true 表示固定在左侧 true ('left' | 'right' / boolean)
+  - render-header: 列标题 Label 区域渲染的函数 ((data: { column: any, $index: number }) => void)
+  - resizable: 是否可以通过拖动改变宽度（需要在 el-table 上设置 border=true） (boolean)
+  - show-overflow-tooltip: 当内容过长被隐藏时显示 tooltip (boolean / [object](#table-attributes))
+  - align: 内容对齐方式 ('left' | 'center' | 'right')
+  - header-align: 表头对齐方式， 若不设置该项，则使用表格的对齐方式 ('left' | 'center' | 'right')
+  - class-name: 列的 className (string)
+  - label-class-name: 当前列标题的自定义类名 (string)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - header: 自定义表头内容
+  - [prop]: 自定义操作项内容，prop为操作项的prop值
+
+
+## YColumnText (y-column-text)
+
+单元格内展示各种自定义文本的列
+
+- 分类: 数据展示
+- 文档: https://yun8711.github.io/yun-elp/components/column-text/
+- 源码: packages/components/src/column-text
+
+### Props
+
+  - link: 是否以链接样式展示，开启后点击会触发 click 事件 (boolean)
+  - formatter: 自定义单元格文本格式化函数，作用同 el-table-column的 formatter，只是修改了参数顺序 ((value: any, row: any, scope: any) => string)
+  - text-style: 单元格内文本样式 (CSSProperties)
+  - no-tip: 是否禁用溢出 Tooltip 提示，代替 show-overflow-tooltip (boolean)
+  - tip-props: Tooltip 配置对象；传入对象时将作为 show-overflow-tooltip 的配置 (Partial<ElTooltipProps>)
+  - label: 显示的列标题 (string)
+  - prop: 列内容的字段名， 也可以使用 property属性 (string)
+  - width: 列的宽度，固定的 (string / number)
+  - min-width: 列的最小宽度，会把剩余宽度按比例分配给设置了 min-width 的列 (string / number)
+  - fixed: 列是否固定在左侧或者右侧。 true 表示固定在左侧 true ('left' | 'right' / boolean)
+  - render-header: 列标题 Label 区域渲染的函数 ((data: { column: any, $index: number }) => void)
+  - resizable: 是否可以通过拖动改变宽度（需要在 el-table 上设置 border=true） (boolean)
+  - align: 内容对齐方式 ('left' | 'center' | 'right')
+  - header-align: 表头对齐方式， 若不设置该项，则使用表格的对齐方式 ('left' | 'center' | 'right')
+  - class-name: 列的 className (string)
+  - label-class-name: 当前列标题的自定义类名 (string)
+
+### Events
+
+  - click: 当 link 为 true 时点击文本触发 ((row: any,value:any, scope: any,event:MouseEvent) => void)
+
+### Slots
+
+  - default: 单元格内容插槽，如果设置了 formatter，则value是转换后的值
+  - header: 自定义表头内容
+  - expand: 展开列的自定义内容
+
+
+## YCronPicker (y-cron-picker)
+
+定时选择器
+
+- 分类: 数据录入
+- 文档: https://yun8711.github.io/yun-elp/components/cron-picker/
+- 源码: packages/components/src/cron-picker
+
+### Props
+
+  - model-value / v-model: 绑定值 (string)
+  - disabled-period: 禁止下拉周期选项 (string[])
+  - edit-default-value: 修改默认值，例如切换到年时默认选中的时间 (Record<string, any>)
+  - default-period: 默认调度周期 ('MINUTE' | 'HOUR' | 'DAY' | 'WEEK' | 'MONTH' | 'YEAR')
+  - placeholder: 占位符 (string)
+
+### Events
+
+  - change: Cron表达式值变化 ((value: string) => void)
+
+### Slots
+
+  - 无扩展插槽或文档未声明
+
+
+## YDesc (y-desc)
+
+描述列表
+
+- 分类: 数据展示
+- 文档: https://yun8711.github.io/yun-elp/components/desc/
+- 源码: packages/components/src/desc
+
+### Props
+
+  - config: 配置项数组 (DescItem[])
+  - data: 数据对象 (Record<string, any>)
+  - direction: 布局方向，同 el-descriptions ('horizontal' | 'vertical')
+  - column: 列数 (number / (width: number) => number)
+  - labelWidth: label 宽度 (string / number)
+  - label-style: label 样式 (CSSProperties)
+  - content-style: content 样式 (CSSProperties)
+  - label-align: label 文本对齐方式 ('left' | 'center' | 'right')
+  - content-align: content 文本对齐方式 ('left' | 'center' | 'right')
+  - empty-text: content 内容为空时显示的内容 (string)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - [prop]-label: 具名插槽，每一项的自定义标签内容（优先级最高）
+  - [prop]-content: 具名插槽，每一项的自定义内容（优先级最高）
+  - label: 默认标签插槽，当未指定 [prop]-label 时使用
+  - content: 默认内容插槽，当未指定 [prop]-content 时使用
+
+
+## YDialog (y-dialog)
+
+默认提供操作按钮的对话框组件
+
+- 分类: 反馈
+- 文档: https://yun8711.github.io/yun-elp/components/dialog/
+- 源码: packages/components/src/dialog
+
+### Props
+
+  - model-value / v-model: 对话框显示状态 (boolean)
+  - title: 对话框标题 (string)
+  - title-style: 标题样式 (CSSProperties)
+  - show-footer: 是否显示底部区域 (boolean)
+  - no-confirm: 是否隐藏确认按钮 (boolean)
+  - confirm-text: 确认按钮文本 (string)
+  - confirm-props: 确认按钮属性 (YButtonProps)
+  - no-cancel: 是否隐藏取消按钮 (boolean)
+  - cancel-text: 取消按钮文本 (string)
+  - cancel-props: 取消按钮属性 (YButtonProps)
+  - body-max-height: body 区域最大高 (string)
+  - width: 对话框的宽度，默认值为 50% (string / number)
+  - fullscreen: 是否为全屏 (boolean)
+  - top: dialog CSS 中的 margin-top 值，默认为 15vh (string)
+  - modal: 是否需要遮罩层 (boolean)
+  - modal-penetrable: 是否允许穿透遮罩层，modal 属性必须为 false (string)
+  - modal-class: 遮罩的自定义类名 (string)
+  - header-class: header 部分的自定义 class 名 (string)
+  - body-class: body 部分的自定义 class 名 (string)
+  - footer-class: footer 部分的自定义 class 名 (string)
+
+### Events
+
+  - confirm: 点击确认按钮时触发 (() => void)
+  - cancel: 点击取消按钮时触发 (() => void)
+
+### Slots
+
+  - default: 对话框的默认内容
+  - header: 对话框标题的内容；会替换标题部分，但不会移除关闭按钮
+  - title: 对话框标题的文本内容
+  - footer: 底部按钮操作区的内容
+  - confirm: 自定义确认按钮
+  - cancel: 自定义取消按钮
+
+
+## YDrawer (y-drawer)
+
+默认提供footer区域及操作按钮的抽屉组件
+
+- 分类: 反馈
+- 文档: https://yun8711.github.io/yun-elp/components/drawer/
+- 源码: packages/components/src/drawer
+
+### Props
+
+  - model-value / v-model: 是否显示 Drawer (boolean)
+  - size: 抽屉尺寸 (string / number)
+  - title: 对话框标题 (string)
+  - title-style: 标题样式 (CSSProperties)
+  - show-footer: 是否显示底部按钮区域 (boolean)
+  - no-fonfirm: 是否隐藏确认按钮 (boolean)
+  - confirm-text: 确认按钮文本 (string)
+  - confirm-props: 确认按钮属性 (YButtonProps)
+  - no-cancel: 是否隐藏取消按钮 (boolean)
+  - cancel-text: 取消按钮文本 (string)
+  - cancel-props: 取消按钮属性 (YButtonProps)
+  - append-to-body: Drawer 自身是否插入至 body 元素上，嵌套的 Drawer 必须指定该属性并赋值为 true (boolean)
+  - append-to: Drawer 挂载到哪个 DOM 元素 将覆盖 append-to-body (CSSSelector / HTMLElement)
+  - lock-scroll: 是否在 Drawer 出现时将 body 滚动锁定 (boolean)
+  - before-close: 关闭前的回调，会暂停 Drawer 的关闭，回调函数内执行 done 参数方法的时候才会真正关闭对话框 ((done: DoneFn) => void)
+  - close-on-click-modal: 是否可以通过点击 modal 关闭 Drawer (boolean)
+  - close-on-press-escape: 是否可以通过按下 ESC 关闭 Drawer (boolean)
+  - open-delay: Drawer 打开的延时时间，单位ms (number)
+  - close-delay: Drawer 关闭的延时时间，单位ms (number)
+  - destroy-on-close: 当关闭 Drawer 时，销毁其中的元素 (boolean)
+
+### Events
+
+  - confirm: 点击确认按钮时触发 (() => void)
+  - cancel: 点击取消按钮时触发 (() => void)
+
+### Slots
+
+  - default: 抽屉默认内容
+  - header: 自定义标题的内容；会替换标题部分，但不会移除关闭按钮
+  - title: 对话框标题的文本内容
+  - footer: Drawer 页脚部分
+  - confirm: 自定义确认按钮
+  - cancel: 自定义取消按钮
+
+
+## YEcharts (y-echarts)
+
+基于 ECharts 的基础图表组件
+
+- 分类: 数据展示
+- 文档: https://yun8711.github.io/yun-elp/components/echarts/
+- 源码: packages/components/src/echarts
+
+### Props
+
+  - option: [Echarts 图表配置项](https://echarts.apache.org/zh/option.html#title) (object)
+  - loading: 是否显示加载状态 (boolean)
+  - config: 按需加载的模块配置 (EchartsConfig)
+  - theme: 图表主题，参见[ECharts 中的样式简介](https://echarts.apache.org/handbook/zh/concepts/style) (string / object)
+  - chartTypes: 需要动态导入的图表类型，如 ['LineChart', 'BarChart'] (string[])
+  - components: 需要动态导入的组件类型，如 ['GridComponent', 'TooltipComponent'] (string[])
+  - renderers: 需要动态导入的渲染器类型，如 ['CanvasRenderer'] (string[])
+  - features: 需要动态导入的特性功能，如 ['LabelLayout', 'UniversalTransition'] (string[])
+  - initOpts: 初始化参数，参见[echarts init](https://echarts.apache.org/zh/api.html#echarts.init) (object)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - 无扩展插槽或文档未声明
+
+
+## YEmpty (y-empty)
+
+展示空数据状态的组件
+
+- 分类: 数据展示
+- 文档: https://yun8711.github.io/yun-elp/components/empty/
+- 源码: packages/components/src/empty
+
+### Props
+
+  - image: 图片地址 (string)
+  - image-size: 图片尺寸 (number)
+  - description: 描述文字 (string)
+  - style: el-empty支持的样式，包括css变量 (CSSProperties)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 自定义底部内容
+  - image: 自定义图片内容
+  - description: 自定义描述
+
+
+## YFormItem (y-form-item)
+
+基于 Element Plus FormItem + Col 的表单项
+
+- 分类: 数据录入
+- 文档: https://yun8711.github.io/yun-elp/components/form-item/
+- 源码: packages/components/src/form-item
+
+### Props
+
+  - span: 栅格占据列数，同 el-col (number)
+  - offset: 栅格左侧间隔格数，同 el-col (number)
+  - push: 向右移动格数，同 el-col (number)
+  - pull: 向左移动格数，同 el-col (number)
+  - xs: <768px 响应式栅格，同 el-col (number / ColSizeObject)
+  - sm: ≥768px 响应式栅格，同 el-col (number / ColSizeObject)
+  - md: ≥992px 响应式栅格，同 el-col (number / ColSizeObject)
+  - lg: ≥1200px 响应式栅格，同 el-col (number / ColSizeObject)
+  - xl: ≥1920px 响应式栅格，同 el-col (number / ColSizeObject)
+  - tag: 自定义元素标签，同 el-col (string)
+  - label: 标签文本，同 el-form-item (string)
+  - prop: 模型字段名，同 el-form-item (string / string[])
+  - rules: 校验规则，同 el-form-item (FormItemRule | FormItemRule[])
+  - label-width: 标签宽度，同 el-form-item (string / number)
+  - required: 是否必填，同 el-form-item (boolean)
+  - inline-message: 是否行内展示校验信息，同 el-form-item (boolean)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 表单控件内容
+  - label: 自定义标签内容
+  - error: 自定义校验错误内容
+
+
+## YForm (y-form)
+
+基于 Element Plus Form 的布局与联动表单
+
+- 分类: 数据录入
+- 文档: https://yun8711.github.io/yun-elp/components/form/
+- 源码: packages/components/src/form
+
+### Props
+
+  - config: 表单数据变化时的回调，参数见[FormConfigFn](#formconfigfn) ((model, context) => void)
+  - static-fields: 静态字段，变化时不触发 config (string[])
+  - debounce: config 队列处理防抖时间（ms），0 表示不防抖 (number)
+  - span: y-form-item 默认栅格占位 (number)
+  - row-class: 行容器 class (string)
+  - row-style: 行容器 style (CSSProperties)
+  - model: 表单数据对象，同 el-form (Record<string, any>)
+  - rules: 表单校验规则，同 el-form (FormRules)
+  - label-width: 标签宽度，同 el-form (string / number)
+  - label-position: 标签位置，同 el-form ('left' | 'right' | 'top')
+  - inline: 行内表单模式，同 el-form (boolean)
+  - gutter: 栅格间隔，同 el-row (number)
+  - justify: 水平排列方式，同 el-row ('start' | 'end' | 'center' | 'space-around' | 'space-between' | 'space-evenly')
+  - align: 垂直排列方式，同 el-row ('top' | 'middle' | 'bottom')
+  - tag: 自定义元素标签，同 el-row (string)
+
+### Events
+
+  - validate: 任一表单项校验后触发 ((prop: FormItemProp, isValid: boolean, message: string) => void)
+
+### Slots
+
+  - default: 表单内容，放置 y-form-item
+
+
+## YGroupSelect (y-group-select)
+
+按钮组选择器
+
+- 分类: 数据录入
+- 文档: https://yun8711.github.io/yun-elp/components/group-select/
+- 源码: packages/components/src/group-select
+
+### Props
+
+  - model-value / v-model: 绑定值 (string | number)
+  - options: 选项数组 (GroupSelectOption[])
+  - item-class: 按钮的自定义类名 (string)
+  - item-styles: 按钮的自定义样式对象 (Record<string, any>)
+
+### Events
+
+  - change: 选择变化时触发 ((payload: { value: string | number, item: GroupSelectOption, index: number, event: MouseEvent }))
+
+### Slots
+
+  - default: 自定义选项内容
+  - icon: 自定义图标
+  - loading: 自定义加载状态
+
+
+## YLabel (y-label)
+
+用于展示键值对数据
+
+- 分类: 容器和布局
+- 文档: https://yun8711.github.io/yun-elp/components/label/
+- 源码: packages/components/src/label
+
+### Props
+
+  - label: 标签文本 (string)
+  - label-width: 标签宽度 (string / number)
+  - align: 标签文本对齐方式 ('left' | 'center' | 'right')
+  - height: 组件高度 (string / number)
+  - border: 是否显示边框 (boolean)
+  - colon: 标签后分隔符，border为false时有效 (string)
+  - label-style: 标签自定义样式 (CSSProperties)
+  - content-style: 内容区域自定义样式 (CSSProperties)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 默认插槽，用于放置内容
+  - prefix: 前置插槽，用于放置图标等前置内容
+  - suffix: 后置插槽，用于放置图标等后置内容
+  - label: 标签文本插槽，用于自定义标签内容
+
+
+## YPageFooter (y-page-footer)
+
+页面或区域吸底组件
+
+- 分类: 容器和布局
+- 文档: https://yun8711.github.io/yun-elp/components/page-footer/
+- 源码: packages/components/src/page-footer
+
+### Props
+
+  - height: 组件高度，有效的css尺寸值 (string / number)
+  - left: 组件左侧距离，有效的css尺寸值 (string / number)
+  - rifht: 组件右侧距离，有效的css尺寸值 (string / number)
+  - model: 组件固定时相对于页面或者父元素 ('fixed' | 'absolute')
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 内容
+
+
+## YPageHeader (y-page-header)
+
+展示页面标题
+
+- 分类: 导航
+- 文档: https://yun8711.github.io/yun-elp/components/page-header/
+- 源码: packages/components/src/page-header
+
+### Props
+
+  - height: 组件高度 (string / number)
+  - title: 标题文本，默认取 route.meta.title (string)
+  - border: 是否显示下边框 (boolean)
+  - padding-x: 左右内边距 (string / [string,string])
+  - titleStyle: 标题样式 (CSSProperties)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 标题内容
+  - extra: 标题右侧附加内容
+  - right: 组件右侧区域
+
+
+## YPageProgress (y-page-progress)
+
+页面进度条
+
+- 分类: 反馈
+- 文档: https://yun8711.github.io/yun-elp/components/page-progress/
+- 源码: packages/components/src/page-progress
+
+### Props
+
+  - model-value / v-model: 进度条开启/停止状态 (boolean)
+  - step: 步进距离 (0-100) (number)
+  - spinner: 是否显示右上角的加载图标 (boolean)
+  - delay: 完成后的延迟隐藏时间 (ms) (number)
+  - speed: 自动增量速度 (ms)，即间隔 speed 增长 step (number)
+  - color: 进度条颜色 (string)
+  - stroke-width: 进度条宽度 (number)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - 无扩展插槽或文档未声明
+
+
+## YPartTitle (y-part-title)
+
+用于展示页面局部区域的标题，支持左侧装饰块和右侧操作区域。
+
+- 分类: 导航
+- 文档: https://yun8711.github.io/yun-elp/components/part-title/
+- 源码: packages/components/src/part-title
+
+### Props
+
+  - title: 标题文本 (string)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 默认插槽，用于自定义标题内容，会覆盖 title 属性
+  - extra: 左侧额外内容插槽，用于在标题后添加标签、图标等
+  - right: 右侧内容插槽，用于放置操作按钮、链接等
+
+
+## YPop (y-pop)
+
+集成el-tooltip和el-popover的弹出框容器
+
+- 分类: 容器和布局
+- 文档: https://yun8711.github.io/yun-elp/components/pop/
+- 源码: packages/components/src/pop
+
+### Props
+
+  - tip-content: tooltip 显示的内容 (string)
+  - tip-placement: tooltip 出现位置 (PlacementType)
+  - tip-props: [el-tooltip](https://element-plus.org/zh-CN/component/tooltip) 完整配置 (Partial<ElTooltipProps>)
+  - no-pop: 是否禁用 popover (boolean)
+  - pop-title: popover 标题 (string / number)
+  - pop-content: popover 内容 (string)
+  - pop-placement: popover 出现位置 (PlacementType)
+  - pop-width: popover 宽度 (number)
+  - pop-props: [el-popover](https://element-plus.org/zh-CN/component/popover) 完整配置 (Partial<PopoverProps>)
+  - no-footer: 是否隐藏底部操作区域 (boolean)
+  - no-confirm: 是否隐藏确认按钮 (boolean)
+  - confirm-text: 确认按钮文本 (string)
+  - confirm-props: 确认按钮属性配置 (Partial<YButtonProps>)
+  - no-cancel: 是否隐藏取消按钮 (boolean)
+  - cancel-text: 取消按钮文本 (string)
+  - cancel-props: 取消按钮属性配置 (Partial<YButtonProps>)
+
+### Events
+
+  - confirm: 点击确认按钮时触发 (() => void)
+  - cancel: 点击取消按钮时触发 (() => void)
+
+### Slots
+
+  - default: 默认插槽，通常放置触发元素
+  - tip-content: el-tooltip 自定义内容
+  - pop-content: el-popover 自定义内容
+  - pop-footer: el-popover 底部自定义内容
+
+
+## YRowSelect (y-row-select)
+
+行选择器组件，支持单选和多选模式，具有折叠展开功能
+
+- 分类: 数据录入
+- 文档: https://yun8711.github.io/yun-elp/components/row-select/
+- 源码: packages/components/src/row-select
+
+### Props
+
+  - model-value / v-model: 绑定值 (string / number / string[] | number[])
+  - single: 是否为单选模式 (boolean)
+  - duration: 收缩展开动画时长，单位ms (number)
+  - defaultLines: 默认显示行数 (number)
+  - label-width: label宽度 (string)
+  - label-align: label水平对齐方式，对应text-align属性的值 ('left' | 'center' | 'right')
+  - label-text: label文字 (string)
+  - separator: 是否显示分隔符 (boolean)
+  - label-styles: label文字的样式 (CSSProperties)
+  - fold-text: 右侧按钮折叠状态时文字 (string)
+  - unfold-text: 右侧按钮展开状态时文字 (string)
+  - show-icon: 是否显示箭头图标 (boolean)
+  - icon-position: 图标位于按钮方位 ('left' | 'right')
+  - btn-styles: 右侧按钮样式 (CSSProperties)
+  - options: 选项数组 (RowSelectOption[])
+  - show-all: 是否显示全部选项 (boolean)
+  - all-text: 全部选项文字 (string)
+  - item-height: 选项高度，只支持px单位 (string / number)
+  - item-width: 选项宽度 (string / number)
+  - gap: 选项间距，支持数字或带px单位，多个值用逗号分隔 (string)
+
+### Events
+
+  - change: 选择变化时触发 ((value: string | string[] | number | number[])=>void)
+  - fold: 折叠状态变化时触发 ((value: boolean)=>void)
+
+### Slots
+
+  - default: 选项内容插槽
+  - all: "全部"选项内容插槽
+
+
+## YScrollBox (y-scroll-box)
+
+可滚动容器
+
+- 分类: 容器和布局
+- 文档: https://yun8711.github.io/yun-elp/components/scroll-box/
+- 源码: packages/components/src/scroll-box
+
+### Props
+
+  - height: 容器高度 (string / number)
+  - width: 容器宽度 (string / number)
+  - arrow-model: 箭头显示模式 ('always' | 'auto')
+  - arrow-style: 箭头样式 (CSSProperties)
+  - scrollbar-props: el-scroll滚动条组件配置 (ElScrollbarProps)
+  - step: 单击滚动时的步进距离 (number)
+  - wheel-scroll: 是否开启鼠标滚轮触发水平滚动 (boolean)
+  - continuous: 是否启用连续滚动功能，即长按会持续滚动 (boolean)
+  - continuous-time: 鼠标按下后多长时间触发连续滚动 (number)
+  - continuous-step: 连续滚动时的步进距离 (number)
+
+### Events
+
+  - scroll: 滚动时触发 ((scrollLeft:number) => void)
+
+### Slots
+
+  - default: 内容区域
+
+
+## YStep (y-step)
+
+水平步骤条
+
+- 分类: 导航
+- 文档: https://yun8711.github.io/yun-elp/components/step/
+- 源码: packages/components/src/step
+
+### Props
+
+  - options: 步骤选项数组，用于显示步骤标签 (string[])
+  - step-number: 步骤数量，当options为空时使用此属性生成步骤数，不小于2 (number)
+  - active-index: 当前激活步骤的索引 (number)
+  - inline-label: 标签是否与步骤序号同行显示 (boolean)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 每个step的插槽，不包含连接线
+
+
+## YStickyLayout (y-sticky-layout)
+
+侧边吸顶布局组件
+
+- 分类: 容器和布局
+- 文档: https://yun8711.github.io/yun-elp/components/sticky-layout/
+- 源码: packages/components/src/sticky-layout
+
+### Props
+
+  - scroll-container: 指定滚动容器，可以是CSS选择器字符串或HTMLElement对象。默认为 window (string / HTMLElement)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 主要内容区域，会根据左右侧边栏的内容自动调整宽度
+  - left: 左侧边栏区域
+  - right: 右侧边栏区域
+
+
+## YTableSearch (y-table-search)
+
+表格查询组件，支持多种搜索字段类型、动态属性和自定义组件
+
+- 分类: 数据录入
+- 文档: https://yun8711.github.io/yun-elp/components/table-search/
+- 源码: packages/components/src/table-search
+
+### Props
+
+  - options: 字段配置 (TableSearchOption[] / (params: DynamicPropsParams) => TableSearchOption[])
+  - fold-text: 收起按钮文本 (string)
+  - un-fold-text: 展开按钮文本 (string)
+  - default-fold: 默认是否折叠 (boolean)
+  - duration: 折叠过渡时间 (number)
+  - disabled-first: 多行模式下，展开时是否自动禁用第一行 (boolean)
+  - clear-on-fold: 多行模式下，展开、收起时是否自动清空数据 (boolean)
+
+### Events
+
+  - search: 点击搜索按钮时触发 (()=>{form: Record<string, any>})
+  - reset: 点击重置按钮时触发 (()=>{form: Record<string, any>})
+  - change: 表单值变化时触发 (()=>{form: Record<string, any>})
+  - fold: 折叠状态变化时触发 (()=>{isFold: boolean,form:Record<string, any>})
+
+### Slots
+
+  - right: 右侧内容
+  - [prop]: 自定义字段组件，{prop} 为字段名
+
+
+## YTable (y-table)
+
+修改默认样式，内置分页功能的表格
+
+- 分类: 数据展示
+- 文档: https://yun8711.github.io/yun-elp/components/table/
+- 源码: packages/components/src/table
+
+### Props
+
+  - loading: 是否显示加载状态 (boolean)
+  - empty-props: 空数据是占位 y-empty 组件配置 (YEmptyProps)
+  - show-footer: 是否显示底部分页区域 (boolean)
+  - pagination-props: 分页配置 (PaginationProps)
+  - form-table-prop: 在表单对象中嵌套的 table 数据的键名，用于绑定校验 (string)
+  - data: 表数据 (any[])
+  - height: table 的高度；默认为自动高度；如果 height 为 number 类型，单位为 px；如果 height 为 string 类型，则会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式 (string / number)
+  - max-height: table 的最大高度；合法的值为数字或者单位为 px 的高度 (string / number)
+  - stripe: 是否为斑马纹 (boolean)
+  - fit: 列的宽度是否自动撑开 (boolean)
+  - show-header: 是否显示表头 (boolean)
+  - highlight-current-row: 是否要高亮当前行 (boolean)
+  - current-row-key: 当前行的 key，只写属性 (string / number)
+  - row-class-name: 行的 className 的回调方法，也可以使用字符串为所有行设置一个固定的 className ((data: { row: any, rowIndex: number }) => string / string)
+  - row-style: 行的 style 的回调方法，也可以使用一个固定的 Object 为所有行设置一样的 Style ((data: { row: any, rowIndex: number }) => CSSProperties / CSSProperties)
+  - cell-class-name: 单元格的 className 的回调方法，也可以使用字符串为所有单元格设置一个固定的 className ((data: { row: any, column: any, rowIndex: number, columnIndex: number }) => string / string)
+  - cell-style: 单元格的 style 的回调方法，也可以使用一个固定的 Object 为所有单元格设置一样的 Style ((data: { row: any, column: any, rowIndex: number, columnIndex: number }) => CSSProperties / CSSProperties)
+  - header-row-class-name: 表头行的 className 的回调方法，也可以使用字符串为所有表头行设置一个固定的 className ((data: { row: any, rowIndex: number }) => string / string)
+  - header-row-style: 表头行的 style 的回调方法，也可以使用一个固定的 Object 为所有表头行设置一样的 Style ((data: { row: any, rowIndex: number }) => CSSProperties / CSSProperties)
+  - header-cell-class-name: 表头单元格的 className 的回调方法，也可以使用字符串为所有表头单元格设置一个固定的 className ((data: { row: any, column: any, rowIndex: number, columnIndex: number }) => string / string)
+
+### Events
+
+  - pagination-change: 分页变化时触发 ((obj: { currentPage: number, pageSize: number }) => void)
+  - select: 手动勾选数据行的 Checkbox 时触发的事件 (<T = any>(selection: T[], row: T) => void)
+  - select-all: 手动勾选全选 Checkbox 时触发的事件 ((selection: any[]) => void)
+  - selection-change: 当选择项发生变化时会触发该事件 ((newSelection: any[]) => void)
+  - cell-mouse-enter: 当单元格 hover 进入时会触发该事件 ((row: any, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: Event) => void)
+  - cell-mouse-leave: 当单元格 hover 退出时会触发该事件 ((row: any, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: Event) => void)
+  - cell-click: 当某个单元格被点击时会触发该事件 ((row: any, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: Event) => void)
+  - cell-dblclick: 当某个单元格被双击击时会触发该事件 ((row: any, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: Event) => void)
+  - cell-contextmenu: 当某个单元格被鼠标右键点击时会触发该事件 ((row: any, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: Event) => void)
+  - row-click: 当某一行被点击时会触发该事件 ((row: any, column: TableColumnCtx<T>, event: Event) => void)
+  - row-contextmenu: 当某一行被鼠标右键点击时会触发该事件 ((row: any, column: TableColumnCtx<T>, event: Event) => void)
+  - row-dblclick: 当某一行被双击时会触发该事件 ((row: any, column: TableColumnCtx<T>, event: Event) => void)
+  - header-click: 当某一列的表头被点击时会触发该事件 ((column: TableColumnCtx<T>, event: Event) => void)
+  - header-contextmenu: 当某一列的表头被鼠标右键点击时触发该事件 ((column: TableColumnCtx<T>, event: Event) => void)
+  - sort-change: 当表格的排序条件发生变化的时候会触发该事件 ((data: {column: TableColumnCtx<T>, prop: string, order: any }) => void)
+  - filter-change: 当表格的过滤条件发生变化的时候会触发该事件 ((newFilters: any) => void)
+  - current-change: 当表格的当前行发生变化的时候会触发该事件，如果要高亮当前行，请打开表格的 highlight-current-row 属性 ((currentRow: any, oldCurrentRow: any) => void)
+  - header-dragend: 当拖动表头改变了列的宽度的时候会触发该事件 ((newWidth: number, oldWidth: number, column: TableColumnCtx<T>, event: MouseEvent) => void)
+  - expand-change: 当对某一行展开或者关闭的时候会触发该事件（展开行时，回调的第二个参数为 expandedRows；树形表格时第二参数为 expanded） ((row: any, expandedRows: any[]) => void & (row: any, expanded: boolean) => void)
+  - scroll ^(2.9.0): 表格滚动后触发 (({ scrollLeft: number, scrollTop: number }) => void)
+
+### Slots
+
+  - default: 默认内容
+  - empty: 空状态内容
+  - footer: 底部分页区域内容
+  - append: 插入至表格最后一行之后的内容， 如果需要对表格的内容进行无限滚动操作，可能需要用到这个 slot。 若表格有合计行，该 slot 会位于合计行之上
+
+
+## YTextTooltip (y-text-tooltip)
+
+文本溢出时以tooltip提示
+
+- 分类: 数据展示
+- 文档: https://yun8711.github.io/yun-elp/components/text-tooltip/
+- 源码: packages/components/src/text-tooltip
+
+### Props
+
+  - line-clamp: 展示最大行数 (number)
+  - width: 文本容器宽度 (string / number)
+  - model: tooltip显示方式 ('auto' | 'none' | 'always')
+  - text-style: 自定义文本样式 (Record<string, any>)
+  - effect: Tooltip 主题，内置了 dark / light 两种 ('dark' | 'light')
+  - content: 显示的内容，也可被 slot#content 覆盖，默认为文本内容 (string)
+  - raw-content: content 中的内容是否作为 HTML 字符串处理 (boolean)
+  - placement: Tooltip 组件出现的位置 ('top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end')
+  - fallback-placements: Tooltip 可用的 positions 请查看[popper.js](https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) (Placement[])
+  - offset: 出现位置的偏移量 (number)
+  - transition: 动画名称 (string)
+  - popper-options: [popper.js](https://popper.js.org/docs/v2/) 参数 (object)
+  - arrow-offset: 控制Tooltip的箭头相对于弹出窗口的偏移(添加)。 (number)
+  - show-after: 延迟显示时间（以毫秒为单位），在受控模式下无效。 (number)
+  - show-arrow: tooltip 的内容是否有箭头 (boolean)
+  - hide-after: 消失延迟时间（以毫秒为单位），在受控模式下无效。 (number)
+  - auto-close: 隐藏提示框的超时时间（以毫秒为单位），在受控模式下无效。 (number)
+  - popper-class: 为 Tooltip 的 popper 添加类名 (string)
+  - popper-style: 为 Tooltip 的 popper 添加自定义样式 (string / object)
+  - enterable: 鼠标是否可进入到 tooltip 中 (boolean)
+
+### Events
+
+  - 无扩展事件或文档未声明
+
+### Slots
+
+  - default: 默认插槽，用于放置文本内容
+  - content: tooltip内容插槽，用于自定义tooltip显示内容
+
+
+## YWebView (y-web-view)
+
+网页容器组件
+
+- 分类: 容器和布局
+- 文档: https://yun8711.github.io/yun-elp/components/web-view/
+- 源码: packages/components/src/web-view
+
+### Props
+
+  - src: 内嵌页面地址 (string)
+  - width: 容器宽度 (string)
+  - height: 容器高度 (string)
+  - border: iframe 边框样式 (string)
+
+### Events
+
+  - message: 接收到来自内嵌页面的 postMessage 消息时触发 ((event: MessageEvent) => void)
+
+### Slots
+
+  - 无扩展插槽或文档未声明
