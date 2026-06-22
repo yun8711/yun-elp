@@ -52,7 +52,7 @@ export function useTableColumnAttrs(defaults: TableColumnAttrsDefaults = {}): {
       ...attrs,
       'min-width': pickAttr(attrs, 'min-width', 'minWidth', defaults.minWidth ?? 100),
       width: pickAttr(attrs, 'width', 'width', defaults.width ?? 'auto'),
-      'class-name': pickAttr(attrs, 'class-name', 'className', defaults.className ?? ''),
+      'class-name': pickAttr(attrs, 'class-name', 'className', defaults.className ?? '')
     };
 
     if (defaults.fixed !== undefined) {

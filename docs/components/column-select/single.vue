@@ -5,10 +5,7 @@
       :data="tableData"
       highlight-current-row
       @current-change="currentRow = $event">
-      <y-column-select
-        single
-        :selectable="isSelectable"
-        :disabled-tip="getDisabledTip">
+      <y-column-select single :selectable="isSelectable" :disabled-tip="getDisabledTip">
         <template #header>单选</template>
       </y-column-select>
       <y-column-text prop="name" label="姓名" />

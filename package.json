@@ -32,6 +32,7 @@
     "lint:style": "stylelint \"**/*.{vue,scss,css}\" --fix",
     "release": "release-it --config release-it.config.cjs",
     "pre-release": "node scripts/pre-publish-check.cjs",
+    "pre-release:full": "node scripts/pre-publish-check.cjs --full",
     "release:mcp": "pnpm publish -F yun-elp-mcp --access public --no-git-checks",
     "prepare": "husky install",
     "publish": "cd dist && npm publish --registry=https://registry.npmjs.org/"

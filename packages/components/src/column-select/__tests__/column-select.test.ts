@@ -24,7 +24,8 @@ const createTableColumnStub = () =>
 const ElTooltipStub = defineComponent({
   name: 'ElTooltip',
   props: ['disabled', 'content'],
-  template: '<div class="el-tooltip" :data-disabled="disabled" :data-content="content"><slot /></div>'
+  template:
+    '<div class="el-tooltip" :data-disabled="disabled" :data-content="content"><slot /></div>'
 });
 
 const ElCheckboxStub = defineComponent({
@@ -47,9 +48,11 @@ const mountInTable = (props: Record<string, unknown> = {}, tableApi: Record<stri
   const selection = ref(tableApi.selection ?? []);
   const currentRow = ref(tableApi.currentRow);
   const toggleRowSelection = tableApi.toggleRowSelection ?? vi.fn();
-  const setCurrentRow = tableApi.setCurrentRow ?? vi.fn((value?: any) => {
-    currentRow.value = value;
-  });
+  const setCurrentRow =
+    tableApi.setCurrentRow ??
+    vi.fn((value?: any) => {
+      currentRow.value = value;
+    });
   const tableContext = {
     store: {
       states: {
@@ -72,30 +75,34 @@ const mountInTable = (props: Record<string, unknown> = {}, tableApi: Record<stri
     template: '<div class="el-table"><slot /></div>'
   });
 
-  const wrapper = mount({
-    components: {
-      YColumnSelect,
-      ElTable: ElTableStub
-    },
-    template: '<el-table><y-column-select v-bind="columnProps"><template v-if="hasHeader" #header>选择</template></y-column-select></el-table>',
-    setup() {
-      return {
-        columnProps: props,
-        hasHeader: Boolean(props.single)
-      };
-    }
-  }, {
-    global: {
-      stubs: {
-        'el-table-column': createTableColumnStub(),
-        'el-tooltip': ElTooltipStub,
-        'el-checkbox': ElCheckboxStub
+  const wrapper = mount(
+    {
+      components: {
+        YColumnSelect,
+        ElTable: ElTableStub
       },
-      provide: {
-        [TABLE_INJECTION_KEY as symbol]: tableContext
+      template:
+        '<el-table><y-column-select v-bind="columnProps"><template v-if="hasHeader" #header>选择</template></y-column-select></el-table>',
+      setup() {
+        return {
+          columnProps: props,
+          hasHeader: Boolean(props.single)
+        };
+      }
+    },
+    {
+      global: {
+        stubs: {
+          'el-table-column': createTableColumnStub(),
+          'el-tooltip': ElTooltipStub,
+          'el-checkbox': ElCheckboxStub
+        },
+        provide: {
+          [TABLE_INJECTION_KEY as symbol]: tableContext
+        }
       }
     }
-  });
+  );
 
   return {
     wrapper,
@@ -155,10 +162,13 @@ describe('YColumnSelect', () => {
 
   it('禁用行不应该触发单选切换', () => {
     const setCurrentRow = vi.fn();
-    const { wrapper } = mountInTable({
-      single: true,
-      selectable: () => false
-    }, { setCurrentRow });
+    const { wrapper } = mountInTable(
+      {
+        single: true,
+        selectable: () => false
+      },
+      { setCurrentRow }
+    );
     const vm = wrapper.findComponent(YColumnSelect).vm as any;
 
     vm.handleSelect({ row, column: {}, $index: 0 }, true);
@@ -200,19 +210,22 @@ describe('YColumnSelect', () => {
     });
     const vm = wrapper.vm as any;
 
-    vm.handleSelect({
-      row,
-      column: {},
-      $index: 0,
-      store: {
-        states: {
-          selection: []
-        },
-        toggleRowSelection,
-        updateAllSelected,
-        commit
-      }
-    }, true);
+    vm.handleSelect(
+      {
+        row,
+        column: {},
+        $index: 0,
+        store: {
+          states: {
+            selection: []
+          },
+          toggleRowSelection,
+          updateAllSelected,
+          commit
+        }
+      },
+      true
+    );
 
     expect(toggleRowSelection).toHaveBeenCalledWith(row, true, false, true);
     expect(updateAllSelected).toHaveBeenCalled();

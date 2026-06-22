@@ -10,11 +10,14 @@ export type ColumnSelectScope<T extends DefaultRow = DefaultRow> = Pick<
   'row' | 'column' | '$index' | 'store'
 >;
 
-export type ColumnSelectSelectable<T extends DefaultRow = DefaultRow> =
-  (row: T, index: number) => boolean;
+export type ColumnSelectSelectable<T extends DefaultRow = DefaultRow> = (
+  row: T,
+  index: number
+) => boolean;
 
-export type ColumnSelectDisabledTip<T extends DefaultRow = DefaultRow> =
-  (scope: ColumnSelectScope<T>) => string | number | undefined | null;
+export type ColumnSelectDisabledTip<T extends DefaultRow = DefaultRow> = (
+  scope: ColumnSelectScope<T>
+) => string | number | undefined | null;
 
 export interface ColumnSelectProps<T extends DefaultRow = DefaultRow> {
   /** 是否单选，默认多选 */
