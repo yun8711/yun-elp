@@ -2,6 +2,13 @@
 
 
 
+## [1.2.1](https://github.com/yun8711/yun-elp/compare/v1.2.0...v1.2.1) (2026-06-22)
+
+
+### Bug Fixes
+
+* **scripts:** 修复 pre-release 检查脚本并支持轻量/完整模式 ([8ba7dde](https://github.com/yun8711/yun-elp/commit/8ba7dded71ff681171b1e653237b0f241d31330e))
+
 ## [1.2.0](https://github.com/yun8711/yun-elp/compare/v1.0.0...v1.2.0) (2026-06-22)
 
 
