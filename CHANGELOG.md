@@ -2,6 +2,22 @@
 
 
 
+## [1.2.0](https://github.com/yun8711/yun-elp/compare/v1.0.0...v1.2.0) (2026-06-22)
+
+
+### Features
+
+* **components:** :recycle: 重命名column-operation为column-op ([8111709](https://github.com/yun8711/yun-elp/commit/811170955f98582ecf5f1be80927ca02c1630214))
+* **components:** :sparkles: 新增column-select选择列组件 ([bf89b7c](https://github.com/yun8711/yun-elp/commit/bf89b7ceccaa66c19e3f19ead6811a6884cf22ed))
+* **components:** :sparkles: 新增form、form-item表单容器组件 ([5828b54](https://github.com/yun8711/yun-elp/commit/5828b5431bf325f8e5ba4a1f8a46234968cc683d))
+* **components:** :sparkles: 新增web-view网页容器组件 ([b5e9351](https://github.com/yun8711/yun-elp/commit/b5e93519f8bcd5eacda8f5421a81a080dd31ddf1))
+* **docs:** :sparkles: 增加 AI 友好文档资源 ([a18ed17](https://github.com/yun8711/yun-elp/commit/a18ed17bfc0ddb8fa79b730a355a50f2d29c9b02))
+
+
+### Bug Fixes
+
+* **ci:** 对齐文档部署工作流的 Node 与 pnpm 版本 ([00af0c7](https://github.com/yun8711/yun-elp/commit/00af0c7fb5b3ce27404e220c94ecb9d7a05d9015))
+
 ## [1.1.0](https://github.com/yun8711/yun-elp/compare/v1.0.1...v1.1.0) (2025-12-14)
 
 
