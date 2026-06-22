@@ -1,6 +1,6 @@
 # YUN-ELP 组件库
 
-基于 Element Plus 的业务组件库，采用 Vue 3.5+、TypeScript、Vite 5 和 SCSS 构建。
+基于 Element Plus 的业务组件库，采用 Vue 3.5+、TypeScript、Vite 8 构建。
 
 ## 特性
 
@@ -27,110 +27,20 @@ yarn add yun-elp element-plus vue
 pnpm add yun-elp element-plus vue
 ```
 
+## 兼容策略
+
+YUN-ELP 基于 Element Plus 二次封装，采用单线维护策略，仅维护当前最新版本。
+
+当前版本要求：
+
+- Vue: ^3.5.0
+- Element Plus: ^2.14.0
+
+组件库通过 peerDependencies 声明基础库版本范围，使用方需要自行安装兼容版本的 Vue 与 Element Plus。
+
 ## 使用方法
 
-### 完整引入
-
-```js
-import { createApp } from 'vue';
-import YunElp from 'yun-elp';
-import 'yun-elp/style';
-import App from './App.vue';
-
-const app = createApp(App);
-app.use(YunElp);
-app.mount('#app');
-```
-
-### 按需引入
-
-```js
-import { createApp } from 'vue';
-import { YButton } from 'yun-elp';
-import 'yun-elp/style';
-import App from './App.vue';
-
-const app = createApp(App);
-app.component('y-button', YButton);
-app.mount('#app');
-```
-
-### 自动导入（推荐）
-
-利用 unplugin-vue-components 和 unplugin-auto-import 插件可以实现组件和API的自动导入：
-
-```js
-// vite.config.ts
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import Components from 'unplugin-vue-components/vite';
-import AutoImport from 'unplugin-auto-import/vite';
-import { YunElpResolver, YunElpAutoImportResolver } from 'yun-elp/resolvers';
-
-export default defineConfig({
-  plugins: [
-    vue(),
-    Components({
-      resolvers: [YunElpResolver()] // 自动导入组件和组件样式
-    }),
-    AutoImport({
-      resolvers: [YunElpAutoImportResolver()] // 自动导入工具函数
-    })
-  ]
-});
-```
-
-配置后可以直接使用组件和工具函数，无需导入任何内容:
-
-```vue
-<template>
-  <!-- 组件和样式会被自动导入 -->
-  <YButton type="primary">按钮</YButton>
-</template>
-
-<script setup>
-// formatDate 函数会被自动导入
-const now = formatDate(new Date(), 'YYYY-MM-DD');
-</script>
-```
-
-### 主题定制
-
-YUN-ELP 组件库内置了自定义主题，覆盖了 Element Plus 默认样式，并支持运行时动态修改：
-
-```js
-import { createApp } from 'vue';
-import YunElp, { applyTheme } from 'yun-elp';
-import 'yun-elp/style';
-import App from './App.vue';
-
-const app = createApp(App);
-app.use(YunElp);
-
-// 运行时自定义主题
-applyTheme({
-  primary: '#1677ff', // 修改主色调
-  borderRadius: '6px', // 修改圆角
-  fontSizeBase: '16px' // 修改基础字体大小
-});
-
-app.mount('#app');
-```
-
-## 项目结构
-
-```
-yun-elp/
-├── packages/               # 子包目录
-│   ├── components/         # 组件库
-│   ├── resolver/          # 自动导入解析器
-│   └── theme-chalk/       # 主题样式
-├── docs/                   # 文档站点
-├── play/                   # 组件调试项目
-├── scripts/               # 构建脚本
-├── package.json           # 工作区配置
-└── pnpm-workspace.yaml    # PNPM 工作区配置
-```
+见[文档](https://yun8711.github.io/yun-elp/guide/overview)
 
 ## 开发指南
 

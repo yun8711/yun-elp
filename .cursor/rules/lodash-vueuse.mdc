@@ -1,0 +1,53 @@
+---
+description: 优先使用 lodash-es 与 VueUse，避免重复实现通用工具与 hook
+alwaysApply: true
+---
+
+# lodash-es 与 VueUse 使用约定
+
+`lodash-es`、`@vueuse/core`、`@vueuse/shared` 为本仓库默认依赖，编写或重构组件、hooks、工具代码时优先使用，不要手写等价实现。
+
+## lodash-es（通用工具函数）
+
+- 从 `lodash-es` 按需导入，勿使用 `lodash` 全量包
+- 适用：对象/数组处理、类型判断、路径取值、合并/剔除属性等
+
+```typescript
+// ❌ 手写 pick / omit
+const result: Record<string, unknown> = {};
+Object.keys(source).forEach((key) => {
+  if (!omitSet.has(key)) result[key] = source[key];
+});
+
+// ✅ lodash-es
+import { omit, pick, get, merge, isEmpty, cloneDeep } from 'lodash-es';
+omit(attrs, [...keys, 'class', 'style']);
+pick(attrs, ROW_PROP_KEYS);
+```
+
+常见映射：`pick` / `omit`、`get` / `set`、`merge`、`isEmpty` / `isNil`、`cloneDeep`、`debounce` / `throttle`。
+
+`packages/components/utils` 中已有与 lodash 重叠的通用方法时，新代码优先用 lodash-es；仅保留组件库特有的封装（如 `install`、`getSizeValue`）。
+
+## VueUse（通用 Composition API）
+
+- 从 `@vueuse/core`（必要时 `@vueuse/shared`）按需导入
+- 适用：响应式工具、DOM/尺寸监听、防抖节流、浏览器 API 封装等
+
+```typescript
+// ❌ 手写防抖 / 元素尺寸
+let timer: ReturnType<typeof setTimeout> | null = null;
+const onResize = () => { /* ... */ };
+
+// ✅ VueUse
+import { useDebounceFn, useElementSize, useEventListener } from '@vueuse/core';
+const debouncedFn = useDebounceFn(handler, 300);
+const { width } = useElementSize(elRef);
+```
+
+组件内可复用的业务 hook 放在 `packages/components/hooks`；跨组件的通用能力先查 VueUse 是否已有。
+
+## 例外
+
+- 性能或语义与 lodash/VueUse 不一致时，可手写并简要注释原因
+- 测试 mock 场景按 `vitest.setup.ts` 现有约定处理
