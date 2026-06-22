@@ -22,6 +22,7 @@ export type TableColumnAttrsDefaults = {
   showOverflowTooltip?: boolean | object;
   /** 为 true 时回退到 attrs.prop */
   columnKey?: string | boolean;
+  resizable?: boolean;
 };
 
 export type TableColumnMergedAttrs = Partial<ElTableColumnProps>;
@@ -61,6 +62,8 @@ export function useTableColumnAttrs(defaults: TableColumnAttrsDefaults = {}): {
     if (defaults.showOverflowTooltip !== undefined) {
       result['show-overflow-tooltip'] = defaults.showOverflowTooltip;
     }
+
+    result.resizable = attrs.resizable ?? defaults.resizable ?? true;
 
     if (defaults.columnKey === true) {
       result['column-key'] = attrs['column-key'] ?? attrs.columnKey ?? attrs.prop;

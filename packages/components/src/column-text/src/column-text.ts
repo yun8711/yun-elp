@@ -1,5 +1,5 @@
 import type { ExtractPublicPropTypes, PropType } from 'vue';
-import type { ElTooltipProps } from 'element-plus';
+import type { UseTooltipProps } from 'element-plus';
 
 export interface ColumnTextProps {
   // 是否以link-链接展示
@@ -11,7 +11,7 @@ export interface ColumnTextProps {
   // 是否禁用tooltip
   noTip?: boolean;
   // 自定义toolti属性，在noTip为true时生效
-  tipProps?: Partial<ElTooltipProps>;
+  tipProps?: Partial<UseTooltipProps>;
 }
 
 export const columnTextProps = {
@@ -28,7 +28,7 @@ export const columnTextProps = {
     default: () => ({})
   },
   tipProps: {
-    type: Object as PropType<Partial<ElTooltipProps>>,
+    type: Object as PropType<Partial<UseTooltipProps>>,
     default: () => ({})
   },
   noTip: {

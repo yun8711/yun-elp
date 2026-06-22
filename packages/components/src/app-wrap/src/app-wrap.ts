@@ -3,7 +3,7 @@ import type {
   ConfigProviderProps,
   DialogProps,
   DrawerProps,
-  ElTooltipProps,
+  UseTooltipProps,
   Placement,
   PopoverProps,
   PaginationProps
@@ -82,7 +82,7 @@ export interface AppWrapProps {
   };
   textTooltip?: {
     placement?: Placement;
-    tooltipProps?: Partial<ElTooltipProps>;
+    tooltipProps?: Partial<UseTooltipProps>;
   };
   desc?: {
     labelWidth?: string | number;
@@ -98,7 +98,7 @@ export interface AppWrapProps {
     cancelText?: string;
     cancelProps?: YButtonProps;
     tipPlacement?: PlacementType;
-    tipProps?: Partial<ElTooltipProps>;
+    tipProps?: Partial<UseTooltipProps>;
     popWidth?: number;
     popTitle?: string;
     popPlacement?: PlacementType;

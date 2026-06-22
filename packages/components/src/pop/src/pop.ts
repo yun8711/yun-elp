@@ -1,5 +1,5 @@
 import type { ExtractPublicPropTypes } from 'vue';
-import type { PopoverProps, ElTooltipProps } from 'element-plus';
+import type { PopoverProps, UseTooltipProps } from 'element-plus';
 import type { ButtonProps } from '../../button/src/button';
 
 export type PopEmits = {
@@ -27,7 +27,7 @@ export interface PopProps {
   // tooltip位置
   tipPlacement?: PlacementType;
   // tooltip完整属性
-  tipProps?: Partial<ElTooltipProps>;
+  tipProps?: Partial<UseTooltipProps>;
 
   // popover常用配置
   noPop?: boolean;

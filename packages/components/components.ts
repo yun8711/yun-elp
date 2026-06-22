@@ -23,6 +23,7 @@ import { YColumnFilter } from './src/column-filter';
 import { YColumnForms } from './src/column-forms';
 import { YColumnForm } from './src/column-form';
 import { YColumnOp } from './src/column-op';
+import { YColumnSelect } from './src/column-select';
 import { YStep } from './src/step';
 import { YEcharts } from './src/echarts';
 import { YStickyLayout } from './src/sticky-layout';
@@ -56,6 +57,7 @@ export default [
   YColumnForms,
   YColumnForm,
   YColumnOp,
+  YColumnSelect,
   YStep,
   YEcharts,
   YStickyLayout,

@@ -26,6 +26,7 @@ export * from './column-filter';
 export * from './column-forms';
 export * from './column-form';
 export * from './column-op';
+export * from './column-select';
 export * from './step';
 export * from './echarts';
 export * from './sticky-layout';

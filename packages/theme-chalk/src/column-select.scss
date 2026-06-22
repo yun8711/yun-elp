@@ -1,0 +1,19 @@
+.y-column-select {
+  .cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__cell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__radio {
+    .el-checkbox__inner {
+      border-radius: 50%;
+    }
+  }
+}

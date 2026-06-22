@@ -25,6 +25,7 @@ const examples = [
   {label: 'Button', value: 'button',component: defineAsyncComponent(() => import('./components/button-example.vue'))},
   {label: 'Table', value: 'table',component: defineAsyncComponent(() => import('./components/table-example.vue'))},
   {label: 'Table Filter', value: 'table-filter',component: defineAsyncComponent(() => import('./components/table-filter.vue'))},
+  {label: 'Table Select', value: 'table-select',component: defineAsyncComponent(() => import('./components/table-select-example.vue'))},
   {label: 'Text Tooltip', value: 'text-tooltip',component: defineAsyncComponent(() => import('./components/text-tooltip-example.vue'))},
   {label: 'Desc', value: 'desc',component: defineAsyncComponent(() => import('./components/desc-example.vue'))},
   {label: 'Form', value: 'form',component: defineAsyncComponent(() => import('./components/form-example.vue'))},

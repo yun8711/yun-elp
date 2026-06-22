@@ -1,7 +1,7 @@
 import type { ExtractPublicPropTypes } from 'vue';
-import type { ElTooltipProps } from 'element-plus';
+import type { UseTooltipProps } from 'element-plus';
 
-export type TextTooltipProps = Partial<ElTooltipProps> & {
+export type TextTooltipProps = Partial<UseTooltipProps> & {
   // 展示最大行数
   lineClamp?: number;
   // 宽度，默认100%

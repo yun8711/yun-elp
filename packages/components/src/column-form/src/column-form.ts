@@ -1,5 +1,5 @@
 import type { ExtractPublicPropTypes, PropType } from 'vue';
-import type { FormRules, FormItemProps, ElTooltipProps } from 'element-plus';
+import type { FormRules, FormItemProps, UseTooltipProps } from 'element-plus';
 
 export interface ColumnFormProps {
   // 不使用el-form-item包裹
@@ -11,7 +11,7 @@ export interface ColumnFormProps {
   // 表单项的其他属性
   formProps?: Partial<FormItemProps>;
   // 表单项错误提示的tooltip属性
-  tipProps?: Partial<ElTooltipProps>;
+  tipProps?: Partial<UseTooltipProps>;
 }
 
 export const columnFormProps = {
@@ -32,7 +32,7 @@ export const columnFormProps = {
     default: undefined
   },
   tipProps: {
-    type: Object as PropType<Partial<ElTooltipProps>>,
+    type: Object as PropType<Partial<UseTooltipProps>>,
     default: undefined
   },
 } as const;

@@ -1,5 +1,5 @@
 import type { ExtractPublicPropTypes, PropType } from 'vue';
-import type { ElTooltipProps, FormItemProps } from 'element-plus';
+import type { UseTooltipProps, FormItemProps } from 'element-plus';
 
 // 组件中表单项配置
 export interface ColumnFormsItem {
@@ -17,7 +17,7 @@ export interface ColumnFormsItem {
   show?: boolean | ((scope: any, prop: string) => boolean);
   width?: string | ((scope: any, prop: string) => string);
   // 表单项错误提示的tooltip属性
-  tipProps?: Partial<ElTooltipProps> | ((scope: any, prop: string) => Partial<ElTooltipProps>);
+  tipProps?: Partial<UseTooltipProps> | ((scope: any, prop: string) => Partial<UseTooltipProps>);
 
   style?: Record<string, any> | ((scope: any, prop: string) => Record<string, any>);
 }
