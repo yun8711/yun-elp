@@ -28,6 +28,8 @@ import { YEcharts } from './src/echarts';
 import { YStickyLayout } from './src/sticky-layout';
 import { YPageProgress } from './src/page-progress';
 import { YWebView } from './src/web-view';
+import { YForm } from './src/form';
+import { YFormItem } from './src/form-item';
 
 export default [
   YAppWrap,
@@ -58,5 +60,7 @@ export default [
   YEcharts,
   YStickyLayout,
   YPageProgress,
-  YWebView
+  YWebView,
+  YForm,
+  YFormItem
 ] as Plugin[];

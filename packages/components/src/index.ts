@@ -31,3 +31,5 @@ export * from './echarts';
 export * from './sticky-layout';
 export * from './page-progress';
 export * from './web-view';
+export * from './form';
+export * from './form-item';

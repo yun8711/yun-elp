@@ -96,6 +96,16 @@
         "text": "cron-picker 定时选择器",
         "link": "/components/cron-picker/",
         "activeMatch": "/components/cron-picker/"
+      },
+      {
+        "text": "form 表单",
+        "link": "/components/form/",
+        "activeMatch": "/components/form/"
+      },
+      {
+        "text": "form-item 表单项",
+        "link": "/components/form-item/",
+        "activeMatch": "/components/form-item/"
       }
     ]
   },
