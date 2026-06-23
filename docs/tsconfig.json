@@ -1,7 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
       "yun-elp": ["../packages/components/index.ts"],
@@ -13,11 +12,6 @@
     },
     "types": ["node"]
   },
-  "include": [
-    ".vitepress/**/*",
-    "components/**/*",
-    "guide/**/*",
-    "**/*.vue"
-  ],
+  "include": [".vitepress/**/*", "components/**/*", "guide/**/*", "**/*.vue"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,9 +1,8 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["./src/*"],
       "@yun-elp/components": ["../packages/components/index.ts"],
       "@yun-elp/components/*": ["../packages/components/*"],
       "@yun-elp/theme-chalk": ["../packages/theme-chalk/src"],

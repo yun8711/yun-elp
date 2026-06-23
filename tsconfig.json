@@ -1,7 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@yun-elp/components": ["./packages/components/index.ts"],
       "@yun-elp/components/*": ["./packages/components/*"],
@@ -11,10 +10,6 @@
     },
     "types": ["node", "vite/client"]
   },
-  "include": [
-    "packages/**/*.ts",
-    "packages/**/*.vue",
-    "scripts/**/*.ts"
-  ],
+  "include": ["packages/**/*.ts", "packages/**/*.vue", "scripts/**/*.ts"],
   "exclude": ["node_modules", "dist", "**/__tests__/**", "**/*.test.ts", "**/*.spec.ts"]
 }
