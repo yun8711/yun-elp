@@ -5,7 +5,7 @@
       <template v-if="!hasMore">
         <div class="y-table-search__left-all">
           <y-border-label
-            v-for="item in firstOptions.filter((item: TableSearchItem) => !item.hidden)"
+            v-for="item in visibleFirstOptions"
             :key="item.prop"
             v-bind="item.borderAttrs">
             <template v-if="item.custom">
@@ -35,7 +35,7 @@
         <!-- 第一行 -->
         <div class="y-table-search__left-first">
           <y-border-label
-            v-for="item in firstOptions.filter((item: TableSearchItem) => !item.hidden)"
+            v-for="item in visibleFirstOptions"
             :key="item.prop"
             v-bind="item.borderAttrs">
             <template v-if="item.custom">
@@ -71,7 +71,7 @@
         <el-collapse-transition :style="{ 'transition-duration': `${props.duration}s` }">
           <div v-show="!isFold" class="y-table-search__left-more">
             <y-border-label
-              v-for="item in moreOptions.filter((item: TableSearchItem) => !item.hidden)"
+              v-for="item in visibleMoreOptions"
               :key="item.prop"
               v-bind="item.borderAttrs">
               <template v-if="item.custom">
@@ -159,6 +159,14 @@ const hasMore = computed(() => {
   return (
     firstOptions.length !== 0 && options.length !== 1 && firstOptions.length !== options.length
   );
+});
+
+const visibleFirstOptions = computed<TableSearchItem[]>(() => {
+  return firstOptions.value.filter((item: TableSearchItem) => !item.hidden);
+});
+
+const visibleMoreOptions = computed<TableSearchItem[]>(() => {
+  return moreOptions.value.filter((item: TableSearchItem) => !item.hidden);
 });
 
 // ==================== 工具函数 ====================
