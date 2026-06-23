@@ -2,6 +2,26 @@
 
 
 
+## [1.2.2](https://github.com/yun8711/yun-elp/compare/v1.2.1...v1.2.2) (2026-06-23)
+
+
+### Features
+
+* **components:** :sparkles: 更新依赖vue-router版本,支持5.0 ([393a8bb](https://github.com/yun8711/yun-elp/commit/393a8bb3eef95ebdede20355c32795f53de96bf3))
+* **mcp:** :sparkles: 优化mcp功能 ([14b9ba1](https://github.com/yun8711/yun-elp/commit/14b9ba134194ce4fc66a6545df02c4951fada9ad))
+
+
+### Bug Fixes
+
+* **build:** :bug: 修复 preserveModules 产物命名 ([1bbb730](https://github.com/yun8711/yun-elp/commit/1bbb73094de98d69fbb0dbb70e3c4747f352ff5f))
+* **components:** :bug: 修复app-wrap组件中参数错误 ([9f92821](https://github.com/yun8711/yun-elp/commit/9f9282192d7e3f9911685f8c1a6d49ac5463ed9e))
+* **components:** :bug: 规避 table-search 模板类型推断问题 ([741668f](https://github.com/yun8711/yun-elp/commit/741668f06c129fa2340a3cc8e4ec63a1677aa4de))
+
+
+### Refactors
+
+* **utils:** :recycle: 重构组件安装辅助类型 ([5c5f984](https://github.com/yun8711/yun-elp/commit/5c5f984cf9ce022b95add1e58b9059ee77f3d5d9))
+
 ## [1.2.1](https://github.com/yun8711/yun-elp/compare/v1.2.0...v1.2.1) (2026-06-22)
 
 

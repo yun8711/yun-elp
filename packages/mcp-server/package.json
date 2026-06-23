@@ -1,6 +1,6 @@
 {
   "name": "yun-elp-mcp",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "yun-elp MCP server",
   "type": "module",
   "main": "dist/index.js",
