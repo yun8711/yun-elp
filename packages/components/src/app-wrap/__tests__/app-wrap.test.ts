@@ -226,7 +226,7 @@ describe('YAppWrap 应用容器', () => {
         dialog: {
           titleStyle: { fontSize: '18px' },
           confirmText: '确定',
-          confirmProps: { }
+          confirmProps: {}
         },
         table: {
           emptyProps: { description: '暂无数据' },
@@ -327,15 +327,15 @@ describe('YAppWrap 应用容器', () => {
           confirmText: '确认',
           cancelText: '取消',
           titleStyle: { color: 'red' },
-          confirmProps: { },
-          cancelProps: { }
+          confirmProps: {},
+          cancelProps: {}
         },
         dialog: {
           confirmText: '确定',
           cancelText: '取消',
           titleStyle: { fontWeight: 'bold' },
-          confirmProps: { },
-          cancelProps: { }
+          confirmProps: {},
+          cancelProps: {}
         },
         empty: {
           image: '/custom-image.png',

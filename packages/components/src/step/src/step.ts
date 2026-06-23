@@ -24,7 +24,7 @@ export const stepProps = {
   inlineLabel: {
     type: Boolean,
     default: true
-  },
+  }
 } as const;
 
 export type stepInstance = ExtractPublicPropTypes<typeof stepProps>;

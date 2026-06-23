@@ -1,5 +1,9 @@
 <template>
-  <y-step :style="{ '--line-width': '2px' }" :steps="steps" :active-index="activeIndex" :inline-label="false" />
+  <y-step
+    :style="{ '--line-width': '2px' }"
+    :steps="steps"
+    :active-index="activeIndex"
+    :inline-label="false" />
 
   <!-- 使用steps属性定义步骤内容 -->
   <y-step :steps="steps" :active-index="activeIndex" />
@@ -16,7 +20,10 @@
     </template>
   </y-step>
 
-  <y-step :style="{ '--line-width': '3px', '--active-color': 'red', '--active-text-color': 'blue' }" :steps="steps" :active-index="1" />
+  <y-step
+    :style="{ '--line-width': '3px', '--active-color': 'red', '--active-text-color': 'blue' }"
+    :steps="steps"
+    :active-index="1" />
 </template>
 
 <script setup>

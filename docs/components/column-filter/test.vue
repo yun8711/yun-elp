@@ -1,5 +1,4 @@
 <template>
-
   <y-table :data="tableData">
     <!-- 基础文本展示 -->
     <y-column-text prop="name" label="姓名" />

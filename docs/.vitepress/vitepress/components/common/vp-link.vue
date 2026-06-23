@@ -16,8 +16,7 @@ defineProps<{
     :class="{ link: href }"
     :href="href"
     :target="isExternal(href) ? '_blank' : undefined"
-    :rel="isExternal(href) ? 'noopener noreferrer' : undefined"
-  >
+    :rel="isExternal(href) ? 'noopener noreferrer' : undefined">
     <slot />
     <ElIcon v-if="isExternal(href) && !noIcon">
       <IconRiExternalLinkLine class="link-icon" />

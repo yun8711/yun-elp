@@ -8,13 +8,16 @@
         height="400px"
         border="1px solid red"
         @load="handleLoad"
-        @message="handleMessage"
-      />
+        @message="handleMessage" />
     </div>
 
-    <div style="display: flex;align-items: center;gap: 10px;margin-top: 10px;">
+    <div style="display: flex;gap: 10px;align-items: center;margin-top: 10px;">
       <span>选择目标源：</span>
-      <el-select v-model="targetOrigin" placeholder="选择目标源" :options="targetOriginOptions" style="width:200px"></el-select>
+      <el-select
+        v-model="targetOrigin"
+        placeholder="选择目标源"
+        :options="targetOriginOptions"
+        style="width:200px"></el-select>
       <span>发送消息：</span>
       <el-input v-model="message" placeholder="发送消息" style="width:200px"></el-input>
       <y-button @click="postMessage">发送消息</y-button>
@@ -52,5 +55,4 @@ const postMessage = () => {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

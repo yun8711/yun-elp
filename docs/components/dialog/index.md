@@ -61,13 +61,13 @@ dialog/test
 | destroy-on-close      | 当关闭 Dialog 时，销毁其中的元素                                                         | ^[boolean]                                      | `false`                                |
 | close-icon            | 自定义关闭图标，默认 Close                                                               | ^[string] / ^[Component]                        | —                                      |
 | z-index               | 和原生的 CSS 的 z-index 相同，改变 z 轴的顺序                                            | ^[number]                                       | —                                      |
-| header-aria-level     | header 的 `aria-level` 属性                                                              | ^[string]                                       | `'2'`                                    |
+| header-aria-level     | header 的 `aria-level` 属性                                                              | ^[string]                                       | `'2'`                                  |
 
 ### Slots
 
 | 名称    | 说明                                                 | 参数 |
 | ------- | ---------------------------------------------------- | ---- |
-| default | 对话框的默认内容                                         | —    |
+| default | 对话框的默认内容                                     | —    |
 | header  | 对话框标题的内容；会替换标题部分，但不会移除关闭按钮 | —    |
 | title   | 对话框标题的文本内容                                 | —    |
 | footer  | 底部按钮操作区的内容                                 | —    |

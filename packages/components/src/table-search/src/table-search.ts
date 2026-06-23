@@ -40,7 +40,9 @@ export interface TableSearchOption {
   // 是否禁用
   disabled?: boolean | ((params: DynamicPropsParams) => boolean);
   // 值格式化函数，在值更新时对值进行处理，可以返回单个值或对象（对象会被合并到form中）
-  valueFormat?: ((value: any, prop: string, form: Record<string, any>) => any | Record<string, any>) | undefined;
+  valueFormat?:
+    | ((value: any, prop: string, form: Record<string, any>) => any | Record<string, any>)
+    | undefined;
   // y-border-label支持的属性及其他属性，如style等
   borderAttrs?:
     | (BorderLabelProps & Record<string, any>)
@@ -58,7 +60,9 @@ export interface TableSearchItem {
   custom: boolean;
   value: any;
   hidden: boolean;
-  valueFormat: ((value: any, prop: string, form: Record<string, any>) => any | Record<string, any>) | undefined;
+  valueFormat:
+    | ((value: any, prop: string, form: Record<string, any>) => any | Record<string, any>)
+    | undefined;
   borderAttrs: BorderLabelProps;
   comp: Component;
   innerAttrs: {

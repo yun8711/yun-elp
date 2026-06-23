@@ -26,5 +26,5 @@ export const globals: [string, Component][] = [
   ['StringType', ApiStringType],
   ['NumberType', ApiNumberType],
   ['RefType', ApiRefType],
-  ['EnumType', ApiEnumType],
+  ['EnumType', ApiEnumType]
 ];

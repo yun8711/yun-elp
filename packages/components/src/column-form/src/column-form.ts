@@ -34,7 +34,7 @@ export const columnFormProps = {
   tipProps: {
     type: Object as PropType<Partial<UseTooltipProps>>,
     default: undefined
-  },
+  }
 } as const;
 
 export type columnFormInstance = ExtractPublicPropTypes<typeof columnFormProps>;

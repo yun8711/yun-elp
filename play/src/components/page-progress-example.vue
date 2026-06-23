@@ -8,9 +8,7 @@
         <el-button @click="startProgress" type="primary" :disabled="isLoading">
           {{ isLoading ? '加载中...' : '开始加载' }}
         </el-button>
-        <el-button @click="completeProgress" type="danger" :disabled="!isLoading">
-          完成
-        </el-button>
+        <el-button @click="completeProgress" type="danger" :disabled="!isLoading"> 完成 </el-button>
       </div>
 
       <div class="status-info">
@@ -44,36 +42,36 @@ const completeProgress = () => {
 
 <style scoped>
 .page-progress-example {
-  padding: 20px;
   max-width: 600px;
+  padding: 20px;
   margin: 0 auto;
 }
 
 .example-section {
-  margin-bottom: 20px;
   padding: 20px;
+  margin-bottom: 20px;
+  background: #fafafa;
   border: 1px solid #e4e7ed;
   border-radius: 8px;
-  background: #fafafa;
 }
 
 .example-section h3 {
-  margin: 0 0 15px 0;
+  padding-bottom: 5px;
+  margin: 0 0 15px;
   color: #303133;
   border-bottom: 2px solid #409eff;
-  padding-bottom: 5px;
 }
 
 .controls {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 10px;
   margin-bottom: 15px;
 }
 
 .status-info p {
   margin: 0;
-  color: #606266;
   font-size: 14px;
+  color: #606266;
 }
 </style>

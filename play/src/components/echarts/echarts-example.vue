@@ -8,7 +8,9 @@
         </div>
       </el-col>
       <el-col :span="12">
-        <bar-chart :new-option="barChartOption" :loading="loading"
+        <bar-chart
+          :new-option="barChartOption"
+          :loading="loading"
           style="width: 100%; height: 400px; border: 1px solid red"></bar-chart>
       </el-col>
     </el-row>
@@ -127,15 +129,12 @@ const clearLineChartOption = () => {
     ]
   }
 }
-
-
-
 </script>
 
 <style scoped>
 .demo-container {
-  padding: 20px;
   max-width: 1200px;
+  padding: 20px;
   margin: 0 auto;
 }
 
@@ -148,11 +147,11 @@ const clearLineChartOption = () => {
 }
 
 .charts-section {
-  margin-bottom: 40px;
   padding: 20px;
+  margin-bottom: 40px;
+  background: var(--el-bg-color);
   border: 1px solid var(--el-border-color-light);
   border-radius: 8px;
-  background: var(--el-bg-color);
 }
 
 .charts-section h3 {

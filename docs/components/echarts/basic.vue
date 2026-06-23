@@ -1,7 +1,8 @@
 <template>
   <div style="width: 100%; height: 300px; border: 1px solid red">
     <el-empty v-if="isEmpty" />
-    <y-echarts v-else :option="lineChartOption" v-loading="loading" :config="echartsConfig"> </y-echarts>
+    <y-echarts v-else :option="lineChartOption" v-loading="loading" :config="echartsConfig">
+    </y-echarts>
   </div>
 
   <el-button type="primary" @click="getLineChartOption">获取数据</el-button>

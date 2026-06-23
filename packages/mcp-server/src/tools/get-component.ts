@@ -1,6 +1,6 @@
-import componentObject from '../metadata/components.js'
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
-import { z } from 'zod'
+import componentObject from '../metadata/components.js';
+import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { z } from 'zod';
 
 /**
  * 获取某个 yun-elp 组件的详细信息
@@ -14,7 +14,7 @@ export function registerGetComponent(server: McpServer) {
       description:
         '获取组件的详细信息，包括属性（props）、事件（events）、插槽（slots）、方法（methods）和示例索引。使用 get_component_examples 方法按需获取示例源码。',
       inputSchema: z.object({
-        tagName: z.string().describe('组件标签名, 例如：y-button'),
+        tagName: z.string().describe('组件标签名, 例如：y-button')
       }),
       outputSchema: z.object({
         tagName: z.string().describe('组件标签名, 例如：y-button'),
@@ -32,17 +32,19 @@ export function registerGetComponent(server: McpServer) {
               title: z.string().describe('示例标题'),
               description: z.string().optional().describe('示例描述'),
               sourcePath: z.string().describe('示例源码在仓库中的路径'),
-              docUrl: z.string().url().optional().describe('组件文档URL'),
+              docUrl: z.string().url().optional().describe('组件文档URL')
             })
           )
-          .describe('组件示例索引，不包含源码'),
-      }),
+          .describe('组件示例索引，不包含源码')
+      })
     },
     async ({ tagName }) => {
-      const component = (componentObject as Record<string, any>)[tagName]
+      const component = (componentObject as Record<string, any>)[tagName];
 
       if (!component) {
-        throw new Error(`Component "${tagName}" not found. Available components: ${Object.keys(componentObject).join(', ')}`)
+        throw new Error(
+          `Component "${tagName}" not found. Available components: ${Object.keys(componentObject).join(', ')}`
+        );
       }
 
       const result = {
@@ -54,18 +56,18 @@ export function registerGetComponent(server: McpServer) {
         events: component.events || [],
         slots: component.slots || [],
         methods: component.methods || [],
-        examples: component.examples || [],
-      }
+        examples: component.examples || []
+      };
 
       return {
         structuredContent: result,
         content: [
           {
             type: 'text' as const,
-            text: JSON.stringify(result, null, 2),
-          },
-        ],
-      }
+            text: JSON.stringify(result, null, 2)
+          }
+        ]
+      };
     }
-  )
+  );
 }

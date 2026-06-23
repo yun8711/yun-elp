@@ -20,11 +20,5 @@
     "defaults.ts",
     "vite-env.d.ts"
   ],
-  "exclude": [
-    "**/*.test.ts",
-    "**/*.spec.ts",
-    "**/__tests__/**",
-    "node_modules",
-    "dist"
-  ]
+  "exclude": ["**/*.test.ts", "**/*.spec.ts", "**/__tests__/**", "node_modules", "dist"]
 }

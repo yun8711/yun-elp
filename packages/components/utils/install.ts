@@ -25,14 +25,14 @@ const withPropsDefaultsSetter = (target: ComponentWithProps) => {
         const normalizedProp = prop as Record<string, unknown>;
         props[key] = {
           ...normalizedProp,
-          default: value,
+          default: value
         };
         continue;
       }
 
       props[key] = {
         type: prop,
-        default: value,
+        default: value
       };
     }
 
@@ -46,7 +46,10 @@ const withPropsDefaultsSetter = (target: ComponentWithProps) => {
  * @param alias 组件别名
  * @returns 添加了install方法的组件
  */
-export const withInstall = <T extends Component>(component: T, alias?: string): SFCWithInstall<T> => {
+export const withInstall = <T extends Component>(
+  component: T,
+  alias?: string
+): SFCWithInstall<T> => {
   const componentWithInstall = component as SFCWithInstall<T>;
 
   componentWithInstall.install = (app: App) => {

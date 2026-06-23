@@ -13,7 +13,10 @@
 
         <y-column-forms label="字段配置（inline布局）" :options="formArr" width="400px">
           <template #type="{ row, prop }">
-            <el-select v-model="row[prop]" placeholder="字段类型" :options="fieldTypeOptions"></el-select>
+            <el-select
+              v-model="row[prop]"
+              placeholder="字段类型"
+              :options="fieldTypeOptions"></el-select>
           </template>
           <template #length="{ row, prop }">
             <el-input v-model.trim.number="row[prop]" placeholder="长度"></el-input>
@@ -25,7 +28,11 @@
 
         <y-column-forms label="字段配置（flex布局）" :options="formArr1" :inline="false">
           <template #type="{ row, prop }">
-            <el-select v-model="row[prop]" placeholder="字段类型" :options="fieldTypeOptions" type="simple"></el-select>
+            <el-select
+              v-model="row[prop]"
+              placeholder="字段类型"
+              :options="fieldTypeOptions"
+              type="simple"></el-select>
           </template>
           <template #length="{ row, prop }">
             <el-input v-model="row[prop]" placeholder="长度"></el-input>
@@ -205,5 +212,4 @@ const submit = () => {
 const reset = () => {
   formRef.value?.resetFields();
 }
-
 </script>

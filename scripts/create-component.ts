@@ -254,9 +254,7 @@ function insertComponentToComponentsTs(pascalName: string, compDirName: string) 
       // 替换为多行，最后一项不加逗号
       const arrLines = [
         lines[exportIdx].substring(0, arrStart + 1),
-        ...members.map((m, idx) =>
-          idx === members.length - 1 ? `  ${m}` : `  ${m},`
-        ),
+        ...members.map((m, idx) => (idx === members.length - 1 ? `  ${m}` : `  ${m},`)),
         `] as Plugin[];`
       ];
       lines.splice(exportIdx, 1, ...arrLines);
@@ -275,9 +273,7 @@ function insertComponentToComponentsTs(pascalName: string, compDirName: string) 
       }
       if (!members.includes(pascalName)) members.push(pascalName);
       // 最后一项不加逗号，其他项都加逗号
-      const arrLines = members.map((m, idx) =>
-        idx === members.length - 1 ? `  ${m}` : `  ${m},`
-      );
+      const arrLines = members.map((m, idx) => (idx === members.length - 1 ? `  ${m}` : `  ${m},`));
       lines.splice(exportIdx + 1, arrEndIdx - exportIdx - 1, ...arrLines);
     }
   } else {

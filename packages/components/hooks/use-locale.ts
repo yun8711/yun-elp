@@ -35,7 +35,7 @@ export function useLocale() {
     let current: YunElpLanguage = resolvedLocale.value;
     let value: any;
     for (let i = 0; i < paths.length; i++) {
-      const key = paths[i];;
+      const key = paths[i];
       value = current[key as keyof YunElpLanguage];
       if (i === paths.length - 1) return value || path;
       if (!value) return path;

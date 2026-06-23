@@ -14,9 +14,19 @@
 
     <!-- 滚动容器 -->
     <div class="scroll-container">
-      <YScrollBox :height="200" arrow-model="always" :arrow-style="arrowStyle" :step="80" continuous wheel-scroll>
+      <YScrollBox
+        :height="200"
+        arrow-model="always"
+        :arrow-style="arrowStyle"
+        :step="80"
+        continuous
+        wheel-scroll>
         <div class="cards-wrapper">
-          <div v-for="(card, index) in cards" :key="index" class="card" :class="{ 'featured': card.featured }">
+          <div
+            v-for="(card, index) in cards"
+            :key="index"
+            class="card"
+            :class="{ 'featured': card.featured }">
             <div class="card-header">
               <div class="card-icon">{{ card.icon }}</div>
               <div class="card-badge" v-if="card.badge">{{ card.badge }}</div>
@@ -196,23 +206,23 @@ const arrowStyle = computed(() => {
 
 .demo-description {
   margin-bottom: 20px;
-  color: var(--el-text-color-regular);
   line-height: 1.6;
+  color: var(--el-text-color-regular);
 }
 
 .style-selector {
-  margin-bottom: 20px;
   padding: 16px;
+  margin-bottom: 20px;
   background-color: var(--el-fill-color-light);
-  border-radius: 6px;
   border: 1px solid var(--el-border-color-lighter);
+  border-radius: 6px;
 }
 
 .scroll-container {
   margin-bottom: 20px;
+  overflow: hidden;
   border: 1px solid var(--el-border-color);
   border-radius: 6px;
-  overflow: hidden;
 }
 
 .cards-wrapper {
@@ -222,23 +232,23 @@ const arrowStyle = computed(() => {
 }
 
 .card {
+  position: relative;
   flex-shrink: 0;
   width: 280px;
+  overflow: hidden;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
 }
 
 .card::before {
-  content: '';
   position: absolute;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
   height: 4px;
+  content: '';
   background: linear-gradient(90deg, #667eea, #764ba2);
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -249,29 +259,29 @@ const arrowStyle = computed(() => {
 }
 
 .card:hover {
+  box-shadow: 0 8px 24px rgb(0 0 0 / 15%);
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .card-header {
-  padding: 20px 20px 0;
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 20px 0;
 }
 
 .card-icon {
-  font-size: 32px;
   margin-bottom: 8px;
+  font-size: 32px;
 }
 
 .card-badge {
-  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-  color: white;
   padding: 4px 8px;
-  border-radius: 12px;
   font-size: 12px;
   font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  border-radius: 12px;
 }
 
 .card-content {
@@ -279,7 +289,7 @@ const arrowStyle = computed(() => {
 }
 
 .card-title {
-  margin: 0 0 8px 0;
+  margin: 0 0 8px;
   font-size: 16px;
   font-weight: bold;
   color: var(--el-text-color-primary);
@@ -288,15 +298,15 @@ const arrowStyle = computed(() => {
 .card-description {
   margin: 0;
   font-size: 14px;
-  color: var(--el-text-color-regular);
   line-height: 1.5;
+  color: var(--el-text-color-regular);
 }
 
 .card-footer {
-  padding: 16px 20px 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 20px;
   border-top: 1px solid var(--el-border-color-lighter);
 }
 
@@ -307,8 +317,8 @@ const arrowStyle = computed(() => {
 
 .stat-item {
   display: flex;
-  align-items: center;
   gap: 4px;
+  align-items: center;
   font-size: 12px;
   color: var(--el-text-color-secondary);
 }

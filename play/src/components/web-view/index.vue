@@ -1,6 +1,13 @@
 <template>
   <!-- <div> -->
-    <y-web-view src="https://example.org/" width="100%" height="100%" :border="border" id="20" @error="handleError" @load="handleLoad"/>
+  <y-web-view
+    src="https://example.org/"
+    width="100%"
+    height="100%"
+    :border="border"
+    id="20"
+    @error="handleError"
+    @load="handleLoad" />
   <!-- </div> -->
 </template>
 
@@ -18,6 +25,4 @@ const handleLoad = (event) => {
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

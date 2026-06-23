@@ -47,4 +47,4 @@ export default {
     total: '合計',
     items: '項目データ'
   }
-}
+};

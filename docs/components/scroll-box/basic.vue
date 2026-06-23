@@ -1,7 +1,13 @@
 <template>
   <!-- 容器宽度控制 -->
   <el-form-item label="容器宽度">
-    <el-slider v-model="containerWidth" :min="200" :max="800" :step="50" show-input input-size="small"
+    <el-slider
+      v-model="containerWidth"
+      :min="200"
+      :max="800"
+      :step="50"
+      show-input
+      input-size="small"
       style="width: 300px" />
   </el-form-item>
 
@@ -23,8 +29,8 @@ const containerWidth = ref(400);
 
 <style scoped>
 .scroll-box {
-  border: 1px solid var(--el-border-color);
   padding: 0 20px;
+  border: 1px solid var(--el-border-color);
 }
 
 .content-wrapper {
@@ -34,23 +40,23 @@ const containerWidth = ref(400);
 }
 
 .content-item {
-  flex-shrink: 0;
-  width: 120px;
-  height: 80px;
-  background: linear-gradient(135deg, var(--el-color-primary-light-7), var(--el-color-primary-light-5));
-  border-radius: 8px;
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 120px;
+  height: 80px;
   color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, var(--el-color-primary-light-7), var(--el-color-primary-light-5));
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
   transition: transform 0.2s ease;
 }
 
 .item-number {
+  margin-bottom: 4px;
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 4px;
 }
 </style>

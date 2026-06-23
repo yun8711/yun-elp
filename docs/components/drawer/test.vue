@@ -2,7 +2,11 @@
   <div>
     <y-button @click="openDialog">打开drawer</y-button>
 
-    <y-drawer v-model="dialogVisible" title="drawer测试" @confirm="handleConfirm" @cancel="handleCancel">
+    <y-drawer
+      v-model="dialogVisible"
+      title="drawer测试"
+      @confirm="handleConfirm"
+      @cancel="handleCancel">
       <div style="height: 500px;background-color: yellow;">这是 drawer 的内容</div>
       <div style="height: 500px;background-color:green;">这是 drawer 的内容</div>
       <div style="height: 500px;background-color:red;">这是 drawer 的内容</div>

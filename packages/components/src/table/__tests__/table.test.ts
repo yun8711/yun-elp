@@ -10,15 +10,15 @@ const getTestData = () => [
     name: 'Toy Story',
     release: '1995-11-22',
     director: 'John Lasseter',
-    runtime: 80,
+    runtime: 80
   },
   {
     id: 2,
     name: "A Bug's Life",
     release: '1998-11-25',
     director: 'John Lasseter',
-    runtime: 95,
-  },
+    runtime: 95
+  }
 ];
 
 // 等待函数，用于确保组件完全渲染
@@ -39,8 +39,8 @@ describe('YTable', () => {
       const wrapper = mount(YTable, {
         props: {
           loading: true,
-          showFooter: false,
-        },
+          showFooter: false
+        }
       });
 
       // 简化测试：检查组件能接收props（通过wrapper.props()方法）
@@ -52,8 +52,8 @@ describe('YTable', () => {
       const onPaginationChange = vi.fn();
       const wrapper = mount(YTable, {
         props: {
-          onPaginationChange,
-        },
+          onPaginationChange
+        }
       });
 
       // 检查组件实例存在

@@ -63,7 +63,7 @@ describe('YTableSearch', () => {
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       expect(wrapper.find('.y-table-search__left-all').exists()).toBe(true);
@@ -91,7 +91,7 @@ describe('YTableSearch', () => {
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       expect(wrapper.find('.el-input').exists()).toBe(true);
@@ -112,7 +112,7 @@ describe('YTableSearch', () => {
         props: { options },
         slots: {
           custom: '<div class="custom-slot">自定义内容</div>'
-        },
+        }
       });
 
       expect(wrapper.find('.custom-slot').exists()).toBe(true);
@@ -137,7 +137,7 @@ describe('YTableSearch', () => {
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       // 验证表单数据初始化
@@ -189,7 +189,7 @@ describe('YTableSearch', () => {
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       // 验证表单数据初始化
@@ -212,7 +212,7 @@ describe('YTableSearch', () => {
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       expect(wrapper.find('.el-input').exists()).toBe(true);
@@ -228,7 +228,7 @@ describe('YTableSearch', () => {
         }
       ];
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
       const vm = wrapper.vm;
       const processed = vm.processOption(options[0]);
@@ -244,7 +244,7 @@ describe('YTableSearch', () => {
         }
       ];
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
       const vm = wrapper.vm;
       const processed = vm.processOption(options[0]);
@@ -261,7 +261,7 @@ describe('YTableSearch', () => {
         }
       ];
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
       const vm = wrapper.vm;
       const processed = vm.processOption(options[0]);
@@ -279,7 +279,7 @@ describe('YTableSearch', () => {
         }
       ];
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
       const vm = wrapper.vm;
       const processed = vm.processOption(options[0]);
@@ -292,11 +292,15 @@ describe('YTableSearch', () => {
           prop: 'date',
           label: '日期',
           comp: 'el-date-picker',
-          innerAttrs: { type: 'daterange', 'start-placeholder': '自定义开始', 'end-placeholder': '自定义结束' }
+          innerAttrs: {
+            type: 'daterange',
+            'start-placeholder': '自定义开始',
+            'end-placeholder': '自定义结束'
+          }
         }
       ];
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
       const vm = wrapper.vm;
       const processed = vm.processOption(options[0]);
@@ -312,7 +316,7 @@ describe('YTableSearch', () => {
         { prop: 'age', label: '年龄' }
       ];
       wrapper = mount(YTableSearch, {
-        props: { options, disabledFirst: true, defaultFold: true },
+        props: { options, disabledFirst: true, defaultFold: true }
       });
       const vm = wrapper.vm;
 
@@ -334,11 +338,9 @@ describe('YTableSearch', () => {
     });
 
     it('单行模式下首行不自动禁用', () => {
-      const options = [
-        { prop: 'name', label: '姓名', first: true }
-      ];
+      const options = [{ prop: 'name', label: '姓名', first: true }];
       wrapper = mount(YTableSearch, {
-        props: { options, disabledFirst: true },
+        props: { options, disabledFirst: true }
       });
       const vm = wrapper.vm;
       const processed = vm.processOption(options[0]);
@@ -346,11 +348,9 @@ describe('YTableSearch', () => {
     });
 
     it('多行模式但只有一个选项时首行不自动禁用', () => {
-      const options = [
-        { prop: 'name', label: '姓名', first: true }
-      ];
+      const options = [{ prop: 'name', label: '姓名', first: true }];
       wrapper = mount(YTableSearch, {
-        props: { options, disabledFirst: true },
+        props: { options, disabledFirst: true }
       });
       const vm = wrapper.vm;
       // 强制 hasMore 为 true
@@ -372,12 +372,12 @@ describe('YTableSearch', () => {
           prop: 'status',
           label: '状态',
           first: true,
-          hidden: (params) => params.form.name === 'hide'
+          hidden: params => params.form.name === 'hide'
         }
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       const vm = wrapper.vm;
@@ -404,7 +404,7 @@ describe('YTableSearch', () => {
         {
           prop: 'status',
           label: '状态',
-          disabled: (params) => params.isFold
+          disabled: params => params.isFold
         }
       ];
 
@@ -412,7 +412,7 @@ describe('YTableSearch', () => {
         props: {
           options,
           defaultFold: true
-        },
+        }
       });
 
       const vm = wrapper.vm;
@@ -433,14 +433,14 @@ describe('YTableSearch', () => {
           prop: 'date',
           label: '日期',
           comp: 'el-date-picker',
-          innerAttrs: (params) => ({
+          innerAttrs: params => ({
             placeholder: params.form.name === 'test' ? '测试日期' : '请选择日期'
           })
         }
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       const vm = wrapper.vm;
@@ -473,7 +473,7 @@ describe('YTableSearch', () => {
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       expect(wrapper.find('.y-table-search__left-first').exists()).toBe(true);
@@ -498,7 +498,7 @@ describe('YTableSearch', () => {
         props: {
           options,
           defaultFold: true
-        },
+        }
       });
 
       const vm = wrapper.vm;
@@ -530,7 +530,7 @@ describe('YTableSearch', () => {
           options,
           defaultFold: true,
           onFold
-        },
+        }
       });
 
       const buttons = wrapper.findAll('.el-button');
@@ -564,7 +564,7 @@ describe('YTableSearch', () => {
           options,
           defaultFold: false,
           onFold
-        },
+        }
       });
 
       const buttons = wrapper.findAll('.el-button');
@@ -599,7 +599,7 @@ describe('YTableSearch', () => {
           defaultFold: true,
           clearOnFold: false, // 关闭clearOnFold以便测试表单数据传递
           onFold
-        },
+        }
       });
 
       // 设置表单数据
@@ -639,7 +639,7 @@ describe('YTableSearch', () => {
           defaultFold: true,
           clearOnFold: true,
           onFold
-        },
+        }
       });
 
       // 设置表单数据
@@ -693,7 +693,7 @@ describe('YTableSearch', () => {
           options,
           disabledFirst: true,
           defaultFold: false
-        },
+        }
       });
 
       const vm = wrapper.vm;
@@ -717,7 +717,7 @@ describe('YTableSearch', () => {
         props: {
           options,
           onSearch
-        },
+        }
       });
 
       // 设置表单值
@@ -746,7 +746,7 @@ describe('YTableSearch', () => {
         props: {
           options,
           onReset
-        },
+        }
       });
 
       // 修改表单值
@@ -776,7 +776,7 @@ describe('YTableSearch', () => {
         props: {
           options,
           onChange
-        },
+        }
       });
 
       // 修改表单值
@@ -802,7 +802,7 @@ describe('YTableSearch', () => {
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       const vm = wrapper.vm;
@@ -832,7 +832,7 @@ describe('YTableSearch', () => {
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       const vm = wrapper.vm;
@@ -864,7 +864,7 @@ describe('YTableSearch', () => {
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       const vm = wrapper.vm;
@@ -895,7 +895,7 @@ describe('YTableSearch', () => {
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       const vm = wrapper.vm;
@@ -928,14 +928,14 @@ describe('YTableSearch', () => {
         props: { options },
         slots: {
           right: '<button class="right-slot">右侧按钮</button>'
-        },
+        }
       });
 
       expect(wrapper.find('.y-table-search__right').exists()).toBe(true);
       expect(wrapper.find('.right-slot').exists()).toBe(true);
     });
 
-        it('应该传递正确的插槽参数', () => {
+    it('应该传递正确的插槽参数', () => {
       const options: TableSearchOption[] = [
         {
           prop: 'custom',
@@ -950,7 +950,7 @@ describe('YTableSearch', () => {
         props: { options },
         slots: {
           custom: slotContent
-        },
+        }
       });
 
       // 验证插槽被调用
@@ -997,7 +997,7 @@ describe('YTableSearch', () => {
           foldText: '收起搜索',
           unFoldText: '展开搜索',
           defaultFold: true
-        },
+        }
       });
 
       const buttons = wrapper.findAll('.el-button');
@@ -1022,7 +1022,7 @@ describe('YTableSearch', () => {
         props: {
           options,
           duration: 0.5
-        },
+        }
       });
 
       // el-collapse-transition 在测试环境中可能不会渲染，我们检查是否有过渡相关的元素
@@ -1049,7 +1049,7 @@ describe('YTableSearch', () => {
       wrapper = mount(YTableSearch, {
         props: {
           options: optionsFn
-        },
+        }
       });
 
       expect(optionsFn).toHaveBeenCalled();
@@ -1074,7 +1074,7 @@ describe('YTableSearch', () => {
         props: {
           options: optionsFn,
           defaultFold: true
-        },
+        }
       });
 
       const vm = wrapper.vm;
@@ -1083,16 +1083,18 @@ describe('YTableSearch', () => {
       vm.isFold = false;
       await nextTick();
 
-      expect(optionsFn).toHaveBeenCalledWith(expect.objectContaining({
-        isFold: false
-      }));
+      expect(optionsFn).toHaveBeenCalledWith(
+        expect.objectContaining({
+          isFold: false
+        })
+      );
     });
   });
 
   describe('边界情况', () => {
     it('应该处理空选项数组', () => {
       wrapper = mount(YTableSearch, {
-        props: { options: [] },
+        props: { options: [] }
       });
 
       expect(wrapper.find('.y-table-search__left-all').exists()).toBe(true);
@@ -1114,7 +1116,7 @@ describe('YTableSearch', () => {
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       expect(wrapper.find('.y-table-search__left-all').exists()).toBe(true);
@@ -1136,7 +1138,7 @@ describe('YTableSearch', () => {
       ];
 
       wrapper = mount(YTableSearch, {
-        props: { options },
+        props: { options }
       });
 
       const vm = wrapper.vm;

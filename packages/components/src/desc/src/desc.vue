@@ -14,7 +14,10 @@
         :class="itemClass"
         :style="getItemStyle(index)">
         <div class="y-desc__item-label" :style="getLabelStyle(item, index)">
-          <slot v-if="item?.prop && slots[`${item.prop}-label`]" :name="`${item.prop}-label`" v-bind="{ item, index }" />
+          <slot
+            v-if="item?.prop && slots[`${item.prop}-label`]"
+            :name="`${item.prop}-label`"
+            v-bind="{ item, index }" />
           <slot v-else-if="slots.label" name="label" v-bind="{ item, index }">
             <span>{{ item.label }}</span>
           </slot>
@@ -30,7 +33,10 @@
             </y-text-tooltip>
             <span v-else>{{ getValue(item) }}</span>
           </slot>
-          <slot v-else-if="slots.content" name="content" v-bind="{ item, index, content: getValue(item) }">
+          <slot
+            v-else-if="slots.content"
+            name="content"
+            v-bind="{ item, index, content: getValue(item) }">
             <y-text-tooltip v-if="isItemTooltip(item)" v-bind="item?.textTooltip || {}">
               {{ getValue(item) }}
             </y-text-tooltip>

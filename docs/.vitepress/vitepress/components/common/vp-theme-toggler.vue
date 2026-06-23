@@ -78,8 +78,7 @@ const beforeChange = () => {
       v-bind="$attrs"
       :before-change="beforeChange"
       :active-action-icon="DarkIcon"
-      :inactive-action-icon="LightIcon"
-    />
+      :inactive-action-icon="LightIcon" />
   </ClientOnly>
 </template>
 

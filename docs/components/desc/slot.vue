@@ -1,8 +1,6 @@
 <template>
   <y-desc :data="data" :config="config" :column="2">
-    <template #department-label>
-      这是department的label插槽
-    </template>
+    <template #department-label> 这是department的label插槽 </template>
   </y-desc>
 
   <el-divider />

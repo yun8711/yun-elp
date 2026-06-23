@@ -2,7 +2,6 @@
   <el-form ref="formRef" :model="form">
     <el-form-item label="字段列表" prop="params" hide-required-asterisk>
       <y-table :data="form.tableData" :show-footer="false">
-
         <y-column-form prop="name" label="接口名称" :rules="rules.name">
           <template #default="{ row, prop }">
             <el-input v-model="row[prop]"></el-input>
@@ -15,16 +14,21 @@
           </template>
         </y-column-form>
 
-
         <y-column-form prop="method" label="请求类型" :rules="rules.method">
           <template #default="{ row }">
-            <el-select v-model="row.method" placeholder="请选择请求类型" :options="methodList"></el-select>
+            <el-select
+              v-model="row.method"
+              placeholder="请选择请求类型"
+              :options="methodList"></el-select>
           </template>
         </y-column-form>
 
         <y-column-form prop="columnType" label="参数类型" :rules="rules.columnType">
           <template #default="{ row, prop }">
-            <el-select v-model="row[prop]" placeholder="参数类型" :options="columnTypeOptions"></el-select>
+            <el-select
+              v-model="row[prop]"
+              placeholder="参数类型"
+              :options="columnTypeOptions"></el-select>
           </template>
         </y-column-form>
 

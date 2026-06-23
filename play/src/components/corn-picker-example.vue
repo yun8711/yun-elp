@@ -1,10 +1,12 @@
 <template>
-  <y-cron-picker v-model="cronValue" :clearable="true" placeholder="请选择Cron表达式" @change="handleChange"
+  <y-cron-picker
+    v-model="cronValue"
+    :clearable="true"
+    placeholder="请选择Cron表达式"
+    @change="handleChange"
     @confirm="handleConfirm" />
 
-
   <el-input v-model="editCronValueTrunk" clearable></el-input>
-
 
   <el-popover trigger="click">
     <template #reference>

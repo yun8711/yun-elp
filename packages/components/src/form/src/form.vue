@@ -1,8 +1,5 @@
 <template>
-  <el-form
-    ref="formRef"
-    v-bind="mergedFormAttrs"
-    @submit.prevent>
+  <el-form ref="formRef" v-bind="mergedFormAttrs" @submit.prevent>
     <el-row v-bind="rowAttrs">
       <slot />
     </el-row>

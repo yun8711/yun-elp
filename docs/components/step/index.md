@@ -56,7 +56,7 @@ step/slot
 
 | 变量名              | 说明                   | 默认值               |
 | ------------------- | ---------------------- | -------------------- |
-| --step-height       | 组件高度               | `'64px'`               |
-| --line-width        | 连接线宽度             | `'1px'`                |
+| --step-height       | 组件高度               | `'64px'`             |
+| --line-width        | 连接线宽度             | `'1px'`              |
 | --active-color      | active状态时的颜色     | `--el-color-primary` |
 | --active-text-color | active状态时的文本颜色 | `--el-color-primary` |

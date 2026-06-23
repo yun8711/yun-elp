@@ -2,13 +2,13 @@
 
 .y-text-tooltip {
   &__content {
+    display: -webkit-box;
     align-self: center;
-    margin: 0;
     padding: 0;
-    overflow-wrap: break-word;
+    margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
+    overflow-wrap: break-word;
     -webkit-box-orient: vertical;
   }
 }

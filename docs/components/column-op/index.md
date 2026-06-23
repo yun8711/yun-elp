@@ -55,37 +55,37 @@ column-op/popover
 
 ### Attributes
 
-| 属性名                | 说明                                                           | 类型                                                                                                   | 默认值            |
-| --------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ----------------- |
-| options               | 操作项配置数组或函数                                           | ^[array]`ColumnOpItemType[]`/ ^[Function]`(scope: TableItemScope) => ColumnOpItemType[]` | `[]`              |
-| disabledDefaultTip    | 按钮禁用时的默认提示文本                                       | ^[string]                                                                                              | `''`              |
-| label                 | 显示的列标题                                                   | ^[string]                                                                                              | —                 |
-| prop                  | 列内容的字段名， 也可以使用 property属性                       | ^[string]                                                                                              | —                 |
-| width                 | 列的宽度，固定的                                               | ^[string] / ^[number]                                                                                  | `'auto'`            |
-| min-width             | 列的最小宽度，会把剩余宽度按比例分配给设置了 min-width 的列    | ^[string] / ^[number]                                                                                  | `100`             |
-| fixed                 | 列是否固定在左侧或者右侧。 true 表示固定在左侧 `true`          | ^[enum]`'left' \| 'right'` / ^[boolean]                                                                | `'right'`           |
-| render-header         | 列标题 Label 区域渲染的函数                                    | ^[Function]`(data: { column: any, $index: number }) => void`                                           | —                 |
-| resizable             | 是否可以通过拖动改变宽度（需要在 el-table 上设置 border=true） | ^[boolean]                                                                                             | `true`            |
-| show-overflow-tooltip | 当内容过长被隐藏时显示 tooltip                                 | ^[boolean] / [`object`](#table-attributes)                                                             | `false`           |
-| align                 | 内容对齐方式                                                   | ^[enum]`'left' \| 'center' \| 'right'`                                                                 | `'left'`          |
-| header-align          | 表头对齐方式， 若不设置该项，则使用表格的对齐方式              | ^[enum]`'left' \| 'center' \| 'right'`                                                                 | `'left'`          |
-| class-name            | 列的 className                                                 | ^[string]                                                                                              | `'y-column-op'` |
-| label-class-name      | 当前列标题的自定义类名                                         | ^[string]                                                                                              | —                 |
+| 属性名                | 说明                                                           | 类型                                                                                     | 默认值          |
+| --------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | --------------- |
+| options               | 操作项配置数组或函数                                           | ^[array]`ColumnOpItemType[]`/ ^[Function]`(scope: TableItemScope) => ColumnOpItemType[]` | `[]`            |
+| disabledDefaultTip    | 按钮禁用时的默认提示文本                                       | ^[string]                                                                                | `''`            |
+| label                 | 显示的列标题                                                   | ^[string]                                                                                | —               |
+| prop                  | 列内容的字段名， 也可以使用 property属性                       | ^[string]                                                                                | —               |
+| width                 | 列的宽度，固定的                                               | ^[string] / ^[number]                                                                    | `'auto'`        |
+| min-width             | 列的最小宽度，会把剩余宽度按比例分配给设置了 min-width 的列    | ^[string] / ^[number]                                                                    | `100`           |
+| fixed                 | 列是否固定在左侧或者右侧。 true 表示固定在左侧 `true`          | ^[enum]`'left' \| 'right'` / ^[boolean]                                                  | `'right'`       |
+| render-header         | 列标题 Label 区域渲染的函数                                    | ^[Function]`(data: { column: any, $index: number }) => void`                             | —               |
+| resizable             | 是否可以通过拖动改变宽度（需要在 el-table 上设置 border=true） | ^[boolean]                                                                               | `true`          |
+| show-overflow-tooltip | 当内容过长被隐藏时显示 tooltip                                 | ^[boolean] / [`object`](#table-attributes)                                               | `false`         |
+| align                 | 内容对齐方式                                                   | ^[enum]`'left' \| 'center' \| 'right'`                                                   | `'left'`        |
+| header-align          | 表头对齐方式， 若不设置该项，则使用表格的对齐方式              | ^[enum]`'left' \| 'center' \| 'right'`                                                   | `'left'`        |
+| class-name            | 列的 className                                                 | ^[string]                                                                                | `'y-column-op'` |
+| label-class-name      | 当前列标题的自定义类名                                         | ^[string]                                                                                | —               |
 
 ### ColumnOpItemType
 
-| 属性     | 说明                                  | 类型                                                                                                                                                  | 默认值  |
-| -------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| label    | 操作项的文本，可以是字符串或函数      | ^[string] / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => string)`                                                           | -       |
-| prop     | 操作项的唯一标识                      | ^[string]                                                                                                                                             | -       |
-| loading  | 按钮是否显示加载状态                  | ^[boolean]                                                                                                                                            | `false` |
+| 属性     | 说明                                  | 类型                                                                                                                                    | 默认值  |
+| -------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| label    | 操作项的文本，可以是字符串或函数      | ^[string] / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => string)`                                                    | -       |
+| prop     | 操作项的唯一标识                      | ^[string]                                                                                                                               | -       |
+| loading  | 按钮是否显示加载状态                  | ^[boolean]                                                                                                                              | `false` |
 | disabled | 按钮是否禁用，支持多种格式            | ^[boolean] / ^[array]`[boolean, string]` / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => ColumnOpItemDisabledReturn)` | `false` |
-| show     | 按钮是否显示                          | ^[boolean] / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => boolean)`                                                         | `true`  |
-| dropdown | 是否以下拉菜单形式展示                | ^[boolean] / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => boolean)`                                                         | `false` |
-| noPop    | 是否显示popover，默认不显示           | ^[boolean] / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => boolean)`                                                         | `true`  |
-| popProps | popover的完整属性配置                 | ^[object]`Partial<PopProps>` / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => Partial<PopProps>)`                             | `{}`    |
-| confirm  | 操作项的确认函数                      | ^[Function]`(scope: TableItemScope, item: ColumnOpItemType, e: MouseEvent) => any`                                                             | -       |
-| cancel   | 操作项的取消函数，在显示popover时生效 | ^[Function]`(scope: TableItemScope, item: ColumnOpItemType, e: MouseEvent) => any`                                                             | -       |
+| show     | 按钮是否显示                          | ^[boolean] / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => boolean)`                                                  | `true`  |
+| dropdown | 是否以下拉菜单形式展示                | ^[boolean] / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => boolean)`                                                  | `false` |
+| noPop    | 是否显示popover，默认不显示           | ^[boolean] / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => boolean)`                                                  | `true`  |
+| popProps | popover的完整属性配置                 | ^[object]`Partial<PopProps>` / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => Partial<PopProps>)`                      | `{}`    |
+| confirm  | 操作项的确认函数                      | ^[Function]`(scope: TableItemScope, item: ColumnOpItemType, e: MouseEvent) => any`                                                      | -       |
+| cancel   | 操作项的取消函数，在显示popover时生效 | ^[Function]`(scope: TableItemScope, item: ColumnOpItemType, e: MouseEvent) => any`                                                      | -       |
 
 ### Slots
 

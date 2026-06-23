@@ -39,5 +39,4 @@ const style = computed(() => {
     position: props.model
   }
 })
-
 </script>

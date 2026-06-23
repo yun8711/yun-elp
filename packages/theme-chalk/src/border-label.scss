@@ -12,30 +12,31 @@
   }
 
   &__label {
-    color: var(--el-text-color-primary);
+    box-sizing: border-box;
     display: flex;
     align-items: center;
-    box-sizing: border-box;
-    line-height: 100%;
-    font-size: var(--el-font-size-base);
     padding: 0 8px;
+    font-size: var(--el-font-size-base);
+    line-height: 100%;
+    color: var(--el-text-color-primary);
+    white-space: nowrap;
     background-color: var(--el-fill-color-blank);
     border: 1px solid var(--el-border-color);
     border-right: 0 none;
     border-radius: var(--el-border-radius-base) 0 0 var(--el-border-radius-base);
-    white-space: nowrap;
 
     &--no-border {
-      border: none;
-      background-color: transparent;
-      border-radius: 0;
       padding-left: 0;
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
     }
   }
 
   &__content {
     flex: 1;
     height: 100%;
+
     //输入框
     > .el-input {
       width: 100%;

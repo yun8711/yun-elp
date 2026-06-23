@@ -24,16 +24,16 @@ pnpm bootstrap
 
 ## 常用命令
 
-| 命令 | 说明 |
-| --- | --- |
-| `pnpm dev` | 启动 `play` 调试项目 |
-| `pnpm docs:dev` | 启动文档站，启动前自动生成 AI 文档资源 |
-| `pnpm create` | 创建新组件模板 |
+| 命令             | 说明                                    |
+| ---------------- | --------------------------------------- |
+| `pnpm dev`       | 启动 `play` 调试项目                    |
+| `pnpm docs:dev`  | 启动文档站，启动前自动生成 AI 文档资源  |
+| `pnpm create`    | 创建新组件模板                          |
 | `pnpm typecheck` | 检查组件、play、docs 的 TypeScript 类型 |
-| `pnpm test` | 运行 `packages/components` 覆盖率测试 |
-| `pnpm lint` | 运行格式、ESLint、Stylelint |
-| `pnpm build` | 构建组件、样式、resolver、发布包元数据 |
-| `pnpm commit` | 使用 `czg` 进行规范化提交 |
+| `pnpm test`      | 运行 `packages/components` 覆盖率测试   |
+| `pnpm lint`      | 运行格式、ESLint、Stylelint             |
+| `pnpm build`     | 构建组件、样式、resolver、发布包元数据  |
+| `pnpm commit`    | 使用 `czg` 进行规范化提交               |
 
 ## 组件开发流程
 

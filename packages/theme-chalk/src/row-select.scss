@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  overflow: hidden;
   height: var(--height);
-  transition: height var(--duration) linear;
+  overflow: hidden;
   font-size: var(--text-font-size, var(--el-font-size-base));
+  transition: height var(--duration) linear;
 
   & + .y-row-select {
     margin-top: 16px;
@@ -13,29 +13,29 @@
 
   // 左侧 label
   &__label {
-    margin-right: 24px;
-    font-weight: 500;
-    color: var(--text-label-color, var(--el-text-color-regular));
-    font-size: var(--text-label-font-size, var(--el-font-size-base));
     height: var(--item-height);
+    margin-right: 24px;
+    font-size: var(--text-label-font-size, var(--el-font-size-base));
+    font-weight: 500;
     line-height: var(--item-height);
+    color: var(--text-label-color, var(--el-text-color-regular));
 
     &--separator {
       position: relative;
 
       &::after {
-        content: ':';
-        display: inline-block;
         position: absolute;
         right: -6px;
+        display: inline-block;
+        content: ':';
       }
     }
   }
 
   // 中间选项列表容器
   &__options-container {
-    flex: 1;
     display: flex;
+    flex: 1;
     flex-direction: column;
   }
 
@@ -44,25 +44,25 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--gap, 8px);
-    will-change: transform;
     overflow: hidden;
+    will-change: transform;
   }
 
   // 选项项
   &__item {
-    padding: 0 8px;
-    cursor: pointer;
-    text-align: center;
     width: var(--item-width);
     height: var(--item-height);
+    padding: 0 8px;
+    font-size: var(--text-item-font-size, var(--el-font-size-base));
     line-height: var(--item-height);
     color: var(--text-item-color, var(--el-text-color-regular));
-    font-size: var(--text-item-font-size, var(--el-font-size-base));
+    text-align: center;
+    cursor: pointer;
 
     &-text {
-      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     &.is-active {
@@ -72,11 +72,11 @@
 
     &.is-disabled {
       color: var(--disabled-item-color, var(--el-text-color-disabled));
-      background-color: var(--disabled-item-bg-color, var(--el-color-disabled));
       cursor: not-allowed;
+      background-color: var(--disabled-item-bg-color, var(--el-color-disabled));
     }
 
-    &:not(.is-active):not(.is-disabled):hover {
+    &:not(.is-active, .is-disabled):hover {
       color: var(--hover-item-color, var(--el-text-color-primary));
       background-color: var(--hover-item-bg-color, var(--el-color-primary-light-9));
     }
@@ -86,13 +86,13 @@
   &__fold {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
-    margin-left: 8px;
-    cursor: pointer;
+    justify-content: flex-start;
     height: var(--item-height);
+    margin-left: 8px;
     line-height: var(--item-height);
     color: var(--el-color-primary);
+    cursor: pointer;
 
     &-inner {
       display: flex;

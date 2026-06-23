@@ -129,7 +129,7 @@ export function YunElpResolver(options: YunElpResolverOptions = {}): ComponentRe
     optionsResolved = {
       importStyle: options?.importStyle || 'scss',
       exclude: options?.exclude,
-      noStylesComponents: noStylesComponents,
+      noStylesComponents: noStylesComponents
     };
     return optionsResolved;
   }

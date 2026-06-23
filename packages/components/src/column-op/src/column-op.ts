@@ -12,10 +12,7 @@ export type TableItemScope = {
 // 如果只有1个boolean，则只表示是否禁用；
 // 如果有2个参数，则第一个参数表示是否禁用，第二个参数表示禁用原因；
 // 如果有多个[boolean, string]参数，则表示多个禁用条件和原因
-export type ColumnOpItemDisabledReturn =
-  | boolean
-  | [boolean, string]
-  | Array<[boolean, string]>;
+export type ColumnOpItemDisabledReturn = boolean | [boolean, string] | Array<[boolean, string]>;
 
 // 操作项的配置
 export interface ColumnOpItemType {
@@ -46,7 +43,10 @@ export interface ColumnOpItemType {
 }
 
 // 已解析的操作项类型（函数属性已求值，避免自引用导致类型无限展开）
-export interface ResolvedColumnOpItem extends Omit<ColumnOpItemType, 'label' | 'disabled' | 'show' | 'dropdown' | 'noPop' | 'popProps'> {
+export interface ResolvedColumnOpItem extends Omit<
+  ColumnOpItemType,
+  'label' | 'disabled' | 'show' | 'dropdown' | 'noPop' | 'popProps'
+> {
   label: string;
   disabled: boolean;
   show: boolean;

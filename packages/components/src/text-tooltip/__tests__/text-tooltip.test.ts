@@ -28,7 +28,7 @@ const createWrapper = (
 ) => {
   return mount(YTextTooltip, {
     props,
-    slots,
+    slots
   });
 };
 
@@ -53,7 +53,7 @@ const getComputedStyleProperty = (element: any, property: string): string | null
   const propertyVariants = [
     property, // 原始格式：-webkit-line-clamp
     property.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase()), // camelCase：webkitLineClamp
-    property.replace(/-/g, ''), // 无连字符：webkitlineclamp
+    property.replace(/-/g, '') // 无连字符：webkitlineclamp
   ];
 
   for (const prop of propertyVariants) {
@@ -167,7 +167,9 @@ describe('YTextTooltip 组件', () => {
       const wrapper = createWrapper();
       await nextTick();
       // Vue 3 setup语法中，name通过defineOptions设置，可以通过组件实例验证
-      expect(wrapper.findComponent({ name: 'YTextTooltip' }).exists() || wrapper.exists()).toBe(true);
+      expect(wrapper.findComponent({ name: 'YTextTooltip' }).exists() || wrapper.exists()).toBe(
+        true
+      );
     });
   });
 
@@ -677,10 +679,7 @@ describe('YTextTooltip 组件', () => {
       const originalResizeObserver = global.ResizeObserver;
       global.ResizeObserver = TestResizeObserver as any;
 
-      const wrapper = createWrapper(
-        { model: 'auto', lineClamp: 1 },
-        { default: '测试内容' }
-      );
+      const wrapper = createWrapper({ model: 'auto', lineClamp: 1 }, { default: '测试内容' });
 
       await nextTick();
 
@@ -695,10 +694,7 @@ describe('YTextTooltip 组件', () => {
     });
 
     it('组件卸载时在model不为auto时不创建ResizeObserver', async () => {
-      const wrapper = createWrapper(
-        { model: 'none' },
-        { default: '测试内容' }
-      );
+      const wrapper = createWrapper({ model: 'none' }, { default: '测试内容' });
 
       await nextTick();
 
@@ -711,10 +707,7 @@ describe('YTextTooltip 组件', () => {
 
     it('组件卸载时正确处理null的ResizeObserver', async () => {
       // 先创建组件，此时ResizeObserver存在
-      const wrapper = createWrapper(
-        { model: 'auto' },
-        { default: '测试内容' }
-      );
+      const wrapper = createWrapper({ model: 'auto' }, { default: '测试内容' });
 
       await nextTick();
 
@@ -1100,7 +1093,7 @@ describe('YTextTooltip 组件', () => {
         scrollWidth?: number;
         offsetHeight?: number;
         scrollHeight?: number;
-      },
+      }
     ) => {
       const el = wrapper.find('.y-text-tooltip__content').element as HTMLElement;
       if (sizes.offsetWidth !== undefined) {
@@ -1110,18 +1103,21 @@ describe('YTextTooltip 组件', () => {
         Object.defineProperty(el, 'scrollWidth', { configurable: true, value: sizes.scrollWidth });
       }
       if (sizes.offsetHeight !== undefined) {
-        Object.defineProperty(el, 'offsetHeight', { configurable: true, value: sizes.offsetHeight });
+        Object.defineProperty(el, 'offsetHeight', {
+          configurable: true,
+          value: sizes.offsetHeight
+        });
       }
       if (sizes.scrollHeight !== undefined) {
-        Object.defineProperty(el, 'scrollHeight', { configurable: true, value: sizes.scrollHeight });
+        Object.defineProperty(el, 'scrollHeight', {
+          configurable: true,
+          value: sizes.scrollHeight
+        });
       }
     };
 
     it('auto 模式单行文本溢出时应启用 tooltip', async () => {
-      const wrapper = createWrapper(
-        { model: 'auto', lineClamp: 1 },
-        { default: '很长的文本内容' },
-      );
+      const wrapper = createWrapper({ model: 'auto', lineClamp: 1 }, { default: '很长的文本内容' });
       await nextTick();
 
       mockElementSize(wrapper, { offsetWidth: 50, scrollWidth: 120 });
@@ -1132,10 +1128,7 @@ describe('YTextTooltip 组件', () => {
     });
 
     it('auto 模式单行文本未溢出时应禁用 tooltip', async () => {
-      const wrapper = createWrapper(
-        { model: 'auto', lineClamp: 1 },
-        { default: '短文本' },
-      );
+      const wrapper = createWrapper({ model: 'auto', lineClamp: 1 }, { default: '短文本' });
       await nextTick();
 
       mockElementSize(wrapper, { offsetWidth: 200, scrollWidth: 100 });
@@ -1148,7 +1141,7 @@ describe('YTextTooltip 组件', () => {
     it('auto 模式多行文本溢出时应启用 tooltip', async () => {
       const wrapper = createWrapper(
         { model: 'auto', lineClamp: 2 },
-        { default: '多行\n文本\n内容' },
+        { default: '多行\n文本\n内容' }
       );
       await nextTick();
 
@@ -1160,10 +1153,7 @@ describe('YTextTooltip 组件', () => {
     });
 
     it('挂载时 auto 模式应创建 ResizeObserver', async () => {
-      const wrapper = createWrapper(
-        { model: 'auto', lineClamp: 1 },
-        { default: '测试内容' },
-      );
+      const wrapper = createWrapper({ model: 'auto', lineClamp: 1 }, { default: '测试内容' });
       await nextTick();
       await nextTick();
 
@@ -1185,7 +1175,7 @@ describe('YTextTooltip 组件', () => {
           <y-text-tooltip :line-clamp="lineClamp" :width="width" model="auto">
             测试内容
           </y-text-tooltip>
-        `,
+        `
       });
 
       mount(Host);
@@ -1220,7 +1210,7 @@ describe('YTextTooltip 组件', () => {
         template: '<y-text-tooltip ref="tipRef">暴露测试</y-text-tooltip>',
         mounted() {
           (this as any).child = this.$refs.tipRef;
-        },
+        }
       });
 
       const wrapper = mount(Host);

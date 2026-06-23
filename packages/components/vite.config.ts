@@ -41,9 +41,9 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          hoistStatic: true,
-        },
-      },
+          hoistStatic: true
+        }
+      }
     }),
     /**
      * 组件自动导入插件
@@ -51,7 +51,7 @@ export default defineConfig({
      */
     Components({
       resolvers: [ElementPlusResolver()],
-      dts: false,
+      dts: false
     }) as unknown as PluginOption,
     /**
      * 打包类型声明文件
@@ -67,7 +67,7 @@ export default defineConfig({
         'utils/*.ts',
         'index.ts',
         'components.ts',
-        'defaults.ts',
+        'defaults.ts'
       ],
       outDirs: ['../../dist/es'],
       staticImport: true,
@@ -76,18 +76,18 @@ export default defineConfig({
         // 确保类型声明文件可以在 JS 项目中使用
         skipLibCheck: true,
         // 将类型依赖标记为可选
-        types: ['vue'],
+        types: ['vue']
       },
       // 在类型声明文件中添加类型引用
       beforeWriteFile: (filePath, content) => {
         if (filePath.endsWith('.d.ts')) {
           return {
             filePath,
-            content: `/// <reference types="vue" />\n${content}`,
+            content: `/// <reference types="vue" />\n${content}`
           };
         }
         return { filePath, content };
-      },
+      }
     }),
     generateTypes(),
     /**
@@ -100,11 +100,11 @@ export default defineConfig({
       open: false, // 自动打开分析图
       gzipSize: true, // 收集 gzip 大小
       brotliSize: false, // 收集 brotli 大小，太新了，不一定支持
-      template: 'treemap', // 图表类型，可选 sunburst、treemap、network
-    }) as PluginOption,
+      template: 'treemap' // 图表类型，可选 sunburst、treemap、network
+    }) as PluginOption
   ],
   css: {
-    preprocessorOptions: scssPreprocessorOptions as Record<string, unknown>,
+    preprocessorOptions: scssPreprocessorOptions as Record<string, unknown>
   },
   build: {
     /**
@@ -124,13 +124,13 @@ export default defineConfig({
     lib: {
       // 库模式下，必须声明入口文件
       entry: {
-        index: resolve(__dirname, 'index.ts'),
+        index: resolve(__dirname, 'index.ts')
       },
       formats: ['es'],
       // 自定义构建结果中的入口文件名称
       fileName: (format, entryName) => {
         return `${format}/${entryName}.mjs`;
-      },
+      }
     },
     /**
      * rollup 配置项
@@ -149,12 +149,12 @@ export default defineConfig({
         '@vueuse/shared',
         '@vueuse/core',
         /^echarts\/.*/,
-        'cron-parser',
+        'cron-parser'
       ],
       output: {
         globals: {
           vue: 'Vue',
-          'element-plus': 'ElementPlus',
+          'element-plus': 'ElementPlus'
         },
         preserveModules: true,
         preserveModulesRoot: '',
@@ -168,18 +168,18 @@ export default defineConfig({
             return 'style/[name][extname]';
           }
           return '[name][extname]';
-        },
+        }
       },
       onwarn(warning, warn) {
         // 忽略特定的未使用导入警告
         if (warning.code === 'UNUSED_EXTERNAL_IMPORT') return;
         warn(warning);
-      },
+      }
     },
     cssCodeSplit: true,
     sourcemap: true,
     outDir: '../../dist',
-    emptyOutDir: true,
+    emptyOutDir: true
   },
   resolve: {
     // Vite 的模块解析机制：
@@ -187,6 +187,6 @@ export default defineConfig({
     // 如果不是相对路径，会检查是否是绝对路径（以 / 开头）
     // 如果都不是，会尝试从 node_modules 中查找
     // 最后会检查 resolve.alias 配置
-    alias: createComponentsAliases(__dirname),
-  },
+    alias: createComponentsAliases(__dirname)
+  }
 });

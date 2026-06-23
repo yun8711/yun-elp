@@ -12,7 +12,7 @@ vi.mock('cron-parser', () => ({
 }));
 
 // Mock @vueuse/core
-vi.mock('@vueuse/core', async (importOriginal) => {
+vi.mock('@vueuse/core', async importOriginal => {
   const actual = await importOriginal<typeof import('@vueuse/core')>();
   return {
     ...actual,
@@ -73,7 +73,8 @@ const globalStubs = {
     props: ['value', 'label']
   },
   'el-button': {
-    template: '<button class="el-button" v-bind="$attrs" @click="$emit(\'click\')"><slot></slot></button>',
+    template:
+      '<button class="el-button" v-bind="$attrs" @click="$emit(\'click\')"><slot></slot></button>',
     props: ['type', 'size', 'plain', 'text']
   },
   'el-textarea': {
@@ -100,11 +101,21 @@ const globalStubs = {
     props: ['modelValue']
   },
   'el-time-picker': {
-    template: '<input type="time" v-bind="$attrs" :value="modelValue" @input="$emit(\'update:modelValue\', $event.target.value)" @change="$emit(\'change\')" />',
-    props: ['modelValue', 'valueFormat', 'format', 'placeholder', 'disabled', 'clearable', 'pickerOptions', 'teleported']
+    template:
+      '<input type="time" v-bind="$attrs" :value="modelValue" @input="$emit(\'update:modelValue\', $event.target.value)" @change="$emit(\'change\')" />',
+    props: [
+      'modelValue',
+      'valueFormat',
+      'format',
+      'placeholder',
+      'disabled',
+      'clearable',
+      'pickerOptions',
+      'teleported'
+    ]
   },
   // Cron 子组件stubs - 更精确的模拟
-  'CronMinute': {
+  CronMinute: {
     template: `
       <div class="cron-minute">
         <div class="y-cron-picker__group">
@@ -124,13 +135,13 @@ const globalStubs = {
         startTime: '00:00',
         endTime: '23:59',
         perMinute: '5'
-      }
+      };
     },
     methods: {
       $emit: vi.fn()
     }
   },
-  'CronHour': {
+  CronHour: {
     template: `
       <div class="cron-hour">
         <div class="y-cron-picker__group">
@@ -159,13 +170,13 @@ const globalStubs = {
         perHour: '1',
         assignHours: ['0'],
         assignMinute: '0'
-      }
+      };
     },
     methods: {
       $emit: vi.fn()
     }
   },
-  'CronDay': {
+  CronDay: {
     template: `
       <div class="cron-day">
         <div class="y-cron-picker__group">
@@ -179,13 +190,13 @@ const globalStubs = {
     data() {
       return {
         timePicker: '00:00'
-      }
+      };
     },
     methods: {
       $emit: vi.fn()
     }
   },
-  'CronWeek': {
+  CronWeek: {
     template: `
       <div class="cron-week">
         <div class="y-cron-picker__group">
@@ -214,13 +225,13 @@ const globalStubs = {
           { value: '6', label: '周六' },
           { value: '7', label: '周日' }
         ]
-      }
+      };
     },
     methods: {
       $emit: vi.fn()
     }
   },
-  'CronMonth': {
+  CronMonth: {
     template: `
       <div class="cron-month">
         <div class="y-cron-picker__group">
@@ -240,14 +251,14 @@ const globalStubs = {
       return {
         days: ['1'],
         timePicker: '00:00',
-        dayOptions: Array.from({length: 31}, (_, i) => (i + 1).toString())
-      }
+        dayOptions: Array.from({ length: 31 }, (_, i) => (i + 1).toString())
+      };
     },
     methods: {
       $emit: vi.fn()
     }
   },
-  'CronYear': {
+  CronYear: {
     template: `
       <div class="cron-year">
         <div class="y-cron-picker__group">
@@ -271,9 +282,9 @@ const globalStubs = {
         days: ['1'],
         months: ['1'],
         timePicker: '00:00',
-        dayOptions: Array.from({length: 31}, (_, i) => (i + 1).toString()),
-        monthOptions: Array.from({length: 12}, (_, i) => (i + 1).toString())
-      }
+        dayOptions: Array.from({ length: 31 }, (_, i) => (i + 1).toString()),
+        monthOptions: Array.from({ length: 12 }, (_, i) => (i + 1).toString())
+      };
     },
     methods: {
       $emit: vi.fn()

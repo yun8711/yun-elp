@@ -4,7 +4,9 @@
     <div v-if="$slots.prefix" class="y-border-label__prefix">
       <slot name="prefix" />
     </div>
-    <div class="y-border-label__label" :class="{ 'y-border-label__label--no-border': props.noBorder }">
+    <div
+      class="y-border-label__label"
+      :class="{ 'y-border-label__label--no-border': props.noBorder }">
       <slot name="label">{{ props.label }}</slot>
     </div>
     <div class="y-border-label__content">

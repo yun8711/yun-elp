@@ -43,12 +43,12 @@ export const cronPickerProps = {
   placeholder: {
     type: String,
     default: undefined
-  },
+  }
 } as const;
 
 export type cronPickerInstance = ExtractPublicPropTypes<typeof cronPickerProps>;
 
 export interface CronPickerEmits {
   'update:modelValue': [value: string];
-  'change': [value: string];
+  change: [value: string];
 }

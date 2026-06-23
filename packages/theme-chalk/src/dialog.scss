@@ -2,13 +2,13 @@
   padding: 0 !important;
 
   &__header {
+    box-sizing: border-box;
     height: 48px;
-    line-height: 48px;
-    border-bottom: 1px solid var(--el-border-color-light);
     padding: 0 24px;
     margin-bottom: 0 !important;
     font-size: var(--el-font-size-base);
-    box-sizing: border-box;
+    line-height: 48px;
+    border-bottom: 1px solid var(--el-border-color-light);
   }
 
   &__body {
@@ -17,11 +17,11 @@
   }
 
   &__footer {
-    height: 56px;
-    padding: 0 16px !important;
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    height: 56px;
+    padding: 0 16px !important;
     padding-top: 0 !important;
     border-top: 1px solid var(--el-border-color-light);
   }

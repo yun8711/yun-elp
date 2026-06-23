@@ -22,5 +22,4 @@ for (let i = 0; i < 30; i++){
 const changeHandle = (val) => {
   console.log(val)
 }
-
 </script>

@@ -5,7 +5,7 @@ export interface EmptyProps {
   imageSize?: number;
   description?: string;
   style?: Record<string, any>;
-};
+}
 
 export const emptyProps = {
   image: {

@@ -33,7 +33,10 @@
             <MoreFilled />
           </el-icon>
         </template>
-        <div v-for="item in getOptions(scope).dropdownList" :key="item.prop" class="y-column-op__dropdown-item">
+        <div
+          v-for="item in getOptions(scope).dropdownList"
+          :key="item.prop"
+          class="y-column-op__dropdown-item">
           <y-pop v-bind="getPopProps(item)" v-on="getPopEvents(scope, item)">
             <y-button
               type="primary"

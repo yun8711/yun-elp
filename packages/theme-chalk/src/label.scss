@@ -1,9 +1,9 @@
 .y-label {
+  position: relative;
   box-sizing: border-box;
   display: inline-flex;
   align-items: stretch;
   height: var(--label-height);
-  position: relative;
 
   // 前置插槽样式
   &__prefix {
@@ -14,12 +14,12 @@
   }
 
   &__label {
-    margin-right: 8px;
-    color: var(--el-text-color-primary);
+    box-sizing: border-box;
     display: flex;
     align-items: center;
-    box-sizing: border-box;
+    margin-right: 8px;
     font-size: var(--el-font-size-base);
+    color: var(--el-text-color-primary);
   }
 
   &__colon {
@@ -27,11 +27,11 @@
   }
 
   &__content {
-    flex: 1;
-    height: 100%;
     display: flex;
+    flex: 1;
     align-items: center;
     justify-content: flex-start;
+    height: 100%;
   }
 
   // 后置插槽样式

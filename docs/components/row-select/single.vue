@@ -1,5 +1,11 @@
 <template>
-  <y-row-select v-model="value" :options="options" @change="changeHandle" label-text="单选" single all-text="不限"></y-row-select>
+  <y-row-select
+    v-model="value"
+    :options="options"
+    @change="changeHandle"
+    label-text="单选"
+    single
+    all-text="不限"></y-row-select>
 
   <div style="margin-top: 20px;">选中值：{{ value }}</div>
 </template>
@@ -22,5 +28,4 @@ for (let i = 0; i < 30; i++){
 const changeHandle = (val) => {
   console.log(val)
 }
-
 </script>

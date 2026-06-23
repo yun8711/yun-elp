@@ -3,7 +3,11 @@
     <el-table-column type="selection" width="55" />
     <el-table-column prop="date" label="Date" />
     <el-table-column prop="name" label="Name" />
-    <el-table-column width="100px" prop="address" label="Address" :tooltip-formatter="tooltipFormatter"
+    <el-table-column
+      width="100px"
+      prop="address"
+      label="Address"
+      :tooltip-formatter="tooltipFormatter"
       show-overflow-tooltip />
   </y-table>
 </template>

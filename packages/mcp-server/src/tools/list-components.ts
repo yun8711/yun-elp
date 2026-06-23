@@ -1,6 +1,6 @@
-import componentObject from '../metadata/components.js'
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
-import { z } from 'zod'
+import componentObject from '../metadata/components.js';
+import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { z } from 'zod';
 
 /**
  * 列出所有 element-ui组件
@@ -20,31 +20,29 @@ export function registerListComponents(server: McpServer) {
             z.object({
               tagName: z.string().describe('组件标签名, 例如：el-button'),
               description: z.string().describe('组件描述'),
-              docUrl: z.string().url().describe('组件文档URL'),
+              docUrl: z.string().url().describe('组件文档URL')
             })
           )
-          .describe(
-            '一份包含组件及其标签名称、描述、文档 URL 的列表（按标签名称排序）。'
-          ),
-      },
+          .describe('一份包含组件及其标签名称、描述、文档 URL 的列表（按标签名称排序）。')
+      }
     },
     async () => {
-      const components = Object.values(componentObject)
+      const components = Object.values(componentObject);
       const list = components.map(component => ({
         tagName: component.tagName,
         description: component.description,
-        docUrl: component.docUrl,
-      }))
+        docUrl: component.docUrl
+      }));
 
       return {
         structuredContent: { components: list },
         content: [
           {
             type: 'text' as const,
-            text: JSON.stringify({ components: list }, null, 2),
-          },
-        ],
-      }
+            text: JSON.stringify({ components: list }, null, 2)
+          }
+        ]
+      };
     }
-  )
+  );
 }

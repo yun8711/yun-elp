@@ -1,12 +1,12 @@
-import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss'
+import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss';
 
 export default defineConfig({
   presets: [presetUno(), presetAttributify(), presetIcons()],
   content: {
     pipeline: {
       include: [`./**/*`],
-      exclude: [`./node_modules/**/*`, `./.vitepress/cache/**/*`],
-    },
+      exclude: [`./node_modules/**/*`, `./.vitepress/cache/**/*`]
+    }
   },
   theme: {
     breakpoints: {
@@ -15,13 +15,13 @@ export default defineConfig({
       lg: '1024px',
       xl: '1280px',
       '2xl': '1536px',
-      '3xl': '1920px',
+      '3xl': '1920px'
     },
     colors: {
       primary: {
         DEFAULT: '#2563eb',
-        deep: '#1d4ed8',
-      },
-    },
-  },
-})
+        deep: '#1d4ed8'
+      }
+    }
+  }
+});

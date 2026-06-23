@@ -18,7 +18,9 @@
 
     <section class="demo-block">
       <h3>config 联动用法</h3>
-      <p class="tip">表单字段变化时触发 config 回调，用于编写联动逻辑；remark 在 static-fields 中，不参与联动</p>
+      <p class="tip">
+        表单字段变化时触发 config 回调，用于编写联动逻辑；remark 在 static-fields 中，不参与联动
+      </p>
       <y-form
         ref="linkageFormRef"
         :model="linkageForm"
@@ -29,27 +31,62 @@
         :span="12"
         :gutter="24">
         <y-form-item label="采购类型" prop="type">
-          <el-select v-model="linkageForm.type" placeholder="请选择采购类型" clearable style="width: 100%">
-            <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value" />
+          <el-select
+            v-model="linkageForm.type"
+            placeholder="请选择采购类型"
+            clearable
+            style="width: 100%">
+            <el-option
+              v-for="item in typeOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value" />
           </el-select>
         </y-form-item>
         <y-form-item label="大类" prop="category">
-          <el-select v-model="linkageForm.category" placeholder="请选择大类" clearable style="width: 100%">
-            <el-option v-for="item in categoryOptions" :key="item.value" :label="item.label" :value="item.value" />
+          <el-select
+            v-model="linkageForm.category"
+            placeholder="请选择大类"
+            clearable
+            style="width: 100%">
+            <el-option
+              v-for="item in categoryOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value" />
           </el-select>
         </y-form-item>
         <y-form-item label="小类" prop="subCategory">
-          <el-select v-model="linkageForm.subCategory" placeholder="请选择小类" clearable style="width: 100%">
-            <el-option v-for="item in subCategoryOptions" :key="item.value" :label="item.label" :value="item.value" />
+          <el-select
+            v-model="linkageForm.subCategory"
+            placeholder="请选择小类"
+            clearable
+            style="width: 100%">
+            <el-option
+              v-for="item in subCategoryOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value" />
           </el-select>
         </y-form-item>
         <y-form-item label="规格型号" prop="spec">
-          <el-select v-model="linkageForm.spec" placeholder="请选择规格型号" clearable style="width: 100%">
-            <el-option v-for="item in specOptions" :key="item.value" :label="item.label" :value="item.value" />
+          <el-select
+            v-model="linkageForm.spec"
+            placeholder="请选择规格型号"
+            clearable
+            style="width: 100%">
+            <el-option
+              v-for="item in specOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value" />
           </el-select>
         </y-form-item>
         <y-form-item label="备注" prop="remark" :span="24">
-          <el-input v-model="linkageForm.remark" type="textarea" placeholder="请输入备注（不参与联动）" />
+          <el-input
+            v-model="linkageForm.remark"
+            type="textarea"
+            placeholder="请输入备注（不参与联动）" />
         </y-form-item>
       </y-form>
       <div class="control-buttons">
@@ -295,11 +332,11 @@ const handleReset = () => {
 <style lang="scss" scoped>
 .form-example {
   .demo-block {
-    margin-bottom: 32px;
     padding: 20px;
+    margin-bottom: 32px;
+    background: var(--el-bg-color);
     border: 1px solid var(--el-border-color-light);
     border-radius: 8px;
-    background: var(--el-bg-color);
 
     h3 {
       margin: 0 0 8px;
@@ -314,9 +351,9 @@ const handleReset = () => {
     }
 
     .control-buttons {
-      margin-top: 16px;
       display: flex;
       gap: 8px;
+      margin-top: 16px;
     }
   }
 }

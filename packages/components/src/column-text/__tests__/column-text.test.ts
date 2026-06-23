@@ -159,7 +159,6 @@ describe('YColumnText 表格列文本组件', () => {
         expect(wrapper.props('tipProps')).toEqual(tipProps);
       });
     });
-
   });
 
   describe('样式测试', () => {
@@ -581,7 +580,7 @@ describe('YColumnText 表格列文本组件', () => {
       });
 
       const wrapper = createBasicTest({
-        formatter: errorFormatter,
+        formatter: errorFormatter
       });
 
       const vm = wrapper.vm as any;
@@ -595,7 +594,7 @@ describe('YColumnText 表格列文本组件', () => {
       expect(errorFormatter).toHaveBeenCalled();
       expect(consoleWarnSpy).toHaveBeenCalledWith(
         '[YColumnText] formatter函数执行出错:',
-        expect.any(Error),
+        expect.any(Error)
       );
 
       consoleWarnSpy.mockRestore();

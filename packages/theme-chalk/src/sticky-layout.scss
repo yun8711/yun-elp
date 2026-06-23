@@ -9,10 +9,11 @@
     top: 0;
     left: 0;
     box-sizing: border-box;
+    contain: layout style paint;
+
     /* GPU 加速优化 */
     transform: translateZ(0);
     backface-visibility: hidden;
-    contain: layout style paint;
   }
 
   .y-sticky-layout__right {
@@ -20,10 +21,11 @@
     top: 0;
     right: 0;
     box-sizing: border-box;
+    contain: layout style paint;
+
     /* GPU 加速优化 */
     transform: translateZ(0);
     backface-visibility: hidden;
-    contain: layout style paint;
   }
 
   .y-sticky-layout__content {

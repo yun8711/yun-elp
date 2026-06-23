@@ -1,5 +1,4 @@
 <template>
-
   <y-table :data="tableData2">
     <!-- 基础文本 -->
     <!-- 基础文本展示 -->

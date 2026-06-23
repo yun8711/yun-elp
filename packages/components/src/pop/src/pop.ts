@@ -5,7 +5,7 @@ import type { ButtonProps } from '../../button/src/button';
 export type PopEmits = {
   (e: 'confirm'): void;
   (e: 'cancel'): void;
-}
+};
 
 type PlacementType =
   | 'top'

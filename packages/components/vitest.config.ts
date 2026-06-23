@@ -14,7 +14,7 @@ export default defineConfig(
       setupFiles: ['./vitest.setup.ts'],
       include: [
         '**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
-        '**/__tests__/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+        '**/__tests__/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'
       ],
       exclude: ['node_modules/**', 'dist/**', '**/*.d.ts', 'coverage/**'],
       testTimeout: 10_000,
@@ -22,27 +22,22 @@ export default defineConfig(
       mockReset: false,
       clearMocks: true,
       sequence: {
-        shuffle: false,
+        shuffle: false
       },
       expect: {
-        requireAssertions: false,
+        requireAssertions: false
       },
       restoreMocks: false,
       typecheck: {
-        enabled: false,
+        enabled: false
       },
       pool: 'threads',
       singleThread: true,
       // Element Plus 2.14+ 会引入 CSS 及子路径模块，需内联预构建
       server: {
         deps: {
-          inline: [
-            'element-plus',
-            '@element-plus/icons-vue',
-            '@vueuse/core',
-            '@vueuse/shared',
-          ],
-        },
+          inline: ['element-plus', '@element-plus/icons-vue', '@vueuse/core', '@vueuse/shared']
+        }
       },
       css: true,
       onConsoleLog(log: string) {
@@ -62,7 +57,7 @@ export default defineConfig(
           'src/**/*.vue',
           '!src/**/*.d.ts',
           '!src/**/*.test.{ts,tsx}',
-          '!src/**/__tests__/**',
+          '!src/**/__tests__/**'
         ],
         exclude: [
           'node_modules/**',
@@ -73,13 +68,13 @@ export default defineConfig(
           'locale/lang/**',
           'hooks/**',
           'utils/**',
-          'cron-picker/src/components/**',
+          'cron-picker/src/components/**'
         ],
         // TODO: 逐步提升覆盖率至 90%
         thresholds: {
-          statements: 50,
-        },
-      },
-    },
-  }),
+          statements: 50
+        }
+      }
+    }
+  })
 );

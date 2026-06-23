@@ -10,7 +10,10 @@
     <y-column-text prop="age" label="年龄(格式化)" :formatter="formatAge" />
 
     <!-- 文本样式 -->
-    <y-column-text prop="address" label="自定义文本样式" :text-style="{ color: 'red', fontSize: '16px', fontWeight: '600' }" />
+    <y-column-text
+      prop="address"
+      label="自定义文本样式"
+      :text-style="{ color: 'red', fontSize: '16px', fontWeight: '600' }" />
 
     <!-- 溢出 Tooltip 与禁用 -->
     <y-column-text prop="desc" label="默认tooltip" />
@@ -27,10 +30,10 @@
     </y-column-text>
 
     <!-- 自定义表头样式 -->
-    <y-column-text prop="address" label="自定义表头样式"
+    <y-column-text
+      prop="address"
+      label="自定义表头样式"
       :header-style="{ color: '#409eff', fontWeight: 'bold', fontSize: '16px' }" />
-
-
   </y-table>
 </template>
 

@@ -16,7 +16,7 @@ const mockChartInstance = {
 };
 
 vi.mock('echarts/core', () => ({
-  use: vi.fn((modules) => {
+  use: vi.fn(modules => {
     if (Array.isArray(modules)) {
       modules.forEach(module => {
         if (module && typeof module.install === 'function') {
@@ -78,7 +78,7 @@ vi.mock('../../app-wrap/src/use-app-config', () => ({
 }));
 
 // Mock useElementSize
-vi.mock('@vueuse/core', async (importOriginal) => {
+vi.mock('@vueuse/core', async importOriginal => {
   const actual = await importOriginal<typeof import('@vueuse/core')>();
   return {
     ...actual,
@@ -91,11 +91,15 @@ vi.mock('@vueuse/core', async (importOriginal) => {
 
 // Mock DOM element dimensions
 Object.defineProperty(HTMLElement.prototype, 'clientWidth', {
-  get() { return 800; }
+  get() {
+    return 800;
+  }
 });
 
 Object.defineProperty(HTMLElement.prototype, 'clientHeight', {
-  get() { return 600; }
+  get() {
+    return 600;
+  }
 });
 
 const globalConfig = {
@@ -112,7 +116,7 @@ async function expectLoadingState(wrapper: ReturnType<typeof mount>, loading: bo
       () => {
         expect(wrapper.find('.el-loading-mask').exists()).toBe(false);
       },
-      { timeout: 1000 },
+      { timeout: 1000 }
     );
   }
 }
@@ -310,7 +314,9 @@ describe('YEcharts 图表组件', () => {
       await new Promise(resolve => setTimeout(resolve, 100));
 
       // 验证配置合并：全局配置 + 组件配置，通过检查是否成功初始化
-      expect(mockChartInstance.setOption).toHaveBeenCalledWith({ series: [{ data: [1, 2, 3], type: 'line' }] });
+      expect(mockChartInstance.setOption).toHaveBeenCalledWith({
+        series: [{ data: [1, 2, 3], type: 'line' }]
+      });
     });
 
     it('应该支持空配置正常工作', async () => {
@@ -823,9 +829,12 @@ describe('YEcharts 图表组件', () => {
         }
       });
 
-      await vi.waitFor(() => {
-        expect((wrapper1.vm as any).getChartInstance()).not.toBe(null);
-      }, { timeout: 3000 });
+      await vi.waitFor(
+        () => {
+          expect((wrapper1.vm as any).getChartInstance()).not.toBe(null);
+        },
+        { timeout: 3000 }
+      );
 
       const wrapper2 = mount(YEcharts, {
         ...globalConfig,
@@ -835,9 +844,12 @@ describe('YEcharts 图表组件', () => {
         }
       });
 
-      await vi.waitFor(() => {
-        expect(vi.mocked(echartsInit)).toHaveBeenCalledTimes(2);
-      }, { timeout: 3000 });
+      await vi.waitFor(
+        () => {
+          expect(vi.mocked(echartsInit)).toHaveBeenCalledTimes(2);
+        },
+        { timeout: 3000 }
+      );
 
       const instance1 = (wrapper1.vm as any).getChartInstance();
 

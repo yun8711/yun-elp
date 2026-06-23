@@ -5,7 +5,12 @@
       <el-button type="primary" size="small" @click="reset">重置</el-button>
     </div>
     <div class="advance-content">
-      <y-row-select :key="item.prop" ref="rowSelectRefs" v-for="item in options" v-model="form[item.prop]" :options="item.options"
+      <y-row-select
+        :key="item.prop"
+        ref="rowSelectRefs"
+        v-for="item in options"
+        v-model="form[item.prop]"
+        :options="item.options"
         :label-text="item.label" />
     </div>
   </div>
@@ -64,15 +69,15 @@ const reset = () => {
   border: 1px solid #e5e5e5;
 
   .advance-title {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    padding: 0 16px;
     font-size: 14px;
     color: #333;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border-bottom: 1px solid #e5e5e5;
-    padding: 0 16px;
-    height: 40px;
-    box-sizing: border-box;
   }
 
   .advance-content {

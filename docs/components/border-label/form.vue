@@ -22,7 +22,11 @@
       <el-date-picker v-model="state5" type="date" />
     </y-border-label>
     <y-border-label label="el-date-picker:daterange">
-      <el-date-picker v-model="state6" type="daterange" start-placeholder="Start date" end-placeholder="End date" />
+      <el-date-picker
+        v-model="state6"
+        type="daterange"
+        start-placeholder="Start date"
+        end-placeholder="End date" />
     </y-border-label>
     <y-border-label label="el-date-picker:datetime">
       <el-date-picker v-model="state7" type="datetime" />

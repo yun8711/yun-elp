@@ -17,7 +17,7 @@ vi.stubGlobal('requestAnimationFrame', () => 0);
 vi.stubGlobal('cancelAnimationFrame', vi.fn());
 
 // Mock @vueuse/core
-vi.mock('@vueuse/core', async (importOriginal) => {
+vi.mock('@vueuse/core', async importOriginal => {
   const actual = await importOriginal<typeof import('@vueuse/core')>();
   return {
     ...actual,
@@ -195,12 +195,15 @@ describe('YScrollBox', () => {
     });
 
     it('当 arrowModel 为 auto 且内容超出时应该显示箭头', async () => {
-      const wrapper = createWrapper({
-        arrowModel: 'auto',
-        width: 100
-      }, {
-        default: '<div style="width: 200px;">长内容测试</div>'
-      });
+      const wrapper = createWrapper(
+        {
+          arrowModel: 'auto',
+          width: 100
+        },
+        {
+          default: '<div style="width: 200px;">长内容测试</div>'
+        }
+      );
 
       // 等待组件更新
       await wrapper.vm.$nextTick();

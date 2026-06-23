@@ -1,10 +1,10 @@
 .y-table-search {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  justify-content: space-between;
   &__left {
-    flex: 1;
     display: flex;
+    flex: 1;
     flex-wrap: wrap;
     align-items: center;
     &-show-more {
@@ -12,30 +12,30 @@
       align-items: flex-start;
     }
     &-all {
-      flex: 1;
       display: flex;
+      flex: 1;
       flex-wrap: wrap;
-      align-items: center;
       gap: 8px;
+      align-items: center;
     }
     &-first {
-      flex: 1;
       display: flex;
+      flex: 1;
       flex-wrap: nowrap;
-      align-items: center;
       gap: 8px;
+      align-items: center;
       margin-bottom: 8px;
     }
     &-more {
-      gap: 8px;
       display: flex;
       flex-wrap: wrap;
+      gap: 8px;
       padding-bottom: 8px;
     }
   }
   &__right {
-    margin-left: 16px;
     display: flex;
     align-items: center;
+    margin-left: 16px;
   }
 }

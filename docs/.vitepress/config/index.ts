@@ -85,7 +85,7 @@ const setupConfig = configEnv => {
         //     ]
         //   }
         // ]
-      },
+      }
     },
     vite: getViteConfig(configEnv) as any,
 

@@ -7,10 +7,7 @@ export interface FormChangeContext {
   newValue: unknown;
 }
 
-export type FormConfigFn = (
-  model: Record<string, any>,
-  context: FormChangeContext
-) => void;
+export type FormConfigFn = (model: Record<string, any>, context: FormChangeContext) => void;
 
 export interface FormProps {
   /** 对应 el-form.model */

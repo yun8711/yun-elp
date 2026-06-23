@@ -1,13 +1,22 @@
 <template>
   <el-table-column v-bind="mergedColumnAttrs">
     <template #default="scope">
-      <slot v-if="noFrom" name="default" :scope="scope" :row="scope.row" :prop="prop" />
+      <slot
+        v-if="noFrom"
+        name="default"
+        :scope="scope"
+        :row="scope.row"
+        :prop="prop" />
       <el-form-item
         v-else
         v-bind="mergedFormAttrs(scope)"
         @mouseenter="handleMouseEnter(`${scope.$index}_${prop}`)"
         @mouseleave="handleMouseLeave(`${scope.$index}_${prop}`)">
-        <slot name="default" :scope="scope" :row="scope.row" :prop="prop" />
+        <slot
+          name="default"
+          :scope="scope"
+          :row="scope.row"
+          :prop="prop" />
         <template #error="{ error }">
           <div>
             <el-tooltip

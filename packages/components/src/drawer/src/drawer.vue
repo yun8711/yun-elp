@@ -1,5 +1,9 @@
 <template>
-  <el-drawer ref="drawerRef" v-model="drawerVisible" v-bind="drawerAttrs" class="y-drawer">
+  <el-drawer
+    ref="drawerRef"
+    v-model="drawerVisible"
+    v-bind="drawerAttrs"
+    class="y-drawer">
     <template #header>
       <slot name="header">
         <div class="y-drawer__header-title" :style="titleStyle">

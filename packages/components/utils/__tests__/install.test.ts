@@ -4,46 +4,50 @@ import { withInstall } from '../install';
 
 describe('withInstall', () => {
   it('adds default values to object-style props', () => {
-    const component = withInstall(defineComponent({
-      name: 'ObjectPropsComponent',
-      props: {
-        size: String,
-        disabled: {
-          type: Boolean,
-        },
-      },
-    }));
+    const component = withInstall(
+      defineComponent({
+        name: 'ObjectPropsComponent',
+        props: {
+          size: String,
+          disabled: {
+            type: Boolean
+          }
+        }
+      })
+    );
 
     component.setPropsDefaults({
       size: 'default',
-      disabled: true,
+      disabled: true
     });
 
     expect(component.props?.size).toEqual({
       type: String,
-      default: 'default',
+      default: 'default'
     });
     expect(component.props?.disabled).toEqual({
       type: Boolean,
-      default: true,
+      default: true
     });
   });
 
   it('adds default values to array-style props', () => {
-    const component = withInstall(defineComponent({
-      name: 'ArrayPropsComponent',
-      props: ['label'],
-    }));
+    const component = withInstall(
+      defineComponent({
+        name: 'ArrayPropsComponent',
+        props: ['label']
+      })
+    );
 
     component.setPropsDefaults({
       label: 'hello',
-      missing: 'ignored',
+      missing: 'ignored'
     });
 
     expect(component.props).toEqual({
       label: {
-        default: 'hello',
-      },
+        default: 'hello'
+      }
     });
   });
 });

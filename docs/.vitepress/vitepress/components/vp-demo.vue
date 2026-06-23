@@ -131,17 +131,36 @@ const copyCode = async () => {
       </ElTooltip> -->
       <!-- 复制代码 -->
       <!-- :content="locale['copy-code']" -->
-      <ElTooltip content="复制代码" :show-arrow="false" :trigger="['hover', 'focus']" :trigger-keys="[]">
+      <ElTooltip
+        content="复制代码"
+        :show-arrow="false"
+        :trigger="['hover', 'focus']"
+        :trigger-keys="[]">
         <!-- :aria-label="locale['copy-code']" -->
-        <ElIcon :size="16" aria-label="复制代码" class="op-btn" tabindex="0" role="button" @click="copyCode"
-          @keydown.prevent.enter="copyCode" @keydown.prevent.space="copyCode">
+        <ElIcon
+          :size="16"
+          aria-label="复制代码"
+          class="op-btn"
+          tabindex="0"
+          role="button"
+          @click="copyCode"
+          @keydown.prevent.enter="copyCode"
+          @keydown.prevent.space="copyCode">
           <i-ri-file-copy-line />
         </ElIcon>
       </ElTooltip>
       <!-- 查看源码 -->
-      <ElTooltip content="查看源码" :show-arrow="false" :trigger="['hover', 'focus']" :trigger-keys="[]">
-        <button ref="sourceCodeRef" :aria-label="sourceVisible ? '隐藏源码' : '查看源码'
-          " class="reset-btn el-icon op-btn" @click="toggleSourceVisible()">
+      <ElTooltip
+        content="查看源码"
+        :show-arrow="false"
+        :trigger="['hover', 'focus']"
+        :trigger-keys="[]">
+        <button
+          ref="sourceCodeRef"
+          :aria-label="sourceVisible ? '隐藏源码' : '查看源码'
+          "
+          class="reset-btn el-icon op-btn"
+          @click="toggleSourceVisible()">
           <ElIcon :size="16">
             <i-ri-code-line />
           </ElIcon>
@@ -155,8 +174,13 @@ const copyCode = async () => {
 
     <!-- 收起源码 -->
     <Transition name="el-fade-in-linear">
-      <div v-show="sourceVisible" class="example-float-control" tabindex="0" role="button"
-        @click="toggleSourceVisible(false)" @keydown="onSourceVisibleKeydown">
+      <div
+        v-show="sourceVisible"
+        class="example-float-control"
+        tabindex="0"
+        role="button"
+        @click="toggleSourceVisible(false)"
+        @keydown="onSourceVisibleKeydown">
         <ElIcon :size="16">
           <CaretTop />
         </ElIcon>

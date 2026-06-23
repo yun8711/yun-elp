@@ -61,7 +61,11 @@
         @change="emitChange">
         <span />
       </el-radio>
-      <span style="margin-right: 8px;" :style="{ width: labelWidth }">{{ t('cronPicker.assignHours') }}</span>
+      <span
+        style="margin-right: 8px;"
+        :style="{ width: labelWidth }"
+      >{{ t('cronPicker.assignHours') }}</span
+      >
       <el-select
         v-model="cronForm.assignHours"
         multiple
@@ -79,7 +83,11 @@
     </div>
 
     <div class="y-cron-picker__row y-cron-picker__row-interval">
-      <span style="margin-right: 8px;" :style="{ width: labelWidth }">{{ t('cronPicker.assignMinutes') }}</span>
+      <span
+        style="margin-right: 8px;"
+        :style="{ width: labelWidth }"
+      >{{ t('cronPicker.assignMinutes') }}</span
+      >
       <el-select
         v-model="cronForm.assignMinute"
         :disabled="assignDisabled"

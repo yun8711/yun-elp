@@ -8,13 +8,13 @@ const SELECT_INJECTION_KEY = Symbol('ElSelect');
  * 基于 importOriginal 的部分 mock，保留 EP 2.14+ 依赖的 isClient 等导出。
  * 各测试文件如需覆盖特定方法，应使用相同模式而非完全替换模块。
  */
-vi.mock('@vueuse/core', async (importOriginal) => {
+vi.mock('@vueuse/core', async importOriginal => {
   const actual = await importOriginal<typeof import('@vueuse/core')>();
   return { ...actual };
 });
 
 /** 未显式导出的图标自动降级为 stub，避免 Close 等图标缺失导致套件加载失败 */
-vi.mock('@element-plus/icons-vue', async (importOriginal) => {
+vi.mock('@element-plus/icons-vue', async importOriginal => {
   const actual = await importOriginal<typeof import('@element-plus/icons-vue')>();
   return new Proxy(actual, {
     get(target, prop) {
@@ -23,7 +23,7 @@ vi.mock('@element-plus/icons-vue', async (importOriginal) => {
       }
       const name = String(prop);
       return { name, template: `<span class="el-icon-${name}"></span>` };
-    },
+    }
   });
 });
 
@@ -38,7 +38,7 @@ beforeAll(() => {
   });
 
   // happy-dom + 连续滚动 rAF/setTimeout 组合可能在 teardown 后触发 processImmediate 异常
-  process.on('uncaughtException', (error) => {
+  process.on('uncaughtException', error => {
     if (String(error).includes('_idleNext')) {
       return;
     }
@@ -49,13 +49,13 @@ beforeAll(() => {
   config.global.stubs = {
     'el-button': {
       template:
-        '<component :is="link ? \'a\' : \'button\'" class="el-button" :class="[type ? `el-button--${type}` : \'\', disabled ? \'is-disabled\' : \'\', link ? \'el-button--link\' : \'\', $attrs.class]" :style="style" v-bind="$attrs" @click="$emit(\'click\', $event)" @focus="$emit(\'focus\', $event)"><slot></slot></component>',
+        "<component :is=\"link ? 'a' : 'button'\" class=\"el-button\" :class=\"[type ? `el-button--${type}` : '', disabled ? 'is-disabled' : '', link ? 'el-button--link' : '', $attrs.class]\" :style=\"style\" v-bind=\"$attrs\" @click=\"$emit('click', $event)\" @focus=\"$emit('focus', $event)\"><slot></slot></component>",
       props: ['type', 'icon', 'loading', 'disabled', 'style', 'link'],
       emits: ['click', 'focus'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-button-group': {
-      template: '<div class="el-button-group"><slot></slot></div>',
+      template: '<div class="el-button-group"><slot></slot></div>'
     },
     YTable: {
       template: `
@@ -88,65 +88,65 @@ beforeAll(() => {
       `,
       props: ['loading', 'showFooter', 'emptyProps', 'paginationProps', 'onPaginationChange'],
       inheritAttrs: true,
-      name: 'YTable',
+      name: 'YTable'
     },
     'el-table': {
       template:
         '<div class="el-table y-table__table" v-bind="$attrs" :class="{ \'is-loading\': loading }"><slot></slot><slot name="empty"></slot><slot name="append"></slot></div>',
       props: ['data', 'border', 'size', 'loading', 'height', 'maxHeight'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-pagination': {
       template:
         '<div class="el-pagination" v-bind="$attrs" @change="$emit(\'change\', arguments[0], arguments[1])"></div>',
       props: ['total', 'currentPage', 'pageSize', 'layout', 'background', 'pageSizes'],
       emits: ['change'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'y-empty': {
       template:
         '<div class="y-empty" v-bind="$attrs"><slot></slot><slot name="image"></slot><slot name="description"></slot></div>',
       props: ['image', 'imageSize', 'description', 'style'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-table-column': {
       template:
         '<div class="el-table-column" v-bind="$attrs"><slot name="default" :scope="{ row: { id: 1, name: \'test\' }, column: {}, $index: 0 }"></slot></div>',
       props: ['prop', 'label', 'width', 'minWidth', 'showOverflowTooltip'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-form-item': {
       template:
         '<div class="el-form-item" v-bind="$attrs" @mouseenter="$emit(\'mouseenter\', $event)" @mouseleave="$emit(\'mouseleave\', $event)"><slot></slot><template #error="{ error }"><slot name="error" :error="error"></slot></template></div>',
       props: ['prop', 'label', 'rules', 'labelWidth', 'required'],
       emits: ['mouseenter', 'mouseleave'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-tooltip': {
       template:
         '<div class="el-tooltip" v-bind="$attrs"><slot></slot><slot name="content"></slot></div>',
       props: ['content', 'placement', 'effect', 'disabled', 'popperClass'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     ElTooltip: {
       template:
         '<div class="el-tooltip" v-bind="$attrs"><slot></slot><slot name="content"></slot></div>',
       props: ['content', 'placement', 'effect', 'disabled', 'popperClass'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-input': {
       template:
         '<div class="el-input" v-bind="$attrs"><div class="el-input__wrapper" tabindex="-1"><input class="el-input__inner" :value="modelValue" @input="$emit(\'update:modelValue\', $event.target.value)" @blur="$emit(\'blur\', $event)" @focus="$emit(\'focus\', $event)" @change="$emit(\'change\', $event)" /></div></div>',
       props: ['modelValue', 'placeholder', 'disabled', 'readonly', 'type'],
       emits: ['update:modelValue', 'blur', 'focus', 'change'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-form': {
       template:
         '<form class="el-form" v-bind="$attrs" @submit.prevent="$emit(\'submit\', $event)"><slot></slot></form>',
       props: ['model', 'rules', 'labelPosition', 'labelWidth', 'inline'],
       emits: ['submit'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-select': {
       template: '<div class="el-select" v-bind="$attrs"><slot></slot></div>',
@@ -159,53 +159,54 @@ beforeAll(() => {
             props: this.$props,
             selectOption: () => {},
             removeOption: () => {},
-            updateOptions: () => {},
-          },
+            updateOptions: () => {}
+          }
         };
-      },
+      }
     },
     'el-option': {
       template: '<div class="el-option" v-bind="$attrs"></div>',
       props: ['label', 'value', 'disabled'],
       inheritAttrs: true,
       inject: {
-        select: { from: SELECT_INJECTION_KEY, default: null },
-      },
+        select: { from: SELECT_INJECTION_KEY, default: null }
+      }
     },
     'el-radio-group': {
       template: '<div class="el-radio-group" v-bind="$attrs"><slot></slot></div>',
       props: ['modelValue', 'disabled'],
       emits: ['update:modelValue', 'change'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-radio': {
-      template: '<div class="el-radio" v-bind="$attrs" :class="{ \'is-disabled\': disabled }"><slot></slot></div>',
+      template:
+        '<div class="el-radio" v-bind="$attrs" :class="{ \'is-disabled\': disabled }"><slot></slot></div>',
       props: ['label', 'value', 'disabled'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-radio-button': {
       template: '<div class="el-radio-button" v-bind="$attrs"><slot></slot></div>',
       props: ['label', 'value', 'disabled'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-cascader': {
       template: '<div class="el-cascader" v-bind="$attrs"></div>',
       props: ['modelValue', 'options', 'placeholder', 'disabled'],
       emits: ['update:modelValue', 'change'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'y-pop': {
       template: '<div class="y-pop" v-bind="$attrs"><slot></slot></div>',
       props: ['noPop', 'tipContent', 'tipProps', 'confirm', 'cancel'],
       emits: ['confirm', 'cancel'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'y-button': {
       template:
         '<button class="y-button el-button" v-bind="$attrs" @click="$emit(\'click\', $event)"><slot></slot></button>',
       props: ['type', 'loading', 'disabled', 'link'],
       emits: ['click'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-popover': {
       template: `
@@ -218,30 +219,38 @@ beforeAll(() => {
       `,
       props: ['placement', 'width', 'popperClass', 'trigger', 'visible'],
       emits: ['update:visible'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-icon': {
       template: '<i class="el-icon" v-bind="$attrs"><slot></slot></i>',
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-link': {
-      template: '<a class="el-link" v-bind="$attrs" @click="$emit(\'click\', $event)"><slot></slot></a>',
+      template:
+        '<a class="el-link" v-bind="$attrs" @click="$emit(\'click\', $event)"><slot></slot></a>',
       props: ['type', 'underline', 'disabled', 'href', 'icon'],
       emits: ['click'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-date-picker': {
       template:
         '<div class="el-date-picker" v-bind="$attrs"><input class="el-input__inner" :value="modelValue" @input="$emit(\'update:modelValue\', $event.target.value)" /></div>',
-      props: ['modelValue', 'type', 'placeholder', 'disabled', 'startPlaceholder', 'endPlaceholder'],
+      props: [
+        'modelValue',
+        'type',
+        'placeholder',
+        'disabled',
+        'startPlaceholder',
+        'endPlaceholder'
+      ],
       emits: ['update:modelValue', 'change'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-collapse-transition': {
       name: 'ElCollapseTransition',
       template: '<div><slot /></div>',
       props: ['style'],
-      inheritAttrs: true,
+      inheritAttrs: true
     },
     'el-scrollbar': {
       template:
@@ -257,11 +266,11 @@ beforeAll(() => {
         'noresize',
         'tag',
         'always',
-        'minSize',
+        'minSize'
       ],
       data() {
         return {
-          wrapRef: null,
+          wrapRef: null
         };
       },
       mounted() {
@@ -278,11 +287,11 @@ beforeAll(() => {
             this.wrapRef.scrollLeft = left;
             this.$emit('scroll', { scrollLeft: left });
           }
-        },
+        }
       },
       emits: ['scroll'],
-      inheritAttrs: true,
-    },
+      inheritAttrs: true
+    }
   };
 
   config.global.directives = {
@@ -298,8 +307,8 @@ beforeAll(() => {
         } else {
           el.classList.remove('is-loading');
         }
-      },
-    },
+      }
+    }
   };
 });
 

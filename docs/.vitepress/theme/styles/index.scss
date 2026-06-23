@@ -11,7 +11,7 @@
   --font-family-mono:
     'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   --vp-layout-max-width: 100%;
-  --vp-nav-logo-height:30px;
+  --vp-nav-logo-height: 30px;
 }
 
 /* 表格样式（仅作用于 Markdown 渲染出来的表格，不影响 el-table/y-table） */
@@ -50,7 +50,7 @@
   }
 
   table:not(.el-table) {
-    margin:0;
+    margin: 0;
   }
 }
 

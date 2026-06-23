@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper" :style="{ width: `${value}px` }">
-
     <y-text-tooltip :line-clamp="num" :model="tooltip">
       Self element set width 100px,Self element set width 100px,Self element set width 100px
     </y-text-tooltip>
@@ -8,9 +7,9 @@
     <el-divider />
 
     <y-text-tooltip :line-clamp="num" :model="tooltip">
-      DeepSeek R1 模型已完成小版本升级，当前版本为 DeepSeek-R1-0528。用户通过官方网站、APP 或小程序进入对话界面后，开启“深度思考”功能即可体验最新版本。API 也已同步更新，调用方式不变。
+      DeepSeek R1 模型已完成小版本升级，当前版本为 DeepSeek-R1-0528。用户通过官方网站、APP
+      或小程序进入对话界面后，开启“深度思考”功能即可体验最新版本。API 也已同步更新，调用方式不变。
     </y-text-tooltip>
-
   </div>
 
   <div class="btn-wrapper">
@@ -21,8 +20,6 @@
     <span style="margin-left: 20px;">tooltip：</span>
     <y-simple-select v-model="tooltip" :options="tooltipOptions" style="width: 100px;" />
   </div>
-
-
 </template>
 
 <script setup lang="ts">
@@ -47,8 +44,8 @@ const tooltipOptions = ref([
 
 .btn-wrapper {
   display: flex;
-  align-items: center;
   gap: 10px;
+  align-items: center;
   margin-top: 50px;
   word-break: normal;
 }

@@ -33,7 +33,8 @@ export const buttonProps = {
   model: {
     type: String as PropType<'debounce' | 'throttle' | undefined>,
     default: undefined,
-    validator: (value: string | undefined) => value === undefined || ['debounce', 'throttle'].includes(value)
+    validator: (value: string | undefined) =>
+      value === undefined || ['debounce', 'throttle'].includes(value)
   },
   delay: {
     type: Number,

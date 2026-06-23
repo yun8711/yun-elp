@@ -6,7 +6,7 @@ import '@yun-elp/theme-chalk/themes/kd.scss';
 import './styles/index.scss';
 import App from './App.vue';
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.use(YunElp)
-app.mount('#app')
+app.use(YunElp);
+app.mount('#app');

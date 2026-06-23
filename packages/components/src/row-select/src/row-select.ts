@@ -4,7 +4,7 @@ export type RowSelectEmits = {
   (e: 'update:modelValue', value: string | string[] | number | number[]): void;
   (e: 'change', value: string | string[] | number | number[]): void;
   (e: 'fold', value: boolean): void;
-}
+};
 
 // 选项接口
 export interface RowSelectOption {

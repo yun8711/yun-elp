@@ -17,7 +17,9 @@
     </y-form-item>
     <y-form-item label="config 调用次数" :span="24">
       <span>{{ configCallCount }}</span>
-      <el-button size="small" style="margin-left: 12px" @click="configCallCount = 0">重置计数</el-button>
+      <el-button size="small" style="margin-left: 12px" @click="configCallCount = 0"
+        >重置计数</el-button
+      >
     </y-form-item>
   </y-form>
 </template>

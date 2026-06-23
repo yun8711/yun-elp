@@ -7,7 +7,7 @@ import { useAppConfig } from '../../app-wrap/src/use-app-config';
 
 // Mock lodash-es
 vi.mock('lodash-es', () => ({
-  isNumber: vi.fn((value) => typeof value === 'number')
+  isNumber: vi.fn(value => typeof value === 'number')
 }));
 
 // Mock app-wrap配置

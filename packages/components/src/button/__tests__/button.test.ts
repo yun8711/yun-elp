@@ -3,82 +3,82 @@ import { mount } from '@vue/test-utils';
 import { nextTick, h } from 'vue';
 import YButton from '../src/button.vue';
 // Mock VueUse functions
-vi.mock('@vueuse/core', async (importOriginal) => {
+vi.mock('@vueuse/core', async importOriginal => {
   const actual = await importOriginal<typeof import('@vueuse/core')>();
   return {
     ...actual,
     useDebounceFn: vi.fn((fn, delay, options) => {
-    let timeoutId: NodeJS.Timeout;
-    let maxWaitTimeoutId: NodeJS.Timeout | undefined;
-    let hasExecuted = false;
+      let timeoutId: NodeJS.Timeout;
+      let maxWaitTimeoutId: NodeJS.Timeout | undefined;
+      let hasExecuted = false;
 
-    const debouncedFn = (...args: any[]) => {
-      // 对于maxWait为0的情况，不使用hasExecuted，每次都立即执行
-      if (options?.maxWait !== undefined && options.maxWait <= 0) {
-        fn(...args);
-        return;
-      }
-
-      if (hasExecuted) return; // 如果已经执行过，不再执行
-
-      clearTimeout(timeoutId);
-
-      if (options?.maxWait !== undefined) {
-        if (!maxWaitTimeoutId) {
-          maxWaitTimeoutId = setTimeout(() => {
-            if (!hasExecuted) {
-              fn(...args);
-              hasExecuted = true;
-            }
-            maxWaitTimeoutId = undefined;
-          }, options.maxWait);
-        }
-      }
-
-      // delay为0或负数时立即执行
-      if (delay <= 0) {
-        fn(...args);
-        hasExecuted = true;
-        return;
-      }
-
-      timeoutId = setTimeout(() => {
-        if (!hasExecuted) {
+      const debouncedFn = (...args: any[]) => {
+        // 对于maxWait为0的情况，不使用hasExecuted，每次都立即执行
+        if (options?.maxWait !== undefined && options.maxWait <= 0) {
           fn(...args);
-          hasExecuted = true;
-          if (maxWaitTimeoutId) {
-            clearTimeout(maxWaitTimeoutId);
-            maxWaitTimeoutId = undefined;
+          return;
+        }
+
+        if (hasExecuted) return; // 如果已经执行过，不再执行
+
+        clearTimeout(timeoutId);
+
+        if (options?.maxWait !== undefined) {
+          if (!maxWaitTimeoutId) {
+            maxWaitTimeoutId = setTimeout(() => {
+              if (!hasExecuted) {
+                fn(...args);
+                hasExecuted = true;
+              }
+              maxWaitTimeoutId = undefined;
+            }, options.maxWait);
           }
         }
-      }, delay);
-    };
 
-    return debouncedFn;
-  }),
-  useThrottleFn: vi.fn((fn, delay) => {
-    let lastExecTime = 0;
-    let timeoutId: NodeJS.Timeout | undefined;
-
-    const throttledFn = (...args: any[]) => {
-      const currentTime = Date.now();
-
-      if (currentTime - lastExecTime >= delay || lastExecTime === 0) {
-        fn(...args);
-        lastExecTime = currentTime;
-      } else {
-        // 在节流间隔内，设置定时器在剩余时间后执行
-        if (timeoutId) clearTimeout(timeoutId);
-        const remainingTime = delay - (currentTime - lastExecTime);
-        timeoutId = setTimeout(() => {
+        // delay为0或负数时立即执行
+        if (delay <= 0) {
           fn(...args);
-          lastExecTime = Date.now();
-        }, remainingTime);
-      }
-    };
+          hasExecuted = true;
+          return;
+        }
 
-    return throttledFn;
-  })
+        timeoutId = setTimeout(() => {
+          if (!hasExecuted) {
+            fn(...args);
+            hasExecuted = true;
+            if (maxWaitTimeoutId) {
+              clearTimeout(maxWaitTimeoutId);
+              maxWaitTimeoutId = undefined;
+            }
+          }
+        }, delay);
+      };
+
+      return debouncedFn;
+    }),
+    useThrottleFn: vi.fn((fn, delay) => {
+      let lastExecTime = 0;
+      let timeoutId: NodeJS.Timeout | undefined;
+
+      const throttledFn = (...args: any[]) => {
+        const currentTime = Date.now();
+
+        if (currentTime - lastExecTime >= delay || lastExecTime === 0) {
+          fn(...args);
+          lastExecTime = currentTime;
+        } else {
+          // 在节流间隔内，设置定时器在剩余时间后执行
+          if (timeoutId) clearTimeout(timeoutId);
+          const remainingTime = delay - (currentTime - lastExecTime);
+          timeoutId = setTimeout(() => {
+            fn(...args);
+            lastExecTime = Date.now();
+          }, remainingTime);
+        }
+      };
+
+      return throttledFn;
+    })
   };
 });
 
@@ -486,7 +486,6 @@ describe('YButton 防抖按钮组件', () => {
       expect(typeof vm).toBe('object');
       expect(vm).toBeDefined();
     });
-
   });
 
   describe('继承属性', () => {

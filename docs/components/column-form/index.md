@@ -32,7 +32,7 @@ column-form/test
 | tip-props             | 错误提示tooltip的属性                                                      | ^[object]`Partial<ElTooltipProps>`                                          | `{popperClass:'y-column-form__error-tooltip',placement:'top',enterable:false}` |
 | label                 | 显示的列标题                                                               | ^[string]                                                                   | —                                                                              |
 | prop                  | 列内容的字段名， 也可以使用 property属性                                   | ^[string]                                                                   | —                                                                              |
-| width                 | 列的宽度，固定的                                                           | ^[string] / ^[number]                                                       | `'auto'`                                                                         |
+| width                 | 列的宽度，固定的                                                           | ^[string] / ^[number]                                                       | `'auto'`                                                                       |
 | min-width             | 列的最小宽度，会把剩余宽度按比例分配给设置了 min-width 的列                | ^[string] / ^[number]                                                       | `100`                                                                          |
 | fixed                 | 列是否固定在左侧或者右侧。 true 表示固定在左侧 `true`                      | ^[enum]`'left' \| 'right'` / ^[boolean]                                     | `false`                                                                        |
 | render-header         | 列标题 Label 区域渲染的函数                                                | ^[Function]`(data: { column: any, $index: number }) => void`                | —                                                                              |
@@ -45,7 +45,7 @@ column-form/test
 
 ### Slots
 
-| 名称    | 说明           | 参数                                               |
-| ------- | -------------- | -------------------------------------------------- |
+| 名称    | 说明           | 参数                                              |
+| ------- | -------------- | ------------------------------------------------- |
 | default | 表单项内容插槽 | ^[object]`{ scope: any, row: any, prop: string }` |
 | header  | 自定义表头内容 | ^[object]`{ column: any, index: number }`         |

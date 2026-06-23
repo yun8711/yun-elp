@@ -670,11 +670,11 @@ describe('YPop 弹出框容器组件', () => {
         props: {
           confirmText: '确定',
           cancelText: '取消',
-          popContent: '确认删除吗？',
+          popContent: '确认删除吗？'
         },
         slots: {
-          default: '<button class="trigger">触发</button>',
-        },
+          default: '<button class="trigger">触发</button>'
+        }
       });
 
       const vm = wrapper.vm as any;
@@ -693,7 +693,7 @@ describe('YPop 弹出框容器组件', () => {
       const wrapper = mount(YPop, {
         props: { confirmText: '确定', cancelText: '取消' },
         attrs: { onConfirm },
-        slots: { default: '<button>触发</button>' },
+        slots: { default: '<button>触发</button>' }
       });
 
       const vm = wrapper.vm as any;
@@ -713,7 +713,7 @@ describe('YPop 弹出框容器组件', () => {
       const wrapper = mount(YPop, {
         props: { confirmText: '确定', cancelText: '取消' },
         attrs: { onCancel },
-        slots: { default: '<button>触发</button>' },
+        slots: { default: '<button>触发</button>' }
       });
 
       const vm = wrapper.vm as any;
@@ -731,7 +731,7 @@ describe('YPop 弹出框容器组件', () => {
     it('noFooter 为 true 时不应渲染底部按钮区域', async () => {
       const wrapper = mount(YPop, {
         props: { noFooter: true, popContent: '内容' },
-        slots: { default: '<button>触发</button>' },
+        slots: { default: '<button>触发</button>' }
       });
 
       const vm = wrapper.vm as any;
@@ -744,7 +744,7 @@ describe('YPop 弹出框容器组件', () => {
     it('noCancel 为 true 时不应渲染取消按钮', async () => {
       const wrapper = mount(YPop, {
         props: { noCancel: true, confirmText: '确定' },
-        slots: { default: '<button>触发</button>' },
+        slots: { default: '<button>触发</button>' }
       });
 
       const vm = wrapper.vm as any;

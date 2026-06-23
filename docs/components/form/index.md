@@ -52,56 +52,56 @@ form/debounce
 
 支持 [el-form](https://element-plus.org/zh-CN/component/form.html#form-attributes) 的全部属性及 [el-row](https://element-plus.org/zh-CN/component/layout.html#row-attributes) 的布局属性，写在 `y-form` 上即可，内部分发给对应子组件。下表列出常用项；未列出的 el-form 属性同样支持透传。
 
-| 属性名 | 说明 | 类型 | 默认值 |
-| ------ | ---- | ---- | ------ |
-| config | 表单数据变化时的回调，参数见[FormConfigFn](#formconfigfn) | ^[function]`(model, context) => void` | — |
-| static-fields | 静态字段，变化时不触发 config | ^[object]`string[]` | `[]` |
-| debounce | config 队列处理防抖时间（ms），0 表示不防抖 | ^[number] | `300` |
-| span | y-form-item 默认栅格占位 | ^[number] | `24` |
-| row-class | 行容器 class | ^[string] | `''` |
-| row-style | 行容器 style | ^[object]`CSSProperties` | `{}` |
-| model | 表单数据对象，同 el-form | ^[object]`Record<string, any>` | `{}` |
-| rules | 表单校验规则，同 el-form | ^[object]`FormRules` | `{}` |
-| label-width | 标签宽度，同 el-form | ^[string] / ^[number] | — |
-| label-position | 标签位置，同 el-form | ^[enum]`'left' \| 'right' \| 'top'` | `'right'` |
-| inline | 行内表单模式，同 el-form | ^[boolean] | `false` |
-| gutter | 栅格间隔，同 el-row | ^[number] | `0` |
-| justify | 水平排列方式，同 el-row | ^[enum]`'start' \| 'end' \| 'center' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'` |
-| align | 垂直排列方式，同 el-row | ^[enum]`'top' \| 'middle' \| 'bottom'` | — |
-| tag | 自定义元素标签，同 el-row | ^[string] | `'div'` |
+| 属性名         | 说明                                                      | 类型                                                                                         | 默认值    |
+| -------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------- |
+| config         | 表单数据变化时的回调，参数见[FormConfigFn](#formconfigfn) | ^[function]`(model, context) => void`                                                        | —         |
+| static-fields  | 静态字段，变化时不触发 config                             | ^[object]`string[]`                                                                          | `[]`      |
+| debounce       | config 队列处理防抖时间（ms），0 表示不防抖               | ^[number]                                                                                    | `300`     |
+| span           | y-form-item 默认栅格占位                                  | ^[number]                                                                                    | `24`      |
+| row-class      | 行容器 class                                              | ^[string]                                                                                    | `''`      |
+| row-style      | 行容器 style                                              | ^[object]`CSSProperties`                                                                     | `{}`      |
+| model          | 表单数据对象，同 el-form                                  | ^[object]`Record<string, any>`                                                               | `{}`      |
+| rules          | 表单校验规则，同 el-form                                  | ^[object]`FormRules`                                                                         | `{}`      |
+| label-width    | 标签宽度，同 el-form                                      | ^[string] / ^[number]                                                                        | —         |
+| label-position | 标签位置，同 el-form                                      | ^[enum]`'left' \| 'right' \| 'top'`                                                          | `'right'` |
+| inline         | 行内表单模式，同 el-form                                  | ^[boolean]                                                                                   | `false`   |
+| gutter         | 栅格间隔，同 el-row                                       | ^[number]                                                                                    | `0`       |
+| justify        | 水平排列方式，同 el-row                                   | ^[enum]`'start' \| 'end' \| 'center' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'` |
+| align          | 垂直排列方式，同 el-row                                   | ^[enum]`'top' \| 'middle' \| 'bottom'`                                                       | —         |
+| tag            | 自定义元素标签，同 el-row                                 | ^[string]                                                                                    | `'div'`   |
 
 ### FormConfigFn
 
-| 参数 | 说明 | 类型 |
-| ---- | ---- | ---- |
-| model | 当前表单数据 | ^[object]`Record<string, any>` |
-| context | 变化上下文 | ^[object]`FormChangeContext` |
-| context.field | 变化的字段名 | ^[string] |
-| context.prevValue | 变化前的值 | ^[any] |
-| context.newValue | 变化后的值 | ^[any] |
+| 参数              | 说明         | 类型                           |
+| ----------------- | ------------ | ------------------------------ |
+| model             | 当前表单数据 | ^[object]`Record<string, any>` |
+| context           | 变化上下文   | ^[object]`FormChangeContext`   |
+| context.field     | 变化的字段名 | ^[string]                      |
+| context.prevValue | 变化前的值   | ^[any]                         |
+| context.newValue  | 变化后的值   | ^[any]                         |
 
 ### Events
 
-| 事件名 | 说明 | 类型 |
-| ------ | ---- | ---- |
+| 事件名   | 说明                 | 类型                                                                         |
+| -------- | -------------------- | ---------------------------------------------------------------------------- |
 | validate | 任一表单项校验后触发 | ^[function]`(prop: FormItemProp, isValid: boolean, message: string) => void` |
 
 ### Exposes
 
-| 名称 | 说明 | 类型 |
-| ---- | ---- | ---- |
-| validateSync | 校验整个表单，通过 resolve(model)，失败 reject | ^[function]`() => Promise<Record<string, any>>` |
-| validate | 校验整个表单，支持传入 callback 或返回 Promise，同 el-form | ^[function]`(callback?: FormValidateCallback) => Promise<boolean>` |
-| validateField | 校验指定字段，同 el-form | ^[function]`(props?: FormItemProp \| FormItemProp[], callback?: FormValidateCallback) => Promise<boolean>` |
-| resetFields | 重置指定字段为初始值并移除校验结果，不传则重置全部，同 el-form | ^[function]`(props?: FormItemProp \| FormItemProp[]) => void` |
-| clearValidate | 移除指定字段的校验结果，不传则移除全部，同 el-form | ^[function]`(props?: FormItemProp \| FormItemProp[]) => void` |
-| scrollToField | 滚动到指定字段，同 el-form | ^[function]`(prop: FormItemProp) => void` |
-| getField | 获取指定字段的上下文，同 el-form | ^[function]`(prop: FormItemProp) => FormItemContext \| undefined` |
-| fields | 所有表单项字段的上下文，同 el-form | ^[object]`Reactive<FormItemContext[]>` |
-| setInitialValues | 设置表单字段初始值，`resetFields` 时将重置到此值，同 el-form | ^[function]`(initModel: Record<string, any>) => void` |
+| 名称             | 说明                                                           | 类型                                                                                                       |
+| ---------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| validateSync     | 校验整个表单，通过 resolve(model)，失败 reject                 | ^[function]`() => Promise<Record<string, any>>`                                                            |
+| validate         | 校验整个表单，支持传入 callback 或返回 Promise，同 el-form     | ^[function]`(callback?: FormValidateCallback) => Promise<boolean>`                                         |
+| validateField    | 校验指定字段，同 el-form                                       | ^[function]`(props?: FormItemProp \| FormItemProp[], callback?: FormValidateCallback) => Promise<boolean>` |
+| resetFields      | 重置指定字段为初始值并移除校验结果，不传则重置全部，同 el-form | ^[function]`(props?: FormItemProp \| FormItemProp[]) => void`                                              |
+| clearValidate    | 移除指定字段的校验结果，不传则移除全部，同 el-form             | ^[function]`(props?: FormItemProp \| FormItemProp[]) => void`                                              |
+| scrollToField    | 滚动到指定字段，同 el-form                                     | ^[function]`(prop: FormItemProp) => void`                                                                  |
+| getField         | 获取指定字段的上下文，同 el-form                               | ^[function]`(prop: FormItemProp) => FormItemContext \| undefined`                                          |
+| fields           | 所有表单项字段的上下文，同 el-form                             | ^[object]`Reactive<FormItemContext[]>`                                                                     |
+| setInitialValues | 设置表单字段初始值，`resetFields` 时将重置到此值，同 el-form   | ^[function]`(initModel: Record<string, any>) => void`                                                      |
 
 ### Slots
 
-| 名称 | 说明 |
-| ---- | ---- |
+| 名称    | 说明                       |
+| ------- | -------------------------- |
 | default | 表单内容，放置 y-form-item |

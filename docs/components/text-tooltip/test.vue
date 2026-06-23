@@ -44,8 +44,8 @@ const tooltipOptions = ref([
 
 .btn-wrapper {
   display: flex;
-  align-items: center;
   gap: 10px;
+  align-items: center;
   margin-top: 50px;
   word-break: normal;
 }

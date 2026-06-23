@@ -16,7 +16,7 @@ vi.mock('../../text-tooltip/src/text-tooltip.vue', () => ({
 }));
 
 // Mock useElementSize
-vi.mock('@vueuse/core', async (importOriginal) => {
+vi.mock('@vueuse/core', async importOriginal => {
   const actual = await importOriginal<typeof import('@vueuse/core')>();
   return {
     ...actual,
@@ -126,7 +126,7 @@ describe('YDesc 组件测试', () => {
   it('未指定path时使用label作为取值路径', async () => {
     const configWithLabelAsPath: DescItem[] = [
       { label: 'name', prop: 'name' } as DescItem, // label作为路径，应该获取到mockData.name
-      { label: 'age', prop: 'age' } as DescItem,   // label作为路径，应该获取到mockData.age
+      { label: 'age', prop: 'age' } as DescItem, // label作为路径，应该获取到mockData.age
       { label: '不存在的字段', prop: 'nonexistent' } as DescItem // 不存在的路径，应该显示emptyText
     ];
 
@@ -158,7 +158,7 @@ describe('YDesc 组件测试', () => {
         label: '状态',
         path: 'status',
         prop: 'status',
-        format: (value: string) => value === 'active' ? '活跃' : '非活跃'
+        format: (value: string) => (value === 'active' ? '活跃' : '非活跃')
       } as DescItem
     ];
 
@@ -217,7 +217,7 @@ describe('YDesc 组件测试', () => {
   });
 
   it('支持自适应列数', async () => {
-    const columnFunction = vi.fn((width: number) => width > 600 ? 4 : 2);
+    const columnFunction = vi.fn((width: number) => (width > 600 ? 4 : 2));
 
     mount(YDesc, {
       props: {
@@ -369,7 +369,12 @@ describe('YDesc 组件测试', () => {
 
   it('支持Tooltip功能', async () => {
     const configWithTooltip: DescItem[] = [
-      { label: '带Tooltip', path: 'address', prop: 'address', textTooltip: { placement: 'top' } } as DescItem
+      {
+        label: '带Tooltip',
+        path: 'address',
+        prop: 'address',
+        textTooltip: { placement: 'top' }
+      } as DescItem
     ];
 
     const wrapper = mount(YDesc, {
@@ -421,9 +426,7 @@ describe('YDesc 组件测试', () => {
   });
 
   it('支持插槽功能', async () => {
-    const configWithSlots: DescItem[] = [
-      { label: '插槽项目', prop: 'slot-item' } as DescItem
-    ];
+    const configWithSlots: DescItem[] = [{ label: '插槽项目', prop: 'slot-item' } as DescItem];
 
     const wrapper = mount(YDesc, {
       props: {
@@ -496,7 +499,8 @@ describe('YDesc 组件测试', () => {
         'name-label': () => h('em', 'prop标签'),
         'name-content': () => h('strong', 'prop内容'),
         label: ({ item }: any) => h('span', { class: 'default-label' }, `默认标签-${item.label}`),
-        content: ({ item }: any) => h('span', { class: 'default-content' }, `默认内容-${item.content || '无'}`)
+        content: ({ item }: any) =>
+          h('span', { class: 'default-content' }, `默认内容-${item.content || '无'}`)
       }
     });
 

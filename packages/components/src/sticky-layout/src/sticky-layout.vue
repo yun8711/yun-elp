@@ -5,8 +5,7 @@
       v-if="$slots.left"
       ref="leftRef"
       class="y-sticky-layout__left"
-      :style="{ height: sideHeight + 'px', top: sideTop + 'px' }"
-    >
+      :style="{ height: sideHeight + 'px', top: sideTop + 'px' }">
       <slot name="left" :height="sideHeight" />
     </div>
 
@@ -20,8 +19,7 @@
       v-if="$slots.right"
       ref="rightRef"
       class="y-sticky-layout__right"
-      :style="{ height: sideHeight + 'px', top: sideTop + 'px' }"
-    >
+      :style="{ height: sideHeight + 'px', top: sideTop + 'px' }">
       <slot name="right" :height="sideHeight" />
     </div>
   </div>

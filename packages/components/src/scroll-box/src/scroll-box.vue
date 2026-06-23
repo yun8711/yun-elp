@@ -9,8 +9,7 @@
       @click="handleClick('prev')"
       @dblclick="handleDoubleClick"
       @mousedown="handleMouseDown('prev')"
-      @mouseup="handleMouseUp"
-    >
+      @mouseup="handleMouseUp">
       <el-icon>
         <ArrowLeft />
       </el-icon>
@@ -22,8 +21,7 @@
         ref="scrollbarRef"
         v-bind="scrollbarProps"
         class="y-scroll-box__scrollbar"
-        @scroll="handleScroll"
-      >
+        @scroll="handleScroll">
         <div ref="contentRef" class="y-scroll-box__content">
           <slot />
         </div>
@@ -39,8 +37,7 @@
       @click="handleClick('next')"
       @dblclick="handleDoubleClick"
       @mousedown="handleMouseDown('next')"
-      @mouseup="handleMouseUp"
-    >
+      @mouseup="handleMouseUp">
       <el-icon>
         <ArrowRight />
       </el-icon>

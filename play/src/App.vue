@@ -4,8 +4,7 @@
       :key="locale"
       :elp-config="{ locale: locale === 'zh-cn' ? zhCn : en }"
       :locale="locale"
-      v-bind="appWrapConfig"
-    >
+      v-bind="appWrapConfig">
       <component :is="examples.find(item => item.value === curComponent)?.component" />
     </y-app-wrap>
   </Layout>
@@ -68,14 +67,14 @@ const appWrapConfig = {
 
 <style lang="scss" scoped>
 .component-selector {
-  margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
   padding: 16px;
+  margin-bottom: 20px;
   background: var(--el-bg-color);
   border: 1px solid var(--el-border-color-light);
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
 
   span {
     font-weight: 500;
@@ -84,8 +83,8 @@ const appWrapConfig = {
 }
 
 .demo-container {
-  padding: 20px;
   max-width: 1200px;
+  padding: 20px;
   margin: 0 auto;
 
   h2 {
@@ -98,11 +97,11 @@ const appWrapConfig = {
 }
 
 .demo-block {
-  margin-bottom: 40px;
   padding: 20px;
+  margin-bottom: 40px;
+  background: var(--el-bg-color);
   border: 1px solid var(--el-border-color-light);
   border-radius: 8px;
-  background: var(--el-bg-color);
 
   h3 {
     margin-bottom: 16px;
@@ -120,14 +119,14 @@ const appWrapConfig = {
   .scroll-info {
     margin-top: 8px;
     font-size: 12px;
-    color: var(--el-color-primary);
     font-weight: 500;
+    color: var(--el-color-primary);
   }
 
   .control-buttons {
-    margin-top: 12px;
     display: flex;
     gap: 8px;
+    margin-top: 12px;
   }
 
   .scroll-comparison {
@@ -158,24 +157,24 @@ const appWrapConfig = {
 .item {
   flex-shrink: 0;
   padding: 12px 20px;
+  font-weight: 500;
+  color: var(--el-color-primary);
+  white-space: nowrap;
   background: var(--el-color-primary-light-9);
   border: 1px solid var(--el-color-primary-light-7);
   border-radius: 6px;
-  color: var(--el-color-primary);
-  font-weight: 500;
-  white-space: nowrap;
 }
 
 .small-item {
   flex-shrink: 0;
   padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--el-color-success);
+  white-space: nowrap;
   background: var(--el-color-success-light-9);
   border: 1px solid var(--el-color-success-light-7);
   border-radius: 4px;
-  color: var(--el-color-success);
-  font-weight: 500;
-  white-space: nowrap;
-  font-size: 12px;
 }
 
 .image-item {
@@ -184,20 +183,20 @@ const appWrapConfig = {
   height: 120px;
 
   .image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
     background: linear-gradient(
       135deg,
       var(--el-color-primary-light-8),
       var(--el-color-primary-light-6)
     );
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 500;
-    font-size: 14px;
   }
 }
 
@@ -208,20 +207,20 @@ const appWrapConfig = {
   background: white;
   border: 1px solid var(--el-border-color-light);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
 
   h4 {
-    margin: 0 0 8px 0;
+    margin: 0 0 8px;
     font-size: 16px;
     font-weight: 500;
     color: var(--el-text-color-primary);
   }
 
   p {
-    margin: 0 0 12px 0;
+    margin: 0 0 12px;
     font-size: 14px;
-    color: var(--el-text-color-regular);
     line-height: 1.4;
+    color: var(--el-text-color-regular);
   }
 }
 </style>

@@ -45,9 +45,9 @@ module.exports = {
           { type: 'fix', section: 'Bug Fixes' },
           { type: 'style', section: 'Styles' },
           { type: 'refactor', section: 'Refactors' },
-          { type: 'perf', section: 'Performance Improvements' },
+          { type: 'perf', section: 'Performance Improvements' }
         ]
       }
     }
   }
-}
+};

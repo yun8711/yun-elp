@@ -1,10 +1,10 @@
 .y-drawer {
   &__header {
+    box-sizing: border-box;
     padding: 16px !important;
-    border-bottom: 1px solid var(--el-border-color-light);
     margin-bottom: 0 !important;
     font-size: var(--el-font-size-base);
-    box-sizing: border-box;
+    border-bottom: 1px solid var(--el-border-color-light);
 
     .el-drawer__title {
       font-size: var(--el-font-size-base);
@@ -18,12 +18,12 @@
   }
 
   &__footer {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 56px;
     padding: 16px !important;
     border-top: 1px solid var(--el-border-color-light);
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 56px;
-    box-sizing: border-box;
   }
 }

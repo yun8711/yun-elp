@@ -26,21 +26,23 @@
   // 标签
   &__item-label {
     flex-shrink: 0;
-    color: var(--el-text-color-regular);
-    line-height: 1.5;
-    word-break: keep-all;
-    white-space: nowrap;
     margin-right: 16px;
+    line-height: 1.5;
+
     // box-sizing: border-box;
     line-height: 23px;
+    color: var(--el-text-color-regular);
+    word-break: keep-all;
+    white-space: nowrap;
   }
 
   // 内容区域
   &__item-content {
     flex: 1;
     min-width: 0;
-    overflow: hidden;
     padding-right: 16px;
+    overflow: hidden;
+
     // box-sizing: border-box;
     line-height: 23px;
   }
@@ -48,35 +50,35 @@
   // 边框模式
   &--bordered {
     .y-desc__body {
-      border: 1px solid var(--el-border-color);
-      overflow: hidden;
       gap: 0; // 移除间距
+      overflow: hidden;
+      border: 1px solid var(--el-border-color);
     }
 
     .y-desc__item {
+      min-height: 41px;
       border: none;
       border-bottom: 1px solid var(--el-border-color-lighter);
-      min-height: 41px;
     }
 
     .y-desc__item-label {
-      font-weight: bold;
-      color: var(--el-text-color-regular);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
       min-width: 80px;
       padding: 8px 11px;
       margin-right: 0;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      border-right: 1px solid var(--el-border-color-lighter);
+      font-weight: bold;
+      color: var(--el-text-color-regular);
       background-color: var(--el-fill-color-light);
+      border-right: 1px solid var(--el-border-color-lighter);
     }
 
     .y-desc__item-content {
-      padding: 8px 11px;
       display: flex;
       align-items: center;
       justify-content: flex-start;
+      padding: 8px 11px;
     }
   }
 }

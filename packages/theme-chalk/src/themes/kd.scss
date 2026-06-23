@@ -1,39 +1,52 @@
 :root {
   // 主题色覆盖
   --el-color-primary: #365edf;
+
   // button type=primary:hover
   --el-color-primary-light-3: #4080ff;
+
   // button type=primary:disabled
   --el-color-primary-light-5: #94bfff;
+
   // button type=primary:active
   --el-color-primary-dark-2: #0e42d2;
+
   // button type=null：active
   --el-color-primary-light-9: #e8f3ff;
 
   // 功能色success
   --el-color-success: #00b42a;
+
   // button type=success:active
   --el-color-success-dark-2: #009a29;
+
   // button type=success:disabled
   --el-color-success-light-5: #ffcf8b;
+
   // button type=success:hover
   --el-color-success-light-3: #ff9a2e;
 
   // 功能色warning
   --el-color-warning: #ff7d00;
+
   // button type=warning:active
   --el-color-warning-dark-2: #d25f00;
+
   // button type=warning:disabled
   --el-color-warning-light-5: #ffcf8b;
+
   // button type=warning:hover
   --el-color-warning-light-3: #ff9a2e;
 
   // 功能色danger
   --el-color-danger: #f53f3f;
+
   // button type=danger:active
   --el-color-danger-dark-2: #cb2634;
+
   // button type=danger:disabled
   --el-color-danger-light-5: #fbaca3;
+
   // button type=danger:hover
   --el-color-danger-light-3: #f76560;
 
@@ -51,6 +64,7 @@
   // 字体大小覆盖
   --el-font-size-small: 12px;
   --el-font-size-base: 12px;
+
   // --el-font-size-large: var(--font-size-large, 14px);
 
   // 圆角覆盖
@@ -74,11 +88,11 @@
 
   > span:first-child {
     display: block;
-    padding: 0;
     max-height: calc(var(--y-tooltip-popper-max-height) - 10px);
+    padding: 0;
     overflow-y: scroll;
-    line-height: 1.5;
     font-size: var(--el-font-size-small);
+    line-height: 1.5;
 
     // 改写滚动条样式
     &::-webkit-scrollbar {
@@ -86,10 +100,10 @@
     }
 
     &::-webkit-scrollbar-thumb {
+      cursor: pointer;
       background-color: var(--el-scrollbar-bg-color, var(--el-text-color-secondary));
       border-radius: inherit;
       opacity: var(--el-scrollbar-hover-opacity, 0.5);
-      cursor: pointer;
     }
   }
 }
@@ -101,18 +115,19 @@
 
   .el-popover__title {
     font-size: var(--el-font-size-base);
-    color: var(--el-text-color-primary);
     font-weight: bold;
+    color: var(--el-text-color-primary);
   }
   .y-pop__popover-footer {
-    text-align: right;
     margin-top: 12px;
+    text-align: right;
   }
 }
 
 .el-table {
   --el-table-header-bg-color: #f7f8fa; // 表头背景色
   --el-table-header-text-color: var(--el-text-color-primary); // 表头文字颜色
+
   width: 100%;
 
   .el-table__header:hover th:not(:last-child)::after {

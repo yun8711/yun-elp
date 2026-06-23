@@ -79,7 +79,14 @@ describe('YColumnOp 表格操作列组件', () => {
           fixed: 'left'
         },
         global: {
-          stubs: ['el-table-column', 'y-pop', 'y-button', 'el-dropdown', 'el-dropdown-menu', 'el-dropdown-item']
+          stubs: [
+            'el-table-column',
+            'y-pop',
+            'y-button',
+            'el-dropdown',
+            'el-dropdown-menu',
+            'el-dropdown-item'
+          ]
         }
       });
       expect(wrapper.exists()).toBe(true);
@@ -146,7 +153,8 @@ describe('YColumnOp 表格操作列组件', () => {
               template: '<div class="y-pop"><slot></slot></div>'
             },
             'y-button': {
-              template: '<button class="y-button" :disabled="disabled" :loading="loading" :class="{ loading: loading }"><slot></slot></button>',
+              template:
+                '<button class="y-button" :disabled="disabled" :loading="loading" :class="{ loading: loading }"><slot></slot></button>',
               props: ['disabled', 'loading']
             }
           }
@@ -179,7 +187,8 @@ describe('YColumnOp 表格操作列组件', () => {
               template: '<div class="y-pop"><slot></slot></div>'
             },
             'y-button': {
-              template: '<button class="y-button" :disabled="disabled" :loading="loading" :class="{ loading: loading }"><slot></slot></button>',
+              template:
+                '<button class="y-button" :disabled="disabled" :loading="loading" :class="{ loading: loading }"><slot></slot></button>',
               props: ['disabled', 'loading']
             }
           }
@@ -219,7 +228,8 @@ describe('YColumnOp 表格操作列组件', () => {
               template: '<div class="y-pop"><slot></slot></div>'
             },
             'y-button': {
-              template: '<button class="y-button" :disabled="disabled" :loading="loading" :class="{ loading: loading }"><slot></slot></button>',
+              template:
+                '<button class="y-button" :disabled="disabled" :loading="loading" :class="{ loading: loading }"><slot></slot></button>',
               props: ['disabled', 'loading']
             }
           }
@@ -251,7 +261,8 @@ describe('YColumnOp 表格操作列组件', () => {
               template: '<div class="y-pop"><slot></slot></div>'
             },
             'y-button': {
-              template: '<button class="y-button" :disabled="disabled" :loading="loading" :class="{ loading: loading }"><slot></slot></button>',
+              template:
+                '<button class="y-button" :disabled="disabled" :loading="loading" :class="{ loading: loading }"><slot></slot></button>',
               props: ['disabled', 'loading']
             }
           }
@@ -265,9 +276,7 @@ describe('YColumnOp 表格操作列组件', () => {
     });
 
     it('应该使用默认禁用提示文案', () => {
-      const options: ColumnOpItemType[] = [
-        { label: '无提示禁用', prop: 'noTip', disabled: true }
-      ];
+      const options: ColumnOpItemType[] = [{ label: '无提示禁用', prop: 'noTip', disabled: true }];
 
       const wrapper = mount(YColumnOp, {
         props: { options },
@@ -285,7 +294,8 @@ describe('YColumnOp 表格操作列组件', () => {
               props: ['tipContent']
             },
             'y-button': {
-              template: '<button class="y-button" :disabled="disabled" :loading="loading" :class="{ loading: loading }"><slot></slot></button>',
+              template:
+                '<button class="y-button" :disabled="disabled" :loading="loading" :class="{ loading: loading }"><slot></slot></button>',
               props: ['disabled', 'loading']
             }
           }
@@ -413,7 +423,8 @@ describe('YColumnOp 表格操作列组件', () => {
               `
             },
             'y-pop': {
-              template: '<div class="y-pop" v-bind="$attrs" :popContent="popContent" :tipContent="tipContent" :noPop="noPop"><slot></slot></div>',
+              template:
+                '<div class="y-pop" v-bind="$attrs" :popContent="popContent" :tipContent="tipContent" :noPop="noPop"><slot></slot></div>',
               props: ['popContent', 'tipContent', 'tipProps', 'noPop']
             },
             'y-button': {
@@ -534,7 +545,8 @@ describe('YColumnOp 表格操作列组件', () => {
               template: '<div class="y-pop"><slot></slot></div>'
             },
             'y-button': {
-              template: '<button class="y-button" :class="{ loading: $attrs.loading }"><slot></slot></button>',
+              template:
+                '<button class="y-button" :class="{ loading: $attrs.loading }"><slot></slot></button>',
               props: ['disabled', 'loading']
             }
           }
@@ -578,7 +590,8 @@ describe('YColumnOp 表格操作列组件', () => {
               template: '<div class="y-pop"><slot></slot></div>'
             },
             'y-button': {
-              template: '<button class="y-button" :class="{ loading: loading }"><slot></slot></button>',
+              template:
+                '<button class="y-button" :class="{ loading: loading }"><slot></slot></button>',
               props: ['disabled', 'loading']
             }
           }
@@ -830,9 +843,7 @@ describe('YColumnOp 表格操作列组件', () => {
 
     it('应该支持函数形式的dropdown配置', () => {
       const dropdownFn = vi.fn(() => true);
-      const options: ColumnOpItemType[] = [
-        { label: '操作', prop: 'action', dropdown: dropdownFn }
-      ];
+      const options: ColumnOpItemType[] = [{ label: '操作', prop: 'action', dropdown: dropdownFn }];
 
       const wrapper = mount(YColumnOp, {
         props: { options },
@@ -927,9 +938,7 @@ describe('YColumnOp 表格操作列组件', () => {
     });
 
     it('应该在hash变化时关闭dropdown', async () => {
-      const options: ColumnOpItemType[] = [
-        { label: '操作1', prop: 'action1', dropdown: true }
-      ];
+      const options: ColumnOpItemType[] = [{ label: '操作1', prop: 'action1', dropdown: true }];
 
       const wrapper = mount(YColumnOp, {
         props: { options },
@@ -1101,9 +1110,7 @@ describe('YColumnOp 表格操作列组件', () => {
             { label: '配置', prop: 'config', dropdown: true }
           ];
         }
-        return [
-          { label: '查看', prop: 'view' }
-        ];
+        return [{ label: '查看', prop: 'view' }];
       }) as (scope: TableItemScope) => ColumnOpItemType[];
 
       const wrapper = mount(YColumnOp, {
@@ -1155,7 +1162,14 @@ describe('YColumnOp 表格操作列组件', () => {
       const options: ColumnOpItemType[] = [
         { label: '', prop: 'emptyLabel' }, // 空标签
         { label: '无标签', prop: 'noLabel' }, // 没有标签
-        { label: '完整配置', prop: 'full', show: true, disabled: false, loading: false, dropdown: false },
+        {
+          label: '完整配置',
+          prop: 'full',
+          show: true,
+          disabled: false,
+          loading: false,
+          dropdown: false
+        },
         { label: '隐藏项目', prop: 'hidden', show: false },
         { label: '禁用项目', prop: 'disabled', disabled: true },
         { label: '下拉项目', prop: 'dropdown', dropdown: true }
@@ -1216,7 +1230,11 @@ describe('YColumnOp 表格操作列组件', () => {
       const options: ColumnOpItemType[] = [
         { label: '默认', prop: 'default' }, // 默认noPop: true
         { label: '显示弹框', prop: 'withPop', noPop: false },
-        { label: '函数控制', prop: 'funcPop', noPop: (scope: TableItemScope) => !(scope.row?.needConfirm ?? false) }
+        {
+          label: '函数控制',
+          prop: 'funcPop',
+          noPop: (scope: TableItemScope) => !(scope.row?.needConfirm ?? false)
+        }
       ];
 
       const wrapper = mount(YColumnOp, {
@@ -1423,7 +1441,11 @@ describe('YColumnOp 表格操作列组件', () => {
         const options = [
           { label: '显示项', prop: 'show', show: true },
           { label: '隐藏项', prop: 'hide', show: false },
-          { label: '条件显示', prop: 'conditional', show: (scope: TableItemScope) => scope.row?.showConditional ?? false }
+          {
+            label: '条件显示',
+            prop: 'conditional',
+            show: (scope: TableItemScope) => scope.row?.showConditional ?? false
+          }
         ];
 
         const wrapper = mount(YColumnOp, {
@@ -1447,7 +1469,11 @@ describe('YColumnOp 表格操作列组件', () => {
         const options = [
           { label: '普通操作', prop: 'normal', dropdown: false },
           { label: '下拉操作', prop: 'dropdown', dropdown: true },
-          { label: '条件下拉', prop: 'conditional', dropdown: (scope: TableItemScope) => scope.row?.useDropdown ?? false }
+          {
+            label: '条件下拉',
+            prop: 'conditional',
+            dropdown: (scope: TableItemScope) => scope.row?.useDropdown ?? false
+          }
         ];
 
         const wrapper = mount(YColumnOp, {
@@ -1472,7 +1498,11 @@ describe('YColumnOp 表格操作列组件', () => {
 
       it('应该正确处理label为函数的情况', () => {
         const options = [
-          { label: (scope: TableItemScope, item: ColumnOpItemType) => `操作${scope.$index}_${item.prop}`, prop: 'dynamic' }
+          {
+            label: (scope: TableItemScope, item: ColumnOpItemType) =>
+              `操作${scope.$index}_${item.prop}`,
+            prop: 'dynamic'
+          }
         ];
 
         const wrapper = mount(YColumnOp, {
@@ -1693,9 +1723,7 @@ describe('YColumnOp 表格操作列组件', () => {
       });
 
       it('setupRouteWatcher应该在路由变化时关闭所有dropdown', async () => {
-        const options: ColumnOpItemType[] = [
-          { label: '操作1', prop: 'action1', dropdown: true }
-        ];
+        const options: ColumnOpItemType[] = [{ label: '操作1', prop: 'action1', dropdown: true }];
 
         const wrapper = mount(YColumnOp, {
           props: { options },
@@ -1742,7 +1770,6 @@ describe('YColumnOp 表格操作列组件', () => {
         expect(vm.getDropdownVisible(0)).toBe(false);
       });
 
-
       it('setupRouteWatcher在有vue-router时应该正确工作', async () => {
         // 保存原始的全局状态
         const originalVueRouter = (globalThis as any).VueRouter;
@@ -1756,9 +1783,7 @@ describe('YColumnOp 表格操作列组件', () => {
           }))
         };
 
-        const options: ColumnOpItemType[] = [
-          { label: '操作1', prop: 'action1', dropdown: true }
-        ];
+        const options: ColumnOpItemType[] = [{ label: '操作1', prop: 'action1', dropdown: true }];
 
         const wrapper = mount(YColumnOp, {
           props: { options },

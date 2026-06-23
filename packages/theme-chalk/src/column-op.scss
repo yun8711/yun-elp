@@ -10,22 +10,22 @@
   }
 
   &__dropdown {
-    padding: 6px 0 !important;
-    min-width: 0 !important;
     width: auto !important;
+    min-width: 0 !important;
+    padding: 6px 0 !important;
 
     &-icon {
-      cursor: pointer;
-      vertical-align: middle;
       margin-left: 8px;
+      vertical-align: middle;
       color: var(--el-color-primary);
+      cursor: pointer;
     }
 
     &-item {
-      height: 32px;
-      line-height: 32px;
-      padding: 0 15px;
       box-sizing: border-box;
+      height: 32px;
+      padding: 0 15px;
+      line-height: 32px;
       text-align: center;
       cursor: pointer;
 
@@ -35,10 +35,10 @@
       }
 
       &.disabled {
-        color: var(--el-color-primary-light-5);
         font-weight: 400;
-        user-select: none;
+        color: var(--el-color-primary-light-5);
         cursor: not-allowed;
+        user-select: none;
       }
     }
   }

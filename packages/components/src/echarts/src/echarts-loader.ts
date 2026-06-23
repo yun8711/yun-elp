@@ -77,29 +77,29 @@ export class EchartsLoader {
 
   private async loadChartType(type: string): Promise<any> {
     const chartTypeMap: Record<string, () => Promise<any>> = {
-      'LineChart': () => import('echarts/charts').then(m => m.LineChart),
-      'BarChart': () => import('echarts/charts').then(m => m.BarChart),
-      'PieChart': () => import('echarts/charts').then(m => m.PieChart),
-      'ScatterChart': () => import('echarts/charts').then(m => m.ScatterChart),
-      'RadarChart': () => import('echarts/charts').then(m => m.RadarChart),
-      'MapChart': () => import('echarts/charts').then(m => m.MapChart),
-      'TreeChart': () => import('echarts/charts').then(m => m.TreeChart),
-      'TreemapChart': () => import('echarts/charts').then(m => m.TreemapChart),
-      'GraphChart': () => import('echarts/charts').then(m => m.GraphChart),
-      'ChordChart': () => import('echarts/charts').then(m => m.ChordChart),
-      'GaugeChart': () => import('echarts/charts').then(m => m.GaugeChart),
-      'FunnelChart': () => import('echarts/charts').then(m => m.FunnelChart),
-      'ParallelChart': () => import('echarts/charts').then(m => m.ParallelChart),
-      'SankeyChart': () => import('echarts/charts').then(m => m.SankeyChart),
-      'BoxplotChart': () => import('echarts/charts').then(m => m.BoxplotChart),
-      'CandlestickChart': () => import('echarts/charts').then(m => m.CandlestickChart),
-      'EffectScatterChart': () => import('echarts/charts').then(m => m.EffectScatterChart),
-      'LinesChart': () => import('echarts/charts').then(m => m.LinesChart),
-      'HeatmapChart': () => import('echarts/charts').then(m => m.HeatmapChart),
-      'PictorialBarChart': () => import('echarts/charts').then(m => m.PictorialBarChart),
-      'ThemeRiverChart': () => import('echarts/charts').then(m => m.ThemeRiverChart),
-      'SunburstChart': () => import('echarts/charts').then(m => m.SunburstChart),
-      'CustomChart': () => import('echarts/charts').then(m => m.CustomChart)
+      LineChart: () => import('echarts/charts').then(m => m.LineChart),
+      BarChart: () => import('echarts/charts').then(m => m.BarChart),
+      PieChart: () => import('echarts/charts').then(m => m.PieChart),
+      ScatterChart: () => import('echarts/charts').then(m => m.ScatterChart),
+      RadarChart: () => import('echarts/charts').then(m => m.RadarChart),
+      MapChart: () => import('echarts/charts').then(m => m.MapChart),
+      TreeChart: () => import('echarts/charts').then(m => m.TreeChart),
+      TreemapChart: () => import('echarts/charts').then(m => m.TreemapChart),
+      GraphChart: () => import('echarts/charts').then(m => m.GraphChart),
+      ChordChart: () => import('echarts/charts').then(m => m.ChordChart),
+      GaugeChart: () => import('echarts/charts').then(m => m.GaugeChart),
+      FunnelChart: () => import('echarts/charts').then(m => m.FunnelChart),
+      ParallelChart: () => import('echarts/charts').then(m => m.ParallelChart),
+      SankeyChart: () => import('echarts/charts').then(m => m.SankeyChart),
+      BoxplotChart: () => import('echarts/charts').then(m => m.BoxplotChart),
+      CandlestickChart: () => import('echarts/charts').then(m => m.CandlestickChart),
+      EffectScatterChart: () => import('echarts/charts').then(m => m.EffectScatterChart),
+      LinesChart: () => import('echarts/charts').then(m => m.LinesChart),
+      HeatmapChart: () => import('echarts/charts').then(m => m.HeatmapChart),
+      PictorialBarChart: () => import('echarts/charts').then(m => m.PictorialBarChart),
+      ThemeRiverChart: () => import('echarts/charts').then(m => m.ThemeRiverChart),
+      SunburstChart: () => import('echarts/charts').then(m => m.SunburstChart),
+      CustomChart: () => import('echarts/charts').then(m => m.CustomChart)
     };
 
     return this.loadModule(type, chartTypeMap);
@@ -107,38 +107,42 @@ export class EchartsLoader {
 
   private async loadComponent(comp: string): Promise<any> {
     const componentMap: Record<string, () => Promise<any>> = {
-      'GridSimpleComponent': () => import('echarts/components').then(m => m.GridSimpleComponent),
-      'GridComponent': () => import('echarts/components').then(m => m.GridComponent),
-      'PolarComponent': () => import('echarts/components').then(m => m.PolarComponent),
-      'RadarComponent': () => import('echarts/components').then(m => m.RadarComponent),
-      'GeoComponent': () => import('echarts/components').then(m => m.GeoComponent),
-      'SingleAxisComponent': () => import('echarts/components').then(m => m.SingleAxisComponent),
-      'ParallelComponent': () => import('echarts/components').then(m => m.ParallelComponent),
-      'CalendarComponent': () => import('echarts/components').then(m => m.CalendarComponent),
-      'MatrixComponent': () => import('echarts/components').then(m => m.MatrixComponent),
-      'GraphicComponent': () => import('echarts/components').then(m => m.GraphicComponent),
-      'ToolboxComponent': () => import('echarts/components').then(m => m.ToolboxComponent),
-      'TooltipComponent': () => import('echarts/components').then(m => m.TooltipComponent),
-      'AxisPointerComponent': () => import('echarts/components').then(m => m.AxisPointerComponent),
-      'BrushComponent': () => import('echarts/components').then(m => m.BrushComponent),
-      'TitleComponent': () => import('echarts/components').then(m => m.TitleComponent),
-      'TimelineComponent': () => import('echarts/components').then(m => m.TimelineComponent),
-      'MarkPointComponent': () => import('echarts/components').then(m => m.MarkPointComponent),
-      'MarkLineComponent': () => import('echarts/components').then(m => m.MarkLineComponent),
-      'MarkAreaComponent': () => import('echarts/components').then(m => m.MarkAreaComponent),
-      'LegendComponent': () => import('echarts/components').then(m => m.LegendComponent),
-      'LegendScrollComponent': () => import('echarts/components').then(m => m.LegendScrollComponent),
-      'LegendPlainComponent': () => import('echarts/components').then(m => m.LegendPlainComponent),
-      'DataZoomComponent': () => import('echarts/components').then(m => m.DataZoomComponent),
-      'DataZoomInsideComponent': () => import('echarts/components').then(m => m.DataZoomInsideComponent),
-      'DataZoomSliderComponent': () => import('echarts/components').then(m => m.DataZoomSliderComponent),
-      'VisualMapComponent': () => import('echarts/components').then(m => m.VisualMapComponent),
-      'VisualMapContinuousComponent': () => import('echarts/components').then(m => m.VisualMapContinuousComponent),
-      'VisualMapPiecewiseComponent': () => import('echarts/components').then(m => m.VisualMapPiecewiseComponent),
-      'ThumbnailComponent': () => import('echarts/components').then(m => m.ThumbnailComponent),
-      'AriaComponent': () => import('echarts/components').then(m => m.AriaComponent),
-      'TransformComponent': () => import('echarts/components').then(m => m.TransformComponent),
-      'DatasetComponent': () => import('echarts/components').then(m => m.DatasetComponent)
+      GridSimpleComponent: () => import('echarts/components').then(m => m.GridSimpleComponent),
+      GridComponent: () => import('echarts/components').then(m => m.GridComponent),
+      PolarComponent: () => import('echarts/components').then(m => m.PolarComponent),
+      RadarComponent: () => import('echarts/components').then(m => m.RadarComponent),
+      GeoComponent: () => import('echarts/components').then(m => m.GeoComponent),
+      SingleAxisComponent: () => import('echarts/components').then(m => m.SingleAxisComponent),
+      ParallelComponent: () => import('echarts/components').then(m => m.ParallelComponent),
+      CalendarComponent: () => import('echarts/components').then(m => m.CalendarComponent),
+      MatrixComponent: () => import('echarts/components').then(m => m.MatrixComponent),
+      GraphicComponent: () => import('echarts/components').then(m => m.GraphicComponent),
+      ToolboxComponent: () => import('echarts/components').then(m => m.ToolboxComponent),
+      TooltipComponent: () => import('echarts/components').then(m => m.TooltipComponent),
+      AxisPointerComponent: () => import('echarts/components').then(m => m.AxisPointerComponent),
+      BrushComponent: () => import('echarts/components').then(m => m.BrushComponent),
+      TitleComponent: () => import('echarts/components').then(m => m.TitleComponent),
+      TimelineComponent: () => import('echarts/components').then(m => m.TimelineComponent),
+      MarkPointComponent: () => import('echarts/components').then(m => m.MarkPointComponent),
+      MarkLineComponent: () => import('echarts/components').then(m => m.MarkLineComponent),
+      MarkAreaComponent: () => import('echarts/components').then(m => m.MarkAreaComponent),
+      LegendComponent: () => import('echarts/components').then(m => m.LegendComponent),
+      LegendScrollComponent: () => import('echarts/components').then(m => m.LegendScrollComponent),
+      LegendPlainComponent: () => import('echarts/components').then(m => m.LegendPlainComponent),
+      DataZoomComponent: () => import('echarts/components').then(m => m.DataZoomComponent),
+      DataZoomInsideComponent: () =>
+        import('echarts/components').then(m => m.DataZoomInsideComponent),
+      DataZoomSliderComponent: () =>
+        import('echarts/components').then(m => m.DataZoomSliderComponent),
+      VisualMapComponent: () => import('echarts/components').then(m => m.VisualMapComponent),
+      VisualMapContinuousComponent: () =>
+        import('echarts/components').then(m => m.VisualMapContinuousComponent),
+      VisualMapPiecewiseComponent: () =>
+        import('echarts/components').then(m => m.VisualMapPiecewiseComponent),
+      ThumbnailComponent: () => import('echarts/components').then(m => m.ThumbnailComponent),
+      AriaComponent: () => import('echarts/components').then(m => m.AriaComponent),
+      TransformComponent: () => import('echarts/components').then(m => m.TransformComponent),
+      DatasetComponent: () => import('echarts/components').then(m => m.DatasetComponent)
     };
 
     return this.loadModule(comp, componentMap);
@@ -146,8 +150,8 @@ export class EchartsLoader {
 
   private async loadRenderer(renderer: string): Promise<any> {
     const rendererMap: Record<string, () => Promise<any>> = {
-      'CanvasRenderer': () => import('echarts/renderers').then(m => m.CanvasRenderer),
-      'SVGRenderer': () => import('echarts/renderers').then(m => m.SVGRenderer)
+      CanvasRenderer: () => import('echarts/renderers').then(m => m.CanvasRenderer),
+      SVGRenderer: () => import('echarts/renderers').then(m => m.SVGRenderer)
     };
 
     return this.loadModule(renderer, rendererMap);

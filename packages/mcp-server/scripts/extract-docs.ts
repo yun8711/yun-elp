@@ -77,7 +77,11 @@ function parseMarkdown(md: string) {
     }
 
     // 检测下一个主要章节（## 开头），结束当前部分
-    if (trimmedLine.startsWith('## ') && trimmedLine !== '## 说明' && trimmedLine !== '## 用法示例') {
+    if (
+      trimmedLine.startsWith('## ') &&
+      trimmedLine !== '## 说明' &&
+      trimmedLine !== '## 用法示例'
+    ) {
       inDescriptionSection = false;
       inExamplesSection = false;
     }
@@ -213,13 +217,11 @@ function generate() {
 
   console.warn('📦 Reading component dirs...');
   const COMPONENTS_DIR = COMPONENTS_SRC;
-  const componentNames = fs
-    .readdirSync(COMPONENTS_DIR)
-    .filter(name => {
-      const fullPath = join(COMPONENTS_DIR, name);
-      const stat = fs.statSync(fullPath);
-      return stat.isDirectory() && name !== 'utils' && name !== 'hooks' && name !== 'locale';
-    });
+  const componentNames = fs.readdirSync(COMPONENTS_DIR).filter(name => {
+    const fullPath = join(COMPONENTS_DIR, name);
+    const stat = fs.statSync(fullPath);
+    return stat.isDirectory() && name !== 'utils' && name !== 'hooks' && name !== 'locale';
+  });
 
   const components: Record<string, ComponentModel> = {};
 
@@ -247,7 +249,7 @@ function generate() {
     const props: ComponentProp[] = (wtEntry.props || []).map((wp: any) => ({
       name: wp.name,
       description: wp.description || '',
-      type: { raw: Array.isArray(wp.type) ? wp.type.join(' | ') : (wp.type || 'any') },
+      type: { raw: Array.isArray(wp.type) ? wp.type.join(' | ') : wp.type || 'any' },
       required: wp.required ?? false,
       default: wp.default
     }));
@@ -255,9 +257,7 @@ function generate() {
     const events: ComponentEvent[] = (wtEntry.js?.events || []).map((we: any) => ({
       name: we.name,
       description: we.description || '',
-      parameters: we.type
-        ? [{ raw: Array.isArray(we.type) ? we.type.join(' | ') : we.type }]
-        : []
+      parameters: we.type ? [{ raw: Array.isArray(we.type) ? we.type.join(' | ') : we.type }] : []
     }));
 
     const slots: ComponentSlot[] = (wtEntry.slots || []).map((ws: any) => ({
@@ -268,9 +268,7 @@ function generate() {
     const methods: ComponentMethod[] = (wtEntry.exposes || []).map((ex: any) => ({
       name: ex.name,
       description: ex.description || '',
-      parameters: ex.type
-        ? [{ raw: Array.isArray(ex.type) ? ex.type.join(' | ') : ex.type }]
-        : []
+      parameters: ex.type ? [{ raw: Array.isArray(ex.type) ? ex.type.join(' | ') : ex.type }] : []
     }));
 
     // Doc URL

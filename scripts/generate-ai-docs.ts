@@ -148,7 +148,10 @@ function extractApiSection(content: string, section: string) {
 }
 
 function getCell(row: MarkdownTableRow, keys: string[]) {
-  return keys.map(key => row[key]).find(Boolean)?.trim();
+  return keys
+    .map(key => row[key])
+    .find(Boolean)
+    ?.trim();
 }
 
 function normalizeEmptyValue(value?: string) {
@@ -310,12 +313,19 @@ function buildLlmsFullTxt(metadata: ComponentsMetadata) {
     .map(component => {
       const props = component.props
         .slice(0, 20)
-        .map(prop => `  - ${prop.name}: ${prop.description || ''}${prop.type ? ` (${prop.type})` : ''}`)
+        .map(
+          prop => `  - ${prop.name}: ${prop.description || ''}${prop.type ? ` (${prop.type})` : ''}`
+        )
         .join('\n');
       const events = component.events
-        .map(event => `  - ${event.name}: ${event.description || ''}${event.type ? ` (${event.type})` : ''}`)
+        .map(
+          event =>
+            `  - ${event.name}: ${event.description || ''}${event.type ? ` (${event.type})` : ''}`
+        )
         .join('\n');
-      const slots = component.slots.map(slot => `  - ${slot.name}: ${slot.description || ''}`).join('\n');
+      const slots = component.slots
+        .map(slot => `  - ${slot.name}: ${slot.description || ''}`)
+        .join('\n');
 
       return `
 ## ${component.name} (${component.tag})

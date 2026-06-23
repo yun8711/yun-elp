@@ -15,7 +15,10 @@
           @mouseleave="handleMouseLeave"
           @click="openPopover">
           <template #suffix>
-            <el-icon v-if="isDeleteIcon" class="y-cron-picker__clearable-icon" @click.stop="deleteClick">
+            <el-icon
+              v-if="isDeleteIcon"
+              class="y-cron-picker__clearable-icon"
+              @click.stop="deleteClick">
               <CircleClose />
             </el-icon>
           </template>

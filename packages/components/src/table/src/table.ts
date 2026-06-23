@@ -3,8 +3,8 @@ import type { PaginationProps } from 'element-plus';
 import type { EmptyProps } from '../../empty/src/empty';
 
 export type TableEmits = {
-  (e: 'paginationChange', obj: { currentPage: number, pageSize: number }): void
-}
+  (e: 'paginationChange', obj: { currentPage: number; pageSize: number }): void;
+};
 
 export interface TableProps {
   // TODO: 定义属性

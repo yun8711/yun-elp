@@ -8,7 +8,7 @@ async function main() {
   await server.connect(transport);
 }
 
-main().catch((err) => {
+main().catch(err => {
   console.error('[yun-elp-mcp] fatal:', err);
   process.exit(1);
 });

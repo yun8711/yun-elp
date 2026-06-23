@@ -11,8 +11,8 @@
         :index="index"
         :active="index <= activeIndex">
         <div class="y-step__item-content" :class="{ 'is-inline': inlineLabel }">
-          <div class="y-step__item-index"> {{ index + 1 }}</div>
-          <div v-if="step" class="y-step__item-label"> {{ step }} </div>
+          <div class="y-step__item-index">{{ index + 1 }}</div>
+          <div v-if="step" class="y-step__item-label">{{ step }}</div>
         </div>
       </slot>
       <div

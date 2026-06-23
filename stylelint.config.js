@@ -1,4 +1,5 @@
 export default {
+  ignoreFiles: ['docs/**', 'play/**', '**/dist/**', 'dist/**'],
   extends: [
     // 使用标准stylelint配置
     'stylelint-config-standard',
@@ -69,6 +70,14 @@ export default {
     'block-no-empty': null,
     // 允许空规则块
     'rule-empty-line-before': null,
+    // 允许现有 BEM/Element Plus/VitePress 类名风格
+    'selector-class-pattern': null,
+    // 允许现有样式书写顺序，避免对示例/主题样式产生大量误报
+    'no-descending-specificity': null,
+    // 允许合并式样式片段中的重复选择器
+    'no-duplicate-selectors': null,
+    // Vue 模板属性中大量使用 position，关闭该误报规则
+    'no-invalid-position-declaration': null,
     // 禁用有弃用警告的双斜杠注释规则
     'scss/double-slash-comment-whitespace-inside': null
   }

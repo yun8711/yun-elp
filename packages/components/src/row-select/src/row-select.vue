@@ -63,7 +63,10 @@
         class="y-row-select__fold-inner"
         :style="btnStyles"
         @click="() => trigger()">
-        <el-icon v-if="props.showIcon" class="el-icon--right" :class="{ 'el-icon--right--reverse': !isFold }">
+        <el-icon
+          v-if="props.showIcon"
+          class="el-icon--right"
+          :class="{ 'el-icon--right--reverse': !isFold }">
           <ArrowDown />
         </el-icon>
         <div class="y-row-select__fold-text">

@@ -93,5 +93,4 @@ const handleClick = (scope: any, event: MouseEvent) => {
     emit('click', row, formatterCellValue(scope), scope, event);
   }
 }
-
 </script>

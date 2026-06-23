@@ -13,7 +13,11 @@
             @mouseenter="handleMouseEnter(`${scope.$index}_${item.prop}`)"
             @mouseleave="handleMouseLeave(`${scope.$index}_${item.prop}`)">
             <!-- 这里使用slot，方便在外部定义表单项 -->
-            <slot :name="item.prop" :scope="scope" :row="scope.row" :prop="item.prop" />
+            <slot
+              :name="item.prop"
+              :scope="scope"
+              :row="scope.row"
+              :prop="item.prop" />
             <!-- 这里是el-form-item的错误提示，以tooltip的形式展示-->
             <template #error="{ error }">
               <div>

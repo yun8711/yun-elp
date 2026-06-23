@@ -6,7 +6,7 @@ import YStickyLayout from '../src/sticky-layout.vue';
 import type { StickyLayoutProps } from '../src/sticky-layout';
 
 // Mock ResizeObserver to avoid issues in test environment
-global.ResizeObserver = vi.fn().mockImplementation(function(this: any, callback: any) {
+global.ResizeObserver = vi.fn().mockImplementation(function (this: any, callback: any) {
   this.observe = vi.fn();
   this.unobserve = vi.fn();
   this.disconnect = vi.fn();

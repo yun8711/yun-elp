@@ -3,7 +3,6 @@
     <el-button type="primary">测试tooltip</el-button>
   </y-pop>
 
-
   <y-pop tip-placement="right" no-pop>
     <el-button type="primary">自定义tooltip</el-button>
     <template #tip-content>
@@ -13,6 +12,4 @@
   </y-pop>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>

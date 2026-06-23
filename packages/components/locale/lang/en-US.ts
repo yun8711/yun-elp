@@ -10,7 +10,7 @@ export default {
     confirm: 'Confirm',
     cancel: 'Cancel',
     notice: 'Notice',
-    reset: 'Reset',
+    reset: 'Reset'
 
     // submit: 'Submit',
     // clear: 'Clear',

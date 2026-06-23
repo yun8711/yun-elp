@@ -1,8 +1,5 @@
 <template>
-  <el-tooltip
-    ref="tooltipRef"
-    v-bind="tooltipAttrs"
-    :disabled="!showTooltip">
+  <el-tooltip ref="tooltipRef" v-bind="tooltipAttrs" :disabled="!showTooltip">
     <div class="y-text-tooltip">
       <div ref="textRef" class="y-text-tooltip__content" :style="computedTextStyle">
         <slot />

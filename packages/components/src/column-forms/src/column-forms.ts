@@ -43,7 +43,7 @@ export const columnFormsProps = {
   tName: {
     type: String,
     default: ''
-  },
+  }
 } as const;
 
 export type columnFormsInstance = ExtractPublicPropTypes<typeof columnFormsProps>;

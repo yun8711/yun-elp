@@ -326,8 +326,7 @@ describe('YForm 组件', () => {
         span: 12
       },
       slots: {
-        default: () =>
-          h(FormItem, { label: '姓名', prop: 'name', span: 8, offset: 4, push: 2 })
+        default: () => h(FormItem, { label: '姓名', prop: 'name', span: 8, offset: 4, push: 2 })
       },
       global: {
         stubs: {

@@ -10,17 +10,29 @@
     :gutter="24">
     <y-form-item label="采购类型" prop="type">
       <el-select v-model="form.type" placeholder="请选择采购类型" clearable style="width: 100%">
-        <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value" />
+        <el-option
+          v-for="item in typeOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value" />
       </el-select>
     </y-form-item>
     <y-form-item label="大类" prop="category">
       <el-select v-model="form.category" placeholder="请选择大类" clearable style="width: 100%">
-        <el-option v-for="item in categoryOptions" :key="item.value" :label="item.label" :value="item.value" />
+        <el-option
+          v-for="item in categoryOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value" />
       </el-select>
     </y-form-item>
     <y-form-item label="小类" prop="subCategory">
       <el-select v-model="form.subCategory" placeholder="请选择小类" clearable style="width: 100%">
-        <el-option v-for="item in subCategoryOptions" :key="item.value" :label="item.label" :value="item.value" />
+        <el-option
+          v-for="item in subCategoryOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value" />
       </el-select>
     </y-form-item>
     <y-form-item label="备注" prop="remark" :span="24">

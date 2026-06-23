@@ -183,11 +183,7 @@ describe('YColumnForm 表单列组件', () => {
 
   describe('配置注入测试', () => {
     it('应该支持 provide 注入', () => {
-      const wrapper = createWrapper(
-        {},
-        {},
-        { formTableProp: 'injectedTable' }
-      );
+      const wrapper = createWrapper({}, {}, { formTableProp: 'injectedTable' });
 
       if (wrapper) {
         const vm = wrapper.vm as any;
@@ -204,10 +200,7 @@ describe('YColumnForm 表单列组件', () => {
     });
 
     it('组件应该接受attrs属性', () => {
-      const wrapper = createWrapper(
-        {},
-        { prop: 'testField', label: '测试列', width: 200 }
-      );
+      const wrapper = createWrapper({}, { prop: 'testField', label: '测试列', width: 200 });
 
       if (wrapper) {
         // 验证组件可以接受attrs属性（由于stub，具体的属性传递由Vue处理）
@@ -219,10 +212,13 @@ describe('YColumnForm 表单列组件', () => {
   describe('核心方法测试', () => {
     describe('mergedFormAttrs 方法测试', () => {
       it('应该正确合并表单属性', () => {
-        const wrapper = createWrapper({
-          rules: { required: true, message: '必填' },
-          formProps: { size: 'small' }
-        }, { prop: 'testField' });
+        const wrapper = createWrapper(
+          {
+            rules: { required: true, message: '必填' },
+            formProps: { size: 'small' }
+          },
+          { prop: 'testField' }
+        );
 
         if (wrapper) {
           const vm = wrapper.vm as any;
@@ -231,7 +227,7 @@ describe('YColumnForm 表单列组件', () => {
           const result = vm.mergedFormAttrs(scope);
 
           expect(result).toEqual({
-            label: "",
+            label: '',
             labelWidth: '0px',
             prop: 'tableData.0.testField',
             rules: { required: true, message: '必填' },
@@ -242,9 +238,12 @@ describe('YColumnForm 表单列组件', () => {
 
       it('应该支持函数类型的rules', () => {
         const rulesFn = vi.fn((scope, prop) => ({ required: true, message: `${prop}必填` }));
-        const wrapper = createWrapper({
-          rules: rulesFn
-        }, { prop: 'testField' });
+        const wrapper = createWrapper(
+          {
+            rules: rulesFn
+          },
+          { prop: 'testField' }
+        );
 
         if (wrapper) {
           const vm = wrapper.vm as any;
@@ -258,9 +257,12 @@ describe('YColumnForm 表单列组件', () => {
       });
 
       it('应该支持自定义tName', () => {
-        const wrapper = createWrapper({
-          tName: 'customTable'
-        }, { prop: 'testField' });
+        const wrapper = createWrapper(
+          {
+            tName: 'customTable'
+          },
+          { prop: 'testField' }
+        );
 
         if (wrapper) {
           const vm = wrapper.vm as any;
@@ -362,11 +364,7 @@ describe('YColumnForm 表单列组件', () => {
         }
 
         // 测试provide的formTableProp次优先级
-        const wrapper2 = createWrapper(
-          { tName: '' },
-          {},
-          { formTableProp: 'providedTable' }
-        );
+        const wrapper2 = createWrapper({ tName: '' }, {}, { formTableProp: 'providedTable' });
         if (wrapper2) {
           expect((wrapper2.vm as any).tableName).toBe('providedTable');
         }
@@ -379,10 +377,7 @@ describe('YColumnForm 表单列组件', () => {
       });
 
       it('mergedColumnAttrs应该正确合并列属性', () => {
-        const wrapper = createWrapper(
-          {},
-          { 'min-width': 150, width: 200, fixed: 'left' }
-        );
+        const wrapper = createWrapper({}, { 'min-width': 150, width: 200, fixed: 'left' });
 
         expect(wrapper).toBeTruthy();
         if (wrapper) {
@@ -394,7 +389,8 @@ describe('YColumnForm 表单列组件', () => {
             width: 200,
             'show-overflow-tooltip': false,
             fixed: 'left',
-            'class-name': 'y-column-form'
+            'class-name': 'y-column-form',
+            resizable: true
           });
         }
       });
@@ -440,7 +436,7 @@ describe('YColumnForm 表单列组件', () => {
           <slot name="header" :column="{ label: '列标题' }" :index="0"></slot>
         </div>
       `,
-      inheritAttrs: false,
+      inheritAttrs: false
     };
 
     const formItemStub = {
@@ -455,13 +451,13 @@ describe('YColumnForm 表单列组件', () => {
         const el = this.$el as HTMLElement;
         el.addEventListener('mouseenter', () => this.$emit('mouseenter'));
         el.addEventListener('mouseleave', () => this.$emit('mouseleave'));
-      },
+      }
     };
 
     const createRenderWrapper = (
       props: Partial<ColumnFormProps> = {},
       attrs: Record<string, unknown> = {},
-      slots: Record<string, string> = {},
+      slots: Record<string, string> = {}
     ) => {
       return mount(YColumnForm, {
         props,
@@ -470,9 +466,9 @@ describe('YColumnForm 表单列组件', () => {
         global: {
           stubs: {
             'el-table-column': tableColumnStub,
-            'el-form-item': formItemStub,
-          },
-        },
+            'el-form-item': formItemStub
+          }
+        }
       });
     };
 
@@ -480,7 +476,7 @@ describe('YColumnForm 表单列组件', () => {
       const wrapper = createRenderWrapper(
         { noFrom: true },
         {},
-        { default: '<input class="field-input" />' },
+        { default: '<input class="field-input" />' }
       );
 
       expect(wrapper.find('.field-input').exists()).toBe(true);
@@ -491,7 +487,7 @@ describe('YColumnForm 表单列组件', () => {
       const wrapper = createRenderWrapper(
         { noFrom: false },
         { prop: 'name' },
-        { default: '<input class="field-input" />' },
+        { default: '<input class="field-input" />' }
       );
 
       expect(wrapper.find('.el-form-item').exists()).toBe(true);
@@ -520,7 +516,7 @@ describe('YColumnForm 表单列组件', () => {
       const wrapper = createRenderWrapper(
         {},
         { label: '默认标题' },
-        { header: '<span class="custom-header">自定义标题</span>' },
+        { header: '<span class="custom-header">自定义标题</span>' }
       );
 
       expect(wrapper.find('.custom-header').exists()).toBe(true);

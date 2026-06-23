@@ -5,7 +5,7 @@ export interface PageFooterProps {
   left?: string | number | undefined;
   right?: string | number | undefined;
   model?: 'fixed' | 'absolute';
-};
+}
 
 export const pageFooterProps = {
   height: {

@@ -14,6 +14,7 @@ export default [
       'play/**',
       'scripts/**',
       'dist/**',
+      '**/dist/**',
       'node_modules/**',
       '**/*.config.{js,ts}',
       '**/*.d.ts',
@@ -34,7 +35,7 @@ export default [
   ...vueEslint.configs['flat/recommended'].map(config => ({
     ...config,
     rules: {
-      ...config.rules,
+      ...config.rules
       // 'vue/prefer-import-from-vue': 'off'
     }
   })),
@@ -81,15 +82,18 @@ export default [
       // 允许使用any类型
       '@typescript-eslint/no-explicit-any': 'off',
       // 未使用的变量警告，但忽略以_开头的参数和常见的回调函数参数
-      '@typescript-eslint/no-unused-vars': ['warn', {
-        argsIgnorePattern: '^_|.*_.*',
-        varsIgnorePattern: '^(props|app|ElAutocomplete)$',
-        args: 'after-used'
-      }],
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_|.*_.*',
+          varsIgnorePattern: '^(props|app|ElAutocomplete)$',
+          args: 'after-used'
+        }
+      ],
       // 忽略未使用的变量（只对特定模式生效）
       'no-unused-vars': 'off', // 关闭基础规则，使用 TypeScript 版本
       // 关闭函数返回类型警告，因为这些是工具函数
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off'
     }
   },
   // JavaScript文件特殊配置
@@ -101,12 +105,21 @@ export default [
       '@typescript-eslint/explicit-function-return-type': 'off'
     }
   },
+  // Node 运行时文件配置
+  {
+    files: ['packages/mcp-server/**/*.{js,ts}'],
+    languageOptions: {
+      globals: {
+        ...globals.node
+      }
+    }
+  },
   // TypeScript文件特殊配置
   {
     files: ['packages/**/*.ts', 'packages/**/*.tsx'],
     rules: {
       // 禁止使用namespace
-      '@typescript-eslint/no-namespace': 'error',
+      '@typescript-eslint/no-namespace': 'error'
       // 允许从 @vue/runtime-core 导入
       // 'no-restricted-imports': 'off',
       // '@typescript-eslint/no-restricted-imports': 'off'
@@ -142,12 +155,16 @@ export default [
       'no-restricted-imports': 'off',
       '@typescript-eslint/no-restricted-imports': 'off',
       // 在 catch 块中忽略未使用的 error 参数
-      '@typescript-eslint/no-unused-vars': ['warn', {
-        argsIgnorePattern: '^(_|scope|value|row|prop|item|params|form|e|obj|event|el|element|error)|.*_.*',
-        varsIgnorePattern: '^(props|app|ElAutocomplete|error|slots)$',
-        args: 'after-used',
-        ignoreRestSiblings: true
-      }]
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern:
+            '^(_|scope|value|row|prop|item|params|form|e|obj|event|el|element|error)|.*_.*',
+          varsIgnorePattern: '^(props|app|ElAutocomplete|error|slots)$',
+          args: 'after-used',
+          ignoreRestSiblings: true
+        }
+      ]
     }
   },
   // 回调函数和事件处理函数的宽松规则
@@ -155,12 +172,15 @@ export default [
     files: ['packages/**/*.{ts,vue}'],
     rules: {
       // 对回调函数参数更宽松
-      '@typescript-eslint/no-unused-vars': ['warn', {
-        argsIgnorePattern: '^(_|scope|value|row|prop|item|params|form|e|obj|event|el|element)$',
-        varsIgnorePattern: '^(props|app|ElAutocomplete|slots)$',
-        args: 'after-used',
-        ignoreRestSiblings: true
-      }]
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^(_|scope|value|row|prop|item|params|form|e|obj|event|el|element)$',
+          varsIgnorePattern: '^(props|app|ElAutocomplete|slots)$',
+          args: 'after-used',
+          ignoreRestSiblings: true
+        }
+      ]
     }
   }
 ];

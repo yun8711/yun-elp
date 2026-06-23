@@ -5,8 +5,7 @@
       class="y-web-view__iframe"
       :style="{border:border}"
       :src="src"
-      v-bind="iframeAttrs"
-    />
+      v-bind="iframeAttrs" />
   </div>
 </template>
 
@@ -94,5 +93,4 @@ defineExpose({
   postMessage,
   reload
 })
-
 </script>

@@ -118,7 +118,8 @@ describe('YStep', () => {
     const wrapper = mount(YStep, {
       props: { steps, activeIndex: 1 },
       slots: {
-        default: ({ step, index, active }) => `${step} - ${index + 1} - ${active ? '激活' : '未激活'}`
+        default: ({ step, index, active }) =>
+          `${step} - ${index + 1} - ${active ? '激活' : '未激活'}`
       }
     });
 

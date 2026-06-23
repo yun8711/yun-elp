@@ -9,7 +9,7 @@ export type TextTooltipProps = Partial<UseTooltipProps> & {
   // tooltip显示方式
   model?: 'auto' | 'none' | 'always';
   textStyle?: Record<string, any>;
-}
+};
 
 export const textTooltipProps = {
   lineClamp: {
@@ -28,7 +28,7 @@ export const textTooltipProps = {
   textStyle: {
     type: Object,
     default: () => ({})
-  },
+  }
 } as const;
 
 export type TextTooltipInstance = ExtractPublicPropTypes<typeof textTooltipProps>;

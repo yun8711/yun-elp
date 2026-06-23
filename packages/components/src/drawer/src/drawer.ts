@@ -6,7 +6,7 @@ export type DrawerEmits = {
   (e: 'confirm'): void;
   (e: 'cancel'): void;
   (e: 'update:modelValue', value: boolean): void;
-}
+};
 
 export interface DrawerProps {
   modelValue?: boolean;
@@ -57,7 +57,7 @@ export const drawerProps = {
   cancelProps: {
     type: Object,
     default: () => {}
-  },
+  }
 } as const;
 
 export type drawerInstance = ExtractPublicPropTypes<typeof drawerProps>;

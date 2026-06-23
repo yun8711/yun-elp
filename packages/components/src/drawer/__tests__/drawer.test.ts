@@ -154,7 +154,8 @@ describe('YDrawer', () => {
       global: { stubs: globalStubs }
     });
     const attrs = wrapper.find('.el-drawer').attributes();
-    const get = (key: string) => attrs[key] ?? attrs[key.replace(/([A-Z])/g, '-$1').toLowerCase()] ?? attrs[key.toLowerCase()];
+    const get = (key: string) =>
+      attrs[key] ?? attrs[key.replace(/([A-Z])/g, '-$1').toLowerCase()] ?? attrs[key.toLowerCase()];
     expect(get('headerClass')).toBe('y-drawer__header');
     expect(get('bodyClass')).toBe('y-drawer__body');
     expect(get('footerClass')).toBe('y-drawer__footer');

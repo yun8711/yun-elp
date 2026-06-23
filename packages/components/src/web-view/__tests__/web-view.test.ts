@@ -18,12 +18,12 @@ function mockContentWindow(wrapper: ReturnType<typeof mount>) {
   const iframe = getIframeEl(wrapper);
   const contentWindow = {
     postMessage: vi.fn(),
-    location: { reload: vi.fn() },
+    location: { reload: vi.fn() }
   };
   Object.defineProperty(iframe, 'contentWindow', {
     value: contentWindow,
     writable: true,
-    configurable: true,
+    configurable: true
   });
   return contentWindow;
 }
@@ -78,7 +78,7 @@ describe('YWebView 组件', () => {
 
     it('支持自定义 width 和 height', () => {
       const wrapper = mount(WebView, {
-        props: { src: 'https://example.com', width: '800px', height: '600px' },
+        props: { src: 'https://example.com', width: '800px', height: '600px' }
       });
       expect(wrapper.element.style.width).toBe('800px');
       expect(wrapper.element.style.height).toBe('600px');
@@ -92,7 +92,7 @@ describe('YWebView 组件', () => {
 
     it('支持自定义 border', () => {
       const wrapper = mount(WebView, {
-        props: { src: 'https://example.com', border: '1px solid red' },
+        props: { src: 'https://example.com', border: '1px solid red' }
       });
       expect(wrapper.find('iframe').element.style.border).toBe('1px solid red');
     });
@@ -103,7 +103,7 @@ describe('YWebView 组件', () => {
     it('非 prop attrs 应透传到 iframe 而非根 div', () => {
       const wrapper = mount(WebView, {
         props: { src: 'https://example.com' },
-        attrs: { id: 'my-iframe', 'data-test': 'val' },
+        attrs: { id: 'my-iframe', 'data-test': 'val' }
       });
       expect(wrapper.find('iframe').attributes('id')).toBe('my-iframe');
       expect(wrapper.find('iframe').attributes('data-test')).toBe('val');
@@ -160,7 +160,7 @@ describe('YWebView 组件', () => {
       Object.defineProperty(iframeEl, 'contentWindow', {
         value: null,
         writable: true,
-        configurable: true,
+        configurable: true
       });
 
       expect(() => vm.postMessage('data', '*')).not.toThrow();
@@ -238,7 +238,7 @@ describe('YWebView 组件', () => {
       const event = new MessageEvent('message', {
         data: { hello: 'world' },
         origin: 'https://example.com',
-        source: iframeEl.contentWindow as any,
+        source: iframeEl.contentWindow as any
       });
       window.dispatchEvent(event);
 
@@ -254,7 +254,7 @@ describe('YWebView 组件', () => {
       // 匹配的消息 — 应触发
       const matchEvent = new MessageEvent('message', {
         data: 'from-me',
-        source: iframeEl.contentWindow as any,
+        source: iframeEl.contentWindow as any
       });
       window.dispatchEvent(matchEvent);
       expect(wrapper.emitted('message')).toHaveLength(1);
@@ -262,7 +262,7 @@ describe('YWebView 组件', () => {
       // 不匹配的消息 — 应过滤
       const otherEvent = new MessageEvent('message', {
         data: 'from-other',
-        source: {} as any,
+        source: {} as any
       });
       window.dispatchEvent(otherEvent);
       expect(wrapper.emitted('message')).toHaveLength(1);
@@ -274,7 +274,7 @@ describe('YWebView 组件', () => {
 
       const event = new MessageEvent('message', {
         data: 'cross-origin',
-        source: null,
+        source: null
       });
       window.dispatchEvent(event);
 
@@ -300,7 +300,7 @@ describe('YWebView 组件', () => {
 
       const event = new MessageEvent('message', {
         data: 'after-unmount',
-        source: iframeEl.contentWindow as any,
+        source: iframeEl.contentWindow as any
       });
       window.dispatchEvent(event);
 

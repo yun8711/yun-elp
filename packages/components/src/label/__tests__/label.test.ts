@@ -77,7 +77,9 @@ describe('Label 组件', () => {
       }
     });
     expect(wrapper.find('.y-label__label').attributes('style')).toContain('color: red');
-    expect(wrapper.find('.y-label__content').attributes('style')).toContain('background-color: blue');
+    expect(wrapper.find('.y-label__content').attributes('style')).toContain(
+      'background-color: blue'
+    );
   });
 
   it('边界：labelAlign 非法值时默认左对齐', () => {

@@ -5,8 +5,8 @@ import YColumnForms from '../src/column-forms.vue';
 vi.mock('../../app-wrap/src/use-app-config', () => ({
   useAppConfig: vi.fn(() => ({
     popperClass: 'mock-popper-class',
-    placement: 'bottom',
-  })),
+    placement: 'bottom'
+  }))
 }));
 
 describe('YColumnForms 表单列组件', () => {
@@ -124,7 +124,9 @@ describe('YColumnForms 表单列组件', () => {
       });
 
       const scope = { $index: 0, row: { test: 'value' } };
-      const rulesFn = (_scope: any, prop: string) => [{ required: true, message: `字段${prop}必填` }];
+      const rulesFn = (_scope: any, prop: string) => [
+        { required: true, message: `字段${prop}必填` }
+      ];
 
       const item = {
         prop: 'test',
@@ -294,16 +296,23 @@ describe('YColumnForms 表单列组件', () => {
       const scope = { $index: 0, row: { showEmail: true, name: '张三' } };
 
       // 模拟mergedFormArr的逻辑
-      const result = options.map((item: any) => {
-        return {
-          prop: item.prop,
-          show: typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
-          formAttrs: (wrapper.vm as any).mergedItemFormAttrs(scope, item),
-          tipProps: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
-          width: typeof item.width === 'function' ? item.width(scope, item.prop) : item.width || 'auto',
-          style: typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {},
-        }
-      }).filter((x: any) => x.show);
+      const result = options
+        .map((item: any) => {
+          return {
+            prop: item.prop,
+            show:
+              typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
+            formAttrs: (wrapper.vm as any).mergedItemFormAttrs(scope, item),
+            tipProps: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
+            width:
+              typeof item.width === 'function'
+                ? item.width(scope, item.prop)
+                : item.width || 'auto',
+            style:
+              typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {}
+          };
+        })
+        .filter((x: any) => x.show);
 
       expect(result.length).toBe(2);
       expect(result[0].prop).toBe('name');
@@ -316,25 +325,34 @@ describe('YColumnForms 表单列组件', () => {
         props: { options: [] }
       });
 
-      const options = [{
-        prop: 'test',
-        label: '测试',
-        width: (scope: any) => scope.row.width || '100px',
-        style: (scope: any) => ({ color: scope.row.color || 'red' })
-      }];
+      const options = [
+        {
+          prop: 'test',
+          label: '测试',
+          width: (scope: any) => scope.row.width || '100px',
+          style: (scope: any) => ({ color: scope.row.color || 'red' })
+        }
+      ];
 
       const scope = { $index: 0, row: { width: '200px', color: 'blue' } };
 
-      const result = options.map((item: any) => {
-        return {
-          prop: item.prop,
-          show: typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
-          formAttrs: (wrapper.vm as any).mergedItemFormAttrs(scope, item),
-          tipProps: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
-          width: typeof item.width === 'function' ? item.width(scope, item.prop) : item.width || 'auto',
-          style: typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {},
-        }
-      }).filter((x: any) => x.show);
+      const result = options
+        .map((item: any) => {
+          return {
+            prop: item.prop,
+            show:
+              typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
+            formAttrs: (wrapper.vm as any).mergedItemFormAttrs(scope, item),
+            tipProps: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
+            width:
+              typeof item.width === 'function'
+                ? item.width(scope, item.prop)
+                : item.width || 'auto',
+            style:
+              typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {}
+          };
+        })
+        .filter((x: any) => x.show);
 
       expect(result[0].width).toBe('200px');
       expect(result[0].style).toEqual({ color: 'blue' });
@@ -348,16 +366,23 @@ describe('YColumnForms 表单列组件', () => {
       const options: any[] = [];
       const scope = { $index: 0, row: {} };
 
-      const result = options.map((item: any) => {
-        return {
-          prop: item.prop,
-          show: typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
-          formAttrs: (wrapper.vm as any).mergedItemFormAttrs(scope, item),
-          tipProps: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
-          width: typeof item.width === 'function' ? item.width(scope, item.prop) : item.width || 'auto',
-          style: typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {},
-        }
-      }).filter((x: any) => x.show);
+      const result = options
+        .map((item: any) => {
+          return {
+            prop: item.prop,
+            show:
+              typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
+            formAttrs: (wrapper.vm as any).mergedItemFormAttrs(scope, item),
+            tipProps: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
+            width:
+              typeof item.width === 'function'
+                ? item.width(scope, item.prop)
+                : item.width || 'auto',
+            style:
+              typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {}
+          };
+        })
+        .filter((x: any) => x.show);
 
       expect(result).toEqual([]);
     });
@@ -367,29 +392,38 @@ describe('YColumnForms 表单列组件', () => {
         props: { options: [] }
       });
 
-      const options = [{
-        prop: 'test',
-        label: '测试字段',
-        labelWidth: '120px',
-        rules: [{ required: true }],
-        width: '150px',
-        style: { margin: '10px' },
-        formAttrs: { size: 'small' },
-        tipProps: { placement: 'bottom' }
-      }];
+      const options = [
+        {
+          prop: 'test',
+          label: '测试字段',
+          labelWidth: '120px',
+          rules: [{ required: true }],
+          width: '150px',
+          style: { margin: '10px' },
+          formAttrs: { size: 'small' },
+          tipProps: { placement: 'bottom' }
+        }
+      ];
 
       const scope = { $index: 0, row: { test: 'value' } };
 
-      const result = options.map((item: any) => {
-        return {
-          prop: item.prop,
-          show: typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
-          formAttrs: (wrapper.vm as any).mergedItemFormAttrs(scope, item),
-          tipProps: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
-          width: typeof item.width === 'function' ? item.width(scope, item.prop) : item.width || 'auto',
-          style: typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {},
-        }
-      }).filter((x: any) => x.show);
+      const result = options
+        .map((item: any) => {
+          return {
+            prop: item.prop,
+            show:
+              typeof item.show === 'function' ? item.show(scope, item.prop) : (item.show ?? true),
+            formAttrs: (wrapper.vm as any).mergedItemFormAttrs(scope, item),
+            tipProps: (wrapper.vm as any).mergedItemTooltipAttrs(scope, item),
+            width:
+              typeof item.width === 'function'
+                ? item.width(scope, item.prop)
+                : item.width || 'auto',
+            style:
+              typeof item.style === 'function' ? item.style(scope, item.prop) : item.style || {}
+          };
+        })
+        .filter((x: any) => x.show);
 
       expect(result.length).toBe(1);
       expect(result[0].prop).toBe('test');
@@ -509,11 +543,13 @@ describe('YColumnForms 表单列组件', () => {
       });
 
       it('应该正确处理单个表单项', () => {
-        const options = [{
-          prop: 'name',
-          label: '姓名',
-          show: true
-        }];
+        const options = [
+          {
+            prop: 'name',
+            label: '姓名',
+            show: true
+          }
+        ];
 
         const wrapper = mount(YColumnForms, {
           props: { options },
@@ -618,12 +654,14 @@ describe('YColumnForms 表单列组件', () => {
       });
 
       it('应该正确处理width和style为函数的情况', () => {
-        const options = [{
-          prop: 'test',
-          label: '测试',
-          width: (scope: any) => scope.row?.width || '100px',
-          style: (scope: any) => ({ color: scope.row?.color || 'red' })
-        }];
+        const options = [
+          {
+            prop: 'test',
+            label: '测试',
+            width: (scope: any) => scope.row?.width || '100px',
+            style: (scope: any) => ({ color: scope.row?.color || 'red' })
+          }
+        ];
 
         const wrapper = mount(YColumnForms, {
           props: { options },
@@ -645,12 +683,14 @@ describe('YColumnForms 表单列组件', () => {
       });
 
       it('应该正确处理width和style为静态值的情况', () => {
-        const options = [{
-          prop: 'test',
-          label: '测试',
-          width: '150px',
-          style: { margin: '10px' }
-        }];
+        const options = [
+          {
+            prop: 'test',
+            label: '测试',
+            width: '150px',
+            style: { margin: '10px' }
+          }
+        ];
 
         const wrapper = mount(YColumnForms, {
           props: { options },
@@ -672,12 +712,14 @@ describe('YColumnForms 表单列组件', () => {
       });
 
       it('应该正确合并formAttrs和tipProps', () => {
-        const options = [{
-          prop: 'test',
-          label: '测试',
-          formAttrs: { size: 'small' as const, required: true },
-          tipProps: { placement: 'bottom', showArrow: true }
-        }];
+        const options = [
+          {
+            prop: 'test',
+            label: '测试',
+            formAttrs: { size: 'small' as const, required: true },
+            tipProps: { placement: 'bottom', showArrow: true }
+          }
+        ];
 
         const wrapper = mount(YColumnForms, {
           props: { options },
@@ -712,17 +754,19 @@ describe('YColumnForms 表单列组件', () => {
       });
 
       it('应该正确处理复杂的表单项配置', () => {
-        const options = [{
-          prop: 'complex',
-          label: '复杂字段',
-          labelWidth: '120px',
-          rules: [{ required: true, message: '必填' }],
-          show: true,
-          width: '200px',
-          style: { padding: '5px' },
-          formAttrs: { size: 'large' as const },
-          tipProps: { placement: 'left' }
-        }];
+        const options = [
+          {
+            prop: 'complex',
+            label: '复杂字段',
+            labelWidth: '120px',
+            rules: [{ required: true, message: '必填' }],
+            show: true,
+            width: '200px',
+            style: { padding: '5px' },
+            formAttrs: { size: 'large' as const },
+            tipProps: { placement: 'left' }
+          }
+        ];
 
         const wrapper = mount(YColumnForms, {
           props: { options },
@@ -774,7 +818,8 @@ describe('YColumnForms 表单列组件', () => {
           'show-overflow-tooltip': false,
           'min-width': 100,
           width: 'auto',
-          'class-name': 'y-column-forms'
+          'class-name': 'y-column-forms',
+          resizable: true
         });
       });
 
@@ -796,7 +841,8 @@ describe('YColumnForms 表单列组件', () => {
           'min-width': 150,
           width: 200,
           fixed: 'right',
-          'class-name': 'y-column-forms'
+          'class-name': 'y-column-forms',
+          resizable: true
         });
       });
 
@@ -815,7 +861,8 @@ describe('YColumnForms 表单列组件', () => {
           'show-overflow-tooltip': false,
           'min-width': 100,
           width: 'auto',
-          'class-name': 'custom-column-class'
+          'class-name': 'custom-column-class',
+          resizable: true
         });
       });
     });
@@ -831,7 +878,7 @@ describe('YColumnForms 表单列组件', () => {
           <slot name="header" :column="{ label: '操作' }" :index="0"></slot>
         </div>
       `,
-      inheritAttrs: false,
+      inheritAttrs: false
     };
 
     const formItemStub = {
@@ -846,13 +893,13 @@ describe('YColumnForms 表单列组件', () => {
         const el = this.$el as HTMLElement;
         el.addEventListener('mouseenter', () => this.$emit('mouseenter'));
         el.addEventListener('mouseleave', () => this.$emit('mouseleave'));
-      },
+      }
     };
 
     const createRenderWrapper = (
       props: Record<string, unknown> = {},
       slots: Record<string, string> = {},
-      attrs: Record<string, unknown> = {},
+      attrs: Record<string, unknown> = {}
     ) => {
       return mount(YColumnForms, {
         props: { options: [], ...props },
@@ -861,9 +908,9 @@ describe('YColumnForms 表单列组件', () => {
         global: {
           stubs: {
             'el-table-column': tableColumnStub,
-            'el-form-item': formItemStub,
-          },
-        },
+            'el-form-item': formItemStub
+          }
+        }
       });
     };
 
@@ -873,13 +920,13 @@ describe('YColumnForms 表单列组件', () => {
           inline: false,
           options: [
             { prop: 'name', label: '姓名' },
-            { prop: 'age', label: '年龄' },
-          ],
+            { prop: 'age', label: '年龄' }
+          ]
         },
         {
           name: '<input class="name-input" />',
-          age: '<input class="age-input" />',
-        },
+          age: '<input class="age-input" />'
+        }
       );
 
       expect(wrapper.find('.y-column-forms__content.is-flex').exists()).toBe(true);
@@ -892,9 +939,9 @@ describe('YColumnForms 表单列组件', () => {
       const wrapper = createRenderWrapper(
         {
           inline: true,
-          options: [{ prop: 'name', label: '姓名' }],
+          options: [{ prop: 'name', label: '姓名' }]
         },
-        { name: '<input class="name-input" />' },
+        { name: '<input class="name-input" />' }
       );
 
       expect(wrapper.find('.y-column-forms__content.is-line').exists()).toBe(true);
@@ -903,9 +950,9 @@ describe('YColumnForms 表单列组件', () => {
     it('应渲染错误提示区域并响应鼠标事件', async () => {
       const wrapper = createRenderWrapper(
         {
-          options: [{ prop: 'name', label: '姓名' }],
+          options: [{ prop: 'name', label: '姓名' }]
         },
-        { name: '<input class="name-input" />' },
+        { name: '<input class="name-input" />' }
       );
 
       expect(wrapper.find('.y-column-form__error').exists()).toBe(true);
@@ -922,7 +969,7 @@ describe('YColumnForms 表单列组件', () => {
       const wrapper = createRenderWrapper(
         { options: [] },
         { header: '<span class="custom-header">自定义列头</span>' },
-        { label: '默认列头' },
+        { label: '默认列头' }
       );
 
       expect(wrapper.find('.custom-header').exists()).toBe(true);
@@ -933,9 +980,9 @@ describe('YColumnForms 表单列组件', () => {
       const wrapper = createRenderWrapper(
         {
           tName: 'editTable',
-          options: [{ prop: 'name', label: '姓名' }],
+          options: [{ prop: 'name', label: '姓名' }]
         },
-        { name: '<input class="name-input" />' },
+        { name: '<input class="name-input" />' }
       );
 
       const formItem = wrapper.find('.el-form-item');
