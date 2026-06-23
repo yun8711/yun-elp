@@ -35,7 +35,10 @@
     "pre-release:full": "node scripts/pre-publish-check.cjs --quality --audit",
     "pre-publish": "node scripts/pre-publish-check.cjs --publish",
     "sync-version": "tsx scripts/sync-version.ts",
-    "release:mcp": "tsx scripts/sync-version.ts && pnpm publish -F yun-elp-mcp --access public --no-git-checks",
+    "mcp:extract": "pnpm -C packages/mcp-server extract",
+    "mcp:test": "pnpm -C packages/mcp-server test",
+    "mcp:build": "pnpm -C packages/mcp-server build",
+    "mcp:publish": "pnpm publish -F yun-elp-mcp --access public --no-git-checks",
     "prepare": "husky install",
     "publish": "cd dist && npm publish --registry=https://registry.npmjs.org/"
   },

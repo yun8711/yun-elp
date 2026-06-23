@@ -47,6 +47,13 @@ export interface ComponentMethod {
   ts?: string // TypeScript 签名
 }
 
+export interface ComponentExample {
+  name: string
+  title: string
+  description?: string
+  sourcePath: string
+  docUrl?: string
+}
 
 // 最终组件统一模型
 export interface ComponentModel {
@@ -59,4 +66,5 @@ export interface ComponentModel {
   events: ComponentEvent[]
   slots: ComponentSlot[]
   methods: ComponentMethod[]
+  examples?: ComponentExample[]
 }

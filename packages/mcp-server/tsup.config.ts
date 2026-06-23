@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
   entry: ['./src/index.ts', './src/stdio.ts', './src/tools/**/*.ts', './src/metadata/**/*.ts'],
-  external: ['./src/types/', './src/examples/'],
+  external: ['./src/types/'],
   format: ['esm'],
   clean: true,
   splitting: true, // 启用代码分割

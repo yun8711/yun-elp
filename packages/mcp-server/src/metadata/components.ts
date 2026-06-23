@@ -560,7 +560,8 @@ export default {
         "description": "默认插槽，用于放置内容"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": []
   },
   "y-border-label": {
     "tagName": "y-border-label",
@@ -624,7 +625,29 @@ export default {
         "description": "后置内容"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "form",
+        "title": "基础用法",
+        "sourcePath": "docs/components/border-label/form.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/border-label/"
+      },
+      {
+        "name": "border",
+        "title": "无边框",
+        "description": "通过 `no-border` 属性可以隐藏边框。",
+        "sourcePath": "docs/components/border-label/border.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/border-label/"
+      },
+      {
+        "name": "slot",
+        "title": "插槽用法",
+        "description": "组件提供了 `prefix` 和 `suffix` 插槽，可以用于添加前置和后置内容，如图标等。",
+        "sourcePath": "docs/components/border-label/slot.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/border-label/"
+      }
+    ]
   },
   "y-button": {
     "tagName": "y-button",
@@ -886,6 +909,26 @@ export default {
           }
         ]
       }
+    ],
+    "examples": [
+      {
+        "name": "dblclick",
+        "title": "单、双击",
+        "sourcePath": "docs/components/button/dblclick.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/button/"
+      },
+      {
+        "name": "debounce",
+        "title": "防抖",
+        "sourcePath": "docs/components/button/debounce.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/button/"
+      },
+      {
+        "name": "throttle",
+        "title": "节流",
+        "sourcePath": "docs/components/button/throttle.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/button/"
+      }
     ]
   },
   "y-column-filter": {
@@ -1127,7 +1170,15 @@ export default {
         "description": "自定义筛选图标"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/column-filter/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/column-filter/"
+      }
+    ]
   },
   "y-column-form": {
     "tagName": "y-column-form",
@@ -1295,7 +1346,15 @@ export default {
         "description": "自定义表头内容"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/column-form/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/column-form/"
+      }
+    ]
   },
   "y-column-forms": {
     "tagName": "y-column-forms",
@@ -1521,7 +1580,15 @@ export default {
         "description": "自定义表头内容"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/column-forms/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/column-forms/"
+      }
+    ]
   },
   "y-column-op": {
     "tagName": "y-column-op",
@@ -1663,7 +1730,143 @@ export default {
         "description": "自定义操作项内容，prop为操作项的prop值"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/column-op/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/column-op/"
+      },
+      {
+        "name": "disabled",
+        "title": "按钮禁用及tooltip提示",
+        "description": "内部使用 `y-pop` 组件展示 `tooltip`",
+        "sourcePath": "docs/components/column-op/disabled.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/column-op/"
+      },
+      {
+        "name": "popover",
+        "title": "按钮popover",
+        "description": "内部使用 `y-pop` 组件显示 `popover`",
+        "sourcePath": "docs/components/column-op/popover.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/column-op/"
+      }
+    ]
+  },
+  "y-column-select": {
+    "tagName": "y-column-select",
+    "description": "表格选择列，支持多选和单选",
+    "detailedDescription": "基于 `el-table-column` 封装的表格选择列。\n（1）默认使用官方 `type=\"selection\"` 多选列能力，支持 `selectable`、`reserve-selection` 等选择列属性；\n（2）开启 `single` 后使用当前行能力实现单选，适合业务表格只允许选择一行的场景。\n（3）单选和多选的禁用状态都由 `selectable(row, index)` 决定。",
+    "docUrl": "http://www.liuyun.pro/yun-elp/components/column-select/",
+    "props": [
+      {
+        "name": "single",
+        "description": "是否为单选模式",
+        "type": {
+          "raw": "boolean"
+        },
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "selectable",
+        "description": "行是否可选，同 `el-table-column` 的 `selectable`",
+        "type": {
+          "raw": "(row: any, index: number) => boolean"
+        },
+        "required": false,
+        "default": "true"
+      },
+      {
+        "name": "disabled-tip",
+        "description": "禁用时的提示内容，返回空值时不显示；只负责提示，不决定禁用状态",
+        "type": {
+          "raw": "(scope: ColumnSelectScope) => string | number | undefined"
+        },
+        "required": false
+      },
+      {
+        "name": "width",
+        "description": "列宽度",
+        "type": {
+          "raw": "string | number"
+        },
+        "required": false,
+        "default": "55"
+      },
+      {
+        "name": "min-width",
+        "description": "列最小宽度",
+        "type": {
+          "raw": "string | number"
+        },
+        "required": false,
+        "default": "55"
+      },
+      {
+        "name": "tip-props",
+        "description": "禁用提示 `el-tooltip` 属性",
+        "type": {
+          "raw": "Partial<ElTooltipProps>"
+        },
+        "required": false,
+        "default": "{placement: 'top',enterable: false,popperClass:'y-column-select__tooltip'}"
+      },
+      {
+        "name": "resizable",
+        "description": "是否可以通过拖动改变宽度",
+        "type": {
+          "raw": "boolean"
+        },
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "show-overflow-tooltip",
+        "description": "当内容过长被隐藏时显示 tooltip",
+        "type": {
+          "raw": "boolean | object"
+        },
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "class-name",
+        "description": "列的 className",
+        "type": {
+          "raw": "string"
+        },
+        "required": false,
+        "default": "'y-column-select'"
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "description": "自定义选择单元格内容"
+      },
+      {
+        "name": "header",
+        "description": "单选模式表头内容"
+      }
+    ],
+    "methods": [],
+    "examples": [
+      {
+        "name": "multiple",
+        "title": "多选",
+        "sourcePath": "docs/components/column-select/multiple.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/column-select/"
+      },
+      {
+        "name": "single",
+        "title": "单选",
+        "sourcePath": "docs/components/column-select/single.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/column-select/"
+      }
+    ]
   },
   "y-column-text": {
     "tagName": "y-column-text",
@@ -1837,7 +2040,15 @@ export default {
         "description": "展开列的自定义内容"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/column-text/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/column-text/"
+      }
+    ]
   },
   "y-cron-picker": {
     "tagName": "y-cron-picker",
@@ -1920,6 +2131,21 @@ export default {
             "raw": "() => void"
           }
         ]
+      }
+    ],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/cron-picker/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/cron-picker/"
+      },
+      {
+        "name": "custom-defaults",
+        "title": "自定义默认值",
+        "description": "通过 `editDefaultValue` 属性可以自定义不同调度周期的默认配置",
+        "sourcePath": "docs/components/cron-picker/custom-defaults.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/cron-picker/"
       }
     ]
   },
@@ -2035,7 +2261,37 @@ export default {
         "description": "默认内容插槽，当未指定 `[prop]-content` 时使用"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "basic",
+        "title": "基础用法",
+        "description": "默认3列，各列是等宽的，支持 border 属性",
+        "sourcePath": "docs/components/desc/basic.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/desc/"
+      },
+      {
+        "name": "column",
+        "title": "响应式列数",
+        "description": "column 属性支持使用函数来根据组件宽度动态调整，可以手动调整页面宽度来查看效果",
+        "sourcePath": "docs/components/desc/column.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/desc/"
+      },
+      {
+        "name": "default-slot",
+        "title": "默认插槽用法",
+        "description": "当不指定具体的 prop 插槽时，可以使用默认的 `label` 和 `content` 插槽来统一自定义所有项的显示；",
+        "sourcePath": "docs/components/desc/default-slot.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/desc/"
+      },
+      {
+        "name": "slot",
+        "title": "具名插槽用法",
+        "description": "对于需要使用插槽的配置项，需要提供 prop 属性，`<prop>-label` 是每列中 label 的插槽名，`<prop>-content` 是每列中 content 的插槽名；",
+        "sourcePath": "docs/components/desc/slot.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/desc/"
+      }
+    ]
   },
   "y-dialog": {
     "tagName": "y-dialog",
@@ -2429,6 +2685,14 @@ export default {
           }
         ]
       }
+    ],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/dialog/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/dialog/"
+      }
     ]
   },
   "y-drawer": {
@@ -2787,6 +3051,14 @@ export default {
           }
         ]
       }
+    ],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/drawer/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/drawer/"
+      }
     ]
   },
   "y-echarts": {
@@ -2888,6 +3160,22 @@ export default {
           }
         ]
       }
+    ],
+    "examples": [
+      {
+        "name": "basic",
+        "title": "基础用法",
+        "description": "该示例展示不进行二次封装，直接使用 `y-echarts` 的用法",
+        "sourcePath": "docs/components/echarts/basic.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/echarts/"
+      },
+      {
+        "name": "bar",
+        "title": "二次封装",
+        "description": "该示例使用 `y-echarts` 封装一个柱状图组件，避免每次创建图表时编写大量配置，提升复用性。在使用该组件时，只需要像上面示例的 `getLineChartOption` 方法一样，只传入必要的配置即可",
+        "sourcePath": "docs/components/echarts/bar.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/echarts/"
+      }
     ]
   },
   "y-empty": {
@@ -2946,7 +3234,500 @@ export default {
         "description": "自定义描述"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/empty/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/empty/"
+      }
+    ]
+  },
+  "y-form": {
+    "tagName": "y-form",
+    "description": "基于 Element Plus Form 的布局与联动表单",
+    "detailedDescription": "基于 [el-form](https://element-plus.org/zh-CN/component/form.html)、[el-form-item](https://element-plus.org/zh-CN/component/form.html#formitem-attributes)、[el-row](https://element-plus.org/zh-CN/component/layout.html#row-attributes)、[el-col](https://element-plus.org/zh-CN/component/layout.html#col-attributes) 封装，整合栅格布局与表单数据联动能力。\n（1）`y-form` 整合 `el-form` + `el-row`，作为外层容器\n（2）`y-form-item` 整合 `el-form-item` + `el-col`，内置栅格布局，详见 [FormItem 表单项](/components/form-item/)\n（3）除扩展属性外，其余 API 与 Element Plus 官方文档保持一致，可直接透传使用\n注意：\n- `y-form` 的 `span` 会作为所有 `y-form-item` 的默认栅格占位；单项可通过 `:span` 覆盖\n- 属性会分发给内部的 `el-form` 或 `el-row`，无需手动嵌套",
+    "docUrl": "http://www.liuyun.pro/yun-elp/components/form/",
+    "props": [
+      {
+        "name": "config",
+        "description": "表单数据变化时的回调，参数见[FormConfigFn](#formconfigfn)",
+        "type": {
+          "raw": "function"
+        },
+        "required": false
+      },
+      {
+        "name": "static-fields",
+        "description": "静态字段，变化时不触发 config",
+        "type": {
+          "raw": "string[]"
+        },
+        "required": false,
+        "default": "[]"
+      },
+      {
+        "name": "debounce",
+        "description": "config 队列处理防抖时间（ms），0 表示不防抖",
+        "type": {
+          "raw": "number"
+        },
+        "required": false,
+        "default": "300"
+      },
+      {
+        "name": "span",
+        "description": "y-form-item 默认栅格占位",
+        "type": {
+          "raw": "number"
+        },
+        "required": false,
+        "default": "24"
+      },
+      {
+        "name": "row-class",
+        "description": "行容器 class",
+        "type": {
+          "raw": "string"
+        },
+        "required": false,
+        "default": "''"
+      },
+      {
+        "name": "row-style",
+        "description": "行容器 style",
+        "type": {
+          "raw": "CSSProperties"
+        },
+        "required": false,
+        "default": "{}"
+      },
+      {
+        "name": "model",
+        "description": "表单数据对象，同 el-form",
+        "type": {
+          "raw": "Record<string, any>"
+        },
+        "required": false,
+        "default": "{}"
+      },
+      {
+        "name": "rules",
+        "description": "表单校验规则，同 el-form",
+        "type": {
+          "raw": "FormRules"
+        },
+        "required": false,
+        "default": "{}"
+      },
+      {
+        "name": "label-width",
+        "description": "标签宽度，同 el-form",
+        "type": {
+          "raw": "string | number"
+        },
+        "required": false
+      },
+      {
+        "name": "label-position",
+        "description": "标签位置，同 el-form",
+        "type": {
+          "raw": "'left' | 'right' | 'top'"
+        },
+        "required": false,
+        "default": "'right'"
+      },
+      {
+        "name": "inline",
+        "description": "行内表单模式，同 el-form",
+        "type": {
+          "raw": "boolean"
+        },
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "gutter",
+        "description": "栅格间隔，同 el-row",
+        "type": {
+          "raw": "number"
+        },
+        "required": false,
+        "default": "0"
+      },
+      {
+        "name": "justify",
+        "description": "水平排列方式，同 el-row",
+        "type": {
+          "raw": "'start' | 'end' | 'center' | 'space-around' | 'space-between' | 'space-evenly'"
+        },
+        "required": false,
+        "default": "'start'"
+      },
+      {
+        "name": "align",
+        "description": "垂直排列方式，同 el-row",
+        "type": {
+          "raw": "'top' | 'middle' | 'bottom'"
+        },
+        "required": false
+      },
+      {
+        "name": "tag",
+        "description": "自定义元素标签，同 el-row",
+        "type": {
+          "raw": "string"
+        },
+        "required": false,
+        "default": "'div'"
+      }
+    ],
+    "events": [
+      {
+        "name": "validate",
+        "description": "任一表单项校验后触发",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      }
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "description": "表单内容，放置 y-form-item"
+      }
+    ],
+    "methods": [
+      {
+        "name": "validate-sync",
+        "description": "校验整个表单，通过 resolve(model)，失败 reject",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      },
+      {
+        "name": "validate",
+        "description": "校验整个表单，支持传入 callback 或返回 Promise，同 el-form",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      },
+      {
+        "name": "validate-field",
+        "description": "校验指定字段，同 el-form",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      },
+      {
+        "name": "reset-fields",
+        "description": "重置指定字段为初始值并移除校验结果，不传则重置全部，同 el-form",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      },
+      {
+        "name": "clear-validate",
+        "description": "移除指定字段的校验结果，不传则移除全部，同 el-form",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      },
+      {
+        "name": "scroll-to-field",
+        "description": "滚动到指定字段，同 el-form",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      },
+      {
+        "name": "get-field",
+        "description": "获取指定字段的上下文，同 el-form",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      },
+      {
+        "name": "fields",
+        "description": "所有表单项字段的上下文，同 el-form",
+        "parameters": [
+          {
+            "raw": "Reactive<FormItemContext[]>"
+          }
+        ]
+      },
+      {
+        "name": "set-initial-values",
+        "description": "设置表单字段初始值，`resetFields` 时将重置到此值，同 el-form",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "name": "basic",
+        "title": "布局用法",
+        "description": "y-form 设置 `:span=\"12\"` 时表单项默认两列；y-form-item 可通过 span 单独控制占位",
+        "sourcePath": "docs/components/form/basic.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/form/"
+      },
+      {
+        "name": "config",
+        "title": "config 联动",
+        "description": "config 在表单字段变化时触发，参数为 `(model, context)`，context 包含 field、prevValue、newValue；static-fields 中的字段变化不会触发 config",
+        "sourcePath": "docs/components/form/config.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/form/"
+      },
+      {
+        "name": "debounce",
+        "title": "debounce 防抖",
+        "description": "debounce 控制 config 队列处理的防抖时间（ms），0 表示不防抖、立即处理",
+        "sourcePath": "docs/components/form/debounce.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/form/"
+      }
+    ]
+  },
+  "y-form-item": {
+    "tagName": "y-form-item",
+    "description": "基于 Element Plus FormItem + Col 的表单项",
+    "detailedDescription": "`y-form-item` 整合 `el-form-item` + `el-col`，需与 [Form 表单](/components/form/) 配合使用。\n用法示例（布局、联动、防抖等）见 [Form 表单 · 用法示例](/components/form/#用法示例)。\n注意：\n- 未设置 `span` 时继承 `y-form` 的 `span`\n- 属性会分发给 `el-col` 或 `el-form-item`",
+    "docUrl": "http://www.liuyun.pro/yun-elp/components/form-item/",
+    "props": [
+      {
+        "name": "span",
+        "description": "栅格占据列数，同 el-col",
+        "type": {
+          "raw": "number"
+        },
+        "required": false,
+        "default": "继承 y-form"
+      },
+      {
+        "name": "offset",
+        "description": "栅格左侧间隔格数，同 el-col",
+        "type": {
+          "raw": "number"
+        },
+        "required": false,
+        "default": "0"
+      },
+      {
+        "name": "push",
+        "description": "向右移动格数，同 el-col",
+        "type": {
+          "raw": "number"
+        },
+        "required": false,
+        "default": "0"
+      },
+      {
+        "name": "pull",
+        "description": "向左移动格数，同 el-col",
+        "type": {
+          "raw": "number"
+        },
+        "required": false,
+        "default": "0"
+      },
+      {
+        "name": "xs",
+        "description": "`<768px` 响应式栅格，同 el-col",
+        "type": {
+          "raw": "number | object"
+        },
+        "required": false
+      },
+      {
+        "name": "sm",
+        "description": "`≥768px` 响应式栅格，同 el-col",
+        "type": {
+          "raw": "number | object"
+        },
+        "required": false
+      },
+      {
+        "name": "md",
+        "description": "`≥992px` 响应式栅格，同 el-col",
+        "type": {
+          "raw": "number | object"
+        },
+        "required": false
+      },
+      {
+        "name": "lg",
+        "description": "`≥1200px` 响应式栅格，同 el-col",
+        "type": {
+          "raw": "number | object"
+        },
+        "required": false
+      },
+      {
+        "name": "xl",
+        "description": "`≥1920px` 响应式栅格，同 el-col",
+        "type": {
+          "raw": "number | object"
+        },
+        "required": false
+      },
+      {
+        "name": "tag",
+        "description": "自定义元素标签，同 el-col",
+        "type": {
+          "raw": "string"
+        },
+        "required": false,
+        "default": "'div'"
+      },
+      {
+        "name": "label",
+        "description": "标签文本，同 el-form-item",
+        "type": {
+          "raw": "string"
+        },
+        "required": false
+      },
+      {
+        "name": "prop",
+        "description": "模型字段名，同 el-form-item",
+        "type": {
+          "raw": "string | object"
+        },
+        "required": false
+      },
+      {
+        "name": "rules",
+        "description": "校验规则，同 el-form-item",
+        "type": {
+          "raw": "FormItemRule \\| FormItemRule[]"
+        },
+        "required": false
+      },
+      {
+        "name": "label-width",
+        "description": "标签宽度，同 el-form-item",
+        "type": {
+          "raw": "string | number"
+        },
+        "required": false
+      },
+      {
+        "name": "required",
+        "description": "是否必填，同 el-form-item",
+        "type": {
+          "raw": "boolean"
+        },
+        "required": false
+      },
+      {
+        "name": "inline-message",
+        "description": "是否行内展示校验信息，同 el-form-item",
+        "type": {
+          "raw": "boolean"
+        },
+        "required": false
+      }
+    ],
+    "events": [],
+    "slots": [
+      {
+        "name": "default",
+        "description": "表单控件内容"
+      },
+      {
+        "name": "label",
+        "description": "自定义标签内容"
+      },
+      {
+        "name": "error",
+        "description": "自定义校验错误内容"
+      }
+    ],
+    "methods": [
+      {
+        "name": "size",
+        "description": "表单项尺寸，同 el-form-item",
+        "parameters": [
+          {
+            "raw": "ComputedRef<'' \\| 'default' \\| 'small' \\| 'large'>"
+          }
+        ]
+      },
+      {
+        "name": "validate-message",
+        "description": "校验提示信息，同 el-form-item",
+        "parameters": [
+          {
+            "raw": "Ref<string>"
+          }
+        ]
+      },
+      {
+        "name": "validate-state",
+        "description": "校验状态，同 el-form-item",
+        "parameters": [
+          {
+            "raw": "Ref<'' \\| 'error' \\| 'success' \\| 'validating'>"
+          }
+        ]
+      },
+      {
+        "name": "validate",
+        "description": "校验表单项，同 el-form-item",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      },
+      {
+        "name": "clear-validate",
+        "description": "移除该表单项的校验结果，同 el-form-item",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      },
+      {
+        "name": "reset-field",
+        "description": "重置该表单项为初始值并移除校验结果，同 el-form-item",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      },
+      {
+        "name": "set-initial-value",
+        "description": "设置该字段初始值，`resetField` 时将重置到此值，同 el-form-item",
+        "parameters": [
+          {
+            "raw": "function"
+          }
+        ]
+      }
+    ],
+    "examples": []
   },
   "y-group-select": {
     "tagName": "y-group-select",
@@ -3016,7 +3797,16 @@ export default {
         "description": "自定义加载状态"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "description": "最基本的用法，通过 `v-model` 绑定选中值，通过 `options` 配置选项。",
+        "sourcePath": "docs/components/group-select/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/group-select/"
+      }
+    ]
   },
   "y-label": {
     "tagName": "y-label",
@@ -3113,7 +3903,29 @@ export default {
         "description": "标签文本插槽，用于自定义标签内容"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "basic",
+        "title": "基础用法",
+        "sourcePath": "docs/components/label/basic.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/label/"
+      },
+      {
+        "name": "size",
+        "title": "组件尺寸",
+        "description": "label组件内部使用flex布局方式",
+        "sourcePath": "docs/components/label/size.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/label/"
+      },
+      {
+        "name": "slots",
+        "title": "插槽",
+        "description": "提供了前后置插槽",
+        "sourcePath": "docs/components/label/slots.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/label/"
+      }
+    ]
   },
   "y-page-footer": {
     "tagName": "y-page-footer",
@@ -3165,7 +3977,15 @@ export default {
         "description": "内容"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/page-footer/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/page-footer/"
+      }
+    ]
   },
   "y-page-header": {
     "tagName": "y-page-header",
@@ -3232,7 +4052,15 @@ export default {
         "description": "组件右侧区域"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/page-header/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/page-header/"
+      }
+    ]
   },
   "y-page-progress": {
     "tagName": "y-page-progress",
@@ -3306,7 +4134,15 @@ export default {
     ],
     "events": [],
     "slots": [],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/page-progress/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/page-progress/"
+      }
+    ]
   },
   "y-part-title": {
     "tagName": "y-part-title",
@@ -3339,7 +4175,22 @@ export default {
         "description": "右侧内容插槽，用于放置操作按钮、链接等"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "base",
+        "title": "基础用法",
+        "description": "通过 title 属性设置标题文本",
+        "sourcePath": "docs/components/part-title/base.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/part-title/"
+      },
+      {
+        "name": "slots",
+        "title": "插槽",
+        "sourcePath": "docs/components/part-title/slots.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/part-title/"
+      }
+    ]
   },
   "y-pop": {
     "tagName": "y-pop",
@@ -3548,6 +4399,28 @@ export default {
             "raw": "Ref<ElPopoverInstance \\| undefined>"
           }
         ]
+      }
+    ],
+    "examples": [
+      {
+        "name": "basic",
+        "title": "基础用法",
+        "sourcePath": "docs/components/pop/basic.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/pop/"
+      },
+      {
+        "name": "tip",
+        "title": "tooltip 用法",
+        "description": "默认情况下，只有配置了 `tipContent` 才会启用内部的 el-tooltip；`tipProps` 支持完整的 el-tooltip 配置",
+        "sourcePath": "docs/components/pop/tip.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/pop/"
+      },
+      {
+        "name": "pop",
+        "title": "popover 用法",
+        "description": "组件内的el-popover主要是为了满足二次确认的场景，但是也支持完全自定义；设置 `no-pop` 则会隐藏内部的 el-popover；`popProps` 支持完整的 el-popover 配置；popover中的操作按钮使用了 y-button，也就是默认支持防抖",
+        "sourcePath": "docs/components/pop/pop.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/pop/"
       }
     ]
   },
@@ -3811,6 +4684,28 @@ export default {
           }
         ]
       }
+    ],
+    "examples": [
+      {
+        "name": "multipl",
+        "title": "多选模式",
+        "description": "默认情况下为多选模式",
+        "sourcePath": "docs/components/row-select/multipl.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/row-select/"
+      },
+      {
+        "name": "single",
+        "title": "单选模式",
+        "sourcePath": "docs/components/row-select/single.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/row-select/"
+      },
+      {
+        "name": "advance",
+        "title": "高级用法",
+        "description": "可以将多个 RowSelect 组合成为高级筛选组件",
+        "sourcePath": "docs/components/row-select/advance.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/row-select/"
+      }
     ]
   },
   "y-scroll-box": {
@@ -3964,6 +4859,29 @@ export default {
           }
         ]
       }
+    ],
+    "examples": [
+      {
+        "name": "basic",
+        "title": "基础用法",
+        "description": "默认情况下，组件会根据内容是否超出容器宽度，自动显示左右箭头按钮。通过 arrowModel=always 可以强制箭头按钮总是显示",
+        "sourcePath": "docs/components/scroll-box/basic.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/scroll-box/"
+      },
+      {
+        "name": "continuous",
+        "title": "滚轮功能和连续滚动",
+        "description": "`wheelScroll` 属性控制是否开启鼠标滚轮触发水平滚动的功能；`continuous` 属性控制是否启用连续滚动功能，长按箭头按钮可以连续滚动内容；出于性能考虑，这两个功能默认都是关闭的",
+        "sourcePath": "docs/components/scroll-box/continuous.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/scroll-box/"
+      },
+      {
+        "name": "arrow",
+        "title": "自定义箭头样式和内容",
+        "description": "组件支持自定义箭头样式，内容部分可自由定义。",
+        "sourcePath": "docs/components/scroll-box/arrow.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/scroll-box/"
+      }
     ]
   },
   "y-step": {
@@ -4016,7 +4934,30 @@ export default {
         "description": "每个step的插槽，不包含连接线"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "basic",
+        "title": "基础用法",
+        "description": "通过 `steps` 可以定义每步的名称；如果不需要名称，则使用 `stepNumber` 定义步骤数量即可",
+        "sourcePath": "docs/components/step/basic.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/step/"
+      },
+      {
+        "name": "style",
+        "title": "自定义样式",
+        "description": "通过css变量可以自定义组件中部分样式",
+        "sourcePath": "docs/components/step/style.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/step/"
+      },
+      {
+        "name": "slot",
+        "title": "插槽",
+        "description": "通过插槽可以自定义步骤条节点样式，不包含连接线",
+        "sourcePath": "docs/components/step/slot.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/step/"
+      }
+    ]
   },
   "y-sticky-layout": {
     "tagName": "y-sticky-layout",
@@ -4048,7 +4989,16 @@ export default {
         "description": "右侧边栏区域"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "description": "当组件在嵌套的滚动容器中使用时，可以通过 `scrollContainer` 属性指定父级容器",
+        "sourcePath": "docs/components/sticky-layout/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/sticky-layout/"
+      }
+    ]
   },
   "y-table": {
     "tagName": "y-table",
@@ -4795,6 +5745,14 @@ export default {
           }
         ]
       }
+    ],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/table/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/table/"
+      }
     ]
   },
   "y-table-search": {
@@ -4915,7 +5873,30 @@ export default {
         "description": "自定义字段组件，{prop} 为字段名"
       }
     ],
-    "methods": []
+    "methods": [],
+    "examples": [
+      {
+        "name": "basic",
+        "title": "多行模式",
+        "description": "通常用于首行为模糊搜索，例如关键词，更多精准的搜索条件需要通过展开操作才展示。需要展示在首行的配置项设置 first:true 即可",
+        "sourcePath": "docs/components/table-search/basic.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/table-search/"
+      },
+      {
+        "name": "multi-row",
+        "title": "单行模式",
+        "description": "当options配置项中没有配置项为 first:true 时，即为单行模式，所有表单项平铺展示，且没有展开/收起操作",
+        "sourcePath": "docs/components/table-search/multi-row.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/table-search/"
+      },
+      {
+        "name": "dynamic",
+        "title": "动态属性和值格式化",
+        "description": "支持根据表单状态和组件状态动态调整字段的显示、禁用等属性。同时支持值格式化，可以在值更新时对值进行处理",
+        "sourcePath": "docs/components/table-search/dynamic.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/table-search/"
+      }
+    ]
   },
   "y-text-tooltip": {
     "tagName": "y-text-tooltip",
@@ -5218,6 +6199,114 @@ export default {
             "raw": "(event?: Event | undefined) => void"
           }
         ]
+      }
+    ],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/text-tooltip/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/text-tooltip/"
+      }
+    ]
+  },
+  "y-web-view": {
+    "tagName": "y-web-view",
+    "description": "网页容器组件",
+    "detailedDescription": "基于 `iframe` 封装的网页容器组件，简化内嵌页面的传入方式，并自动管理 `postMessage` 的双向通信。\n- 自动适配容器宽高，默认 `100%`\n- 支持通过 `attrs` 透传原生 `<iframe>` 属性（`allow`、`referrerpolicy`、`sandbox` 等）\n- 内置 `postMessage` 发送与 `message` 事件接收，自动按 `event.source` 过滤非本 iframe 的消息\n- 支持 `reload` 刷新（同源用 `location.reload`，跨域自动回退到 `src` 重设）",
+    "docUrl": "http://www.liuyun.pro/yun-elp/components/web-view/",
+    "props": [
+      {
+        "name": "src",
+        "description": "内嵌页面地址",
+        "type": {
+          "raw": "string"
+        },
+        "required": false
+      },
+      {
+        "name": "width",
+        "description": "容器宽度",
+        "type": {
+          "raw": "string"
+        },
+        "required": false,
+        "default": "'100%'"
+      },
+      {
+        "name": "height",
+        "description": "容器高度",
+        "type": {
+          "raw": "string"
+        },
+        "required": false,
+        "default": "'100%'"
+      },
+      {
+        "name": "border",
+        "description": "iframe 边框样式",
+        "type": {
+          "raw": "string"
+        },
+        "required": false,
+        "default": "'0'"
+      },
+      {
+        "name": "iframeiframehttpsdevelopermozillaorgzh-cndocswebhtmlreferenceelementsiframeattrs",
+        "description": "",
+        "type": {
+          "raw": "any"
+        },
+        "required": false
+      }
+    ],
+    "events": [
+      {
+        "name": "message",
+        "description": "接收到来自内嵌页面的 `postMessage` 消息时触发",
+        "parameters": [
+          {
+            "raw": "(event: MessageEvent) => void"
+          }
+        ]
+      }
+    ],
+    "slots": [],
+    "methods": [
+      {
+        "name": "iframe-ref",
+        "description": "iframe DOM 元素引用",
+        "parameters": [
+          {
+            "raw": "Readonly<ShallowRef<HTMLIFrameElement \\| null>>"
+          }
+        ]
+      },
+      {
+        "name": "post-message",
+        "description": "向内嵌页面发送消息",
+        "parameters": [
+          {
+            "raw": "(message: any, targetOrigin: string) => void"
+          }
+        ]
+      },
+      {
+        "name": "reload",
+        "description": "刷新内嵌页面",
+        "parameters": [
+          {
+            "raw": "() => void"
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "name": "test",
+        "title": "基础用法",
+        "sourcePath": "docs/components/web-view/test.vue",
+        "docUrl": "http://www.liuyun.pro/yun-elp/components/web-view/"
       }
     ]
   }

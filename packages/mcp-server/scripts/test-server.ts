@@ -57,6 +57,17 @@ try {
   });
   Array.isArray(componentExamples.content) && console.info("组件示例获取成功，数据长度:", componentExamples.content[0].text.length);
 
+  // 测试 4.1: 按需获取组件示例源码
+  console.info("\n--- 测试 4.1: 按需获取 y-button 示例源码 ---");
+  const componentExampleSource = await client.callTool({
+    name: "get_component_examples",
+    arguments: {
+      tagName: "y-button",
+      includeSource: true,
+    },
+  });
+  Array.isArray(componentExampleSource.content) && console.info("组件示例源码获取成功，数据长度:", componentExampleSource.content[0].text.length);
+
   // 测试 5: 验证 get_component 返回的完整信息（包含 props、events、slots、methods）
   console.info("\n--- 测试 5: 验证 get_component 返回的完整信息 ---");
   const fullComponentInfo = await client.callTool({

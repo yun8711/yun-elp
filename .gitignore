@@ -37,6 +37,9 @@ pnpm-debug.log*
 # TypeScript
 *.tsbuildinfo
 
+# MCP 派生示例
+packages/mcp-server/src/examples
+
 # 缓存
 .sass-cache
 .stylelintcache

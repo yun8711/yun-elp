@@ -3,38 +3,42 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import componentObject from '../src/metadata/components.ts'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '..')
+const repoRoot = path.resolve(projectRoot, '../..')
 
-// 复制示例文档目录
-const srcExamplesDir = path.join(projectRoot, 'src', 'examples')
 const distExamplesDir = path.join(projectRoot, 'dist', 'examples')
 
-console.log('📁 Copying examples...')
+console.log('📁 Generating examples...')
 
-// 复制示例文档目录
-if (fs.existsSync(srcExamplesDir)) {
-  fs.mkdirSync(distExamplesDir, { recursive: true })
+fs.rmSync(distExamplesDir, { recursive: true, force: true })
+fs.mkdirSync(distExamplesDir, { recursive: true })
 
-  function copyDir(src: string, dest: string) {
-    const entries = fs.readdirSync(src, { withFileTypes: true })
+let generatedCount = 0
 
-    for (const entry of entries) {
-      const srcPath = path.join(src, entry.name)
-      const destPath = path.join(dest, entry.name)
-
-      if (entry.isDirectory()) {
-        fs.mkdirSync(destPath, { recursive: true })
-        copyDir(srcPath, destPath)
-      } else {
-        fs.copyFileSync(srcPath, destPath)
-      }
-    }
+for (const component of Object.values(componentObject)) {
+  const examples = component.examples || []
+  if (examples.length === 0) {
+    continue
   }
 
-  copyDir(srcExamplesDir, distExamplesDir)
-  console.log('✅ Examples directory copied')
+  const componentExamplesDir = path.join(distExamplesDir, component.tagName)
+  fs.mkdirSync(componentExamplesDir, { recursive: true })
+
+  for (const example of examples) {
+    const sourcePath = path.join(repoRoot, example.sourcePath)
+
+    if (!fs.existsSync(sourcePath)) {
+      console.warn(`⚠️ 示例文件不存在: ${sourcePath}`)
+      continue
+    }
+
+    fs.copyFileSync(sourcePath, path.join(componentExamplesDir, `${example.name}.vue`))
+    generatedCount += 1
+  }
 }
-console.log('✅ Data directory copied successfully!')
+
+console.log(`✅ Examples generated: ${generatedCount}`)

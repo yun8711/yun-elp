@@ -22,8 +22,6 @@ const DOCS_DIR_ZH = join(projectPath, 'docs/components');
 const WEB_TYPES_PATH = join(projectPath, 'dist/web-types.json');
 // 输出组件数据文件路径
 const OUTPUT = resolve(projectPath, 'packages/mcp-server/src/metadata/components.ts');
-// 输出文档和类型文件目录
-const DOCS_OUTPUT_DIR = resolve(projectPath, 'packages/mcp-server/src/examples');
 
 // =========================================================
 // 读取 web-types.json
@@ -171,45 +169,6 @@ function parseMarkdown(md: string) {
 }
 
 // =========================================================
-// 整合示例文件到 markdown
-// =========================================================
-function buildExamplesMarkdown(
-  componentName: string,
-  examples: Array<{ title: string; description: string; file: string }>
-): string {
-  const componentDocDir = join(DOCS_DIR_ZH, componentName);
-  const lines: string[] = [];
-
-  for (const example of examples) {
-    if (!example.title || !example.file) continue;
-
-    // 添加示例标题
-    lines.push(`### ${example.title}`);
-    lines.push('');
-
-    // 添加示例描述（如果有）
-    if (example.description) {
-      lines.push(example.description);
-      lines.push('');
-    }
-
-    // 读取示例文件
-    const exampleFilePath = join(componentDocDir, `${example.file}.vue`);
-    if (fs.existsSync(exampleFilePath)) {
-      const exampleContent = fs.readFileSync(exampleFilePath, 'utf-8');
-      lines.push('```vue');
-      lines.push(exampleContent);
-      lines.push('```');
-      lines.push('');
-    } else {
-      console.warn(`⚠️ 示例文件不存在: ${exampleFilePath}`);
-    }
-  }
-
-  return lines.join('\n');
-}
-
-// =========================================================
 // 将 kebab-case 转换为 PascalCase（如 text-tooltip -> TextTooltip）
 // =========================================================
 function kebabToPascal(str: string): string {
@@ -265,9 +224,6 @@ function generate() {
   const components: Record<string, ComponentModel> = {};
 
   for (const comp of componentNames) {
-    const compDir = join(COMPONENTS_DIR, comp);
-    const tsPath = join(compDir, 'src', `${comp}.ts`);
-
     // 查找 web-types entry（支持 YComponentName 格式）
     // 目录名是 kebab-case（如 text-tooltip），需要转换为 YTextTooltip 格式匹配
     const expectedComponentName = `Y${kebabToPascal(comp)}`;
@@ -320,32 +276,6 @@ function generate() {
     // Doc URL
     const docUrl = wtEntry['doc-url'] || `https://your-project-docs.com/component/${comp}`;
 
-    // 保存示例 markdown 和 TS 文件到输出目录
-    fs.mkdirSync(DOCS_OUTPUT_DIR, { recursive: true });
-
-    // 只有当有示例时才输出 markdown 文件
-    if (mdParsed.examples.length > 0) {
-      const examplesMd = buildExamplesMarkdown(comp, mdParsed.examples);
-      const docFileName = `${componentName}.md`;
-      const docFilePath = join(DOCS_OUTPUT_DIR, docFileName);
-      fs.writeFileSync(docFilePath, examplesMd, 'utf-8');
-    }
-
-    // 保存 TS 文件为 .ts.txt 格式，避免被 TypeScript 编译器处理
-    const tsFileName = `${componentName}.ts.txt`;
-    const tsOutputPath = join(DOCS_OUTPUT_DIR, tsFileName);
-    if (fs.existsSync(tsPath)) {
-      // 读取源文件内容并添加注释说明
-      let tsContent = fs.readFileSync(tsPath, 'utf-8');
-      // 在文件开头添加注释，说明这些导入仅用于类型定义，不会被实际解析
-      if (!tsContent.includes('// NOTE: 此文件仅作为文本内容使用')) {
-        tsContent = `// NOTE: 此文件仅作为文本内容使用，不会被 TypeScript 编译或导入
-// 文件中的导入路径可能不正确，但不影响使用，因为此文件仅作为字符串内容返回
-${tsContent}`;
-      }
-      fs.writeFileSync(tsOutputPath, tsContent, 'utf-8');
-    }
-
     // 构建 ComponentModel
     // description: 保留 web-types.json 中的简短描述
     // detailedDescription: 使用 markdown 中的 "## 说明" 部分作为详细说明
@@ -357,7 +287,14 @@ ${tsContent}`;
       props,
       events,
       slots,
-      methods
+      methods,
+      examples: mdParsed.examples.map(example => ({
+        name: example.file,
+        title: example.title || example.file,
+        description: example.description || undefined,
+        sourcePath: `docs/components/${comp}/${example.file}.vue`,
+        docUrl
+      }))
     };
   }
 

@@ -1,28 +1,15 @@
 ---
 title: MCP 服务
-description: 如何在 AI IDE 中使用 yun-elp 组件库的 MCP 服务
+description: yun-elp 组件库 MCP 服务提供的能力
 ---
 
-# MCP 服务
-
-yun-elp 组件库提供了 MCP (Model Context Protocol) 服务，让您可以在 AI IDE（如 Cursor）中更方便地使用组件库。
-
-## 什么是 MCP？
-
-MCP (Model Context Protocol) 是由 Anthropic 提出的模型上下文协议，旨在为大语言模型与外部数据源、工具和服务提供统一的通信框架。通过 MCP 服务，AI 助手可以：
-
-- 查询组件库的所有组件
-- 获取组件的详细 API 文档
-- 搜索组件
-- 获取组件的使用示例
+yun-elp 组件库提供了 MCP (Model Context Protocol) 服务，面向 Cursor 等 AI IDE 暴露组件库文档、API 与示例查询能力。
 
 ## 安装和配置
 
-yun-elp-mcp 是一个单独的包
+`yun-elp-mcp` 是独立的 MCP 服务包，推荐通过 `npx` 使用，客户端会自动拉取最新版本。
 
-**在 Cursor 中配置**
-
-在 Cursor 的设置中，找到 MCP 服务器配置（通常在 `~/.cursor/mcp.json` 或 Cursor 设置中），添加以下配置即可：
+在 Cursor 等 MCP 客户端中添加以下配置：
 
 ```json
 {
@@ -35,71 +22,70 @@ yun-elp-mcp 是一个单独的包
 }
 ```
 
-配置完成后，您可以在 Cursor 中直接询问 AI 助手关于组件库的问题，例如：
+## 功能概览
 
-- "列出所有可用的组件"
-- "告诉我 button 组件的使用方法"
-- "搜索表格相关的组件"
-- "给我一个 dialog 组件的示例代码"
+通过 yun-elp MCP 服务，AI 助手可以：
 
-AI 助手会自动调用 MCP 服务获取组件信息，并为您提供准确的答案。
+- 列出所有 yun-elp 组件
+- 按关键词搜索组件
+- 获取组件 Props、Events、Slots、Methods 等 API 信息
+- 获取组件示例索引，并按需读取示例源码
 
-## MCP 工具说明
+## 可用工具
 
-MCP 服务器提供了以下工具：
+### `list_components`
 
-### 1. list_components
+列出所有可用的 yun-elp 组件，返回组件标签名、描述与文档地址。
 
-列出所有可用的组件。
+适合用于：
 
-**示例：**
-```
-列出所有组件
-```
+- 快速了解组件库包含哪些组件
+- 让 AI 在生成页面前先选择合适组件
 
-### 2. get_component_info
+### `search_components`
 
-获取指定组件的详细信息，包括：
-- 组件名称和描述
-- Attributes（属性）
-- Events（事件）
-- Slots（插槽）
-- Exposes（暴露的方法）
+按关键词搜索组件，匹配组件标签名与描述。
 
-**参数：**
-- `componentName` (必需): 组件名称，例如 `button`, `table`, `dialog`
+参数：
 
-**示例：**
-```
-获取 button 组件的详细信息
-```
+- `keyword`：搜索词
+- `limit`：最大返回数量，可选
 
-### 3. search_components
+适合用于：
 
-根据关键词搜索组件。
+- 按业务语义查找组件，例如表格、弹窗、表单
+- 在不确定组件名称时让 AI 先检索候选组件
 
-**参数：**
-- `query` (必需): 搜索关键词
+### `get_component`
 
-**示例：**
-```
-搜索表格相关的组件
-```
+获取指定组件的详细信息。
 
-### 4. get_component_example
+参数：
 
-获取组件的示例代码。
+- `tagName`：组件标签名，例如 `y-button`、`y-table`
 
-**参数：**
-- `componentName` (必需): 组件名称
-- `exampleName` (可选): 示例名称，如果不提供则返回所有示例
+返回内容：
 
-**示例：**
-```
-获取 button 组件的示例代码
-```
+- 组件标签名、描述、详细说明与文档地址
+- Props、Events、Slots、Methods
+- 示例索引
 
-## 更多信息
+适合用于：
 
-- [MCP 官方文档](https://modelcontextprotocol.io/)
-- [Cursor MCP 文档](https://docs.cursor.com/mcp)
+- 查询组件完整 API
+- 让 AI 按组件约束生成更准确的 Vue 示例代码
+
+### `get_component_examples`
+
+获取指定组件的使用示例。
+
+参数：
+
+- `tagName`：组件标签名，例如 `y-dialog`
+- `exampleName`：示例名称，可选
+- `includeSource`：是否返回示例源码，默认 `false`
+
+适合用于：
+
+- 查看组件有哪些示例
+- 在需要时让 AI 读取指定示例源码作为参考

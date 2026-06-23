@@ -114,32 +114,32 @@ pnpm publish
 
 ### MCP 包（`yun-elp-mcp`）
 
-MCP 服务包位于 `packages/mcp-server/`，npm 包名为 **`yun-elp-mcp`**。版本号与主包一致，由 `pnpm release` 通过 `scripts/sync-version.ts` 自动同步到 `packages/mcp-server/package.json`；`pnpm release:mcp` 发布前也会再次执行同步。
+MCP 服务包位于 `packages/mcp-server/`，npm 包名为 **`yun-elp-mcp`**。版本号与主包一致，由 `pnpm release` 通过 `scripts/sync-version.ts` 自动同步到 `packages/mcp-server/package.json`。
 
-npm 发布与主包**分开**执行（主包走 `dist/`，MCP 走子包自身），但版本号始终跟随根目录。
+npm 发布与主包**分开**执行（主包走 `dist/`，MCP 走子包自身），但版本号始终跟随根目录。若本次不重新执行 `pnpm release`，发 MCP 前需确认 `packages/mcp-server/package.json` 的 `version` 已与根目录一致，必要时先执行 `pnpm sync-version` 并提交变更。
 
 文档站 AI 资源（`pnpm docs:ai` → `docs/public/llms.txt` 等）与 MCP 数据是两条链路；更新组件文档后，若希望 Cursor 等 IDE 通过 MCP 查到最新 API，需单独执行下面的 MCP 发布流程。
 
 #### 发布流程
 
 ```bash
-# 前置1. 先完成主包发版，如果主包刚发版则不需要重复执行（版本号会同步到 mcp-server）
+# 前置1. 先完成主包版本升级；如果主包刚发版则不需要重复执行
 pnpm release
 
 # 前置2. 主包构建（extract 依赖 dist/web-types.json）
 pnpm build
 
 # 1. 从 docs/components/*/index.md 组件文档抽取 MCP 元数据与示例
-pnpm -C packages/mcp-server extract
+pnpm mcp:extract
 
 # 2. 本地验证（可选）
-pnpm -C packages/mcp-server test
+pnpm mcp:test
 
-# 3. 提交 extract 产物（src/metadata/components.ts、src/examples/*）
+# 3. 提交版本同步与 extract 产物（src/metadata/components.ts、src/examples/*）
 pnpm commit
 
-# 4. 发布到 npm（会先 sync-version，prepublishOnly 会自动 build）
-pnpm release:mcp
+# 4. 发布到 npm（子包 prepublishOnly 会自动 build）
+pnpm mcp:publish
 ```
 
 #### 注意事项
@@ -147,6 +147,7 @@ pnpm release:mcp
 - MCP 版本**跟随主包**，无需手动改 `packages/mcp-server/package.json` 的 `version`
 - 发 MCP 前应先完成 `pnpm release`，确保 npm 上主包与 MCP 版本一致
 - `extract` **不会**在 `publish` 时自动执行，文档变更后必须先 `extract` 并提交，再发版
+- `pnpm mcp:publish` 只负责发布 `yun-elp-mcp` 子包，不会重新执行 `pnpm release`
 - 发布前需已登录 npm：`npm login --registry=https://registry.npmjs.org/`
 - 新增组件后若 MCP 查不到，通常是漏跑 `extract` 或未 commit 抽取产物
 
