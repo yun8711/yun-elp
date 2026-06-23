@@ -2,85 +2,75 @@
 title: 设计
 ---
 
-<h1>kd-elp 项目设计</h1>
+# 设计
 
-### 写在前面
+## 设计目标
 
-kd-elp 旨在提供一个贴近业务、简单易用、规范的、易与维护的业务组件库。
+yun-elp 的目标不是重新造一套基础组件，而是在 Element Plus 之上沉淀一层更适合业务系统复用的封装。
 
-kd-elp是基于element-plus组件库进行二次封装的，所以在整体设计上与github上那些独立的组件库有所不同：简化了一些底层的实现，增加了一些业务相关的功能。
-在前期架构设计过程中，认真调研了一些技术方案，大量参阅了市面上现有的组件库实现，并改进了kd-components中暴露出的一些问题，力求将kd-elp打造成一个规范的、高质量的、可维护的项目。
+核心原则：
 
-开发组件库本身是一个学习进步的过程，不要仅仅是为了新增组件而新增组件，希望各位参与者可以在新增组件过程中学习到一些东西来提升自己的技术。
+- 优先复用 Element Plus 的成熟能力
+- 只对高频业务场景做明确封装
+- 保持类型、文档、示例、测试同步维护
+- 保持发布产物、文档站、AI 资源与 MCP 数据同源
 
-如果在开发阶段的某个功能遇到了困难，你可以发起一个讨论，或者也可以直接在群里求助，当然去学习参考其它开源库也是可以的，只是希望你在写的时候，是已经明确了需求，理解了要解决的问题，自己来动手实践的。
+## 当前仓库结构
 
-### 前置知识
+项目采用 pnpm workspace monorepo，当前主要目录如下：
 
-kd-elp组件库项目使用了以下技术栈：
-
-- 核心依赖库：Vue 3.3+、typescript 5.0+
-- 基础组件库：element-plus
-- 代码规范：eslint、prettier、stylelint、commitlint、cz-git、lint-staged、husky等
-- 包管理工具：pnpm 8.0+
-- 构建工具：vite 5.0+、rollup
-- css预处理：scss（包含一些高阶语法）
-- 组件测试：vitest、@vue/test-utils
-- 文档编写：vitepress
-- 其他：vue3周边生态、nodejs、esm规范等
-
-由此可见要实现一个完整的组件库项目需求较多的知识储备，不管你是想要了解完整的技术实现，还是只想要参与组件的开发，都需要对上面所列出的技术栈有一定的了解。
-
-另外，要善于使用如chat GPT、copilot等辅助工具，它们可以帮助你快速的编写代码，但是也要注意这些工具生成的代码是否符合规范，是否需要进行调整。
-
-### 项目结构
-
-整体项目是一个monorepo，包含了组件库源码、组件库文档、组件库示例、项目辅助工具等多个子项目。
-
-```bash
-├── .husky                                 # git hook
-├── dist                                   # 构建输出目录
-├── docs                                   # 组件库文档项目目录
-│   ├── docs
-│   │   ├── .vitepress                     # vitepress配置目录
-│   │   ├── components                     # 组件文档目录
-│   │   │   ├── xxx                        # 组件目录，每个组件一个目录
-│   │   │   │   ├── examples
-│   │   │   │   │   ├── basic.vue          # 组件示例代码，js版本
-│   │   │   │   │   ├── basic.ts.vue       # 组件示例代码，ts版本
-│   │   │   │   │   └── ...
-│   │   │   │   └── index.md
-│   │   │   └── ...
-│   │   ├── guide                           # 指南文档目录
-│   │   └── public                          # 静态资源目录
-│   └── ...
-├── internal                                # 项目内部辅助工具目录
+```text
+.
+├── docs                     # VitePress 文档站
 ├── packages
-│   ├── elp                                 # kd-elp 组件库源码目录
-│   │   ├── _xxx                            # 组件库内部组件目录，以_开头，不对外暴露
-│   │   ├── xxx                             # 组件目录，每个组件一个目录
-│   │   │   ├── __test__                    # 组件测试用例目录
-│   │   │   ├── src                         # 组件源码目录
-│   │   │   ├── style                       # 组件样式目录
-│   │   │   └── index.ts                    # 组件入口文件
-│   │   └── ...
-│   └── ...
-├── playground                              # 组件库开发示例项目目录
-├── scripts                                 # 脚本目录
-├── ...                                     # 其他配置文件
+│   ├── components           # 组件源码、hooks、locale、测试
+│   ├── elp                  # 对外发布包 package.json 与 exports
+│   ├── mcp-server           # yun-elp-mcp 服务包
+│   ├── resolver             # unplugin-vue-components 解析器
+│   └── theme-chalk          # 样式产物与主题入口
+├── play                     # 本地调试项目
+└── scripts                  # 构建、同步、生成脚本
 ```
 
-### 命令脚本说明
+## 包职责划分
 
-在项目根目录下的`package.json`文件中，定义了整体项目所需要的命令脚本，可以帮助快速的执行一些常用的操作。以下是主要的命令脚本说明：
+### `packages/components`
 
-| script字段 | 说明                                     |
-| ---------- | ---------------------------------------- |
-| bootstrap  | 安装项目依赖                             |
-| new        | 创建一个新的组件                         |
-| play       | 启动组件库开发示例项目                   |
-| docs       | 启动组件库文档项目                       |
-| commit     | 进行代码提交                             |
-| lint       | 进行代码检查                             |
-| clean      | 删除根目录及所有子项目的node_modules目录 |
-| build      | 进行项目构建                             |
+- 存放 `Y*` 组件源码
+- 提供 hooks、locale、utils
+- 维护 Vitest 测试
+- 作为构建时的核心源码输入
+
+### `packages/elp`
+
+- 定义最终 npm 包名 `yun-elp`
+- 维护 `exports`、`peerDependencies`、`optionalDependencies`
+- 构建时由脚本复制到 `dist/package.json`
+
+### `packages/resolver`
+
+- 提供 `YunElpResolver`
+- 用于 `unplugin-vue-components` 自动解析 `Y*` 组件
+- 可按配置注入 CSS 或 SCSS 样式副作用
+
+### `packages/theme-chalk`
+
+- 存放组件样式源码
+- 产出 `dist/theme-chalk/*`
+- 当前内置主题入口为 `themes/kd.scss`
+
+### `packages/mcp-server`
+
+- 提供独立 npm 包 `yun-elp-mcp`
+- 读取组件元数据与示例，供 Cursor 等 MCP 客户端查询
+- 与主包分开发版，但版本号保持同步
+
+## 文档与 AI 资源同源策略
+
+组件文档写在 `docs/components/*/index.md`，它们不只是面向人读：
+
+- 文档站直接渲染这些内容
+- `pnpm docs:ai` 会生成 `llms.txt`、`llms-full.txt`、`metadata/components.json`
+- `pnpm mcp:extract` 会从组件文档与示例中抽取 MCP 所需数据
+
+因此，新增或修改组件时，文档本身就是一等产物，而不是发布后的补充材料。

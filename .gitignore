@@ -46,6 +46,14 @@ packages/mcp-server/src/examples
 .eslintcache
 # VitePress缓存
 docs/.vitepress/cache/
+docs/.vitepress/.temp/
+
+# 文档站 AI/SEO 派生产物
+docs/public/llms.txt
+docs/public/llms-full.txt
+docs/public/metadata/components.json
+docs/public/robots.txt
+docs/public/sitemap.xml
 
 # 操作系统
 .DS_Store

@@ -1,4 +1,4 @@
-# YUN-ELP 组件库
+# yun-elp 组件库
 
 基于 Element Plus 的业务组件库，采用 Vue 3.5+、TypeScript、Vite 8 构建。
 
@@ -18,25 +18,33 @@
 
 ```bash
 # 使用 npm
-npm install yun-elp element-plus vue
+npm install yun-elp element-plus vue vue-router lodash-es
 
 # 使用 yarn
-yarn add yun-elp element-plus vue
+yarn add yun-elp element-plus vue vue-router lodash-es
 
 # 使用 pnpm
-pnpm add yun-elp element-plus vue
+pnpm add yun-elp element-plus vue vue-router lodash-es
+```
+
+按需安装可选依赖：
+
+```bash
+pnpm add cron-parser echarts
 ```
 
 ## 兼容策略
 
-YUN-ELP 基于 Element Plus 二次封装，采用单线维护策略，仅维护当前最新版本。
+yun-elp 基于 Element Plus 二次封装，采用单线维护策略，仅维护当前最新版本。
 
 当前版本要求：
 
-- Vue: ^3.5.0
+- Vue: ^3.5.34
 - Element Plus: ^2.14.0
+- Vue Router: ^4.5.0 || ^5.0.0
+- lodash-es: ^4.17.21
 
-组件库通过 peerDependencies 声明基础库版本范围，使用方需要自行安装兼容版本的 Vue 与 Element Plus。
+组件库通过 `peerDependencies` 声明基础库版本范围，使用方需要自行安装兼容版本的基础依赖。
 
 ## 使用方法
 

@@ -1,39 +1,25 @@
+---
+title: 介绍
+---
+
 # 介绍
 
-YUN-ELP 是一个基于 Element Plus 的业务组件库，专为企业内部业务场景设计。它在 Element Plus 的基础上进行二次封装，提供了更符合业务需求的组件和工具函数。
+yun-elp 是一个基于 Element Plus 的 Vue 3 业务组件库，面向中后台与通用业务页面场景，提供 `y-` 前缀组件、全局配置能力、主题样式、类型声明，以及面向 AI 的文档与 MCP 支持。
 
-## 特性
+## 你可以在这里找到什么
 
-- **基于 Element Plus**：继承 Element Plus 的设计风格和使用体验
-- **TypeScript 支持**：使用 TypeScript 开发，提供完整的类型定义
-- **业务定制**：针对特定业务场景定制，提高开发效率
-- **易于扩展**：组件设计考虑扩展性，便于根据业务需求进行二次开发
+- [总览](./overview)：项目定位、技术栈、兼容范围
+- [快速开始](./quickstart)：安装、导入、IDE 配置
+- [主题定制](./theme)：内置主题和自定义方式
+- [国际化](./i18n)：`YAppWrap` 与 Element Plus 联动配置
+- [开发流程](./development)：本地开发、测试、构建、提交流程
+- [设计](./design)：monorepo 结构与包职责
+- [AI 使用指南](./ai-usage)：给 AI 助手/代码生成工具的使用约定
+- [MCP 服务](./mcp)：`yun-elp-mcp` 的能力与配置
 
-## 技术栈
+## 适用场景
 
-- Vue 3.5+
-- TypeScript
-- Vite 5
-- Sass
-- Element Plus
-
-## 兼容策略
-
-YUN-ELP 基于 Element Plus 二次封装，采用单线维护策略，仅维护当前最新版本。
-
-当前版本要求：
-
-- Vue: ^3.5.0
-- Element Plus: ^2.14.0
-
-组件库通过 peerDependencies 声明基础库版本范围，使用方需要自行安装兼容版本的 Vue 与 Element Plus。
-
-## 推荐 IDE 设置
-
-我们推荐使用 [VSCode](https://code.visualstudio.com/) 作为开发 IDE，并安装以下插件：
-
-- [Vue Language Features (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
-- [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin)
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
+- 基于 Vue 3 + Element Plus 的业务系统
+- 需要复用表单、表格、弹窗、描述、页面结构等业务封装组件
+- 希望同时保留 Element Plus 基础能力与类型系统
+- 希望让 AI 工具更准确地理解组件库 API 与示例

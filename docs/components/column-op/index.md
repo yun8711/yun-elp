@@ -31,7 +31,7 @@ column-op/test
 
 - boolean值表示按钮是否禁用
 - string值表示按钮禁用时的提示，未明确设置时会使用默认提示文本
-- ColumnOp 组件的 `disabledDefaultTip` 属性和 `appWrap` 组件的 `columnOp.disabledDefaultTip` 都可以设置按钮禁用时的默认提示文本，前者优先级较高
+- ColumnOp 组件的 `disabledDefaultTip` 属性和 `AppWrap` 中对应的全局配置项都可以设置按钮禁用时的默认提示文本，前者优先级较高
 
 :::demo
 

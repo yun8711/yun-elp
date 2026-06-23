@@ -7,7 +7,7 @@ description: 向后代组件传递全局配置
 
 ## 说明
 
-AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
+AppWrap 是一个应用容器，一般用在应用最外层，主要作用是：
 
 （1）向内部的后代组件（`element-plus` 及 `yun-elp`）传递默认配置，方便设置组件属性的默认值，简化配置
 
@@ -24,20 +24,21 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | 属性名          | 说明                                                                                | 类型                                | 默认值  |
 | --------------- | ----------------------------------------------------------------------------------- | ----------------------------------- | ------- |
 | elpConfig       | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`ElConfigProviderProps`    | —       |
-| locale          | yun-elp的语言配置                                                                   | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
-| borderLabel     | y-border-label组件全局配置，[见下表](#border-label-attribute)                       | ^[object]`Ref<record<string, any>>` | —       |
-| pageHeader      | y-page-header组件全局配置，[见下表](#page-header-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
-| pageFooter      | y-page-footer组件全局配置，[见下表](#page-footer-attribute)                         | ^[object]`Ref<record<string, any>>` | —       |
-| button          | y-button组件全局配置，[见下表](#button-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
-| drawer          | y-drawer组件全局配置，[见下表](#drawer-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
-| dialog          | y-dialog组件全局配置，[见下表](#dialog-attribute)                                   | ^[object]`Ref<record<string, any>>` | —       |
-| empty           | y-empty组件全局配置，[见下表](#empty-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
-| textTooltip     | y-text-tooltip组件全局配置，[见下表](#desc-attribute)                               | ^[object]`Ref<record<string, any>>` | —       |
-| desc            | y-desc组件全局配置，[见下表](#desc-attribute)                                       | ^[object]`Ref<record<string, any>>` | —       |
-| table           | y-table组件全局配置，[见下表](#table-attribute)                                     | ^[object]`Ref<record<string, any>>` | —       |
-| columnForm      | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)        | ^[object]`Ref<record<string, any>>` | —       |
-| columnOp | y-column-op 组件全局配置，[见下表](#column-op-attribute)              | ^[object]`Ref<record<string, any>>` | —       |
-| echarts         | y-echarts 组件全局配置，[见下表](#echarts-attribute)                                | ^[object]`Ref<record<string, any>>` | —       |
+| locale          | yun-elp 的语言配置                                                                  | ^[enum]`'zh-cn' \| 'en'`            | `zh-cn` |
+| borderLabel     | y-border-label 组件全局配置，[见下表](#border-label-attribute)                      | ^[object]                           | —       |
+| pageHeader      | y-page-header 组件全局配置，[见下表](#page-header-attribute)                        | ^[object]                           | —       |
+| pageFooter      | y-page-footer 组件全局配置，[见下表](#page-footer-attribute)                        | ^[object]                           | —       |
+| button          | y-button 组件全局配置，[见下表](#button-attribute)                                  | ^[object]                           | —       |
+| drawer          | y-drawer 组件全局配置，[见下表](#drawer-attribute)                                  | ^[object]                           | —       |
+| dialog          | y-dialog 组件全局配置，[见下表](#dialog-attribute)                                  | ^[object]                           | —       |
+| empty           | y-empty 组件全局配置，[见下表](#empty-attribute)                                    | ^[object]                           | —       |
+| textTooltip     | y-text-tooltip 组件全局配置，[见下表](#text-tooltip-attribute)                      | ^[object]                           | —       |
+| desc            | y-desc 组件全局配置，[见下表](#desc-attribute)                                      | ^[object]                           | —       |
+| pop             | y-pop 组件全局配置，[见下表](#pop-attribute)                                        | ^[object]                           | —       |
+| table           | y-table 组件全局配置，[见下表](#table-attribute)                                    | ^[object]                           | —       |
+| columnForm      | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)         | ^[object]                           | —       |
+| columnOp        | y-column-op 组件全局配置，[见下表](#column-op-attribute)                             | ^[object]                           | —       |
+| echarts         | y-echarts 组件全局配置，[见下表](#echarts-attribute)                                | ^[object]                           | —       |
 
 #### border-label Attribute
 
@@ -83,7 +84,7 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | confirmProps | 确认按钮属性           | ^[object]`YButtonProps`  | `{type:'primary'}` |
 | cancelText   | 取消按钮文本           | ^[string]                | `'取消'`           |
 | cancelProps  | 取消按钮属性           | ^[object]`YButtonProps`  | `{type:'default'}` |
-| titleStyle   | 组件默认是否显示下边框 | ^[object]`CSSProperties` | —                  |
+| titleStyle   | 标题文本样式           | ^[object]`CSSProperties` | —                  |
 
 #### dialog Attribute
 
@@ -126,21 +127,37 @@ AppWrap是一个应用容器，一般用在应用最外层，主要作用是：
 | contentAlign | content 文本对齐方式         | ^[enum]`'left' \| 'center' \| 'right'` | `'left'` |
 | emptyText    | content 内容为空时显示的内容 | ^[string]                              | `''`     |
 
+#### Pop Attribute
+
+| 参数         | 描述                                                                                                | 类型                                                                                                                                                                        | 默认值  |
+| ------------ | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| confirmText  | 确认按钮文本                                                                                         | ^[string]                                                                                                                                                                   | —       |
+| confirmProps | 确认按钮属性                                                                                         | ^[object]`YButtonProps`                                                                                                                                                     | —       |
+| cancelText   | 取消按钮文本                                                                                         | ^[string]                                                                                                                                                                   | —       |
+| cancelProps  | 取消按钮属性                                                                                         | ^[object]`YButtonProps`                                                                                                                                                     | —       |
+| tipPlacement | tooltip 显示位置                                                                                     | ^[enum]`'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | —       |
+| tipProps     | tooltip 配置属性，详见 [el-tooltip](https://element-plus.org/zh-CN/component/tooltip.html#attributes) | ^[object]`Partial<ElTooltipProps>`                                                                                                                                          | —       |
+| popWidth     | popover 宽度                                                                                         | ^[number]                                                                                                                                                                   | —       |
+| popTitle     | popover 标题                                                                                         | ^[string]                                                                                                                                                                   | —       |
+| popPlacement | popover 显示位置                                                                                     | ^[enum]`'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | —       |
+| popContent   | popover 内容                                                                                         | ^[string]                                                                                                                                                                   | —       |
+| popProps     | popover 配置属性，详见 [el-popover](https://element-plus.org/zh-CN/component/popover.html#attributes) | ^[object]`Partial<PopoverProps>`                                                                                                                                           | —       |
+
 #### table Attribute
 
 | 参数            | 描述                  | 类型                         | 默认值   |
 | --------------- | --------------------- | ---------------------------- | -------- |
 | emptyProps      | 空数据时 y-empty 配置 | ^[object]`YEmptyProps`       | `'auto'` |
-| paginationProps | label 样式            | ^[object]`ElPaginationProps` | `{}`     |
+| paginationProps | 分页配置              | ^[object]`ElPaginationProps` | `{}`     |
 
-#### columnForm Attribute
+#### Column Form Attribute
 
 | 参数        | 描述                           | 类型                                                                                                                                                                        | 默认值                           |
 | ----------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
 | placement   | 错误提示tooltip弹出位置        | ^[enum]`'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | `'auto'`                         |
 | popperClass | 错误提示tooltip 的 popper 类名 | ^[string]                                                                                                                                                                   | `'y-column-form__error-tooltip'` |
 
-#### columnOperation Attribute
+#### Column Op Attribute
 
 | 参数               | 描述                                | 类型      | 默认值 |
 | ------------------ | ----------------------------------- | --------- | ------ |

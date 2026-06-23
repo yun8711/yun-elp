@@ -7,7 +7,7 @@ description: 定时选择器
 
 ## 说明
 
-基于 [`cron-parser^5.3.1`](https://www.npmjs.com/package/cron-parser) 封装的定时选择器组件，支持多种调度周期（分钟、小时、日、周、月、年）的配置，可以生成标准的 Cron 表达式，并提供执行时间的预览功能。
+基于 [`cron-parser^5.5.0`](https://www.npmjs.com/package/cron-parser) 封装的定时选择器组件，支持多种调度周期（分钟、小时、日、周、月、年）的配置，可以生成标准的 Cron 表达式，并提供执行时间的预览功能。
 
 注意：需要单独安装 `cron-parser`
 

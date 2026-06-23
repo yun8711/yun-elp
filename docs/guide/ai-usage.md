@@ -14,16 +14,20 @@ yun-elp 是基于 Element Plus 的 Vue 3 业务组件库，不是 Element Plus �
 - Vue 3.5+
 - Element Plus 2.14+
 - TypeScript 5+
-- Vite 5+
-- pnpm 9+
+- Vite 8+
+- pnpm 10+
 
 ## 安装
 
 ```shell
-pnpm add yun-elp vue element-plus @element-plus/icons-vue lodash-es @vueuse/core
+pnpm add yun-elp vue element-plus vue-router lodash-es
 ```
 
-使用 `cron-picker`、`echarts` 等依赖额外包的组件时，再按需安装对应依赖。
+可选依赖按需补充：
+
+```shell
+pnpm add cron-parser echarts
+```
 
 ## 推荐导入方式
 
@@ -51,7 +55,14 @@ export default {
         })
       ]
     })
-  ]
+  ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@use "yun-elp/themes/kd.scss" as *;'
+      }
+    }
+  }
 };
 ```
 
@@ -86,12 +97,13 @@ createApp(App).use(YunElp).mount('#app');
 
 ## 生成代码约定
 
-- 使用 `y-` 组件前先确认组件文档中存在对应组件。
-- 不要猜测未在文档中声明的 yun-elp 私有属性、事件、插槽和暴露方法。
-- 未被 yun-elp 扩展的 Element Plus API，按 Element Plus 官方组件规则使用。
-- 需要业务封装时优先使用 yun-elp 组件，需要基础组件能力时继续使用 Element Plus 组件。
-- 示例代码应使用 `<script setup lang="ts">`，并提供完整的响应式数据结构。
-- 表单类组件优先使用 `y-form` + `y-form-item`，输入框、选择器等字段控件继续使用 Element Plus 原组件。
+- 使用 `y-` 组件前先确认组件文档中存在对应组件
+- 不要猜测未在文档中声明的 yun-elp 私有属性、事件、插槽和暴露方法
+- 未被 yun-elp 扩展的 Element Plus API，按 Element Plus 官方组件规则使用
+- 需要业务封装时优先使用 yun-elp 组件，需要基础组件能力时继续使用 Element Plus 组件
+- 示例代码应使用 `<script setup lang="ts">`，并提供完整的响应式数据结构
+- 表单类组件优先使用 `y-form` + `y-form-item`，输入框、选择器等字段控件继续使用 Element Plus 原组件
+- 若页面会使用 `y-page-header`、`y-column-op` 等依赖路由上下文的能力，应确保项目已安装并接入 `vue-router`
 
 ## AI 可读取资源
 

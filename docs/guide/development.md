@@ -6,50 +6,106 @@ title: 开发流程
 
 ## 环境准备
 
-环境要求 nodejs>=18，pnpm>=9
+- Node.js `>= 18`
+- 推荐 `pnpm 10+`
+- 仓库使用 pnpm workspace，必须用 `pnpm` 安装依赖
 
-全局安装 czg：`pnpm add -g czg`
+安装依赖：
 
-拉取项目后，执行`pnpm install`或`pnpm bootstrap`安装依赖。因为是 monorepo 项目，所以必须使用pnpm
+```shell
+pnpm install
+```
 
-## 编写组件
+也可以使用根脚本：
 
-开始编写新组件之前，需要拉一个新分支，main分支是保护分支，不能直接提交代码
+```shell
+pnpm bootstrap
+```
 
-### 1、创建组件
+## 常用命令
 
-运行 `pnpm create` 命令，根据提示输入组件标签名称、中文名称，选择组件类别，即可生成组件相关文件：包括组件源码、测试文件、样式文件、文档、组件示例等。
+| 命令 | 说明 |
+| --- | --- |
+| `pnpm dev` | 启动 `play` 调试项目 |
+| `pnpm docs:dev` | 启动文档站，启动前自动生成 AI 文档资源 |
+| `pnpm create` | 创建新组件模板 |
+| `pnpm typecheck` | 检查组件、play、docs 的 TypeScript 类型 |
+| `pnpm test` | 运行 `packages/components` 覆盖率测试 |
+| `pnpm lint` | 运行格式、ESLint、Stylelint |
+| `pnpm build` | 构建组件、样式、resolver、发布包元数据 |
+| `pnpm commit` | 使用 `czg` 进行规范化提交 |
 
-### 2、编写组件
+## 组件开发流程
 
-在组件源码中，编写组件的逻辑代码，样式代码等。
+### 1. 创建组件骨架
 
-启动组件开发示例项目：`pnpm dev`，启动成功后可以打开一个专门用来展示组件的页面
+```shell
+pnpm create
+```
 
-在示例项目中，引用编写好的组件，查看组件效果及调试功能。
+脚本会生成组件源码、样式、测试、文档和示例文件。
 
-> 在组件开发示例项目中，已经全局引入了element-plus组件库、样式、图标，全局引入了kd-elp组件库，并准备了一些静态资源和数据，所以在组件开发过程中，可以直接使用，无需再次引入。
+### 2. 本地调试
 
-### 3、编译组件
+启动调试项目：
 
-组件开发基本完成后，可以运行 `pnpm build` 进行构建，这个过程中会对组件中的类型定义、语法等进行检查，如果出现问题，可以即时调整，并重复此过程
+```shell
+pnpm dev
+```
 
-### 4、编写测试用例
+`play/` 是当前仓库的本地示例项目，用于联调组件效果与交互。
 
-在组件目下的 `__tests__` 目录下编写组件测试用例，尽可能多的覆盖主要功能（这个过程可以完全由 AI 来完成）
+### 3. 编写文档与示例
 
-然后运行测试用例，并查看测试结果，尽量保证测试覆盖率达到 90% 以上（当前整体语句覆盖率 94.61%；部分场景依赖运行环境，难以独立测试）
+- 组件文档位于 `docs/components/<component>/index.md`
+- 示例通常与文档一起维护
+- 如果你改了组件能力，文档和示例也要同步更新
 
-### 5、编写组件文档
+### 4. 运行验证
 
-待测试用例通过后，编写组件文档，包括组件的使用说明、示例代码、API等
+至少建议执行：
 
-如果没有意外，可以把开发过程中示例项目中的代码直接复制到文档的代码示例中
+```shell
+pnpm typecheck
+pnpm test
+```
 
-执行`pnpm docs`，可以本地启动组件文档项目，以查看文档效果
+如果修改了样式、导出或构建链路，再执行：
 
-### 6、提交代码
+```shell
+pnpm build
+```
 
-执行`pnpm commit`命令，根据提示输入提交信息，即可提交代码
+### 5. 提交代码
 
-然后可以发起 `pull request`，等待主分支审核代码后合并入主分支
+```shell
+pnpm commit
+```
+
+仓库使用 `czg` / `commitlint` 维护提交规范。
+
+## 发布相关
+
+主包发布前常用流程：
+
+```shell
+pnpm pre-release
+pnpm commit
+pnpm release
+pnpm pre-publish
+pnpm publish
+```
+
+如果本次变更涉及 MCP 数据，还需要：
+
+```shell
+pnpm mcp:extract
+pnpm mcp:test
+pnpm mcp:publish
+```
+
+说明：
+
+- `pnpm release` 负责升版本、生成 changelog、打 tag
+- `pnpm publish` 发布主包 `yun-elp`
+- `pnpm mcp:publish` 只发布 `yun-elp-mcp`

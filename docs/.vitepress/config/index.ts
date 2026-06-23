@@ -86,11 +86,6 @@ const setupConfig = configEnv => {
         //   }
         // ]
       },
-
-      footer: {
-        message: '',
-        copyright: ''
-      }
     },
     vite: getViteConfig(configEnv) as any,
 
