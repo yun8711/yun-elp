@@ -1823,7 +1823,8 @@ describe('YColumnOp 表格操作列组件', () => {
           width: 'auto',
           'show-overflow-tooltip': false,
           fixed: 'right',
-          'class-name': 'y-column-op'
+          'class-name': 'y-column-op',
+          resizable: true
         });
       });
 
@@ -1845,7 +1846,8 @@ describe('YColumnOp 表格操作列组件', () => {
           width: 200,
           'show-overflow-tooltip': false,
           fixed: 'left',
-          'class-name': 'y-column-op'
+          'class-name': 'y-column-op',
+          resizable: true
         });
       });
     });

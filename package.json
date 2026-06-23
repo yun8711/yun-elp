@@ -49,7 +49,7 @@
     "@yun-elp/components": "workspace:*",
     "@yun-elp/resolver": "workspace:*",
     "@yun-elp/theme-chalk": "workspace:*",
-    "vue-router": "^4.6.4"
+    "vue-router": "^5.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
