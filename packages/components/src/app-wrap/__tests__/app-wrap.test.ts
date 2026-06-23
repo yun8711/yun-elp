@@ -378,11 +378,11 @@ describe('YAppWrap 应用容器', () => {
             hideOnSinglePage: false
           }
         },
-        columnForms: {
+        columnForm: {
           placement: 'bottom',
           popperClass: 'custom-class'
         },
-        columnOperation: {
+        columnOp: {
           disabledDefaultTip: '操作已禁用'
         },
         echarts: {

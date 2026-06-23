@@ -109,11 +109,11 @@ export interface AppWrapProps {
     emptyProps?: EmptyProps;
     paginationProps?: PaginationProps;
   };
-  columnForms?: {
+  columnForm?: {
     placement?: PlacementType;
     popperClass?: string;
   };
-  columnOperation?: {
+  columnOp?: {
     disabledDefaultTip?: string;
   };
   // echarts配置
