@@ -1,6 +1,5 @@
 import StickyLayout from './src/sticky-layout.vue';
-import { withInstall } from '../../utils/install';
-import type { SFCWithInstall } from 'element-plus/es/utils';
+import { withInstall, type SFCWithInstall } from '../../utils/install';
 
 export const YStickyLayout: SFCWithInstall<typeof StickyLayout> = withInstall(StickyLayout);
 export default YStickyLayout;

@@ -1,6 +1,5 @@
 import ScrollBox from './src/scroll-box.vue';
-import { withInstall } from '../../utils/install';
-import type { SFCWithInstall } from 'element-plus/es/utils';
+import { withInstall, type SFCWithInstall } from '../../utils/install';
 
 export const YScrollBox: SFCWithInstall<typeof ScrollBox> = withInstall(ScrollBox);
 export default YScrollBox;

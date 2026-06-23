@@ -1,6 +1,5 @@
 import Table from './src/table.vue';
-import { withInstall } from '../../utils/install';
-import type { SFCWithInstall } from 'element-plus/es/utils';
+import { withInstall, type SFCWithInstall } from '../../utils/install';
 
 export const YTable: SFCWithInstall<typeof Table> = withInstall(Table);
 export default YTable;

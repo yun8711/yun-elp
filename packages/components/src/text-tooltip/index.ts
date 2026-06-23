@@ -1,6 +1,5 @@
 import TextTooltip from './src/text-tooltip.vue';
-import { withInstall } from '../../utils/install';
-import type { SFCWithInstall } from 'element-plus/es/utils';
+import { withInstall, type SFCWithInstall } from '../../utils/install';
 
 export const YTextTooltip: SFCWithInstall<typeof TextTooltip> = withInstall(TextTooltip);
 export default YTextTooltip;

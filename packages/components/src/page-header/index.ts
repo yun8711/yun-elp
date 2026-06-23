@@ -1,6 +1,5 @@
 import PageHeader from './src/page-header.vue';
-import { withInstall } from '../../utils/install';
-import type { SFCWithInstall } from 'element-plus/es/utils';
+import { withInstall, type SFCWithInstall } from '../../utils/install';
 
 export const YPageHeader: SFCWithInstall<typeof PageHeader> = withInstall(PageHeader);
 export default YPageHeader;

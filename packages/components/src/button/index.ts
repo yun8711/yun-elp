@@ -1,6 +1,5 @@
 import Button from './src/button.vue';
-import { withInstall } from '../../utils/install';
-import type { SFCWithInstall } from 'element-plus/es/utils';
+import { withInstall, type SFCWithInstall } from '../../utils/install';
 
 export const YButton: SFCWithInstall<typeof Button> = withInstall(Button);
 export default YButton;

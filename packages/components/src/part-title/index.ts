@@ -1,6 +1,5 @@
 import PartTitle from './src/part-title.vue';
-import { withInstall } from '../../utils/install';
-import type { SFCWithInstall } from 'element-plus/es/utils';
+import { withInstall, type SFCWithInstall } from '../../utils/install';
 
 export const YPartTitle: SFCWithInstall<typeof PartTitle> = withInstall(PartTitle);
 export default YPartTitle;
