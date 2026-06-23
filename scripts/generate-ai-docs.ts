@@ -388,6 +388,7 @@ ${uniqueUrls
 }
 
 function generateAiDocs() {
+  // 创建 metadata 目录
   mkdirSync(metadataRoot, { recursive: true });
 
   const metadata = buildComponentsMetadata();

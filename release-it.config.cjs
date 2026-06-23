@@ -30,8 +30,9 @@ module.exports = {
     releaseName: 'v${version}'
   },
   hooks: {
-    // 在版本号更新后同步到 elp 包，并将修改加入 git 暂存区
-    'after:bump': 'tsx scripts/sync-version.ts && git add packages/elp/package.json'
+    // 在版本号更新后同步到 elp、mcp-server，并将修改加入 git 暂存区
+    'after:bump':
+      'tsx scripts/sync-version.ts && git add packages/elp/package.json packages/mcp-server/package.json'
   },
   plugins: {
     '@release-it/conventional-changelog': {

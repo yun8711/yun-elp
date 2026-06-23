@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * 发布前检查脚本
- * - 默认（轻）：版本 → build → dist 校验
- * - --full：额外包含 lint、测试、依赖 audit
+ * 发布流程检查脚本
+ * - --quality（pre-release）：lint、测试，在 release 之前执行
+ * - --publish（pre-publish）：版本 → build → dist 校验，在 release 之后、npm publish 之前执行
+ * - --audit：附加依赖安全扫描（失败仅警告，配合 pre-release:full 使用）
  */
 
 const { execSync } = require('child_process');
@@ -11,28 +12,54 @@ const fs = require('fs');
 const path = require('path');
 
 const rootDir = path.join(__dirname, '..');
-const isFull = process.argv.includes('--full');
+const isPublish = process.argv.includes('--publish');
+const withAudit = process.argv.includes('--audit');
 
 function readPkg(relativePath) {
   return JSON.parse(fs.readFileSync(path.join(rootDir, relativePath), 'utf8'));
 }
 
+const qualityChecks = [
+  {
+    name: '代码规范检查',
+    command: 'pnpm lint',
+    description: '运行 ESLint、Prettier 和 StyleLint（可能自动修复格式，需先提交再 release）'
+  },
+  {
+    name: '单元测试',
+    command: 'pnpm -C packages/components test:run',
+    description: '运行所有组件测试'
+  }
+];
+
+const auditCheck = {
+  name: '依赖安全检查',
+  command: 'pnpm audit --audit-level moderate',
+  description: '检查依赖的安全漏洞',
+  allowFailure: true
+};
+
+const VERSION_TARGETS = ['packages/elp/package.json', 'packages/mcp-server/package.json'];
+
 const versionCheck = {
   name: '版本一致性检查',
   check: () => {
     const rootPkg = readPkg('package.json');
-    const elpPkg = readPkg('packages/elp/package.json');
 
-    if (rootPkg.version !== elpPkg.version) {
-      throw new Error(
-        `版本不一致: 根目录 ${rootPkg.version} vs packages/elp ${elpPkg.version}，请先运行 release 或 sync-version`
-      );
+    for (const relativePath of VERSION_TARGETS) {
+      const targetPkg = readPkg(relativePath);
+
+      if (rootPkg.version !== targetPkg.version) {
+        throw new Error(
+          `版本不一致: 根目录 ${rootPkg.version} vs ${relativePath} ${targetPkg.version}，请先运行 release 或 sync-version`
+        );
+      }
     }
 
     console.log(`✅ 版本一致性检查通过: v${rootPkg.version}`);
     return true;
   },
-  description: '检查根目录与 packages/elp 的版本是否一致'
+  description: '检查根目录与 packages/elp、mcp-server 的版本是否一致'
 };
 
 const buildCheck = {
@@ -73,29 +100,16 @@ const distCheck = {
   description: '检查构建产物是否完整，且 dist 版本与根目录一致'
 };
 
-const fullChecks = [
-  {
-    name: '代码规范检查',
-    command: 'pnpm lint',
-    description: '运行 ESLint、Prettier 和 StyleLint 检查'
-  },
-  {
-    name: '单元测试',
-    command: 'pnpm -C packages/components test:run',
-    description: '运行所有组件测试'
-  },
-  {
-    name: '依赖安全检查',
-    command: 'pnpm audit --audit-level moderate',
-    description: '检查依赖的安全漏洞',
-    allowFailure: true
-  }
-];
+const publishChecks = [versionCheck, buildCheck, distCheck];
+const checks = isPublish
+  ? publishChecks
+  : withAudit
+    ? [...qualityChecks, auditCheck]
+    : qualityChecks;
 
-const lightChecks = [versionCheck, buildCheck, distCheck];
-const checks = isFull ? [...fullChecks.slice(0, 2), ...lightChecks, fullChecks[2]] : lightChecks;
+const modeLabel = isPublish ? '发布构建' : withAudit ? '发版前质量（含 audit）' : '发版前质量';
 
-console.log(`🚀 开始发布前检查（${isFull ? '完整' : '轻量'}模式）...\n`);
+console.log(`🚀 开始检查（${modeLabel}）...\n`);
 
 let allPassed = true;
 
@@ -125,9 +139,13 @@ for (const check of checks) {
 }
 
 if (allPassed) {
-  console.log('🎉 所有发布前检查都通过了！准备发布...');
+  if (isPublish) {
+    console.log('🎉 发布构建检查通过，可以执行 pnpm publish。');
+  } else {
+    console.log('🎉 发版前质量检查通过。如有 lint 格式变更请先提交，再执行 pnpm release。');
+  }
   process.exit(0);
 }
 
-console.log('💥 发布前检查失败，请修复问题后再发布。');
+console.log('💥 检查失败，请修复问题后重试。');
 process.exit(1);

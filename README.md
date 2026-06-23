@@ -62,6 +62,12 @@ pnpm dev
 
 # 启动文档站点
 pnpm docs:dev
+
+# 新增组件
+pnpm create
+
+# 测试
+pnpm test
 ```
 
 ### 构建
@@ -69,31 +75,80 @@ pnpm docs:dev
 ```bash
 # 构建所有包
 pnpm build
-
-# 构建文档
-pnpm build:docs
 ```
 
 ### 发布
 
-项目采用严格的发布流程确保版本质量：
+组件库发布到 npm 的入口是 `dist/` 目录，版本号以根目录 `package.json` 为准，经 `release` 同步到 `packages/elp`、`packages/mcp-server`，再由 `build` 复制到 `dist/package.json`。
+
+`pre-release` 会执行 lint 并可能自动修复格式，因此应放在 `release` **之前**，避免升版本后又产生额外的格式提交。
+
+#### 标准流程
 
 ```bash
-# 发布前完整检查（推荐）
+# 1. 发版前质量检查（lint + 单元测试）
 pnpm pre-release
+# 在 `pre-release` 基础上附加依赖 audit（失败仅警告）
+pnpm pre-release:full
 
-# 发布新版本（会自动触发CI/CD发布到npm）
+# 2. 如有 lint 等变更，先提交
+pnpm commit
+
+# 3. 升级版本、生成 CHANGELOG、打 tag 并推送（不自动发 npm）
 pnpm release
+
+# 4. 构建 dist 并校验版本
+pnpm pre-publish
+
+# 5. 发布到 npm
+pnpm publish
 ```
 
-发布前会自动进行：
+`release-it` 配置为 `npm.publish: false`，**不会**自动发布到 npm，需手动执行 `pnpm publish`。
 
-- 代码规范检查
-- 单元测试
-- 构建验证
-- 版本一致性检查
+#### 发布前要求
 
-详细的发布流程请参考 [RELEASE_PROCESS.md](./RELEASE_PROCESS.md)
+- 在 `main` 分支执行 `pnpm release`（见 `release-it.config.cjs`）
+- 自上个 tag 以来已有新的 commit（不允许空发版）
+- 发布 npm 前确保已登录：`npm login --registry=https://registry.npmjs.org/`
+
+### MCP 包（`yun-elp-mcp`）
+
+MCP 服务包位于 `packages/mcp-server/`，npm 包名为 **`yun-elp-mcp`**。版本号与主包一致，由 `pnpm release` 通过 `scripts/sync-version.ts` 自动同步到 `packages/mcp-server/package.json`；`pnpm release:mcp` 发布前也会再次执行同步。
+
+npm 发布与主包**分开**执行（主包走 `dist/`，MCP 走子包自身），但版本号始终跟随根目录。
+
+文档站 AI 资源（`pnpm docs:ai` → `docs/public/llms.txt` 等）与 MCP 数据是两条链路；更新组件文档后，若希望 Cursor 等 IDE 通过 MCP 查到最新 API，需单独执行下面的 MCP 发布流程。
+
+#### 发布流程
+
+```bash
+# 前置1. 先完成主包发版，如果主包刚发版则不需要重复执行（版本号会同步到 mcp-server）
+pnpm release
+
+# 前置2. 主包构建（extract 依赖 dist/web-types.json）
+pnpm build
+
+# 1. 从 docs/components/*/index.md 组件文档抽取 MCP 元数据与示例
+pnpm -C packages/mcp-server extract
+
+# 2. 本地验证（可选）
+pnpm -C packages/mcp-server test
+
+# 3. 提交 extract 产物（src/metadata/components.ts、src/examples/*）
+pnpm commit
+
+# 4. 发布到 npm（会先 sync-version，prepublishOnly 会自动 build）
+pnpm release:mcp
+```
+
+#### 注意事项
+
+- MCP 版本**跟随主包**，无需手动改 `packages/mcp-server/package.json` 的 `version`
+- 发 MCP 前应先完成 `pnpm release`，确保 npm 上主包与 MCP 版本一致
+- `extract` **不会**在 `publish` 时自动执行，文档变更后必须先 `extract` 并提交，再发版
+- 发布前需已登录 npm：`npm login --registry=https://registry.npmjs.org/`
+- 新增组件后若 MCP 查不到，通常是漏跑 `extract` 或未 commit 抽取产物
 
 ### 代码规范
 
