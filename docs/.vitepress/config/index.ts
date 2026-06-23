@@ -44,7 +44,7 @@ const setupConfig = configEnv => {
         provider: 'local'
       },
       // 社交链接
-      socialLinks: [{ icon: 'github', link: 'https://github.com/yun-elp' }],
+      socialLinks: [{ icon: 'github', link: 'https://github.com/yun8711/yun-elp' }],
       nav: [
         { text: '指南', link: '/guide/overview/', activeMatch: '^/guide/' },
         { text: '组件', link: firstLink!, activeMatch: '^/components/' }
