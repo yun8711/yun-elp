@@ -334,8 +334,8 @@ const handleReset = () => {
   .demo-block {
     padding: 20px;
     margin-bottom: 32px;
-    background: var(--el-bg-color);
-    border: 1px solid var(--el-border-color-light);
+    background: var(--ep-bg-color);
+    border: 1px solid var(--ep-border-color-light);
     border-radius: 8px;
 
     h3 {
@@ -347,7 +347,7 @@ const handleReset = () => {
     .tip {
       margin: 0 0 16px;
       font-size: 12px;
-      color: var(--el-text-color-secondary);
+      color: var(--ep-text-color-secondary);
     }
 
     .control-buttons {

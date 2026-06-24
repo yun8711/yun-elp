@@ -6,9 +6,18 @@
       <!-- 语言切换按钮 -->
       <div class="config-item">
         <span>多语言：</span>
-        <el-select v-model="locale" style="width: 120px" @change="handleLocaleChange">
+        <el-select v-model="localeModel" style="width: 120px">
           <el-option label="简体中文" value="zh-cn" />
           <el-option label="English" value="en" />
+        </el-select>
+      </div>
+
+      <div class="config-item">
+        <span>主题：</span>
+        <el-select v-model="themeModel" style="width: 120px">
+          <el-option label="KD" value="kd" />
+          <el-option label="Arco" value="arco" />
+          <el-option label="Antd" value="antd" />
         </el-select>
       </div>
 
@@ -56,13 +65,13 @@
       class="demo-section"
       :class="{ 'is-locked': isLocked }"
       :style="{ backgroundColor }">
-      <slot :locale="locale" :backgroundColor="backgroundColor" :curComponent="curComponent"></slot>
+      <slot :locale="localeModel" :backgroundColor="backgroundColor" :curComponent="curComponent"></slot>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useElementSize } from '@vueuse/core'
 import { Link } from '@element-plus/icons-vue'
 
@@ -70,11 +79,27 @@ const props = defineProps({
   examples: {
     type: Array,
     required: true
+  },
+  locale: {
+    type: String,
+    default: 'zh-cn'
+  },
+  theme: {
+    type: String,
+    default: 'kd'
   }
 })
+const emit = defineEmits(['update:locale', 'update:theme'])
 
-// 当前语言
-const locale = ref('zh-cn')
+const localeModel = computed({
+  get: () => props.locale,
+  set: value => emit('update:locale', value)
+})
+
+const themeModel = computed({
+  get: () => props.theme,
+  set: value => emit('update:theme', value)
+})
 
 // 背景颜色
 const backgroundColor = ref(localStorage.getItem('YElp-backgroundColor') || '#ffffff')
@@ -93,12 +118,6 @@ const { width, height } = useElementSize(sectionRef, {
 })
 // 尺寸锁定状态
 const isLocked = ref(false)
-
-// 切换语言
-const handleLocaleChange = newLocale => {
-  console.log('切换语言为:', newLocale)
-  // locale.value = newLocale
-}
 
 // 组件选择
 const curComponent = ref(props.examples.find(item => item.default)?.value || "")

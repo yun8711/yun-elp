@@ -74,6 +74,6 @@ const onMultipleSelect = (selection: SelectTableRow[], row: SelectTableRow) => {
 
 .table-example__result {
   margin-top: 12px;
-  color: var(--el-text-color-regular);
+  color: var(--ep-text-color-regular);
 }
 </style>
