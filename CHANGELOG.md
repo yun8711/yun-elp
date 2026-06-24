@@ -2,6 +2,24 @@
 
 
 
+## [1.3.0](https://github.com/yun8711/yun-elp/compare/v1.2.2...v1.3.0) (2026-06-24)
+
+
+### Features
+
+* **components:** :sparkles: 支持namespace命名空间功能 ([3bc044e](https://github.com/yun8711/yun-elp/commit/3bc044ed5c9648cef7726293c60745bbb5522b15))
+* **theme:** :sparkles: 增加arco,antd内置主题,增加主题切换功能 ([c606475](https://github.com/yun8711/yun-elp/commit/c6064753350d31123b0400d4c05b03e5c7f96a16))
+
+
+### Bug Fixes
+
+* **docs:** :bug: 修复组件文档中github链接错误 ([a914a6e](https://github.com/yun8711/yun-elp/commit/a914a6e748ae5b9a98523986093b5a4b6fa40d76))
+
+
+### Styles
+
+* **other:** :lipstick: 代码格式化 ([05fd1cd](https://github.com/yun8711/yun-elp/commit/05fd1cd4dd71af651c04921f51c2f4522cbc5f46))
+
 ## [1.2.2](https://github.com/yun8711/yun-elp/compare/v1.2.1...v1.2.2) (2026-06-23)
 
 
