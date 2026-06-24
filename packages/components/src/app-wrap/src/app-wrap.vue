@@ -27,6 +27,7 @@ export const defaultConfig: AppWrapProps = {
       offset: 20
     }
   },
+  yNamespace: 'y',
   locale: 'zh-cn'
 };
 </script>
@@ -35,7 +36,7 @@ export const defaultConfig: AppWrapProps = {
 import { provide, computed } from 'vue';
 import { omit, merge } from 'lodash-es';
 import { localeContextKey } from '../../../locale';
-import { appConfigKey } from './use-app-config';
+import { appConfigKey, namespaceConfigKey } from './use-app-config';
 
 defineOptions({
   name: 'YAppWrap',
@@ -53,9 +54,14 @@ const mergedProps = computed(() => {
 const elpConfig = computed(() => mergedProps.value.elpConfig);
 
 // 从合并后的props中获取除elpConfig、locale以外的配置
-const configProps = computed(() => omit(mergedProps.value, ['elpConfig', 'locale']));
+const configProps = computed(() => omit(mergedProps.value, ['locale']));
+const namespaceConfig = computed(() => ({
+  el: mergedProps.value.elpConfig?.namespace || 'el',
+  y: mergedProps.value.yNamespace || 'y'
+}));
 
 // 提供全局配置
 provide(appConfigKey, configProps.value);
+provide(namespaceConfigKey, namespaceConfig.value);
 provide(localeContextKey, props.locale);
 </script>

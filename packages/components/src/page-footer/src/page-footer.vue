@@ -1,5 +1,5 @@
 <template>
-  <div class="y-page-footer" :style="style">
+  <div :class="ns.b()" :style="style">
     <slot :height="style.height" />
   </div>
 </template>
@@ -9,6 +9,7 @@ import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import type { PageFooterProps } from './page-footer';
 import { computed } from 'vue';
 import { isNumber } from 'lodash-es';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YPageFooter',
@@ -19,6 +20,7 @@ const props = withDefaults(defineProps<PageFooterProps>(), {
   model: 'fixed'
 });
 const pageFooterConfig = useAppConfig('pageFooter');
+const ns = useNamespace('page-footer');
 
 const getStyleValue = (value: string | number | undefined, value2: string | number | undefined, defaultValue: string | number) => {
   if (value !== undefined && value !== '' && value !== null) {

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="y-row-select"
+    :class="ns.b()"
     :style="{
       '--duration': props.duration + 'ms',
       '--item-height': itemHeight,
@@ -10,20 +10,18 @@
     }">
     <!-- 左侧 label -->
     <div
-      class="y-row-select__label"
-      :class="{ 'y-row-select__label--separator': props.separator }"
+      :class="[ns.e('label'), { [ns.em('label', 'separator')]: props.separator }]"
       :style="labelStyles">
       {{ props.labelText }}
     </div>
 
     <!-- 中间选项列表 -->
-    <div class="y-row-select__options-container">
-      <div ref="optionsBoxRef" class="y-row-select__options" @click="onItemClick">
+    <div :class="ns.e('options-container')">
+      <div ref="optionsBoxRef" :class="ns.e('options')" @click="onItemClick">
         <!-- "全部"选项 -->
         <template v-if="props.showAll">
           <div
-            class="y-row-select__item"
-            :class="{ 'is-active': selectAll }"
+            :class="[ns.e('item'), { [ns.is('active')]: selectAll }]"
             :style="optionsItemStyles"
             data-index="$all">
             <slot name="all">
@@ -36,18 +34,20 @@
         <div
           v-for="(item, index) in options"
           :key="index"
-          class="y-row-select__item"
-          :class="{
-            'is-active': isItemSelected(item),
-            'is-disabled': item[props.defineProps?.disabled || 'disabled']
-          }"
+          :class="[
+            ns.e('item'),
+            {
+              [ns.is('active')]: isItemSelected(item),
+              [ns.is('disabled')]: item[props.defineProps?.disabled || 'disabled']
+            }
+          ]"
           :style="optionsItemStyles"
           :data-index="
             item[props.defineProps?.disabled || 'disabled']
               ? undefined
               : item[props.defineProps?.value || 'value']
           ">
-          <div class="y-row-select__item-text">
+          <div :class="ns.e('item-text')">
             <slot v-bind="item" :index="index">
               {{ item[props.defineProps?.label || 'label'] }}
             </slot>
@@ -57,19 +57,18 @@
     </div>
 
     <!-- 右侧展开/收起按钮 -->
-    <div class="y-row-select__fold">
+    <div :class="ns.e('fold')">
       <div
         v-if="showMore"
-        class="y-row-select__fold-inner"
+        :class="ns.e('fold-inner')"
         :style="btnStyles"
         @click="() => trigger()">
         <el-icon
           v-if="props.showIcon"
-          class="el-icon--right"
-          :class="{ 'el-icon--right--reverse': !isFold }">
+          :class="[ns.el('icon--right'), { [`${ns.el('icon--right')}--reverse`]: !isFold }]">
           <ArrowDown />
         </el-icon>
-        <div class="y-row-select__fold-text">
+        <div :class="ns.e('fold-text')">
           {{ isFold ? props.foldText : props.unfoldText }}
         </div>
       </div>
@@ -82,6 +81,7 @@ import { ArrowDown } from '@element-plus/icons-vue';
 import { ElIcon } from 'element-plus';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { getSizeValue } from '../../../utils/other';
+import { useNamespace } from '../../../hooks/use-namespace';
 import type { RowSelectProps, RowSelectEmits } from './row-select';
 
 defineOptions({
@@ -114,6 +114,7 @@ const props = withDefaults(defineProps<RowSelectProps>(), {
   defineProps: () => ({ label: 'label', value: 'value', disabled: 'disabled' }),
   itemStyles: () => ({})
 });
+const ns = useNamespace('row-select');
 
 // 定义事件
 const emit = defineEmits<RowSelectEmits>();

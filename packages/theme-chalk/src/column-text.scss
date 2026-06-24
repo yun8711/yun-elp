@@ -1,10 +1,12 @@
-.y-column-text {
+@use './mixins/function' as *;
+
+#{y-class('column-text')} {
   // 组件样式
   &__content {
     line-height: 1.5;
   }
   &__link {
-    color: var(--el-color-primary);
+    color: var(#{el-var-name('color-primary')});
     cursor: pointer;
   }
 }

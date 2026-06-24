@@ -1,16 +1,16 @@
 <template>
-  <div ref="containerRef" class="y-sticky-layout">
+  <div ref="containerRef" :class="ns.b()">
     <!-- 左侧区域 -->
     <div
       v-if="$slots.left"
       ref="leftRef"
-      class="y-sticky-layout__left"
+      :class="ns.e('left')"
       :style="{ height: sideHeight + 'px', top: sideTop + 'px' }">
       <slot name="left" :height="sideHeight" />
     </div>
 
     <!-- 内容区域 -->
-    <div class="y-sticky-layout__content" :style="contentStyle">
+    <div :class="ns.e('content')" :style="contentStyle">
       <slot />
     </div>
 
@@ -18,7 +18,7 @@
     <div
       v-if="$slots.right"
       ref="rightRef"
-      class="y-sticky-layout__right"
+      :class="ns.e('right')"
       :style="{ height: sideHeight + 'px', top: sideTop + 'px' }">
       <slot name="right" :height="sideHeight" />
     </div>
@@ -29,6 +29,7 @@
 import { ref, computed, watch, onMounted, nextTick } from 'vue';
 import { useResizeObserver, useScroll } from '@vueuse/core';
 import { type StickyLayoutProps } from './sticky-layout';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YStickyLayout',
@@ -36,6 +37,7 @@ defineOptions({
 });
 
 const props = defineProps<StickyLayoutProps>();
+const ns = useNamespace('sticky-layout');
 
 // DOM 引用
 const scrollContainerEl = ref<HTMLElement | Window>();

@@ -16,7 +16,7 @@
         :disabled="!getDisabledTip(scope)"
         :content="getDisabledTip(scope)"
         v-bind="managedTipProps">
-        <div class="y-column-select__cell" @click.stop>
+        <div :class="ns.e('cell')" @click.stop>
           <slot
             :scope="scope"
             :row="scope.row"
@@ -25,7 +25,7 @@
             <el-checkbox
               :model-value="isRowSelected(scope)"
               :disabled="isDisabled(scope)"
-              :class="{ 'y-column-select__radio': single }"
+              :class="{ [ns.e('radio')]: single }"
               @update:model-value="handleSelect(scope, Boolean($event))"
               @click.stop />
           </slot>
@@ -42,6 +42,7 @@ import type { UseTooltipProps } from 'element-plus';
 import { TABLE_INJECTION_KEY } from 'element-plus/es/components/table/src/tokens.mjs';
 import type { ColumnSelectProps, ColumnSelectScope } from './column-select';
 import { useTableColumnAttrs } from '../../../hooks/use-table-column-attrs';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YColumnSelect',
@@ -64,13 +65,14 @@ const props = withDefaults(defineProps<ColumnSelectProps>(), {
   minWidth: 55,
   tipProps: () => ({})
 });
+const ns = useNamespace('column-select');
 
 const instance = getCurrentInstance();
 const injectedTable = inject<TableLike | undefined>(TABLE_INJECTION_KEY, undefined);
 const { mergedColumnAttrs: managedColumnAttrs } = useTableColumnAttrs({
   width: props.width,
   minWidth: props.minWidth,
-  className: 'y-column-select',
+  className: ns.b(),
   showOverflowTooltip: false,
   resizable: false,
 });
@@ -93,7 +95,7 @@ const table = computed<TableLike | null>(() => {
 const managedTipProps = computed<Partial<UseTooltipProps>>(() => ({
   placement: 'top',
   enterable: false,
-  popperClass: 'y-column-select__tooltip',
+  popperClass: ns.e('tooltip'),
   ...props.tipProps
 }));
 

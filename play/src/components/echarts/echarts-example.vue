@@ -142,15 +142,15 @@ const clearLineChartOption = () => {
   margin-bottom: 32px;
   font-size: 24px;
   font-weight: 600;
-  color: var(--el-text-color-primary);
+  color: var(--ep-text-color-primary);
   text-align: center;
 }
 
 .charts-section {
   padding: 20px;
   margin-bottom: 40px;
-  background: var(--el-bg-color);
-  border: 1px solid var(--el-border-color-light);
+  background: var(--ep-bg-color);
+  border: 1px solid var(--ep-border-color-light);
   border-radius: 8px;
 }
 
@@ -158,12 +158,12 @@ const clearLineChartOption = () => {
   margin-bottom: 8px;
   font-size: 16px;
   font-weight: 500;
-  color: var(--el-text-color-primary);
+  color: var(--ep-text-color-primary);
 }
 
 .charts-section p {
   margin-bottom: 16px;
   font-size: 14px;
-  color: var(--el-text-color-regular);
+  color: var(--ep-text-color-regular);
 }
 </style>

@@ -1,20 +1,19 @@
 <template>
   <div
-    class="y-page-header"
-    :class="{ 'y-page-header--border': showBorder }"
+    :class="[ns.b(), { [ns.m('border')]: showBorder }]"
     :style="containerStyle">
-    <div class="y-page-header__left">
-      <div class="y-page-header__left-title" :style="titleStyle">
+    <div :class="ns.e('left')">
+      <div :class="ns.e('left-title')" :style="titleStyle">
         <slot name="title">
           {{ displayTitle }}
         </slot>
       </div>
-      <div class="y-page-header__left-extra">
+      <div :class="ns.e('left-extra')">
         <slot name="extra" />
       </div>
     </div>
 
-    <div class="y-page-header__right">
+    <div :class="ns.e('right')">
       <slot name="right" />
     </div>
   </div>
@@ -26,6 +25,7 @@ import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { PageHeaderProps } from './page-header';
 import { useRoute } from 'vue-router';
 import { get, isEmpty } from 'lodash-es';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YPageHeader',
@@ -36,6 +36,7 @@ const props = withDefaults(defineProps<PageHeaderProps>(), {
   title: '',
   titleStyle: () => ({}),
 });
+const ns = useNamespace('page-header');
 
 // 从app-wrap配置中获取默认值
 const appConfig = useAppConfig('pageHeader');

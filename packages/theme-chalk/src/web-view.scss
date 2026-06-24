@@ -1,4 +1,6 @@
-.y-web-view {
+@use './mixins/function' as *;
+
+#{y-class('web-view')} {
   overflow: hidden;
 
   &__iframe {

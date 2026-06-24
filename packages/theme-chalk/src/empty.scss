@@ -1,11 +1,13 @@
-.y-empty {
+@use './mixins/function' as *;
+
+#{y-class('empty')} {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  .el-empty__description {
-    font-size: var(--el-font-size-base);
+  #{el-class('empty__description')} {
+    font-size: var(#{el-var-name('font-size-base')});
     line-height: 18px;
   }
 }

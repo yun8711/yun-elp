@@ -1,4 +1,6 @@
-.y-scroll-box {
+@use './mixins/function' as *;
+
+#{y-class('scroll-box')} {
   position: relative;
   display: flex;
   align-items: center;
@@ -25,43 +27,43 @@
     min-height: 32px;
     padding: 0;
     user-select: none;
-    border-radius: var(--el-border-radius-base);
+    border-radius: var(#{el-var-name('border-radius-base')});
     will-change: transform, opacity;
 
-    .el-icon {
+    #{el-class('icon')} {
       font-size: 16px;
       pointer-events: none;
     }
 
-    &.y-scroll-box__arrow--prev {
+    &#{y-class('scroll-box__arrow--prev')} {
       margin-right: 8px;
     }
 
-    &.y-scroll-box__arrow--next {
+    &#{y-class('scroll-box__arrow--next')} {
       margin-left: 8px;
     }
 
     // 禁用状态样式
-    &.y-scroll-box__arrow--disabled {
+    &#{y-class('scroll-box__arrow--disabled')} {
       cursor: not-allowed;
-      background-color: var(--el-fill-color-light);
-      border-color: var(--el-border-color-lighter);
+      background-color: var(#{el-var-name('fill-color-light')});
+      border-color: var(#{el-var-name('border-color-lighter')});
       opacity: 0.3;
       transform: scale(0.95);
 
       &:hover {
-        color: var(--el-text-color-placeholder);
-        background-color: var(--el-fill-color-light);
-        border-color: var(--el-border-color-lighter);
+        color: var(#{el-var-name('text-color-placeholder')});
+        background-color: var(#{el-var-name('fill-color-light')});
+        border-color: var(#{el-var-name('border-color-lighter')});
         transform: scale(0.95);
       }
 
-      .el-icon {
-        color: var(--el-text-color-placeholder);
+      #{el-class('icon')} {
+        color: var(#{el-var-name('text-color-placeholder')});
       }
 
-      &:hover .el-icon {
-        color: var(--el-text-color-placeholder);
+      &:hover #{el-class('icon')} {
+        color: var(#{el-var-name('text-color-placeholder')});
       }
     }
   }

@@ -1,24 +1,22 @@
 <template>
-  <div class="y-step">
+  <div :class="ns.b()">
     <div
       v-for="(step, index) in computedOptions"
       :key="index"
-      class="y-step__item"
-      :class="{ 'is-active': index <= activeIndex }">
+      :class="[ns.e('item'), { [ns.is('active')]: index <= activeIndex }]">
       <slot
         name="default"
         :step="step"
         :index="index"
         :active="index <= activeIndex">
-        <div class="y-step__item-content" :class="{ 'is-inline': inlineLabel }">
-          <div class="y-step__item-index">{{ index + 1 }}</div>
-          <div v-if="step" class="y-step__item-label">{{ step }}</div>
+        <div :class="[ns.e('item-content'), { [ns.is('inline')]: inlineLabel }]">
+          <div :class="ns.e('item-index')">{{ index + 1 }}</div>
+          <div v-if="step" :class="ns.e('item-label')">{{ step }}</div>
         </div>
       </slot>
       <div
         v-if="index < computedOptions.length - 1"
-        class="y-step__item-line"
-        :class="{ 'is-active': index < activeIndex }" />
+        :class="[ns.e('item-line'), { [ns.is('active')]: index < activeIndex }]" />
     </div>
   </div>
 </template>
@@ -26,6 +24,7 @@
 <script setup lang="ts">
 import { computed, toRefs } from 'vue';
 import type { StepProps } from './step';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YStep',
@@ -38,6 +37,7 @@ const props = withDefaults(defineProps<StepProps>(), {
   inlineLabel: true,
   stepNumber: 2
 });
+const ns = useNamespace('step');
 
 const { steps, activeIndex, inlineLabel, stepNumber } = toRefs(props);
 

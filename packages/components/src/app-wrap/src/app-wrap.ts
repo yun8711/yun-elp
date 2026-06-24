@@ -30,6 +30,7 @@ type PlacementType =
 export interface AppWrapProps {
   // el-config-provider的配置
   elpConfig?: ConfigProviderProps;
+  yNamespace?: string;
   locale?: LocaleType;
   // border-label、label的配置
   borderLabel?: {
@@ -139,6 +140,10 @@ export const appWrapProps = {
   elpConfig: {
     type: Object as PropType<ConfigProviderProps>,
     default: () => ({})
+  },
+  yNamespace: {
+    type: String,
+    default: 'y'
   },
   locale: {
     type: String as PropType<LocaleType>,

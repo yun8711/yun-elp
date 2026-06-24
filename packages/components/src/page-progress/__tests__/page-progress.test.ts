@@ -3,6 +3,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import YPageProgress from '../src/page-progress.vue';
+import { appConfigKey } from '../../app-wrap/src/use-app-config';
 
 describe('YPageProgress', () => {
   let wrapper: any;
@@ -69,6 +70,26 @@ describe('YPageProgress', () => {
     await nextTick();
     // 检查组件是否接收到了color属性
     expect(wrapper.vm.$attrs.color).toBe('#ff0000');
+  });
+
+  it('应该根据自定义 element-plus namespace 生成默认颜色变量', async () => {
+    wrapper = mount(YPageProgress, {
+      props: {
+        modelValue: true
+      },
+      global: {
+        provide: {
+          [appConfigKey as symbol]: {
+            elpConfig: {
+              namespace: 'ep'
+            }
+          }
+        }
+      }
+    });
+
+    await nextTick();
+    expect((wrapper.vm as any).manageAttrs.color).toBe('var(--ep-color-primary)');
   });
 
   it('应该正确应用delay属性', async () => {

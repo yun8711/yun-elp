@@ -1,19 +1,18 @@
 <template>
-  <div class="y-border-label" :style="{ height: height, width: width }">
+  <div :class="ns.b()" :style="{ height: height, width: width }">
     <!-- 前置插槽 -->
-    <div v-if="$slots.prefix" class="y-border-label__prefix">
+    <div v-if="$slots.prefix" :class="ns.e('prefix')">
       <slot name="prefix" />
     </div>
     <div
-      class="y-border-label__label"
-      :class="{ 'y-border-label__label--no-border': props.noBorder }">
+      :class="[ns.e('label'), { [ns.em('label', 'no-border')]: props.noBorder }]">
       <slot name="label">{{ props.label }}</slot>
     </div>
-    <div class="y-border-label__content">
+    <div :class="ns.e('content')">
       <slot />
     </div>
     <!-- 后置插槽 -->
-    <div v-if="$slots.suffix" class="y-border-label__suffix">
+    <div v-if="$slots.suffix" :class="ns.e('suffix')">
       <slot name="suffix" />
     </div>
   </div>
@@ -23,6 +22,7 @@
 import { computed } from 'vue';
 import type { BorderLabelProps } from './border-label';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YBorderLabel',
@@ -31,6 +31,7 @@ defineOptions({
 
 const props = defineProps<BorderLabelProps>();
 const labelConfig = useAppConfig('borderLabel');
+const ns = useNamespace('border-label');
 
 // 使用计算属性来处理默认值，优先级：用户传入值 > 全局配置 > 组件默认值
 const height = computed(() => {

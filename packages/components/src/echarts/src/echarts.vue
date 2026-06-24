@@ -1,5 +1,5 @@
 <template>
-  <div ref="chartWrapperRef" v-loading="loading" class="y-echarts">
+  <div ref="chartWrapperRef" v-loading="loading" :class="ns.b()">
     <div ref="chartRef" :style="chartStyle" />
   </div>
 </template>
@@ -10,6 +10,7 @@ import { useElementSize } from '@vueuse/core';
 import { echartsProps } from './echarts';
 import { EchartsLoader } from './echarts-loader';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YEcharts',
@@ -18,6 +19,7 @@ defineOptions({
 
 const echartsConfig = useAppConfig('echarts');
 const props = defineProps(echartsProps);
+const ns = useNamespace('echarts');
 const { option, config, loading } = toRefs(props);
 const chartWrapperRef = useTemplateRef<HTMLElement>('chartWrapperRef');
 const chartRef = useTemplateRef<HTMLElement>('chartRef');

@@ -1,7 +1,7 @@
 <template>
   <el-tooltip ref="tooltipRef" v-bind="tooltipAttrs" :disabled="!showTooltip">
-    <div class="y-text-tooltip">
-      <div ref="textRef" class="y-text-tooltip__content" :style="computedTextStyle">
+    <div :class="ns.b()">
+      <div ref="textRef" :class="ns.e('content')" :style="computedTextStyle">
         <slot />
       </div>
     </div>
@@ -26,6 +26,7 @@ import {
 } from 'vue';
 import { ElTooltip } from 'element-plus';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YTextTooltip',
@@ -33,6 +34,7 @@ defineOptions({
 });
 
 const textTooltipConfig = useAppConfig('textTooltip');
+const ns = useNamespace('text-tooltip');
 const props = withDefaults(defineProps<TextTooltipProps>(), {
   lineClamp: 1,
   width: '100%',
@@ -51,7 +53,7 @@ const tooltipAttrs = computed((): Record<string, any> => {
     showAfter: 50,
     hideAfter: 50,
     enterable: false,
-    popperClass: 'y-text-tooltip__popper',
+    popperClass: ns.e('popper'),
     teleported: false,
     persistent: false,
     content: getSlotContent(),

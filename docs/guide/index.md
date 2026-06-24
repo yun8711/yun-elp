@@ -10,6 +10,7 @@ yun-elp 是一个基于 Element Plus 的 Vue 3 业务组件库，面向中后台
 
 - [总览](./overview)：项目定位、技术栈、兼容范围
 - [快速开始](./quickstart)：安装、导入、IDE 配置
+- [命名空间](./namespace)：自定义 `el` / `y` 前缀的接入方式与限制
 - [主题定制](./theme)：内置主题和自定义方式
 - [国际化](./i18n)：`YAppWrap` 与 Element Plus 联动配置
 - [开发流程](./development)：本地开发、测试、构建、提交流程

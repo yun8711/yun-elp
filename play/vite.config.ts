@@ -37,7 +37,16 @@ export default defineConfig({
     })
   ],
   css: {
-    preprocessorOptions: scssPreprocessorOptions as unknown as { scss: Record<string, unknown> }
+    preprocessorOptions: {
+      ...scssPreprocessorOptions,
+      scss: {
+        ...scssPreprocessorOptions.scss,
+        additionalData: `
+@use "element-plus/theme-chalk/src/mixins/config.scss" as element-config with ($namespace: "ep");
+@use "yun-elp/theme-chalk/src/mixins/config.scss" as yun-config with ($namespace: "yp");
+`
+      }
+    } as unknown as { scss: Record<string, unknown> }
   },
   resolve: {
     alias: createYunElpAliases({ projectRoot: __dirname })

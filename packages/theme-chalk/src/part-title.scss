@@ -1,11 +1,13 @@
-.y-part-title {
+@use './mixins/function' as *;
+
+#{y-class('part-title')} {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: var(--el-font-size-base);
+  font-size: var(#{el-var-name('font-size-base')});
   line-height: 1;
-  color: var(--el-text-color-primary);
+  color: var(#{el-var-name('text-color-primary')});
 
   &__left {
     display: flex;
@@ -16,7 +18,7 @@
       width: 3px;
       height: 1em;
       margin-right: var(--gap-small);
-      background-color: var(--el-color-primary);
+      background-color: var(#{el-var-name('color-primary')});
     }
 
     &-extra {
@@ -31,7 +33,7 @@
       width: 2px;
       height: 1em;
       content: '';
-      background-color: var(--el-color-primary);
+      background-color: var(#{el-var-name('color-primary')});
       transform: translateY(-50%);
     }
   }

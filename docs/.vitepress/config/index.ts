@@ -64,6 +64,7 @@ const setupConfig = configEnv => {
             text: '进阶',
             items: [
               { text: '国际化', link: '/guide/i18n' },
+              { text: '命名空间', link: '/guide/namespace' },
               { text: '主题', link: '/guide/theme' },
               { text: 'AI 使用指南', link: '/guide/ai-usage' },
               { text: 'MCP', link: '/guide/mcp' }

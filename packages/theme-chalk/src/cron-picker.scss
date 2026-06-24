@@ -1,4 +1,6 @@
-.y-cron-picker {
+@use './mixins/function' as *;
+
+#{y-class('cron-picker')} {
   &__clearable-icon {
     cursor: pointer;
 

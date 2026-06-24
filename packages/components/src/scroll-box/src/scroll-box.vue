@@ -1,11 +1,10 @@
 <template>
-  <div class="y-scroll-box" :style="containerStyle">
+  <div :class="ns.b()" :style="containerStyle">
     <!-- 左侧按钮 -->
     <el-button
       v-if="showPrevButton"
       :style="arrowStyle"
-      class="y-scroll-box__arrow y-scroll-box__arrow--prev"
-      :class="{ 'y-scroll-box__arrow--disabled': !canScrollLeft }"
+      :class="[ns.e('arrow'), ns.e('arrow--prev'), { [ns.e('arrow--disabled')]: !canScrollLeft }]"
       @click="handleClick('prev')"
       @dblclick="handleDoubleClick"
       @mousedown="handleMouseDown('prev')"
@@ -16,13 +15,13 @@
     </el-button>
 
     <!-- 滚动容器 -->
-    <div class="y-scroll-box__container" @wheel="handleWheel">
+    <div :class="ns.e('container')" @wheel="handleWheel">
       <el-scrollbar
         ref="scrollbarRef"
         v-bind="scrollbarProps"
-        class="y-scroll-box__scrollbar"
+        :class="ns.e('scrollbar')"
         @scroll="handleScroll">
-        <div ref="contentRef" class="y-scroll-box__content">
+        <div ref="contentRef" :class="ns.e('content')">
           <slot />
         </div>
       </el-scrollbar>
@@ -32,8 +31,7 @@
     <el-button
       v-if="showNextButton"
       :style="arrowStyle"
-      class="y-scroll-box__arrow y-scroll-box__arrow--next"
-      :class="{ 'y-scroll-box__arrow--disabled': !canScrollRight }"
+      :class="[ns.e('arrow'), ns.e('arrow--next'), { [ns.e('arrow--disabled')]: !canScrollRight }]"
       @click="handleClick('next')"
       @dblclick="handleDoubleClick"
       @mousedown="handleMouseDown('next')"
@@ -51,6 +49,7 @@ import { useThrottleFn, useResizeObserver } from '@vueuse/core';
 import { ElScrollbar, ElIcon, ElButton } from 'element-plus';
 import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue';
 import { type ScrollBoxProps } from './scroll-box';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YScrollBox',
@@ -67,6 +66,7 @@ const props = withDefaults(defineProps<ScrollBoxProps>(), {
   continuousTime: 200,
   continuousStep: 20
 });
+const ns = useNamespace('scroll-box');
 
 // 定义事件
 const emit = defineEmits<{

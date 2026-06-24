@@ -84,13 +84,14 @@ vi.mock('@vueuse/core', async importOriginal => {
 
 // Mock useAppConfig hook，让它在测试中返回可配置的值
 let mockAppConfig: Record<string, any> = { delay: 500, maxWait: 1000 };
+let mockRootConfig: Record<string, any> = {};
 
 vi.mock('../../app-wrap/src/use-app-config', () => ({
   useAppConfig: vi.fn((key?: string) => {
     if (key === 'button') {
       return mockAppConfig;
     }
-    return {};
+    return mockRootConfig;
   }),
   appConfigKey: Symbol('yun-elp-app-config')
 }));
@@ -150,6 +151,8 @@ describe('YButton 防抖按钮组件', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.useFakeTimers();
+    mockAppConfig = { delay: 500, maxWait: 1000 };
+    mockRootConfig = {};
   });
 
   describe('基本功能', () => {
@@ -185,6 +188,14 @@ describe('YButton 防抖按钮组件', () => {
         }
       });
       expect(wrapper.html()).toContain('el-icon-loading');
+    });
+
+    it('应该支持自定义 yNamespace 类名前缀', () => {
+      mockRootConfig = { yNamespace: 'yp' };
+
+      const wrapper = mount(YButton);
+      expect(wrapper.classes()).toContain('yp-button');
+      expect(wrapper.classes()).not.toContain('y-button');
     });
   });
 

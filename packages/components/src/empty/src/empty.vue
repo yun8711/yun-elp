@@ -1,5 +1,5 @@
 <template>
-  <el-empty class="y-empty" v-bind="componentProps" :style="styles">
+  <el-empty :class="ns.b()" v-bind="componentProps" :style="styles">
     <slot />
     <slot name="image" />
     <slot name="description" />
@@ -11,9 +11,11 @@ import { ElEmpty } from 'element-plus';
 import { computed } from 'vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
+import { useNamespace } from '../../../hooks/use-namespace';
 import type { EmptyProps } from './empty'
 const emptyConfig = useAppConfig('empty');
 const { t } = useLocale();
+const ns = useNamespace('empty');
 
 defineOptions({
   name: 'YEmpty',

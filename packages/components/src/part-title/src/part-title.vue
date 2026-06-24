@@ -1,14 +1,14 @@
 <template>
-  <div class="y-part-title" v-bind="$attrs">
-    <div class="y-part-title__left">
+  <div :class="ns.b()" v-bind="$attrs">
+    <div :class="ns.e('left')">
       <span>
         <slot>{{ props.title }}</slot>
       </span>
-      <div class="y-part-title__left-extra">
+      <div :class="ns.e('left-extra')">
         <slot name="extra" />
       </div>
     </div>
-    <div class="y-part-title__right">
+    <div :class="ns.e('right')">
       <slot name="right" />
     </div>
   </div>
@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import type { PartTitleProps } from './part-title';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YPartTitle',
@@ -25,4 +26,5 @@ defineOptions({
 const props = withDefaults(defineProps<PartTitleProps>(), {
   title: ''
 });
+const ns = useNamespace('part-title');
 </script>

@@ -1,4 +1,6 @@
-.y-pop {
+@use './mixins/function' as *;
+
+#{y-class('pop')} {
   display: inline-block;
 
   & + & {
@@ -6,10 +8,10 @@
   }
 }
 
-.el-button + .y-pop {
+#{el-class('button')} + #{y-class('pop')} {
   margin-left: 12px;
 }
 
-.y-pop + .el-button {
+#{y-class('pop')} + #{el-class('button')} {
   margin-left: 12px;
 }

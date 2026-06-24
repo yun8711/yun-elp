@@ -1,0 +1,34 @@
+@use 'config';
+@use 'element-plus/theme-chalk/src/mixins/config' as el-config;
+
+@function y-class($name) {
+  @return '.#{config.$namespace}-#{$name}';
+}
+
+@function el-class($name) {
+  @return '.#{el-config.$namespace}-#{$name}';
+}
+
+@function y-var-name($name) {
+  @return '--#{config.$namespace}-#{$name}';
+}
+
+@function y-var($name, $default: null) {
+  @if $default == null {
+    @return var(#{y-var-name($name)});
+  }
+
+  @return var(#{y-var-name($name)}, #{$default});
+}
+
+@function el-var-name($name) {
+  @return '--#{el-config.$namespace}-#{$name}';
+}
+
+@function el-var($name, $default: null) {
+  @if $default == null {
+    @return var(#{el-var-name($name)});
+  }
+
+  @return var(#{el-var-name($name)}, #{$default});
+}

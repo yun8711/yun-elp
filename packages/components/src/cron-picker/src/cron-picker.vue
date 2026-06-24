@@ -1,5 +1,5 @@
 <template>
-  <div class="y-cron-picker">
+  <div :class="ns.b()">
     <el-popover
       :visible="popoverVisible"
       :width="372"
@@ -17,7 +17,7 @@
           <template #suffix>
             <el-icon
               v-if="isDeleteIcon"
-              class="y-cron-picker__clearable-icon"
+              :class="ns.e('clearable-icon')"
               @click.stop="deleteClick">
               <CircleClose />
             </el-icon>
@@ -25,13 +25,13 @@
         </el-input>
       </template>
 
-      <div ref="popoverRef" class="y-cron-picker__content">
+      <div ref="popoverRef" :class="ns.e('content')">
         <!--调度周期-->
-        <div class="y-cron-picker__content-item">
-          <div class="y-cron-picker__form-label">
+        <div :class="ns.e('content-item')">
+          <div :class="ns.e('form-label')">
             {{ t('cronPicker.period') }}
           </div>
-          <div class="y-cron-picker__form-item">
+          <div :class="ns.e('form-item')">
             <el-select v-model="period" style="width: 260px" :teleported="false">
               <el-option
                 v-for="item in periodOptions"
@@ -49,17 +49,17 @@
           </div>
         </div>
         <!--Cron表达式-->
-        <div class="y-cron-picker__content-item">
-          <div class="y-cron-picker__form-label">
+        <div :class="ns.e('content-item')">
+          <div :class="ns.e('form-label')">
             {{ t('cronPicker.cron') }}
           </div>
-          <div class="y-cron-picker__form-item">
+          <div :class="ns.e('form-item')">
             <el-input :model-value="cron" style="width: 260px" disabled />
           </div>
         </div>
         <!-- 预览-->
-        <div class="y-cron-picker__content-item y-cron-picker__content-preview">
-          <div class="y-cron-picker__form-label">
+        <div :class="[ns.e('content-item'), ns.e('content-preview')]">
+          <div :class="ns.e('form-label')">
             {{ t('cronPicker.preview') }}
           </div>
           <el-input
@@ -70,7 +70,7 @@
             readonly />
         </div>
 
-        <div class="y-cron-picker__content-actions">
+        <div :class="ns.e('content-actions')">
           <el-button
             type="default"
             size="small"
@@ -99,6 +99,7 @@ import { CronExpressionParser } from 'cron-parser';
 import { CircleClose } from '@element-plus/icons-vue'
 import { useDateFormat, onClickOutside } from '@vueuse/core'
 import { useLocale } from '../../../hooks/use-locale'
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YCronPicker',
@@ -110,6 +111,7 @@ onClickOutside(popoverRef, () => {
   popoverVisible.value = false
 })
 const { t } = useLocale()
+const ns = useNamespace('cron-picker');
 
 const props = defineProps<CronPickerProps>()
 const emit = defineEmits<CronPickerEmits>()

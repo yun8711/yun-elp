@@ -1,4 +1,6 @@
-.y-label {
+@use './mixins/function' as *;
+
+#{y-class('label')} {
   position: relative;
   box-sizing: border-box;
   display: inline-flex;
@@ -18,8 +20,8 @@
     display: flex;
     align-items: center;
     margin-right: 8px;
-    font-size: var(--el-font-size-base);
-    color: var(--el-text-color-primary);
+    font-size: var(#{el-var-name('font-size-base')});
+    color: var(#{el-var-name('text-color-primary')});
   }
 
   &__colon {

@@ -55,15 +55,14 @@ export default {
         })
       ]
     })
-  ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: '@use "yun-elp/themes/kd.scss" as *;'
-      }
-    }
-  }
+  ]
 };
+```
+
+如果项目使用 `scss` 源码样式，主题入口应单独全局引入一次：
+
+```ts
+import 'yun-elp/themes/kd.scss';
 ```
 
 如果项目使用全量导入，应同时引入组件样式：

@@ -1,4 +1,6 @@
-.y-column-form {
+@use './mixins/function' as *;
+
+#{y-class('column-form')} {
   &__error {
     position: absolute;
     top: 0;

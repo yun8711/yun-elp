@@ -1,18 +1,20 @@
-.y-page-header {
+@use './mixins/function' as *;
+
+#{y-class('page-header')} {
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: var(--el-font-size-base);
-  background-color: var(--y-page-header-bg-color, #fff);
+  font-size: var(#{el-var-name('font-size-base')});
+  background-color: var(#{y-var-name('page-header-bg-color')}, #fff);
 
   &__left {
     display: flex;
     align-items: center;
     &-title {
-      font-size: var(--el-font-size-base);
-      font-weight: var(--el-font-weight-primary);
-      color: var(--el-text-color-primary);
+      font-size: var(#{el-var-name('font-size-base')});
+      font-weight: var(#{el-var-name('font-weight-primary')});
+      color: var(#{el-var-name('text-color-primary')});
       white-space: nowrap;
     }
     &-extra {
@@ -32,6 +34,6 @@
 
   // 边框样式
   &--border {
-    border-bottom: 1px solid var(--el-border-color);
+    border-bottom: 1px solid var(#{el-var-name('border-color')});
   }
 }

@@ -1,8 +1,10 @@
 /// <reference types="vitest/globals" />
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
+import { defineComponent, h } from 'vue';
 import YAppWrap from '../src/app-wrap.vue';
 import type { AppWrapProps } from '../src/app-wrap';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 // Mock Element Plus components
 vi.mock('element-plus', () => ({
@@ -142,6 +144,7 @@ describe('YAppWrap 应用容器', () => {
           offset: 20
         }
       });
+      expect(wrapper.vm.$props.yNamespace).toBe('y');
     });
   });
 
@@ -200,6 +203,37 @@ describe('YAppWrap 应用容器', () => {
 
     it.skip('当没有配置时应该返回空对象', () => {
       // 跳过这个测试，因为需要复杂的mock设置
+    });
+
+    it('应该向子组件提供自定义 namespace 配置', () => {
+      const NamespaceProbe = defineComponent({
+        name: 'NamespaceProbe',
+        setup() {
+          const ns = useNamespace('button');
+          return {
+            buttonClass: ns.b(),
+            progressColor: ns.elCssVar('color-primary')
+          };
+        },
+        template:
+          '<div class="namespace-probe" :data-button-class="buttonClass" :data-progress-color="progressColor" />'
+      });
+
+      const wrapper = createWrapper(
+        {
+          elpConfig: {
+            namespace: 'ep'
+          },
+          yNamespace: 'yp'
+        },
+        {
+          default: () => h(NamespaceProbe)
+        }
+      );
+
+      const probe = wrapper.find('.namespace-probe');
+      expect(probe.attributes('data-button-class')).toBe('yp-button');
+      expect(probe.attributes('data-progress-color')).toBe('var(--ep-color-primary)');
     });
   });
 

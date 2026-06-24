@@ -1,8 +1,8 @@
 <template>
-  <div class="y-web-view" :style="containerStyle">
+  <div :class="ns.b()" :style="containerStyle">
     <iframe
       ref="iframeRef"
-      class="y-web-view__iframe"
+      :class="ns.e('iframe')"
       :style="{border:border}"
       :src="src"
       v-bind="iframeAttrs" />
@@ -12,6 +12,7 @@
 <script setup lang="ts">
 import type { WebViewProps,WebViewEmits } from './web-view';
 import { toRefs, computed, useAttrs, useTemplateRef, onMounted, onUnmounted } from 'vue';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YWebView',
@@ -27,6 +28,7 @@ const props = withDefaults(defineProps<WebViewProps>(), {
 const attrs = useAttrs();
 const emits = defineEmits<WebViewEmits>();
 const { width, height, border } = toRefs(props);
+const ns = useNamespace('web-view');
 
 const containerStyle = computed(() => {
   return {

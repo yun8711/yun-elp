@@ -2,7 +2,7 @@
   <el-progress
     v-show="isStarted"
     v-bind="manageAttrs"
-    :class="['y-page-progress', { 'y-page-progress__spinner': spinner && isStarted }]"
+    :class="[ns.b(), { [ns.e('spinner')]: spinner && isStarted }]"
     :percentage="percentage" />
 </template>
 
@@ -11,6 +11,7 @@ import { computed, ref, watch, onUnmounted, useAttrs, toRefs } from 'vue';
 import { ElProgress } from 'element-plus';
 import type { ProgressProps } from 'element-plus';
 import type { PageProgressProps,PageProgressEmits } from './page-progress';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YPageProgress',
@@ -29,6 +30,7 @@ const props = withDefaults(defineProps<PageProgressProps>(), {
 });
 
 const emit = defineEmits<PageProgressEmits>();
+const ns = useNamespace('page-progress');
 
 const { step, delay, speed } = toRefs(props);
 
@@ -42,7 +44,7 @@ const manageAttrs = computed(() => {
     status: undefined,
     indeterminate: attrs?.indeterminate || false,
     duration: duration.value,
-    color: attrs?.color || 'var(--el-color-primary)',
+    color: attrs?.color || ns.elCssVar('color-primary'),
     showText: false,
     format: undefined,
     striped: attrs?.striped || false,

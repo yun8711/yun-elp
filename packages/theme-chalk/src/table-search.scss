@@ -1,4 +1,6 @@
-.y-table-search {
+@use './mixins/function' as *;
+
+#{y-class('table-search')} {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;

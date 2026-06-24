@@ -1,7 +1,7 @@
 <template>
   <el-button
     ref="buttonRef"
-    class="y-button"
+    :class="ns.b()"
     v-bind="attrs"
     @click="handleClick"
     @dblclick="handleDoubleClick">
@@ -17,6 +17,7 @@ import { useDebounceFn, useThrottleFn } from '@vueuse/core'
 import { computed, ref, useAttrs, watch } from 'vue'
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useExternalListener } from '../../../hooks/use-external-listener';
+import { useNamespace } from '../../../hooks/use-namespace';
 import type { ButtonCustomProps, ButtonEmits } from './button';
 
 defineOptions({
@@ -29,6 +30,7 @@ const attrs = useAttrs()
 // 用于接收组件自定义的props
 const props = defineProps<ButtonCustomProps>()
 const buttonConfig = useAppConfig('button')
+const ns = useNamespace('button')
 const emit = defineEmits<ButtonEmits>()
 const { hasExternalListener } = useExternalListener()
 // 防抖延迟时间

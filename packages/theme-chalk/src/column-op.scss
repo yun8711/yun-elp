@@ -1,6 +1,8 @@
-.y-column-op {
+@use './mixins/function' as *;
+
+#{y-class('column-op')} {
   .cell {
-    .y-pop {
+    #{y-class('pop')} {
       margin-left: 8px;
 
       &:first-child {
@@ -17,7 +19,7 @@
     &-icon {
       margin-left: 8px;
       vertical-align: middle;
-      color: var(--el-color-primary);
+      color: var(#{el-var-name('color-primary')});
       cursor: pointer;
     }
 
@@ -30,13 +32,13 @@
       cursor: pointer;
 
       &:hover {
-        color: var(--el-color-primary);
-        background-color: var(--el-color-primary-light-9);
+        color: var(#{el-var-name('color-primary')});
+        background-color: var(#{el-var-name('color-primary-light-9')});
       }
 
       &.disabled {
         font-weight: 400;
-        color: var(--el-color-primary-light-5);
+        color: var(#{el-var-name('color-primary-light-5')});
         cursor: not-allowed;
         user-select: none;
       }

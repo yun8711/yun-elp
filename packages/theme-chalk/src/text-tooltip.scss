@@ -1,6 +1,8 @@
+@use './mixins/function' as *;
+
 @use 'element-plus/theme-chalk/src/tooltip.scss' as tooltip;
 
-.y-text-tooltip {
+#{y-class('text-tooltip')} {
   &__content {
     display: -webkit-box;
     align-self: center;

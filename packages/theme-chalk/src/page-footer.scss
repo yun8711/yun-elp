@@ -1,8 +1,10 @@
-.y-page-footer {
+@use './mixins/function' as *;
+
+#{y-class('page-footer')} {
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--el-bg-color);
-  border-top: 1px solid var(--el-border-color-light);
+  background-color: var(#{el-var-name('bg-color')});
+  border-top: 1px solid var(#{el-var-name('border-color-light')});
 }

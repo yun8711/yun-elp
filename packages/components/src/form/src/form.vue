@@ -20,6 +20,7 @@ import {
   watch
 } from 'vue';
 import { omit, pick } from 'lodash-es';
+import { useNamespace } from '../../../hooks/use-namespace';
 import {
   ATTRS_LAYOUT_KEYS,
   ROW_PROP_KEYS,
@@ -36,13 +37,14 @@ defineOptions({
 const props = defineProps(formProps);
 const attrs = useAttrs() as Record<string, unknown>;
 const formRef = ref<ElFormInstance>();
+const ns = useNamespace('form');
 
 provide(Y_FORM_INJECTION_KEY, {
   span: toRef(() => props.span)
 });
 
 const rowAttrs = computed(() => ({
-  class: ['y-form__row', props.rowClass].filter(Boolean),
+  class: [ns.e('row'), props.rowClass].filter(Boolean),
   style: props.rowStyle,
   ...pick(attrs, ROW_PROP_KEYS) as Partial<RowProps>
 }));
@@ -50,7 +52,7 @@ const rowAttrs = computed(() => ({
 const mergedFormAttrs = computed(() => ({
   model: props.model,
   rules: props.rules,
-  class: [attrs.class, 'y-form'].filter(Boolean),
+  class: [attrs.class, ns.b()].filter(Boolean),
   style: attrs.style,
   ...omit(attrs, [...ROW_PROP_KEYS, ...ATTRS_LAYOUT_KEYS])
 }));

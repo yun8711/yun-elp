@@ -1,6 +1,6 @@
 <template>
-  <div class="y-cron-picker__group">
-    <div class="y-cron-picker__row">
+  <div :class="ns.e('group')">
+    <div :class="ns.e('row')">
       <el-select
         v-model="cronForm.weeks"
         multiple
@@ -15,7 +15,7 @@
           :value="item.value" />
       </el-select>
     </div>
-    <div class="y-cron-picker__row">
+    <div :class="ns.e('row')">
       <el-time-picker
         v-model="cronForm.timePicker"
         style="width: 260px"
@@ -33,6 +33,7 @@
 import { computed, onMounted, reactive } from 'vue'
 import { ElMessage, ElSelect, ElOption, ElTimePicker } from 'element-plus'
 import { useLocale } from '../../../../hooks/use-locale'
+import { useNamespace } from '../../../../hooks/use-namespace';
 
 interface Props {
   period: string
@@ -45,6 +46,7 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useLocale()
+const ns = useNamespace('cron-picker');
 
 const cronForm = reactive({
   weeks: ['1'],

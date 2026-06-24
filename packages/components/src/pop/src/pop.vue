@@ -1,5 +1,5 @@
 <template>
-  <div class="y-pop">
+  <div :class="ns.b()">
     <el-tooltip v-bind="tooltipProps" ref="tooltipRef" :disabled="disabledTooltip">
       <!-- 重要 -->
       <span>
@@ -10,7 +10,7 @@
           :disabled="noPop">
           <slot name="pop-content">
             <p>{{ popoverProps.content }}</p>
-            <div v-if="!props.noFooter" class="y-pop__popover-footer">
+            <div v-if="!props.noFooter" :class="ns.e('popover-footer')">
               <slot name="pop-footer">
                 <y-button
                   v-if="!props.noCancel"
@@ -44,6 +44,7 @@ import type { PopProps, PopEmits } from './pop';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import { useExternalListener } from '../../../hooks/use-external-listener';
+import { useNamespace } from '../../../hooks/use-namespace';
 import YButton from '../../button/src/button.vue';
 import { ElTooltip, ElPopover } from 'element-plus';
 
@@ -61,6 +62,7 @@ const slots = defineSlots<{
 
 const emit = defineEmits<PopEmits>();
 const popConfig = useAppConfig('pop');
+const ns = useNamespace('pop');
 const props = defineProps<PopProps>();
 const { t } = useLocale();
 const { hasExternalListener } = useExternalListener();
@@ -122,7 +124,7 @@ const tooltipProps = computed(() => {
     content: props.tipContent || "",
     placement: popConfig?.tipPlacement || props.tipPlacement || 'top',
     effect: 'dark',
-    popperClass: 'y-pop__tooltip',
+    popperClass: ns.e('tooltip'),
     trigger: 'hover',
     ...configProps,
     ...propProps,
@@ -143,7 +145,7 @@ const popoverProps = computed(() => {
     title: popConfig?.popTitle || props?.popTitle || t('common.notice'),
     content: popConfig?.popContent || props?.popContent || t('pop.popContent'),
     trigger: 'click',
-    popperClass: 'y-pop__popover',
+    popperClass: ns.e('popover'),
     ...configProps,
     ...propProps,
   }

@@ -1,4 +1,6 @@
-.y-column-select {
+@use './mixins/function' as *;
+
+#{y-class('column-select')} {
   .cell {
     display: flex;
     align-items: center;
@@ -12,7 +14,7 @@
   }
 
   &__radio {
-    .el-checkbox__inner {
+    #{el-class('checkbox__inner')} {
       border-radius: 50%;
     }
   }

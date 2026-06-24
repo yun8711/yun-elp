@@ -1,6 +1,6 @@
 <template>
-  <div class="y-cron-picker__group">
-    <div class="y-cron-picker__row">
+  <div :class="ns.e('group')">
+    <div :class="ns.e('row')">
       <span style="margin-right: 4px">{{ t('cronPicker.from') }}</span>
       <el-time-picker
         v-model="cronForm.startTime"
@@ -26,7 +26,7 @@
         @change="emitChange" />
       <span style="margin-left: 4px">{{ t('cronPicker.at') }}</span>
     </div>
-    <div class="y-cron-picker__row">
+    <div :class="ns.e('row')">
       <span>{{ t('cronPicker.interval') }}</span>
       <el-select
         v-model="cronForm.perMinute"
@@ -48,6 +48,7 @@
 import { computed, onMounted, reactive } from 'vue'
 import { ElTimePicker, ElSelect, ElOption } from 'element-plus'
 import { useLocale } from '../../../../hooks/use-locale'
+import { useNamespace } from '../../../../hooks/use-namespace';
 
 interface Props {
   period: string
@@ -60,6 +61,7 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useLocale()
+const ns = useNamespace('cron-picker');
 
 const cronForm = reactive({
   startTime: '00:00',

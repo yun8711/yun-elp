@@ -1,11 +1,13 @@
-.y-table {
+@use './mixins/function' as *;
+
+#{y-class('table')} {
   width: 100%;
   &__footer {
     display: flex;
     align-items: center;
     height: var(--table-footer-height, 60px);
-    font-size: var(--el-font-size-base);
-    border: 1px solid var(--el-border-color-light);
+    font-size: var(#{el-var-name('font-size-base')});
+    border: 1px solid var(#{el-var-name('border-color-light')});
     border-top: none;
 
     &-total-num {
@@ -21,27 +23,27 @@
     }
 
     &-pagination {
-      --el-pagination-font-size: var(--el-font-size-base, 12px);
-      --el-pagination-button-width: 30px;
-      --el-pagination-button-height: 28px;
-      .el-pagination__sizes {
-        .el-select {
+      #{el-var-name('pagination-font-size')}: var(#{el-var-name('font-size-base')}, 12px);
+      #{el-var-name('pagination-button-width')}: 30px;
+      #{el-var-name('pagination-button-height')}: 28px;
+      #{el-class('pagination__sizes')} {
+        #{el-class('select')} {
           width: 100px;
-          .el-select__wrapper {
+          #{el-class('select__wrapper')} {
             height: 28px;
             min-height: 28px;
-            .el-select__selected-item {
-              font-size: var(--el-font-size-base, 12px);
+            #{el-class('select__selected-item')} {
+              font-size: var(#{el-var-name('font-size-base')}, 12px);
             }
           }
         }
       }
 
-      .el-pagination__jump {
-        font-size: var(--el-font-size-base, 12px);
-        .el-input__wrapper {
+      #{el-class('pagination__jump')} {
+        font-size: var(#{el-var-name('font-size-base')}, 12px);
+        #{el-class('input__wrapper')} {
           height: 28px;
-          .el-input__inner {
+          #{el-class('input__inner')} {
             height: 28px;
           }
         }

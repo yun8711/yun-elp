@@ -62,14 +62,7 @@ export default defineConfig({
         }),
       ],
     }),
-  ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: '@use "yun-elp/themes/kd.scss" as *;',
-      },
-    },
-  },
+  ]
 });
 ```
 
@@ -78,6 +71,8 @@ export default defineConfig({
 - `YunElpResolver({ importStyle: 'scss' })` 会自动引入 `yun-elp/theme-chalk/src/*.scss`
 - `YAppWrap`、`YButton`、`YGroupSelect` 这类组件不会通过 resolver 自动附带样式文件
 - 如果不需要自动注入样式，可以把 `importStyle` 设为 `false`
+- `yun-elp/themes/kd.scss` 应单独全局引入一次，不建议通过 `additionalData` 注入到每个 SCSS 文件
+- 如果你需要自定义 `el` / `y` 前缀，请继续阅读[命名空间](./namespace)
 
 ## 全量导入
 
@@ -89,6 +84,12 @@ import 'yun-elp/themes/kd.scss';
 import App from './App.vue';
 
 createApp(App).use(YunElp).mount('#app');
+```
+
+如果你使用的是自动导入 + `scss` 源码样式，也同样建议在应用入口额外引入一次：
+
+```ts
+import 'yun-elp/themes/kd.scss';
 ```
 
 ## 一个最小示例

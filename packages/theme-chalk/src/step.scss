@@ -1,4 +1,6 @@
-.y-step {
+@use './mixins/function' as *;
+
+#{y-class('step')} {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -7,7 +9,7 @@
   width: 100%;
   height: var(--step-height, 64px);
   padding: 0 20px;
-  background-color: var(--el-fill-color-lighter);
+  background-color: var(#{el-var-name('fill-color-lighter')});
   border-radius: 1px;
 
   &__item {
@@ -15,7 +17,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    color: var(--el-text-color-placeholder);
+    color: var(#{el-var-name('text-color-placeholder')});
 
     &:not(:last-child) {
       flex: 1;
@@ -31,7 +33,7 @@
         flex-direction: row;
         align-items: center;
 
-        .y-step__item-label {
+        #{y-class('step__item-label')} {
           margin-left: 8px;
         }
       }
@@ -43,14 +45,14 @@
       justify-content: center;
       width: 24px;
       height: 24px;
-      font-size: var(--el-font-size-base);
-      border: 1px solid var(--el-text-color-placeholder);
+      font-size: var(#{el-var-name('font-size-base')});
+      border: 1px solid var(#{el-var-name('text-color-placeholder')});
       border-radius: 50%;
     }
 
     &-label {
       margin-top: 4px;
-      font-size: var(--el-font-size-base);
+      font-size: var(#{el-var-name('font-size-base')});
       font-weight: 500;
     }
 
@@ -58,22 +60,22 @@
       flex: 1;
       height: var(--line-width, 1px);
       margin: 0 16px;
-      background-color: var(--el-text-color-placeholder);
+      background-color: var(#{el-var-name('text-color-placeholder')});
 
       &.is-active {
-        background-color: var(--active-color, var(--el-color-primary));
+        background-color: var(--active-color, var(#{el-var-name('color-primary')}));
       }
     }
 
     &.is-active {
-      .y-step__item-index {
-        color: var(--active-text-color, var(--el-color-white));
-        background-color: var(--active-color, var(--el-color-primary));
-        border-color: var(--active-color, var(--el-color-primary));
+      #{y-class('step__item-index')} {
+        color: var(--active-text-color, var(#{el-var-name('color-white')}));
+        background-color: var(--active-color, var(#{el-var-name('color-primary')}));
+        border-color: var(--active-color, var(#{el-var-name('color-primary')}));
       }
 
-      .y-step__item-label {
-        color: var(--active-text-color, var(--el-color-primary));
+      #{y-class('step__item-label')} {
+        color: var(--active-text-color, var(#{el-var-name('color-primary')}));
       }
     }
   }

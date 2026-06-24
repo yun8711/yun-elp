@@ -1,5 +1,5 @@
 <template>
-  <div class="y-group-select">
+  <div :class="ns.b()">
     <el-button-group>
       <el-button
         v-for="(item, index) in options"
@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import { ElButtonGroup, ElButton } from 'element-plus';
 import { groupSelectProps, type GroupSelectOption, type GroupSelectEmits } from './group-select';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YGroupSelect',
@@ -32,6 +33,7 @@ defineOptions({
 
 const props = defineProps(groupSelectProps);
 const emit = defineEmits<GroupSelectEmits>();
+const ns = useNamespace('group-select');
 
 const onClick = (value: string | number, item: GroupSelectOption, index: number, event: MouseEvent) => {
   if (value === props.modelValue) {

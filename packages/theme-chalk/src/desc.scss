@@ -1,13 +1,15 @@
-.y-desc {
+@use './mixins/function' as *;
+
+#{y-class('desc')} {
   width: 100%;
-  font-size: var(--el-font-size-base);
-  color: var(--el-text-color-primary);
-  background-color: var(--el-bg-color);
+  font-size: var(#{el-var-name('font-size-base')});
+  color: var(#{el-var-name('text-color-primary')});
+  background-color: var(#{el-var-name('bg-color')});
 
   // 主体内容区域 - 使用Grid布局
   &__body {
     display: grid;
-    grid-template-columns: repeat(var(--y-desc-columns, 3), 1fr);
+    grid-template-columns: repeat(var(#{y-var-name('desc-columns')}, 3), 1fr);
     gap: 8px 0;
     width: 100%;
   }
@@ -31,7 +33,7 @@
 
     // box-sizing: border-box;
     line-height: 23px;
-    color: var(--el-text-color-regular);
+    color: var(#{el-var-name('text-color-regular')});
     word-break: keep-all;
     white-space: nowrap;
   }
@@ -49,19 +51,19 @@
 
   // 边框模式
   &--bordered {
-    .y-desc__body {
+    #{y-class('desc__body')} {
       gap: 0; // 移除间距
       overflow: hidden;
-      border: 1px solid var(--el-border-color);
+      border: 1px solid var(#{el-var-name('border-color')});
     }
 
-    .y-desc__item {
+    #{y-class('desc__item')} {
       min-height: 41px;
       border: none;
-      border-bottom: 1px solid var(--el-border-color-lighter);
+      border-bottom: 1px solid var(#{el-var-name('border-color-lighter')});
     }
 
-    .y-desc__item-label {
+    #{y-class('desc__item-label')} {
       display: flex;
       align-items: center;
       justify-content: flex-start;
@@ -69,12 +71,12 @@
       padding: 8px 11px;
       margin-right: 0;
       font-weight: bold;
-      color: var(--el-text-color-regular);
-      background-color: var(--el-fill-color-light);
-      border-right: 1px solid var(--el-border-color-lighter);
+      color: var(#{el-var-name('text-color-regular')});
+      background-color: var(#{el-var-name('fill-color-light')});
+      border-right: 1px solid var(#{el-var-name('border-color-lighter')});
     }
 
-    .y-desc__item-content {
+    #{y-class('desc__item-content')} {
       display: flex;
       align-items: center;
       justify-content: flex-start;

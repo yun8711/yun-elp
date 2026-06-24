@@ -1,5 +1,7 @@
+@use './mixins/function' as *;
+
 // 基于el-progress的页面进度条样式
-.y-page-progress {
+#{y-class('page-progress')} {
   // 固定在页面顶部
   position: fixed !important;
   top: 0 !important;
@@ -9,13 +11,13 @@
   pointer-events: none !important;
 
   // 隐藏默认的背景和边框
-  .el-progress-bar__outer {
+  #{el-class('progress-bar__outer')} {
     background-color: transparent !important;
     border-radius: 0 !important;
   }
 
   // 进度条样式
-  .el-progress-bar__inner {
+  #{el-class('progress-bar__inner')} {
     border-radius: 0 !important;
     box-shadow: 0 0 2px rgb(0 0 0 / 10%);
     transition: width 200ms linear !important;
@@ -41,8 +43,8 @@
     pointer-events: none;
     content: '';
     border: solid 2px transparent;
-    border-top-color: var(--el-color-primary);
-    border-left-color: var(--el-color-primary);
+    border-top-color: var(#{el-var-name('color-primary')});
+    border-left-color: var(#{el-var-name('color-primary')});
     border-radius: 50%;
     animation: y-page-progress-spinner 400ms linear infinite;
   }

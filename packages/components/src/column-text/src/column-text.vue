@@ -4,8 +4,7 @@
       <slot :scope="scope" :value="formatterCellValue(scope)">
         <span
           :style="textStyle"
-          class="y-column-text__content"
-          :class="{ 'y-column-text__link': link }"
+          :class="[ns.e('content'), { [ns.e('link')]: link }]"
           @click="handleClick(scope, $event)">
           {{ formatterCellValue(scope) }}
         </span>
@@ -27,6 +26,7 @@ import { ElTableColumn } from 'element-plus';
 import type { ColumnTextProps } from './column-text';
 import { toRefs, useAttrs, computed } from 'vue';
 import { useExternalListener } from '../../../hooks/use-external-listener';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YColumnText',
@@ -36,6 +36,7 @@ defineOptions({
 const emit = defineEmits(['click']);
 const attrs = useAttrs();
 const { hasExternalListener } = useExternalListener();
+const ns = useNamespace('column-text');
 
 const props = withDefaults(defineProps<ColumnTextProps>(), {
   link: false,
@@ -52,14 +53,14 @@ const mergedAttrs = computed(() => {
     ...attrs,
     'min-width': attrs?.['min-width'] || 100,
     width: attrs?.width || 'auto',
-    'class-name': attrs?.['class-name'] || 'y-column-text',
+    'class-name': attrs?.['class-name'] || ns.b(),
   }
 
   if (noTip.value) {
     obj['show-overflow-tooltip'] = false;
   } else {
     obj['show-overflow-tooltip'] = {
-      popperClass: 'y-column-text__tooltip',
+      popperClass: ns.e('tooltip'),
       ...(tipProps.value || {}),
     };
   }

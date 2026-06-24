@@ -3,13 +3,13 @@
     ref="dialogRef"
     v-model="dialogVisible"
     v-bind="dialogAttrs"
-    class="y-dialog"
+    :class="ns.b()"
     :style="{
       '--body-max-height': bodyMaxHeight
     }">
     <template #header>
       <slot name="header">
-        <div class="y-dialog__header-title" :style="titleStyle">
+        <div :class="ns.e('header-title')" :style="titleStyle">
           <slot name="title">
             {{ title }}
           </slot>
@@ -42,6 +42,7 @@ import { DialogProps, DialogEmits } from './dialog';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import { useExternalListener } from '../../../hooks/use-external-listener';
+import { useNamespace } from '../../../hooks/use-namespace';
 import { omit } from 'lodash-es';
 import { ElDialog } from 'element-plus';
 import YButton from '../../button/src/button.vue';
@@ -54,6 +55,7 @@ defineOptions({
 const emit = defineEmits<DialogEmits>();
 
 const dialogConfig = useAppConfig('dialog');
+const ns = useNamespace('dialog');
 const attrs = useAttrs();
 const { t } = useLocale();
 const { hasExternalListener } = useExternalListener();
@@ -80,9 +82,9 @@ const dialogVisible = computed({
 
 const dialogAttrs = computed(() => {
   return {
-    headerClass: 'y-dialog__header',
-    bodyClass: 'y-dialog__body',
-    footerClass: 'y-dialog__footer',
+    headerClass: ns.e('header'),
+    bodyClass: ns.e('body'),
+    footerClass: ns.e('footer'),
     ...omit(dialogConfig, [
       'titleStyle',
       'confirmText',

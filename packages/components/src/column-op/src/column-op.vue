@@ -24,19 +24,19 @@
         v-if="getOptions(scope).dropdownList.length > 0"
         placement="bottom"
         width="0"
-        popper-class="y-column-op__dropdown"
+        :popper-class="ns.e('dropdown')"
         trigger="click"
         :visible="getDropdownVisible(scope.$index)"
         @update:visible="setDropdownVisible(scope.$index, $event)">
         <template #reference>
-          <el-icon class="y-column-op__dropdown-icon">
+          <el-icon :class="ns.e('dropdown-icon')">
             <MoreFilled />
           </el-icon>
         </template>
         <div
           v-for="item in getOptions(scope).dropdownList"
           :key="item.prop"
-          class="y-column-op__dropdown-item">
+          :class="ns.e('dropdown-item')">
           <y-pop v-bind="getPopProps(item)" v-on="getPopEvents(scope, item)">
             <y-button
               type="primary"
@@ -79,6 +79,7 @@ import { merge } from 'lodash-es';
 import { MoreFilled } from '@element-plus/icons-vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useTableColumnAttrs } from '../../../hooks/use-table-column-attrs';
+import { useNamespace } from '../../../hooks/use-namespace';
 import YPop from '../../pop/src/pop.vue';
 import YButton from '../../button/src/button.vue';
 
@@ -88,8 +89,9 @@ defineOptions({
 });
 
 const columnOpConfig = useAppConfig('columnOp');
+const ns = useNamespace('column-op');
 const { attrs, mergedColumnAttrs } = useTableColumnAttrs({
-  className: 'y-column-op',
+  className: ns.b(),
   fixed: 'right',
   showOverflowTooltip: false,
 });

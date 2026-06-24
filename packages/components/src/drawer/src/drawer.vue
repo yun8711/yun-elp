@@ -3,10 +3,10 @@
     ref="drawerRef"
     v-model="drawerVisible"
     v-bind="drawerAttrs"
-    class="y-drawer">
+    :class="ns.b()">
     <template #header>
       <slot name="header">
-        <div class="y-drawer__header-title" :style="titleStyle">
+        <div :class="ns.e('header-title')" :style="titleStyle">
           <slot name="title">
             {{ title }}
           </slot>
@@ -40,6 +40,7 @@ import type { DrawerInstance } from 'element-plus';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import { useExternalListener } from '../../../hooks/use-external-listener';
+import { useNamespace } from '../../../hooks/use-namespace';
 import { omit } from 'lodash-es';
 import YButton from '../../button/src/button.vue';
 
@@ -51,6 +52,7 @@ defineOptions({
 const emit = defineEmits<DrawerEmits>();
 
 const drawerConfig = useAppConfig('drawer');
+const ns = useNamespace('drawer');
 const attrs = useAttrs();
 const { t } = useLocale();
 const { hasExternalListener } = useExternalListener();
@@ -76,9 +78,9 @@ const drawerVisible = computed({
 
 const drawerAttrs = computed(() => {
   return {
-    headerClass: 'y-drawer__header',
-    bodyClass: 'y-drawer__body',
-    footerClass: 'y-drawer__footer',
+    headerClass: ns.e('header'),
+    bodyClass: ns.e('body'),
+    footerClass: ns.e('footer'),
     size: drawerConfig?.size || '640px',
     ...omit(drawerConfig, [
       'titleStyle',

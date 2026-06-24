@@ -4,8 +4,7 @@
       <slot :scope="scope" :value="formatterCellValue(scope)">
         <span
           :style="getStyle(scope)"
-          class="y-column-filter__content"
-          :class="{ 'y-column-filter__status': !noStatus }">
+          :class="[ns.e('content'), { [ns.e('status')]: !noStatus }]">
           {{ formatterCellValue(scope) }}
         </span>
       </slot>
@@ -30,14 +29,16 @@ import { toRefs, computed } from 'vue';
 import type { ColumnFilterProps, ColumnFilterConfig } from './column-filter';
 import { isEmpty } from 'lodash-es';
 import { useTableColumnAttrs, type TableColumnMergedAttrs } from '../../../hooks/use-table-column-attrs';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YColumnFilter',
   inheritAttrs: true
 });
+const ns = useNamespace('column-filter');
 
 const { attrs, mergedColumnAttrs: baseMergedAttrs } = useTableColumnAttrs({
-  className: 'y-column-filter',
+  className: ns.b(),
   columnKey: true,
 });
 const props = withDefaults(defineProps<ColumnFilterProps>(), {

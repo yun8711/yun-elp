@@ -1,13 +1,15 @@
-.y-row-select {
+@use './mixins/function' as *;
+
+#{y-class('row-select')} {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   height: var(--height);
   overflow: hidden;
-  font-size: var(--text-font-size, var(--el-font-size-base));
+  font-size: var(--text-font-size, var(#{el-var-name('font-size-base')}));
   transition: height var(--duration) linear;
 
-  & + .y-row-select {
+  & + #{y-class('row-select')} {
     margin-top: 16px;
   }
 
@@ -15,10 +17,10 @@
   &__label {
     height: var(--item-height);
     margin-right: 24px;
-    font-size: var(--text-label-font-size, var(--el-font-size-base));
+    font-size: var(--text-label-font-size, var(#{el-var-name('font-size-base')}));
     font-weight: 500;
     line-height: var(--item-height);
-    color: var(--text-label-color, var(--el-text-color-regular));
+    color: var(--text-label-color, var(#{el-var-name('text-color-regular')}));
 
     &--separator {
       position: relative;
@@ -53,9 +55,9 @@
     width: var(--item-width);
     height: var(--item-height);
     padding: 0 8px;
-    font-size: var(--text-item-font-size, var(--el-font-size-base));
+    font-size: var(--text-item-font-size, var(#{el-var-name('font-size-base')}));
     line-height: var(--item-height);
-    color: var(--text-item-color, var(--el-text-color-regular));
+    color: var(--text-item-color, var(#{el-var-name('text-color-regular')}));
     text-align: center;
     cursor: pointer;
 
@@ -66,19 +68,19 @@
     }
 
     &.is-active {
-      color: var(--active-item-color, var(--el-color-white));
-      background-color: var(--active-item-bg-color, var(--el-color-primary));
+      color: var(--active-item-color, var(#{el-var-name('color-white')}));
+      background-color: var(--active-item-bg-color, var(#{el-var-name('color-primary')}));
     }
 
     &.is-disabled {
-      color: var(--disabled-item-color, var(--el-text-color-disabled));
+      color: var(--disabled-item-color, var(#{el-var-name('text-color-disabled')}));
       cursor: not-allowed;
-      background-color: var(--disabled-item-bg-color, var(--el-color-disabled));
+      background-color: var(--disabled-item-bg-color, var(#{el-var-name('color-disabled')}));
     }
 
     &:not(.is-active, .is-disabled):hover {
-      color: var(--hover-item-color, var(--el-text-color-primary));
-      background-color: var(--hover-item-bg-color, var(--el-color-primary-light-9));
+      color: var(--hover-item-color, var(#{el-var-name('text-color-primary')}));
+      background-color: var(--hover-item-bg-color, var(#{el-var-name('color-primary-light-9')}));
     }
   }
 
@@ -91,7 +93,7 @@
     height: var(--item-height);
     margin-left: 8px;
     line-height: var(--item-height);
-    color: var(--el-color-primary);
+    color: var(#{el-var-name('color-primary')});
     cursor: pointer;
 
     &-inner {
@@ -99,7 +101,7 @@
       flex-direction: row;
       align-items: center;
 
-      .el-icon--right {
+      #{el-class('icon--right')} {
         margin-right: 4px;
         transition: transform var(--duration);
 

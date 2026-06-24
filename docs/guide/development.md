@@ -45,6 +45,14 @@ pnpm create
 
 脚本会生成组件源码、样式、测试、文档和示例文件。
 
+生成出来的组件骨架已经默认接入 namespace helper：
+
+- Vue 组件默认使用 `useNamespace('<component-name>')`
+- SCSS 默认使用 `y-class()` 等 Sass helper
+- 基础测试会覆盖自定义 `yNamespace` 场景
+
+这部分不要再回退成写死的 `.y-*`、`--el-*` 字符串；如果需要详细说明，见[命名空间](./namespace)。
+
 ### 2. 本地调试
 
 启动调试项目：

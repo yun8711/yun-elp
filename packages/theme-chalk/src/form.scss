@@ -1,4 +1,6 @@
-.y-form {
+@use './mixins/function' as *;
+
+#{y-class('form')} {
   &__row {
     display: flex;
     flex-wrap: wrap;

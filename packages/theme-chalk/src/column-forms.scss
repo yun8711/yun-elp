@@ -1,4 +1,6 @@
-.y-column-forms {
+@use './mixins/function' as *;
+
+#{y-class('column-forms')} {
   &__content {
     display: flex;
     flex-direction: row;

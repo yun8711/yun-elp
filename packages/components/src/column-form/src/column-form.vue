@@ -24,7 +24,7 @@
               :content="error"
               :disabled="!error"
               :visible="errorMessageMap[`${scope.$index}_${prop}`]">
-              <span class="y-column-form__error" :class="{ 'is-hidden': !error }" />
+              <span :class="[ns.e('error'), { [ns.is('hidden')]: !error }]" />
             </el-tooltip>
           </div>
         </template>
@@ -44,6 +44,7 @@ import type { ColumnFormProps } from './column-form';
 import { toRefs, computed, inject, ref } from 'vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useTableColumnAttrs } from '../../../hooks/use-table-column-attrs';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YColumnForm',
@@ -52,9 +53,10 @@ defineOptions({
 
 
 const columnFormConfig = useAppConfig('columnForm')
+const ns = useNamespace('column-form');
 const formTableProp = inject('formTableProp', 'tableData');
 const { attrs, mergedColumnAttrs } = useTableColumnAttrs({
-  className: 'y-column-form',
+  className: ns.b(),
   showOverflowTooltip: false,
 });
 const props = withDefaults(defineProps<ColumnFormProps>(), {
@@ -86,7 +88,7 @@ const mergedFormAttrs = (scope: any) => {
 
 const mergedTipProps = computed(() => {
   return {
-    popperClass: columnFormConfig?.popperClass || 'y-column-form__error-tooltip',
+    popperClass: columnFormConfig?.popperClass || ns.e('error-tooltip'),
     placement: columnFormConfig?.placement || 'top',
     enterable: false,
     ...(tipProps?.value || {}),

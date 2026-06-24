@@ -1,6 +1,6 @@
 <template>
-  <div class="y-cron-picker__group">
-    <div class="y-cron-picker__row">
+  <div :class="ns.e('group')">
+    <div :class="ns.e('row')">
       <el-radio
         v-model="cronForm.radio"
         value="start"
@@ -36,7 +36,7 @@
       <span style="margin-left: 4px;">{{ t('cronPicker.at') }}</span>
     </div>
 
-    <div class="y-cron-picker__row y-cron-picker__row-interval">
+    <div :class="[ns.e('row'), ns.e('row-interval')]">
       <span>{{ t('cronPicker.interval') }}</span>
       <el-select
         v-model="cronForm.perHour"
@@ -53,7 +53,7 @@
       <span>{{ t('cronPicker.runOnce') }}</span>
     </div>
 
-    <div class="y-cron-picker__row">
+    <div :class="ns.e('row')">
       <el-radio
         v-model="cronForm.radio"
         value="assign"
@@ -82,7 +82,7 @@
       </el-select>
     </div>
 
-    <div class="y-cron-picker__row y-cron-picker__row-interval">
+    <div :class="[ns.e('row'), ns.e('row-interval')]">
       <span
         style="margin-right: 8px;"
         :style="{ width: labelWidth }"
@@ -108,6 +108,7 @@
 import { computed, onMounted, reactive } from 'vue'
 import { ElMessage, ElRadio, ElSelect, ElOption, ElTimePicker } from 'element-plus'
 import { useLocale } from '../../../../hooks/use-locale'
+import { useNamespace } from '../../../../hooks/use-namespace';
 
 interface Props {
   period: string
@@ -120,6 +121,7 @@ const emit = defineEmits<{
 }>()
 
 const { t, localeCode } = useLocale()
+const ns = useNamespace('cron-picker');
 
 const cronForm = reactive({
   startTime: '00:00',

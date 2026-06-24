@@ -1,17 +1,20 @@
 <template>
-  <Layout #default="{ locale,curComponent }" :examples="examples">
-    <y-app-wrap
-      :key="locale"
-      :elp-config="{ locale: locale === 'zh-cn' ? zhCn : en }"
-      :locale="locale"
-      v-bind="appWrapConfig">
-      <component :is="examples.find(item => item.value === curComponent)?.component" />
-    </y-app-wrap>
-  </Layout>
+  <el-config-provider :locale="currentElLocale" :namespace="demoNamespaces.el">
+    <Layout v-model:locale="locale" v-model:theme="theme" #default="{ curComponent }" :examples="examples">
+      <y-app-wrap
+        :key="locale"
+        :elp-config="{ locale: currentElLocale, namespace: demoNamespaces.el }"
+        :locale="locale"
+        :y-namespace="demoNamespaces.y"
+        v-bind="appWrapConfig">
+        <component :is="examples.find(item => item.value === curComponent)?.component" />
+      </y-app-wrap>
+    </Layout>
+  </el-config-provider>
 </template>
 
 <script setup>
-import { ref, computed, defineAsyncComponent } from 'vue';
+import { computed, defineAsyncComponent, ref, watch } from 'vue';
 import Layout from './components/Layout.vue';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import en from 'element-plus/dist/locale/en.mjs';
@@ -19,6 +22,7 @@ import logo from './assets/test.png';
 
 // 组件映射 - 使用 defineAsyncComponent 包装动态导入
 const examples = [
+  {label: 'Namespace', value: 'namespace', default: true, component: defineAsyncComponent(() => import('./components/namespace-example.vue'))},
   {label: 'Sticky Page', value: 'sticky-page',component: defineAsyncComponent(() => import('./components/sticky-page/index.vue'))},
   {label: 'Page Progress', value: 'page-progress',component: defineAsyncComponent(() => import('./components/page-progress-example.vue'))},
   {label: 'Button', value: 'button',component: defineAsyncComponent(() => import('./components/button-example.vue'))},
@@ -33,8 +37,26 @@ const examples = [
   {label: 'Step', value: 'step',component: defineAsyncComponent(() => import('./components/step-example.vue'))},
   {label: 'ECharts', value: 'echarts',component: defineAsyncComponent(() => import('./components/echarts/echarts-example.vue'))},
   {label: 'Table V2', value: 'table-v2',component: defineAsyncComponent(() => import('./components/table-v2/index.vue'))},
-  {label: '网页容器', value: 'web-view',default: true,component: defineAsyncComponent(() => import('./components/web-view/index.vue'))}
+  {label: '网页容器', value: 'web-view',component: defineAsyncComponent(() => import('./components/web-view/index.vue'))}
 ]
+
+
+const demoNamespaces = {
+  el: 'ep',
+  y: 'yp'
+};
+
+const locale = ref('zh-cn');
+const theme = ref('kd');
+const currentElLocale = computed(() => locale.value === 'zh-cn' ? zhCn : en);
+
+watch(
+  theme,
+  value => {
+    document.documentElement.setAttribute('data-yun-theme', value);
+  },
+  { immediate: true }
+);
 
 const appWrapConfig = {
   dialog: {
@@ -72,13 +94,13 @@ const appWrapConfig = {
   align-items: center;
   padding: 16px;
   margin-bottom: 20px;
-  background: var(--el-bg-color);
-  border: 1px solid var(--el-border-color-light);
+  background: var(--ep-bg-color);
+  border: 1px solid var(--ep-border-color-light);
   border-radius: 8px;
 
   span {
     font-weight: 500;
-    color: var(--el-text-color-primary);
+    color: var(--ep-text-color-primary);
   }
 }
 
@@ -91,7 +113,7 @@ const appWrapConfig = {
     margin-bottom: 32px;
     font-size: 24px;
     font-weight: 600;
-    color: var(--el-text-color-primary);
+    color: var(--ep-text-color-primary);
     text-align: center;
   }
 }
@@ -99,28 +121,28 @@ const appWrapConfig = {
 .demo-block {
   padding: 20px;
   margin-bottom: 40px;
-  background: var(--el-bg-color);
-  border: 1px solid var(--el-border-color-light);
+  background: var(--ep-bg-color);
+  border: 1px solid var(--ep-border-color-light);
   border-radius: 8px;
 
   h3 {
     margin-bottom: 16px;
     font-size: 16px;
     font-weight: 500;
-    color: var(--el-text-color-primary);
+    color: var(--ep-text-color-primary);
   }
 
   .tip {
     margin-top: 8px;
     font-size: 12px;
-    color: var(--el-text-color-secondary);
+    color: var(--ep-text-color-secondary);
   }
 
   .scroll-info {
     margin-top: 8px;
     font-size: 12px;
     font-weight: 500;
-    color: var(--el-color-primary);
+    color: var(--ep-color-primary);
   }
 
   .control-buttons {
@@ -141,7 +163,7 @@ const appWrapConfig = {
         margin-bottom: 8px;
         font-size: 14px;
         font-weight: 500;
-        color: var(--el-text-color-primary);
+        color: var(--ep-text-color-primary);
         text-align: center;
       }
     }
@@ -158,10 +180,10 @@ const appWrapConfig = {
   flex-shrink: 0;
   padding: 12px 20px;
   font-weight: 500;
-  color: var(--el-color-primary);
+  color: var(--ep-color-primary);
   white-space: nowrap;
-  background: var(--el-color-primary-light-9);
-  border: 1px solid var(--el-color-primary-light-7);
+  background: var(--ep-color-primary-light-9);
+  border: 1px solid var(--ep-color-primary-light-7);
   border-radius: 6px;
 }
 
@@ -170,10 +192,10 @@ const appWrapConfig = {
   padding: 8px 16px;
   font-size: 12px;
   font-weight: 500;
-  color: var(--el-color-success);
+  color: var(--ep-color-success);
   white-space: nowrap;
-  background: var(--el-color-success-light-9);
-  border: 1px solid var(--el-color-success-light-7);
+  background: var(--ep-color-success-light-9);
+  border: 1px solid var(--ep-color-success-light-7);
   border-radius: 4px;
 }
 
@@ -193,8 +215,8 @@ const appWrapConfig = {
     color: white;
     background: linear-gradient(
       135deg,
-      var(--el-color-primary-light-8),
-      var(--el-color-primary-light-6)
+      var(--ep-color-primary-light-8),
+      var(--ep-color-primary-light-6)
     );
     border-radius: 8px;
   }
@@ -205,7 +227,7 @@ const appWrapConfig = {
   width: 200px;
   padding: 16px;
   background: white;
-  border: 1px solid var(--el-border-color-light);
+  border: 1px solid var(--ep-border-color-light);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
 
@@ -213,14 +235,14 @@ const appWrapConfig = {
     margin: 0 0 8px;
     font-size: 16px;
     font-weight: 500;
-    color: var(--el-text-color-primary);
+    color: var(--ep-text-color-primary);
   }
 
   p {
     margin: 0 0 12px;
     font-size: 14px;
     line-height: 1.4;
-    color: var(--el-text-color-regular);
+    color: var(--ep-text-color-regular);
   }
 }
 </style>

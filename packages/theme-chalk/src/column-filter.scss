@@ -1,11 +1,13 @@
-.y-column-filter {
+@use './mixins/function' as *;
+
+#{y-class('column-filter')} {
   &__content {
     line-height: 1.5;
   }
   &__status {
     display: inline-block;
     padding: 4px 6px;
-    font-size: var(--el-font-size-small);
+    font-size: var(#{el-var-name('font-size-small')});
     line-height: 1;
     border-radius: 1px;
   }

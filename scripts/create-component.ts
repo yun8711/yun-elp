@@ -77,7 +77,27 @@ function updateSidebarJson(componentName: string, category: string, chineseName?
 }
 
 function genVueFile(name: string, pascalName: string) {
-  return `<template>\n  <div class="${COMPONENT_PREFIX}-${name}">\n    <slot></slot>\n  </div>\n</template>\n\n<script setup lang="ts">\ndefineOptions({\n  name: '${pascalName}',\n  inheritAttrs: true\n});\n</script>\n`;
+  const rawPascal = names.getCamelCaseName(name, false);
+  return `<template>
+  <div :class="ns.b()" v-bind="$attrs">
+    <slot />
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { ${rawPascal}Props } from './${name}';
+import { useNamespace } from '../../../hooks/use-namespace';
+
+defineOptions({
+  name: '${pascalName}',
+  inheritAttrs: true
+});
+
+defineProps<${rawPascal}Props>();
+
+const ns = useNamespace('${name}');
+</script>
+`;
 }
 
 function genIndexTs(name: string, pascalName: string) {
@@ -114,6 +134,7 @@ export type ${pascalNameFirstLower}Instance = ExtractPublicPropTypes<typeof ${pa
 function genTestFile(name: string, pascalName: string) {
   return `import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
+import { appConfigKey } from '../../app-wrap/src/use-app-config';
 import ${pascalName} from '../src/${name}.vue';
 
 describe('${pascalName}', () => {
@@ -121,12 +142,32 @@ describe('${pascalName}', () => {
     const wrapper = mount(${pascalName});
     expect(wrapper.exists()).toBe(true);
   });
+
+  it('支持自定义 yNamespace', () => {
+    const wrapper = mount(${pascalName}, {
+      global: {
+        provide: {
+          [appConfigKey as symbol]: {
+            yNamespace: 'yp'
+          }
+        }
+      }
+    });
+
+    expect(wrapper.classes()).toContain('yp-${name}');
+    expect(wrapper.classes()).not.toContain('y-${name}');
+  });
 });
 `;
 }
 
 function genScssFile(name: string) {
-  return `.${COMPONENT_PREFIX}-${name} {\n  // 组件样式\n}\n`;
+  return `@use './mixins/function' as *;
+
+#{y-class('${name}')} {
+  // 组件样式
+}
+`;
 }
 
 function genDocFile(compDirName: string, rawPascal: string, chineseName?: string) {
@@ -144,6 +185,12 @@ description: ${description}
 ## 说明
 
 基于相关组件封装，用于${chineseName || compDirName}功能。
+
+## Namespace 约定
+
+- 组件类名请通过运行时 `useNamespace('${compDirName}')` 生成，不要写死 \`y-${compDirName}\`
+- 组件样式请通过 `y-class()`、`el-var-name()` 等 Sass 方法生成，不要直接写死 \`.y-*\`、\`--el-*\`
+- 如果组件需要消费 Element Plus CSS 变量，优先通过运行时 helper 或 Sass helper 间接引用
 
 ## 用法示例
 
@@ -191,11 +238,10 @@ ${compDirName}/test
 
 function genDocTestFile(compDirName: string) {
   return `<template>
-    <${COMPONENT_PREFIX}-${compDirName} />
+  <${COMPONENT_PREFIX}-${compDirName} />
 </template>
 
 <script setup lang="ts">
-
 </script>`;
 }
 

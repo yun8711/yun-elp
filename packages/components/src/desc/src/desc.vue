@@ -1,19 +1,20 @@
 <template>
   <div
     ref="descRef"
-    class="y-desc"
-    :style="containerStyle"
-    :class="{
-      'y-desc--bordered': isBorder
-    }">
-    <div class="y-desc__body">
+    :class="[
+      ns.b(),
+      {
+        [ns.m('bordered')]: isBorder
+      }
+    ]"
+    :style="containerStyle">
+    <div :class="ns.e('body')">
       <div
         v-for="(item, index) in props.config"
         :key="getItemKey(item, index)"
-        class="y-desc__item"
-        :class="itemClass"
+        :class="[ns.e('item'), itemClass]"
         :style="getItemStyle(index)">
-        <div class="y-desc__item-label" :style="getLabelStyle(item, index)">
+        <div :class="ns.e('item-label')" :style="getLabelStyle(item, index)">
           <slot
             v-if="item?.prop && slots[`${item.prop}-label`]"
             :name="`${item.prop}-label`"
@@ -23,7 +24,7 @@
           </slot>
           <span v-else>{{ item.label }}</span>
         </div>
-        <div class="y-desc__item-content" :style="getContentStyle(item)">
+        <div :class="ns.e('item-content')" :style="getContentStyle(item)">
           <slot
             v-if="item?.prop && slots[`${item.prop}-content`]"
             :name="`${item.prop}-content`"
@@ -61,6 +62,7 @@ import { computed, useAttrs, useSlots, useTemplateRef } from 'vue';
 import { hasOwn } from '@vueuse/shared';
 import { useElementSize } from '@vueuse/core';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
+import { useNamespace } from '../../../hooks/use-namespace';
 import { getSizeValue } from '../../../utils/other';
 import YTextTooltip from '../../text-tooltip/src/text-tooltip.vue';
 
@@ -75,6 +77,7 @@ const slots = useSlots();
 const descRef = useTemplateRef<HTMLElement | null>('descRef');
 const { width } = useElementSize(descRef);
 const props = defineProps<DescProps>() as DescProps;
+const ns = useNamespace('desc');
 
 const mergedProps = computed(() => {
   const desc = descConfig || {};
@@ -155,7 +158,7 @@ const column = computed(() => {
 // 容器样式 - 动态设置CSS变量
 const containerStyle = computed(() => {
   const style: Record<string, string | number> = {
-    '--y-desc-columns': String(column.value)
+    [ns.cssVarName('desc-columns')]: String(column.value)
   };
 
   // 合并用户自定义样式，过滤无效值
@@ -174,8 +177,8 @@ const containerStyle = computed(() => {
 
 const itemClass = computed(() => {
   return {
-    'y-desc__item--bordered': isBorder.value,
-    'y-desc__item--vertical': props?.direction === 'vertical'
+    [ns.em('item', 'bordered')]: isBorder.value,
+    [ns.em('item', 'vertical')]: props?.direction === 'vertical'
   };
 });
 
@@ -237,10 +240,10 @@ const getItemStyle = (index: number) => {
 const getLabelStyle = (item: DescItem, index: number) => {
   const style: Record<string, string> = {
     width: getSizeValue(item?.labelWidth) || getSizeValue(props?.labelWidth) || 'auto',
-    borderRight: isBorder.value ? '1px solid var(--el-border-color-lighter)' : 'none',
+    borderRight: isBorder.value ? `1px solid ${ns.elCssVar('border-color-lighter')}` : 'none',
     borderLeft:
       isBorder.value && index % column.value !== 0
-        ? '1px solid var(--el-border-color-lighter)'
+        ? `1px solid ${ns.elCssVar('border-color-lighter')}`
         : 'none',
     alignItems: item?.labelAlign || mergedProps.value?.labelAlign || 'left'
   };

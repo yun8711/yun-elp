@@ -1,6 +1,6 @@
 <template>
-  <div v-loading="loading" class="y-table">
-    <el-table v-bind="tableProps" ref="tableRef" class="y-table__table">
+  <div v-loading="loading" :class="ns.b()">
+    <el-table v-bind="tableProps" ref="tableRef" :class="ns.e('table')">
       <slot />
       <template #empty>
         <slot name="empty">
@@ -11,17 +11,17 @@
         <slot name="append" />
       </template>
     </el-table>
-    <div v-if="showFooter" class="y-table__footer">
+    <div v-if="showFooter" :class="ns.e('footer')">
       <slot name="footer">
-        <div class="y-table__footer-default">
-          <div class="y-table__footer-total">
+        <div :class="ns.e('footer-default')">
+          <div :class="ns.e('footer-total')">
             {{ t('table.total') }}
-            <span class="y-table__footer-total-num">{{ paginationProps.total }}</span>
+            <span :class="ns.e('footer-total-num')">{{ paginationProps.total }}</span>
             <span>{{ t('table.items') }}</span>
           </div>
           <el-pagination
             v-bind="paginationProps"
-            class="y-table__footer-pagination"
+            :class="ns.e('footer-pagination')"
             @change="paginationChange" />
         </div>
       </slot>
@@ -34,6 +34,7 @@ import { computed, provide, useAttrs, useTemplateRef } from 'vue';
 import type { TableProps, TableEmits } from './table';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
+import { useNamespace } from '../../../hooks/use-namespace';
 import type { EmptyProps } from '../../empty/src/empty';
 import YEmpty from '../../empty/src/empty.vue';
 import { ElTable, ElPagination, type TableInstance } from 'element-plus';
@@ -64,6 +65,7 @@ const props = withDefaults(defineProps<TableProps>(), {
 
 const tableConfig = useAppConfig('table');
 const { t } = useLocale();
+const ns = useNamespace('table');
 
 const tableProps = computed(() => {
   return {

@@ -1,7 +1,7 @@
 <template>
   <el-table-column v-bind="manageAttrs">
     <template #default="scope">
-      <div class="y-column-forms__content" :class="[inline ? 'is-line' : 'is-flex']">
+      <div :class="[ns.e('content'), inline ? ns.is('line') : ns.is('flex')]">
         <div
           v-for="item in mergedFormArr(scope)"
           :key="`${scope.$index}_${item.prop}`"
@@ -26,7 +26,7 @@
                   :content="error"
                   :disabled="!error"
                   :visible="errorMessageMap[`${scope.$index}_${item.prop}`]">
-                  <span class="y-column-form__error" :class="{ 'is-hidden': !error }" />
+                  <span :class="[formNs.e('error'), { [formNs.is('hidden')]: !error }]" />
                 </el-tooltip>
               </div>
             </template>
@@ -48,6 +48,7 @@ import type { ColumnFormsProps } from './column-forms';
 import { toRefs, computed, inject, ref } from 'vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useTableColumnAttrs } from '../../../hooks/use-table-column-attrs';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YColumnForms',
@@ -55,10 +56,12 @@ defineOptions({
 });
 
 const columnFormConfig = useAppConfig('columnForm')
+const ns = useNamespace('column-forms');
+const formNs = useNamespace('column-form');
 // y-table下发的，最外层el-form中el-table绑定的字段名
 const formTableProp = inject('formTableProp', 'tableData');
 const { attrs, mergedColumnAttrs: manageAttrs } = useTableColumnAttrs({
-  className: 'y-column-forms',
+  className: ns.b(),
   showOverflowTooltip: false,
 });
 const props = withDefaults(defineProps<ColumnFormsProps>(), {
@@ -92,7 +95,7 @@ const mergedItemFormAttrs = (scope: any, item: any) => {
 // 合并表单项错误提示的tooltip属性
 const mergedItemTooltipAttrs = (scope: any, item: any) => {
   const defaultObj = {
-    popperClass: columnFormConfig?.popperClass || 'y-column-form__error-tooltip',
+    popperClass: columnFormConfig?.popperClass || formNs.e('error-tooltip'),
     effect: 'dark',
     placement: columnFormConfig?.placement || 'top',
     enterable: false,

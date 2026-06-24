@@ -1,9 +1,9 @@
 <template>
-  <div class="y-table-search">
-    <div class="y-table-search__left" :class="{ 'y-table-search__left-show-more': hasMore }">
+  <div :class="ns.b()">
+    <div :class="[ns.e('left'), { [ns.e('left-show-more')]: hasMore }]">
       <!-- 不区分多行时 -->
       <template v-if="!hasMore">
-        <div class="y-table-search__left-all">
+        <div :class="ns.e('left-all')">
           <y-border-label
             v-for="item in visibleFirstOptions"
             :key="item.prop"
@@ -33,7 +33,7 @@
       <!-- 区分多行时 -->
       <template v-else>
         <!-- 第一行 -->
-        <div class="y-table-search__left-first">
+        <div :class="ns.e('left-first')">
           <y-border-label
             v-for="item in visibleFirstOptions"
             :key="item.prop"
@@ -60,7 +60,7 @@
             <y-button model="debounce" @click="onReset">重置</y-button>
             <el-button link type="primary" @click="toggleFold">
               {{ isFold ? unFoldText : foldText }}
-              <el-icon class="el-icon--right">
+              <el-icon :class="ns.el('icon--right')">
                 <ArrowDown v-if="isFold" />
                 <ArrowUp v-else />
               </el-icon>
@@ -69,7 +69,7 @@
         </div>
         <!-- 使用 Transition 包裹 -->
         <el-collapse-transition :style="{ 'transition-duration': `${props.duration}s` }">
-          <div v-show="!isFold" class="y-table-search__left-more">
+          <div v-show="!isFold" :class="ns.e('left-more')">
             <y-border-label
               v-for="item in visibleMoreOptions"
               :key="item.prop"
@@ -95,7 +95,7 @@
       </template>
     </div>
 
-    <div v-if="$slots.right" class="y-table-search__right">
+    <div v-if="$slots.right" :class="ns.e('right')">
       <slot name="right" />
     </div>
   </div>
@@ -105,6 +105,7 @@
 import { ref, computed, watch, markRaw } from 'vue';
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
+import { useNamespace } from '../../../hooks/use-namespace';
 import YBorderLabel from '../../border-label/src/border-label.vue';
 import YButton from '../../button/src/button.vue';
 import type {
@@ -132,6 +133,7 @@ const props = withDefaults(defineProps<TableSearchProps>(), {
 });
 
 const emits = defineEmits<TableSearchEmits>();
+const ns = useNamespace('table-search');
 
 // ==================== 配置获取 ====================
 const borderLabelConfig = useAppConfig('border-label');
