@@ -14,31 +14,12 @@
 </template>
 
 <script setup>
-import { computed, defineAsyncComponent, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import Layout from './components/Layout.vue';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import en from 'element-plus/dist/locale/en.mjs';
 import logo from './assets/test.png';
-
-// 组件映射 - 使用 defineAsyncComponent 包装动态导入
-const examples = [
-  {label: 'Namespace', value: 'namespace', default: true, component: defineAsyncComponent(() => import('./components/namespace-example.vue'))},
-  {label: 'Sticky Page', value: 'sticky-page',component: defineAsyncComponent(() => import('./components/sticky-page/index.vue'))},
-  {label: 'Page Progress', value: 'page-progress',component: defineAsyncComponent(() => import('./components/page-progress-example.vue'))},
-  {label: 'Button', value: 'button',component: defineAsyncComponent(() => import('./components/button-example.vue'))},
-  {label: 'Table', value: 'table',component: defineAsyncComponent(() => import('./components/table-example.vue'))},
-  {label: 'Table Filter', value: 'table-filter',component: defineAsyncComponent(() => import('./components/table-filter.vue'))},
-  {label: 'Table Select', value: 'table-select',component: defineAsyncComponent(() => import('./components/table-select-example.vue'))},
-  {label: 'Text Tooltip', value: 'text-tooltip',component: defineAsyncComponent(() => import('./components/text-tooltip-example.vue'))},
-  {label: 'Desc', value: 'desc',component: defineAsyncComponent(() => import('./components/desc-example.vue'))},
-  {label: 'Form', value: 'form',component: defineAsyncComponent(() => import('./components/form-example.vue'))},
-  {label: 'Empty', value: 'empty',component: defineAsyncComponent(() => import('./components/empty-example.vue'))},
-  {label: 'Pop', value: 'pop',component: defineAsyncComponent(() => import('./components/pop-example.vue'))},
-  {label: 'Step', value: 'step',component: defineAsyncComponent(() => import('./components/step-example.vue'))},
-  {label: 'ECharts', value: 'echarts',component: defineAsyncComponent(() => import('./components/echarts/echarts-example.vue'))},
-  {label: 'Table V2', value: 'table-v2',component: defineAsyncComponent(() => import('./components/table-v2/index.vue'))},
-  {label: '网页容器', value: 'web-view',component: defineAsyncComponent(() => import('./components/web-view/index.vue'))}
-]
+import { examples } from './examples';
 
 
 const demoNamespaces = {
