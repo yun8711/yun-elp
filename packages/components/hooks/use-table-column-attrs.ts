@@ -1,10 +1,7 @@
 import { computed, useAttrs, type ComputedRef } from 'vue';
-import { ElTableColumn } from 'element-plus';
+import type { TableColumnProps } from 'element-plus/es/components/table/src/table-column/defaults';
 
-/**
- * 获取 el-table-column 的 props 类型
- */
-type ElTableColumnProps = InstanceType<typeof ElTableColumn>['$props'];
+type ElTableColumnProps = TableColumnProps;
 
 /** 透传给 el-table-column 的 attrs（兼容模板 kebab-case） */
 export type TableColumnBindAttrs = Partial<ElTableColumnProps> & {
@@ -29,13 +26,14 @@ export type TableColumnMergedAttrs = Partial<ElTableColumnProps>;
 
 function pickAttr<T extends string | number | boolean | object>(
   attrs: TableColumnBindAttrs,
-  kebabKey: keyof TableColumnBindAttrs,
-  camelKey: keyof TableColumnBindAttrs,
+  kebabKey: string,
+  camelKey: string,
   fallback: T
 ): T {
-  const kebabVal = attrs[kebabKey];
-  const camelVal = attrs[camelKey];
-  return (kebabVal || camelVal || fallback) as T;
+  const record = attrs as Record<string, unknown>;
+  const kebabVal = record[kebabKey];
+  const camelVal = record[camelKey];
+  return (kebabVal ?? camelVal ?? fallback) as T;
 }
 
 /**

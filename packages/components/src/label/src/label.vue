@@ -19,9 +19,9 @@
       <!-- 分隔符 -->
       <span
         v-if="props.colon"
-        :class="ns.e('colon')"
-        >{{ props.colon }}</span
-      >
+        :class="ns.e('colon')">
+        {{ props.colon }}
+      </span>
     </div>
     <!-- 内容 -->
     <div

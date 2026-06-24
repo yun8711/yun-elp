@@ -36,4 +36,5 @@ LICENSE
 # 其他
 .husky
 .github
-.git 
+.git
+README.md

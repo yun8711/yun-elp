@@ -89,9 +89,9 @@
           <el-button
             plain
             size="small"
-            @click="confirm"
-            >{{ t('common.confirm') }}</el-button
-          >
+            @click="confirm">
+            {{ t('common.confirm') }}
+          </el-button>
         </div>
       </div>
     </el-popover>

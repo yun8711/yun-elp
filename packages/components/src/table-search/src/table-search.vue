@@ -28,14 +28,14 @@
             <y-button
               type="primary"
               model="debounce"
-              @click="onSearch"
-              >查询</y-button
-            >
+              @click="onSearch">
+              查询
+            </y-button>
             <y-button
               model="debounce"
-              @click="onReset"
-              >重置</y-button
-            >
+              @click="onReset">
+              重置
+            </y-button>
           </div>
         </div>
       </template>
@@ -68,14 +68,14 @@
             <y-button
               type="primary"
               model="debounce"
-              @click="onSearch"
-              >查询</y-button
-            >
+              @click="onSearch">
+              查询
+            </y-button>
             <y-button
               model="debounce"
-              @click="onReset"
-              >重置</y-button
-            >
+              @click="onReset">
+              重置
+            </y-button>
             <el-button
               link
               type="primary"

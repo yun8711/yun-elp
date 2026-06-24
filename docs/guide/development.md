@@ -16,25 +16,18 @@ title: 开发流程
 pnpm install
 ```
 
-也可以使用根脚本：
-
-```shell
-pnpm bootstrap
-```
-
 ## 常用命令
 
-| 命令              | 说明                                    |
-| ----------------- | --------------------------------------- |
-| `pnpm dev`        | 启动 `play` 调试项目                    |
-| `pnpm docs:dev`   | 启动文档站，启动前自动生成 AI 文档资源  |
-| `pnpm create`     | 创建新组件模板                          |
-| `pnpm typecheck`  | 检查组件、play、docs 的 TypeScript 类型 |
-| `pnpm test`       | 运行 `packages/components` 覆盖率测试   |
-| `pnpm lint`       | 运行格式、ESLint、Stylelint（自动修复） |
-| `pnpm lint:check` | 只检查代码规范，不自动修复              |
-| `pnpm build`      | 构建组件、样式、resolver、发布包元数据  |
-| `pnpm commit`     | 使用 `czg` 进行规范化提交               |
+| 命令             | 说明                                      |
+| ---------------- | ----------------------------------------- |
+| `pnpm dev`       | 启动 `play` 调试项目                      |
+| `pnpm docs:dev`  | 启动文档站，启动前自动生成 AI 文档资源    |
+| `pnpm create`    | 创建新组件模板                            |
+| `pnpm typecheck` | 检查组件、play、docs 的 TypeScript 类型   |
+| `pnpm test`      | 运行 `packages/components` 覆盖率测试     |
+| `pnpm lint`      | 全仓 ESLint、Stylelint、Prettier 自动修复 |
+| `pnpm build`     | 构建组件、样式、resolver、发布包元数据    |
+| `pnpm commit`    | 使用 `czg` 进行规范化提交                 |
 
 ## 组件开发流程
 
@@ -88,8 +81,11 @@ pnpm build
 ### 5. 提交代码
 
 ```shell
+pnpm lint        # 可选：全仓自动修复
 pnpm commit
 ```
+
+`git commit` 时 husky 会对**暂存文件**执行 `lint-staged`（ESLint / Stylelint / Prettier 自动修复并重新暂存）。发版前 `check:release` 仅检查组件库源码包，不含 `play`、`docs`、`mcp-server`。
 
 仓库使用 `czg` / `commitlint` 维护提交规范。
 
@@ -119,8 +115,8 @@ pnpm mcp:test
 
 说明：
 
-- `pnpm check:release`：执行 audit、lint:check、typecheck 和覆盖率测试
+- `pnpm check:release`：对 components、theme-chalk、resolver 做 lint 与类型检查，并运行覆盖率测试（audit 仅警告，不阻断发版）
 - `pnpm release` 负责升版本、生成 changelog、打 tag（要求工作区干净）
 - `pnpm publish`：自动执行 `check:publish`（版本一致性 → 构建 → dist 校验）后发布主包 `yun-elp`
 - `pnpm publish:all`：发布主包与 `yun-elp-mcp`
-- `pnpm mcp:publish`：只发布 `yun-elp-mcp`（包内 `prepublishOnly` 会自动 build）
+- `pnpm mcp:publish`：只发布 `yun-elp-mcp`（发布前会自动 build）

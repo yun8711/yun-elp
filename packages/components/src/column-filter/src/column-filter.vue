@@ -84,16 +84,19 @@ const formatterCellValue = (scope: any) => {
   return res;
 }
 
-const mergedAttrs = computed(() => {
-  const obj: TableColumnMergedAttrs & { filters?: ColumnFilterConfig[] | unknown } = {
-    ...baseMergedAttrs.value,
+const mergedAttrs = computed<TableColumnMergedAttrs>(() => {
+  const obj: TableColumnMergedAttrs = {
+    ...baseMergedAttrs.value
   };
 
   if (!noFilter.value) {
     if (!isEmpty(attrs.filters)) {
-      obj.filters = attrs.filters;
+      obj.filters = attrs.filters as TableColumnMergedAttrs['filters'];
     } else if (!isEmpty(config.value)) {
-      obj.filters = config.value;
+      obj.filters = config.value.map(item => ({
+        text: item.text,
+        value: String(item.value)
+      }));
     }
   }
   return obj;

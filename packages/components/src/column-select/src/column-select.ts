@@ -7,8 +7,10 @@ import type {
 
 export type ColumnSelectScope<T extends DefaultRow = DefaultRow> = Pick<
   RenderRowData<T>,
-  'row' | 'column' | '$index' | 'store'
->;
+  'row' | 'column' | '$index'
+> & {
+  store?: RenderRowData<T>['store'];
+};
 
 export type ColumnSelectSelectable<T extends DefaultRow = DefaultRow> = (
   row: T,

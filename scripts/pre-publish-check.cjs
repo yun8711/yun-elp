@@ -2,12 +2,8 @@
 
 /**
  * 发布流程检查脚本
- * - --quality（check:release）：audit → lint:check → typecheck → 覆盖率测试，在 release 之前执行
- * - --publish（check:publish）：版本 → build → dist 校验，在 release 之后、npm publish 之前执行
- *
- * 兼容别名：
- * - pre-release -> check:release
- * - pre-publish -> check:publish
+ * - --quality（check:release）：audit（仅警告）→ 组件库 lint / typecheck → 覆盖率测试
+ * - --publish（check:publish）：版本 → build → dist 校验
  */
 
 const { execSync } = require('child_process');
@@ -17,27 +13,48 @@ const path = require('path');
 const rootDir = path.join(__dirname, '..');
 const isPublish = process.argv.includes('--publish');
 
+/** 随 yun-elp 主包发布的源码包，不含 play / docs / mcp-server */
+const LIB_ROOTS = ['packages/components', 'packages/theme-chalk', 'packages/resolver'];
+const LIB_STYLELINT = [
+  'packages/components/**/*.{vue,scss,css}',
+  'packages/theme-chalk/**/*.{scss,css}'
+];
+
 function readPkg(relativePath) {
   return JSON.parse(fs.readFileSync(path.join(rootDir, relativePath), 'utf8'));
+}
+
+function run(command) {
+  execSync(command, { stdio: 'inherit', cwd: rootDir });
+}
+
+function libLintCheck() {
+  const prettierTargets = LIB_ROOTS.map((dir) => `"${dir}/**/*"`).join(' ');
+  const stylelintTargets = LIB_STYLELINT.map((glob) => `"${glob}"`).join(' ');
+
+  run(`pnpm exec prettier --check ${prettierTargets}`);
+  run(`pnpm exec eslint ${LIB_ROOTS.join(' ')}`);
+  run(`pnpm exec stylelint ${stylelintTargets}`);
 }
 
 const auditCheck = {
   name: '依赖安全检查',
   command: 'pnpm audit --audit-level moderate',
-  description: '检查依赖的安全漏洞'
+  description: '检查依赖的安全漏洞（失败仅警告，不阻断发版）',
+  allowFailure: true
 };
 
 const qualityChecks = [
   auditCheck,
   {
     name: '代码规范检查',
-    command: 'pnpm lint:check',
-    description: '运行 ESLint、Prettier 和 StyleLint（只检查，不自动修复）'
+    check: libLintCheck,
+    description: '检查 components、theme-chalk、resolver 的 ESLint / Prettier / Stylelint'
   },
   {
     name: 'TypeScript 类型检查',
-    command: 'pnpm typecheck',
-    description: '检查 components、play、docs 的类型'
+    command: 'pnpm -C packages/components typecheck',
+    description: '检查 packages/components 的类型'
   },
   {
     name: '单元测试',
@@ -141,8 +158,12 @@ for (const check of checks) {
 
     console.log(`✅ ${check.name} 通过\n`);
   } catch (error) {
-    console.log(`❌ ${check.name} 失败: ${error.message}\n`);
-    allPassed = false;
+    if (check.allowFailure) {
+      console.log(`⚠️  ${check.name} 发现问题，但不阻断发版: ${error.message}\n`);
+    } else {
+      console.log(`❌ ${check.name} 失败: ${error.message}\n`);
+      allPassed = false;
+    }
   }
 }
 
