@@ -1,8 +1,17 @@
 <template>
-  <y-table :data="tableData" @paginationChange="paginationChange" @select="onSelect">
-    <el-table-column type="selection" width="55" />
-    <el-table-column prop="date" label="Date" />
-    <el-table-column prop="name" label="Name" />
+  <y-table
+    :data="tableData"
+    @paginationChange="paginationChange"
+    @select="onSelect">
+    <el-table-column
+      type="selection"
+      width="55" />
+    <el-table-column
+      prop="date"
+      label="Date" />
+    <el-table-column
+      prop="name"
+      label="Name" />
     <el-table-column
       width="100px"
       prop="address"

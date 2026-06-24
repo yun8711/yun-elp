@@ -14,22 +14,31 @@
         :key="getItemKey(item, index)"
         :class="[ns.e('item'), itemClass]"
         :style="getItemStyle(index)">
-        <div :class="ns.e('item-label')" :style="getLabelStyle(item, index)">
+        <div
+          :class="ns.e('item-label')"
+          :style="getLabelStyle(item, index)">
           <slot
             v-if="item?.prop && slots[`${item.prop}-label`]"
             :name="`${item.prop}-label`"
             v-bind="{ item, index }" />
-          <slot v-else-if="slots.label" name="label" v-bind="{ item, index }">
+          <slot
+            v-else-if="slots.label"
+            name="label"
+            v-bind="{ item, index }">
             <span>{{ item.label }}</span>
           </slot>
           <span v-else>{{ item.label }}</span>
         </div>
-        <div :class="ns.e('item-content')" :style="getContentStyle(item)">
+        <div
+          :class="ns.e('item-content')"
+          :style="getContentStyle(item)">
           <slot
             v-if="item?.prop && slots[`${item.prop}-content`]"
             :name="`${item.prop}-content`"
             v-bind="{ item, index, content: getValue(item) }">
-            <y-text-tooltip v-if="isItemTooltip(item)" v-bind="item?.textTooltip || {}">
+            <y-text-tooltip
+              v-if="isItemTooltip(item)"
+              v-bind="item?.textTooltip || {}">
               {{ getValue(item) }}
             </y-text-tooltip>
             <span v-else>{{ getValue(item) }}</span>
@@ -38,13 +47,17 @@
             v-else-if="slots.content"
             name="content"
             v-bind="{ item, index, content: getValue(item) }">
-            <y-text-tooltip v-if="isItemTooltip(item)" v-bind="item?.textTooltip || {}">
+            <y-text-tooltip
+              v-if="isItemTooltip(item)"
+              v-bind="item?.textTooltip || {}">
               {{ getValue(item) }}
             </y-text-tooltip>
             <span v-else>{{ getValue(item) }}</span>
           </slot>
           <template v-else>
-            <y-text-tooltip v-if="isItemTooltip(item)" v-bind="item?.textTooltip">
+            <y-text-tooltip
+              v-if="isItemTooltip(item)"
+              v-bind="item?.textTooltip">
               {{ getValue(item) }}
             </y-text-tooltip>
             <span v-else>{{ getValue(item) }}</span>

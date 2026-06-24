@@ -33,17 +33,27 @@
               <div class="control-item">
                 <span class="control-item__label">多语言</span>
                 <el-select v-model="localeModel">
-                  <el-option label="简体中文" value="zh-cn" />
-                  <el-option label="English" value="en" />
+                  <el-option
+                    label="简体中文"
+                    value="zh-cn" />
+                  <el-option
+                    label="English"
+                    value="en" />
                 </el-select>
               </div>
 
               <div class="control-item">
                 <span class="control-item__label">主题</span>
                 <el-select v-model="themeModel">
-                  <el-option label="KD" value="kd" />
-                  <el-option label="Arco" value="arco" />
-                  <el-option label="Antd" value="antd" />
+                  <el-option
+                    label="KD"
+                    value="kd" />
+                  <el-option
+                    label="Arco"
+                    value="arco" />
+                  <el-option
+                    label="Antd"
+                    value="antd" />
                 </el-select>
               </div>
             </div>
@@ -61,7 +71,10 @@
 
               <div class="control-item">
                 <span class="control-item__label">缩放控制</span>
-                <el-switch v-model="isLocked" active-text="锁定" inactive-text="解锁" />
+                <el-switch
+                  v-model="isLocked"
+                  active-text="锁定"
+                  inactive-text="解锁" />
               </div>
 
               <div class="control-item">

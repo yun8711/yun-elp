@@ -11,7 +11,11 @@
         :active="index <= activeIndex">
         <div :class="[ns.e('item-content'), { [ns.is('inline')]: inlineLabel }]">
           <div :class="ns.e('item-index')">{{ index + 1 }}</div>
-          <div v-if="step" :class="ns.e('item-label')">{{ step }}</div>
+          <div
+            v-if="step"
+            :class="ns.e('item-label')">
+            {{ step }}
+          </div>
         </div>
       </slot>
       <div

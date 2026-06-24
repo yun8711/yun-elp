@@ -1,5 +1,7 @@
 <template>
-  <y-step :steps="steps" :active-index="1">
+  <y-step
+    :steps="steps"
+    :active-index="1">
     <template #default="{ step, index, active }">
       <div :style="{ color: active ? 'red' : '' }">
         <span>{{ step }}</span>

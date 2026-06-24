@@ -25,7 +25,8 @@
     background-color: var(#{el-var-name('fill-color-blank')});
     border: 1px solid var(#{el-var-name('border-color')});
     border-right: 0 none;
-    border-radius: var(#{el-var-name('border-radius-base')}) 0 0 var(#{el-var-name('border-radius-base')});
+    border-radius: var(#{el-var-name('border-radius-base')}) 0 0
+      var(#{el-var-name('border-radius-base')});
 
     &--no-border {
       padding-left: 0;

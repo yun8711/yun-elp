@@ -1,7 +1,9 @@
 <template>
   <div>
     <h3>默认插槽测试</h3>
-    <y-desc :data="data" :config="config">
+    <y-desc
+      :data="data"
+      :config="config">
       <template #label="{ item }">
         <el-icon><Star /></el-icon>
         <strong>{{ item.label }}</strong>
@@ -12,12 +14,18 @@
     </y-desc>
 
     <h3>混合插槽测试（有prop和无prop）</h3>
-    <y-desc :data="data" :config="mixedConfig">
+    <y-desc
+      :data="data"
+      :config="mixedConfig">
       <template #name-label>
         <em>特殊姓名标签</em>
       </template>
       <template #name-content>
-        <el-button type="primary" size="small">{{ data.name }}</el-button>
+        <el-button
+          type="primary"
+          size="small"
+          >{{ data.name }}</el-button
+        >
       </template>
       <template #label="{ item }">
         <span style="color: blue;">{{ item.label }}:</span>

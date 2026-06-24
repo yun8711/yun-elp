@@ -17,7 +17,10 @@
 
     <!-- 中间选项列表 -->
     <div :class="ns.e('options-container')">
-      <div ref="optionsBoxRef" :class="ns.e('options')" @click="onItemClick">
+      <div
+        ref="optionsBoxRef"
+        :class="ns.e('options')"
+        @click="onItemClick">
         <!-- "全部"选项 -->
         <template v-if="props.showAll">
           <div
@@ -48,7 +51,9 @@
               : item[props.defineProps?.value || 'value']
           ">
           <div :class="ns.e('item-text')">
-            <slot v-bind="item" :index="index">
+            <slot
+              v-bind="item"
+              :index="index">
               {{ item[props.defineProps?.label || 'label'] }}
             </slot>
           </div>

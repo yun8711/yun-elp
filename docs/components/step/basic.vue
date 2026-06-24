@@ -1,9 +1,13 @@
 <template>
-  <y-step :steps="steps" :active-index="1" />
+  <y-step
+    :steps="steps"
+    :active-index="1" />
 
   <el-divider />
 
-  <y-step :step-number="3" :active-index="2" />
+  <y-step
+    :step-number="3"
+    :active-index="2" />
 </template>
 
 <script setup>

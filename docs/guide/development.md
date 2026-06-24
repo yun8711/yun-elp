@@ -24,16 +24,17 @@ pnpm bootstrap
 
 ## 常用命令
 
-| 命令             | 说明                                    |
-| ---------------- | --------------------------------------- |
-| `pnpm dev`       | 启动 `play` 调试项目                    |
-| `pnpm docs:dev`  | 启动文档站，启动前自动生成 AI 文档资源  |
-| `pnpm create`    | 创建新组件模板                          |
-| `pnpm typecheck` | 检查组件、play、docs 的 TypeScript 类型 |
-| `pnpm test`      | 运行 `packages/components` 覆盖率测试   |
-| `pnpm lint`      | 运行格式、ESLint、Stylelint             |
-| `pnpm build`     | 构建组件、样式、resolver、发布包元数据  |
-| `pnpm commit`    | 使用 `czg` 进行规范化提交               |
+| 命令              | 说明                                    |
+| ----------------- | --------------------------------------- |
+| `pnpm dev`        | 启动 `play` 调试项目                    |
+| `pnpm docs:dev`   | 启动文档站，启动前自动生成 AI 文档资源  |
+| `pnpm create`     | 创建新组件模板                          |
+| `pnpm typecheck`  | 检查组件、play、docs 的 TypeScript 类型 |
+| `pnpm test`       | 运行 `packages/components` 覆盖率测试   |
+| `pnpm lint`       | 运行格式、ESLint、Stylelint（自动修复） |
+| `pnpm lint:check` | 只检查代码规范，不自动修复              |
+| `pnpm build`      | 构建组件、样式、resolver、发布包元数据  |
+| `pnpm commit`     | 使用 `czg` 进行规范化提交               |
 
 ## 组件开发流程
 
@@ -97,23 +98,29 @@ pnpm commit
 主包发布前常用流程：
 
 ```shell
-pnpm pre-release
+pnpm check:release
 pnpm commit
 pnpm release
-pnpm pre-publish
 pnpm publish
 ```
 
-如果本次变更涉及 MCP 数据，还需要：
+若主包与 MCP 包需一并发布：
+
+```shell
+pnpm publish:all
+```
+
+如果本次变更涉及 MCP 数据，发布 MCP 前还需要：
 
 ```shell
 pnpm mcp:extract
 pnpm mcp:test
-pnpm mcp:publish
 ```
 
 说明：
 
-- `pnpm release` 负责升版本、生成 changelog、打 tag
-- `pnpm publish` 发布主包 `yun-elp`
-- `pnpm mcp:publish` 只发布 `yun-elp-mcp`
+- `pnpm check:release`：执行 audit、lint:check、typecheck 和覆盖率测试
+- `pnpm release` 负责升版本、生成 changelog、打 tag（要求工作区干净）
+- `pnpm publish`：自动执行 `check:publish`（版本一致性 → 构建 → dist 校验）后发布主包 `yun-elp`
+- `pnpm publish:all`：发布主包与 `yun-elp-mcp`
+- `pnpm mcp:publish`：只发布 `yun-elp-mcp`（包内 `prepublishOnly` 会自动 build）

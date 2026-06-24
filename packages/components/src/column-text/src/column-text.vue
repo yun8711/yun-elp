@@ -1,7 +1,9 @@
 <template>
   <el-table-column v-bind="mergedAttrs">
     <template #default="scope">
-      <slot :scope="scope" :value="formatterCellValue(scope)">
+      <slot
+        :scope="scope"
+        :value="formatterCellValue(scope)">
         <span
           :style="textStyle"
           :class="[ns.e('content'), { [ns.e('link')]: link }]"
@@ -11,12 +13,17 @@
       </slot>
     </template>
     <template #header="{ column, $index }">
-      <slot name="header" :column="column" :index="$index">
+      <slot
+        name="header"
+        :column="column"
+        :index="$index">
         <span>{{ attrs.label }}</span>
       </slot>
     </template>
     <template #expand="{ expanded }">
-      <slot name="expand" :expanded="expanded" />
+      <slot
+        name="expand"
+        :expanded="expanded" />
     </template>
   </el-table-column>
 </template>

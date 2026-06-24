@@ -1,11 +1,11 @@
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent } from 'vue';
 
 type DemoExample = {
-  label: string
-  value: string
-  default?: boolean
-  component: ReturnType<typeof defineAsyncComponent>
-}
+  label: string;
+  value: string;
+  default?: boolean;
+  component: ReturnType<typeof defineAsyncComponent>;
+};
 
 export const exampleGroups: Array<{ category: string; items: DemoExample[] }> = [
   {
@@ -139,6 +139,6 @@ export const exampleGroups: Array<{ category: string; items: DemoExample[] }> = 
       }
     ]
   }
-]
+];
 
-export const examples = exampleGroups.flatMap(group => group.items)
+export const examples = exampleGroups.flatMap(group => group.items);

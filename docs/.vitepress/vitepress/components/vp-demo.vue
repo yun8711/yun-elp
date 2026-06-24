@@ -78,7 +78,10 @@ const copyCode = async () => {
 
 <template>
   <!-- danger here DO NOT USE INLINE SCRIPT TAG -->
-  <div text="sm" m="y-4" v-html="decodedDescription" />
+  <div
+    text="sm"
+    m="y-4"
+    v-html="decodedDescription" />
 
   <div class="example">
     <!-- 组件示例 -->
@@ -169,7 +172,9 @@ const copyCode = async () => {
     </div>
     <!-- 源码文本展示 -->
     <ElCollapseTransition>
-      <SourceCode :visible="sourceVisible" :source="source" />
+      <SourceCode
+        :visible="sourceVisible"
+        :source="source" />
     </ElCollapseTransition>
 
     <!-- 收起源码 -->

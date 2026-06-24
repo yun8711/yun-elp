@@ -16,5 +16,7 @@ const details = computed(() => props.values.map(processString).join(' | '))
 </script>
 
 <template>
-  <api-typing type="enum" :details="details" />
+  <api-typing
+    type="enum"
+    :details="details" />
 </template>

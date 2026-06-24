@@ -1,12 +1,22 @@
 <template>
   <el-col v-bind="mergedColAttrs">
-    <el-form-item v-bind="mergedFormItemAttrs" ref="formItemRef">
+    <el-form-item
+      v-bind="mergedFormItemAttrs"
+      ref="formItemRef">
       <slot />
-      <template v-if="slots.label" #label="slotProps">
-        <slot name="label" v-bind="slotProps" />
+      <template
+        v-if="slots.label"
+        #label="slotProps">
+        <slot
+          name="label"
+          v-bind="slotProps" />
       </template>
-      <template v-if="slots.error" #error="{ error }">
-        <slot name="error" :error="error" />
+      <template
+        v-if="slots.error"
+        #error="{ error }">
+        <slot
+          name="error"
+          :error="error" />
       </template>
     </el-form-item>
   </el-col>

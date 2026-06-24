@@ -31,7 +31,10 @@
       </el-form-item>
     </template>
     <template #header="{ column, $index }">
-      <slot name="header" :column="column" :index="$index">
+      <slot
+        name="header"
+        :column="column"
+        :index="$index">
         <span>{{ attrs.label }}</span>
       </slot>
     </template>

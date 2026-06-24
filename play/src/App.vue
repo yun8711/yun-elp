@@ -1,6 +1,12 @@
 <template>
-  <el-config-provider :locale="currentElLocale" :namespace="demoNamespaces.el">
-    <Layout v-model:locale="locale" v-model:theme="theme" #default="{ curComponent }" :examples="examples">
+  <el-config-provider
+    :locale="currentElLocale"
+    :namespace="demoNamespaces.el">
+    <Layout
+      v-model:locale="locale"
+      v-model:theme="theme"
+      #default="{ curComponent }"
+      :examples="examples">
       <y-app-wrap
         :key="locale"
         :elp-config="{ locale: currentElLocale, namespace: demoNamespaces.el }"

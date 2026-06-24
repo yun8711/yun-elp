@@ -2,7 +2,12 @@
   <div class="advance-wrap">
     <div class="advance-title">
       <span>高级筛选</span>
-      <el-button type="primary" size="small" @click="reset">重置</el-button>
+      <el-button
+        type="primary"
+        size="small"
+        @click="reset"
+        >重置</el-button
+      >
     </div>
     <div class="advance-content">
       <y-row-select

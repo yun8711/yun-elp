@@ -5,10 +5,18 @@
     <div class="example-section">
       <h3>基础用法</h3>
       <div class="controls">
-        <el-button @click="startProgress" type="primary" :disabled="isLoading">
+        <el-button
+          @click="startProgress"
+          type="primary"
+          :disabled="isLoading">
           {{ isLoading ? '加载中...' : '开始加载' }}
         </el-button>
-        <el-button @click="completeProgress" type="danger" :disabled="!isLoading"> 完成 </el-button>
+        <el-button
+          @click="completeProgress"
+          type="danger"
+          :disabled="!isLoading">
+          完成
+        </el-button>
       </div>
 
       <div class="status-info">

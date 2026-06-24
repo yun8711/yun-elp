@@ -1,18 +1,23 @@
 <template>
-  <div :class="ns.b()" :style="{ height: height, width: width }">
+  <div
+    :class="ns.b()"
+    :style="{ height: height, width: width }">
     <!-- 前置插槽 -->
-    <div v-if="$slots.prefix" :class="ns.e('prefix')">
+    <div
+      v-if="$slots.prefix"
+      :class="ns.e('prefix')">
       <slot name="prefix" />
     </div>
-    <div
-      :class="[ns.e('label'), { [ns.em('label', 'no-border')]: props.noBorder }]">
+    <div :class="[ns.e('label'), { [ns.em('label', 'no-border')]: props.noBorder }]">
       <slot name="label">{{ props.label }}</slot>
     </div>
     <div :class="ns.e('content')">
       <slot />
     </div>
     <!-- 后置插槽 -->
-    <div v-if="$slots.suffix" :class="ns.e('suffix')">
+    <div
+      v-if="$slots.suffix"
+      :class="ns.e('suffix')">
       <slot name="suffix" />
     </div>
   </div>

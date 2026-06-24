@@ -57,6 +57,7 @@
 - `pnpm typecheck`：执行工作区类型检查
 - `pnpm test`：运行组件覆盖率测试
 - `pnpm lint`：执行格式化、ESLint 和 Stylelint
+- `pnpm lint:check`：只检查代码规范，不自动修复
 - `pnpm build`：构建组件包与相关产物
 - `pnpm mcp:extract`：从文档刷新 MCP 数据
 - `pnpm mcp:test`：测试 MCP 服务

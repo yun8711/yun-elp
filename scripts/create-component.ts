@@ -188,8 +188,8 @@ description: ${description}
 
 ## Namespace 约定
 
-- 组件类名请通过运行时 `useNamespace('${compDirName}')` 生成，不要写死 \`y-${compDirName}\`
-- 组件样式请通过 `y-class()`、`el-var-name()` 等 Sass 方法生成，不要直接写死 \`.y-*\`、\`--el-*\`
+- 组件类名请通过运行时 \`useNamespace('${compDirName}')\` 生成，不要写死 \`y-${compDirName}\`
+- 组件样式请通过 \`y-class()\`、\`el-var-name()\` 等 Sass 方法生成，不要直接写死 \`.y-*\`、\`--el-*\`
 - 如果组件需要消费 Element Plus CSS 变量，优先通过运行时 helper 或 Sass helper 间接引用
 
 ## 用法示例

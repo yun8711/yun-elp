@@ -1,5 +1,8 @@
 <template>
-  <el-empty :class="ns.b()" v-bind="componentProps" :style="styles">
+  <el-empty
+    :class="ns.b()"
+    v-bind="componentProps"
+    :style="styles">
     <slot />
     <slot name="image" />
     <slot name="description" />

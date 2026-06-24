@@ -36,5 +36,7 @@ const details = computed(() => `(${mappedParams.value}) => ${props.returns}`)
 </script>
 
 <template>
-  <api-typing type="Function" :details="details" />
+  <api-typing
+    type="Function"
+    :details="details" />
 </template>

@@ -1,5 +1,8 @@
 <template>
-  <y-row-select v-model="value" :options="options" @change="changeHandle"></y-row-select>
+  <y-row-select
+    v-model="value"
+    :options="options"
+    @change="changeHandle"></y-row-select>
 
   <div style="margin-top: 20px;">选中值：{{ value }}</div>
 </template>

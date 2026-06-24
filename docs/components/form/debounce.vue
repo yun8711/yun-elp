@@ -12,12 +12,21 @@
         <el-radio :value="300">300ms</el-radio>
       </el-radio-group>
     </y-form-item>
-    <y-form-item label="关键词" prop="keyword">
-      <el-input v-model="form.keyword" placeholder="快速输入测试防抖" />
+    <y-form-item
+      label="关键词"
+      prop="keyword">
+      <el-input
+        v-model="form.keyword"
+        placeholder="快速输入测试防抖" />
     </y-form-item>
-    <y-form-item label="config 调用次数" :span="24">
+    <y-form-item
+      label="config 调用次数"
+      :span="24">
       <span>{{ configCallCount }}</span>
-      <el-button size="small" style="margin-left: 12px" @click="configCallCount = 0"
+      <el-button
+        size="small"
+        style="margin-left: 12px"
+        @click="configCallCount = 0"
         >重置计数</el-button
       >
     </y-form-item>

@@ -3,7 +3,10 @@
     <el-row :gutter="20">
       <el-col :span="12">
         <div style="width: 100%; height: 400px; border: 1px solid red">
-          <y-echarts :option="lineChartOption" :loading="loading" :config="echartsConfig1">
+          <y-echarts
+            :option="lineChartOption"
+            :loading="loading"
+            :config="echartsConfig1">
           </y-echarts>
         </div>
       </el-col>

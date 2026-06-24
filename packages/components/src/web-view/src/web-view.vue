@@ -1,5 +1,7 @@
 <template>
-  <div :class="ns.b()" :style="containerStyle">
+  <div
+    :class="ns.b()"
+    :style="containerStyle">
     <iframe
       ref="iframeRef"
       :class="ns.e('iframe')"

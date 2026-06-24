@@ -1,3 +1,4 @@
+@use 'sass:meta';
 @use 'config';
 @use 'element-plus/theme-chalk/src/mixins/config' as el-config;
 
@@ -14,7 +15,7 @@
 }
 
 @function y-var($name, $default: null) {
-  @if $default == null {
+  @if meta.type-of($default) == 'null' {
     @return var(#{y-var-name($name)});
   }
 
@@ -26,7 +27,7 @@
 }
 
 @function el-var($name, $default: null) {
-  @if $default == null {
+  @if meta.type-of($default) == 'null' {
     @return var(#{el-var-name($name)});
   }
 

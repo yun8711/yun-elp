@@ -1,5 +1,8 @@
 <template>
-  <y-desc :data="object" :config="config" :column="columnFun">
+  <y-desc
+    :data="object"
+    :config="config"
+    :column="columnFun">
     <template #age-content="{ item, value }"> {{ value }}123 </template>
   </y-desc>
 

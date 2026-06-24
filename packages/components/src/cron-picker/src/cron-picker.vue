@@ -25,14 +25,19 @@
         </el-input>
       </template>
 
-      <div ref="popoverRef" :class="ns.e('content')">
+      <div
+        ref="popoverRef"
+        :class="ns.e('content')">
         <!--调度周期-->
         <div :class="ns.e('content-item')">
           <div :class="ns.e('form-label')">
             {{ t('cronPicker.period') }}
           </div>
           <div :class="ns.e('form-item')">
-            <el-select v-model="period" style="width: 260px" :teleported="false">
+            <el-select
+              v-model="period"
+              style="width: 260px"
+              :teleported="false">
               <el-option
                 v-for="item in periodOptions"
                 :key="item.value"
@@ -54,7 +59,10 @@
             {{ t('cronPicker.cron') }}
           </div>
           <div :class="ns.e('form-item')">
-            <el-input :model-value="cron" style="width: 260px" disabled />
+            <el-input
+              :model-value="cron"
+              style="width: 260px"
+              disabled />
           </div>
         </div>
         <!-- 预览-->
@@ -78,7 +86,12 @@
             @click="reset">
             {{ t('common.reset') }}
           </el-button>
-          <el-button plain size="small" @click="confirm">{{ t('common.confirm') }}</el-button>
+          <el-button
+            plain
+            size="small"
+            @click="confirm"
+            >{{ t('common.confirm') }}</el-button
+          >
         </div>
       </div>
     </el-popover>

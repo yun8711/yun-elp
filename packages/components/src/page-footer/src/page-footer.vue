@@ -1,5 +1,7 @@
 <template>
-  <div :class="ns.b()" :style="style">
+  <div
+    :class="ns.b()"
+    :style="style">
     <slot :height="style.height" />
   </div>
 </template>

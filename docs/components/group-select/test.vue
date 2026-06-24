@@ -1,7 +1,10 @@
 <template>
   <div>
     <h3>基础用法</h3>
-    <y-group-select v-model="selectedValue1" :options="basicOptions" @change="handleChange" />
+    <y-group-select
+      v-model="selectedValue1"
+      :options="basicOptions"
+      @change="handleChange" />
     <p>选中值: {{ selectedValue1 }}</p>
   </div>
 </template>

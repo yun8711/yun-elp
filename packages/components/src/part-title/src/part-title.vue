@@ -1,5 +1,7 @@
 <template>
-  <div :class="ns.b()" v-bind="$attrs">
+  <div
+    :class="ns.b()"
+    v-bind="$attrs">
     <div :class="ns.e('left')">
       <span>
         <slot>{{ props.title }}</slot>

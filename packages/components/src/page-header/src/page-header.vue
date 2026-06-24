@@ -3,7 +3,9 @@
     :class="[ns.b(), { [ns.m('border')]: showBorder }]"
     :style="containerStyle">
     <div :class="ns.e('left')">
-      <div :class="ns.e('left-title')" :style="titleStyle">
+      <div
+        :class="ns.e('left-title')"
+        :style="titleStyle">
         <slot name="title">
           {{ displayTitle }}
         </slot>

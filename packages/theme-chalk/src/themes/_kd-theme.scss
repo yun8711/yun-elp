@@ -7,38 +7,31 @@
     #{el-var-name('color-primary-light-5')}: #94bfff;
     #{el-var-name('color-primary-dark-2')}: #0e42d2;
     #{el-var-name('color-primary-light-9')}: #e8f3ff;
-
     #{el-var-name('color-success')}: #00b42a;
     #{el-var-name('color-success-dark-2')}: #009a29;
     #{el-var-name('color-success-light-5')}: #ffcf8b;
     #{el-var-name('color-success-light-3')}: #ff9a2e;
-
     #{el-var-name('color-warning')}: #ff7d00;
     #{el-var-name('color-warning-dark-2')}: #d25f00;
     #{el-var-name('color-warning-light-5')}: #ffcf8b;
     #{el-var-name('color-warning-light-3')}: #ff9a2e;
-
     #{el-var-name('color-danger')}: #f53f3f;
     #{el-var-name('color-danger-dark-2')}: #cb2634;
     #{el-var-name('color-danger-light-5')}: #fbaca3;
     #{el-var-name('color-danger-light-3')}: #f76560;
-
     #{el-var-name('text-color-primary')}: #1d2129;
     #{el-var-name('text-color-regular')}: #4e5969;
     #{el-var-name('text-color-secondary')}: #4e5969;
     #{el-var-name('text-color-placeholder')}: #86909c;
     #{el-var-name('text-color-disabled')}: #c9cdd4;
-
     #{el-var-name('border-color')}: #e5e6eb;
     #{el-var-name('border-color-light')}: #e3e6e8;
-
     #{el-var-name('font-size-small')}: 12px;
     #{el-var-name('font-size-base')}: 12px;
-
     #{el-var-name('border-radius-base')}: 2px;
-
     #{y-var-name('tooltip-popper-max-width')}: 316px;
     #{y-var-name('tooltip-popper-max-height')}: 200px;
+
     --gap-base: 6px;
     --gap-small: 3px;
   }
@@ -92,7 +85,6 @@
   #{$selector} #{el-class('table')} {
     #{el-var-name('table-header-bg-color')}: #f7f8fa;
     #{el-var-name('table-header-text-color')}: var(#{el-var-name('text-color-primary')});
-
     width: 100%;
 
     #{el-class('table__header')}:hover th:not(:last-child)::after {

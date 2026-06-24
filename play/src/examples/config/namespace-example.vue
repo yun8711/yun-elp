@@ -5,13 +5,18 @@
         <p class="namespace-demo__eyebrow">SCSS Namespace Demo</p>
         <h2>play 当前以自定义前缀运行</h2>
         <p class="namespace-demo__desc">
-          这个演示项目把 Element Plus 编译为 <code>{{ elementNamespace }}</code>，把 yun-elp 编译为
-          <code>{{ yunNamespace }}</code>。组件运行时和样式编译期都使用同一套前缀。
+          这个演示项目把 Element Plus 编译为 <code>{{ elementNamespace }}</code
+          >，把 yun-elp 编译为 <code>{{ yunNamespace }}</code
+          >。组件运行时和样式编译期都使用同一套前缀。
         </p>
       </div>
       <div class="namespace-demo__pills">
-        <span>Element Plus: <strong>{{ elementNamespace }}</strong></span>
-        <span>yun-elp: <strong>{{ yunNamespace }}</strong></span>
+        <span
+          >Element Plus: <strong>{{ elementNamespace }}</strong></span
+        >
+        <span
+          >yun-elp: <strong>{{ yunNamespace }}</strong></span
+        >
       </div>
     </div>
 
@@ -26,7 +31,9 @@
         </div>
         <div class="namespace-demo__actions">
           <y-button type="primary">主按钮</y-button>
-          <y-pop tip-content="已启用自定义前缀" pop-content="Popover 也使用自定义类名">
+          <y-pop
+            tip-content="已启用自定义前缀"
+            pop-content="Popover 也使用自定义类名">
             <template #default>
               <y-button>查看 Pop</y-button>
             </template>
@@ -42,7 +49,11 @@
           <code>{{ textColorVar }}</code>
         </div>
         <div class="namespace-demo__progress-actions">
-          <el-button type="primary" @click="loading = true">开始</el-button>
+          <el-button
+            type="primary"
+            @click="loading = true"
+            >开始</el-button
+          >
           <el-button @click="loading = false">结束</el-button>
         </div>
         <y-page-progress v-model="loading" />

@@ -1,5 +1,7 @@
 <template>
-  <div :class="ns.b()" :style="containerStyle">
+  <div
+    :class="ns.b()"
+    :style="containerStyle">
     <!-- 左侧按钮 -->
     <el-button
       v-if="showPrevButton"
@@ -15,13 +17,17 @@
     </el-button>
 
     <!-- 滚动容器 -->
-    <div :class="ns.e('container')" @wheel="handleWheel">
+    <div
+      :class="ns.e('container')"
+      @wheel="handleWheel">
       <el-scrollbar
         ref="scrollbarRef"
         v-bind="scrollbarProps"
         :class="ns.e('scrollbar')"
         @scroll="handleScroll">
-        <div ref="contentRef" :class="ns.e('content')">
+        <div
+          ref="contentRef"
+          :class="ns.e('content')">
           <slot />
         </div>
       </el-scrollbar>

@@ -19,7 +19,10 @@
         :options="targetOriginOptions"
         style="width:200px"></el-select>
       <span>发送消息：</span>
-      <el-input v-model="message" placeholder="发送消息" style="width:200px"></el-input>
+      <el-input
+        v-model="message"
+        placeholder="发送消息"
+        style="width:200px"></el-input>
       <y-button @click="postMessage">发送消息</y-button>
     </div>
   </div>

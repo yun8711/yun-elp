@@ -1,6 +1,8 @@
 <template>
   <div style="position:relative;height:100px;border:1px solid red;">
-    <y-page-footer :model="model" class="page-footer">
+    <y-page-footer
+      :model="model"
+      class="page-footer">
       <y-button @click="handleClick">{{ model === 'fixed' ? '相对父元素' : '相对页面' }}</y-button>
     </y-page-footer>
   </div>

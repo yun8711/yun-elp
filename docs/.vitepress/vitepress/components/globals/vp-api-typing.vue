@@ -13,11 +13,19 @@ defineProps({
       {{ type }}
     </code>
     <ClientOnly>
-      <ElTooltip v-if="details" effect="light" trigger="click">
-        <ElButton text :icon="Warning" class="p-2 text-4" />
+      <ElTooltip
+        v-if="details"
+        effect="light"
+        trigger="click">
+        <ElButton
+          text
+          :icon="Warning"
+          class="p-2 text-4" />
         <template #content>
           <slot>
-            <div class="m-1" style="max-width: 600px">
+            <div
+              class="m-1"
+              style="max-width: 600px">
               <code
                 style="
                   color: var(--code-tooltip-color);

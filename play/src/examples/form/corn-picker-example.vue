@@ -6,7 +6,9 @@
     @change="handleChange"
     @confirm="handleConfirm" />
 
-  <el-input v-model="editCronValueTrunk" clearable></el-input>
+  <el-input
+    v-model="editCronValueTrunk"
+    clearable></el-input>
 
   <el-popover trigger="click">
     <template #reference>

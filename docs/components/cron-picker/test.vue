@@ -1,13 +1,20 @@
 <template>
   <div>
     <h3>基础用法</h3>
-    <y-cron-picker v-model="cronValue" @change="handleChange" />
+    <y-cron-picker
+      v-model="cronValue"
+      @change="handleChange" />
 
     <h3>带默认周期</h3>
-    <y-cron-picker v-model="cronValue2" :default-period="'HOUR'" @confirm="handleConfirm" />
+    <y-cron-picker
+      v-model="cronValue2"
+      :default-period="'HOUR'"
+      @confirm="handleConfirm" />
 
     <h3>禁用某些周期</h3>
-    <y-cron-picker v-model="cronValue3" :disabled-period="['YEAR', 'MONTH']" />
+    <y-cron-picker
+      v-model="cronValue3"
+      :disabled-period="['YEAR', 'MONTH']" />
   </div>
 </template>
 

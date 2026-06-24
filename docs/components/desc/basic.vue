@@ -1,9 +1,14 @@
 <template>
-  <y-desc :data="data" :config="config" />
+  <y-desc
+    :data="data"
+    :config="config" />
 
   <el-divider />
 
-  <y-desc :data="data" :config="config" border />
+  <y-desc
+    :data="data"
+    :config="config"
+    border />
 </template>
 
 <script setup>

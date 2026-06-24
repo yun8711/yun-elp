@@ -3,7 +3,9 @@
     v-bind="managedColumnAttrs"
     :type="single ? undefined : 'selection'"
     :selectable="selectable">
-    <template v-if="single" #header="{ column, $index }">
+    <template
+      v-if="single"
+      #header="{ column, $index }">
       <slot
         name="header"
         :table="table"
@@ -16,7 +18,9 @@
         :disabled="!getDisabledTip(scope)"
         :content="getDisabledTip(scope)"
         v-bind="managedTipProps">
-        <div :class="ns.e('cell')" @click.stop>
+        <div
+          :class="ns.e('cell')"
+          @click.stop>
           <slot
             :scope="scope"
             :row="scope.row"

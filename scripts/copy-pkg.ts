@@ -1,6 +1,7 @@
 import { pkgRoot, distDir } from './paths';
 import path from 'path';
 import fs from 'fs';
+
 // 复制 elp 包的 package.json 到 dist 目录
 const elpPkgPath = path.join(pkgRoot, 'elp', 'package.json');
 const distPkgPath = path.join(distDir, 'package.json');

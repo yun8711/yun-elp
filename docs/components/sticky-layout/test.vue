@@ -3,7 +3,9 @@
     <div style="height: 40px;line-height: 40px;text-align: center; background-color: #eee;">
       导航栏
     </div>
-    <div class="custom-scroll-container" ref="scrollContainerRef">
+    <div
+      class="custom-scroll-container"
+      ref="scrollContainerRef">
       <y-sticky-layout :scroll-container="scrollContainerRef">
         <template #left="{ height }">
           <div :style="{ height: height + 'px', width: '200px' }">当前高度: {{ height }}px</div>

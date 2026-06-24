@@ -1,13 +1,17 @@
 <template>
   <el-table-column v-bind="mergedColumnAttrs">
     <template #default="scope">
-      <template v-for="item in getOptions(scope).normalList" :key="item.prop">
+      <template
+        v-for="item in getOptions(scope).normalList"
+        :key="item.prop">
         <slot
           :name="item.prop"
           :scope="scope"
           :row="scope.row"
           :prop="item.prop">
-          <y-pop v-bind="getPopProps(item)" v-on="getPopEvents(scope, item)">
+          <y-pop
+            v-bind="getPopProps(item)"
+            v-on="getPopEvents(scope, item)">
             <y-button
               type="primary"
               link
@@ -37,7 +41,9 @@
           v-for="item in getOptions(scope).dropdownList"
           :key="item.prop"
           :class="ns.e('dropdown-item')">
-          <y-pop v-bind="getPopProps(item)" v-on="getPopEvents(scope, item)">
+          <y-pop
+            v-bind="getPopProps(item)"
+            v-on="getPopEvents(scope, item)">
             <y-button
               type="primary"
               link
@@ -52,7 +58,10 @@
     </template>
 
     <template #header="{ column, $index }">
-      <slot name="header" :column="column" :index="$index">
+      <slot
+        name="header"
+        :column="column"
+        :index="$index">
         <span>{{ attrs.label }}</span>
       </slot>
     </template>

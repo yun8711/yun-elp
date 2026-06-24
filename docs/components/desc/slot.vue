@@ -1,11 +1,18 @@
 <template>
-  <y-desc :data="data" :config="config" :column="2">
+  <y-desc
+    :data="data"
+    :config="config"
+    :column="2">
     <template #department-label> 这是department的label插槽 </template>
   </y-desc>
 
   <el-divider />
 
-  <y-desc :data="data" :config="config" border :column="2">
+  <y-desc
+    :data="data"
+    :config="config"
+    border
+    :column="2">
     <template #department-content>
       <el-input v-model="data.department" />
     </template>

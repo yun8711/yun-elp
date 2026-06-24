@@ -36,8 +36,8 @@ export default {
   endOfLine: 'auto',
   // [2.1+] 自动格式化嵌套的代码
   embeddedLanguageFormatting: 'off',
-  // [2.6+] 在 HTML、Vue 和 JSX 中强制每行使用单一属性
-  singleAttributePerLine: false,
+  // [2.6+] 在 HTML、Vue 和 JSX 中强制每行使用单一属性（与 ESLint vue/max-attributes-per-line 对齐）
+  singleAttributePerLine: true,
   // 这两个选项可用于格式化以给定字符偏移量（分别包括和不包括）开始和结束的代码
   //  rangeStart：开始，rangeEnd：结束
   rangeStart: 0,

@@ -1,6 +1,11 @@
 <template>
-  <div v-loading="loading" :class="ns.b()">
-    <el-table v-bind="tableProps" ref="tableRef" :class="ns.e('table')">
+  <div
+    v-loading="loading"
+    :class="ns.b()">
+    <el-table
+      v-bind="tableProps"
+      ref="tableRef"
+      :class="ns.e('table')">
       <slot />
       <template #empty>
         <slot name="empty">
@@ -11,7 +16,9 @@
         <slot name="append" />
       </template>
     </el-table>
-    <div v-if="showFooter" :class="ns.e('footer')">
+    <div
+      v-if="showFooter"
+      :class="ns.e('footer')">
       <slot name="footer">
         <div :class="ns.e('footer-default')">
           <div :class="ns.e('footer-total')">

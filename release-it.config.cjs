@@ -9,7 +9,7 @@ module.exports = {
     // 指定release-it 运行时当前分支，可以用数组指定多个
     requireBranch: ['main'], // 只有在master 才可以运行release-it
     // 是否在运行release-it之前，保持工作区干净，也就是所有文件已提交
-    requireCleanWorkingDir: false,
+    requireCleanWorkingDir: true,
     // 是否需要上游分支，如果没有上游分支，git push 不知道如何推送。一般在git 未推送到远程前设置为false
     requireUpstream: false,
     // 是否允许空提交，也就是在发新版本前，到上个版本之间，必须有commit，默认为false，即允许空提交
@@ -18,7 +18,7 @@ module.exports = {
     commitMessage: 'chore(release): 升级版本 ${version}'
   },
   npm: {
-    // 不发布到npm仓库，由GitHub Actions处理
+    // 不在 release-it 流程内发布 npm，发版后本地执行 pnpm publish / pnpm publish:all
     publish: false,
     //忽略 package.json 中的version 字段，使用git tag，默认 false
     ignoreVersion: false

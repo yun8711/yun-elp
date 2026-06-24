@@ -1,6 +1,11 @@
 <template>
-  <div ref="chartWrapperRef" v-loading="loading" :class="ns.b()">
-    <div ref="chartRef" :style="chartStyle" />
+  <div
+    ref="chartWrapperRef"
+    v-loading="loading"
+    :class="ns.b()">
+    <div
+      ref="chartRef"
+      :style="chartStyle" />
   </div>
 </template>
 
