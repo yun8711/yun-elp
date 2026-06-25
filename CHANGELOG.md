@@ -2,6 +2,13 @@
 
 
 
+## [1.4.0](https://github.com/yun8711/yun-elp/compare/v1.3.0...v1.4.0) (2026-06-25)
+
+
+### Bug Fixes
+
+* **resolver:** :bug: 按需注入 Element Plus 样式并修复 kd 主题被覆盖 ([9faab35](https://github.com/yun8711/yun-elp/commit/9faab350a2b543f49ad0158438eaac85cd4944d1))
+
 ## [1.3.0](https://github.com/yun8711/yun-elp/compare/v1.2.2...v1.3.0) (2026-06-24)
 
 
