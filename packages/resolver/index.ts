@@ -8,7 +8,8 @@ import {
   getElementPlusDepsForComponent,
   getElementPlusStylePaths,
   type ElementPlusStyleFormat
-} from './ep-deps';
+} from './ep-deps.ts';
+import { collectYunInternalStyleComponents, collectAllYunInternalComponents } from './yun-deps.ts';
 
 const PACKAGE_NAME = 'yun-elp';
 
@@ -70,27 +71,43 @@ type YunElpResolverOptionsResolved = {
 
 const noStylesComponents = ['YAppWrap', 'YButton', 'YGroupSelect'];
 
+function getYunStylePaths(dirNames: string[], options: YunElpResolverOptionsResolved): string[] {
+  const { importStyle } = options;
+
+  if (importStyle === false || dirNames.length === 0) {
+    return [];
+  }
+
+  const themeFolder = `${PACKAGE_NAME}/theme-chalk`;
+
+  return dirNames.map(dirName =>
+    importStyle === 'scss' ? `${themeFolder}/src/${dirName}.scss` : `${themeFolder}/${dirName}.css`
+  );
+}
+
 function getYunSideEffects(
-  dirName: string,
+  componentName: string,
   options: YunElpResolverOptionsResolved
 ): SideEffectsInfo | undefined {
-  const { importStyle } = options;
+  const { importStyle, noStylesComponents } = options;
 
   if (importStyle === false) {
     return undefined;
   }
 
-  const themeFolder = `${PACKAGE_NAME}/theme-chalk`;
+  const styleDirNames = new Set<string>();
 
-  if (importStyle === 'scss') {
-    return [`${themeFolder}/src/${dirName}.scss`];
+  if (!noStylesComponents.includes(componentName)) {
+    styleDirNames.add(kebabCase(componentName));
   }
 
-  if (importStyle === true || importStyle === 'css') {
-    return [`${themeFolder}/${dirName}.css`];
+  for (const dep of collectYunInternalStyleComponents(componentName, noStylesComponents)) {
+    styleDirNames.add(kebabCase(dep));
   }
 
-  return undefined;
+  const paths = getYunStylePaths([...styleDirNames].sort(), options);
+
+  return paths.length > 0 ? paths : undefined;
 }
 
 function getElementSideEffects(
@@ -101,8 +118,15 @@ function getElementSideEffects(
     return undefined;
   }
 
-  const deps = getElementPlusDepsForComponent(componentName);
-  const paths = getElementPlusStylePaths(deps, options.importElementStyle);
+  const deps = new Set(getElementPlusDepsForComponent(componentName));
+
+  for (const internalComponent of collectAllYunInternalComponents(componentName)) {
+    for (const dep of getElementPlusDepsForComponent(internalComponent)) {
+      deps.add(dep);
+    }
+  }
+
+  const paths = getElementPlusStylePaths([...deps].sort(), options.importElementStyle);
 
   return paths.length > 0 ? paths : undefined;
 }
@@ -131,9 +155,8 @@ function resolveComponent(
     return;
   }
 
-  const kebabName = kebabCase(name);
   const sideEffects = mergeSideEffects(
-    getYunSideEffects(kebabName, options),
+    getYunSideEffects(name, options),
     getElementSideEffects(name, options)
   );
 
@@ -202,4 +225,5 @@ export function YunElpResolver(options: YunElpResolverOptions = {}): ComponentRe
 
 export default YunElpResolver;
 
-export { YUN_ELP_ELEMENT_PLUS_DEPS } from './ep-deps';
+export { YUN_ELP_ELEMENT_PLUS_DEPS } from './ep-deps.ts';
+export { YUN_ELP_INTERNAL_DEPS } from './yun-deps.ts';

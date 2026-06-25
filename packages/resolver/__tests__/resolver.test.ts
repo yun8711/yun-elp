@@ -2,8 +2,15 @@ import { describe, expect, it } from 'vitest';
 import {
   getElementPlusDepsForComponent,
   getElementPlusStylePaths,
-  YUN_ELP_ELEMENT_PLUS_DEPS
+  YUN_ELP_ELEMENT_PLUS_DEPS,
+  type ElementPlusStyleFormat
 } from '../ep-deps';
+import {
+  collectAllYunInternalComponents,
+  collectYunInternalStyleComponents,
+  getYunInternalDepsForComponent,
+  YUN_ELP_INTERNAL_DEPS
+} from '../yun-deps';
 import YunElpResolver from '../index';
 
 describe('ep-deps', () => {
@@ -31,6 +38,29 @@ describe('ep-deps', () => {
     for (const name of Object.keys(YUN_ELP_ELEMENT_PLUS_DEPS)) {
       expect(name).toMatch(/^Y[A-Z]/);
     }
+    for (const name of Object.keys(YUN_ELP_INTERNAL_DEPS)) {
+      expect(name).toMatch(/^Y[A-Z]/);
+    }
+  });
+});
+
+describe('yun-deps', () => {
+  it('YTableSearch 应包含 YBorderLabel 与 YButton 内部依赖', () => {
+    expect(getYunInternalDepsForComponent('YTableSearch')).toEqual(['YBorderLabel', 'YButton']);
+  });
+
+  it('collectYunInternalStyleComponents 应递归收集需加载样式的内部组件', () => {
+    expect(collectYunInternalStyleComponents('YTableSearch', ['YButton'])).toEqual([
+      'YBorderLabel'
+    ]);
+    expect(collectYunInternalStyleComponents('YColumnOp', ['YButton'])).toEqual(['YPop']);
+    expect(collectYunInternalStyleComponents('YTable', ['YButton'])).toEqual(['YEmpty']);
+    expect(collectYunInternalStyleComponents('YDesc', ['YButton'])).toEqual(['YTextTooltip']);
+  });
+
+  it('collectAllYunInternalComponents 应包含无 y 样式的内部组件', () => {
+    expect(collectAllYunInternalComponents('YDialog')).toEqual(['YButton']);
+    expect(collectAllYunInternalComponents('YTableSearch')).toEqual(['YBorderLabel', 'YButton']);
   });
 });
 
@@ -49,6 +79,7 @@ describe('YunElpResolver', () => {
 
     const sideEffects = result?.sideEffects as string[];
     expect(sideEffects).toContain('yun-elp/theme-chalk/src/table-search.scss');
+    expect(sideEffects).toContain('yun-elp/theme-chalk/src/border-label.scss');
     expect(sideEffects).toContain('element-plus/es/components/collapse-transition/style/index');
     expect(sideEffects).toContain('element-plus/es/components/button/style/index');
   });
@@ -67,7 +98,10 @@ describe('YunElpResolver', () => {
     const result = await resolver.resolve!('YTableSearch');
     const sideEffects = result?.sideEffects as string[];
 
-    expect(sideEffects).toEqual(['yun-elp/theme-chalk/src/table-search.scss']);
+    expect(sideEffects).toEqual([
+      'yun-elp/theme-chalk/src/border-label.scss',
+      'yun-elp/theme-chalk/src/table-search.scss'
+    ]);
   });
 
   it('YLabel 仅有 yun-elp 样式、无 element-plus 依赖', async () => {
@@ -77,5 +111,44 @@ describe('YunElpResolver', () => {
 
     expect(sideEffects).toEqual(['yun-elp/theme-chalk/src/label.scss']);
     expect(sideEffects.some(item => item.includes('element-plus'))).toBe(false);
+  });
+
+  it('解析 YTable 时应注入 YEmpty 样式', async () => {
+    const resolver = YunElpResolver({ importElementStyles: false });
+    const sideEffects = (await resolver.resolve!('YTable'))?.sideEffects as string[];
+
+    expect(sideEffects).toEqual([
+      'yun-elp/theme-chalk/src/empty.scss',
+      'yun-elp/theme-chalk/src/table.scss'
+    ]);
+  });
+
+  it('解析 YDesc 时应注入 YTextTooltip 样式', async () => {
+    const resolver = YunElpResolver({ importElementStyles: false });
+    const sideEffects = (await resolver.resolve!('YDesc'))?.sideEffects as string[];
+
+    expect(sideEffects).toEqual([
+      'yun-elp/theme-chalk/src/desc.scss',
+      'yun-elp/theme-chalk/src/text-tooltip.scss'
+    ]);
+  });
+
+  it('解析 YColumnOp 时应注入 YPop 样式', async () => {
+    const resolver = YunElpResolver({ importElementStyles: false });
+    const sideEffects = (await resolver.resolve!('YColumnOp'))?.sideEffects as string[];
+
+    expect(sideEffects).toEqual([
+      'yun-elp/theme-chalk/src/column-op.scss',
+      'yun-elp/theme-chalk/src/pop.scss'
+    ]);
+  });
+
+  it('解析 YDialog 时应通过 YButton 注入 element-plus button 样式', async () => {
+    const resolver = YunElpResolver();
+    const sideEffects = (await resolver.resolve!('YDialog'))?.sideEffects as string[];
+
+    expect(sideEffects).toContain('yun-elp/theme-chalk/src/dialog.scss');
+    expect(sideEffects).toContain('element-plus/es/components/dialog/style/index');
+    expect(sideEffects).toContain('element-plus/es/components/button/style/index');
   });
 });
