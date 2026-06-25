@@ -1,0 +1,7 @@
+/// 默认主题挂载点。
+/// 使用 `html:root` 而非 `:root`：二者都作用于 `<html>`，但前者特异性更高，
+/// 可避免 Element Plus 等库按需加载的 `base/style`（仅写 `:root` 变量）后加载时覆盖 yun-elp 主题。
+$default-theme-selector: 'html:root';
+
+/// switchable 模式下，未设置 `data-yun-theme` 时的默认 kd 主题选择器
+$switchable-default-kd-selector: 'html:root:not([data-yun-theme])';

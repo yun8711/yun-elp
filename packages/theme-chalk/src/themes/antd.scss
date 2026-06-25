@@ -1,2 +1,3 @@
 @use './antd-theme' as antd-theme;
-@include antd-theme.theme(':root');
+@use './selectors' as selectors;
+@include antd-theme.theme(selectors.$default-theme-selector);

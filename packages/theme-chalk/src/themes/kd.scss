@@ -1,2 +1,3 @@
 @use './kd-theme' as kd-theme;
-@include kd-theme.theme(':root');
+@use './selectors' as selectors;
+@include kd-theme.theme(selectors.$default-theme-selector);

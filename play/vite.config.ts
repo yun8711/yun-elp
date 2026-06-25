@@ -31,7 +31,8 @@ export default defineConfig({
           importStyle: 'sass'
         }),
         YunElpResolver({
-          importStyle: 'scss'
+          importStyle: 'scss',
+          importElementStyle: 'sass'
         })
       ]
     })

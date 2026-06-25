@@ -62,7 +62,7 @@ export default defineConfig({
     Components({
       resolvers: [
         ElementPlusResolver({ importStyle: 'sass' }),
-        YunElpResolver({ importStyle: 'scss' })
+        YunElpResolver({ importStyle: 'scss', importElementStyle: 'sass' })
       ]
     })
   ],

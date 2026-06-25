@@ -6,10 +6,13 @@
   "main": "index.ts",
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:run": "vitest run"
   },
   "devDependencies": {
     "tsup": "^8.5.1",
-    "unplugin-vue-components": "catalog:"
+    "unplugin-vue-components": "catalog:",
+    "vitest": "catalog:"
   }
 }

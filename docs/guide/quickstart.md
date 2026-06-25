@@ -29,18 +29,17 @@ pnpm add cron-parser echarts
 
 ## 按需导入（推荐）
 
-推荐配合 `unplugin-vue-components` 使用 `yun-elp/resolver` 自动导入组件与样式。
-
-先安装插件：
+安装：
 
 ```shell
-pnpm add -D unplugin-vue-components unplugin-auto-import
+pnpm add -D unplugin-vue-components unplugin-auto-import unplugin-element-plus
 ```
 
 `vite.config.ts` 示例：
 
 ```ts
 import { defineConfig } from 'vite';
+import ElementPlus from 'unplugin-element-plus/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -48,31 +47,36 @@ import { YunElpResolver } from 'yun-elp/resolver';
 
 export default defineConfig({
   plugins: [
+    ElementPlus({ useSource: true }),
     AutoImport({
       imports: ['vue'],
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
     }),
     Components({
       resolvers: [
-        ElementPlusResolver({
-          importStyle: 'sass',
-        }),
+        ElementPlusResolver({ importStyle: 'sass' }),
         YunElpResolver({
           importStyle: 'scss',
+          importElementStyle: 'sass',
         }),
       ],
     }),
-  ]
+  ],
 });
 ```
 
-说明：
+`main.ts` 中全局引入主题（仅一次）：
 
-- `YunElpResolver({ importStyle: 'scss' })` 会自动引入 `yun-elp/theme-chalk/src/*.scss`
-- `YAppWrap`、`YButton`、`YGroupSelect` 这类组件不会通过 resolver 自动附带样式文件
-- 如果不需要自动注入样式，可以把 `importStyle` 设为 `false`
-- `yun-elp/themes/kd.scss` 应单独全局引入一次，不建议通过 `additionalData` 注入到每个 SCSS 文件
-- 如果你需要自定义 `el` / `y` 前缀，请继续阅读[命名空间](./namespace)
+```ts
+import 'yun-elp/themes/kd.scss';
+```
+
+配置项：
+
+- `importElementStyle` 与 `ElementPlusResolver.importStyle` 保持一致
+- `importStyle: false` / `importElementStyles: false` 可分别关闭 yun-elp / EP 样式
+- 业务页使用 `<el-input>` 自动导入，避免 `import` + `markRaw(ElInput)`
+- 命名空间见[命名空间](./namespace)
 
 ## 全量导入
 
@@ -86,7 +90,7 @@ import App from './App.vue';
 createApp(App).use(YunElp).mount('#app');
 ```
 
-如果你使用的是自动导入 + `scss` 源码样式，也同样建议在应用入口额外引入一次：
+如果你使用的是自动导入 + `scss` 源码样式，在应用入口引入：
 
 ```ts
 import 'yun-elp/themes/kd.scss';

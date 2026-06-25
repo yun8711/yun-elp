@@ -4,6 +4,11 @@
  * 参考 ElementPlus 解析器实现
  */
 import type { ComponentResolver, ComponentInfo } from 'unplugin-vue-components/types';
+import {
+  getElementPlusDepsForComponent,
+  getElementPlusStylePaths,
+  type ElementPlusStyleFormat
+} from './ep-deps';
 
 const PACKAGE_NAME = 'yun-elp';
 
@@ -35,10 +40,20 @@ function kebabCase(componentName: string) {
  */
 export interface YunElpResolverOptions {
   /**
-   * 导入样式类型
+   * 导入 yun-elp 样式类型
    * @default 'scss'
    */
   importStyle?: boolean | 'css' | 'scss';
+  /**
+   * 是否自动注入 y 组件内部依赖的 Element Plus 组件样式
+   * @default true
+   */
+  importElementStyles?: boolean;
+  /**
+   * Element Plus 样式导入方式，需与 ElementPlusResolver 的 importStyle 保持一致
+   * @default 'sass'
+   */
+  importElementStyle?: ElementPlusStyleFormat;
   /**
    * 排除组件名称，如果匹配则不解析组件
    */
@@ -47,19 +62,20 @@ export interface YunElpResolverOptions {
 
 type YunElpResolverOptionsResolved = {
   importStyle: boolean | 'css' | 'scss';
+  importElementStyles: boolean;
+  importElementStyle: ElementPlusStyleFormat;
   exclude?: RegExp;
   noStylesComponents: string[];
 };
 
 const noStylesComponents = ['YAppWrap', 'YButton', 'YGroupSelect'];
 
-function getSideEffects(
+function getYunSideEffects(
   dirName: string,
   options: YunElpResolverOptionsResolved
 ): SideEffectsInfo | undefined {
   const { importStyle } = options;
 
-  // 如果 importStyle 为 false，不导入样式
   if (importStyle === false) {
     return undefined;
   }
@@ -68,31 +84,62 @@ function getSideEffects(
 
   if (importStyle === 'scss') {
     return [`${themeFolder}/src/${dirName}.scss`];
-  } else if (importStyle === true || importStyle === 'css') {
+  }
+
+  if (importStyle === true || importStyle === 'css') {
     return [`${themeFolder}/${dirName}.css`];
   }
 
   return undefined;
 }
 
+function getElementSideEffects(
+  componentName: string,
+  options: YunElpResolverOptionsResolved
+): string[] | undefined {
+  if (!options.importElementStyles) {
+    return undefined;
+  }
+
+  const deps = getElementPlusDepsForComponent(componentName);
+  const paths = getElementPlusStylePaths(deps, options.importElementStyle);
+
+  return paths.length > 0 ? paths : undefined;
+}
+
+function mergeSideEffects(
+  yunEffects: SideEffectsInfo | undefined,
+  elementEffects: string[] | undefined
+): SideEffectsInfo | undefined {
+  const merged = [
+    ...(Array.isArray(yunEffects) ? yunEffects : yunEffects ? [yunEffects] : []),
+    ...(elementEffects ?? [])
+  ];
+
+  return merged.length > 0 ? merged : undefined;
+}
+
 function resolveComponent(
   name: string,
   options: YunElpResolverOptionsResolved
 ): ComponentInfo | undefined {
-  // 排除组件
   if (options.exclude?.test(name)) {
     return;
   }
-  // 组件名必须以 Y 开头
+
   if (!name.match(/^Y[A-Z]/)) {
     return;
   }
-  // 获取组件名 YLabel -> label
+
   const kebabName = kebabCase(name);
-  const sideEffects = getSideEffects(kebabName, options);
+  const sideEffects = mergeSideEffects(
+    getYunSideEffects(kebabName, options),
+    getElementSideEffects(name, options)
+  );
+
   return {
     name,
-    from: `${PACKAGE_NAME}`,
+    from: PACKAGE_NAME,
     sideEffects
   };
 }
@@ -100,22 +147,26 @@ function resolveComponent(
 /**
  * YunElp组件解析器
  * 用于unplugin-vue-components插件，自动按需导入组件
- * 同时支持 scss 和 css 样式文件
+ * 同时支持 scss 和 css 样式文件，并可注入内部依赖的 Element Plus 样式
  *
  * @example
  * ```ts
  * // vite.config.ts
  * import { defineConfig } from 'vite'
  * import Components from 'unplugin-vue-components/vite'
+ * import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
  * import { YunElpResolver } from 'yun-elp/resolver'
  *
  * export default defineConfig({
  *   plugins: [
  *     Components({
- *       resolvers: [YunElpResolver({
- *         importStyle: 'scss',
- *         noStylesComponents: ['YAppWrap'],
- *       })],
+ *       resolvers: [
+ *         ElementPlusResolver({ importStyle: 'sass' }),
+ *         YunElpResolver({
+ *           importStyle: 'scss',
+ *           importElementStyle: 'sass',
+ *         }),
+ *       ],
  *     }),
  *   ],
  * })
@@ -127,9 +178,11 @@ export function YunElpResolver(options: YunElpResolverOptions = {}): ComponentRe
   async function resolveOptions() {
     if (optionsResolved) return optionsResolved;
     optionsResolved = {
-      importStyle: options?.importStyle || 'scss',
+      importStyle: options?.importStyle ?? 'scss',
+      importElementStyles: options?.importElementStyles ?? true,
+      importElementStyle: options?.importElementStyle ?? 'sass',
       exclude: options?.exclude,
-      noStylesComponents: noStylesComponents
+      noStylesComponents
     };
     return optionsResolved;
   }
@@ -137,15 +190,16 @@ export function YunElpResolver(options: YunElpResolverOptions = {}): ComponentRe
   return {
     type: 'component',
     resolve: async (name: string) => {
-      // name-组件名称，如YButton
       const options = await resolveOptions();
       if (options.noStylesComponents.includes(name)) {
         return resolveComponent(name, { ...options, importStyle: false });
-      } else {
-        return resolveComponent(name, options);
       }
+
+      return resolveComponent(name, options);
     }
   };
 }
 
 export default YunElpResolver;
+
+export { YUN_ELP_ELEMENT_PLUS_DEPS } from './ep-deps';

@@ -36,22 +36,23 @@ pnpm add cron-parser echarts
 ```ts
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
+import ElementPlus from 'unplugin-element-plus/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { YunElpResolver } from 'yun-elp/resolver';
 
 export default {
   plugins: [
+    ElementPlus({ useSource: true }),
     AutoImport({
       imports: ['vue'],
-      resolvers: [ElementPlusResolver()]
+      resolvers: [ElementPlusResolver({ importStyle: 'sass' })]
     }),
     Components({
       resolvers: [
-        ElementPlusResolver({
-          importStyle: 'sass'
-        }),
+        ElementPlusResolver({ importStyle: 'sass' }),
         YunElpResolver({
-          importStyle: 'scss'
+          importStyle: 'scss',
+          importElementStyle: 'sass'
         })
       ]
     })
@@ -59,7 +60,7 @@ export default {
 };
 ```
 
-如果项目使用 `scss` 源码样式，主题入口应单独全局引入一次：
+`main.ts`：
 
 ```ts
 import 'yun-elp/themes/kd.scss';
