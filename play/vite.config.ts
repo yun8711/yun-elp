@@ -6,7 +6,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import ElementPlus from 'unplugin-element-plus/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import { YunElpResolver } from '@yun-elp/resolver';
+import { YunElpResolver } from '../packages/resolver/index.ts';
 import { createYunElpAliases, scssPreprocessorOptions } from '../scripts/vite-shared';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));

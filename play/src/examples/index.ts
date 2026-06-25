@@ -98,6 +98,11 @@ export const exampleGroups: Array<{ category: string; items: DemoExample[] }> = 
         component: defineAsyncComponent(() => import('./table/table-filter.vue'))
       },
       {
+        label: 'Table Search',
+        value: 'table-search',
+        component: defineAsyncComponent(() => import('./table/table-search.vue'))
+      },
+      {
         label: 'Table Select',
         value: 'table-select',
         component: defineAsyncComponent(() => import('./table/table-select-example.vue'))
