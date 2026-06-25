@@ -2,6 +2,13 @@
 
 
 
+## [1.4.1](https://github.com/yun8711/yun-elp/compare/v1.4.0...v1.4.1) (2026-06-25)
+
+
+### Bug Fixes
+
+* **resolver:** :bug: 修复按需导入yun-elp组件时未正确导入内部组件样式的问题 ([b5d18a9](https://github.com/yun8711/yun-elp/commit/b5d18a93cbec50e923a9ce5a2398c12c46cae663))
+
 ## [1.4.0](https://github.com/yun8711/yun-elp/compare/v1.3.0...v1.4.0) (2026-06-25)
 
 
