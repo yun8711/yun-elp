@@ -23,13 +23,13 @@ page-header/test
 
 ### Attributes
 
-| 属性名     | 说明                                | 类型                                  | 默认值   |
-| ---------- | ----------------------------------- | ------------------------------------- | -------- |
-| height     | 组件高度                            | ^[string] / ^[number]                 | `'40px'` |
-| title      | 标题文本，默认取 `route.meta.title` | ^[string]                             | —        |
-| border     | 是否显示下边框                      | ^[boolean]                            | `true`   |
-| padding-x  | 左右内边距                          | ^[string] / ^[array]`[string,string]` | `'24px'` |
-| titleStyle | 标题样式                            | ^[object]`CSSProperties`              | —        |
+| 属性名    | 说明                                | 类型                                  | 默认值   |
+| --------- | ----------------------------------- | ------------------------------------- | -------- |
+| height    | 组件高度                            | ^[string] / ^[number]                 | `'40px'` |
+| title     | 标题文本，默认取 `route.meta.title` | ^[string]                             | —        |
+| border    | 是否显示下边框                      | ^[boolean]                            | `true`   |
+| padding-x | 左右内边距                          | ^[string] / ^[array]`[string,string]` | `'0'`    |
+| textStyle | 标题文本样式                        | ^[object]`CSSProperties`              | —        |
 
 ### Slots
 

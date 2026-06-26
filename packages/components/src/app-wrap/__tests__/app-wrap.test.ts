@@ -391,7 +391,7 @@ describe('YAppWrap 应用容器', () => {
           border: true,
           titlePath: 'meta.title',
           paddingX: ['10px', '20px'],
-          titleTextStyle: { fontSize: '16px' }
+          textStyle: { fontSize: '16px' }
         },
         pageFooter: {
           height: '60px',

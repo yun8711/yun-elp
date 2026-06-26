@@ -183,19 +183,36 @@ describe('YPageHeader 组件测试', () => {
       expect(container.attributes('style')).toContain('padding-right: 32px');
     });
 
-    it('应该正确应用titleStyle属性', () => {
-      // 测试目的：验证titleStyle属性是否正确应用到标题元素
-      const titleStyle = { color: 'red', fontSize: '24px' };
+    it('应该正确应用textStyle属性', () => {
+      // 测试目的：验证textStyle属性是否正确应用到标题元素
+      const textStyle = { color: 'red', fontSize: '24px' };
       const wrapper = mount(YPageHeader, {
         props: {
           title: '测试标题',
-          titleStyle
+          textStyle
         }
       });
 
       const title = wrapper.find('.y-page-header__left-title');
       expect(title.attributes('style')).toContain('color: red');
       expect(title.attributes('style')).toContain('font-size: 24px');
+    });
+
+    it('textStyle 合并：AppWrap 中的 textStyle 与 props.textStyle 合并后应用到标题节点样式', () => {
+      vi.mocked(useAppConfig).mockReturnValue({
+        textStyle: { fontWeight: '700' }
+      });
+
+      const wrapper = mount(YPageHeader, {
+        props: {
+          title: '测试标题',
+          textStyle: { color: 'red' }
+        }
+      });
+
+      const title = wrapper.find('.y-page-header__left-title');
+      expect(title.attributes('style')).toContain('font-weight: 700');
+      expect(title.attributes('style')).toContain('color: red');
     });
   });
 
@@ -306,15 +323,15 @@ describe('YPageHeader 组件测试', () => {
       expect(wrapper.find('.y-page-header--border').exists()).toBe(false);
     });
 
-    it('应该使用默认内边距24px（无app-wrap配置时）', () => {
-      // 测试目的：验证当没有传入paddingX且没有app-wrap配置时，组件使用默认左右内边距24px
+    it('应该使用默认内边距0（无app-wrap配置时）', () => {
+      // 测试目的：验证当没有传入paddingX且没有app-wrap配置时，组件使用默认左右内边距0
       vi.mocked(useAppConfig).mockReturnValue({}); // 模拟无配置的情况
 
       const wrapper = mount(YPageHeader);
 
       const container = wrapper.find('.y-page-header');
-      expect(container.attributes('style')).toContain('padding-left: 24px');
-      expect(container.attributes('style')).toContain('padding-right: 24px');
+      expect(container.attributes('style')).toContain('padding-left: 0');
+      expect(container.attributes('style')).toContain('padding-right: 0');
     });
   });
 
@@ -339,16 +356,16 @@ describe('YPageHeader 组件测试', () => {
       });
 
       const container = wrapper.find('.y-page-header');
-      expect(container.attributes('style')).toContain('padding-left: 24px');
-      expect(container.attributes('style')).toContain('padding-right: 24px');
+      expect(container.attributes('style')).toContain('padding-left: 0');
+      expect(container.attributes('style')).toContain('padding-right: 0');
     });
 
-    it('当titleStyle为空对象时不应该影响渲染', () => {
-      // 测试目的：验证当titleStyle为空对象时，组件正常渲染
+    it('当textStyle为空对象时不应该影响渲染', () => {
+      // 测试目的：验证当textStyle为空对象时，组件正常渲染
       const wrapper = mount(YPageHeader, {
         props: {
           title: '测试标题',
-          titleStyle: {}
+          textStyle: {}
         }
       });
 

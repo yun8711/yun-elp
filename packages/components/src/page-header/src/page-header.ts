@@ -6,7 +6,7 @@ export interface PageHeaderProps {
   border?: boolean;
   // 左右内边距
   paddingX?: string | [string, string];
-  titleStyle?: Record<string, any>;
+  textStyle?: Record<string, any>;
 }
 
 export const pageHeaderProps = {
@@ -26,7 +26,7 @@ export const pageHeaderProps = {
     type: [String, Array] as PropType<string | [string, string]>,
     default: undefined
   },
-  titleStyle: {
+  textStyle: {
     type: Object as PropType<Record<string, any>>,
     default: () => ({})
   }

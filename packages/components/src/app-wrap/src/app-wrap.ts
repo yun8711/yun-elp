@@ -47,8 +47,8 @@ export interface AppWrapProps {
     titlePath?: string;
     border?: boolean;
     paddingX?: string | [string, string];
-    // 标题的样式，只作用于文本
-    titleTextStyle?: Record<string, any>;
+    // 标题文本样式
+    textStyle?: Record<string, any>;
   };
   // page-footer的配置
   pageFooter?: {

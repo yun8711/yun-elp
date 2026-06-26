@@ -98,13 +98,13 @@ import en from 'element-plus/dist/locale/en.mjs';
 
 #### page-header Properties
 
-| 参数           | 描述                              | 类型                                   | 默认值 |
-| -------------- | --------------------------------- | -------------------------------------- | ------ |
-| height         | 组件高度                          | ^[string]                              | —      |
-| titlePath      | 从路径元数据中获取title的取值路径 | ^[string]                              | —      |
-| border         | 组件默认是否显示下边框            | ^[boolean]                             | —      |
-| paddingX       | 组件水平内边距                    | ^[string] / ^[array]`[string, string]` | —      |
-| titleTextStyle | 组件文本样式                      | ^[object]`CSSProperties`               | —      |
+| 参数      | 描述                              | 类型                                   | 默认值 |
+| --------- | --------------------------------- | -------------------------------------- | ------ |
+| height    | 组件高度                          | ^[string]                              | —      |
+| titlePath | 从路径元数据中获取title的取值路径 | ^[string]                              | —      |
+| border    | 组件默认是否显示下边框            | ^[boolean]                             | —      |
+| paddingX  | 组件水平内边距                    | ^[string] / ^[array]`[string, string]` | —      |
+| textStyle | 标题文本样式                      | ^[object]`CSSProperties`               | —      |
 
 #### page-footer Properties
 

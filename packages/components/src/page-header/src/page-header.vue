@@ -5,7 +5,7 @@
     <div :class="ns.e('left')">
       <div
         :class="ns.e('left-title')"
-        :style="titleStyle">
+        :style="textStyle">
         <slot name="title">
           {{ displayTitle }}
         </slot>
@@ -36,7 +36,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<PageHeaderProps>(), {
   title: '',
-  titleStyle: () => ({}),
+  textStyle: () => ({}),
 });
 const ns = useNamespace('page-header');
 
@@ -70,7 +70,7 @@ const displayPadding = computed(() => {
   let paddingArr = props.paddingX ?? appConfig?.paddingX;
 
   if (isEmpty(paddingArr)) {
-    paddingArr = ['24px', '24px'];
+    paddingArr = '0';
   }
   let paddingLeft, paddingRight;
   if (Array.isArray(paddingArr)) {
@@ -100,6 +100,15 @@ const displayTitle = computed(() => {
 
   // 从app-wrap配置中获取标题
   return get(route, appConfig.titlePath, '');
+});
+
+const textStyle = computed(() => {
+  const configStyle = appConfig?.textStyle || {};
+  const propStyle = props.textStyle || {};
+  return {
+    ...configStyle,
+    ...propStyle
+  } as Record<string, any>;
 });
 
 // 容器样式

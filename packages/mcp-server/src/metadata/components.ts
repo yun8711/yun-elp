@@ -39,7 +39,7 @@ export default {
       },
       {
         name: 'border-label',
-        description: 'y-border-label 组件全局配置，[见下表](#border-label-attribute)',
+        description: 'y-border-label 组件全局配置，[见下表](#border-label-properties)',
         type: {
           raw: 'object'
         },
@@ -65,7 +65,7 @@ export default {
       },
       {
         name: 'page-header',
-        description: 'y-page-header 组件全局配置，[见下表](#page-header-attribute)',
+        description: 'y-page-header 组件全局配置，[见下表](#page-header-properties)',
         type: {
           raw: 'object'
         },
@@ -100,8 +100,8 @@ export default {
             }
           },
           {
-            name: 'title-text-style',
-            description: '组件文本样式',
+            name: 'text-style',
+            description: '标题文本样式',
             type: {
               raw: 'objectCSSProperties'
             }
@@ -110,7 +110,7 @@ export default {
       },
       {
         name: 'page-footer',
-        description: 'y-page-footer 组件全局配置，[见下表](#page-footer-attribute)',
+        description: 'y-page-footer 组件全局配置，[见下表](#page-footer-properties)',
         type: {
           raw: 'object'
         },
@@ -144,7 +144,7 @@ export default {
       },
       {
         name: 'button',
-        description: 'y-button 组件全局配置，[见下表](#button-attribute)',
+        description: 'y-button 组件全局配置，[见下表](#button-properties)',
         type: {
           raw: 'object'
         },
@@ -170,7 +170,7 @@ export default {
       },
       {
         name: 'drawer',
-        description: 'y-drawer 组件全局配置，[见下表](#drawer-attribute)',
+        description: 'y-drawer 组件全局配置，[见下表](#drawer-properties)',
         type: {
           raw: 'object'
         },
@@ -220,7 +220,7 @@ export default {
       },
       {
         name: 'dialog',
-        description: 'y-dialog 组件全局配置，[见下表](#dialog-attribute)',
+        description: 'y-dialog 组件全局配置，[见下表](#dialog-properties)',
         type: {
           raw: 'object'
         },
@@ -270,7 +270,7 @@ export default {
       },
       {
         name: 'empty',
-        description: 'y-empty 组件全局配置，[见下表](#empty-attribute)',
+        description: 'y-empty 组件全局配置，[见下表](#empty-properties)',
         type: {
           raw: 'object'
         },
@@ -311,7 +311,7 @@ export default {
       },
       {
         name: 'text-tooltip',
-        description: 'y-text-tooltip 组件全局配置，[见下表](#text-tooltip-attribute)',
+        description: 'y-text-tooltip 组件全局配置，[见下表](#text-tooltip-properties)',
         type: {
           raw: 'object'
         },
@@ -337,7 +337,7 @@ export default {
       },
       {
         name: 'desc',
-        description: 'y-desc 组件全局配置，[见下表](#desc-attribute)',
+        description: 'y-desc 组件全局配置，[见下表](#desc-properties)',
         type: {
           raw: 'object'
         },
@@ -393,7 +393,7 @@ export default {
       },
       {
         name: 'pop',
-        description: 'y-pop 组件全局配置，[见下表](#pop-attribute)',
+        description: 'y-pop 组件全局配置，[见下表](#pop-properties)',
         type: {
           raw: 'object'
         },
@@ -480,7 +480,7 @@ export default {
       },
       {
         name: 'table',
-        description: 'y-table 组件全局配置，[见下表](#table-attribute)',
+        description: 'y-table 组件全局配置，[见下表](#table-properties)',
         type: {
           raw: 'object'
         },
@@ -506,7 +506,8 @@ export default {
       },
       {
         name: 'column-form',
-        description: 'y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)',
+        description:
+          'y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-properties)',
         type: {
           raw: 'object'
         },
@@ -532,7 +533,7 @@ export default {
       },
       {
         name: 'column-op',
-        description: 'y-column-op 组件全局配置，[见下表](#column-op-attribute)',
+        description: 'y-column-op 组件全局配置，[见下表](#column-op-properties)',
         type: {
           raw: 'object'
         },
@@ -549,7 +550,7 @@ export default {
       },
       {
         name: 'echarts',
-        description: 'y-echarts 组件全局配置，[见下表](#echarts-attribute)',
+        description: 'y-echarts 组件全局配置，[见下表](#echarts-properties)',
         type: {
           raw: 'object'
         },
@@ -3705,7 +3706,8 @@ export default {
     props: [
       {
         name: 'config',
-        description: '表单数据变化时的回调，参数见[FormConfigFn](#formconfigfn)',
+        description:
+          '表单数据变化时的回调，参数见[FormConfigFn Properties](#formconfigfn-properties)',
         type: {
           raw: 'function'
         },
@@ -4564,11 +4566,11 @@ export default {
           raw: 'string | array'
         },
         required: false,
-        default: "'24px'"
+        default: "'0'"
       },
       {
-        name: 'title-style',
-        description: '标题样式',
+        name: 'text-style',
+        description: '标题文本样式',
         type: {
           raw: 'CSSProperties'
         },
