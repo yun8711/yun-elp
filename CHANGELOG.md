@@ -2,6 +2,25 @@
 
 
 
+## [1.6.0](https://github.com/yun8711/yun-elp/compare/v1.5.0...v1.6.0) (2026-06-26)
+
+
+### Features
+
+* **mcp:** 抽取嵌套 API 文档并统一 Properties 约定 ([ef419f6](https://github.com/yun8711/yun-elp/commit/ef419f60467042b224365b1355200ce90c244c04))
+
+
+### Bug Fixes
+
+* **components:** :bug: 将 page-header 的 titleStyle 重命名为 textStyle ([1c86d26](https://github.com/yun8711/yun-elp/commit/1c86d26b676e94bde12af65ce351ea2eb9bb9a44))
+* **scripts:** 修正 web-types 与 MCP 元数据中的 docUrl ([a921328](https://github.com/yun8711/yun-elp/commit/a921328100cdeecdbbf9457d9fd4913c68217eb9))
+
+
+### Refactors
+
+* **components:** :recycle: 将 paginationProps 类型改为 Partial<PaginationProps> ([c59a221](https://github.com/yun8711/yun-elp/commit/c59a2213303fcfe52ba4678fe0d9e7a670f1f16b))
+* **scripts:** 重组 publish:* 发布流程 ([70bb829](https://github.com/yun8711/yun-elp/commit/70bb8293ba921f46cf257db7feddb8aa5da609ba))
+
 ## [1.5.0](https://github.com/yun8711/yun-elp/compare/v1.4.1...v1.5.0) (2026-06-26)
 
 
