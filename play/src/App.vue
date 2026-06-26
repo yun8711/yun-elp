@@ -1,7 +1,5 @@
 <template>
-  <el-config-provider
-    :locale="currentElLocale"
-    :namespace="demoNamespaces.el">
+  <el-config-provider :namespace="demoNamespaces.el">
     <Layout
       v-model:locale="locale"
       v-model:theme="theme"
@@ -9,8 +7,7 @@
       :examples="examples">
       <y-app-wrap
         :key="locale"
-        :elp-config="{ locale: currentElLocale, namespace: demoNamespaces.el }"
-        :locale="locale"
+        :elp-config="{ namespace: demoNamespaces.el }"
         :y-namespace="demoNamespaces.y"
         v-bind="appWrapConfig">
         <component :is="examples.find(item => item.value === curComponent)?.component" />
@@ -20,10 +17,8 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import Layout from './components/Layout.vue';
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
-import en from 'element-plus/dist/locale/en.mjs';
 import logo from './assets/test.png';
 import { examples } from './examples';
 
@@ -35,7 +30,6 @@ const demoNamespaces = {
 
 const locale = ref('zh-cn');
 const theme = ref('kd');
-const currentElLocale = computed(() => locale.value === 'zh-cn' ? zhCn : en);
 
 watch(
   theme,

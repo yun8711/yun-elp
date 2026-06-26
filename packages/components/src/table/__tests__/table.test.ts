@@ -48,7 +48,7 @@ describe('YTable', () => {
       expect(wrapper.vm).toBeDefined();
     });
 
-    it('应该能正确处理事件', async () => {
+    it('应该能正确处理 paginationChange 事件', async () => {
       const onPaginationChange = vi.fn();
       const wrapper = mount(YTable, {
         props: {
@@ -56,9 +56,7 @@ describe('YTable', () => {
         }
       });
 
-      // 检查组件实例存在
       expect(wrapper.vm).toBeDefined();
-      // 可以测试组件能接收事件监听器
       expect(typeof wrapper.vm.$emit).toBe('function');
     });
   });

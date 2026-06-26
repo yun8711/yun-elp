@@ -27,9 +27,10 @@
             <span>{{ t('table.items') }}</span>
           </div>
           <el-pagination
-            v-bind="paginationProps"
-            :class="ns.e('footer-pagination')"
-            @change="paginationChange" />
+            v-model:current-page="currentPage"
+            v-model:page-size="pageSize"
+            v-bind="restPaginationProps"
+            :class="ns.e('footer-pagination')" />
         </div>
       </slot>
     </div>
@@ -37,7 +38,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide, useAttrs, useTemplateRef } from 'vue';
+import { computed, provide, ref, useAttrs, useTemplateRef, watch } from 'vue';
+import { omit } from 'lodash-es';
 import type { TableProps, TableEmits } from './table';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
@@ -94,21 +96,51 @@ const emptyProps = computed<EmptyProps>(() => {
 
 
 const paginationProps = computed(() => {
-  const paginationProps = tableConfig?.paginationProps || {};
+  const configPaginationProps = tableConfig?.paginationProps || {};
   const propsPaginationProps = props?.paginationProps || {};
   return {
     layout: 'prev, pager, next, sizes, jumper',
     background: true,
     pageSizes: [10, 20, 30, 40, 50, 100, 200],
     total: 0,
-    ...paginationProps,
+    currentPage: 1,
+    pageSize: 10,
+    ...configPaginationProps,
     ...propsPaginationProps
-  }
+  };
 });
 
-const paginationChange = (currentPage: number, pageSize: number) => {
-  emit('paginationChange', { currentPage, pageSize });
-}
+// 除currentPage和pageSize外的其他分页配置
+const restPaginationProps = computed(() =>
+  omit(paginationProps.value, ['currentPage', 'pageSize'])
+);
+
+const currentPage = ref(paginationProps.value.currentPage ?? 1);
+const pageSize = ref(paginationProps.value.pageSize ?? 10);
+// 防止无限循环
+let syncingFromProps = false;
+
+watch(
+  paginationProps,
+  ({ currentPage: page, pageSize: size }) => {
+    syncingFromProps = true;
+    if (page !== undefined) {
+      currentPage.value = page;
+    }
+    if (size !== undefined) {
+      pageSize.value = size;
+    }
+    syncingFromProps = false;
+  },
+  { deep: true, immediate: true }
+);
+
+watch([currentPage, pageSize], ([page, size]) => {
+  if (syncingFromProps) {
+    return;
+  }
+  emit('paginationChange', { currentPage: page, pageSize: size });
+});
 
 const tableRef = useTemplateRef<TableInstance>('tableRef')
 

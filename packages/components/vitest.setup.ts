@@ -97,10 +97,18 @@ beforeAll(() => {
       inheritAttrs: true
     },
     'el-pagination': {
-      template:
-        '<div class="el-pagination" v-bind="$attrs" @change="$emit(\'change\', arguments[0], arguments[1])"></div>',
+      template: '<div class="el-pagination" v-bind="$attrs" @click="onClick"></div>',
       props: ['total', 'currentPage', 'pageSize', 'layout', 'background', 'pageSizes'],
-      emits: ['change'],
+      emits: ['update:currentPage', 'update:pageSize', 'change'],
+      methods: {
+        onClick() {
+          const nextPage = (this.currentPage || 1) + 1;
+          const size = this.pageSize || 10;
+          this.$emit('update:currentPage', nextPage);
+          this.$emit('update:pageSize', size);
+          this.$emit('change', nextPage, size);
+        }
+      },
       inheritAttrs: true
     },
     'y-empty': {
