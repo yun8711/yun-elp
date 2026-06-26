@@ -7,11 +7,10 @@ export type TableEmits = {
 };
 
 export interface TableProps {
-  // TODO: 定义属性
   loading?: boolean;
   emptyProps?: EmptyProps;
   showFooter?: boolean;
-  paginationProps?: PaginationProps;
+  paginationProps?: Partial<PaginationProps>;
   // 在el-form中嵌套的table，需要传入该属性，指明表间中表格数据的字段名，用于绑定校验
   formTableProp?: string;
 }
@@ -30,7 +29,7 @@ export const tableProps = {
     default: true
   },
   paginationProps: {
-    type: Object as PropType<PaginationProps>,
+    type: Object as PropType<Partial<PaginationProps>>,
     default: () => ({})
   },
   formTableProp: {

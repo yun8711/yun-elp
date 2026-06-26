@@ -111,7 +111,7 @@ export interface AppWrapProps {
   };
   table?: {
     emptyProps?: EmptyProps;
-    paginationProps?: PaginationProps;
+    paginationProps?: Partial<PaginationProps>;
   };
   columnForm?: {
     placement?: PlacementType;

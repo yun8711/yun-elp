@@ -194,10 +194,10 @@ import en from 'element-plus/dist/locale/en.mjs';
 
 #### table Properties
 
-| 参数            | 描述                  | 类型                         | 默认值   |
-| --------------- | --------------------- | ---------------------------- | -------- |
-| emptyProps      | 空数据时 y-empty 配置 | ^[object]`YEmptyProps`       | `'auto'` |
-| paginationProps | 分页配置              | ^[object]`ElPaginationProps` | `{}`     |
+| 参数            | 描述                  | 类型                                | 默认值   |
+| --------------- | --------------------- | ----------------------------------- | -------- |
+| emptyProps      | 空数据时 y-empty 配置 | ^[object]`YEmptyProps`              | `'auto'` |
+| paginationProps | 分页配置              | ^[object]`Partial<PaginationProps>` | `{}`     |
 
 #### column-form Properties
 

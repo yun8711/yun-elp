@@ -498,7 +498,7 @@ export default {
             name: 'pagination-props',
             description: '分页配置',
             type: {
-              raw: 'objectElPaginationProps'
+              raw: 'Partial<PaginationProps>'
             },
             default: '{}'
           }
@@ -5613,7 +5613,7 @@ export default {
         name: 'pagination-props',
         description: '分页配置',
         type: {
-          raw: 'PaginationProps'
+          raw: 'Partial<PaginationProps>'
         },
         required: false,
         default:
