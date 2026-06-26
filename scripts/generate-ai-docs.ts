@@ -4,10 +4,7 @@ import { glob } from 'glob';
 import matter from 'gray-matter';
 import { docsRoot, projRoot } from './paths';
 import { getCamelCaseName, getComponentName } from './names';
-
-const siteOrigin = process.env.YUN_ELP_SITE_ORIGIN || 'https://yun8711.github.io';
-const siteBase = normalizeBase(process.env.YUN_ELP_SITE_BASE || '/yun-elp/');
-const siteUrl = `${siteOrigin}${siteBase}`;
+import { joinUrl, siteUrl } from './site-url';
 const docsPublicRoot = resolve(docsRoot, 'public');
 const metadataRoot = resolve(docsPublicRoot, 'metadata');
 const packageJson = JSON.parse(readFileSync(resolve(projRoot, 'package.json'), 'utf-8'));
@@ -68,16 +65,6 @@ interface ComponentsMetadata {
   homepage: string;
   source: string;
   components: ComponentMetadata[];
-}
-
-function normalizeBase(base: string) {
-  const withStart = base.startsWith('/') ? base : `/${base}`;
-  return withStart.endsWith('/') ? withStart : `${withStart}/`;
-}
-
-function joinUrl(path: string) {
-  const cleanPath = path.replace(/^\//, '');
-  return `${siteUrl}${cleanPath}`;
 }
 
 function getSidebarMap() {

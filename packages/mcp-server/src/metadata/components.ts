@@ -7,7 +7,7 @@ export default {
     description: '向后代组件传递全局配置',
     detailedDescription:
       'AppWrap 是一个应用容器，一般用在应用最外层，主要作用是：\n（1）向内部的后代组件（`element-plus` 及 `yun-elp`）传递默认配置，方便设置组件属性的默认值，简化配置\n（2）设置 `yun-elp` 及 `element-plus` 组件库的语言选项：只需配置 `locale`，即可同步切换 `y-app-wrap` 内部的 yun-elp 与 Element Plus 文案（详见 [语言配置](#语言配置-locale)）\n注意：\n向后代组件传递的配置参数只是为了从全局角度简化组件的配置和使用，所以它的优先级最低',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/app-wrap/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/app-wrap/',
     props: [
       {
         name: 'elp-config',
@@ -20,12 +20,22 @@ export default {
       },
       {
         name: 'locale',
-        description: 'yun-elp 的语言配置',
+        description:
+          '语言配置；同步 `y-app-wrap` 内 yun-elp 与 Element Plus 文案（未设置 `elpConfig.locale` 时自动映射 EP 语言包）',
         type: {
-          raw: "'zh-cn' | 'en'"
+          raw: "'zh-cn' | 'en' | 'ja' | 'ar'"
         },
         required: false,
         default: 'zh-cn'
+      },
+      {
+        name: 'direction',
+        description: '排版方向；`auto` 时阿拉伯语自动 RTL',
+        type: {
+          raw: "'ltr' | 'rtl' | 'auto'"
+        },
+        required: false,
+        default: 'auto'
       },
       {
         name: 'border-label',
@@ -671,7 +681,7 @@ export default {
     description: '为表单项增加标签和边框',
     detailedDescription:
       '主要用于与 Element Plus 中的各种表单组件组合使用，提供了一个带有 lable 和边框的标签容器，还支持自定义前缀、标签、内容、后缀。',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/border-label/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/border-label/',
     props: [
       {
         name: 'label',
@@ -735,21 +745,21 @@ export default {
         name: 'form',
         title: '基础用法',
         sourcePath: 'docs/components/border-label/form.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/border-label/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/border-label/'
       },
       {
         name: 'border',
         title: '无边框',
         description: '通过 `no-border` 属性可以隐藏边框。',
         sourcePath: 'docs/components/border-label/border.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/border-label/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/border-label/'
       },
       {
         name: 'slot',
         title: '插槽用法',
         description: '组件提供了 `prefix` 和 `suffix` 插槽，可以用于添加前置和后置内容，如图标等。',
         sourcePath: 'docs/components/border-label/slot.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/border-label/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/border-label/'
       }
     ]
   },
@@ -758,7 +768,7 @@ export default {
     description: '功能增强的按钮',
     detailedDescription:
       '基于 el-button 组件和 [useDebounceFn](https://vueuse.org/shared/useDebounceFn/#usedebouncefn) / [useThrottleFn](https://vueuse.org/shared/useThrottleFn/#usethrottlefn) 函数封装，支持 `click`、`dblclick`及防抖、节流控制：\n（1）通过 `model` 属性可以设置启动防抖或节流，此时 `delay` 默认为300ms\n（2）仅绑定单击事件：不设置 `delay` 时立即响应，与普通按钮行为一致；设置 `delay` 时根据 `model` 决定是否应用防抖或节流\n（3）同时绑定单击和双击事件：经过双击检测时间（`dbl-delay`）后响应，然后根据 `delay` 和 `model` 设置决定是否应用防抖或节流\n组件内部实现了单击和双击的智能区分机制，双击时不会触发单击事件，确保交互体验的准确性。`dbl-delay` 参数仅在绑定双击事件时生效，用于控制双击检测时间阈值，必须大于等于 `delay` 参数',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/button/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/button/',
     props: [
       {
         name: 'model',
@@ -1020,19 +1030,19 @@ export default {
         name: 'dblclick',
         title: '单、双击',
         sourcePath: 'docs/components/button/dblclick.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/button/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/button/'
       },
       {
         name: 'debounce',
         title: '防抖',
         sourcePath: 'docs/components/button/debounce.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/button/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/button/'
       },
       {
         name: 'throttle',
         title: '节流',
         sourcePath: 'docs/components/button/throttle.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/button/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/button/'
       }
     ]
   },
@@ -1041,7 +1051,7 @@ export default {
     description: '表格筛选及状态标签显示的列',
     detailedDescription:
       '基于 `el-table-column` 封装的筛选+状态显示列，因为一般状态显示与筛选功能会同时使用，所以该组件主要是为了简化该场景下的配置。\n（1）可用于 `el-table` 和 `y-table`\n（2）使用 `config` 属性可以同时配置筛选、状态样式、formatter，同时可以使用自定义的 `filter`、`formatter`来覆盖\n（3）需要注意：如果使用了自定义的 `formatter` 配置，则需要注意 `filter` 中的 `text` 与显示的内容保持一致\n（4）`formatter` 属性支持三种配置：\n- `true`（默认）：使用 `config` 中匹配项的 `text` 作为显示文本\n- `false`：显示原始值，不进行格式化\n- `function`：使用自定义格式化函数\n（5）筛选优先级：`attrs.filters` > `config`（当未设置 `noFilter` 时）',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/column-filter/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/column-filter/',
     props: [
       {
         name: 'no-status',
@@ -1284,7 +1294,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/column-filter/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/column-filter/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/column-filter/'
       }
     ]
   },
@@ -1293,7 +1303,7 @@ export default {
     description: '单元格内展示单个表单项的列',
     detailedDescription:
       '基于 `el-table-column` + `el-form-item` 封装，用于在表格单元格中展示单个表单项，支持表单验证、错误提示功能',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/column-form/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/column-form/',
     props: [
       {
         name: 'no-from',
@@ -1461,7 +1471,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/column-form/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/column-form/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/column-form/'
       }
     ]
   },
@@ -1470,7 +1480,7 @@ export default {
     description: '单元格内展示多个表单项的列',
     detailedDescription:
       '基于 `el-table-column` + `el-form-item` 封装，用于在表格的单元格内展示多个表单项，支持表单验证、条件显示等功能。\n该组件需要配合 `y-table` 和 `el-form` 使用，每个表单项通过具名插槽的方式自定义内容，插槽名称与每个表单项配置的 `prop` 属性对应。',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/column-forms/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/column-forms/',
     props: [
       {
         name: 'options',
@@ -1697,7 +1707,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/column-forms/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/column-forms/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/column-forms/'
       }
     ]
   },
@@ -1706,7 +1716,7 @@ export default {
     description: '单元格内展示操作按钮的列',
     detailedDescription:
       '基于 `el-table-column` 封装，主要用于为表格内行数据提供各种操作按钮，包括按钮禁用状态管理、tooltip提示、下拉菜单展示、确认对话框等常用功能。\n（1）每个按钮都使用 `y-button` 组件，也就是默认支持防抖、节流、单击、双击等特性\n（2）每个按钮都使用 `y-pop` 组件包裹，也就是默认支持 `el-tooltip` 和 `el-popover` 特性',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/column-op/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/column-op/',
     props: [
       {
         name: 'options',
@@ -1848,21 +1858,21 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/column-op/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/column-op/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/column-op/'
       },
       {
         name: 'disabled',
         title: '按钮禁用及tooltip提示',
         description: '内部使用 `y-pop` 组件展示 `tooltip`',
         sourcePath: 'docs/components/column-op/disabled.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/column-op/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/column-op/'
       },
       {
         name: 'popover',
         title: '按钮popover',
         description: '内部使用 `y-pop` 组件显示 `popover`',
         sourcePath: 'docs/components/column-op/popover.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/column-op/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/column-op/'
       }
     ]
   },
@@ -1871,7 +1881,7 @@ export default {
     description: '表格选择列，支持多选和单选',
     detailedDescription:
       '基于 `el-table-column` 封装的表格选择列。\n（1）默认使用官方 `type="selection"` 多选列能力，支持 `selectable`、`reserve-selection` 等选择列属性；\n（2）开启 `single` 后使用当前行能力实现单选，适合业务表格只允许选择一行的场景。\n（3）单选和多选的禁用状态都由 `selectable(row, index)` 决定。',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/column-select/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/column-select/',
     props: [
       {
         name: 'single',
@@ -1971,13 +1981,13 @@ export default {
         name: 'multiple',
         title: '多选',
         sourcePath: 'docs/components/column-select/multiple.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/column-select/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/column-select/'
       },
       {
         name: 'single',
         title: '单选',
         sourcePath: 'docs/components/column-select/single.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/column-select/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/column-select/'
       }
     ]
   },
@@ -1986,7 +1996,7 @@ export default {
     description: '单元格内展示各种自定义文本的列',
     detailedDescription:
       '基于 `el-table-column` 的封装，支持单元格内文本链接形式、格式化显示、自定义样式、文本溢出 Tooltip 等能力。\n（1）可用于 `el-table` 和 `y-table`\n（2）`show-overflow-tooltip` 属性被 `noTip` 代替，且默认值为 `false` ，即默认显示tooltip\n（3）`formatter` 函数参数顺序与 `el-table-column` 有所不同',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/column-text/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/column-text/',
     props: [
       {
         name: 'link',
@@ -2161,7 +2171,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/column-text/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/column-text/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/column-text/'
       }
     ]
   },
@@ -2170,7 +2180,7 @@ export default {
     description: '定时选择器',
     detailedDescription:
       '基于 [`cron-parser^5.5.0`](https://www.npmjs.com/package/cron-parser) 封装的定时选择器组件，支持多种调度周期（分钟、小时、日、周、月、年）的配置，可以生成标准的 Cron 表达式，并提供执行时间的预览功能。\n注意：需要单独安装 `cron-parser`',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/cron-picker/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/cron-picker/',
     props: [
       {
         name: 'model-valuev-model',
@@ -2254,14 +2264,14 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/cron-picker/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/cron-picker/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/cron-picker/'
       },
       {
         name: 'custom-defaults',
         title: '自定义默认值',
         description: '通过 `editDefaultValue` 属性可以自定义不同调度周期的默认配置',
         sourcePath: 'docs/components/cron-picker/custom-defaults.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/cron-picker/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/cron-picker/'
       }
     ]
   },
@@ -2270,7 +2280,7 @@ export default {
     description: '描述列表',
     detailedDescription:
       '感觉 el-descriptions 组件用起来不够方便且不够灵活，所以模仿编写了 y-desc 组件，实现了它的大部分功能，也摒弃了一些不太常用的功能，主要特点：\n- 一定程度上简化了组件的使用，使用Lodash的get方法获取值，外部提供数据及配置即可\n- 使用 grid 优化了布局，支持响应式（根据组件宽度动态调整列数）\n- 默认支持内容展示超宽省略及tooltip功能\n注意：\n在默认只展示内容时，组件内部使用配置项的 path 属性或 index 作为key值\n但是如果使用插槽展示表单等场景下，需要提供 prop 属性，并且在配置中要唯一',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/desc/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/desc/',
     props: [
       {
         name: 'config',
@@ -2385,7 +2395,7 @@ export default {
         title: '基础用法',
         description: '默认3列，各列是等宽的，支持 border 属性',
         sourcePath: 'docs/components/desc/basic.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/desc/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/desc/'
       },
       {
         name: 'column',
@@ -2393,7 +2403,7 @@ export default {
         description:
           'column 属性支持使用函数来根据组件宽度动态调整，可以手动调整页面宽度来查看效果',
         sourcePath: 'docs/components/desc/column.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/desc/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/desc/'
       },
       {
         name: 'default-slot',
@@ -2401,7 +2411,7 @@ export default {
         description:
           '当不指定具体的 prop 插槽时，可以使用默认的 `label` 和 `content` 插槽来统一自定义所有项的显示；',
         sourcePath: 'docs/components/desc/default-slot.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/desc/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/desc/'
       },
       {
         name: 'slot',
@@ -2409,7 +2419,7 @@ export default {
         description:
           '对于需要使用插槽的配置项，需要提供 prop 属性，`<prop>-label` 是每列中 label 的插槽名，`<prop>-content` 是每列中 content 的插槽名；',
         sourcePath: 'docs/components/desc/slot.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/desc/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/desc/'
       }
     ]
   },
@@ -2418,7 +2428,7 @@ export default {
     description: '默认提供操作按钮的对话框组件',
     detailedDescription:
       '基于 `el-dialog` 封装，重置了内部样式，`footer` 插槽内使用 `y-button` 内置了"确定"、"取消"按钮，默认都是防抖的',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/dialog/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/dialog/',
     props: [
       {
         name: 'model-valuev-model',
@@ -2813,7 +2823,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/dialog/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/dialog/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/dialog/'
       }
     ]
   },
@@ -2822,7 +2832,7 @@ export default {
     description: '默认提供footer区域及操作按钮的抽屉组件',
     detailedDescription:
       '基于 `el-drawer` 封装，重置了内部样式，`footer` 插槽内使用 `y-button` 内置了"确定"、"取消"按钮，并且默认都是防抖的',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/drawer/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/drawer/',
     props: [
       {
         name: 'model-valuev-model',
@@ -3182,7 +3192,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/drawer/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/drawer/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/drawer/'
       }
     ]
   },
@@ -3191,7 +3201,7 @@ export default {
     description: '基于 ECharts 的基础图表组件',
     detailedDescription:
       '基于 `ECharts^6.0.0` 封装，组件内部实现了动态按需加载，通过 `config` 指定要加载的图表类型、组件、特性、渲染器、主题、init参数，也可以通过 `appWrap` 的配置项进行全局设置\n- 对于简单图表场景，可以直接通过 `option` 属性传递图表配置及异步加载的数据\n- 对于项目中有大量复用图表的场景，可以先基于 `y-echarts` 封装某个类型的图表，在异步加载数据时时只需要传入必要的配置项即可\n- 使用时需要单独安装 `echarts` 依赖',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/echarts/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/echarts/',
     props: [
       {
         name: 'option',
@@ -3295,7 +3305,7 @@ export default {
         title: '基础用法',
         description: '该示例展示不进行二次封装，直接使用 `y-echarts` 的用法',
         sourcePath: 'docs/components/echarts/basic.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/echarts/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/echarts/'
       },
       {
         name: 'bar',
@@ -3303,7 +3313,7 @@ export default {
         description:
           '该示例使用 `y-echarts` 封装一个柱状图组件，避免每次创建图表时编写大量配置，提升复用性。在使用该组件时，只需要像上面示例的 `getLineChartOption` 方法一样，只传入必要的配置即可',
         sourcePath: 'docs/components/echarts/bar.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/echarts/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/echarts/'
       }
     ]
   },
@@ -3312,7 +3322,7 @@ export default {
     description: '展示空数据状态的组件',
     detailedDescription:
       '基于 `el-empty` 封装，用于展示空数据状态。主要功能是可以通过 y-app-wrap 传递默认值，提供全局统一配置',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/empty/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/empty/',
     props: [
       {
         name: 'image',
@@ -3370,7 +3380,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/empty/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/empty/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/empty/'
       }
     ]
   },
@@ -3379,7 +3389,7 @@ export default {
     description: '基于 Element Plus Form 的布局与联动表单',
     detailedDescription:
       '基于 [el-form](https://element-plus.org/zh-CN/component/form.html)、[el-form-item](https://element-plus.org/zh-CN/component/form.html#formitem-attributes)、[el-row](https://element-plus.org/zh-CN/component/layout.html#row-attributes)、[el-col](https://element-plus.org/zh-CN/component/layout.html#col-attributes) 封装，整合栅格布局与表单数据联动能力。\n（1）`y-form` 整合 `el-form` + `el-row`，作为外层容器\n（2）`y-form-item` 整合 `el-form-item` + `el-col`，内置栅格布局，详见 [FormItem 表单项](/components/form-item/)\n（3）除扩展属性外，其余 API 与 Element Plus 官方文档保持一致，可直接透传使用\n注意：\n- `y-form` 的 `span` 会作为所有 `y-form-item` 的默认栅格占位；单项可通过 `:span` 覆盖\n- 属性会分发给内部的 `el-form` 或 `el-row`，无需手动嵌套',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/form/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/form/',
     props: [
       {
         name: 'config',
@@ -3621,7 +3631,7 @@ export default {
         description:
           'y-form 设置 `:span="12"` 时表单项默认两列；y-form-item 可通过 span 单独控制占位',
         sourcePath: 'docs/components/form/basic.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/form/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/form/'
       },
       {
         name: 'config',
@@ -3629,14 +3639,14 @@ export default {
         description:
           'config 在表单字段变化时触发，参数为 `(model, context)`，context 包含 field、prevValue、newValue；static-fields 中的字段变化不会触发 config',
         sourcePath: 'docs/components/form/config.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/form/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/form/'
       },
       {
         name: 'debounce',
         title: 'debounce 防抖',
         description: 'debounce 控制 config 队列处理的防抖时间（ms），0 表示不防抖、立即处理',
         sourcePath: 'docs/components/form/debounce.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/form/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/form/'
       }
     ]
   },
@@ -3645,7 +3655,7 @@ export default {
     description: '基于 Element Plus FormItem + Col 的表单项',
     detailedDescription:
       '`y-form-item` 整合 `el-form-item` + `el-col`，需与 [Form 表单](/components/form/) 配合使用。\n用法示例（布局、联动、防抖等）见 [Form 表单 · 用法示例](/components/form/#用法示例)。\n注意：\n- 未设置 `span` 时继承 `y-form` 的 `span`\n- 属性会分发给 `el-col` 或 `el-form-item`',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/form-item/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/form-item/',
     props: [
       {
         name: 'span',
@@ -3867,7 +3877,7 @@ export default {
     tagName: 'y-group-select',
     description: '按钮组选择器',
     detailedDescription: '基于 `el-button-group` 封装，提供了一种简洁的方式来创建单选按钮组',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/group-select/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/group-select/',
     props: [
       {
         name: 'model-valuev-model',
@@ -3938,7 +3948,7 @@ export default {
         title: '基础用法',
         description: '最基本的用法，通过 `v-model` 绑定选中值，通过 `options` 配置选项。',
         sourcePath: 'docs/components/group-select/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/group-select/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/group-select/'
       }
     ]
   },
@@ -3946,7 +3956,7 @@ export default {
     tagName: 'y-label',
     description: '用于展示键值对数据',
     detailedDescription: '用于键值对数据的展示',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/label/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/label/',
     props: [
       {
         name: 'label',
@@ -4043,21 +4053,21 @@ export default {
         name: 'basic',
         title: '基础用法',
         sourcePath: 'docs/components/label/basic.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/label/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/label/'
       },
       {
         name: 'size',
         title: '组件尺寸',
         description: 'label组件内部使用flex布局方式',
         sourcePath: 'docs/components/label/size.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/label/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/label/'
       },
       {
         name: 'slots',
         title: '插槽',
         description: '提供了前后置插槽',
         sourcePath: 'docs/components/label/slots.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/label/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/label/'
       }
     ]
   },
@@ -4066,7 +4076,7 @@ export default {
     description: '页面或区域吸底组件',
     detailedDescription:
       '主要用于页面底部（吸底）区域内容展示，比如编辑页面的操作按钮等。model=fixed 表示相对于页面吸底，model=absolute 表示相对于父元素（需要position:relative）吸底',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/page-footer/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/page-footer/',
     props: [
       {
         name: 'height',
@@ -4118,7 +4128,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/page-footer/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/page-footer/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/page-footer/'
       }
     ]
   },
@@ -4126,7 +4136,7 @@ export default {
     tagName: 'y-page-header',
     description: '展示页面标题',
     detailedDescription: '用于展示页面标题的组件，默认使用路由元数据的 route.meta.title',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/page-header/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/page-header/',
     props: [
       {
         name: 'height',
@@ -4193,7 +4203,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/page-header/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/page-header/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/page-header/'
       }
     ]
   },
@@ -4202,7 +4212,7 @@ export default {
     description: '页面进度条',
     detailedDescription:
       '基于 `el-progress` 封装，页面级进度条组件，借鉴 [NProgress](https://www.npmjs.com/package/nprogress) 库的实现。',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/page-progress/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/page-progress/',
     props: [
       {
         name: 'model-valuev-model',
@@ -4276,7 +4286,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/page-progress/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/page-progress/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/page-progress/'
       }
     ]
   },
@@ -4285,7 +4295,7 @@ export default {
     description: '用于展示页面局部区域的标题，支持左侧装饰块和右侧操作区域。',
     detailedDescription:
       '用于在局部区域展示分区小标题，具有左侧装饰块和灵活的插槽配置。常用于页面分区、表单分组、列表标题等场景。',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/part-title/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/part-title/',
     props: [
       {
         name: 'title',
@@ -4319,13 +4329,13 @@ export default {
         title: '基础用法',
         description: '通过 title 属性设置标题文本',
         sourcePath: 'docs/components/part-title/base.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/part-title/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/part-title/'
       },
       {
         name: 'slots',
         title: '插槽',
         sourcePath: 'docs/components/part-title/slots.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/part-title/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/part-title/'
       }
     ]
   },
@@ -4334,7 +4344,7 @@ export default {
     description: '集成el-tooltip和el-popover的弹出框容器',
     detailedDescription:
       '基于 `el-tooltip` 和 `el-popover` 封装，可以用于复杂交互操作场景\n（1）默认插槽可以放置任何内容，与基本组件可以完美配合使用\n（2）支持 `el-tooltip` 和 `el-popover` 组件的完整配置\n（3）popover弹出框默认使用 `y-button` 显示“取消”、“确定”按钮，也就是支持防抖、节流等特性',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/pop/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/pop/',
     props: [
       {
         name: 'tip-content',
@@ -4545,7 +4555,7 @@ export default {
         name: 'basic',
         title: '基础用法',
         sourcePath: 'docs/components/pop/basic.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/pop/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/pop/'
       },
       {
         name: 'tip',
@@ -4553,7 +4563,7 @@ export default {
         description:
           '默认情况下，只有配置了 `tipContent` 才会启用内部的 el-tooltip；`tipProps` 支持完整的 el-tooltip 配置',
         sourcePath: 'docs/components/pop/tip.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/pop/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/pop/'
       },
       {
         name: 'pop',
@@ -4561,7 +4571,7 @@ export default {
         description:
           '组件内的el-popover主要是为了满足二次确认的场景，但是也支持完全自定义；设置 `no-pop` 则会隐藏内部的 el-popover；`popProps` 支持完整的 el-popover 配置；popover中的操作按钮使用了 y-button，也就是默认支持防抖',
         sourcePath: 'docs/components/pop/pop.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/pop/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/pop/'
       }
     ]
   },
@@ -4570,7 +4580,7 @@ export default {
     description: '行选择器组件，支持单选和多选模式，具有折叠展开功能',
     detailedDescription:
       '一个支持单选、多选的选择器，用于按行展示选项值，并且可以展开、隐藏过多的选项。',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/row-select/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/row-select/',
     props: [
       {
         name: 'model-valuev-model',
@@ -4833,20 +4843,20 @@ export default {
         title: '多选模式',
         description: '默认情况下为多选模式',
         sourcePath: 'docs/components/row-select/multipl.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/row-select/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/row-select/'
       },
       {
         name: 'single',
         title: '单选模式',
         sourcePath: 'docs/components/row-select/single.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/row-select/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/row-select/'
       },
       {
         name: 'advance',
         title: '高级用法',
         description: '可以将多个 RowSelect 组合成为高级筛选组件',
         sourcePath: 'docs/components/row-select/advance.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/row-select/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/row-select/'
       }
     ]
   },
@@ -4855,7 +4865,7 @@ export default {
     description: '可滚动容器',
     detailedDescription:
       '基于 `el-scrollbar` 封装，可在水平方向滚动的容器组件。（因为垂直滚动一般不需要箭头，可以直接使用 el-scrollbar 组件）',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/scroll-box/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/scroll-box/',
     props: [
       {
         name: 'height',
@@ -5010,7 +5020,7 @@ export default {
         description:
           '默认情况下，组件会根据内容是否超出容器宽度，自动显示左右箭头按钮。通过 arrowModel=always 可以强制箭头按钮总是显示',
         sourcePath: 'docs/components/scroll-box/basic.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/scroll-box/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/scroll-box/'
       },
       {
         name: 'continuous',
@@ -5018,14 +5028,14 @@ export default {
         description:
           '`wheelScroll` 属性控制是否开启鼠标滚轮触发水平滚动的功能；`continuous` 属性控制是否启用连续滚动功能，长按箭头按钮可以连续滚动内容；出于性能考虑，这两个功能默认都是关闭的',
         sourcePath: 'docs/components/scroll-box/continuous.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/scroll-box/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/scroll-box/'
       },
       {
         name: 'arrow',
         title: '自定义箭头样式和内容',
         description: '组件支持自定义箭头样式，内容部分可自由定义。',
         sourcePath: 'docs/components/scroll-box/arrow.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/scroll-box/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/scroll-box/'
       }
     ]
   },
@@ -5033,7 +5043,7 @@ export default {
     tagName: 'y-step',
     description: '水平步骤条',
     detailedDescription: '简易的水平步骤条组件，一般用于某些分步操作',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/step/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/step/',
     props: [
       {
         name: 'options',
@@ -5087,21 +5097,21 @@ export default {
         description:
           '通过 `steps` 可以定义每步的名称；如果不需要名称，则使用 `stepNumber` 定义步骤数量即可',
         sourcePath: 'docs/components/step/basic.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/step/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/step/'
       },
       {
         name: 'style',
         title: '自定义样式',
         description: '通过css变量可以自定义组件中部分样式',
         sourcePath: 'docs/components/step/style.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/step/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/step/'
       },
       {
         name: 'slot',
         title: '插槽',
         description: '通过插槽可以自定义步骤条节点样式，不包含连接线',
         sourcePath: 'docs/components/step/slot.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/step/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/step/'
       }
     ]
   },
@@ -5110,7 +5120,7 @@ export default {
     description: '侧边吸顶布局组件',
     detailedDescription:
       '一个侧边吸顶布局组件，适用于具有固定侧边栏且自动吸顶的页面。当页面滚动时，侧边栏会相对于父容器（默认为页面）自动吸顶显示，同时内容区域会根据侧边栏宽度自动调整内边距\n（1）外部可滚动容器不要设置padding、border等属性，否则会影响内部尺寸计算\n（2）建议为侧边栏设置固定宽度，避免内容溢出\n（3）在嵌套使用本组件时，需要正确设置 `scrollContainer` 属性来指定父级容器',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/sticky-layout/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/sticky-layout/',
     props: [
       {
         name: 'scroll-container',
@@ -5143,7 +5153,7 @@ export default {
         title: '基础用法',
         description: '当组件在嵌套的滚动容器中使用时，可以通过 `scrollContainer` 属性指定父级容器',
         sourcePath: 'docs/components/sticky-layout/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/sticky-layout/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/sticky-layout/'
       }
     ]
   },
@@ -5152,7 +5162,7 @@ export default {
     description: '修改默认样式，内置分页功能的表格',
     detailedDescription:
       '基于 `el-table` + `el-pagination` 封装，重置了表格部门默认属性和样式，内置了表格和分页组件',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/table/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/table/',
     props: [
       {
         name: 'loading',
@@ -5923,7 +5933,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/table/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/table/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/table/'
       }
     ]
   },
@@ -5932,7 +5942,7 @@ export default {
     description: '表格查询组件，支持多种搜索字段类型、动态属性和自定义组件',
     detailedDescription:
       '一般与表格组件配合使用，用于处理查询条件，支持多种搜索字段类型、动态属性、自定义组件和函数式配置。\n（1）每一个表单项都使用y-border-label组件包裹，兼容现有的所有的element-plus 表单组件，同时也允许通过插槽自定义\n（2）组件内部会自动根据配置项的组件类型和 label 自动生成placeholder（使用slot的自定义表单项除外）\n（3）需要注意的是：配置项的 comp 属性接收一个组件，但是需要使用 [`markRaw()`](https://cn.vuejs.org/api/reactivity-advanced.html#markraw) 包装',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/table-search/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/table-search/',
     props: [
       {
         name: 'options',
@@ -6054,7 +6064,7 @@ export default {
         description:
           '通常用于首行为模糊搜索，例如关键词，更多精准的搜索条件需要通过展开操作才展示。需要展示在首行的配置项设置 first:true 即可',
         sourcePath: 'docs/components/table-search/basic.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/table-search/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/table-search/'
       },
       {
         name: 'multi-row',
@@ -6062,7 +6072,7 @@ export default {
         description:
           '当options配置项中没有配置项为 first:true 时，即为单行模式，所有表单项平铺展示，且没有展开/收起操作',
         sourcePath: 'docs/components/table-search/multi-row.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/table-search/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/table-search/'
       },
       {
         name: 'dynamic',
@@ -6070,7 +6080,7 @@ export default {
         description:
           '支持根据表单状态和组件状态动态调整字段的显示、禁用等属性。同时支持值格式化，可以在值更新时对值进行处理',
         sourcePath: 'docs/components/table-search/dynamic.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/table-search/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/table-search/'
       }
     ]
   },
@@ -6079,7 +6089,7 @@ export default {
     description: '文本溢出时以tooltip提示',
     detailedDescription:
       '基于 `el-tooltip` 封装，用于文本超宽时以 `tooltip` 提示的组件\n（1）支持单行和多行文本显示\n（2）为了避免tooltip 弹出框的内容过多超出视窗（很少见，但不是没有），组件中内置的 el-tooltip 指定了样式名 `.y-text-tooltip__popper`，全局样式中通过 `--y-tooltip-popper-max-width`、`--y-tooltip-popper-max-height`指定最大宽度和最大高度，内容过多时会显示滚动条，样式与 `el-scrollbar` 一致。需要注意，如果内容过多并且指定了最大尺寸，这时需要配置`tooltipProps` 中 `enterable:true`，否则无法查看完整的内容',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/text-tooltip/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/text-tooltip/',
     props: [
       {
         name: 'line-clamp',
@@ -6384,7 +6394,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/text-tooltip/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/text-tooltip/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/text-tooltip/'
       }
     ]
   },
@@ -6393,7 +6403,7 @@ export default {
     description: '网页容器组件',
     detailedDescription:
       '基于 `iframe` 封装的网页容器组件，简化内嵌页面的传入方式，并自动管理 `postMessage` 的双向通信。\n- 自动适配容器宽高，默认 `100%`\n- 支持通过 `attrs` 透传原生 `<iframe>` 属性（`allow`、`referrerpolicy`、`sandbox` 等）\n- 内置 `postMessage` 发送与 `message` 事件接收，自动按 `event.source` 过滤非本 iframe 的消息\n- 支持 `reload` 刷新（同源用 `location.reload`，跨域自动回退到 `src` 重设）',
-    docUrl: 'http://www.liuyun.pro/yun-elp/components/web-view/',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/web-view/',
     props: [
       {
         name: 'src',
@@ -6485,7 +6495,7 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/web-view/test.vue',
-        docUrl: 'http://www.liuyun.pro/yun-elp/components/web-view/'
+        docUrl: 'https://yun8711.github.io/yun-elp/components/web-view/'
       }
     ]
   }

@@ -3,6 +3,7 @@ import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { glob } from 'glob';
 import matter from 'gray-matter';
+import { joinUrl } from './site-url';
 
 // 获取当前文件的目录路径
 const __filename = fileURLToPath(import.meta.url);
@@ -298,13 +299,9 @@ function generateWebTypes(): void {
     const content = readFileSync(filePath, 'utf-8');
     const { data, content: markdownContent } = matter(content);
 
+    const slug = file.split('/')[0];
     const componentName = data.title.split(' ')[0];
-    // 移除 Y 前缀（如果存在），并转换为 kebab-case
-    const componentNameWithoutPrefix = componentName.startsWith('Y')
-      ? componentName.slice(1)
-      : componentName;
-    const componentKebabName = toKebabCase(componentNameWithoutPrefix);
-    const docUrl = `http://www.liuyun.pro/yun-elp/components/${componentKebabName}/`;
+    const docUrl = joinUrl(`/components/${slug}/`);
 
     // 只解析API文档中特定章节下的表格
     const attributes = parseMarkdownTable(extractApiSection(markdownContent, 'Attributes')).filter(
