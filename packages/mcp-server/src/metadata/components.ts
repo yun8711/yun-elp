@@ -6,7 +6,7 @@ export default {
     tagName: 'y-app-wrap',
     description: '向后代组件传递全局配置',
     detailedDescription:
-      'AppWrap 是一个应用容器，一般用在应用最外层，主要作用是：\n（1）向内部的后代组件（`element-plus` 及 `yun-elp`）传递默认配置，方便设置组件属性的默认值，简化配置\n（2）设置 `yun-elp` 及 `element-plus` 组件库的语言选项\n注意：\n向后代组件传递的配置参数只是为了从全局角度简化组件的配置和使用，所以它的优先级最低',
+      'AppWrap 是一个应用容器，一般用在应用最外层，主要作用是：\n（1）向内部的后代组件（`element-plus` 及 `yun-elp`）传递默认配置，方便设置组件属性的默认值，简化配置\n（2）设置 `yun-elp` 及 `element-plus` 组件库的语言选项：只需配置 `locale`，即可同步切换 `y-app-wrap` 内部的 yun-elp 与 Element Plus 文案（详见 [语言配置](#语言配置-locale)）\n注意：\n向后代组件传递的配置参数只是为了从全局角度简化组件的配置和使用，所以它的优先级最低',
     docUrl: 'http://www.liuyun.pro/yun-elp/components/app-wrap/',
     props: [
       {

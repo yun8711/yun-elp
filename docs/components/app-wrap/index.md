@@ -11,35 +11,83 @@ AppWrap 是一个应用容器，一般用在应用最外层，主要作用是：
 
 （1）向内部的后代组件（`element-plus` 及 `yun-elp`）传递默认配置，方便设置组件属性的默认值，简化配置
 
-（2）设置 `yun-elp` 及 `element-plus` 组件库的语言选项
+（2）设置 `yun-elp` 及 `element-plus` 组件库的语言选项：只需配置 `locale`，即可同步切换 `y-app-wrap` 内部的 yun-elp 与 Element Plus 文案（详见 [语言配置](#语言配置-locale)）
 
 注意：
 
 向后代组件传递的配置参数只是为了从全局角度简化组件的配置和使用，所以它的优先级最低
 
+## 语言配置（locale）
+
+`locale` 用于指定 `y-app-wrap` 子树内的语言。配置为 `'zh-cn'`、`'en'`、`'ja'`、`'ar'` 之一时：
+
+1. **yun-elp** 组件使用对应语言包（如 `y-pop` 确认文案、`y-table` 底部合计）
+2. **Element Plus** 组件使用对应语言包（如 `el-pagination` 的「前往 / 条/页」、`el-date-picker` 文案）
+
+未传 `locale` 时默认为 `'zh-cn'`，上述两类组件均显示简体中文。
+
+`y-app-wrap` 内部已封装 `el-config-provider`。当 **未** 在 `elpConfig` 中设置 `locale` 时，会按 `locale` 自动注入 Element Plus 语言包，无需在业务里再维护一份 `elLocaleMap`。
+
+```vue
+<template>
+  <y-app-wrap locale="zh-cn">
+    <router-view />
+  </y-app-wrap>
+</template>
+```
+
+切换语言时只改 `locale` 即可：
+
+```vue
+<y-app-wrap :locale="currentLocale">
+  <router-view />
+</y-app-wrap>
+```
+
+### 限制与覆盖
+
+- **语言码**：必须是 `'zh-cn' | 'en' | 'ja' | 'ar'`，不支持 `'zh-CN'`、`'fr'` 等任意字符串
+- **作用范围**：仅对 `y-app-wrap` **内部** 的 `y-*` 与 `el-*` 生效；外部的 Element Plus 组件需自行配置 `el-config-provider` 的 `locale`
+- **单独指定 EP 语言**：传入 `elpConfig.locale` 后，不再按 `locale` 自动映射，以 `elpConfig.locale` 为准
+
+```vue
+<script setup lang="ts">
+import en from 'element-plus/dist/locale/en.mjs';
+</script>
+
+<template>
+  <!-- yun-elp 仍为 zh-cn，EP 强制为英文 -->
+  <y-app-wrap locale="zh-cn" :elp-config="{ locale: en }">
+    <router-view />
+  </y-app-wrap>
+</template>
+```
+
+排版方向（RTL）由 `direction` 控制，与 `locale` 独立；详见 [国际化](/guide/i18n#排版方向-rtl)。
+
 ## API
 
 ### Attributes
 
-| 属性名      | 说明                                                                                | 类型                                     | 默认值  |
-| ----------- | ----------------------------------------------------------------------------------- | ---------------------------------------- | ------- |
-| elpConfig   | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`ElConfigProviderProps`         | —       |
-| locale      | yun-elp 的语言配置                                                                  | ^[enum]`'zh-cn' \| 'en' \| 'ja' \| 'ar'` | `zh-cn` |
-| direction   | 排版方向；`auto` 时阿拉伯语自动 RTL                                                 | ^[enum]`'ltr' \| 'rtl' \| 'auto'`        | `auto`  |
-| borderLabel | y-border-label 组件全局配置，[见下表](#border-label-attribute)                      | ^[object]                                | —       |
-| pageHeader  | y-page-header 组件全局配置，[见下表](#page-header-attribute)                        | ^[object]                                | —       |
-| pageFooter  | y-page-footer 组件全局配置，[见下表](#page-footer-attribute)                        | ^[object]                                | —       |
-| button      | y-button 组件全局配置，[见下表](#button-attribute)                                  | ^[object]                                | —       |
-| drawer      | y-drawer 组件全局配置，[见下表](#drawer-attribute)                                  | ^[object]                                | —       |
-| dialog      | y-dialog 组件全局配置，[见下表](#dialog-attribute)                                  | ^[object]                                | —       |
-| empty       | y-empty 组件全局配置，[见下表](#empty-attribute)                                    | ^[object]                                | —       |
-| textTooltip | y-text-tooltip 组件全局配置，[见下表](#text-tooltip-attribute)                      | ^[object]                                | —       |
-| desc        | y-desc 组件全局配置，[见下表](#desc-attribute)                                      | ^[object]                                | —       |
-| pop         | y-pop 组件全局配置，[见下表](#pop-attribute)                                        | ^[object]                                | —       |
-| table       | y-table 组件全局配置，[见下表](#table-attribute)                                    | ^[object]                                | —       |
-| columnForm  | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)        | ^[object]                                | —       |
-| columnOp    | y-column-op 组件全局配置，[见下表](#column-op-attribute)                            | ^[object]                                | —       |
-| echarts     | y-echarts 组件全局配置，[见下表](#echarts-attribute)                                | ^[object]                                | —       |
+| 属性名      | 说明                                                                                                          | 类型                                     | 默认值  |
+| ----------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------- |
+| elpConfig   | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html)                           | ^[object]`ElConfigProviderProps`         | —       |
+| locale      | 语言配置；同步 `y-app-wrap` 内 yun-elp 与 Element Plus 文案（未设置 `elpConfig.locale` 时自动映射 EP 语言包） | ^[enum]`'zh-cn' \| 'en' \| 'ja' \| 'ar'` | `zh-cn` |
+| direction   | 排版方向；`auto` 时阿拉伯语自动 RTL                                                                           | ^[enum]`'ltr' \| 'rtl' \| 'auto'`        | `auto`  |
+| borderLabel | y-border-label 组件全局配置，[见下表](#border-label-attribute)                                                | ^[object]                                | —       |
+| pageHeader  | y-page-header 组件全局配置，[见下表](#page-header-attribute)                                                  | ^[object]                                | —       |
+| pageFooter  | y-page-footer 组件全局配置，[见下表](#page-footer-attribute)                                                  | ^[object]                                | —       |
+| button      | y-button 组件全局配置，[见下表](#button-attribute)                                                            | ^[object]                                | —       |
+| drawer      | y-drawer 组件全局配置，[见下表](#drawer-attribute)                                                            | ^[object]                                | —       |
+| dialog      | y-dialog 组件全局配置，[见下表](#dialog-attribute)                                                            | ^[object]                                | —       |
+| empty       | y-empty 组件全局配置，[见下表](#empty-attribute)                                                              | ^[object]                                | —       |
+| textTooltip | y-text-tooltip 组件全局配置，[见下表](#text-tooltip-attribute)                                                | ^[object]                                | —       |
+| desc        | y-desc 组件全局配置，[见下表](#desc-attribute)                                                                | ^[object]                                | —       |
+| pop         | y-pop 组件全局配置，[见下表](#pop-attribute)                                                                  | ^[object]                                | —       |
+| table       | y-table 组件全局配置，[见下表](#table-attribute)                                                              | ^[object]                                | —       |
+| columnForm  | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)                                  | ^[object]                                | —       |
+| columnOp    | y-column-op 组件全局配置，[见下表](#column-op-attribute)                                                      | ^[object]                                | —       |
+| echarts     | y-echarts 组件全局配置，[见下表](#echarts-attribute)                                                          | ^[object]                                | —       |
 
 #### border-label Attribute
 

@@ -109,9 +109,11 @@ createApp(App).use(YunElp).mount('#app');
 
 生成涉及多语言的代码时，请遵循 [国际化](./i18n) 文档，并注意：
 
-- 在应用根层使用 `y-app-wrap` 统一配置 `locale` 与 `direction`（默认 `direction="auto"`）
-- `locale` 与 `elpConfig.locale` 必须同时切换，避免 yun-elp 与 Element Plus 文案语言不一致
-- 支持的语言代码：`'zh-cn' | 'en' | 'ja' | 'ar'`；默认 `'zh-cn'`
+- 在 `y-app-wrap` 上设置 `locale`（如 `'zh-cn'`）即可同时切换内部的 yun-elp 与 Element Plus 文案，一般不必再写 `elpConfig.locale`
+- 在应用根层使用 `y-app-wrap` 统一配置 `locale`（默认 `zh-cn`）与 `direction`（默认 `auto`）
+- 未设置 `elpConfig.locale` 时，`y-app-wrap` 会按 `locale` 自动注入 Element Plus 语言包；仅在不一致需求时再显式覆盖
+- 支持的语言代码：`'zh-cn' | 'en' | 'ja' | 'ar'`（不是任意字符串）
+- `y-app-wrap` 外的 Element Plus 组件不会自动同步语言
 - `direction="auto"` 时，`locale="ar"` 自动使用 RTL；仅要阿语文案、不要 RTL 布局时设 `direction="ltr"`
 - 不要仅在 `document.documentElement` 上设置 `dir`，应优先由 `y-app-wrap` 提供方向；宿主布局也需要 RTL 时，外层 `dir` 与 `y-app-wrap` 保持一致
 - yun-elp 自定义样式已使用逻辑属性适配 RTL，无需为各 `y-*` 组件再手写 `[dir=rtl]` 覆盖

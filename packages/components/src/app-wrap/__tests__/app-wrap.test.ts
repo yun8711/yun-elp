@@ -20,15 +20,7 @@ vi.mock('element-plus', () => ({
 const createWrapper = (props: Partial<AppWrapProps> = {}, slots = {}) => {
   return mount(YAppWrap, {
     props,
-    slots,
-    global: {
-      stubs: {
-        'el-config-provider': {
-          template: '<div class="el-config-provider" v-bind="$attrs"><slot></slot></div>',
-          inheritAttrs: true
-        }
-      }
-    }
+    slots
   });
 };
 
@@ -133,6 +125,33 @@ describe('YAppWrap 应用容器', () => {
       const wrapper = createWrapper({ locale: 'en', direction: 'rtl' });
 
       expect(wrapper.find('.y-app-wrap').attributes('dir')).toBe('rtl');
+    });
+  });
+
+  describe('Element Plus 语言同步', () => {
+    it('未设置 elpConfig.locale 时默认注入中文语言包', () => {
+      const wrapper = createWrapper();
+
+      const provider = wrapper.findComponent({ name: 'ElConfigProvider' });
+      expect(provider.props('locale')?.name).toBe('zh-cn');
+    });
+
+    it('locale 切换时自动同步 Element Plus 语言包', () => {
+      const wrapper = createWrapper({ locale: 'en' });
+
+      const provider = wrapper.findComponent({ name: 'ElConfigProvider' });
+      expect(provider.props('locale')?.name).toBe('en');
+    });
+
+    it('显式设置 elpConfig.locale 时优先使用自定义语言包', () => {
+      const customLocale = { name: 'custom' };
+      const wrapper = createWrapper({
+        locale: 'zh-cn',
+        elpConfig: { locale: customLocale }
+      });
+
+      const provider = wrapper.findComponent({ name: 'ElConfigProvider' });
+      expect(provider.props('locale')).toEqual(customLocale);
     });
   });
 

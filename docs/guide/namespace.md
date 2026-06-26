@@ -24,31 +24,18 @@ title: 命名空间
 
 ```vue
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
-import en from 'element-plus/dist/locale/en.mjs';
-import ja from 'element-plus/dist/locale/ja.mjs';
-import ar from 'element-plus/dist/locale/ar.mjs';
+import { ref } from 'vue';
 
 const locale = ref<'zh-cn' | 'en' | 'ja' | 'ar'>('zh-cn');
 const elementNamespace = 'ep';
 const yNamespace = 'yp';
-
-const elLocaleMap = {
-  'zh-cn': zhCn,
-  en,
-  ja,
-  ar
-};
-
-const elLocale = computed(() => elLocaleMap[locale.value] ?? zhCn);
 </script>
 
 <template>
   <y-app-wrap
     :locale="locale"
     direction="auto"
-    :elp-config="{ locale: elLocale, namespace: elementNamespace }"
+    :elp-config="{ namespace: elementNamespace }"
     :y-namespace="yNamespace">
     <router-view />
   </y-app-wrap>

@@ -10,6 +10,7 @@
 
 <script lang="ts">
 import { ElConfigProvider } from 'element-plus';
+import type { ConfigProviderProps } from 'element-plus';
 import type { AppWrapProps } from './app-wrap';
 
 // 默认配置 - 在模块级别声明，避免Vue编译器限制
@@ -40,7 +41,13 @@ export const defaultConfig: AppWrapProps = {
 <script setup lang="ts">
 import { provide, computed } from 'vue';
 import { omit, merge } from 'lodash-es';
-import { localeContextKey, resolveDirection, directionContextKey } from '../../../locale';
+import {
+  localeContextKey,
+  resolveDirection,
+  directionContextKey,
+  getElementPlusLocale,
+  type LocaleType
+} from '../../../locale';
 import { useNamespace } from '../../../hooks/use-namespace';
 import { appConfigKey, namespaceConfigKey } from './use-app-config';
 
@@ -57,8 +64,20 @@ const mergedProps = computed(() => {
   return merge({}, defaultConfig, props);
 });
 
-// 提取 elpConfig 用于 el-config-provider
-const elpConfig = computed(() => mergedProps.value.elpConfig);
+// 提取 elpConfig 用于 el-config-provider；未显式设置 locale 时与 yun-elp locale 对齐
+const elpConfig = computed((): ConfigProviderProps => {
+  const config = mergedProps.value.elpConfig as ConfigProviderProps;
+  const locale = (mergedProps.value.locale ?? 'zh-cn') as LocaleType;
+
+  if (config.locale != null) {
+    return config;
+  }
+
+  return {
+    ...config,
+    locale: getElementPlusLocale(locale)
+  };
+});
 
 const resolvedDirection = computed(() =>
   resolveDirection(mergedProps.value.locale ?? 'zh-cn', mergedProps.value.direction ?? 'auto')

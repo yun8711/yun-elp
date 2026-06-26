@@ -32,6 +32,8 @@ export {
   type DirectionSetting
 } from './direction';
 
+export { getElementPlusLocale } from './element-plus';
+
 // 当前语言
 let currentLocale: LocaleType = defaultLocale;
 
