@@ -13,6 +13,26 @@ export interface ComponentProp {
   type: TypeInfo; // 来自 d.ts + web-types
   required?: boolean; // 来自 d.ts
   default?: string | number | boolean | null; // web-types 或文档表格
+  /** object 类型 props 的嵌套字段 */
+  properties?: ComponentProp[];
+  /** 多组嵌套字段（如 cron-picker 各调度周期） */
+  propertyGroups?: ComponentPropGroup[];
+  /** 关联辅助类型（如回调参数 DynamicPropsParams） */
+  schemas?: ComponentSchema[];
+  /** 继承外部组件属性的说明 */
+  extendsDescription?: string;
+}
+
+export interface ComponentPropGroup {
+  name: string;
+  description?: string;
+  properties: ComponentProp[];
+}
+
+export interface ComponentSchema {
+  name: string;
+  description?: string;
+  properties: ComponentProp[];
 }
 
 // Events

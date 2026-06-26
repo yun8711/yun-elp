@@ -74,29 +74,29 @@ import en from 'element-plus/dist/locale/en.mjs';
 | elpConfig   | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html)                           | ^[object]`ElConfigProviderProps`         | —       |
 | locale      | 语言配置；同步 `y-app-wrap` 内 yun-elp 与 Element Plus 文案（未设置 `elpConfig.locale` 时自动映射 EP 语言包） | ^[enum]`'zh-cn' \| 'en' \| 'ja' \| 'ar'` | `zh-cn` |
 | direction   | 排版方向；`auto` 时阿拉伯语自动 RTL                                                                           | ^[enum]`'ltr' \| 'rtl' \| 'auto'`        | `auto`  |
-| borderLabel | y-border-label 组件全局配置，[见下表](#border-label-attribute)                                                | ^[object]                                | —       |
-| pageHeader  | y-page-header 组件全局配置，[见下表](#page-header-attribute)                                                  | ^[object]                                | —       |
-| pageFooter  | y-page-footer 组件全局配置，[见下表](#page-footer-attribute)                                                  | ^[object]                                | —       |
-| button      | y-button 组件全局配置，[见下表](#button-attribute)                                                            | ^[object]                                | —       |
-| drawer      | y-drawer 组件全局配置，[见下表](#drawer-attribute)                                                            | ^[object]                                | —       |
-| dialog      | y-dialog 组件全局配置，[见下表](#dialog-attribute)                                                            | ^[object]                                | —       |
-| empty       | y-empty 组件全局配置，[见下表](#empty-attribute)                                                              | ^[object]                                | —       |
-| textTooltip | y-text-tooltip 组件全局配置，[见下表](#text-tooltip-attribute)                                                | ^[object]                                | —       |
-| desc        | y-desc 组件全局配置，[见下表](#desc-attribute)                                                                | ^[object]                                | —       |
-| pop         | y-pop 组件全局配置，[见下表](#pop-attribute)                                                                  | ^[object]                                | —       |
-| table       | y-table 组件全局配置，[见下表](#table-attribute)                                                              | ^[object]                                | —       |
-| columnForm  | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)                                  | ^[object]                                | —       |
-| columnOp    | y-column-op 组件全局配置，[见下表](#column-op-attribute)                                                      | ^[object]                                | —       |
-| echarts     | y-echarts 组件全局配置，[见下表](#echarts-attribute)                                                          | ^[object]                                | —       |
+| borderLabel | y-border-label 组件全局配置，[见下表](#border-label-properties)                                               | ^[object]                                | —       |
+| pageHeader  | y-page-header 组件全局配置，[见下表](#page-header-properties)                                                 | ^[object]                                | —       |
+| pageFooter  | y-page-footer 组件全局配置，[见下表](#page-footer-properties)                                                 | ^[object]                                | —       |
+| button      | y-button 组件全局配置，[见下表](#button-properties)                                                           | ^[object]                                | —       |
+| drawer      | y-drawer 组件全局配置，[见下表](#drawer-properties)                                                           | ^[object]                                | —       |
+| dialog      | y-dialog 组件全局配置，[见下表](#dialog-properties)                                                           | ^[object]                                | —       |
+| empty       | y-empty 组件全局配置，[见下表](#empty-properties)                                                             | ^[object]                                | —       |
+| textTooltip | y-text-tooltip 组件全局配置，[见下表](#text-tooltip-properties)                                               | ^[object]                                | —       |
+| desc        | y-desc 组件全局配置，[见下表](#desc-properties)                                                               | ^[object]                                | —       |
+| pop         | y-pop 组件全局配置，[见下表](#pop-properties)                                                                 | ^[object]                                | —       |
+| table       | y-table 组件全局配置，[见下表](#table-properties)                                                             | ^[object]                                | —       |
+| columnForm  | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-properties)                                 | ^[object]                                | —       |
+| columnOp    | y-column-op 组件全局配置，[见下表](#column-op-properties)                                                     | ^[object]                                | —       |
+| echarts     | y-echarts 组件全局配置，[见下表](#echarts-properties)                                                         | ^[object]                                | —       |
 
-#### border-label Attribute
+#### border-label Properties
 
 | 参数   | 描述       | 类型      | 默认值   |
 | ------ | ---------- | --------- | -------- |
 | width  | 组件总宽度 | ^[string] | `'auto'` |
 | height | 组件高度   | ^[string] | `'32px'` |
 
-#### page-header Attribute
+#### page-header Properties
 
 | 参数           | 描述                              | 类型                                   | 默认值 |
 | -------------- | --------------------------------- | -------------------------------------- | ------ |
@@ -106,7 +106,7 @@ import en from 'element-plus/dist/locale/en.mjs';
 | paddingX       | 组件水平内边距                    | ^[string] / ^[array]`[string, string]` | —      |
 | titleTextStyle | 组件文本样式                      | ^[object]`CSSProperties`               | —      |
 
-#### page-footer Attribute
+#### page-footer Properties
 
 | 参数   | 描述                          | 类型                  | 默认值   |
 | ------ | ----------------------------- | --------------------- | -------- |
@@ -114,7 +114,7 @@ import en from 'element-plus/dist/locale/en.mjs';
 | left   | 组件左侧距离，有效的css尺寸值 | ^[string] / ^[number] | `0`      |
 | right  | 组件右侧距离，有效的css尺寸值 | ^[string] / ^[number] | `0`      |
 
-#### button Attribute
+#### button Properties
 
 继承 [el-button 的全部属性](https://element-plus.org/zh-CN/component/button.html#button-attributes) ，另外包含以下属性
 
@@ -123,7 +123,7 @@ import en from 'element-plus/dist/locale/en.mjs';
 | delay   | 防抖间隔时间，单位ms | ^[string] / ^[number] | `300`  |
 | maxWait | 最大等待时间，单位ms | ^[string] / ^[number] | —      |
 
-#### drawer Attribute
+#### drawer Properties
 
 继承 [el-drawer 的全部属性](https://element-plus.org/zh-CN/component/drawer.html#%E5%B1%9E%E6%80%A7) ，另外包含以下属性
 
@@ -135,7 +135,7 @@ import en from 'element-plus/dist/locale/en.mjs';
 | cancelProps  | 取消按钮属性 | ^[object]`YButtonProps`  | `{type:'default'}` |
 | titleStyle   | 标题文本样式 | ^[object]`CSSProperties` | —                  |
 
-#### dialog Attribute
+#### dialog Properties
 
 继承 [el-dialog 的全部属性](https://element-plus.org/zh-CN/component/dialog.html#attributes) ，另外包含以下属性
 
@@ -147,7 +147,7 @@ import en from 'element-plus/dist/locale/en.mjs';
 | cancelProps  | 取消按钮属性 | ^[object]`YButtonProps`  | `{type:'default'}` |
 | titleStyle   | 标题文本样式 | ^[object]`CSSProperties` | —                  |
 
-#### empty Attribute
+#### empty Properties
 
 继承 [el-empty 的全部属性](https://element-plus.org/zh-CN/component/empty.html#attributes) ，另外包含以下属性
 
@@ -158,14 +158,14 @@ import en from 'element-plus/dist/locale/en.mjs';
 | imageSize   | 自定义图片大小                      | ^[number]                | `100`        |
 | description | 自定义描述                          | ^[string]                | `'暂无数据'` |
 
-#### text-tooltip Attribute
+#### text-tooltip Properties
 
 | 参数         | 描述                                                                                                | 类型                                                                                                                                                                        | 默认值  |
 | ------------ | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | placement    | tooltip显示位置                                                                                     | ^[enum]`'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | `'top'` |
 | tooltipProps | tooltip配置属性，详见[el-tooltip](https://element-plus.org/zh-CN/component/tooltip.html#attributes) | ^[object]`Partial<ElTooltipProps>`                                                                                                                                          | `{}`    |
 
-#### desc Attribute
+#### desc Properties
 
 | 参数         | 描述                         | 类型                                   | 默认值   |
 | ------------ | ---------------------------- | -------------------------------------- | -------- |
@@ -176,7 +176,7 @@ import en from 'element-plus/dist/locale/en.mjs';
 | contentAlign | content 文本对齐方式         | ^[enum]`'left' \| 'center' \| 'right'` | `'left'` |
 | emptyText    | content 内容为空时显示的内容 | ^[string]                              | `''`     |
 
-#### Pop Attribute
+#### pop Properties
 
 | 参数         | 描述                                                                                                  | 类型                                                                                                                                                                        | 默认值 |
 | ------------ | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
@@ -192,27 +192,27 @@ import en from 'element-plus/dist/locale/en.mjs';
 | popContent   | popover 内容                                                                                          | ^[string]                                                                                                                                                                   | —      |
 | popProps     | popover 配置属性，详见 [el-popover](https://element-plus.org/zh-CN/component/popover.html#attributes) | ^[object]`Partial<PopoverProps>`                                                                                                                                            | —      |
 
-#### table Attribute
+#### table Properties
 
 | 参数            | 描述                  | 类型                         | 默认值   |
 | --------------- | --------------------- | ---------------------------- | -------- |
 | emptyProps      | 空数据时 y-empty 配置 | ^[object]`YEmptyProps`       | `'auto'` |
 | paginationProps | 分页配置              | ^[object]`ElPaginationProps` | `{}`     |
 
-#### Column Form Attribute
+#### column-form Properties
 
 | 参数        | 描述                           | 类型                                                                                                                                                                        | 默认值                           |
 | ----------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
 | placement   | 错误提示tooltip弹出位置        | ^[enum]`'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | `'auto'`                         |
 | popperClass | 错误提示tooltip 的 popper 类名 | ^[string]                                                                                                                                                                   | `'y-column-form__error-tooltip'` |
 
-#### Column Op Attribute
+#### column-op Properties
 
 | 参数               | 描述                                | 类型      | 默认值 |
 | ------------------ | ----------------------------------- | --------- | ------ |
 | disabledDefaultTip | 按钮禁用状态时默认的tooltip提示文本 | ^[string] | —      |
 
-#### echarts Attribute
+#### echarts Properties
 
 | 参数       | 描述                                                                                        | 类型                  | 默认值               |
 | ---------- | ------------------------------------------------------------------------------------------- | --------------------- | -------------------- |

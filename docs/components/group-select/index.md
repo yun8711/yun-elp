@@ -30,7 +30,7 @@ group-select/test
 | item-class            | 按钮的自定义类名     | `string`              | `''`   |
 | item-styles           | 按钮的自定义样式对象 | `Record<string, any>` | `{}`   |
 
-### GroupSelectOption Properties
+#### GroupSelectOption Properties
 
 | 属性名   | 说明             | 类型               | 默认值  |
 | -------- | ---------------- | ------------------ | ------- |

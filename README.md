@@ -55,6 +55,7 @@ pnpm dev
 | `pnpm typecheck` | 检查 components、play、docs 的类型 |
 | `pnpm test` | 运行组件测试并校验覆盖率 |
 | `pnpm build` | 构建组件、样式、resolver 与发布产物 |
+| `pnpm mcp:sync` | 开发收尾：刷新 web-types、抽取并测试 MCP 元数据 |
 | `pnpm commit` | 使用 `czg` 进行规范化提交 |
 
 提交时 husky 会对**暂存文件**自动执行 `lint-staged`（修复后重新加入暂存区）。`publish:check` 仅检查组件库源码包（`components`、`theme-chalk`、`resolver`）。
@@ -75,13 +76,13 @@ pnpm publish:main -- --otp=123456
 
 ### MCP 包
 
-主包 `publish:build` 完成后，按需单独处理（`extract` 可能改动 `components.ts`，需再 `commit` 一次）：
+若本次版本包含 MCP 相关变更（文档、元数据或 MCP 服务代码），按需执行：
 
 ```bash
-pnpm publish:mcp:sync
-pnpm commit                             # 有 MCP 元数据变更时
 pnpm publish:mcp -- --otp=123456
 ```
+
+MCP 元数据应在开发阶段通过 `pnpm mcp:sync` 生成并提交，不在发布流程中 extract。
 
 ### 命令说明
 
@@ -91,7 +92,7 @@ pnpm publish:mcp -- --otp=123456
 | `pnpm publish:release` | 升版本、写 CHANGELOG、打 tag |
 | `pnpm publish:build` | 构建主包 `dist` 并校验产物 |
 | `pnpm publish:main` | 人工发布主包；支持 `-- --otp=xxxxxx` |
-| `pnpm publish:mcp:sync` | MCP 元数据 extract + test |
 | `pnpm publish:mcp` | 人工发布 MCP 包；支持 `-- --otp=xxxxxx` |
+| `pnpm mcp:sync` | 开发收尾：刷新 web-types、抽取并测试 MCP 元数据 |
 
 依赖安全扫描可手动执行 `pnpm audit`；发版流程中仅作参考警告，不阻断发布。

@@ -52,25 +52,25 @@ form/debounce
 
 支持 [el-form](https://element-plus.org/zh-CN/component/form.html#form-attributes) 的全部属性及 [el-row](https://element-plus.org/zh-CN/component/layout.html#row-attributes) 的布局属性，写在 `y-form` 上即可，内部分发给对应子组件。下表列出常用项；未列出的 el-form 属性同样支持透传。
 
-| 属性名         | 说明                                                      | 类型                                                                                         | 默认值    |
-| -------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------- |
-| config         | 表单数据变化时的回调，参数见[FormConfigFn](#formconfigfn) | ^[function]`(model, context) => void`                                                        | —         |
-| static-fields  | 静态字段，变化时不触发 config                             | ^[object]`string[]`                                                                          | `[]`      |
-| debounce       | config 队列处理防抖时间（ms），0 表示不防抖               | ^[number]                                                                                    | `300`     |
-| span           | y-form-item 默认栅格占位                                  | ^[number]                                                                                    | `24`      |
-| row-class      | 行容器 class                                              | ^[string]                                                                                    | `''`      |
-| row-style      | 行容器 style                                              | ^[object]`CSSProperties`                                                                     | `{}`      |
-| model          | 表单数据对象，同 el-form                                  | ^[object]`Record<string, any>`                                                               | `{}`      |
-| rules          | 表单校验规则，同 el-form                                  | ^[object]`FormRules`                                                                         | `{}`      |
-| label-width    | 标签宽度，同 el-form                                      | ^[string] / ^[number]                                                                        | —         |
-| label-position | 标签位置，同 el-form                                      | ^[enum]`'left' \| 'right' \| 'top'`                                                          | `'right'` |
-| inline         | 行内表单模式，同 el-form                                  | ^[boolean]                                                                                   | `false`   |
-| gutter         | 栅格间隔，同 el-row                                       | ^[number]                                                                                    | `0`       |
-| justify        | 水平排列方式，同 el-row                                   | ^[enum]`'start' \| 'end' \| 'center' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'` |
-| align          | 垂直排列方式，同 el-row                                   | ^[enum]`'top' \| 'middle' \| 'bottom'`                                                       | —         |
-| tag            | 自定义元素标签，同 el-row                                 | ^[string]                                                                                    | `'div'`   |
+| 属性名         | 说明                                                                            | 类型                                                                                         | 默认值    |
+| -------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------- |
+| config         | 表单数据变化时的回调，参数见[FormConfigFn Properties](#formconfigfn-properties) | ^[function]`(model, context) => void`                                                        | —         |
+| static-fields  | 静态字段，变化时不触发 config                                                   | ^[object]`string[]`                                                                          | `[]`      |
+| debounce       | config 队列处理防抖时间（ms），0 表示不防抖                                     | ^[number]                                                                                    | `300`     |
+| span           | y-form-item 默认栅格占位                                                        | ^[number]                                                                                    | `24`      |
+| row-class      | 行容器 class                                                                    | ^[string]                                                                                    | `''`      |
+| row-style      | 行容器 style                                                                    | ^[object]`CSSProperties`                                                                     | `{}`      |
+| model          | 表单数据对象，同 el-form                                                        | ^[object]`Record<string, any>`                                                               | `{}`      |
+| rules          | 表单校验规则，同 el-form                                                        | ^[object]`FormRules`                                                                         | `{}`      |
+| label-width    | 标签宽度，同 el-form                                                            | ^[string] / ^[number]                                                                        | —         |
+| label-position | 标签位置，同 el-form                                                            | ^[enum]`'left' \| 'right' \| 'top'`                                                          | `'right'` |
+| inline         | 行内表单模式，同 el-form                                                        | ^[boolean]                                                                                   | `false`   |
+| gutter         | 栅格间隔，同 el-row                                                             | ^[number]                                                                                    | `0`       |
+| justify        | 水平排列方式，同 el-row                                                         | ^[enum]`'start' \| 'end' \| 'center' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'` |
+| align          | 垂直排列方式，同 el-row                                                         | ^[enum]`'top' \| 'middle' \| 'bottom'`                                                       | —         |
+| tag            | 自定义元素标签，同 el-row                                                       | ^[string]                                                                                    | `'div'`   |
 
-### FormConfigFn
+#### FormConfigFn Properties
 
 | 参数              | 说明         | 类型                           |
 | ----------------- | ------------ | ------------------------------ |

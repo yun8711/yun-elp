@@ -27,6 +27,7 @@ pnpm install
 | `pnpm test`      | 运行 `packages/components` 覆盖率测试     |
 | `pnpm lint`      | 全仓 ESLint、Stylelint、Prettier 自动修复 |
 | `pnpm build`     | 构建组件、样式、resolver、发布包元数据    |
+| `pnpm mcp:sync`  | 刷新 `web-types` 并抽取、测试 MCP 元数据  |
 | `pnpm commit`    | 使用 `czg` 进行规范化提交                 |
 
 ## 组件开发流程
@@ -78,6 +79,14 @@ pnpm test
 pnpm build
 ```
 
+如果修改了组件文档或 API（含 `docs/components/*`、组件 props/类型），开发收尾还应执行：
+
+```shell
+pnpm mcp:sync
+```
+
+该命令会依次运行 `build:web-types`、`mcp:extract`、`mcp:test`，并可能更新 `packages/mcp-server/src/metadata/components.ts`（`extract` 会按 Prettier 规则自动格式化，避免与 `lint-staged` 产生引号等风格差异）。请将 MCP 元数据与文档变更**一并提交**，不要留到发版时再处理。
+
 ### 5. 提交代码
 
 ```shell
@@ -93,7 +102,7 @@ pnpm commit
 
 发布流程按 `publish:*` 命令分步执行。**发布到 npm 需在本机终端人工执行**，npm 开启 2FA 时需传入 `--otp`（每次发布各需一次 OTP）。
 
-主包与 MCP 包分开处理：先完成主包发版与发布；MCP 的 `extract` 会产生 `components.ts` 等变更，**单独 commit 后再发布 MCP**。
+主包与 MCP 包分开发布。MCP 元数据（`components.ts`）应在开发阶段通过 `pnpm mcp:sync` 生成并提交；**发布 MCP 包时不再执行 extract**。
 
 ### 主包
 
@@ -111,23 +120,21 @@ pnpm publish:main -- --otp=123456       # 5. 人工发布 yun-elp
 
 ### MCP 包
 
-主包 `publish:build` 完成后（已生成 `dist/web-types.json`），按需执行：
+主包发版完成后，若本次版本包含 MCP 相关变更（文档、元数据或 MCP 服务代码），按需执行：
 
 ```shell
-pnpm publish:mcp:sync                   # 1. extract + test（可能改动 components.ts）
-pnpm commit                             # 2. 若有变更，单独提交 MCP 元数据
-pnpm publish:mcp -- --otp=123456        # 3. 人工发布 yun-elp-mcp（发布前自动 build）
+pnpm publish:mcp -- --otp=123456        # 人工发布 yun-elp-mcp（发布前自动 build）
 ```
 
-若本次发版未改组件文档或 API，可跳过 MCP 流程。日常维护 MCP 时仍可使用 `pnpm mcp:extract`、`pnpm mcp:test`、`pnpm mcp:build`。
+若本次发版未涉及 MCP，可跳过。单独维护 MCP 服务实现时，仍可使用 `pnpm mcp:build`、`pnpm mcp:test`。
 
 ### 命令说明
 
-| 命令                    | 说明                                         |
-| ----------------------- | -------------------------------------------- |
-| `pnpm publish:check`    | 发版前质量检查（lint / typecheck / 测试）    |
-| `pnpm publish:release`  | 升版本、写 CHANGELOG、打 tag；要求工作区干净 |
-| `pnpm publish:build`    | 构建主包 `dist` 并校验版本与产物             |
-| `pnpm publish:main`     | 人工发布主包；支持 `-- --otp=xxxxxx`         |
-| `pnpm publish:mcp:sync` | 从文档与 `web-types` 抽取 MCP 元数据并测试   |
-| `pnpm publish:mcp`      | 人工发布 MCP 包；支持 `-- --otp=xxxxxx`      |
+| 命令                   | 说明                                            |
+| ---------------------- | ----------------------------------------------- |
+| `pnpm publish:check`   | 发版前质量检查（lint / typecheck / 测试）       |
+| `pnpm publish:release` | 升版本、写 CHANGELOG、打 tag；要求工作区干净    |
+| `pnpm publish:build`   | 构建主包 `dist` 并校验版本与产物                |
+| `pnpm publish:main`    | 人工发布主包；支持 `-- --otp=xxxxxx`            |
+| `pnpm publish:mcp`     | 人工发布 MCP 包；支持 `-- --otp=xxxxxx`         |
+| `pnpm mcp:sync`        | 开发收尾：刷新 web-types、抽取并测试 MCP 元数据 |

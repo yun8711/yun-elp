@@ -58,7 +58,8 @@
 - `pnpm test`：运行组件覆盖率测试
 - `pnpm lint`：全仓 ESLint、Stylelint、Prettier 自动修复
 - `pnpm build`：构建组件包与相关产物
-- `pnpm mcp:extract`：从文档刷新 MCP 数据
+- `pnpm mcp:sync`：开发收尾时刷新 web-types、抽取并测试 MCP 元数据
+- `pnpm mcp:extract`：从文档刷新 MCP 数据（需已有 `dist/web-types.json`）
 - `pnpm mcp:test`：测试 MCP 服务
 
 ## 工作规则
@@ -71,14 +72,15 @@
 - 保持基于 namespace 的样式约定。新增或修改组件时，应继续使用 `useNamespace(...)` 一类 helper，不要回退为写死 `.y-*` 或 `--el-*` 字符串。
 - 新增组件时，优先使用 `pnpm create`，不要手工完整搭建整套组件骨架。
 - 如果改动涉及打包、安装器接线或导出链路，需要检查 `packages/components/defaults.ts`、`packages/components/index.ts` 以及相关构建脚本。
-- 如果改动会影响面向 MCP 的文档数据，需要执行 `pnpm mcp:extract` 和 `pnpm mcp:test`。
+- 如果改动会影响面向 MCP 的文档或组件 API，开发收尾应执行 `pnpm mcp:sync`，并将生成的 `components.ts` 与文档一并提交；不要在发布流程中再 extract。
 
 ## 验证要求
 
 根据改动选择最小但合理的验证集合，不要跳过明显应做的检查：
 
 - 组件逻辑或类型改动：`pnpm typecheck` 和 `pnpm test`
-- 仅文档或 playground 改动：至少在可行时启动对应 dev 服务验证
+- 文档或组件 API 改动（影响 MCP）：`pnpm mcp:sync`
+- 仅文档或 playground 改动（不影响 MCP 元数据）：至少在可行时启动对应 dev 服务验证
 - 样式、导出或构建链路改动：`pnpm build`
 - MCP 服务改动：`pnpm mcp:test`
 

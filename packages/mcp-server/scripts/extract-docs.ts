@@ -1,13 +1,23 @@
 import { dirname, resolve, join } from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import prettier from 'prettier';
 import {
   ComponentModel,
   ComponentProp,
+  ComponentPropGroup,
+  ComponentSchema,
   ComponentEvent,
   ComponentSlot,
   ComponentMethod
 } from '../src/types/index.ts';
+import {
+  isAuxiliarySchema,
+  matchSchemaToPropName,
+  parseApiNestedSchemas,
+  rowToPropFields,
+  type ParsedNestedSchema
+} from '../../../scripts/markdown-table.ts';
 
 // =============================================
 // 配置路径：yun-elp组件路径
@@ -208,10 +218,111 @@ function toComponentTagName(componentName: string): string {
   return `y-${componentName.toLowerCase()}`;
 }
 
+function rowsToComponentProps(rows: ParsedNestedSchema['properties']): ComponentProp[] {
+  if (!rows?.length) {
+    return [];
+  }
+
+  return rows
+    .map(row => {
+      const fields = rowToPropFields(row);
+      if (!fields.name) {
+        return null;
+      }
+
+      return {
+        name: fields.name,
+        description: fields.description,
+        type: { raw: fields.type },
+        default: fields.default
+      } satisfies ComponentProp;
+    })
+    .filter((item): item is ComponentProp => item !== null);
+}
+
+function enrichPropsFromApiDocs(props: ComponentProp[], markdown: string): ComponentProp[] {
+  const schemas = parseApiNestedSchemas(markdown);
+  if (schemas.length === 0) {
+    return props;
+  }
+
+  const propNames = props.map(prop => prop.name);
+  const propTypes = new Map(props.map(prop => [prop.name, prop.type.raw || '']));
+
+  for (const schema of schemas) {
+    const propName = matchSchemaToPropName(schema, propNames, propTypes);
+    if (!propName) {
+      continue;
+    }
+
+    const prop = props.find(item => item.name === propName);
+    if (!prop) {
+      continue;
+    }
+
+    if (schema.groups?.length) {
+      prop.propertyGroups = schema.groups.map(group => ({
+        name: group.name,
+        description: group.description,
+        properties: rowsToComponentProps(group.rows)
+      })) satisfies ComponentPropGroup[];
+      continue;
+    }
+
+    if (!schema.properties?.length) {
+      continue;
+    }
+
+    const nestedProps = rowsToComponentProps(schema.properties);
+
+    if (isAuxiliarySchema(schema.schemaName)) {
+      prop.schemas = [
+        ...(prop.schemas || []),
+        {
+          name: schema.schemaName.replace(/\s+配置项$/g, '').trim(),
+          properties: nestedProps
+        } satisfies ComponentSchema
+      ];
+      continue;
+    }
+
+    if (schema.extendsDescription) {
+      prop.extendsDescription = schema.extendsDescription;
+    }
+
+    if (!prop.properties?.length) {
+      prop.properties = nestedProps;
+    } else {
+      prop.schemas = [
+        ...(prop.schemas || []),
+        {
+          name: schema.schemaName.replace(/\s+(Attribute|Properties|配置项)$/gi, '').trim(),
+          properties: nestedProps
+        } satisfies ComponentSchema
+      ];
+    }
+  }
+
+  return props;
+}
+
 // =========================================================
 // 主流程
 // =========================================================
-function generate() {
+async function writeFormattedOutput(content: string, outputPath: string) {
+  const config = (await prettier.resolveConfig(outputPath)) ?? {};
+
+  fs.writeFileSync(
+    outputPath,
+    await prettier.format(content, {
+      ...config,
+      filepath: outputPath
+    }),
+    'utf-8'
+  );
+}
+
+async function generate() {
   console.warn('📚 Loading web-types...');
   const webTypes = loadWebTypes();
 
@@ -246,13 +357,16 @@ function generate() {
     const mdParsed = parseMarkdown(md);
 
     // 从 web-types.json 提取 API 信息
-    const props: ComponentProp[] = (wtEntry.props || []).map((wp: any) => ({
-      name: wp.name,
-      description: wp.description || '',
-      type: { raw: Array.isArray(wp.type) ? wp.type.join(' | ') : wp.type || 'any' },
-      required: wp.required ?? false,
-      default: wp.default
-    }));
+    const props = enrichPropsFromApiDocs(
+      (wtEntry.props || []).map((wp: any) => ({
+        name: wp.name,
+        description: wp.description || '',
+        type: { raw: Array.isArray(wp.type) ? wp.type.join(' | ') : wp.type || 'any' },
+        required: wp.required ?? false,
+        default: wp.default
+      })),
+      md
+    );
 
     const events: ComponentEvent[] = (wtEntry.js?.events || []).map((we: any) => ({
       name: we.name,
@@ -305,9 +419,12 @@ function generate() {
 export default ${JSON.stringify(components, null, 2)};
 `;
 
-  fs.writeFileSync(OUTPUT, jsContent, 'utf-8');
+  await writeFormattedOutput(jsContent, OUTPUT);
 
   console.warn('🎉 Done! Output generated:', OUTPUT);
 }
 
-generate();
+generate().catch(error => {
+  console.error(error);
+  process.exit(1);
+});

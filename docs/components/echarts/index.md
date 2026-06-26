@@ -41,7 +41,7 @@ echarts/bar
 | loading | 是否显示加载状态                                                      | ^[boolean]               | `false`                          |
 | config  | 按需加载的模块配置                                                    | ^[object]`EchartsConfig` | `{renderers:['CanvasRenderer']}` |
 
-#### EchartsConfig 配置项
+#### EchartsConfig Properties
 
 | 属性名     | 说明                                                                                        | 类型                  | 默认值               |
 | ---------- | ------------------------------------------------------------------------------------------- | --------------------- | -------------------- |

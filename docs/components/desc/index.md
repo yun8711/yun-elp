@@ -70,7 +70,7 @@ desc/slot
 | content-align | content 文本对齐方式         | ^[enum]`'left' \| 'center' \| 'right'`             | `'left'`       |
 | empty-text    | content 内容为空时显示的内容 | ^[string]                                          | `''`           |
 
-### DescItem Properties
+#### DescItem Properties
 
 | 属性名       | 说明                                                                               | 类型                                          | 默认值   |
 | ------------ | ---------------------------------------------------------------------------------- | --------------------------------------------- | -------- |

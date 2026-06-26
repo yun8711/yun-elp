@@ -65,7 +65,7 @@ column-filter/test
 | filtered-value        | 选中的数据过滤项，如果需要自定义表头过滤的渲染方式，可能会需要此属性                        | ^[object]`string[]`                                                                                                                                                         | —                   |
 | tooltip-formatter     | 使用 show-overflow-tooltip 时自定义 tooltip 内容                                            | ^[function]`(data: { row: any, column: any, cellValue: any }) => VNode \| string`                                                                                           | —                   |
 
-### ColumnFilterConfig
+#### ColumnFilterConfig Properties
 
 | 属性名  | 说明                                           | 类型       | 默认值 |
 | ------- | ---------------------------------------------- | ---------- | ------ |

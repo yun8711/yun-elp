@@ -55,7 +55,7 @@ table-search/dynamic
 | disabled-first | 多行模式下，展开时是否自动禁用第一行     | ^[boolean]                                                                                        | `true`       |
 | clear-on-fold  | 多行模式下，展开、收起时是否自动清空数据 | ^[boolean]                                                                                        | `true`       |
 
-### TableSearchOption Attribute
+#### TableSearchOption Properties
 
 | 参数        | 说明                                                                                     | 类型                                                                                                                                    | 默认值    |
 | ----------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------- |
@@ -71,7 +71,7 @@ table-search/dynamic
 | innerAttrs  | 给内部组件的属性                                                                         | ^[object]`Record<string, any>` / ^[Function]`(params: DynamicPropsParams) => Record<string, any>`                                       | —         |
 | custom      | 是否自定义组件，即使用slot                                                               | ^[boolean]                                                                                                                              | `false`   |
 
-### DynamicPropsParams Attribute
+#### DynamicPropsParams Properties
 
 | 参数   | 说明             | 类型                           |
 | ------ | ---------------- | ------------------------------ |
@@ -96,7 +96,7 @@ table-search/dynamic
 | right  | 右侧内容                        | —                                                                                         |
 | [prop] | 自定义字段组件，{prop} 为字段名 | ^[object]`{ prop: string, value: any, item: TableSearchItem, form: Record<string, any> }` |
 
-### TableSearchItem Attribute
+#### TableSearchItem Properties
 
 | 参数        | 说明                                                                                     | 类型                                                                                                            | 默认值    |
 | ----------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------- |

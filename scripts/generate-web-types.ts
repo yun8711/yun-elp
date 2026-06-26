@@ -4,6 +4,12 @@ import { fileURLToPath } from 'url';
 import { glob } from 'glob';
 import matter from 'gray-matter';
 import { joinUrl } from './site-url';
+import {
+  extractApiSection,
+  isValidTableRow,
+  normalizeApiPropName,
+  parseMarkdownTable
+} from './markdown-table';
 
 // 获取当前文件的目录路径
 const __filename = fileURLToPath(import.meta.url);
@@ -64,94 +70,6 @@ interface WebTypeExpose {
   description?: string;
   'doc-url'?: string;
   type?: string | string[];
-}
-
-interface MarkdownTableRow {
-  [key: string]: string;
-}
-
-function parseMarkdownTable(content: string): MarkdownTableRow[] {
-  if (!content.trim()) {
-    return [];
-  }
-
-  const lines = content.split('\n').filter(line => line.trim());
-  if (lines.length < 3) {
-    return [];
-  }
-
-  // 查找表格开始的位置（表头行）
-  let tableStartIndex = -1;
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    // 检查是否是表格行（包含 | 且不是描述文字）
-    if (
-      line.includes('|') &&
-      !line.includes('除了') &&
-      !line.includes('支持') &&
-      !line.includes('组件')
-    ) {
-      tableStartIndex = i;
-      break;
-    }
-  }
-
-  if (tableStartIndex === -1) {
-    return [];
-  }
-
-  // 从表格开始位置提取表格内容
-  const tableLines = lines.slice(tableStartIndex);
-  if (tableLines.length < 3) {
-    return [];
-  }
-
-  // 移除表头和分隔行
-  const tableContent = tableLines.slice(2);
-
-  // 处理表头，将转义的竖线替换为特殊字符
-  const headers = tableLines[0]
-    .replace(/\\\|/g, '___PIPE___')
-    .split('|')
-    .filter(Boolean)
-    .map(h => h.trim().replace(/___PIPE___/g, '\\|'));
-
-  const rows = tableContent.map(line => {
-    const processedLine = line.replace(/\\\|/g, '___PIPE___');
-    const cells = processedLine
-      .split('|')
-      .filter(Boolean)
-      .map(c => c.trim().replace(/___PIPE___/g, '\\|'));
-
-    return headers.reduce((obj, header, index) => {
-      obj[header] = cells[index] || '';
-      return obj;
-    }, {} as MarkdownTableRow);
-  });
-
-  return rows;
-}
-
-function extractApiSection(content: string, section: string): string {
-  // 首先查找 ## API 章节
-  const apiRegex = /## API\s*\n([\s\S]*?)(?=\n## |$)/;
-  const apiMatch = content.match(apiRegex);
-
-  if (!apiMatch) {
-    return '';
-  }
-
-  const apiContent = apiMatch[1];
-
-  // 在 API 章节内查找指定的子章节
-  const sectionRegex = new RegExp(`### ${section}\\s*\\n([\\s\\S]*?)(?=\\n### |$)`);
-  const match = apiContent.match(sectionRegex);
-
-  if (!match) {
-    return '';
-  }
-
-  return match[1].trim();
 }
 
 function parseType(type: string): string | string[] {
@@ -280,12 +198,6 @@ function toKebabCase(str: string | undefined): string {
     .replace(/[^a-z0-9-]/g, '');
 }
 
-function isValidTableRow(row: MarkdownTableRow): boolean {
-  // 检查是否是有效的表格行（不是分隔符或标题行）
-  const values = Object.values(row);
-  return values.some(value => value && !value.includes('---') && !value.includes('###'));
-}
-
 function generateWebTypes(): void {
   const docsDir = resolve(__dirname, '../docs');
   const componentsDir = resolve(docsDir, 'components');
@@ -341,7 +253,7 @@ function generateWebTypes(): void {
         .filter(slot => slot.name && slot.name !== '参数'),
       props: attributes
         .map(attr => ({
-          name: toKebabCase(attr['参数'] || attr['属性名'] || attr['name']),
+          name: normalizeApiPropName(attr['参数'] || attr['属性名'] || attr['name']),
           description: attr['说明'] || attr['description'],
           type: parseType(attr['类型'] || attr['type']),
           default: parseDefaultValue(attr['默认值'] || attr['default'])

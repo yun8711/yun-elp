@@ -43,7 +43,25 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        properties: [
+          {
+            name: 'width',
+            description: '组件总宽度',
+            type: {
+              raw: 'string'
+            },
+            default: "'auto'"
+          },
+          {
+            name: 'height',
+            description: '组件高度',
+            type: {
+              raw: 'string'
+            },
+            default: "'32px'"
+          }
+        ]
       },
       {
         name: 'page-header',
@@ -51,7 +69,44 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        properties: [
+          {
+            name: 'height',
+            description: '组件高度',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'title-path',
+            description: '从路径元数据中获取title的取值路径',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'border',
+            description: '组件默认是否显示下边框',
+            type: {
+              raw: 'boolean'
+            }
+          },
+          {
+            name: 'padding-x',
+            description: '组件水平内边距',
+            type: {
+              raw: 'string / array[string, string]'
+            }
+          },
+          {
+            name: 'title-text-style',
+            description: '组件文本样式',
+            type: {
+              raw: 'objectCSSProperties'
+            }
+          }
+        ]
       },
       {
         name: 'page-footer',
@@ -59,7 +114,33 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        properties: [
+          {
+            name: 'height',
+            description: '组件高度，有效的css尺寸值',
+            type: {
+              raw: 'string / number'
+            },
+            default: "'56px'"
+          },
+          {
+            name: 'left',
+            description: '组件左侧距离，有效的css尺寸值',
+            type: {
+              raw: 'string / number'
+            },
+            default: '0'
+          },
+          {
+            name: 'right',
+            description: '组件右侧距离，有效的css尺寸值',
+            type: {
+              raw: 'string / number'
+            },
+            default: '0'
+          }
+        ]
       },
       {
         name: 'button',
@@ -67,7 +148,25 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        extendsDescription: '继承 el-button 的全部属性 ，另外包含以下属性',
+        properties: [
+          {
+            name: 'delay',
+            description: '防抖间隔时间，单位ms',
+            type: {
+              raw: 'string / number'
+            },
+            default: '300'
+          },
+          {
+            name: 'max-wait',
+            description: '最大等待时间，单位ms',
+            type: {
+              raw: 'string / number'
+            }
+          }
+        ]
       },
       {
         name: 'drawer',
@@ -75,7 +174,49 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        extendsDescription: '继承 el-drawer 的全部属性 ，另外包含以下属性',
+        properties: [
+          {
+            name: 'confirm-text',
+            description: '确认按钮文本',
+            type: {
+              raw: 'string'
+            },
+            default: "'确定'"
+          },
+          {
+            name: 'confirm-props',
+            description: '确认按钮属性',
+            type: {
+              raw: 'objectYButtonProps'
+            },
+            default: "{type:'primary'}"
+          },
+          {
+            name: 'cancel-text',
+            description: '取消按钮文本',
+            type: {
+              raw: 'string'
+            },
+            default: "'取消'"
+          },
+          {
+            name: 'cancel-props',
+            description: '取消按钮属性',
+            type: {
+              raw: 'objectYButtonProps'
+            },
+            default: "{type:'default'}"
+          },
+          {
+            name: 'title-style',
+            description: '标题文本样式',
+            type: {
+              raw: 'objectCSSProperties'
+            }
+          }
+        ]
       },
       {
         name: 'dialog',
@@ -83,7 +224,49 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        extendsDescription: '继承 el-dialog 的全部属性 ，另外包含以下属性',
+        properties: [
+          {
+            name: 'confirm-text',
+            description: '确认按钮文本',
+            type: {
+              raw: 'string'
+            },
+            default: "'确定'"
+          },
+          {
+            name: 'confirm-props',
+            description: '确认按钮属性',
+            type: {
+              raw: 'objectYButtonProps'
+            },
+            default: "{type:'primary'}"
+          },
+          {
+            name: 'cancel-text',
+            description: '取消按钮文本',
+            type: {
+              raw: 'string'
+            },
+            default: "'取消'"
+          },
+          {
+            name: 'cancel-props',
+            description: '取消按钮属性',
+            type: {
+              raw: 'objectYButtonProps'
+            },
+            default: "{type:'default'}"
+          },
+          {
+            name: 'title-style',
+            description: '标题文本样式',
+            type: {
+              raw: 'objectCSSProperties'
+            }
+          }
+        ]
       },
       {
         name: 'empty',
@@ -91,7 +274,40 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        extendsDescription: '继承 el-empty 的全部属性 ，另外包含以下属性',
+        properties: [
+          {
+            name: 'style',
+            description: '组件样式，包括el-empty支持的css变量',
+            type: {
+              raw: 'objectCSSProperties'
+            }
+          },
+          {
+            name: 'image',
+            description: '自定义图片',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'image-size',
+            description: '自定义图片大小',
+            type: {
+              raw: 'number'
+            },
+            default: '100'
+          },
+          {
+            name: 'description',
+            description: '自定义描述',
+            type: {
+              raw: 'string'
+            },
+            default: "'暂无数据'"
+          }
+        ]
       },
       {
         name: 'text-tooltip',
@@ -99,7 +315,25 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        properties: [
+          {
+            name: 'placement',
+            description: 'tooltip显示位置',
+            type: {
+              raw: "enum'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'"
+            },
+            default: "'top'"
+          },
+          {
+            name: 'tooltip-props',
+            description: 'tooltip配置属性，详见el-tooltip',
+            type: {
+              raw: 'objectPartial<ElTooltipProps>'
+            },
+            default: '{}'
+          }
+        ]
       },
       {
         name: 'desc',
@@ -107,7 +341,55 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        properties: [
+          {
+            name: 'label-width',
+            description: 'label 宽度',
+            type: {
+              raw: 'string / number'
+            },
+            default: "'auto'"
+          },
+          {
+            name: 'label-style',
+            description: 'label 样式',
+            type: {
+              raw: 'objectCSSProperties'
+            }
+          },
+          {
+            name: 'content-style',
+            description: 'content 样式',
+            type: {
+              raw: 'objectCSSProperties'
+            }
+          },
+          {
+            name: 'label-align',
+            description: 'label 文本对齐方式',
+            type: {
+              raw: "enum'left' \\| 'center' \\| 'right'"
+            },
+            default: "'left'"
+          },
+          {
+            name: 'content-align',
+            description: 'content 文本对齐方式',
+            type: {
+              raw: "enum'left' \\| 'center' \\| 'right'"
+            },
+            default: "'left'"
+          },
+          {
+            name: 'empty-text',
+            description: 'content 内容为空时显示的内容',
+            type: {
+              raw: 'string'
+            },
+            default: "''"
+          }
+        ]
       },
       {
         name: 'pop',
@@ -115,7 +397,86 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        properties: [
+          {
+            name: 'confirm-text',
+            description: '确认按钮文本',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'confirm-props',
+            description: '确认按钮属性',
+            type: {
+              raw: 'objectYButtonProps'
+            }
+          },
+          {
+            name: 'cancel-text',
+            description: '取消按钮文本',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'cancel-props',
+            description: '取消按钮属性',
+            type: {
+              raw: 'objectYButtonProps'
+            }
+          },
+          {
+            name: 'tip-placement',
+            description: 'tooltip 显示位置',
+            type: {
+              raw: "enum'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'"
+            }
+          },
+          {
+            name: 'tip-props',
+            description: 'tooltip 配置属性，详见 el-tooltip',
+            type: {
+              raw: 'objectPartial<ElTooltipProps>'
+            }
+          },
+          {
+            name: 'pop-width',
+            description: 'popover 宽度',
+            type: {
+              raw: 'number'
+            }
+          },
+          {
+            name: 'pop-title',
+            description: 'popover 标题',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'pop-placement',
+            description: 'popover 显示位置',
+            type: {
+              raw: "enum'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'"
+            }
+          },
+          {
+            name: 'pop-content',
+            description: 'popover 内容',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'pop-props',
+            description: 'popover 配置属性，详见 el-popover',
+            type: {
+              raw: 'objectPartial<PopoverProps>'
+            }
+          }
+        ]
       },
       {
         name: 'table',
@@ -123,7 +484,25 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        properties: [
+          {
+            name: 'empty-props',
+            description: '空数据时 y-empty 配置',
+            type: {
+              raw: 'objectYEmptyProps'
+            },
+            default: "'auto'"
+          },
+          {
+            name: 'pagination-props',
+            description: '分页配置',
+            type: {
+              raw: 'objectElPaginationProps'
+            },
+            default: '{}'
+          }
+        ]
       },
       {
         name: 'column-form',
@@ -131,7 +510,25 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        properties: [
+          {
+            name: 'placement',
+            description: '错误提示tooltip弹出位置',
+            type: {
+              raw: "enum'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'"
+            },
+            default: "'auto'"
+          },
+          {
+            name: 'popper-class',
+            description: '错误提示tooltip 的 popper 类名',
+            type: {
+              raw: 'string'
+            },
+            default: "'y-column-form__error-tooltip'"
+          }
+        ]
       },
       {
         name: 'column-op',
@@ -139,7 +536,16 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
+        required: false,
+        properties: [
+          {
+            name: 'disabled-default-tip',
+            description: '按钮禁用状态时默认的tooltip提示文本',
+            type: {
+              raw: 'string'
+            }
+          }
+        ]
       },
       {
         name: 'echarts',
@@ -147,523 +553,56 @@ export default {
         type: {
           raw: 'object'
         },
-        required: false
-      },
-      {
-        name: 'width',
-        description: '组件总宽度',
-        type: {
-          raw: 'string'
-        },
         required: false,
-        default: "'auto'"
-      },
-      {
-        name: 'height',
-        description: '组件高度',
-        type: {
-          raw: 'string'
-        },
-        required: false,
-        default: "'32px'"
-      },
-      {
-        name: 'height',
-        description: '组件高度',
-        type: {
-          raw: 'string'
-        },
-        required: false
-      },
-      {
-        name: 'title-path',
-        description: '从路径元数据中获取title的取值路径',
-        type: {
-          raw: 'string'
-        },
-        required: false
-      },
-      {
-        name: 'border',
-        description: '组件默认是否显示下边框',
-        type: {
-          raw: 'boolean'
-        },
-        required: false
-      },
-      {
-        name: 'padding-x',
-        description: '组件水平内边距',
-        type: {
-          raw: 'string | array'
-        },
-        required: false
-      },
-      {
-        name: 'title-text-style',
-        description: '组件文本样式',
-        type: {
-          raw: 'CSSProperties'
-        },
-        required: false
-      },
-      {
-        name: 'height',
-        description: '组件高度，有效的css尺寸值',
-        type: {
-          raw: 'string | number'
-        },
-        required: false,
-        default: "'56px'"
-      },
-      {
-        name: 'left',
-        description: '组件左侧距离，有效的css尺寸值',
-        type: {
-          raw: 'string | number'
-        },
-        required: false,
-        default: '0'
-      },
-      {
-        name: 'right',
-        description: '组件右侧距离，有效的css尺寸值',
-        type: {
-          raw: 'string | number'
-        },
-        required: false,
-        default: '0'
-      },
-      {
-        name: 'el-buttonhttpselement-plusorgzh-cncomponentbuttonhtmlbutton-attributes',
-        description: '',
-        type: {
-          raw: 'any'
-        },
-        required: false
-      },
-      {
-        name: 'delay',
-        description: '防抖间隔时间，单位ms',
-        type: {
-          raw: 'string | number'
-        },
-        required: false,
-        default: '300'
-      },
-      {
-        name: 'max-wait',
-        description: '最大等待时间，单位ms',
-        type: {
-          raw: 'string | number'
-        },
-        required: false
-      },
-      {
-        name: 'el-drawerhttpselement-plusorgzh-cncomponentdrawerhtmle5b19ee680a7',
-        description: '',
-        type: {
-          raw: 'any'
-        },
-        required: false
-      },
-      {
-        name: 'confirm-text',
-        description: '确认按钮文本',
-        type: {
-          raw: 'string'
-        },
-        required: false,
-        default: "'确定'"
-      },
-      {
-        name: 'confirm-props',
-        description: '确认按钮属性',
-        type: {
-          raw: 'YButtonProps'
-        },
-        required: false,
-        default: "{type:'primary'}"
-      },
-      {
-        name: 'cancel-text',
-        description: '取消按钮文本',
-        type: {
-          raw: 'string'
-        },
-        required: false,
-        default: "'取消'"
-      },
-      {
-        name: 'cancel-props',
-        description: '取消按钮属性',
-        type: {
-          raw: 'YButtonProps'
-        },
-        required: false,
-        default: "{type:'default'}"
-      },
-      {
-        name: 'title-style',
-        description: '标题文本样式',
-        type: {
-          raw: 'CSSProperties'
-        },
-        required: false
-      },
-      {
-        name: 'el-dialoghttpselement-plusorgzh-cncomponentdialoghtmlattributes',
-        description: '',
-        type: {
-          raw: 'any'
-        },
-        required: false
-      },
-      {
-        name: 'confirm-text',
-        description: '确认按钮文本',
-        type: {
-          raw: 'string'
-        },
-        required: false,
-        default: "'确定'"
-      },
-      {
-        name: 'confirm-props',
-        description: '确认按钮属性',
-        type: {
-          raw: 'YButtonProps'
-        },
-        required: false,
-        default: "{type:'primary'}"
-      },
-      {
-        name: 'cancel-text',
-        description: '取消按钮文本',
-        type: {
-          raw: 'string'
-        },
-        required: false,
-        default: "'取消'"
-      },
-      {
-        name: 'cancel-props',
-        description: '取消按钮属性',
-        type: {
-          raw: 'YButtonProps'
-        },
-        required: false,
-        default: "{type:'default'}"
-      },
-      {
-        name: 'title-style',
-        description: '标题文本样式',
-        type: {
-          raw: 'CSSProperties'
-        },
-        required: false
-      },
-      {
-        name: 'el-emptyhttpselement-plusorgzh-cncomponentemptyhtmlattributes',
-        description: '',
-        type: {
-          raw: 'any'
-        },
-        required: false
-      },
-      {
-        name: 'style',
-        description: '组件样式，包括el-empty支持的css变量',
-        type: {
-          raw: 'CSSProperties'
-        },
-        required: false
-      },
-      {
-        name: 'image',
-        description: '自定义图片',
-        type: {
-          raw: 'string'
-        },
-        required: false
-      },
-      {
-        name: 'image-size',
-        description: '自定义图片大小',
-        type: {
-          raw: 'number'
-        },
-        required: false,
-        default: '100'
-      },
-      {
-        name: 'description',
-        description: '自定义描述',
-        type: {
-          raw: 'string'
-        },
-        required: false,
-        default: "'暂无数据'"
-      },
-      {
-        name: 'placement',
-        description: 'tooltip显示位置',
-        type: {
-          raw: "'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end'"
-        },
-        required: false,
-        default: "'top'"
-      },
-      {
-        name: 'tooltip-props',
-        description:
-          'tooltip配置属性，详见[el-tooltip](https://element-plus.org/zh-CN/component/tooltip.html#attributes)',
-        type: {
-          raw: 'Partial<ElTooltipProps>'
-        },
-        required: false,
-        default: '{}'
-      },
-      {
-        name: 'label-width',
-        description: 'label 宽度',
-        type: {
-          raw: 'string | number'
-        },
-        required: false,
-        default: "'auto'"
-      },
-      {
-        name: 'label-style',
-        description: 'label 样式',
-        type: {
-          raw: 'CSSProperties'
-        },
-        required: false
-      },
-      {
-        name: 'content-style',
-        description: 'content 样式',
-        type: {
-          raw: 'CSSProperties'
-        },
-        required: false
-      },
-      {
-        name: 'label-align',
-        description: 'label 文本对齐方式',
-        type: {
-          raw: "'left' | 'center' | 'right'"
-        },
-        required: false,
-        default: "'left'"
-      },
-      {
-        name: 'content-align',
-        description: 'content 文本对齐方式',
-        type: {
-          raw: "'left' | 'center' | 'right'"
-        },
-        required: false,
-        default: "'left'"
-      },
-      {
-        name: 'empty-text',
-        description: 'content 内容为空时显示的内容',
-        type: {
-          raw: 'string'
-        },
-        required: false,
-        default: "''"
-      },
-      {
-        name: 'confirm-text',
-        description: '确认按钮文本',
-        type: {
-          raw: 'string'
-        },
-        required: false
-      },
-      {
-        name: 'confirm-props',
-        description: '确认按钮属性',
-        type: {
-          raw: 'YButtonProps'
-        },
-        required: false
-      },
-      {
-        name: 'cancel-text',
-        description: '取消按钮文本',
-        type: {
-          raw: 'string'
-        },
-        required: false
-      },
-      {
-        name: 'cancel-props',
-        description: '取消按钮属性',
-        type: {
-          raw: 'YButtonProps'
-        },
-        required: false
-      },
-      {
-        name: 'tip-placement',
-        description: 'tooltip 显示位置',
-        type: {
-          raw: "'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end'"
-        },
-        required: false
-      },
-      {
-        name: 'tip-props',
-        description:
-          'tooltip 配置属性，详见 [el-tooltip](https://element-plus.org/zh-CN/component/tooltip.html#attributes)',
-        type: {
-          raw: 'Partial<ElTooltipProps>'
-        },
-        required: false
-      },
-      {
-        name: 'pop-width',
-        description: 'popover 宽度',
-        type: {
-          raw: 'number'
-        },
-        required: false
-      },
-      {
-        name: 'pop-title',
-        description: 'popover 标题',
-        type: {
-          raw: 'string'
-        },
-        required: false
-      },
-      {
-        name: 'pop-placement',
-        description: 'popover 显示位置',
-        type: {
-          raw: "'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end'"
-        },
-        required: false
-      },
-      {
-        name: 'pop-content',
-        description: 'popover 内容',
-        type: {
-          raw: 'string'
-        },
-        required: false
-      },
-      {
-        name: 'pop-props',
-        description:
-          'popover 配置属性，详见 [el-popover](https://element-plus.org/zh-CN/component/popover.html#attributes)',
-        type: {
-          raw: 'Partial<PopoverProps>'
-        },
-        required: false
-      },
-      {
-        name: 'empty-props',
-        description: '空数据时 y-empty 配置',
-        type: {
-          raw: 'YEmptyProps'
-        },
-        required: false,
-        default: "'auto'"
-      },
-      {
-        name: 'pagination-props',
-        description: '分页配置',
-        type: {
-          raw: 'ElPaginationProps'
-        },
-        required: false,
-        default: '{}'
-      },
-      {
-        name: 'placement',
-        description: '错误提示tooltip弹出位置',
-        type: {
-          raw: "'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end'"
-        },
-        required: false,
-        default: "'auto'"
-      },
-      {
-        name: 'popper-class',
-        description: '错误提示tooltip 的 popper 类名',
-        type: {
-          raw: 'string'
-        },
-        required: false,
-        default: "'y-column-form__error-tooltip'"
-      },
-      {
-        name: 'disabled-default-tip',
-        description: '按钮禁用状态时默认的tooltip提示文本',
-        type: {
-          raw: 'string'
-        },
-        required: false
-      },
-      {
-        name: 'theme',
-        description:
-          '图表主题，参见[ECharts 中的样式简介](https://echarts.apache.org/handbook/zh/concepts/style)',
-        type: {
-          raw: 'string | object'
-        },
-        required: false
-      },
-      {
-        name: 'chart-types',
-        description: "需要动态导入的图表类型，如 `['LineChart', 'BarChart']`",
-        type: {
-          raw: 'array'
-        },
-        required: false,
-        default: '[]'
-      },
-      {
-        name: 'components',
-        description: "需要动态导入的组件类型，如 `['GridComponent', 'TooltipComponent']`",
-        type: {
-          raw: 'array'
-        },
-        required: false,
-        default: '[]'
-      },
-      {
-        name: 'renderers',
-        description: "需要动态导入的渲染器类型，如 `['CanvasRenderer']`",
-        type: {
-          raw: 'array'
-        },
-        required: false,
-        default: "['CanvasRenderer']"
-      },
-      {
-        name: 'features',
-        description: "需要动态导入的特性功能，如 `['LabelLayout', 'UniversalTransition']`",
-        type: {
-          raw: 'array'
-        },
-        required: false,
-        default: '[]'
-      },
-      {
-        name: 'init-opts',
-        description:
-          '初始化参数，参见[echarts init](https://echarts.apache.org/zh/api.html#echarts.init)',
-        type: {
-          raw: 'object'
-        },
-        required: false,
-        default: '{}'
+        properties: [
+          {
+            name: 'theme',
+            description: '图表主题，参见ECharts 中的样式简介',
+            type: {
+              raw: 'string / object'
+            }
+          },
+          {
+            name: 'chart-types',
+            description: "需要动态导入的图表类型，如 ['LineChart', 'BarChart']",
+            type: {
+              raw: 'arraystring[]'
+            },
+            default: '[]'
+          },
+          {
+            name: 'components',
+            description: "需要动态导入的组件类型，如 ['GridComponent', 'TooltipComponent']",
+            type: {
+              raw: 'arraystring[]'
+            },
+            default: '[]'
+          },
+          {
+            name: 'renderers',
+            description: "需要动态导入的渲染器类型，如 ['CanvasRenderer']",
+            type: {
+              raw: 'arraystring[]'
+            },
+            default: "['CanvasRenderer']"
+          },
+          {
+            name: 'features',
+            description: "需要动态导入的特性功能，如 ['LabelLayout', 'UniversalTransition']",
+            type: {
+              raw: 'arraystring[]'
+            },
+            default: '[]'
+          },
+          {
+            name: 'init-opts',
+            description: '初始化参数，参见echarts init',
+            type: {
+              raw: 'object'
+            },
+            default: '{}'
+          }
+        ]
       }
     ],
     events: [],
@@ -1087,7 +1026,37 @@ export default {
           raw: 'array'
         },
         required: false,
-        default: '[]'
+        default: '[]',
+        properties: [
+          {
+            name: 'text',
+            description: '同el-table-column filter配置的text，即显示文本',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'value',
+            description: '值',
+            type: {
+              raw: 'any'
+            }
+          },
+          {
+            name: 'color',
+            description: '文字颜色',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'bg-color',
+            description: '背景颜色',
+            type: {
+              raw: 'string'
+            }
+          }
+        ]
       },
       {
         name: 'text-style',
@@ -1489,7 +1458,76 @@ export default {
           raw: 'ColumnFormsItem[]'
         },
         required: false,
-        default: '[]'
+        default: '[]',
+        properties: [
+          {
+            name: 'prop',
+            description: '表单项的字段名，必填',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'label',
+            description: '表单项的标签',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'label-width',
+            description: '表单项标签宽度',
+            type: {
+              raw: 'string / number'
+            }
+          },
+          {
+            name: 'rules',
+            description: '表单验证规则',
+            type: {
+              raw: 'object / Function(scope: any, prop: string) => any'
+            }
+          },
+          {
+            name: 'form-attrs',
+            description: '表单项的其他属性',
+            type: {
+              raw: 'objectPartial<FormItemProps> / Function(scope: any, prop: string) => Partial<FormItemProps>'
+            }
+          },
+          {
+            name: 'show',
+            description: '是否显示表单项',
+            type: {
+              raw: 'boolean / Function(scope: any, prop: string) => boolean'
+            },
+            default: 'true'
+          },
+          {
+            name: 'width',
+            description: '表单项宽度',
+            type: {
+              raw: 'string / Function(scope: any, prop: string) => string'
+            },
+            default: 'auto'
+          },
+          {
+            name: 'tip-props',
+            description: '错误提示tooltip的属性',
+            type: {
+              raw: 'objectPartial<ElTooltipProps> / Function(scope: any, prop: string) => Partial<ElTooltipProps>'
+            },
+            default:
+              "{popperClass:'y-column-form__error-tooltip',effect:'dark',placement:'top',enterable:false}"
+          },
+          {
+            name: 'style',
+            description: '表单项样式',
+            type: {
+              raw: 'objectRecord<string, any> / Function(scope: any, prop: string) => Record<string, any>'
+            }
+          }
+        ]
       },
       {
         name: 'inline',
@@ -1612,82 +1650,6 @@ export default {
           raw: 'string'
         },
         required: false
-      },
-      {
-        name: 'prop',
-        description: '表单项的字段名，必填',
-        type: {
-          raw: 'string'
-        },
-        required: false
-      },
-      {
-        name: 'label',
-        description: '表单项的标签',
-        type: {
-          raw: 'string'
-        },
-        required: false
-      },
-      {
-        name: 'label-width',
-        description: '表单项标签宽度',
-        type: {
-          raw: 'string | number'
-        },
-        required: false
-      },
-      {
-        name: 'rules',
-        description: '表单验证规则',
-        type: {
-          raw: 'object | Function'
-        },
-        required: false
-      },
-      {
-        name: 'form-attrs',
-        description: '表单项的其他属性',
-        type: {
-          raw: 'object | Function'
-        },
-        required: false
-      },
-      {
-        name: 'show',
-        description: '是否显示表单项',
-        type: {
-          raw: 'boolean | Function'
-        },
-        required: false,
-        default: 'true'
-      },
-      {
-        name: 'width',
-        description: '表单项宽度',
-        type: {
-          raw: 'string | Function'
-        },
-        required: false,
-        default: 'auto'
-      },
-      {
-        name: 'tip-props',
-        description: '错误提示tooltip的属性',
-        type: {
-          raw: 'object | Function'
-        },
-        required: false,
-        default:
-          "{popperClass:'y-column-form__error-tooltip',effect:'dark',placement:'top',enterable:false}"
-      },
-      {
-        name: 'style',
-        description: '表单项样式',
-        type: {
-          raw: 'object | Function'
-        },
-        required: false
       }
     ],
     events: [],
@@ -1725,7 +1687,89 @@ export default {
           raw: 'array | Function'
         },
         required: false,
-        default: '[]'
+        default: '[]',
+        properties: [
+          {
+            name: 'label',
+            description: '操作项的文本，可以是字符串或函数',
+            type: {
+              raw: 'string / Function((scope: TableItemScope, item: ColumnOpItemType) => string)'
+            },
+            default: '-'
+          },
+          {
+            name: 'prop',
+            description: '操作项的唯一标识',
+            type: {
+              raw: 'string'
+            },
+            default: '-'
+          },
+          {
+            name: 'loading',
+            description: '按钮是否显示加载状态',
+            type: {
+              raw: 'boolean'
+            },
+            default: 'false'
+          },
+          {
+            name: 'disabled',
+            description: '按钮是否禁用，支持多种格式',
+            type: {
+              raw: 'boolean / array[boolean, string] / Function((scope: TableItemScope, item: ColumnOpItemType) => ColumnOpItemDisabledReturn)'
+            },
+            default: 'false'
+          },
+          {
+            name: 'show',
+            description: '按钮是否显示',
+            type: {
+              raw: 'boolean / Function((scope: TableItemScope, item: ColumnOpItemType) => boolean)'
+            },
+            default: 'true'
+          },
+          {
+            name: 'dropdown',
+            description: '是否以下拉菜单形式展示',
+            type: {
+              raw: 'boolean / Function((scope: TableItemScope, item: ColumnOpItemType) => boolean)'
+            },
+            default: 'false'
+          },
+          {
+            name: 'no-pop',
+            description: '是否显示popover，默认不显示',
+            type: {
+              raw: 'boolean / Function((scope: TableItemScope, item: ColumnOpItemType) => boolean)'
+            },
+            default: 'true'
+          },
+          {
+            name: 'pop-props',
+            description: 'popover的完整属性配置',
+            type: {
+              raw: 'objectPartial<PopProps> / Function((scope: TableItemScope, item: ColumnOpItemType) => Partial<PopProps>)'
+            },
+            default: '{}'
+          },
+          {
+            name: 'confirm',
+            description: '操作项的确认函数',
+            type: {
+              raw: 'Function(scope: TableItemScope, item: ColumnOpItemType, e: MouseEvent) => any'
+            },
+            default: '-'
+          },
+          {
+            name: 'cancel',
+            description: '操作项的取消函数，在显示popover时生效',
+            type: {
+              raw: 'Function(scope: TableItemScope, item: ColumnOpItemType, e: MouseEvent) => any'
+            },
+            default: '-'
+          }
+        ]
       },
       {
         name: 'disabled-default-tip',
@@ -2183,7 +2227,7 @@ export default {
     docUrl: 'https://yun8711.github.io/yun-elp/components/cron-picker/',
     props: [
       {
-        name: 'model-valuev-model',
+        name: 'model-value',
         description: '绑定值',
         type: {
           raw: 'string'
@@ -2207,7 +2251,181 @@ export default {
           raw: 'Record<string, any>'
         },
         required: false,
-        default: '{}'
+        default: '{}',
+        propertyGroups: [
+          {
+            name: 'MINUTE',
+            description: '分钟周期',
+            properties: [
+              {
+                name: 'start-time',
+                description: '开始时间',
+                type: {
+                  raw: 'string'
+                },
+                default: "'00:00'"
+              },
+              {
+                name: 'end-time',
+                description: '结束时间',
+                type: {
+                  raw: 'string'
+                },
+                default: "'23:59'"
+              },
+              {
+                name: 'per-minute',
+                description: '执行间隔（分钟）',
+                type: {
+                  raw: 'string'
+                },
+                default: "'5'"
+              }
+            ]
+          },
+          {
+            name: 'HOUR',
+            description: '小时周期',
+            properties: [
+              {
+                name: 'start-time',
+                description: '开始时间',
+                type: {
+                  raw: 'string'
+                },
+                default: "'00:00'"
+              },
+              {
+                name: 'end-time',
+                description: '结束时间',
+                type: {
+                  raw: 'string'
+                },
+                default: "'23:59'"
+              },
+              {
+                name: 'per-hour',
+                description: '执行间隔（小时）',
+                type: {
+                  raw: 'string'
+                },
+                default: "'1'"
+              },
+              {
+                name: 'assign-hours',
+                description: '指定执行的小时',
+                type: {
+                  raw: 'arraystring[]'
+                },
+                default: "['0']"
+              },
+              {
+                name: 'assign-minute',
+                description: '执行分钟',
+                type: {
+                  raw: 'string'
+                },
+                default: "'0'"
+              },
+              {
+                name: 'radio',
+                description: '选择模式',
+                type: {
+                  raw: "enum'start' \\| 'assign'"
+                },
+                default: "'start'"
+              }
+            ]
+          },
+          {
+            name: 'DAY',
+            description: '日周期',
+            properties: [
+              {
+                name: 'time-picker',
+                description: '执行时间',
+                type: {
+                  raw: 'string'
+                },
+                default: "'00:00'"
+              }
+            ]
+          },
+          {
+            name: 'WEEK',
+            description: '周周期',
+            properties: [
+              {
+                name: 'weeks',
+                description: '执行的星期',
+                type: {
+                  raw: 'arraystring[]'
+                },
+                default: "['1']"
+              },
+              {
+                name: 'time-picker',
+                description: '执行时间',
+                type: {
+                  raw: 'string'
+                },
+                default: "'00:00'"
+              }
+            ]
+          },
+          {
+            name: 'MONTH',
+            description: '月周期',
+            properties: [
+              {
+                name: 'days',
+                description: '执行的日期',
+                type: {
+                  raw: 'arraystring[]'
+                },
+                default: "['1']"
+              },
+              {
+                name: 'time-picker',
+                description: '执行时间',
+                type: {
+                  raw: 'string'
+                },
+                default: "'00:00'"
+              }
+            ]
+          },
+          {
+            name: 'YEAR',
+            description: '年周期',
+            properties: [
+              {
+                name: 'days',
+                description: '执行的日期',
+                type: {
+                  raw: 'arraystring[]'
+                },
+                default: "['1']"
+              },
+              {
+                name: 'months',
+                description: '执行的月份',
+                type: {
+                  raw: 'arraystring[]'
+                },
+                default: "['1']"
+              },
+              {
+                name: 'time-picker',
+                description: '执行时间',
+                type: {
+                  raw: 'string'
+                },
+                default: "'00:00'"
+              }
+            ]
+          }
+        ]
       },
       {
         name: 'default-period',
@@ -2288,7 +2506,107 @@ export default {
         type: {
           raw: 'DescItem[]'
         },
-        required: false
+        required: false,
+        properties: [
+          {
+            name: 'label',
+            description: '标签文本',
+            type: {
+              raw: 'string'
+            },
+            default: "''"
+          },
+          {
+            name: 'content',
+            description: '显示的内容，一般用于显示固定内容，优先级最高',
+            type: {
+              raw: 'any'
+            }
+          },
+          {
+            name: 'path',
+            description:
+              '取值路径，即 lodase 的 get 方法的 path 参数；如果未指定，则使用 label 作为取值路径',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'prop',
+            description: '选项key',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'no-tooltip',
+            description: '是否禁用tooltip功能',
+            type: {
+              raw: 'boolean'
+            },
+            default: 'false'
+          },
+          {
+            name: 'label-style',
+            description: 'label 样式',
+            type: {
+              raw: 'objectCSSProperties'
+            }
+          },
+          {
+            name: 'content-style',
+            description: 'content 样式',
+            type: {
+              raw: 'objectCSSProperties'
+            }
+          },
+          {
+            name: 'label-width',
+            description: 'label 宽度',
+            type: {
+              raw: 'string / number'
+            },
+            default: "'auto'"
+          },
+          {
+            name: 'label-align',
+            description: 'label 文本对齐方式',
+            type: {
+              raw: "enum'left' \\| 'center' \\| 'right'"
+            },
+            default: "'left'"
+          },
+          {
+            name: 'content-align',
+            description: 'content 文本对齐方式',
+            type: {
+              raw: "enum'left' \\| 'center' \\| 'right'"
+            },
+            default: "'left'"
+          },
+          {
+            name: 'span',
+            description: "列的数量；'column'表示占据整行，最好只在响应式列数时使用",
+            type: {
+              raw: "number / 'column'"
+            },
+            default: '1'
+          },
+          {
+            name: 'format',
+            description: '内容格式化函数',
+            type: {
+              raw: 'function(value:any,item:DescItem) => any'
+            }
+          },
+          {
+            name: 'text-tooltip',
+            description: 'y-text-tooltip组件的tooltip配置',
+            type: {
+              raw: 'objectRecord<string, any>'
+            }
+          }
+        ]
       },
       {
         name: 'data',
@@ -2431,7 +2749,7 @@ export default {
     docUrl: 'https://yun8711.github.io/yun-elp/components/dialog/',
     props: [
       {
-        name: 'model-valuev-model',
+        name: 'model-value',
         description: '对话框显示状态',
         type: {
           raw: 'boolean'
@@ -2835,7 +3153,7 @@ export default {
     docUrl: 'https://yun8711.github.io/yun-elp/components/drawer/',
     props: [
       {
-        name: 'model-valuev-model',
+        name: 'model-value',
         description: '是否显示 Drawer',
         type: {
           raw: 'boolean'
@@ -3228,62 +3546,56 @@ export default {
           raw: 'EchartsConfig'
         },
         required: false,
-        default: "{renderers:['CanvasRenderer']}"
-      },
-      {
-        name: 'theme',
-        description:
-          '图表主题，参见[ECharts 中的样式简介](https://echarts.apache.org/handbook/zh/concepts/style)',
-        type: {
-          raw: 'string | object'
-        },
-        required: false
-      },
-      {
-        name: 'chart-types',
-        description: "需要动态导入的图表类型，如 `['LineChart', 'BarChart']`",
-        type: {
-          raw: 'array'
-        },
-        required: false,
-        default: '[]'
-      },
-      {
-        name: 'components',
-        description: "需要动态导入的组件类型，如 `['GridComponent', 'TooltipComponent']`",
-        type: {
-          raw: 'array'
-        },
-        required: false,
-        default: '[]'
-      },
-      {
-        name: 'renderers',
-        description: "需要动态导入的渲染器类型，如 `['CanvasRenderer']`",
-        type: {
-          raw: 'array'
-        },
-        required: false,
-        default: "['CanvasRenderer']"
-      },
-      {
-        name: 'features',
-        description: "需要动态导入的特性功能，如 `['LabelLayout', 'UniversalTransition']`",
-        type: {
-          raw: 'array'
-        },
-        required: false,
-        default: '[]'
-      },
-      {
-        name: 'init-opts',
-        description:
-          '初始化参数，参见[echarts init](https://echarts.apache.org/zh/api.html#echarts.init)',
-        type: {
-          raw: 'object'
-        },
-        required: false,
-        default: '{}'
+        default: "{renderers:['CanvasRenderer']}",
+        properties: [
+          {
+            name: 'theme',
+            description: '图表主题，参见ECharts 中的样式简介',
+            type: {
+              raw: 'string / object'
+            }
+          },
+          {
+            name: 'chart-types',
+            description: "需要动态导入的图表类型，如 ['LineChart', 'BarChart']",
+            type: {
+              raw: 'arraystring[]'
+            },
+            default: '[]'
+          },
+          {
+            name: 'components',
+            description: "需要动态导入的组件类型，如 ['GridComponent', 'TooltipComponent']",
+            type: {
+              raw: 'arraystring[]'
+            },
+            default: '[]'
+          },
+          {
+            name: 'renderers',
+            description: "需要动态导入的渲染器类型，如 ['CanvasRenderer']",
+            type: {
+              raw: 'arraystring[]'
+            },
+            default: "['CanvasRenderer']"
+          },
+          {
+            name: 'features',
+            description: "需要动态导入的特性功能，如 ['LabelLayout', 'UniversalTransition']",
+            type: {
+              raw: 'arraystring[]'
+            },
+            default: '[]'
+          },
+          {
+            name: 'init-opts',
+            description: '初始化参数，参见echarts init',
+            type: {
+              raw: 'object'
+            },
+            default: '{}'
+          }
+        ]
       }
     ],
     events: [],
@@ -3397,7 +3709,49 @@ export default {
         type: {
           raw: 'function'
         },
-        required: false
+        required: false,
+        schemas: [
+          {
+            name: 'FormConfigFn Properties',
+            properties: [
+              {
+                name: 'model',
+                description: '当前表单数据',
+                type: {
+                  raw: 'objectRecord<string, any>'
+                }
+              },
+              {
+                name: 'context',
+                description: '变化上下文',
+                type: {
+                  raw: 'objectFormChangeContext'
+                }
+              },
+              {
+                name: 'context.field',
+                description: '变化的字段名',
+                type: {
+                  raw: 'string'
+                }
+              },
+              {
+                name: 'context.prev-value',
+                description: '变化前的值',
+                type: {
+                  raw: 'any'
+                }
+              },
+              {
+                name: 'context.new-value',
+                description: '变化后的值',
+                type: {
+                  raw: 'any'
+                }
+              }
+            ]
+          }
+        ]
       },
       {
         name: 'static-fields',
@@ -3880,7 +4234,7 @@ export default {
     docUrl: 'https://yun8711.github.io/yun-elp/components/group-select/',
     props: [
       {
-        name: 'model-valuev-model',
+        name: 'model-value',
         description: '绑定值',
         type: {
           raw: 'string \\| number'
@@ -3895,7 +4249,46 @@ export default {
           raw: 'GroupSelectOption[]'
         },
         required: false,
-        default: '[]'
+        default: '[]',
+        properties: [
+          {
+            name: 'label',
+            description: '选项的标签文本',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'value',
+            description: '选项的值',
+            type: {
+              raw: 'string \\| number'
+            }
+          },
+          {
+            name: 'disabled',
+            description: '是否禁用该选项',
+            type: {
+              raw: 'boolean'
+            },
+            default: 'false'
+          },
+          {
+            name: 'icon',
+            description: '选项的图标',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'loading',
+            description: '是否显示加载状态',
+            type: {
+              raw: 'boolean'
+            },
+            default: 'false'
+          }
+        ]
       },
       {
         name: 'item-class',
@@ -4215,7 +4608,7 @@ export default {
     docUrl: 'https://yun8711.github.io/yun-elp/components/page-progress/',
     props: [
       {
-        name: 'model-valuev-model',
+        name: 'model-value',
         description: '进度条开启/停止状态',
         type: {
           raw: 'boolean'
@@ -4583,7 +4976,7 @@ export default {
     docUrl: 'https://yun8711.github.io/yun-elp/components/row-select/',
     props: [
       {
-        name: 'model-valuev-model',
+        name: 'model-value',
         description: '绑定值',
         type: {
           raw: 'string | number | array'
@@ -4713,7 +5106,31 @@ export default {
           raw: 'RowSelectOption[]'
         },
         required: false,
-        default: '[]'
+        default: '[]',
+        properties: [
+          {
+            name: 'label',
+            description: '选项标签',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'value',
+            description: '选项值',
+            type: {
+              raw: 'string / number'
+            }
+          },
+          {
+            name: 'disabled',
+            description: '是否禁用',
+            type: {
+              raw: 'boolean'
+            },
+            default: 'false'
+          }
+        ]
       },
       {
         name: 'show-all',
@@ -5951,7 +6368,209 @@ export default {
           raw: 'object | Function'
         },
         required: false,
-        default: '[]'
+        default: '[]',
+        properties: [
+          {
+            name: 'prop',
+            description: '字段的key',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'label',
+            description: '字段标签',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'first',
+            description: '是否展示在第一行',
+            type: {
+              raw: 'boolean'
+            },
+            default: 'false'
+          },
+          {
+            name: 'comp',
+            description: '字段组件类型',
+            type: {
+              raw: 'objectComponent'
+            },
+            default: 'ElInput'
+          },
+          {
+            name: 'value',
+            description: '字段初始值',
+            type: {
+              raw: 'any'
+            },
+            default: '""'
+          },
+          {
+            name: 'hidden',
+            description: '是否隐藏',
+            type: {
+              raw: 'boolean / Function(params: DynamicPropsParams) => boolean'
+            },
+            default: 'false'
+          },
+          {
+            name: 'disabled',
+            description: '是否禁用',
+            type: {
+              raw: 'boolean / Function(params: DynamicPropsParams) => boolean'
+            },
+            default: 'false'
+          },
+          {
+            name: 'value-format',
+            description:
+              '值格式化函数，在值更新时对值进行处理，可以返回单个值或对象（对象会被合并到formatForm中）',
+            type: {
+              raw: 'objectRecord<string, any> / Function(value: any, prop: string, form: Record<string, any>) => any'
+            }
+          },
+          {
+            name: 'border-attrs',
+            description: 'y-border-label支持的属性',
+            type: {
+              raw: 'objectBorderLabelProps & Record<string, any> / Function(params: DynamicPropsParams) => BorderLabelProps & Record<string, any>'
+            }
+          },
+          {
+            name: 'inner-attrs',
+            description: '给内部组件的属性',
+            type: {
+              raw: 'objectRecord<string, any> / Function(params: DynamicPropsParams) => Record<string, any>'
+            }
+          },
+          {
+            name: 'custom',
+            description: '是否自定义组件，即使用slot',
+            type: {
+              raw: 'boolean'
+            },
+            default: 'false'
+          }
+        ],
+        schemas: [
+          {
+            name: 'DynamicPropsParams Properties',
+            properties: [
+              {
+                name: 'form',
+                description: '当前表单的所有值',
+                type: {
+                  raw: 'objectRecord<string, any>'
+                }
+              },
+              {
+                name: 'is-fold',
+                description: '是否折叠状态',
+                type: {
+                  raw: 'boolean'
+                }
+              },
+              {
+                name: 'prop',
+                description: '当前字段名',
+                type: {
+                  raw: 'string'
+                }
+              },
+              {
+                name: 'value',
+                description: '当前字段的值',
+                type: {
+                  raw: 'any'
+                }
+              }
+            ]
+          },
+          {
+            name: 'TableSearchItem Properties',
+            properties: [
+              {
+                name: 'prop',
+                description: '字段的key',
+                type: {
+                  raw: 'string'
+                }
+              },
+              {
+                name: 'label',
+                description: '字段标签',
+                type: {
+                  raw: 'string'
+                }
+              },
+              {
+                name: 'first',
+                description: '是否展示在第一行',
+                type: {
+                  raw: 'boolean'
+                },
+                default: 'false'
+              },
+              {
+                name: 'comp',
+                description: '字段组件类型',
+                type: {
+                  raw: 'objectComponent'
+                },
+                default: 'ElInput'
+              },
+              {
+                name: 'value',
+                description: '字段初始值',
+                type: {
+                  raw: 'any'
+                },
+                default: '""'
+              },
+              {
+                name: 'hidden',
+                description: '是否隐藏',
+                type: {
+                  raw: 'boolean'
+                },
+                default: 'false'
+              },
+              {
+                name: 'value-format',
+                description:
+                  '值格式化函数，在值更新时对值进行处理，可以返回单个值或对象（对象会被合并到formatForm中）',
+                type: {
+                  raw: 'Function(value: any, prop: string, form: Record<string, any>) => any \\| Record<string, any> / undefined'
+                }
+              },
+              {
+                name: 'border-attrs',
+                description: 'y-border-label支持的属性',
+                type: {
+                  raw: 'objectBorderLabelProps'
+                }
+              },
+              {
+                name: 'inner-attrs',
+                description: '给内部组件的属性',
+                type: {
+                  raw: 'objectRecord<string, any>'
+                }
+              },
+              {
+                name: 'custom',
+                description: '是否自定义组件，即使用slot',
+                type: {
+                  raw: 'boolean'
+                },
+                default: 'false'
+              }
+            ]
+          }
+        ]
       },
       {
         name: 'fold-text',
@@ -6439,14 +7058,6 @@ export default {
         },
         required: false,
         default: "'0'"
-      },
-      {
-        name: 'iframeiframehttpsdevelopermozillaorgzh-cndocswebhtmlreferenceelementsiframeattrs',
-        description: '',
-        type: {
-          raw: 'any'
-        },
-        required: false
       }
     ],
     events: [

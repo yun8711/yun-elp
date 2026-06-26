@@ -41,7 +41,7 @@ cron-picker/custom-defaults
 | default-period        | 默认调度周期                             | ^[enum]`'MINUTE' \| 'HOUR' \| 'DAY' \| 'WEEK' \| 'MONTH' \| 'YEAR'` | `'MINUTE'` |
 | placeholder           | 占位符                                   | ^[string]                                                           | —          |
 
-### editDefaultValue 配置项
+#### edit-default-value Properties
 
 #### MINUTE（分钟周期）
 

@@ -5,6 +5,8 @@ import matter from 'gray-matter';
 import { docsRoot, projRoot } from './paths';
 import { getCamelCaseName, getComponentName } from './names';
 import { joinUrl, siteUrl } from './site-url';
+import { extractApiSection, parseMarkdownTable, type MarkdownTableRow } from './markdown-table';
+
 const docsPublicRoot = resolve(docsRoot, 'public');
 const metadataRoot = resolve(docsPublicRoot, 'metadata');
 const packageJson = JSON.parse(readFileSync(resolve(projRoot, 'package.json'), 'utf-8'));
@@ -21,10 +23,6 @@ interface SidebarItem {
 interface SidebarGroup {
   text: string;
   items: SidebarItem[];
-}
-
-interface MarkdownTableRow {
-  [key: string]: string;
 }
 
 interface ApiItem {
@@ -85,53 +83,6 @@ function getSidebarMap() {
 function normalizeDocPath(path: string) {
   const cleanPath = path.split('#')[0].replace(/\/$/, '');
   return cleanPath || '/';
-}
-
-function parseMarkdownTable(content: string): MarkdownTableRow[] {
-  if (!content.trim()) {
-    return [];
-  }
-
-  const lines = content.split('\n').filter(line => line.trim());
-  const tableStartIndex = lines.findIndex(line => /^\s*\|.+\|\s*$/.test(line));
-
-  if (tableStartIndex === -1 || lines.length < tableStartIndex + 3) {
-    return [];
-  }
-
-  const headers = splitTableLine(lines[tableStartIndex]);
-  const bodyLines = lines.slice(tableStartIndex + 2);
-
-  return bodyLines
-    .filter(line => /^\s*\|.+\|\s*$/.test(line))
-    .map(line => {
-      const cells = splitTableLine(line);
-
-      return headers.reduce((row, header, index) => {
-        row[header] = cells[index] || '';
-        return row;
-      }, {} as MarkdownTableRow);
-    })
-    .filter(row => Object.values(row).some(value => value && !value.includes('---')));
-}
-
-function splitTableLine(line: string) {
-  return line
-    .replace(/\\\|/g, '___PIPE___')
-    .split('|')
-    .slice(1, -1)
-    .map(cell => cell.trim().replace(/___PIPE___/g, '\\|'));
-}
-
-function extractApiSection(content: string, section: string) {
-  const apiMatch = content.match(/## API\s*\n([\s\S]*?)(?=\n## |$)/);
-
-  if (!apiMatch) {
-    return '';
-  }
-
-  const sectionRegex = new RegExp(`### ${section}\\s*\\n([\\s\\S]*?)(?=\\n### |$)`);
-  return apiMatch[1].match(sectionRegex)?.[1]?.trim() || '';
 }
 
 function getCell(row: MarkdownTableRow, keys: string[]) {

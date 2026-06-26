@@ -64,7 +64,7 @@ row-select/advance
 | define-props          | 定义选项的属性映射                             | ^[object]`RowSelectDefineProps`                        | `{ label: 'label', value: 'value', disabled: 'disabled'}` |
 | item-styles           | 选项样式集                                     | ^[object]`CSSProperties`                               | —                                                         |
 
-### RowSelectOption
+#### RowSelectOption Properties
 
 | 属性名   | 说明     | 类型                  | 默认值  |
 | -------- | -------- | --------------------- | ------- |
