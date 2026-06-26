@@ -67,12 +67,15 @@ const setupConfig = configEnv => {
               { text: '命名空间', link: '/guide/namespace' },
               { text: '主题', link: '/guide/theme' },
               { text: 'AI 使用指南', link: '/guide/ai-usage' },
-              { text: 'MCP', link: '/guide/mcp' }
+              { text: 'MCP 服务', link: '/guide/mcp' }
             ]
           },
           {
             text: '开发',
-            items: [{ text: '开发指南', link: '/guide/development' }]
+            items: [
+              { text: '设计', link: '/guide/design' },
+              { text: '开发指南', link: '/guide/development' }
+            ]
           }
         ],
         '/components/': sidebarList

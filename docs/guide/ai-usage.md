@@ -3,169 +3,51 @@ title: AI 使用指南
 description: 面向 AI 助手和代码生成工具的 yun-elp 使用约定
 ---
 
-本页用于帮助 AI 助手、代码生成工具和 IDE 插件准确理解 yun-elp 的使用方式。
+本页说明 yun-elp 为 AI 辅助开发提供了哪些能力，如何通过 MCP 接入，以及常见 IDE 的配置方式。
 
-## 基础定位
+## 一、组件库提供的 AI 能力与资源
 
-yun-elp 是基于 Element Plus 的 Vue 3 业务组件库，不是 Element Plus 的替代品。生成代码时应优先复用 Element Plus 的基础能力，只在 yun-elp 提供明确业务封装的场景中使用 `y-` 前缀组件。
+yun-elp 将组件文档作为一等产物维护（见 [设计](./design#文档与-ai-资源同源策略)）。文档站、机器可读索引与 MCP 数据均来自 `docs/components/*/index.md`，保持同源。
 
-推荐技术栈：
+### 能力概览
 
-- Vue 3.5+
-- Element Plus 2.14+
-- TypeScript 5+
-- Vite 8+
-- pnpm 10+
+| 能力                          | 说明                                                            | 适用场景                                       |
+| ----------------------------- | --------------------------------------------------------------- | ---------------------------------------------- |
+| **MCP 服务**（`yun-elp-mcp`） | 在 IDE 内结构化查询组件列表、API、示例                          | 生成代码前查 Props / Events / 示例（**首选**） |
+| **文档站机器可读资源**        | `llms.txt`、`llms-full.txt`、`components.json` 等               | 联网 AI、Cursor Docs、无法配 MCP 时            |
+| **在线文档站**                | [yun8711.github.io/yun-elp](https://yun8711.github.io/yun-elp/) | 人工阅读；Cursor Docs 全站索引                 |
+| **IDE 类型提示**              | `web-types.json`、Volar 组件标签                                | 编辑器补全，非对话上下文                       |
 
-## 安装
+### 机器可读资源
 
-```shell
-pnpm add yun-elp vue element-plus vue-router lodash-es
-```
+| 资源              | 地址                                                         | 用途                                                  |
+| ----------------- | ------------------------------------------------------------ | ----------------------------------------------------- |
+| `llms.txt`        | `https://yun8711.github.io/yun-elp/llms.txt`                 | AI 文档入口索引，体积小，适合先建立整体认知           |
+| `llms-full.txt`   | `https://yun8711.github.io/yun-elp/llms-full.txt`            | 组件摘要与主要 API 的完整索引                         |
+| `components.json` | `https://yun8711.github.io/yun-elp/metadata/components.json` | 结构化元数据：Props、Events、Slots、Exposes、示例索引 |
+| `sitemap.xml`     | `https://yun8711.github.io/yun-elp/sitemap.xml`              | 站点页面索引                                          |
 
-可选依赖按需补充：
+这些 URL 本身可被读取，但 AI 能否用到取决于 IDE 是否支持 MCP、Docs 爬取或联网抓取。无法自动读取时，应配置 MCP（见下文）或手动粘贴相关文档片段。
 
-```shell
-pnpm add cron-parser echarts
-```
+### 生成代码约定
 
-## 推荐导入方式
+AI 生成 yun-elp 代码时请遵循：
 
-推荐使用自动导入，不要在每个业务页面手动导入组件。
+- yun-elp 基于 Element Plus，只在有明确业务封装时使用 `y-` 前缀组件；基础能力继续用 `el-*`
+- 使用前确认文档中存在该组件；**不要猜测**未声明的 Props、Events、Slots、Exposes
+- 模板用 `y-*` 标签，TypeScript 引用组件类型用大驼峰（如 `YButton`）
+- 表单场景优先 `y-form` + `y-form-item`，字段控件仍用 Element Plus 原组件
+- 涉及多语言时，在 `y-app-wrap` 上设 `locale` 即可同步 yun-elp 与内部 Element Plus 文案；`direction="auto"` 时 `locale="ar"` 自动 RTL
 
-```ts
-import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
-import ElementPlus from 'unplugin-element-plus/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import { YunElpResolver } from 'yun-elp/resolver';
+安装、自动导入、主题等工程配置见 [快速开始](./quickstart)；国际化与命名空间见 [国际化](./i18n)、[命名空间](./namespace)。
 
-export default {
-  plugins: [
-    ElementPlus({ useSource: true }),
-    AutoImport({
-      imports: ['vue'],
-      resolvers: [ElementPlusResolver({ importStyle: 'sass' })]
-    }),
-    Components({
-      resolvers: [
-        ElementPlusResolver({ importStyle: 'sass' }),
-        YunElpResolver({
-          importStyle: 'scss',
-          importElementStyle: 'sass'
-        })
-      ]
-    })
-  ]
-};
-```
+## 二、MCP 接入
 
-`main.ts`：
+[yun-elp-mcp](https://www.npmjs.com/package/yun-elp-mcp) 是独立 npm 包，通过 [Model Context Protocol](https://modelcontextprotocol.io/) 向 AI IDE 暴露组件文档与示例查询能力。详细说明见 [MCP 服务](./mcp)。
 
-```ts
-import 'yun-elp/themes/kd.scss';
-```
+### 配置
 
-如果项目使用全量导入，应同时引入组件样式：
-
-```ts
-import { createApp } from 'vue';
-import YunElp from 'yun-elp';
-import 'yun-elp/style';
-import 'yun-elp/themes/kd.scss';
-import App from './App.vue';
-
-createApp(App).use(YunElp).mount('#app');
-```
-
-## 组件命名
-
-模板中统一使用 `y-` 前缀标签：
-
-```vue
-<template>
-  <y-button type="primary">提交</y-button>
-  <y-form :model="formModel">
-    <y-form-item label="名称" prop="name">
-      <el-input v-model="formModel.name" />
-    </y-form-item>
-  </y-form>
-</template>
-```
-
-在 TypeScript 中引用组件类型或组件对象时使用大驼峰名称，例如 `YButton`、`YForm`、`YFormItem`。
-
-## 生成代码约定
-
-- 使用 `y-` 组件前先确认组件文档中存在对应组件
-- 不要猜测未在文档中声明的 yun-elp 私有属性、事件、插槽和暴露方法
-- 未被 yun-elp 扩展的 Element Plus API，按 Element Plus 官方组件规则使用
-- 需要业务封装时优先使用 yun-elp 组件，需要基础组件能力时继续使用 Element Plus 组件
-- 示例代码应使用 `<script setup lang="ts">`，并提供完整的响应式数据结构
-- 表单类组件优先使用 `y-form` + `y-form-item`，输入框、选择器等字段控件继续使用 Element Plus 原组件
-- 若页面会使用 `y-page-header`、`y-column-op` 等依赖路由上下文的能力，应确保项目已安装并接入 `vue-router`
-
-## 国际化与排版方向
-
-生成涉及多语言的代码时，请遵循 [国际化](./i18n) 文档，并注意：
-
-- 在 `y-app-wrap` 上设置 `locale`（如 `'zh-cn'`）即可同时切换内部的 yun-elp 与 Element Plus 文案，一般不必再写 `elpConfig.locale`
-- 在应用根层使用 `y-app-wrap` 统一配置 `locale`（默认 `zh-cn`）与 `direction`（默认 `auto`）
-- 未设置 `elpConfig.locale` 时，`y-app-wrap` 会按 `locale` 自动注入 Element Plus 语言包；仅在不一致需求时再显式覆盖
-- 支持的语言代码：`'zh-cn' | 'en' | 'ja' | 'ar'`（不是任意字符串）
-- `y-app-wrap` 外的 Element Plus 组件不会自动同步语言
-- `direction="auto"` 时，`locale="ar"` 自动使用 RTL；仅要阿语文案、不要 RTL 布局时设 `direction="ltr"`
-- 不要仅在 `document.documentElement` 上设置 `dir`，应优先由 `y-app-wrap` 提供方向；宿主布局也需要 RTL 时，外层 `dir` 与 `y-app-wrap` 保持一致
-- yun-elp 自定义样式已使用逻辑属性适配 RTL，无需为各 `y-*` 组件再手写 `[dir=rtl]` 覆盖
-
-若项目需要自定义 Element Plus / yun-elp 命名空间，接入方式见 [命名空间](./namespace)。
-
-## AI 可读取资源
-
-文档站发布后提供以下机器可读入口：
-
-- `/llms.txt`：面向 AI 的核心文档入口索引
-- `/llms-full.txt`：包含组件摘要和主要 API 的完整索引
-- `/metadata/components.json`：组件元数据，包含组件名、标签、文档地址、示例、Props、Events、Slots、Exposes
-- `/sitemap.xml`：站点页面索引
-- `/robots.txt`：爬虫访问规则
-
-`components.json` 由构建脚本根据 `docs/components/*/index.md` 自动生成，不需要手写维护。
-
-## 如何让 AI 获取这些资源
-
-这些资源本身只是“可被读取”，AI 是否真的能用到，取决于你在本地使用的工具是否具备对应的接入方式。通常有两种方式：
-
-### 方式一：通过网页资源读取
-
-适用场景：
-
-- 你使用的 AI 聊天工具或 IDE 插件支持联网读取网页
-- 你希望 AI 先看文档索引、组件元数据，再生成代码
-- 你不需要在 IDE 内通过 MCP 调工具
-
-可直接提供给 AI 的资源地址：
-
-- `https://yun8711.github.io/yun-elp/llms.txt`
-- `https://yun8711.github.io/yun-elp/llms-full.txt`
-- `https://yun8711.github.io/yun-elp/metadata/components.json`
-
-推荐提示方式：
-
-- “请先读取 yun-elp 的 `llms.txt`，再给我生成页面代码”
-- “请先读取 `components.json`，确认 `y-table` 的 Props 和示例后再回答”
-
-说明：
-
-- `llms.txt` 适合先让 AI 建立整体认知
-- `llms-full.txt` 适合需要更多组件摘要和 API 信息时使用
-- `components.json` 适合需要结构化读取 Props、Events、Slots、Exposes 时使用
-
-如果你使用的 AI 工具不支持联网，或者不会主动抓取这些 URL，仅把地址贴给它是无效的，这时应使用 MCP。
-
-## MCP
-
-在 Cursor 等支持 MCP 的 AI IDE 中，推荐配置 `yun-elp-mcp` 获取组件信息。MCP 适合在生成代码前查询组件列表、组件 API 和示例代码。
+在支持 MCP 的客户端中添加：
 
 ```json
 {
@@ -178,81 +60,96 @@ createApp(App).use(YunElp).mount('#app');
 }
 ```
 
-## 本地 IDE 需要做的配置
+推荐使用 `npx`，自动拉取最新版本。各 IDE 的具体配置位置见下一节。
 
-如果你希望本地 IDE 中的 AI 助手稳定读取 yun-elp 组件信息，至少需要完成下面几项配置。
+### 可用工具
 
-### 1. 准备 Node.js 环境
+| 工具                     | 作用                                                    |
+| ------------------------ | ------------------------------------------------------- |
+| `list_components`        | 列出所有组件（标签名、描述、文档地址）                  |
+| `search_components`      | 按关键词搜索组件                                        |
+| `get_component`          | 获取指定组件的 Props、Events、Slots、Methods 与示例索引 |
+| `get_component_examples` | 获取示例；可选 `includeSource` 返回示例源码             |
 
-- 项目开发环境建议 Node.js `>= 18`
-- MCP 服务运行要求 Node.js `>= 20`
-- 本机需要能执行 `npx`
+### 使用与验证
 
-如果本机 Node 版本低于 `20`，MCP 服务可能无法启动。
+配置完成后，可在对话中直接提问，例如：
 
-### 2. 在 IDE 中添加 MCP 服务
+- 「列出所有 yun-elp 组件」
+- 「获取 `y-button` 的 API」
+- 「搜索表格相关组件，再帮我写列表页」
+- 「给我 `y-dialog` 的使用示例源码」
 
-在支持 MCP 的 AI IDE 中，把下面这段配置加入 MCP server 配置：
+若 AI 能返回组件列表、API 字段或示例源码，说明 MCP 已生效。建议在提问中明确要求**先查 MCP 再写代码**，以减少凭记忆猜测 API。
 
-```json
-{
-  "mcpServers": {
-    "yun-elp": {
-      "command": "npx",
-      "args": ["-y", "yun-elp-mcp"]
-    }
-  }
-}
+## 三、常见 IDE 配置
+
+不同 IDE 接入外部文档的方式不同。**跨 IDE 最一致的做法是配置 `yun-elp-mcp`**；需要 guide 类文档（国际化、主题等）时，再按 IDE 能力补充 Docs 或项目说明文件。
+
+### 接入优先级
+
+1. **MCP `yun-elp-mcp`**：查组件 API 与示例（Cursor、Claude Code、Codex 等均适用）
+2. **Cursor Docs**：补充 `llms.txt` 或文档站（仅 Cursor）
+3. **项目说明文件**：在业务仓库写规则，引导 AI 优先查 MCP
+4. **联网读取 URL**：工具支持抓取网页时，可读 `llms.txt` / `components.json`
+5. **手动粘贴**：以上均不可用时，粘贴相关组件文档
+
+### IDE 能力对比
+
+| 能力                 | Cursor          | Claude Code | Codex       | GitHub Copilot            |
+| -------------------- | --------------- | ----------- | ----------- | ------------------------- |
+| 内置「添加文档 URL」 | ✅              | ❌          | ❌          | ❌                        |
+| 对话中 `@Docs`       | ✅              | ❌          | ❌          | ❌                        |
+| MCP                  | ✅              | ✅          | ✅          | ✅（VS Code 等）          |
+| 项目规则             | `.cursor/rules` | `CLAUDE.md` | `AGENTS.md` | `copilot-instructions.md` |
+
+### Cursor
+
+**MCP**：在 MCP 设置中添加第二节的 JSON，或通过 UI 填写 Name `yun-elp`、Command `npx`、Args `-y yun-elp-mcp`。
+
+**Docs**（可选）：`Cursor Settings → Features → Docs → Add new doc`
+
+| 推荐 URL                                          | 说明                  |
+| ------------------------------------------------- | --------------------- |
+| `https://yun8711.github.io/yun-elp/llms.txt`      | 优先，索引快          |
+| `https://yun8711.github.io/yun-elp/llms-full.txt` | 需要更完整 API 摘要时 |
+| `https://yun8711.github.io/yun-elp/`              | 全站，页数多、索引慢  |
+
+索引完成后在 Chat 中通过 `@Docs` 引用。Docs 仅支持公网 URL；在 yun-elp 仓库内开发时，工作区 `docs/` 与 MCP 通常已足够。
+
+### Claude Code
+
+```bash
+claude mcp add --scope user yun-elp -- npx -y yun-elp-mcp
 ```
 
-适用说明：
+可选在业务项目的 `CLAUDE.md` 中写明：使用 yun-elp 前先通过 MCP 查询组件 API。Claude Code 无 Cursor Docs 等价功能；偶发需求可用 WebFetch 读取 `llms.txt`，但不如 MCP 可靠。
 
-- `command: "npx"`：通过 npm 临时执行 MCP 服务
-- `args: ["-y", "yun-elp-mcp"]`：自动拉取并启动最新版本
+### Codex
 
-一般可以在以下位置完成配置：
+```bash
+codex mcp add yun-elp -- npx -y yun-elp-mcp
+```
 
-- IDE 的 MCP Servers / Tools / Integrations 配置界面
-- IDE 对应的 MCP 配置文件
+或在 `~/.codex/config.toml`（项目内可用 `.codex/config.toml`）：
 
-如果你的 IDE 已支持图形化添加 MCP Server，也可以直接填写：
+```toml
+[mcp_servers.yun-elp]
+command = "npx"
+args = ["-y", "yun-elp-mcp"]
+```
 
-- Name：`yun-elp`
-- Command：`npx`
-- Args：`-y yun-elp-mcp`
+建议在业务项目 `AGENTS.md` 中写明：使用 yun-elp 组件前先查 yun-elp MCP。
 
-### 3. 让 AI 优先使用 MCP 查询组件信息
+### GitHub Copilot
 
-只配好 MCP 还不够，实际提问时最好明确告诉 AI 先查 yun-elp 组件数据，再生成代码。
+无 Cursor 式 Docs。可通过 `copilot-instructions.md` 引导 AI 行为；VS Code 中可配置 MCP 接入 `yun-elp-mcp`；GitHub 上可用 Copilot Spaces 手动添加文档链接或文件。
 
-推荐提问方式：
+### 推荐组合
 
-- “先用 yun-elp MCP 查一下 `y-table-search` 的 API，再帮我写页面”
-- “请先搜索 yun-elp 里和表单布局相关的组件，再给出实现方案”
-- “如果 yun-elp 没有对应能力，再退回 Element Plus 原生组件”
-
-这样可以减少 AI 凭印象猜测 API 的情况。
-
-### 4. 验证 MCP 是否生效
-
-配置完成后，可以在 IDE 里直接测试以下问题：
-
-- “列出所有 yun-elp 组件”
-- “获取 `y-button` 的 API”
-- “给我 `y-dialog` 的使用示例”
-
-如果 AI 能返回组件列表、Props、Events、Slots、示例索引或示例源码，说明 MCP 已正常生效。
-
-## 本地配置建议
-
-如果你是在自己的业务项目中使用 yun-elp，建议把 AI 相关能力按下面的优先级接入：
-
-1. IDE 支持 MCP：优先配置 `yun-elp-mcp`
-2. AI 支持联网但不支持 MCP：让 AI 读取 `llms.txt` 或 `components.json`
-3. 两者都不支持：手动把相关组件文档内容贴给 AI
-
-推荐原因：
-
-- MCP 最适合在 IDE 内做结构化查询
-- `llms.txt` / `components.json` 更适合网页读取型 AI
-- 单纯依赖模型记忆最不可靠，容易猜错组件 API
+| IDE            | 推荐配置                                 |
+| -------------- | ---------------------------------------- |
+| Cursor         | MCP + 可选 Docs（`llms.txt`）            |
+| Claude Code    | MCP + 可选 `CLAUDE.md`                   |
+| Codex          | MCP + `AGENTS.md`                        |
+| GitHub Copilot | MCP（若支持）+ `copilot-instructions.md` |

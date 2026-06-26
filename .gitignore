@@ -62,3 +62,6 @@ Thumbs.db
 # 其他
 play/components.d.ts
 .coverage
+
+# CodeGraph 本地索引与守护进程（勿提交）
+.codegraph/
