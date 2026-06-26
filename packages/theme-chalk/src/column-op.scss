@@ -3,10 +3,10 @@
 #{y-class('column-op')} {
   .cell {
     #{y-class('pop')} {
-      margin-left: 8px;
+      margin-inline-start: 8px;
 
       &:first-child {
-        margin-left: 0;
+        margin-inline-start: 0;
       }
     }
   }
@@ -17,7 +17,7 @@
     padding: 6px 0 !important;
 
     &-icon {
-      margin-left: 8px;
+      margin-inline-start: 8px;
       vertical-align: middle;
       color: var(#{el-var-name('color-primary')});
       cursor: pointer;

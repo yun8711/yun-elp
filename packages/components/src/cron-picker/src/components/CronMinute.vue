@@ -1,7 +1,7 @@
 <template>
   <div :class="ns.e('group')">
     <div :class="ns.e('row')">
-      <span style="margin-right: 4px">{{ t('cronPicker.from') }}</span>
+      <span :class="ns.e('text-gap-end')">{{ t('cronPicker.from') }}</span>
       <el-time-picker
         v-model="cronForm.startTime"
         style="width: 98px"
@@ -11,7 +11,7 @@
         :placeholder="t('cronPicker.startTime')"
         :teleported="false"
         @change="emitChange" />
-      <span style="margin:0 4px">{{ t('cronPicker.to') }}</span>
+      <span :class="ns.e('text-gap-x')">{{ t('cronPicker.to') }}</span>
       <el-time-picker
         v-model="cronForm.endTime"
         style="width: 98px"
@@ -24,7 +24,7 @@
         :placeholder="t('cronPicker.endTime')"
         :teleported="false"
         @change="emitChange" />
-      <span style="margin-left: 4px">{{ t('cronPicker.at') }}</span>
+      <span :class="ns.e('text-gap-start')">{{ t('cronPicker.at') }}</span>
     </div>
     <div :class="ns.e('row')">
       <span>{{ t('cronPicker.interval') }}</span>

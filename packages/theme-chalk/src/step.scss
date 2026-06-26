@@ -34,7 +34,7 @@
         align-items: center;
 
         #{y-class('step__item-label')} {
-          margin-left: 8px;
+          margin-inline-start: 8px;
         }
       }
     }

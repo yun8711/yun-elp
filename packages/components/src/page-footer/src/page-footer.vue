@@ -37,8 +37,8 @@ const getStyleValue = (value: string | number | undefined, value2: string | numb
 const style = computed(() => {
   return {
     height: getStyleValue(props.height, pageFooterConfig?.height, '56px'),
-    left: getStyleValue(props.left, pageFooterConfig?.left, '0'),
-    right: getStyleValue(props.right, pageFooterConfig?.right, '0'),
+    insetInlineStart: getStyleValue(props.left, pageFooterConfig?.left, '0'),
+    insetInlineEnd: getStyleValue(props.right, pageFooterConfig?.right, '0'),
     bottom: 0,
     position: props.model
   }

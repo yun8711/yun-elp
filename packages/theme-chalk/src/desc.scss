@@ -28,7 +28,7 @@
   // 标签
   &__item-label {
     flex-shrink: 0;
-    margin-right: 16px;
+    margin-inline-end: 16px;
     line-height: 1.5;
 
     // box-sizing: border-box;
@@ -42,7 +42,7 @@
   &__item-content {
     flex: 1;
     min-width: 0;
-    padding-right: 16px;
+    padding-inline-end: 16px;
     overflow: hidden;
 
     // box-sizing: border-box;
@@ -69,11 +69,11 @@
       justify-content: flex-start;
       min-width: 80px;
       padding: 8px 11px;
-      margin-right: 0;
+      margin-inline-end: 0;
       font-weight: bold;
       color: var(#{el-var-name('text-color-regular')});
       background-color: var(#{el-var-name('fill-color-light')});
-      border-right: 1px solid var(#{el-var-name('border-color-lighter')});
+      border-inline-end: 1px solid var(#{el-var-name('border-color-lighter')});
     }
 
     #{y-class('desc__item-content')} {

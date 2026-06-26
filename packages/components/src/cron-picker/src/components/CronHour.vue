@@ -4,11 +4,11 @@
       <el-radio
         v-model="cronForm.radio"
         value="start"
-        style="margin-right: 0"
+        :class="ns.e('radio')"
         @change="emitChange">
         <span />
       </el-radio>
-      <span style="margin-right: 4px;">{{ t('cronPicker.from') }}</span>
+      <span :class="ns.e('text-gap-end')">{{ t('cronPicker.from') }}</span>
       <el-time-picker
         v-model="cronForm.startTime"
         style="width: 90px"
@@ -19,7 +19,7 @@
         :disabled="startDisabled"
         :teleported="false"
         @change="emitChange" />
-      <span style="margin:0 4px;">{{ t('cronPicker.to') }}</span>
+      <span :class="ns.e('text-gap-x')">{{ t('cronPicker.to') }}</span>
       <el-time-picker
         v-model="cronForm.endTime"
         style="width: 90px"
@@ -33,7 +33,7 @@
         :clearable="false"
         :teleported="false"
         @change="endTimeChange" />
-      <span style="margin-left: 4px;">{{ t('cronPicker.at') }}</span>
+      <span :class="ns.e('text-gap-start')">{{ t('cronPicker.at') }}</span>
     </div>
 
     <div :class="[ns.e('row'), ns.e('row-interval')]">
@@ -57,12 +57,12 @@
       <el-radio
         v-model="cronForm.radio"
         value="assign"
-        style="margin-right: 0"
+        :class="ns.e('radio')"
         @change="emitChange">
         <span />
       </el-radio>
       <span
-        style="margin-right: 8px;"
+        :class="ns.e('label-gap')"
         :style="{ width: labelWidth }">
         {{ t('cronPicker.assignHours') }}
       </span>
@@ -84,7 +84,7 @@
 
     <div :class="[ns.e('row'), ns.e('row-interval')]">
       <span
-        style="margin-right: 8px;"
+        :class="ns.e('label-gap')"
         :style="{ width: labelWidth }">
         {{ t('cronPicker.assignMinutes') }}
       </span>

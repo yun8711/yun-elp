@@ -21,24 +21,25 @@ AppWrap 是一个应用容器，一般用在应用最外层，主要作用是：
 
 ### Attributes
 
-| 属性名      | 说明                                                                                | 类型                             | 默认值  |
-| ----------- | ----------------------------------------------------------------------------------- | -------------------------------- | ------- |
-| elpConfig   | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`ElConfigProviderProps` | —       |
-| locale      | yun-elp 的语言配置                                                                  | ^[enum]`'zh-cn' \| 'en'`         | `zh-cn` |
-| borderLabel | y-border-label 组件全局配置，[见下表](#border-label-attribute)                      | ^[object]                        | —       |
-| pageHeader  | y-page-header 组件全局配置，[见下表](#page-header-attribute)                        | ^[object]                        | —       |
-| pageFooter  | y-page-footer 组件全局配置，[见下表](#page-footer-attribute)                        | ^[object]                        | —       |
-| button      | y-button 组件全局配置，[见下表](#button-attribute)                                  | ^[object]                        | —       |
-| drawer      | y-drawer 组件全局配置，[见下表](#drawer-attribute)                                  | ^[object]                        | —       |
-| dialog      | y-dialog 组件全局配置，[见下表](#dialog-attribute)                                  | ^[object]                        | —       |
-| empty       | y-empty 组件全局配置，[见下表](#empty-attribute)                                    | ^[object]                        | —       |
-| textTooltip | y-text-tooltip 组件全局配置，[见下表](#text-tooltip-attribute)                      | ^[object]                        | —       |
-| desc        | y-desc 组件全局配置，[见下表](#desc-attribute)                                      | ^[object]                        | —       |
-| pop         | y-pop 组件全局配置，[见下表](#pop-attribute)                                        | ^[object]                        | —       |
-| table       | y-table 组件全局配置，[见下表](#table-attribute)                                    | ^[object]                        | —       |
-| columnForm  | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)        | ^[object]                        | —       |
-| columnOp    | y-column-op 组件全局配置，[见下表](#column-op-attribute)                            | ^[object]                        | —       |
-| echarts     | y-echarts 组件全局配置，[见下表](#echarts-attribute)                                | ^[object]                        | —       |
+| 属性名      | 说明                                                                                | 类型                                     | 默认值  |
+| ----------- | ----------------------------------------------------------------------------------- | ---------------------------------------- | ------- |
+| elpConfig   | [el-config-provider](https://element-plus.org/zh-CN/component/config-provider.html) | ^[object]`ElConfigProviderProps`         | —       |
+| locale      | yun-elp 的语言配置                                                                  | ^[enum]`'zh-cn' \| 'en' \| 'ja' \| 'ar'` | `zh-cn` |
+| direction   | 排版方向；`auto` 时阿拉伯语自动 RTL                                                 | ^[enum]`'ltr' \| 'rtl' \| 'auto'`        | `auto`  |
+| borderLabel | y-border-label 组件全局配置，[见下表](#border-label-attribute)                      | ^[object]                                | —       |
+| pageHeader  | y-page-header 组件全局配置，[见下表](#page-header-attribute)                        | ^[object]                                | —       |
+| pageFooter  | y-page-footer 组件全局配置，[见下表](#page-footer-attribute)                        | ^[object]                                | —       |
+| button      | y-button 组件全局配置，[见下表](#button-attribute)                                  | ^[object]                                | —       |
+| drawer      | y-drawer 组件全局配置，[见下表](#drawer-attribute)                                  | ^[object]                                | —       |
+| dialog      | y-dialog 组件全局配置，[见下表](#dialog-attribute)                                  | ^[object]                                | —       |
+| empty       | y-empty 组件全局配置，[见下表](#empty-attribute)                                    | ^[object]                                | —       |
+| textTooltip | y-text-tooltip 组件全局配置，[见下表](#text-tooltip-attribute)                      | ^[object]                                | —       |
+| desc        | y-desc 组件全局配置，[见下表](#desc-attribute)                                      | ^[object]                                | —       |
+| pop         | y-pop 组件全局配置，[见下表](#pop-attribute)                                        | ^[object]                                | —       |
+| table       | y-table 组件全局配置，[见下表](#table-attribute)                                    | ^[object]                                | —       |
+| columnForm  | y-column-form、y-column-forms 组件全局配置，[见下表](#column-form-attribute)        | ^[object]                                | —       |
+| columnOp    | y-column-op 组件全局配置，[见下表](#column-op-attribute)                            | ^[object]                                | —       |
+| echarts     | y-echarts 组件全局配置，[见下表](#echarts-attribute)                                | ^[object]                                | —       |
 
 #### border-label Attribute
 

@@ -8,8 +8,8 @@
 
   #{y-class('sticky-layout__left')} {
     position: absolute;
+    inset-inline-start: 0;
     top: 0;
-    left: 0;
     box-sizing: border-box;
     contain: layout style paint;
 
@@ -20,8 +20,8 @@
 
   #{y-class('sticky-layout__right')} {
     position: absolute;
+    inset-inline-end: 0;
     top: 0;
-    right: 0;
     box-sizing: border-box;
     contain: layout style paint;
 

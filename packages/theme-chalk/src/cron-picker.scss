@@ -33,7 +33,7 @@
 
     &-actions {
       width: 100%;
-      text-align: right;
+      text-align: end;
     }
   }
 
@@ -50,14 +50,34 @@
     }
 
     &-interval {
-      padding-left: 22px;
+      padding-inline-start: 22px;
     }
   }
 
   &__form-label {
     width: 60px;
-    padding-right: 12px;
+    padding-inline-end: 12px;
     line-height: 32px;
-    text-align: right;
+    text-align: end;
+  }
+
+  &__radio {
+    margin-inline-end: 0 !important;
+  }
+
+  &__text-gap-end {
+    margin-inline-end: 4px;
+  }
+
+  &__text-gap-start {
+    margin-inline-start: 4px;
+  }
+
+  &__text-gap-x {
+    margin: 0 4px;
+  }
+
+  &__label-gap {
+    margin-inline-end: 8px;
   }
 }

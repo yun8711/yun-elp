@@ -16,7 +16,7 @@
   // 左侧 label
   &__label {
     height: var(--item-height);
-    margin-right: 24px;
+    margin-inline-end: 24px;
     font-size: var(--text-label-font-size, var(#{el-var-name('font-size-base')}));
     font-weight: 500;
     line-height: var(--item-height);
@@ -27,7 +27,7 @@
 
       &::after {
         position: absolute;
-        right: -6px;
+        inset-inline-end: -6px;
         display: inline-block;
         content: ':';
       }
@@ -91,7 +91,7 @@
     align-items: center;
     justify-content: flex-start;
     height: var(--item-height);
-    margin-left: 8px;
+    margin-inline-start: 8px;
     line-height: var(--item-height);
     color: var(#{el-var-name('color-primary')});
     cursor: pointer;
@@ -102,7 +102,7 @@
       align-items: center;
 
       #{el-class('icon--right')} {
-        margin-right: 4px;
+        margin-inline-end: 4px;
         transition: transform var(--duration);
 
         &--reverse {

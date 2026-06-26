@@ -1,7 +1,11 @@
 <template>
-  <el-config-provider v-bind="elpConfig">
-    <slot />
-  </el-config-provider>
+  <div
+    :class="ns.b()"
+    :dir="resolvedDirection">
+    <el-config-provider v-bind="elpConfig">
+      <slot />
+    </el-config-provider>
+  </div>
 </template>
 
 <script lang="ts">
@@ -28,14 +32,16 @@ export const defaultConfig: AppWrapProps = {
     }
   },
   yNamespace: 'y',
-  locale: 'zh-cn'
+  locale: 'zh-cn',
+  direction: 'auto'
 };
 </script>
 
 <script setup lang="ts">
 import { provide, computed } from 'vue';
 import { omit, merge } from 'lodash-es';
-import { localeContextKey } from '../../../locale';
+import { localeContextKey, resolveDirection, directionContextKey } from '../../../locale';
+import { useNamespace } from '../../../hooks/use-namespace';
 import { appConfigKey, namespaceConfigKey } from './use-app-config';
 
 defineOptions({
@@ -44,6 +50,7 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<AppWrapProps>(), defaultConfig as any);
+const ns = useNamespace('app-wrap');
 
 // 深度合并props和默认配置，确保嵌套对象也能正确合并
 const mergedProps = computed(() => {
@@ -53,8 +60,12 @@ const mergedProps = computed(() => {
 // 提取 elpConfig 用于 el-config-provider
 const elpConfig = computed(() => mergedProps.value.elpConfig);
 
-// 从合并后的props中获取除elpConfig、locale以外的配置
-const configProps = computed(() => omit(mergedProps.value, ['locale']));
+const resolvedDirection = computed(() =>
+  resolveDirection(mergedProps.value.locale ?? 'zh-cn', mergedProps.value.direction ?? 'auto')
+);
+
+// 从合并后的props中获取除 elpConfig、locale、direction 以外的配置
+const configProps = computed(() => omit(mergedProps.value, ['locale', 'direction']));
 const namespaceConfig = computed(() => ({
   el: mergedProps.value.elpConfig?.namespace || 'el',
   y: mergedProps.value.yNamespace || 'y'
@@ -64,4 +75,5 @@ const namespaceConfig = computed(() => ({
 provide(appConfigKey, configProps.value);
 provide(namespaceConfigKey, namespaceConfig.value);
 provide(localeContextKey, props.locale);
+provide(directionContextKey, resolvedDirection);
 </script>

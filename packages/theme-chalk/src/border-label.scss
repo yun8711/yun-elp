@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-right: 8px;
+    padding-inline-end: 8px;
   }
 
   &__label {
@@ -24,12 +24,14 @@
     white-space: nowrap;
     background-color: var(#{el-var-name('fill-color-blank')});
     border: 1px solid var(#{el-var-name('border-color')});
-    border-right: 0 none;
-    border-radius: var(#{el-var-name('border-radius-base')}) 0 0
-      var(#{el-var-name('border-radius-base')});
+    border-inline-end: 0 none;
+    border-start-start-radius: var(#{el-var-name('border-radius-base')});
+    border-start-end-radius: 0;
+    border-end-start-radius: var(#{el-var-name('border-radius-base')});
+    border-end-end-radius: 0;
 
     &--no-border {
-      padding-left: 0;
+      padding-inline-start: 0;
       background-color: transparent;
       border: none;
       border-radius: 0;
@@ -86,6 +88,6 @@
   &__suffix {
     display: flex;
     align-items: center;
-    padding-left: 8px;
+    padding-inline-start: 8px;
   }
 }

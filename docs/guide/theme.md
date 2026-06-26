@@ -42,9 +42,9 @@ import 'yun-elp/themes/switchable.scss';
 切换：
 
 ```ts
-document.documentElement.setAttribute('data-yun-theme', 'kd');
-document.documentElement.setAttribute('data-yun-theme', 'arco');
-document.documentElement.setAttribute('data-yun-theme', 'antd');
+document.documentElement.setAttribute('data-yun-elp-theme', 'kd');
+document.documentElement.setAttribute('data-yun-elp-theme', 'arco');
+document.documentElement.setAttribute('data-yun-elp-theme', 'antd');
 ```
 
 ## 全量导入

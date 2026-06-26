@@ -4,6 +4,8 @@ title: 快速开始
 
 # 快速开始
 
+若项目需要自定义 Element Plus / yun-elp 命名空间（例如与同页其他 UI 库共存），接入方式请参考 [命名空间](./namespace)。
+
 ## 安装
 
 `yun-elp` 发布包当前通过 `peerDependencies` 要求使用方自行安装基础依赖，推荐直接安装下面这一组：

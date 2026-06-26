@@ -3,6 +3,6 @@
 @use './antd-theme' as antd-theme;
 @use './selectors' as selectors;
 @include kd-theme.theme(selectors.$switchable-default-kd-selector);
-@include kd-theme.theme("html[data-yun-theme='kd']");
-@include arco-theme.theme("html[data-yun-theme='arco']");
-@include antd-theme.theme("html[data-yun-theme='antd']");
+@include kd-theme.theme("html[data-yun-elp-theme='kd']");
+@include arco-theme.theme("html[data-yun-elp-theme='arco']");
+@include antd-theme.theme("html[data-yun-elp-theme='antd']");

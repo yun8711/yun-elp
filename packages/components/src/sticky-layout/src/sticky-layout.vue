@@ -96,11 +96,11 @@ const { y: scrollTop } = useScroll(scrollContainerEl, { throttle: 16 });
 const contentStyle = computed<Record<string, string | number>>(() => {
   const style: Record<string, string | number> = {};
   if (leftWidth.value > 0) {
-    style.paddingLeft = `${leftWidth.value}px`;
+    style.paddingInlineStart = `${leftWidth.value}px`;
   }
 
   if (rightWidth.value > 0) {
-    style.paddingRight = `${rightWidth.value}px`;
+    style.paddingInlineEnd = `${rightWidth.value}px`;
   }
 
   style.minHeight = `${sideHeight.value}px`;

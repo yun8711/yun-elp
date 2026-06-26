@@ -12,23 +12,23 @@
   &__left {
     display: flex;
     align-items: center;
-    padding-left: var(--gap-base, 8px);
+    padding-inline-start: var(--gap-base, 8px);
 
     &-block {
       width: 3px;
       height: 1em;
-      margin-right: var(--gap-small);
+      margin-inline-end: var(--gap-small);
       background-color: var(#{el-var-name('color-primary')});
     }
 
     &-extra {
-      margin-left: var(--gap-small);
+      margin-inline-start: var(--gap-small);
     }
 
     &::before {
       position: absolute;
+      inset-inline-start: 0;
       top: 50%;
-      left: 0;
       display: block;
       width: 2px;
       height: 1em;

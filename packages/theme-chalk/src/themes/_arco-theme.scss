@@ -87,8 +87,8 @@
 
     #{el-class('table__header')}:hover th:not(:last-child)::after {
       position: absolute;
+      inset-inline-end: 0;
       top: 12px;
-      right: 0;
       display: inline-block;
       width: 1px;
       height: 16px;
@@ -97,7 +97,7 @@
     }
 
     &#{el-class('table--border')} #{el-class('table__cell')} {
-      border-right: none;
+      border-inline-end: none;
     }
 
     &__empty-block {

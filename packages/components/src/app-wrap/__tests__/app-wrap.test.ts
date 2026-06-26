@@ -110,6 +110,32 @@ describe('YAppWrap 应用容器', () => {
     });
   });
 
+  describe('排版方向', () => {
+    it('默认 direction 为 auto', () => {
+      const wrapper = createWrapper();
+
+      expect(wrapper.vm.$props.direction).toBe('auto');
+    });
+
+    it('locale 为 ar 且 direction 为 auto 时渲染 rtl', () => {
+      const wrapper = createWrapper({ locale: 'ar' });
+
+      expect(wrapper.find('.y-app-wrap').attributes('dir')).toBe('rtl');
+    });
+
+    it('locale 为 ar 但 direction 为 ltr 时仍使用 ltr', () => {
+      const wrapper = createWrapper({ locale: 'ar', direction: 'ltr' });
+
+      expect(wrapper.find('.y-app-wrap').attributes('dir')).toBe('ltr');
+    });
+
+    it('显式 direction 为 rtl 时渲染 rtl', () => {
+      const wrapper = createWrapper({ locale: 'en', direction: 'rtl' });
+
+      expect(wrapper.find('.y-app-wrap').attributes('dir')).toBe('rtl');
+    });
+  });
+
   describe('默认值测试', () => {
     it('应该有正确的默认locale值', () => {
       const wrapper = createWrapper();

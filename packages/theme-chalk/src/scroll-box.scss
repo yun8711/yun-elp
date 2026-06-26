@@ -10,6 +10,9 @@
   &__container {
     flex: 1;
     overflow: hidden;
+
+    // 保持横向 scrollLeft 计算一致
+    direction: ltr;
   }
 
   &__content {
@@ -36,11 +39,11 @@
     }
 
     &#{y-class('scroll-box__arrow--prev')} {
-      margin-right: 8px;
+      margin-inline-end: 8px;
     }
 
     &#{y-class('scroll-box__arrow--next')} {
-      margin-left: 8px;
+      margin-inline-start: 8px;
     }
 
     // 禁用状态样式

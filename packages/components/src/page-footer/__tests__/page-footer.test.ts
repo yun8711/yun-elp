@@ -70,7 +70,7 @@ describe('YPageFooter 组件', () => {
         props: { left: 20 }
       });
       const element = wrapper.find('.y-page-footer');
-      expect(element.attributes('style')).toContain('left: 20px');
+      expect(element.attributes('style')).toContain('inset-inline-start: 20px');
     });
 
     it('left prop 为字符串类型', () => {
@@ -78,7 +78,7 @@ describe('YPageFooter 组件', () => {
         props: { left: '30px' }
       });
       const element = wrapper.find('.y-page-footer');
-      expect(element.attributes('style')).toContain('left: 30px');
+      expect(element.attributes('style')).toContain('inset-inline-start: 30px');
     });
 
     it('right prop 为数字类型', () => {
@@ -86,7 +86,7 @@ describe('YPageFooter 组件', () => {
         props: { right: 40 }
       });
       const element = wrapper.find('.y-page-footer');
-      expect(element.attributes('style')).toContain('right: 40px');
+      expect(element.attributes('style')).toContain('inset-inline-end: 40px');
     });
 
     it('right prop 为字符串类型', () => {
@@ -94,7 +94,7 @@ describe('YPageFooter 组件', () => {
         props: { right: '50px' }
       });
       const element = wrapper.find('.y-page-footer');
-      expect(element.attributes('style')).toContain('right: 50px');
+      expect(element.attributes('style')).toContain('inset-inline-end: 50px');
     });
 
     it('model prop 为 fixed', async () => {
@@ -131,8 +131,8 @@ describe('YPageFooter 组件', () => {
       const element = wrapper.find('.y-page-footer');
       const style = element.attributes('style');
       expect(style).toContain('height: 60px');
-      expect(style).toContain('left: 10px');
-      expect(style).toContain('right: 20px');
+      expect(style).toContain('inset-inline-start: 10px');
+      expect(style).toContain('inset-inline-end: 20px');
       expect(style).toContain('bottom: 0');
       expect(style).toMatch(/position:\s*absolute/);
     });
@@ -176,8 +176,8 @@ describe('YPageFooter 组件', () => {
       const element = wrapper.find('.y-page-footer');
       const style = element.attributes('style');
       expect(style).toContain('height: 80px');
-      expect(style).toContain('left: 20px');
-      expect(style).toContain('right: 30px');
+      expect(style).toContain('inset-inline-start: 20px');
+      expect(style).toContain('inset-inline-end: 30px');
       expect(style).toContain('bottom: 0');
       expect(style).toMatch(/position:\s*absolute/);
     });
@@ -189,8 +189,8 @@ describe('YPageFooter 组件', () => {
       const element = wrapper.find('.y-page-footer');
       const style = element.attributes('style');
       expect(style).toContain('height: 56px');
-      expect(style).toContain('left: 0');
-      expect(style).toContain('right: 0');
+      expect(style).toContain('inset-inline-start: 0');
+      expect(style).toContain('inset-inline-end: 0');
       expect(style).toContain('bottom: 0');
       expect(style).toMatch(/position:\s*fixed/);
     });
@@ -218,7 +218,7 @@ describe('YPageFooter 组件', () => {
         props: { left: 0 }
       });
       const element = wrapper.find('.y-page-footer');
-      expect(element.attributes('style')).toContain('left: 0px');
+      expect(element.attributes('style')).toContain('inset-inline-start: 0px');
     });
 
     it('right 为 0', () => {
@@ -226,7 +226,7 @@ describe('YPageFooter 组件', () => {
         props: { right: 0 }
       });
       const element = wrapper.find('.y-page-footer');
-      expect(element.attributes('style')).toContain('right: 0px');
+      expect(element.attributes('style')).toContain('inset-inline-end: 0px');
     });
 
     it('height 为空字符串', () => {
@@ -242,7 +242,7 @@ describe('YPageFooter 组件', () => {
         props: { left: '' }
       });
       const element = wrapper.find('.y-page-footer');
-      expect(element.attributes('style')).toContain('left: 0');
+      expect(element.attributes('style')).toContain('inset-inline-start: 0');
     });
 
     it('right 为空字符串', () => {
@@ -250,7 +250,7 @@ describe('YPageFooter 组件', () => {
         props: { right: '' }
       });
       const element = wrapper.find('.y-page-footer');
-      expect(element.attributes('style')).toContain('right: 0');
+      expect(element.attributes('style')).toContain('inset-inline-end: 0');
     });
 
     it('height 为 undefined', () => {
@@ -266,7 +266,7 @@ describe('YPageFooter 组件', () => {
         props: { left: undefined }
       });
       const element = wrapper.find('.y-page-footer');
-      expect(element.attributes('style')).toContain('left: 0');
+      expect(element.attributes('style')).toContain('inset-inline-start: 0');
     });
 
     it('right 为 undefined', () => {
@@ -274,7 +274,7 @@ describe('YPageFooter 组件', () => {
         props: { right: undefined }
       });
       const element = wrapper.find('.y-page-footer');
-      expect(element.attributes('style')).toContain('right: 0');
+      expect(element.attributes('style')).toContain('inset-inline-end: 0');
     });
   });
 
@@ -328,7 +328,7 @@ describe('YPageFooter 组件', () => {
       });
 
       const element = wrapper.find('.y-page-footer');
-      expect(element.attributes('style')).toContain('left: 50px');
+      expect(element.attributes('style')).toContain('inset-inline-start: 50px');
     });
 
     it('当 props right 为空时，使用 pageFooterConfig right 配置', () => {
@@ -340,7 +340,7 @@ describe('YPageFooter 组件', () => {
       });
 
       const element = wrapper.find('.y-page-footer');
-      expect(element.attributes('style')).toContain('right: 75px');
+      expect(element.attributes('style')).toContain('inset-inline-end: 75px');
     });
 
     it('pageFooterConfig 配置值为字符串时直接使用', () => {
@@ -386,8 +386,8 @@ describe('YPageFooter 组件', () => {
       const element = wrapper.find('.y-page-footer');
       const style = element.attributes('style');
       expect(style).toContain('height: 80px');
-      expect(style).toContain('left: 30px');
-      expect(style).toContain('right: 40px');
+      expect(style).toContain('inset-inline-start: 30px');
+      expect(style).toContain('inset-inline-end: 40px');
     });
   });
 

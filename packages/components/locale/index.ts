@@ -3,22 +3,34 @@
  */
 import type { YunElpLanguage } from './type';
 // 导入自定义语言包
+import ar from './lang/ar';
 import en from './lang/en-US';
+import ja from './lang/ja';
 import zhCn from './lang/zh-CN';
 
 // 定义支持的语言代码
-export type LocaleType = 'zh-cn' | 'en';
+export type LocaleType = 'zh-cn' | 'en' | 'ja' | 'ar';
 
 // 导出合并后的语言包
 export const locales = {
   en: en,
-  'zh-cn': zhCn
+  'zh-cn': zhCn,
+  ja: ja,
+  ar: ar
 };
 
 // 默认语言：简体中文
 export const defaultLocale: LocaleType = 'zh-cn';
 
 export const localeContextKey = Symbol('yun-elp-locale');
+
+export {
+  directionContextKey,
+  resolveDirection,
+  RTL_LOCALES,
+  type DirectionType,
+  type DirectionSetting
+} from './direction';
 
 // 当前语言
 let currentLocale: LocaleType = defaultLocale;

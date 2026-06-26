@@ -1,4 +1,5 @@
 import type { LocaleType } from '../../../locale';
+import type { DirectionSetting } from '../../../locale/direction';
 import type {
   ConfigProviderProps,
   DialogProps,
@@ -32,6 +33,8 @@ export interface AppWrapProps {
   elpConfig?: ConfigProviderProps;
   yNamespace?: string;
   locale?: LocaleType;
+  /** 排版方向；`auto` 时阿拉伯语自动使用 RTL */
+  direction?: DirectionSetting;
   // border-label、label的配置
   borderLabel?: {
     width?: string;
@@ -148,6 +151,10 @@ export const appWrapProps = {
   locale: {
     type: String as PropType<LocaleType>,
     default: 'zh-cn'
+  },
+  direction: {
+    type: String as PropType<DirectionSetting>,
+    default: 'auto'
   },
   borderLabel: {
     type: Object as PropType<AppWrapProps['borderLabel']>,

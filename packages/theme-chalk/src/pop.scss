@@ -4,14 +4,14 @@
   display: inline-block;
 
   & + & {
-    margin-left: 12px;
+    margin-inline-start: 12px;
   }
 }
 
 #{el-class('button')} + #{y-class('pop')} {
-  margin-left: 12px;
+  margin-inline-start: 12px;
 }
 
 #{y-class('pop')} + #{el-class('button')} {
-  margin-left: 12px;
+  margin-inline-start: 12px;
 }

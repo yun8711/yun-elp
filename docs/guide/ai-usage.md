@@ -105,6 +105,19 @@ createApp(App).use(YunElp).mount('#app');
 - 表单类组件优先使用 `y-form` + `y-form-item`，输入框、选择器等字段控件继续使用 Element Plus 原组件
 - 若页面会使用 `y-page-header`、`y-column-op` 等依赖路由上下文的能力，应确保项目已安装并接入 `vue-router`
 
+## 国际化与排版方向
+
+生成涉及多语言的代码时，请遵循 [国际化](./i18n) 文档，并注意：
+
+- 在应用根层使用 `y-app-wrap` 统一配置 `locale` 与 `direction`（默认 `direction="auto"`）
+- `locale` 与 `elpConfig.locale` 必须同时切换，避免 yun-elp 与 Element Plus 文案语言不一致
+- 支持的语言代码：`'zh-cn' | 'en' | 'ja' | 'ar'`；默认 `'zh-cn'`
+- `direction="auto"` 时，`locale="ar"` 自动使用 RTL；仅要阿语文案、不要 RTL 布局时设 `direction="ltr"`
+- 不要仅在 `document.documentElement` 上设置 `dir`，应优先由 `y-app-wrap` 提供方向；宿主布局也需要 RTL 时，外层 `dir` 与 `y-app-wrap` 保持一致
+- yun-elp 自定义样式已使用逻辑属性适配 RTL，无需为各 `y-*` 组件再手写 `[dir=rtl]` 覆盖
+
+若项目需要自定义 Element Plus / yun-elp 命名空间，接入方式见 [命名空间](./namespace)。
+
 ## AI 可读取资源
 
 文档站发布后提供以下机器可读入口：
