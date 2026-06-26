@@ -2,6 +2,19 @@
 
 
 
+## [1.5.0](https://github.com/yun8711/yun-elp/compare/v1.4.1...v1.5.0) (2026-06-26)
+
+
+### Features
+
+* **locale:** y-app-wrap 的 locale 自动同步 Element Plus 语言 ([54a9f77](https://github.com/yun8711/yun-elp/commit/54a9f7743b88ab47d75ad7c83e47c1bfed7f4e82))
+* **locale:** 新增日/阿语国际化、RTL 排版与主题 data 属性更名 ([d64738c](https://github.com/yun8711/yun-elp/commit/d64738cea4451575fb6cada36e846d9866378531))
+
+
+### Bug Fixes
+
+* **components:** y-table 内部分页改用 v-model 并保留 paginationChange ([b09ec6b](https://github.com/yun8711/yun-elp/commit/b09ec6b9f67a4adc433ccff73f0d5ad72fe9f5f8))
+
 ## [1.4.1](https://github.com/yun8711/yun-elp/compare/v1.4.0...v1.4.1) (2026-06-25)
 
 
