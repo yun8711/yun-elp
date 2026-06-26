@@ -2,8 +2,8 @@
 
 /**
  * 发布流程检查脚本
- * - --quality（check:release）：audit（仅警告）→ 组件库 lint / typecheck → 覆盖率测试
- * - --publish（check:publish）：版本 → build → dist 校验
+ * - --quality（publish:check）：audit（仅警告）→ 组件库 lint / typecheck → 覆盖率测试
+ * - --artifacts（publish:build / publish:main / publish:mcp）：版本一致性 → dist 产物校验
  */
 
 const { execSync } = require('child_process');
@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 
 const rootDir = path.join(__dirname, '..');
-const isPublish = process.argv.includes('--publish');
+const isArtifacts = process.argv.includes('--artifacts');
 
 /** 随 yun-elp 主包发布的源码包，不含 play / docs / mcp-server */
 const LIB_ROOTS = ['packages/components', 'packages/theme-chalk', 'packages/resolver'];
@@ -29,8 +29,8 @@ function run(command) {
 }
 
 function libLintCheck() {
-  const prettierTargets = LIB_ROOTS.map((dir) => `"${dir}/**/*"`).join(' ');
-  const stylelintTargets = LIB_STYLELINT.map((glob) => `"${glob}"`).join(' ');
+  const prettierTargets = LIB_ROOTS.map(dir => `"${dir}/**/*"`).join(' ');
+  const stylelintTargets = LIB_STYLELINT.map(glob => `"${glob}"`).join(' ');
 
   run(`pnpm exec prettier --check ${prettierTargets}`);
   run(`pnpm exec eslint ${LIB_ROOTS.join(' ')}`);
@@ -75,7 +75,7 @@ const versionCheck = {
 
       if (rootPkg.version !== targetPkg.version) {
         throw new Error(
-          `版本不一致: 根目录 ${rootPkg.version} vs ${relativePath} ${targetPkg.version}，请先运行 release 或 sync-version`
+          `版本不一致: 根目录 ${rootPkg.version} vs ${relativePath} ${targetPkg.version}，请先运行 publish:release 或 sync-version`
         );
       }
     }
@@ -84,12 +84,6 @@ const versionCheck = {
     return true;
   },
   description: '检查根目录与 packages/elp、mcp-server 的版本是否一致'
-};
-
-const buildCheck = {
-  name: '构建检查',
-  command: 'pnpm build',
-  description: '确保构建成功且生成正确的输出'
 };
 
 const DIST_REQUIRED_PATHS = [
@@ -111,7 +105,7 @@ const distCheck = {
     const rootPkg = readPkg('package.json');
 
     if (!fs.existsSync(distPath)) {
-      throw new Error('dist 目录不存在，请先运行构建');
+      throw new Error('dist 目录不存在，请先运行 publish:build');
     }
 
     for (const relativePath of DIST_REQUIRED_PATHS) {
@@ -124,19 +118,19 @@ const distCheck = {
     const distPkg = JSON.parse(fs.readFileSync(distPkgPath, 'utf8'));
     if (distPkg.version !== rootPkg.version) {
       throw new Error(
-        `dist 版本不一致: dist ${distPkg.version} vs 根目录 ${rootPkg.version}，请重新运行 pnpm build`
+        `dist 版本不一致: dist ${distPkg.version} vs 根目录 ${rootPkg.version}，请重新运行 publish:build`
       );
     }
 
     console.log('✅ 构建产物完整性检查通过');
     return true;
   },
-  description: '检查构建产物是否完整，且 dist 版本与根目录一致'
+  description: '检查 dist 产物是否完整，且版本与根目录一致'
 };
 
-const publishChecks = [versionCheck, buildCheck, distCheck];
-const checks = isPublish ? publishChecks : qualityChecks;
-const modeLabel = isPublish ? '发布构建' : '发版前质量';
+const artifactChecks = [versionCheck, distCheck];
+const checks = isArtifacts ? artifactChecks : qualityChecks;
+const modeLabel = isArtifacts ? '发布产物' : '发版前质量';
 
 console.log(`🚀 开始检查（${modeLabel}）...\n`);
 
@@ -168,10 +162,10 @@ for (const check of checks) {
 }
 
 if (allPassed) {
-  if (isPublish) {
-    console.log('🎉 发布构建检查通过，可以执行 pnpm publish。');
+  if (isArtifacts) {
+    console.log('🎉 发布产物检查通过，可以执行 publish:main / publish:mcp。');
   } else {
-    console.log('🎉 发版前质量检查通过，可以执行 pnpm release。');
+    console.log('🎉 发版前质量检查通过，可以执行 publish:release。');
   }
   process.exit(0);
 }

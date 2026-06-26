@@ -18,7 +18,7 @@ module.exports = {
     commitMessage: 'chore(release): 升级版本 ${version}'
   },
   npm: {
-    // 不在 release-it 流程内发布 npm，发版后本地执行 pnpm publish / pnpm publish:all
+    // 不在 release-it 流程内发布 npm；主包见 publish:main，MCP 见 publish:mcp
     publish: false,
     //忽略 package.json 中的version 字段，使用git tag，默认 false
     ignoreVersion: false

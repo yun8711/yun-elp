@@ -57,42 +57,41 @@ pnpm dev
 | `pnpm build` | 构建组件、样式、resolver 与发布产物 |
 | `pnpm commit` | 使用 `czg` 进行规范化提交 |
 
-提交时 husky 会对**暂存文件**自动执行 `lint-staged`（修复后重新加入暂存区）。发版前 `check:release` 仅检查组件库源码包（`components`、`theme-chalk`、`resolver`）。
+提交时 husky 会对**暂存文件**自动执行 `lint-staged`（修复后重新加入暂存区）。`publish:check` 仅检查组件库源码包（`components`、`theme-chalk`、`resolver`）。
 
 ## 发版与发布
 
-在 `main` 分支、工作区已提交干净的前提下，按以下顺序操作：
+发布流程统一使用 `publish:*` 命令。**发布到 npm 需在本机终端人工执行**，并传入 `--otp`。
+
+### 主包
 
 ```bash
-pnpm check:release   # 发版前质量检查
-pnpm commit          # 提交待发版变更（如有）
-pnpm release         # 升版本、写 CHANGELOG、打 tag 并推送
-pnpm publish         # 发布主包 yun-elp 到 npm
+pnpm publish:check
+pnpm commit
+pnpm publish:release
+pnpm publish:build
+pnpm publish:main -- --otp=123456
 ```
 
-若主包与 MCP 包需一并发布：
+### MCP 包
+
+主包 `publish:build` 完成后，按需单独处理（`extract` 可能改动 `components.ts`，需再 `commit` 一次）：
 
 ```bash
-pnpm publish:all
+pnpm publish:mcp:sync
+pnpm commit                             # 有 MCP 元数据变更时
+pnpm publish:mcp -- --otp=123456
 ```
 
-若本次变更涉及 MCP 元数据，在发布 MCP 前额外执行：
+### 命令说明
 
-```bash
-pnpm mcp:extract
-pnpm mcp:test
-pnpm mcp:publish     # 仅发布 yun-elp-mcp 时使用
-```
-
-### 检查项说明
-
-| 命令 | 阶段 | 说明 |
-| --- | --- | --- |
-| `pnpm check:release` | 发版前 | `audit`（仅警告）→ 组件库 lint / typecheck → 覆盖率测试 |
-| `pnpm release` | 发版 | 使用 `release-it` 升版本；要求工作区干净 |
-| `pnpm check:publish` | 发布前 | 版本一致性 → 构建 → dist 产物校验（`publish` 会自动执行） |
-| `pnpm publish` | 发布 | 执行 `check:publish` 后发布主包 `yun-elp` |
-| `pnpm publish:all` | 发布 | 依次发布主包与 `yun-elp-mcp` |
-| `pnpm mcp:publish` | 发布 | 只发布 `yun-elp-mcp`（发布前会自动 build） |
+| 命令 | 说明 |
+| --- | --- |
+| `pnpm publish:check` | 发版前质量检查 |
+| `pnpm publish:release` | 升版本、写 CHANGELOG、打 tag |
+| `pnpm publish:build` | 构建主包 `dist` 并校验产物 |
+| `pnpm publish:main` | 人工发布主包；支持 `-- --otp=xxxxxx` |
+| `pnpm publish:mcp:sync` | MCP 元数据 extract + test |
+| `pnpm publish:mcp` | 人工发布 MCP 包；支持 `-- --otp=xxxxxx` |
 
 依赖安全扫描可手动执行 `pnpm audit`；发版流程中仅作参考警告，不阻断发布。

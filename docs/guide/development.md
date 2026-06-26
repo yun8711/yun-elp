@@ -85,38 +85,49 @@ pnpm lint        # 可选：全仓自动修复
 pnpm commit
 ```
 
-`git commit` 时 husky 会对**暂存文件**执行 `lint-staged`（ESLint / Stylelint / Prettier 自动修复并重新暂存）。发版前 `check:release` 仅检查组件库源码包，不含 `play`、`docs`、`mcp-server`。
+`git commit` 时 husky 会对**暂存文件**执行 `lint-staged`（ESLint / Stylelint / Prettier 自动修复并重新暂存）。`publish:check` 仅检查组件库源码包，不含 `play`、`docs`、`mcp-server`。
 
 仓库使用 `czg` / `commitlint` 维护提交规范。
 
 ## 发布相关
 
-主包发布前常用流程：
+发布流程按 `publish:*` 命令分步执行。**发布到 npm 需在本机终端人工执行**，npm 开启 2FA 时需传入 `--otp`（每次发布各需一次 OTP）。
+
+主包与 MCP 包分开处理：先完成主包发版与发布；MCP 的 `extract` 会产生 `components.ts` 等变更，**单独 commit 后再发布 MCP**。
+
+### 主包
+
+在 `main` 分支上，按顺序执行：
 
 ```shell
-pnpm check:release
-pnpm commit
-pnpm release
-pnpm publish
+pnpm publish:check                      # 1. 质量检查
+pnpm commit                             # 2. 提交待发版变更（如有）
+pnpm publish:release                    # 3. 升版本、CHANGELOG、tag 并推送
+pnpm publish:build                      # 4. 构建 dist 并校验产物
+pnpm publish:main -- --otp=123456       # 5. 人工发布 yun-elp
 ```
 
-若主包与 MCP 包需一并发布：
+未传 `--otp` 时 npm 会交互式提示；也可设置 `NPM_OTP=123456`。
+
+### MCP 包
+
+主包 `publish:build` 完成后（已生成 `dist/web-types.json`），按需执行：
 
 ```shell
-pnpm publish:all
+pnpm publish:mcp:sync                   # 1. extract + test（可能改动 components.ts）
+pnpm commit                             # 2. 若有变更，单独提交 MCP 元数据
+pnpm publish:mcp -- --otp=123456        # 3. 人工发布 yun-elp-mcp（发布前自动 build）
 ```
 
-如果本次变更涉及 MCP 数据，发布 MCP 前还需要：
+若本次发版未改组件文档或 API，可跳过 MCP 流程。日常维护 MCP 时仍可使用 `pnpm mcp:extract`、`pnpm mcp:test`、`pnpm mcp:build`。
 
-```shell
-pnpm mcp:extract
-pnpm mcp:test
-```
+### 命令说明
 
-说明：
-
-- `pnpm check:release`：对 components、theme-chalk、resolver 做 lint 与类型检查，并运行覆盖率测试（audit 仅警告，不阻断发版）
-- `pnpm release` 负责升版本、生成 changelog、打 tag（要求工作区干净）
-- `pnpm publish`：自动执行 `check:publish`（版本一致性 → 构建 → dist 校验）后发布主包 `yun-elp`
-- `pnpm publish:all`：发布主包与 `yun-elp-mcp`
-- `pnpm mcp:publish`：只发布 `yun-elp-mcp`（发布前会自动 build）
+| 命令                    | 说明                                         |
+| ----------------------- | -------------------------------------------- |
+| `pnpm publish:check`    | 发版前质量检查（lint / typecheck / 测试）    |
+| `pnpm publish:release`  | 升版本、写 CHANGELOG、打 tag；要求工作区干净 |
+| `pnpm publish:build`    | 构建主包 `dist` 并校验版本与产物             |
+| `pnpm publish:main`     | 人工发布主包；支持 `-- --otp=xxxxxx`         |
+| `pnpm publish:mcp:sync` | 从文档与 `web-types` 抽取 MCP 元数据并测试   |
+| `pnpm publish:mcp`      | 人工发布 MCP 包；支持 `-- --otp=xxxxxx`      |
