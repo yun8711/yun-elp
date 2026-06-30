@@ -2,6 +2,13 @@
 
 
 
+## [1.7.0](https://github.com/yun8711/yun-elp/compare/v1.6.0...v1.7.0) (2026-06-30)
+
+
+### Features
+
+* **components:** :sparkles: 优化 column-filter 表头筛选样式并补齐 button 主题与按需注入 ([d0a6841](https://github.com/yun8711/yun-elp/commit/d0a68416740a191cc8f0e264759c30b8c7a52a0a))
+
 ## [1.6.0](https://github.com/yun8711/yun-elp/compare/v1.5.0...v1.6.0) (2026-06-26)
 
 
