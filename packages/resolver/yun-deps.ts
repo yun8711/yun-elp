@@ -3,9 +3,8 @@
  * 用于 YunElpResolver 注入内部依赖的 yun-elp / Element Plus 样式。
  *
  * 维护说明（已审计 packages/components/src 下全部 .vue 源码）：
- * - 需额外加载 yun 样式：YTableSearch→YBorderLabel、YTable→YEmpty、YDesc→YTextTooltip、YColumnOp→YPop
- * - 无独立 y 样式但需传递 EP 样式：YButton（被 Dialog/Drawer/Pop/ColumnOp/TableSearch 引用）
- * - 其余组件未嵌套其他 y 组件，或仅引用 YAppWrap / YGroupSelect（同样无独立 y 样式）
+ * - 需额外加载 yun 样式：YTableSearch→YBorderLabel/YButton、YTable→YEmpty、YDesc→YTextTooltip、YColumnOp→YPop/YButton、YDialog/YDrawer/YPop→YButton
+ * - 无独立 y 样式：YAppWrap、YGroupSelect
  */
 export const YUN_ELP_INTERNAL_DEPS: Record<string, readonly string[]> = {
   YColumnOp: ['YPop', 'YButton'],

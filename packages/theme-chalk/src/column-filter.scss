@@ -11,4 +11,22 @@
     line-height: 1;
     border-radius: 1px;
   }
+
+  &__label {
+    #{el-class('table__column-filter-trigger')} {
+      line-height: 1;
+      i {
+        margin-inline-start: 4px;
+        margin-top: -2px;
+        font-size: var(#{el-var-name('font-size-small')});
+      }
+    }
+  }
+
+  &__filter {
+    #{el-class('checkbox__label')} {
+      font-size: var(#{el-var-name('font-size-small')});
+      color: var(#{el-var-name('text-color-secondary')});
+    }
+  }
 }

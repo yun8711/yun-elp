@@ -37,7 +37,11 @@ import { ElTableColumn } from 'element-plus';
 import { toRefs, computed } from 'vue';
 import type { ColumnFilterProps, ColumnFilterConfig } from './column-filter';
 import { isEmpty } from 'lodash-es';
-import { useTableColumnAttrs, type TableColumnMergedAttrs } from '../../../hooks/use-table-column-attrs';
+import {
+  pickTableColumnAttr,
+  useTableColumnAttrs,
+  type TableColumnMergedAttrs,
+} from '../../../hooks/use-table-column-attrs';
 import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
@@ -86,7 +90,9 @@ const formatterCellValue = (scope: any) => {
 
 const mergedAttrs = computed<TableColumnMergedAttrs>(() => {
   const obj: TableColumnMergedAttrs = {
-    ...baseMergedAttrs.value
+    ...baseMergedAttrs.value,
+    filterClassName: pickTableColumnAttr(attrs, 'filter-class-name', 'filterClassName', ns.e('filter')),
+    labelClassName: pickTableColumnAttr(attrs, 'label-class-name', 'labelClassName', ns.e('label')),
   };
 
   if (!noFilter.value) {

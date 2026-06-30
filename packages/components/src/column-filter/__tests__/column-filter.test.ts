@@ -729,7 +729,23 @@ describe('YColumnFilter 表格筛选列组件', () => {
       expect(attrs.width).toBe(150);
       expect(attrs['column-key']).toBe('status');
       expect(attrs['class-name']).toBe('y-column-filter');
+      expect(attrs.labelClassName).toBe('y-column-filter__label');
+      expect(attrs.filterClassName).toBe('y-column-filter__filter');
       expect(attrs.filters).toEqual(config);
+    });
+
+    it('mergedAttrs 应支持 kebab-case 的 label-class-name 与 filter-class-name', () => {
+      const wrapper = createBasicTest(
+        {},
+        {
+          'label-class-name': 'custom-label',
+          'filter-class-name': 'custom-filter'
+        }
+      );
+
+      const vm = wrapper.vm as any;
+      expect(vm.mergedAttrs.labelClassName).toBe('custom-label');
+      expect(vm.mergedAttrs.filterClassName).toBe('custom-filter');
     });
 
     it('应该测试 getStyle 方法 - 有状态样式', () => {

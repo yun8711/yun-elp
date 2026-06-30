@@ -12,7 +12,6 @@ export interface ColumnFilterConfig2 {
 }
 
 export interface ColumnFilterProps {
-  // TODO: 定义属性
   noStatus?: boolean;
   noFilter?: boolean;
   // 值格式化函数

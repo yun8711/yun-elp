@@ -129,18 +129,6 @@ export default [
   {
     files: ['packages/**/*.vue'],
     rules: {
-      // Vue文件中的复杂度要求
-      'vue/max-attributes-per-line': [
-        'error',
-        {
-          singleline: {
-            max: 3
-          },
-          multiline: {
-            max: 1
-          }
-        }
-      ],
       // 允许单文件组件有多个根元素（适用于Vue 3）
       'vue/no-multiple-template-root': 'off',
       // 允许 v-for 的 key 在子元素上
@@ -153,6 +141,16 @@ export default [
       'vue/mustache-interpolation-spacing': 'off',
       // 允许从 @vue/runtime-core 导入
       'no-restricted-imports': 'off',
+      // 元素有多属性时每行属性数量，单行最多 10 个，多行每行 1 个
+      'vue/max-attributes-per-line': [
+        'error',
+        {
+          singleline: 10,
+          multiline: {
+            max: 1
+          }
+        }
+      ],
       '@typescript-eslint/no-restricted-imports': 'off',
       // 在 catch 块中忽略未使用的 error 参数
       '@typescript-eslint/no-unused-vars': [

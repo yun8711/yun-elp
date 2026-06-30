@@ -24,7 +24,7 @@ export type TableColumnAttrsDefaults = {
 
 export type TableColumnMergedAttrs = Partial<ElTableColumnProps>;
 
-function pickAttr<T extends string | number | boolean | object>(
+export function pickTableColumnAttr<T extends string | number | boolean | object>(
   attrs: TableColumnBindAttrs,
   kebabKey: string,
   camelKey: string,
@@ -48,9 +48,9 @@ export function useTableColumnAttrs(defaults: TableColumnAttrsDefaults = {}): {
   const mergedColumnAttrs = computed<TableColumnMergedAttrs>(() => {
     const result: Record<string, unknown> = {
       ...attrs,
-      'min-width': pickAttr(attrs, 'min-width', 'minWidth', defaults.minWidth ?? 100),
-      width: pickAttr(attrs, 'width', 'width', defaults.width ?? 'auto'),
-      'class-name': pickAttr(attrs, 'class-name', 'className', defaults.className ?? '')
+      'min-width': pickTableColumnAttr(attrs, 'min-width', 'minWidth', defaults.minWidth ?? 100),
+      width: pickTableColumnAttr(attrs, 'width', 'width', defaults.width ?? 'auto'),
+      'class-name': pickTableColumnAttr(attrs, 'class-name', 'className', defaults.className ?? '')
     };
 
     if (defaults.fixed !== undefined) {

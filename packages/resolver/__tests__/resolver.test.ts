@@ -50,12 +50,23 @@ describe('yun-deps', () => {
   });
 
   it('collectYunInternalStyleComponents 应递归收集需加载样式的内部组件', () => {
+    expect(collectYunInternalStyleComponents('YTableSearch', ['YAppWrap', 'YGroupSelect'])).toEqual(
+      ['YBorderLabel', 'YButton']
+    );
     expect(collectYunInternalStyleComponents('YTableSearch', ['YButton'])).toEqual([
       'YBorderLabel'
     ]);
+    expect(collectYunInternalStyleComponents('YColumnOp', ['YAppWrap', 'YGroupSelect'])).toEqual([
+      'YButton',
+      'YPop'
+    ]);
     expect(collectYunInternalStyleComponents('YColumnOp', ['YButton'])).toEqual(['YPop']);
-    expect(collectYunInternalStyleComponents('YTable', ['YButton'])).toEqual(['YEmpty']);
-    expect(collectYunInternalStyleComponents('YDesc', ['YButton'])).toEqual(['YTextTooltip']);
+    expect(collectYunInternalStyleComponents('YTable', ['YAppWrap', 'YGroupSelect'])).toEqual([
+      'YEmpty'
+    ]);
+    expect(collectYunInternalStyleComponents('YDesc', ['YAppWrap', 'YGroupSelect'])).toEqual([
+      'YTextTooltip'
+    ]);
   });
 
   it('collectAllYunInternalComponents 应包含无 y 样式的内部组件', () => {
@@ -80,16 +91,17 @@ describe('YunElpResolver', () => {
     const sideEffects = result?.sideEffects as string[];
     expect(sideEffects).toContain('yun-elp/theme-chalk/src/table-search.scss');
     expect(sideEffects).toContain('yun-elp/theme-chalk/src/border-label.scss');
+    expect(sideEffects).toContain('yun-elp/theme-chalk/src/button.scss');
     expect(sideEffects).toContain('element-plus/es/components/collapse-transition/style/index');
     expect(sideEffects).toContain('element-plus/es/components/button/style/index');
   });
 
-  it('YButton 无 yun 样式但仍注入 element-plus button 样式', async () => {
+  it('YButton 应注入 yun 与 element-plus button 样式', async () => {
     const resolver = YunElpResolver();
     const result = await resolver.resolve!('YButton');
     const sideEffects = result?.sideEffects as string[];
 
-    expect(sideEffects.some(item => String(item).includes('theme-chalk'))).toBe(false);
+    expect(sideEffects).toContain('yun-elp/theme-chalk/src/button.scss');
     expect(sideEffects).toContain('element-plus/es/components/button/style/index');
   });
 
@@ -100,6 +112,7 @@ describe('YunElpResolver', () => {
 
     expect(sideEffects).toEqual([
       'yun-elp/theme-chalk/src/border-label.scss',
+      'yun-elp/theme-chalk/src/button.scss',
       'yun-elp/theme-chalk/src/table-search.scss'
     ]);
   });
@@ -138,6 +151,7 @@ describe('YunElpResolver', () => {
     const sideEffects = (await resolver.resolve!('YColumnOp'))?.sideEffects as string[];
 
     expect(sideEffects).toEqual([
+      'yun-elp/theme-chalk/src/button.scss',
       'yun-elp/theme-chalk/src/column-op.scss',
       'yun-elp/theme-chalk/src/pop.scss'
     ]);
@@ -148,6 +162,7 @@ describe('YunElpResolver', () => {
     const sideEffects = (await resolver.resolve!('YDialog'))?.sideEffects as string[];
 
     expect(sideEffects).toContain('yun-elp/theme-chalk/src/dialog.scss');
+    expect(sideEffects).toContain('yun-elp/theme-chalk/src/button.scss');
     expect(sideEffects).toContain('element-plus/es/components/dialog/style/index');
     expect(sideEffects).toContain('element-plus/es/components/button/style/index');
   });

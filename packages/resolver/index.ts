@@ -69,7 +69,7 @@ type YunElpResolverOptionsResolved = {
   noStylesComponents: string[];
 };
 
-const noStylesComponents = ['YAppWrap', 'YButton', 'YGroupSelect'];
+const noStylesComponents = ['YAppWrap', 'YGroupSelect'];
 
 function getYunStylePaths(dirNames: string[], options: YunElpResolverOptionsResolved): string[] {
   const { importStyle } = options;

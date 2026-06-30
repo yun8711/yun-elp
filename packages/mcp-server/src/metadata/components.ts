@@ -1178,7 +1178,8 @@ export default {
         type: {
           raw: 'string'
         },
-        required: false
+        required: false,
+        default: "'y-column-filter__label'"
       },
       {
         name: 'filters',
@@ -1202,7 +1203,8 @@ export default {
         type: {
           raw: 'string'
         },
-        required: false
+        required: false,
+        default: "'y-column-filter__filter'"
       },
       {
         name: 'filter-multiple',
