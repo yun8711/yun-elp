@@ -1,18 +1,12 @@
 <template>
   <el-config-provider :namespace="demoNamespaces.el">
     <Layout
-      v-model:locale="locale"
       v-model:theme="theme"
-      #default="{ curComponent }"
-      :examples="examples">
-      <y-app-wrap
-        :key="locale"
-        :locale="locale"
-        :elp-config="{ namespace: demoNamespaces.el }"
-        :y-namespace="demoNamespaces.y"
-        v-bind="appWrapConfig">
-        <component :is="examples.find(item => item.value === curComponent)?.component" />
-      </y-app-wrap>
+      :examples="examples"
+      :demo-namespaces="demoNamespaces"
+      :app-wrap-config="appWrapConfig"
+      #default="{ curComponent }">
+      <component :is="examples.find(item => item.value === curComponent)?.component" />
     </Layout>
   </el-config-provider>
 </template>
@@ -28,7 +22,6 @@ const demoNamespaces = {
   y: 'yp'
 };
 
-const locale = ref('zh-cn');
 const theme = ref('kd');
 
 watch(
@@ -50,10 +43,7 @@ const appWrapConfig = {
     image: logo
   },
   echarts: {
-    // 项目主要使用的图表类型
     chartTypes: ['LineChart', 'BarChart', 'PieChart'],
-
-    // 项目主要使用的组件
     components: [
       'GridComponent',
       'TooltipComponent',
@@ -61,8 +51,6 @@ const appWrapConfig = {
       'DataZoomComponent',
       'TitleComponent'
     ],
-
-    // 渲染器
     renderers: ['CanvasRenderer']
   }
 };

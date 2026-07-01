@@ -25,6 +25,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "catalog:",
     "@vitejs/plugin-vue-jsx": "catalog:",
+    "postcss-rtlcss": "^5.7.1",
     "sass": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",

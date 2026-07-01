@@ -6,6 +6,8 @@ import '@yun-elp/theme-chalk/themes/switchable.scss';
 import './styles/index.scss';
 import App from './App.vue';
 
+document.documentElement.setAttribute('dir', 'ltr');
+
 const app = createApp(App);
 
 app.use(YunElp);

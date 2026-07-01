@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+  <div
+    class="container"
+    dir="ltr">
     <header class="page-header">
       <h1>YUN-ELP 组件调试</h1>
       <p>左侧渲染组件，右侧控制环境、容器和示例切换。</p>
@@ -19,6 +21,7 @@
                   v-model="curComponent"
                   placeholder="选择要查看的组件"
                   :options="examples"
+                  :teleported="false"
                   @change="handleComponentChange">
                 </el-select>
               </div>
@@ -31,36 +34,19 @@
             </div>
             <div class="control-grid control-grid--single">
               <div class="control-item">
-                <span class="control-item__label">多语言</span>
-                <el-select v-model="localeModel">
-                  <el-option
-                    label="简体中文"
-                    value="zh-cn" />
-                  <el-option
-                    label="English"
-                    value="en" />
-                  <el-option
-                    label="日本語"
-                    value="ja" />
-                  <el-option
-                    label="العربية"
-                    value="ar" />
-                </el-select>
+                <span class="control-item__label">容器语言</span>
+                <el-select
+                  v-model="demoLocale"
+                  :options="localeOptions"
+                  :teleported="false" />
               </div>
 
               <div class="control-item">
                 <span class="control-item__label">主题</span>
-                <el-select v-model="themeModel">
-                  <el-option
-                    label="KD"
-                    value="kd" />
-                  <el-option
-                    label="Arco"
-                    value="arco" />
-                  <el-option
-                    label="Antd"
-                    value="antd" />
-                </el-select>
+                <el-select
+                  v-model="themeModel"
+                  :options="themeOptions"
+                  :teleported="false" />
               </div>
             </div>
           </section>
@@ -89,6 +75,7 @@
                   <el-color-picker
                     v-model="backgroundColor"
                     show-alpha
+                    :teleported="false"
                     @change="handleBackgroundColorChange" />
                   <span class="color-value">{{ backgroundColor }}</span>
                 </div>
@@ -122,10 +109,16 @@
           class="demo-section"
           :class="{ 'is-locked': isLocked }"
           :style="{ backgroundColor }">
-          <slot
-            :locale="localeModel"
-            :backgroundColor="backgroundColor"
-            :curComponent="curComponent"></slot>
+          <y-app-wrap
+            :key="demoLocale"
+            :locale="demoLocale"
+            :elp-config="{ namespace: demoNamespaces.el }"
+            :y-namespace="demoNamespaces.y"
+            v-bind="appWrapConfig">
+            <slot
+              :background-color="backgroundColor"
+              :cur-component="curComponent" />
+          </y-app-wrap>
         </section>
       </div>
     </div>
@@ -142,21 +135,36 @@ const props = defineProps({
     type: Array,
     required: true
   },
-  locale: {
-    type: String,
-    default: 'zh-cn'
-  },
   theme: {
     type: String,
     default: 'kd'
+  },
+  demoNamespaces: {
+    type: Object,
+    required: true
+  },
+  appWrapConfig: {
+    type: Object,
+    default: () => ({})
   }
 })
-const emit = defineEmits(['update:locale', 'update:theme'])
+const emit = defineEmits(['update:theme'])
 
-const localeModel = computed({
-  get: () => props.locale,
-  set: value => emit('update:locale', value)
-})
+/** 仅作用于右侧 demo 容器的语言与 RTL，不影响调试壳层 */
+const demoLocale = ref('zh-cn')
+
+const localeOptions = [
+  { label: '简体中文', value: 'zh-cn' },
+  { label: 'English', value: 'en' },
+  { label: '日本語', value: 'ja' },
+  { label: 'العربية', value: 'ar' }
+]
+
+const themeOptions = [
+  { label: 'KD', value: 'kd' },
+  { label: 'Arco', value: 'arco' },
+  { label: 'Antd', value: 'antd' }
+]
 
 const themeModel = computed({
   get: () => props.theme,
@@ -245,6 +253,8 @@ const handleComponentChange = (value) => {
   .control-sidebar {
     position: sticky;
     top: 20px;
+    z-index: 2;
+    overflow: visible;
   }
 
   .control-panel {
@@ -349,13 +359,13 @@ const handleComponentChange = (value) => {
     line-height: 32px;
   }
 
-  :deep(.el-select__wrapper),
-  :deep(.el-input__wrapper),
-  :deep(.el-input-number),
-  :deep(.el-color-picker__trigger),
-  :deep(.el-switch) {
-    border-radius: 8px;
-  }
+  // :deep(.el-select__wrapper),
+  // :deep(.el-input__wrapper),
+  // :deep(.el-input-number),
+  // :deep(.el-color-picker__trigger),
+  // :deep(.el-switch) {
+  //   border-radius: 8px;
+  // }
 
   .demo-section {
     position: relative;
@@ -377,38 +387,38 @@ const handleComponentChange = (value) => {
     }
   }
 
-  @media (max-width: 1100px) {
-    .workspace {
-      grid-template-columns: 1fr;
-    }
+  // @media (max-width: 1100px) {
+  //   .workspace {
+  //     grid-template-columns: 1fr;
+  //   }
 
-    .control-sidebar {
-      position: static;
-    }
-  }
+  //   .control-sidebar {
+  //     position: static;
+  //   }
+  // }
 
-  @media (max-width: 900px) {
-    padding: 20px;
+  // @media (max-width: 900px) {
+  //   padding: 20px;
 
-    .stage-panel__header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+  //   .stage-panel__header {
+  //     flex-direction: column;
+  //     align-items: flex-start;
+  //   }
 
-    .control-grid {
-      grid-template-columns: 1fr;
-    }
+  //   .control-grid {
+  //     grid-template-columns: 1fr;
+  //   }
 
-    .control-item__inline--between {
-      align-items: flex-start;
-      justify-content: flex-start;
-    }
+  //   .control-item__inline--between {
+  //     align-items: flex-start;
+  //     justify-content: flex-start;
+  //   }
 
-    .demo-section {
-      width: 100%;
-      min-height: 560px;
-      height: auto;
-    }
-  }
+  //   .demo-section {
+  //     width: 100%;
+  //     min-height: 560px;
+  //     height: auto;
+  //   }
+  // }
 }
 </style>
