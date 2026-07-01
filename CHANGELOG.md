@@ -2,6 +2,33 @@
 
 
 
+## [1.8.0](https://github.com/yun8711/yun-elp/compare/v1.7.0...v1.8.0) (2026-07-01)
+
+
+### Features
+
+* **components:** :sparkles: y-button 支持 autoInsertSpace 汉字间距 ([72a3896](https://github.com/yun8711/yun-elp/commit/72a3896116abdbb4b51677ecb4fa569e14b05b9c))
+* **components:** :sparkles: 优化 dialog 与 drawer 底部按钮布局并新增 play 演示 ([dd93b79](https://github.com/yun8711/yun-elp/commit/dd93b796669827b4a1efd68b0ae199b34314579f))
+* **theme:** :sparkles: 新增按钮间距变量并在 play 接入 rtlcss ([493bb7c](https://github.com/yun8711/yun-elp/commit/493bb7cd7cdea356f21448d191d9e8c8e20bfc42))
+
+
+### Bug Fixes
+
+* **components:** :bug: 修复发版检查并优化 autoInsertSpace 与测试输出 ([54e81be](https://github.com/yun8711/yun-elp/commit/54e81becc8e9b33e7e44fa378ae4f53d8e7d55e6))
+* **components:** :bug: 改用整句模板优化 table footer 总数文案的多语言语义 ([44d6a6a](https://github.com/yun8711/yun-elp/commit/44d6a6a9751cd00d2dd9087342f979c16e709bff))
+
+
+### Styles
+
+* **theme:** :lipstick: form 系列补齐 namespace 类名与字号主题变量 ([1bc1c3f](https://github.com/yun8711/yun-elp/commit/1bc1c3f8e61d7101daf079612c46d3d1a92479a2))
+
+
+### Refactors
+
+* **components:** :recycle: app-wrap 透传 elpConfig.button 并移除默认 autoInsertSpace ([14171ab](https://github.com/yun8711/yun-elp/commit/14171ab214243e6cb02bba205d5fe79c59d071f3))
+* **components:** :recycle: 将 column-op 的 noPop 重命名为 popover ([cfe9f68](https://github.com/yun8711/yun-elp/commit/cfe9f6825aa52da6dc7e09e844b28f9faffe88a6))
+* **play:** :recycle: 提取 demo-namespaces 并演示 button autoInsertSpace ([85cfe21](https://github.com/yun8711/yun-elp/commit/85cfe21c2ebd42816bd5c45bca000eb47ab41d52))
+
 ## [1.7.0](https://github.com/yun8711/yun-elp/compare/v1.6.0...v1.7.0) (2026-06-30)
 
 
