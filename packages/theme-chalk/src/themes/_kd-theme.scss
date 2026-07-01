@@ -107,4 +107,8 @@
       height: 100px;
     }
   }
+
+  #{$selector} #{el-class('select__selection')} {
+    font-size: var(#{el-var-name('font-size-base')});
+  }
 }

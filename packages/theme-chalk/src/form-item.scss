@@ -1,3 +1,7 @@
 @use './mixins/function' as *;
 
 // y-form-item 样式由 el-col、el-form-item 提供，此处预留扩展
+
+#{y-class('form-item')} {
+  --font-size: var(#{el-var-name('font-size-base')});
+}

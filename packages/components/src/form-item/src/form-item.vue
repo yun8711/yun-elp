@@ -2,7 +2,8 @@
   <el-col v-bind="mergedColAttrs">
     <el-form-item
       v-bind="mergedFormItemAttrs"
-      ref="formItemRef">
+      ref="formItemRef"
+      :class="ns.b()">
       <slot />
       <template
         v-if="slots.label"
@@ -32,6 +33,7 @@ import {
   ATTRS_LAYOUT_KEYS,
   Y_FORM_INJECTION_KEY
 } from '../../form/src/form';
+import { useNamespace } from '../../../hooks/use-namespace';
 
 defineOptions({
   name: 'YFormItem',
@@ -42,7 +44,7 @@ const attrs = useAttrs() as Record<string, unknown>;
 const slots = useSlots();
 const yForm = inject(Y_FORM_INJECTION_KEY, null);
 const formItemRef = ref<FormItemInstance>();
-
+const ns = useNamespace('form-item');
 const colPropKeysWithoutSpan = COL_PROP_KEYS.filter((key) => key !== 'span');
 
 const span = computed(() => {

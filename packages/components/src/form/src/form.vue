@@ -1,6 +1,7 @@
 <template>
   <el-form
     ref="formRef"
+    :class="ns.b()"
     v-bind="mergedFormAttrs"
     @submit.prevent>
     <el-row v-bind="rowAttrs">
