@@ -22,22 +22,24 @@
       v-if="props.showFooter"
       #footer>
       <slot name="footer">
-        <slot name="confirm">
-          <y-button
-            v-if="!props.noConfirm"
-            v-bind="confirmBtnProps"
-            @click="confirmClick">
-            {{ confirmText }}
-          </y-button>
-        </slot>
-        <slot name="cancel">
-          <y-button
-            v-if="!props.noCancel"
-            v-bind="cancelBtnProps"
-            @click="cancelClick">
-            {{ cancelText }}
-          </y-button>
-        </slot>
+        <div :class="ns.e('footer-content')">
+          <slot name="confirm">
+            <y-button
+              v-if="!props.noConfirm"
+              v-bind="confirmBtnProps"
+              @click="confirmClick">
+              {{ confirmText }}
+            </y-button>
+          </slot>
+          <slot name="cancel">
+            <y-button
+              v-if="!props.noCancel"
+              v-bind="cancelBtnProps"
+              @click="cancelClick">
+              {{ cancelText }}
+            </y-button>
+          </slot>
+        </div>
       </slot>
     </template>
   </el-drawer>

@@ -51,6 +51,16 @@ export const exampleGroups: Array<{ category: string; items: DemoExample[] }> = 
         label: 'Text Tooltip',
         value: 'text-tooltip',
         component: defineAsyncComponent(() => import('./feedback/text-tooltip-example.vue'))
+      },
+      {
+        label: 'Drawer',
+        value: 'drawer',
+        component: defineAsyncComponent(() => import('./feedback/drawer-example.vue'))
+      },
+      {
+        label: 'Dialog',
+        value: 'dialog',
+        component: defineAsyncComponent(() => import('./feedback/dialog-example.vue'))
       }
     ]
   },

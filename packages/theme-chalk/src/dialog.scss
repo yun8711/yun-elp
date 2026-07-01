@@ -21,10 +21,15 @@
   &__footer {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     height: 56px;
     padding: 0 16px !important;
     padding-top: 0 !important;
     border-top: 1px solid var(#{el-var-name('border-color-light')});
+
+    &-content {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
   }
 }
