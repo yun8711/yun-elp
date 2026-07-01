@@ -112,9 +112,8 @@
           <y-app-wrap
             :key="demoLocale"
             :locale="demoLocale"
-            :elp-config="{ namespace: demoNamespaces.el }"
             :y-namespace="demoNamespaces.y"
-            v-bind="appWrapConfig">
+            v-bind="demoAppWrapProps">
             <slot
               :background-color="backgroundColor"
               :cur-component="curComponent" />
@@ -129,6 +128,7 @@
 import { computed, ref } from 'vue'
 import { useElementSize } from '@vueuse/core'
 import { Link } from '@element-plus/icons-vue'
+import { demoNamespaces } from '../demo-namespaces'
 
 const props = defineProps({
   examples: {
@@ -139,16 +139,24 @@ const props = defineProps({
     type: String,
     default: 'kd'
   },
-  demoNamespaces: {
-    type: Object,
-    required: true
-  },
   appWrapConfig: {
     type: Object,
     default: () => ({})
   }
 })
 const emit = defineEmits(['update:theme'])
+
+const demoAppWrapProps = computed(() => {
+  const { elpConfig, ...rest } = props.appWrapConfig ?? {}
+
+  return {
+    ...rest,
+    elpConfig: {
+      ...elpConfig,
+      namespace: demoNamespaces.el
+    }
+  }
+})
 
 /** 仅作用于右侧 demo 容器的语言与 RTL，不影响调试壳层 */
 const demoLocale = ref('zh-cn')

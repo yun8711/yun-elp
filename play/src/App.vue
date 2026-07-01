@@ -3,7 +3,6 @@
     <Layout
       v-model:theme="theme"
       :examples="examples"
-      :demo-namespaces="demoNamespaces"
       :app-wrap-config="appWrapConfig"
       #default="{ curComponent }">
       <component :is="examples.find(item => item.value === curComponent)?.component" />
@@ -16,11 +15,7 @@ import { ref, watch } from 'vue';
 import Layout from './components/Layout.vue';
 import logo from './assets/test.png';
 import { examples } from './examples';
-
-const demoNamespaces = {
-  el: 'ep',
-  y: 'yp'
-};
+import { demoNamespaces } from './demo-namespaces';
 
 const theme = ref('kd');
 
@@ -33,6 +28,11 @@ watch(
 );
 
 const appWrapConfig = {
+  elpConfig: {
+    button: {
+      autoInsertSpace: true
+    }
+  },
   dialog: {
     titleStyle: {
       color: 'red'

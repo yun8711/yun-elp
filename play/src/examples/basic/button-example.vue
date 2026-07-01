@@ -6,7 +6,11 @@
     @click="handleClick"
     >按钮</y-button
   >
-  <y-button type="primary">按钮</y-button>
+  <y-button
+    type="primary"
+    autoInsertSpace
+    >按钮</y-button
+  >
   <y-button
     type="primary"
     loading
@@ -23,7 +27,7 @@
     ref="elButtonRef"
     @click="handleClick2"
     size="small"
-    >el-button</el-button
+    >按钮</el-button
   >
 </template>
 
