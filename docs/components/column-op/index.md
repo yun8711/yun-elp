@@ -43,7 +43,7 @@ column-op/disabled
 
 内部使用 `y-pop` 组件显示 `popover`
 
-`popProps` 属性值用于配置按钮的 `popover` 弹框行为；默认情况下 `popProps.noPop === true`，即不展示 `popover`
+`popProps` 属性值用于配置按钮的 `popover` 弹框行为；默认情况下 `popover === false`，即不展示 `popover`
 
 :::demo
 
@@ -82,7 +82,7 @@ column-op/popover
 | disabled | 按钮是否禁用，支持多种格式            | ^[boolean] / ^[array]`[boolean, string]` / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => ColumnOpItemDisabledReturn)` | `false` |
 | show     | 按钮是否显示                          | ^[boolean] / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => boolean)`                                                  | `true`  |
 | dropdown | 是否以下拉菜单形式展示                | ^[boolean] / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => boolean)`                                                  | `false` |
-| noPop    | 是否显示popover，默认不显示           | ^[boolean] / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => boolean)`                                                  | `true`  |
+| popover  | 是否显示 popover，一般用于二次确认    | ^[boolean] / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => boolean)`                                                  | `false` |
 | popProps | popover的完整属性配置                 | ^[object]`Partial<PopProps>` / ^[Function]`((scope: TableItemScope, item: ColumnOpItemType) => Partial<PopProps>)`                      | `{}`    |
 | confirm  | 操作项的确认函数                      | ^[Function]`(scope: TableItemScope, item: ColumnOpItemType, e: MouseEvent) => any`                                                      | -       |
 | cancel   | 操作项的取消函数，在显示popover时生效 | ^[Function]`(scope: TableItemScope, item: ColumnOpItemType, e: MouseEvent) => any`                                                      | -       |

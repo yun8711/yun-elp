@@ -313,9 +313,9 @@ describe('YColumnOp 表格操作列组件', () => {
         {
           label: '操作',
           prop: 'action',
+          popover: true,
           popProps: {
-            popContent: '确认操作？',
-            noPop: false
+            popContent: '确认操作？'
           }
         }
       ];
@@ -356,14 +356,14 @@ describe('YColumnOp 表格操作列组件', () => {
 
     it('应该支持函数类型的popProps', () => {
       const popPropsFn = vi.fn((scope: TableItemScope) => ({
-        popContent: `确认对${scope.row?.id ?? ''}进行操作？`,
-        noPop: false
+        popContent: `确认对${scope.row?.id ?? ''}进行操作？`
       }));
 
       const options: ColumnOpItemType[] = [
         {
           label: '操作',
           prop: 'action',
+          popover: true,
           popProps: popPropsFn
         }
       ];
@@ -439,7 +439,7 @@ describe('YColumnOp 表格操作列组件', () => {
       if (popComponent.exists()) {
         expect(popComponent.props('popContent')).toBe('自定义内容');
         expect(popComponent.props('tipContent')).toBe('无权限');
-        expect(popComponent.props('noPop')).toBe(true); // 默认值
+        expect(popComponent.props('noPop')).toBe(true); // popover 默认为 false
       } else {
         // 如果找不到组件，检查 DOM 元素
         const popElement = wrapper.find('.y-pop');
@@ -1026,7 +1026,7 @@ describe('YColumnOp 表格操作列组件', () => {
         {
           label: '删除',
           prop: 'delete',
-          noPop: false,
+          popover: true,
           confirm: confirmMock,
           cancel: cancelMock,
           popProps: {
@@ -1226,14 +1226,14 @@ describe('YColumnOp 表格操作列组件', () => {
       expect(popover.exists()).toBe(true);
     });
 
-    it('应该正确处理noPop属性的各种情况', () => {
+    it('应该正确处理popover属性的各种情况', () => {
       const options: ColumnOpItemType[] = [
-        { label: '默认', prop: 'default' }, // 默认noPop: true
-        { label: '显示弹框', prop: 'withPop', noPop: false },
+        { label: '默认', prop: 'default' }, // 默认 popover: false
+        { label: '显示弹框', prop: 'withPop', popover: true },
         {
           label: '函数控制',
           prop: 'funcPop',
-          noPop: (scope: TableItemScope) => !(scope.row?.needConfirm ?? false)
+          popover: (scope: TableItemScope) => scope.row?.needConfirm ?? false
         }
       ];
 
@@ -1560,7 +1560,7 @@ describe('YColumnOp 表格操作列组件', () => {
         expect(result).toEqual({ placement: 'top', effect: 'dark' });
       });
 
-      it('getPopEvents应该根据noPop返回正确的事件', () => {
+      it('getPopEvents应该根据popover返回正确的事件', () => {
         const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
@@ -1570,19 +1570,19 @@ describe('YColumnOp 表格操作列组件', () => {
         const confirmFn = vi.fn();
         const cancelFn = vi.fn();
 
-        const item1 = { prop: 'test1', noPop: false, confirm: confirmFn, cancel: cancelFn };
+        const item1 = { prop: 'test1', popover: true, confirm: confirmFn, cancel: cancelFn };
         const result1 = vm.getPopEvents(scope, item1);
         expect(result1).toEqual({
           confirm: expect.any(Function),
           cancel: expect.any(Function)
         });
 
-        const item2 = { prop: 'test2', noPop: true };
+        const item2 = { prop: 'test2', popover: false };
         const result2 = vm.getPopEvents(scope, item2);
         expect(result2).toEqual({});
       });
 
-      it('getButtonEvents应该根据noPop返回正确的事件', () => {
+      it('getButtonEvents应该根据popover返回正确的事件', () => {
         const wrapper = mount(YColumnOp, {
           props: { options: [] }
         });
@@ -1591,13 +1591,13 @@ describe('YColumnOp 表格操作列组件', () => {
         const scope = { $index: 0, row: { id: 1 }, column: {} };
         const confirmFn = vi.fn();
 
-        const item1 = { prop: 'test1', noPop: true, confirm: confirmFn };
+        const item1 = { prop: 'test1', popover: false, confirm: confirmFn };
         const result1 = vm.getButtonEvents(scope, item1);
         expect(result1).toEqual({
           click: expect.any(Function)
         });
 
-        const item2 = { prop: 'test2', noPop: false };
+        const item2 = { prop: 'test2', popover: true };
         const result2 = vm.getButtonEvents(scope, item2);
         expect(result2).toEqual({});
       });

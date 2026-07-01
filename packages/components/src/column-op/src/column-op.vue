@@ -135,7 +135,7 @@ const getOptions = (scope: TableItemScope) => {
       disabled: false,
       show: true,
       dropdown: false,
-      noPop: true,
+      popover: false,
       popProps: {},
       confirm: item?.confirm || undefined,
       cancel: item?.cancel || undefined,
@@ -153,9 +153,8 @@ const getOptions = (scope: TableItemScope) => {
       typeof item.show === 'function' ? item.show(scope, item) : (item.show ?? true);
     defaultObj.dropdown =
       typeof item.dropdown === 'function' ? item.dropdown(scope, item) : (item.dropdown ?? false);
-    // 是否显示popover，默认不显示
-    defaultObj.noPop =
-      typeof item.noPop === 'function' ? item.noPop(scope, item) : (item?.noPop ?? true);
+    defaultObj.popover =
+      typeof item.popover === 'function' ? item.popover(scope, item) : (item?.popover ?? false);
 
     const popProps =
       typeof item.popProps === 'function' ? item.popProps(scope, item) : (item.popProps ?? {});
@@ -164,7 +163,7 @@ const getOptions = (scope: TableItemScope) => {
     defaultObj.popProps = merge(
       {},
       {
-        noPop: defaultObj.noPop,
+        noPop: !defaultObj.popover,
         tipContent: disabledTipContent,
         tipProps: {
           enterable: false
@@ -191,8 +190,8 @@ const getOptions = (scope: TableItemScope) => {
   };
 };
 
-const getPopProps = (item: ColumnOpItemType): Record<string, any> => {
-  return (item.popProps as Record<string, any>) || {};
+const getPopProps = (item: ResolvedColumnOpItem): Record<string, any> => {
+  return item.popProps || {};
 };
 
 const getDisabledValue = (
@@ -257,11 +256,9 @@ const getDisabledValue = (
   ];
 };
 
-const getPopEvents = (scope: TableItemScope, item: ColumnOpItemType) => {
-  const noPop = item.noPop as boolean;
-
-  // 只有当 noPop 为 false 时，才绑定 confirm 和 cancel 事件到 y-pop
-  return noPop === false
+const getPopEvents = (scope: TableItemScope, item: ResolvedColumnOpItem) => {
+  // 显示 popover 时，将 confirm 和 cancel 事件绑定到 y-pop
+  return item.popover
     ? {
       confirm: (e: MouseEvent) => item.confirm?.(scope, item, e),
       cancel: (e: MouseEvent) => item.cancel?.(scope, item, e)
@@ -269,11 +266,9 @@ const getPopEvents = (scope: TableItemScope, item: ColumnOpItemType) => {
     : {};
 };
 
-const getButtonEvents = (scope: TableItemScope, item: ColumnOpItemType) => {
-  const noPop = item.noPop as boolean;
-
-  // 只有当 noPop 不为 false 时，才绑定 click 事件到按钮
-  return noPop !== false
+const getButtonEvents = (scope: TableItemScope, item: ResolvedColumnOpItem) => {
+  // 不显示 popover 时，将 click 事件绑定到按钮
+  return !item.popover
     ? {
       click: (e: MouseEvent) => item.confirm?.(scope, item, e)
     }

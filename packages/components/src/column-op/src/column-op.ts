@@ -30,8 +30,8 @@ export interface ColumnOpItemType {
   show?: boolean | ((scope: TableItemScope, item: ColumnOpItemType) => boolean);
   // 是否以dropdown的形式展示
   dropdown?: boolean | ((scope: TableItemScope, item: ColumnOpItemType) => boolean);
-  // 是否显示popover，默认不显示
-  noPop?: boolean | ((scope: TableItemScope, item: ColumnOpItemType) => boolean);
+  // 是否显示 popover（二次确认），默认不显示
+  popover?: boolean | ((scope: TableItemScope, item: ColumnOpItemType) => boolean);
   // popover完整属性配置
   popProps?:
     | Partial<PopProps>
@@ -45,13 +45,13 @@ export interface ColumnOpItemType {
 // 已解析的操作项类型（函数属性已求值，避免自引用导致类型无限展开）
 export interface ResolvedColumnOpItem extends Omit<
   ColumnOpItemType,
-  'label' | 'disabled' | 'show' | 'dropdown' | 'noPop' | 'popProps'
+  'label' | 'disabled' | 'show' | 'dropdown' | 'popover' | 'popProps'
 > {
   label: string;
   disabled: boolean;
   show: boolean;
   dropdown: boolean;
-  noPop: boolean;
+  popover: boolean;
   popProps: Record<string, any>;
 }
 

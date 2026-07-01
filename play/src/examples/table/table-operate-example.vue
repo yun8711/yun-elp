@@ -106,10 +106,10 @@ const options3 = ref([
     label: '删除',
     dropdown: true,
     // disabled: [[true,'无权限']],
+    popover: true,
     popProps: {
       tipContent: '123',
-      popContent: '测试',
-      noPop: false
+      popContent: '测试'
     },
     confirm: (scope, item) => {
       console.log('删除 confirm', scope, item);
@@ -123,7 +123,7 @@ const options3 = ref([
   //   popProps: {
   //     tipContent: '123',
   //     popContent: "测试",
-  //     noPop: false
+  //     popover: true
   //   }
   // }
 ]);
@@ -159,7 +159,7 @@ const options6 = ref([
   {
     prop: 'delete',
     label: '删除',
-    noPop: false,
+    popover: true,
     popProps: {
       popContent: '是否确认删除该数据？'
     },

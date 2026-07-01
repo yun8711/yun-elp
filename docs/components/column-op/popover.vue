@@ -34,18 +34,18 @@ const options6 = ref([
   {
     prop: 'delete',
     label: '删除',
-    // 默认不显示popover，只有confirm方法生效，表示按钮本身的点击事件
-    // noPop: true,
+    // 默认不显示 popover，只有 confirm 方法生效，表示按钮本身的点击事件
+    // popover: false,
     confirm: (scope, item) => {
       ElMessage.success('确认删除');
     }
   },
   {
     prop: 'delete2',
-    label: '删除2',
+    label: '二次确认删除',
     dropdown: true,
-    // 显示popover时，confirm和cancel方法都生效，表示弹出框的确认和取消事件
-    noPop: false,
+    // 显示 popover 时，confirm 和 cancel 方法都生效，表示弹出框的确认和取消事件
+    popover: true,
     popProps: {
       popContent: '是否确认删除该数据？'
     },
