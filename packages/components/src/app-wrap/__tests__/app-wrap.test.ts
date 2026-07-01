@@ -179,7 +179,7 @@ describe('YAppWrap 应用容器', () => {
         size: 'default',
         zIndex: 2000,
         button: {
-          autoInsertSpace: true
+          autoInsertSpace: false
         },
         message: {
           max: 3,
@@ -192,20 +192,20 @@ describe('YAppWrap 应用容器', () => {
       expect(wrapper.vm.$props.yNamespace).toBe('y');
 
       const provider = wrapper.findComponent({ name: 'ElConfigProvider' });
-      expect(provider.props('button')).toEqual({ autoInsertSpace: true });
+      expect(provider.props('button')).toEqual({ autoInsertSpace: false });
     });
 
     it('应该将 elpConfig.button.autoInsertSpace 传递给 el-config-provider', () => {
       const wrapper = createWrapper({
         elpConfig: {
           button: {
-            autoInsertSpace: false
+            autoInsertSpace: true
           }
         }
       });
 
       const provider = wrapper.findComponent({ name: 'ElConfigProvider' });
-      expect(provider.props('button')).toEqual({ autoInsertSpace: false });
+      expect(provider.props('button')).toEqual({ autoInsertSpace: true });
     });
   });
 

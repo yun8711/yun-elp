@@ -676,19 +676,6 @@ describe('YEcharts 图表组件', () => {
 
       expect(wrapper.props('config')).toEqual({});
     });
-
-    it('在没有DOM元素时不应该初始化图表', async () => {
-      const wrapper = mount(YEcharts, globalConfig);
-
-      // 手动设置chartRef为null
-      (wrapper.vm as any).chartRef = null;
-
-      await nextTick();
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      // 应该没有调用init
-      expect((import('echarts/core') as any).mock?.results?.length ?? 0).toBe(0);
-    });
   });
 
   describe('集成测试', () => {

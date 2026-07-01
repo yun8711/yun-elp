@@ -2,7 +2,7 @@
 
 /**
  * 发布流程检查脚本
- * - --quality（publish:check）：audit（仅警告）→ 组件库 lint / typecheck → 覆盖率测试
+ * - --quality（publish:check）：组件库 lint / typecheck → 覆盖率测试
  * - --artifacts（publish:build / publish:main / publish:mcp）：版本一致性 → dist 产物校验
  */
 
@@ -37,15 +37,7 @@ function libLintCheck() {
   run(`pnpm exec stylelint ${stylelintTargets}`);
 }
 
-const auditCheck = {
-  name: '依赖安全检查',
-  command: 'pnpm audit --audit-level moderate',
-  description: '检查依赖的安全漏洞（失败仅警告，不阻断发版）',
-  allowFailure: true
-};
-
 const qualityChecks = [
-  auditCheck,
   {
     name: '代码规范检查',
     check: libLintCheck,

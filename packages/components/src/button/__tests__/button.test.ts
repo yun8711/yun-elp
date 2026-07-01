@@ -184,6 +184,7 @@ describe('YButton 防抖按钮组件', () => {
     vi.useFakeTimers();
     mockAppConfig = { delay: 500, maxWait: 1000 };
     mockRootConfig = {};
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
   });
 
   describe('基本功能', () => {

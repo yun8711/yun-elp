@@ -2,14 +2,14 @@
   <el-button
     ref="buttonRef"
     :class="ns.b()"
-    v-bind="attrs"
+    v-bind="elButtonAttrs"
     @click="handleClick"
     @dblclick="handleDoubleClick">
     <span
       v-if="normalizedDefaultText != null"
-      :class="{ [elButtonTextExpandClass]: shouldAddSpace }"
-      >{{ normalizedDefaultText }}</span
-    >
+      :class="{ [elButtonTextExpandClass]: shouldAddSpace }">
+      {{ normalizedDefaultText }}
+    </span>
     <slot v-else />
     <slot name="icon" />
     <slot name="loading" />
@@ -36,7 +36,17 @@ defineOptions({
   inheritAttrs: false
 });
 
-const attrs = useAttrs()
+const attrs = useAttrs() as Record<string, unknown>
+const elButtonAttrs = computed(() => {
+  if (!('autoInsertSpace' in attrs)) {
+    return attrs
+  }
+  const { autoInsertSpace, ...rest } = attrs
+  return {
+    ...rest,
+    autoInsertSpace: normalizeBooleanProp(autoInsertSpace) ?? true
+  }
+})
 const slots = useSlots()
 const props = defineProps(buttonProps)
 const buttonConfig = useAppConfig('button')

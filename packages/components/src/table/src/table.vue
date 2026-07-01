@@ -22,12 +22,9 @@
       <slot name="footer">
         <div :class="ns.e('footer-default')">
           <div :class="ns.e('footer-total')">
-            {{ totalTextParts.before
-
-
-
-            }}<span :class="ns.e('footer-total-num')">{{ totalTextParts.total }}</span
-            >{{ totalTextParts.after }}
+            {{ totalTextParts.before}}
+            <span :class="ns.e('footer-total-num')">{{ totalTextParts.total }}</span>
+            {{ totalTextParts.after }}
           </div>
           <el-pagination
             v-model:current-page="currentPage"

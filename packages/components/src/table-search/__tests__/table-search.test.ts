@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount, flushPromises } from '@vue/test-utils';
-import { markRaw, nextTick } from 'vue';
+import { markRaw, nextTick, defineComponent } from 'vue';
 import YTableSearch from '../src/table-search.vue';
 import type { TableSearchOption } from '../src/table-search';
 
@@ -147,17 +147,25 @@ describe('YTableSearch', () => {
     });
 
     it('应该正确设置ElInputNumber、ElTimePicker、ElTreeSelect的默认值', () => {
+      const stubComp = (name: string) =>
+        markRaw(
+          defineComponent({
+            name,
+            template: `<div class="${name}"></div>`
+          })
+        );
+
       const options: TableSearchOption[] = [
         {
           prop: 'inputNumber',
           label: '数字输入',
-          comp: markRaw({ name: 'ElInputNumber' } as any),
+          comp: stubComp('ElInputNumber'),
           first: true
         },
         {
           prop: 'timePicker',
           label: '时间选择',
-          comp: markRaw({ name: 'ElTimePicker' } as any),
+          comp: stubComp('ElTimePicker'),
           innerAttrs: {
             isRange: false
           }
@@ -165,7 +173,7 @@ describe('YTableSearch', () => {
         {
           prop: 'timePickerRange',
           label: '时间范围选择',
-          comp: markRaw({ name: 'ElTimePicker' } as any),
+          comp: stubComp('ElTimePicker'),
           innerAttrs: {
             isRange: true
           }
@@ -173,7 +181,7 @@ describe('YTableSearch', () => {
         {
           prop: 'treeSelect',
           label: '树形选择',
-          comp: markRaw({ name: 'ElTreeSelect' } as any),
+          comp: stubComp('ElTreeSelect'),
           innerAttrs: {
             multiple: false
           }
@@ -181,7 +189,7 @@ describe('YTableSearch', () => {
         {
           prop: 'treeSelectMultiple',
           label: '树形多选',
-          comp: markRaw({ name: 'ElTreeSelect' } as any),
+          comp: stubComp('ElTreeSelect'),
           innerAttrs: {
             multiple: true
           }
@@ -958,7 +966,7 @@ describe('YTableSearch', () => {
 
       // 获取插槽调用参数并验证关键属性
       const slotCallArg = slotContent.mock.calls[0][0];
-      console.log('插槽参数结构:', JSON.stringify(slotCallArg, null, 2));
+      // console.log('插槽参数结构:', JSON.stringify(slotCallArg, null, 2));
 
       expect(slotCallArg.prop).toBe('custom');
       expect(slotCallArg.value).toBe('');

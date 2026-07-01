@@ -28,7 +28,10 @@ function run(command, cwd = rootDir) {
 run('node scripts/pre-publish-check.cjs --artifacts');
 
 if (target === 'main') {
-  run(`npm publish --registry=https://registry.npmjs.org/ ${otp}`.trim(), path.join(rootDir, 'dist'));
+  run(
+    `npm publish --registry=https://registry.npmjs.org/ ${otp}`.trim(),
+    path.join(rootDir, 'dist')
+  );
 } else {
   run(`pnpm publish -F yun-elp-mcp --access public --no-git-checks ${otp}`.trim());
 }

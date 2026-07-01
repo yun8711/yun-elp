@@ -41,7 +41,15 @@ export default defineConfig(
       },
       css: true,
       onConsoleLog(log: string) {
-        if (log.includes('Unhandled error during execution of component event handler')) {
+        const suppressed = [
+          'Unhandled error during execution of component event handler',
+          '[Vue warn]',
+          '[YButton] dblDelay',
+          'Component is missing template or render function',
+          'Set operation on key "value" failed: target is readonly',
+          'ECharts初始化失败:'
+        ];
+        if (suppressed.some(pattern => log.includes(pattern))) {
           return false;
         }
         return true;

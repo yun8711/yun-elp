@@ -185,12 +185,14 @@ describe('YTextTooltip 组件', () => {
     });
 
     it('lineClamp 属性 - 数字类型转换', async () => {
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
       // 由于lineClamp定义为Number类型，字符串'2'会被转换为数字2
       const wrapper = createWrapper({ lineClamp: '2' as any });
       await nextTick();
       const contentEl = wrapper.find('.y-text-tooltip__content');
       // 验证样式被正确应用（即使传入字符串，也会被处理）
       expect(contentEl.exists()).toBe(true);
+      consoleSpy.mockRestore();
     });
 
     it('width 属性 - 数字类型', async () => {
