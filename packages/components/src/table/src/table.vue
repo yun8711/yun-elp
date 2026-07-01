@@ -22,9 +22,12 @@
       <slot name="footer">
         <div :class="ns.e('footer-default')">
           <div :class="ns.e('footer-total')">
-            {{ t('table.total') }}
-            <span :class="ns.e('footer-total-num')">{{ paginationProps.total }}</span>
-            <span>{{ t('table.items') }}</span>
+            {{ totalTextParts.before
+
+
+
+            }}<span :class="ns.e('footer-total-num')">{{ totalTextParts.total }}</span
+            >{{ totalTextParts.after }}
           </div>
           <el-pagination
             v-model:current-page="currentPage"
@@ -114,6 +117,15 @@ const paginationProps = computed(() => {
 const restPaginationProps = computed(() =>
   omit(paginationProps.value, ['currentPage', 'pageSize'])
 );
+
+const totalTextParts = computed(() => {
+  const [before = '', after = ''] = t('table.totalText').split('{total}');
+  return {
+    before,
+    after,
+    total: paginationProps.value.total
+  };
+});
 
 const currentPage = ref(paginationProps.value.currentPage ?? 1);
 const pageSize = ref(paginationProps.value.pageSize ?? 10);

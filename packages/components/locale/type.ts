@@ -46,7 +46,6 @@ export type YunElpLanguage = {
     selectAtLeastTwoHours: string;
   };
   table: {
-    total: string;
-    items: string;
+    totalText: string;
   };
 };

@@ -46,7 +46,6 @@ export default {
     placeholder: 'Cron式を選択してください'
   },
   table: {
-    total: '合計',
-    items: '件のデータ'
+    totalText: '合計 {total} 件のデータ'
   }
 } as YunElpLanguage;

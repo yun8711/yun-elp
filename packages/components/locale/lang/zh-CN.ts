@@ -46,7 +46,6 @@ export default {
     placeholder: '请选择Cron表达式'
   },
   table: {
-    total: '共',
-    items: '项数据'
+    totalText: '共 {total} 项数据'
   }
 } as YunElpLanguage;

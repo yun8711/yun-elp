@@ -56,8 +56,7 @@ export default {
     placeholder: 'Please select Cron expression'
   },
   table: {
-    total: 'Total',
-    items: 'items of data'
+    totalText: 'Total {total} items'
   }
 
   // Button component

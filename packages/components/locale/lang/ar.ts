@@ -46,7 +46,6 @@ export default {
     placeholder: 'يرجى اختيار تعبير Cron'
   },
   table: {
-    total: 'الإجمالي',
-    items: 'عناصر من البيانات'
+    totalText: 'الإجمالي {total} عنصر'
   }
 } as YunElpLanguage;
