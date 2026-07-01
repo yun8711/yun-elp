@@ -60,6 +60,7 @@ export interface AppWrapProps {
   button?: {
     delay?: string | number | undefined;
     maxWait?: string | number | undefined;
+    dblDelay?: number;
   };
   // drawer的配置
   drawer?: DrawerProps & {

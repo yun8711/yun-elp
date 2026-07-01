@@ -21,9 +21,6 @@ export const defaultConfig: AppWrapProps = {
     keyboardNavigation: true,
     size: 'default',
     zIndex: 2000,
-    button: {
-      autoInsertSpace: true
-    },
     message: {
       max: 3,
       grouping: true,

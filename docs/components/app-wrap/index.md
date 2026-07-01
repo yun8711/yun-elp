@@ -17,6 +17,15 @@ AppWrap 是一个应用容器，一般用在应用最外层，主要作用是：
 
 向后代组件传递的配置参数只是为了从全局角度简化组件的配置和使用，所以它的优先级最低
 
+`elpConfig.button.autoInsertSpace` 控制两个汉字之间是否自动插入空格，默认 `true`；`y-button` 底层为 `el-button`，与 `el-button` 共用该配置，无需在 `button` 上重复设置。
+
+```vue
+<y-app-wrap :elp-config="{ button: { autoInsertSpace: false } }">
+  <y-button>确定</y-button>
+  <el-button>取消</el-button>
+</y-app-wrap>
+```
+
 ## 语言配置（locale）
 
 `locale` 用于指定 `y-app-wrap` 子树内的语言。配置为 `'zh-cn'`、`'en'`、`'ja'`、`'ar'` 之一时：

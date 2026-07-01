@@ -10,7 +10,7 @@ import { useNamespace } from '../../../hooks/use-namespace';
 vi.mock('element-plus', () => ({
   ElConfigProvider: {
     name: 'ElConfigProvider',
-    props: ['locale', 'size', 'zIndex', 'namespace'],
+    props: ['locale', 'size', 'zIndex', 'namespace', 'button'],
     template: '<div class="el-config-provider" v-bind="$attrs"><slot></slot></div>',
     inheritAttrs: true
   }
@@ -190,6 +190,22 @@ describe('YAppWrap 应用容器', () => {
         }
       });
       expect(wrapper.vm.$props.yNamespace).toBe('y');
+
+      const provider = wrapper.findComponent({ name: 'ElConfigProvider' });
+      expect(provider.props('button')).toEqual({ autoInsertSpace: true });
+    });
+
+    it('应该将 elpConfig.button.autoInsertSpace 传递给 el-config-provider', () => {
+      const wrapper = createWrapper({
+        elpConfig: {
+          button: {
+            autoInsertSpace: false
+          }
+        }
+      });
+
+      const provider = wrapper.findComponent({ name: 'ElConfigProvider' });
+      expect(provider.props('button')).toEqual({ autoInsertSpace: false });
     });
   });
 
