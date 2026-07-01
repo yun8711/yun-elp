@@ -1,4 +1,5 @@
-import type { ExtractPublicPropTypes, PropType } from 'vue';
+import type { ExtractPublicPropTypes, PropType, VNode } from 'vue';
+import { Comment, Fragment, Text } from 'vue';
 import type { ButtonProps as ElButtonProps } from 'element-plus';
 
 export interface ButtonEmits {
@@ -28,6 +29,57 @@ export interface ButtonCustomProps {
 
 // 完整的props类型，包含ElButtonProps和自定义props
 export type ButtonProps = ButtonCustomProps & Partial<ElButtonProps>;
+
+/** 处理 boolean 属性简写（如 autoInsertSpace）在 attrs 中变为 "" 的情况 */
+export function normalizeBooleanProp(value: unknown): boolean | undefined {
+  if (value === undefined) return undefined;
+  if (value === '' || value === true) return true;
+  if (value === false || value === null) return false;
+  return Boolean(value);
+}
+
+/** 从 default slot 中提取纯文本（支持 Fragment / 空白节点） */
+export function collectPlainTextFromSlot(nodes: VNode[]): string | null {
+  const parts: string[] = [];
+
+  const walk = (items: VNode[]): boolean => {
+    for (const node of items) {
+      if (node.type === Comment) continue;
+
+      if (node.type === Text) {
+        parts.push(String(node.children ?? ''));
+        continue;
+      }
+
+      if (node.type === Fragment) {
+        const { children } = node;
+        if (typeof children === 'string') {
+          parts.push(children);
+          continue;
+        }
+        if (Array.isArray(children) && walk(children as VNode[])) {
+          continue;
+        }
+      }
+
+      return false;
+    }
+
+    return true;
+  };
+
+  if (!walk(nodes)) return null;
+
+  const text = parts.join('').trim();
+  return text.length ? text : null;
+}
+
+const TWO_CHAR_CHINESE_REG = /^\p{Unified_Ideograph}{2}$/u;
+
+export function shouldInsertSpaceForText(text: string, autoInsertSpace: boolean): boolean {
+  if (!autoInsertSpace) return false;
+  return TWO_CHAR_CHINESE_REG.test(text);
+}
 
 export const buttonProps = {
   model: {

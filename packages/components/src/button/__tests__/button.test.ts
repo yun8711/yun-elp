@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { nextTick, h } from 'vue';
+import { nextTick, h, defineComponent, Text } from 'vue';
 import YButton from '../src/button.vue';
 // Mock VueUse functions
 vi.mock('@vueuse/core', async importOriginal => {
@@ -133,7 +133,12 @@ vi.mock('../../../hooks/use-external-listener', () => ({
 }));
 
 import { appConfigKey } from '../../app-wrap/src/use-app-config';
-import { buttonProps } from '../src/button';
+import {
+  buttonProps,
+  collectPlainTextFromSlot,
+  normalizeBooleanProp,
+  shouldInsertSpaceForText
+} from '../src/button';
 
 // Mock YAppWrap组件用于测试provide配置
 const MockYAppWrap = {
@@ -145,6 +150,32 @@ const MockYAppWrap = {
       [appConfigKey]: this.$props
     };
   }
+};
+
+const mountWithElButtonAttrsProbe = (options: Parameters<typeof mount>[1] = {}) => {
+  let receivedAttrs: Record<string, unknown> = {};
+
+  const ElButtonProbe = defineComponent({
+    name: 'ElButton',
+    inheritAttrs: false,
+    setup(_props, { attrs }) {
+      receivedAttrs = attrs as Record<string, unknown>;
+      return () => h('button', { class: 'el-button' });
+    }
+  });
+
+  const wrapper = mount(YButton, {
+    ...options,
+    global: {
+      ...options?.global,
+      stubs: {
+        'el-button': ElButtonProbe,
+        ...options?.global?.stubs
+      }
+    }
+  });
+
+  return { wrapper, getElButtonAttrs: () => receivedAttrs };
 };
 
 describe('YButton 防抖按钮组件', () => {
@@ -1067,7 +1098,65 @@ describe('YButton 防抖按钮组件', () => {
     });
   });
 
+  describe('autoInsertSpace 处理', () => {
+    it('normalizeBooleanProp 应将空字符串视为 true', () => {
+      expect(normalizeBooleanProp('')).toBe(true);
+      expect(normalizeBooleanProp(true)).toBe(true);
+      expect(normalizeBooleanProp(false)).toBe(false);
+      expect(normalizeBooleanProp(undefined)).toBe(undefined);
+    });
+
+    it('collectPlainTextFromSlot 应合并空白文本节点', () => {
+      expect(
+        collectPlainTextFromSlot([
+          { type: Text, children: '\n  ' },
+          { type: Text, children: '按钮' },
+          { type: Text, children: '\n  ' }
+        ] as any)
+      ).toBe('按钮');
+    });
+
+    it('shouldInsertSpaceForText 应识别两个汉字', () => {
+      expect(shouldInsertSpaceForText('按钮', true)).toBe(true);
+      expect(shouldInsertSpaceForText('按钮', false)).toBe(false);
+      expect(shouldInsertSpaceForText('确定提交', true)).toBe(false);
+    });
+
+    it('纯文本按钮在 autoInsertSpace 开启时应添加 expand 类', () => {
+      const wrapper = mount(YButton, {
+        attrs: {
+          autoInsertSpace: true
+        },
+        slots: {
+          default: '按钮'
+        }
+      });
+
+      expect(wrapper.find('.el-button__text--expand').exists()).toBe(true);
+    });
+  });
+
   describe('配置优先级测试', () => {
+    it('应该透传 autoInsertSpace 属性', async () => {
+      const { getElButtonAttrs } = mountWithElButtonAttrsProbe({
+        attrs: {
+          autoInsertSpace: false
+        }
+      });
+
+      expect(getElButtonAttrs().autoInsertSpace).toBe(false);
+    });
+
+    it('autoInsertSpace 布尔简写应解析为 true', async () => {
+      const { getElButtonAttrs } = mountWithElButtonAttrsProbe({
+        attrs: {
+          autoInsertSpace: ''
+        }
+      });
+
+      expect(getElButtonAttrs().autoInsertSpace).toBe(true);
+    });
+
     it('props的delay应该优先于模拟配置', async () => {
       // 设置模拟配置
       mockAppConfig = { delay: 600 };

@@ -5,34 +5,62 @@
     v-bind="attrs"
     @click="handleClick"
     @dblclick="handleDoubleClick">
-    <slot />
+    <span
+      v-if="normalizedDefaultText != null"
+      :class="{ [elButtonTextExpandClass]: shouldAddSpace }"
+      >{{ normalizedDefaultText }}</span
+    >
+    <slot v-else />
     <slot name="icon" />
     <slot name="loading" />
   </el-button>
 </template>
 
 <script setup lang="ts">
-import { ElButton } from 'element-plus'
+import { ElButton, useGlobalConfig } from 'element-plus'
 import { useDebounceFn, useThrottleFn } from '@vueuse/core'
-import { computed, ref, useAttrs, watch } from 'vue'
+import { computed, ref, useAttrs, useSlots, watch } from 'vue'
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useExternalListener } from '../../../hooks/use-external-listener';
 import { useNamespace } from '../../../hooks/use-namespace';
-import type { ButtonCustomProps, ButtonEmits } from './button';
+import {
+  buttonProps,
+  collectPlainTextFromSlot,
+  normalizeBooleanProp,
+  shouldInsertSpaceForText,
+  type ButtonEmits
+} from './button';
 
 defineOptions({
   name: 'YButton',
-  inheritAttrs: true
+  inheritAttrs: false
 });
 
-// 用于接收el-button的属性
 const attrs = useAttrs()
-// 用于接收组件自定义的props
-const props = defineProps<ButtonCustomProps>()
+const slots = useSlots()
+const props = defineProps(buttonProps)
 const buttonConfig = useAppConfig('button')
+const globalButtonConfig = useGlobalConfig('button')
 const ns = useNamespace('button')
 const emit = defineEmits<ButtonEmits>()
 const { hasExternalListener } = useExternalListener()
+// 格式化默认文本
+const normalizedDefaultText = computed(() => collectPlainTextFromSlot(slots.default?.() ?? []))
+
+const resolvedAutoInsertSpace = computed(() => {
+  const explicit = normalizeBooleanProp(attrs.autoInsertSpace)
+  if (explicit !== undefined) return explicit
+  return globalButtonConfig.value?.autoInsertSpace ?? false
+})
+// 是否需要在两个字符之间插入空格
+const shouldAddSpace = computed(() => {
+  const text = normalizedDefaultText.value
+  if (text == null) return false
+  return shouldInsertSpaceForText(text, resolvedAutoInsertSpace.value)
+})
+// el-button中，两个字段之间的间距，是通过letter-spacing:0.3em实现的
+const elButtonTextExpandClass = computed(() => `${ns.el('button')}__text--expand`)
+
 // 防抖延迟时间
 const delay = computed(() => {
   if (props.delay !== undefined && props.delay !== null) {
