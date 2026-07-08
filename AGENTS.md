@@ -74,6 +74,22 @@
 - 如果改动涉及打包、安装器接线或导出链路，需要检查 `packages/components/defaults.ts`、`packages/components/index.ts` 以及相关构建脚本。
 - 如果改动会影响面向 MCP 的文档或组件 API，开发收尾应执行 `pnpm mcp:sync`，并将生成的 `components.ts` 与文档一并提交；不要在发布流程中再 extract。
 
+## element-plus 版本策略
+
+- element-plus 在开发侧通过 `pnpm-workspace.yaml` catalog + `pnpm-lock.yaml` 事实锁定；发布侧在 `packages/elp/package.json` 中以 `peerDependencies` 声明兼容范围，实际版本由下游项目决定。
+- 不要把 peerDependencies 钉死到精确版本；仅在确认某个 EP 版本存在不兼容问题时，才针对性收紧范围（如 `">=2.14.0 <2.15.0"`）并在文档注明。
+- 升级 element-plus 必须作为独立、主动的动作执行（修改 catalog 后 `pnpm install`），不要通过 `pnpm update` 顺带升级。
+- 组件封装应降低对 EP 内部行为的耦合：向 EP 组件透传 props 时只传使用者显式传入的项（参考 `text-tooltip` 按 `vnode.props` 过滤的做法），避免 Vue 布尔 prop 默认值 `false` 被误透传；谨慎依赖 EP 内部文件路径（如 `element-plus/theme-chalk/src/*`）与 popper 类名等未公开约定。
+
+### EP 升级回归清单
+
+升级 element-plus 版本后，发版前至少完成：
+
+1. `pnpm typecheck` 与 `pnpm test` 全部通过
+2. 在 play 中人工回归深度包装 EP 的组件：`text-tooltip`、`desc`、`table`、`dialog`、`drawer`、`pop`、`form`，重点验证 tooltip/popper 弹出行为与样式
+3. `pnpm build` 通过（EP 内部 scss 路径变动会在此暴露）
+4. 若声明的 peer 兼容范围下限与升级后版本跨度较大，确认范围下限版本仍可用，或同步上调 peer 范围并在发版说明中注明
+
 ## 验证要求
 
 根据改动选择最小但合理的验证集合，不要跳过明显应做的检查：

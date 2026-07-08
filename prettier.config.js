@@ -18,7 +18,7 @@ export default {
   // 在对象，数组括号与文字之间加空格，(true：有，false：没有)
   bracketSpacing: true,
   // 将 > 多行元素放在最后一行的末尾，而不是单独放在下一行 (true：放末尾，false：单独一行)
-  bracketSameLine: true,
+  bracketSameLine: false,
   // 箭头函数参数只有一个时是否要有小括号 (avoid：省略括号，always：不省略括号)
   arrowParens: 'avoid',
   // 仅格式化在文件顶部以特殊注释标明的代码（称为编译指示）
