@@ -2,6 +2,18 @@
 
 
 
+## [1.8.1](https://github.com/yun8711/yun-elp/compare/v1.8.0...v1.8.1) (2026-07-08)
+
+
+### Bug Fixes
+
+* **components:** :bug: 修复 text-tooltip 布尔 prop 误透传及 flex 场景下截断失效问题 ([59d496e](https://github.com/yun8711/yun-elp/commit/59d496e21d6c9a3b1ae0fce8759206543495a2d0))
+
+
+### Styles
+
+* **other:** :art: 按新格式化规则全仓重排 Vue 模板属性换行风格 ([d5f09b0](https://github.com/yun8711/yun-elp/commit/d5f09b0650961e00b732f17cfe144b31110844f1))
+
 ## [1.8.0](https://github.com/yun8711/yun-elp/compare/v1.7.0...v1.8.0) (2026-07-01)
 
 
