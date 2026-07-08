@@ -2,16 +2,21 @@
   <el-tooltip
     ref="tooltipRef"
     v-bind="tooltipAttrs"
-    :disabled="!showTooltip">
+    :disabled="!showTooltip"
+  >
     <div :class="ns.b()">
       <div
         ref="textRef"
         :class="ns.e('content')"
-        :style="computedTextStyle">
+        :style="computedTextStyle"
+      >
         <slot />
       </div>
     </div>
-    <template #content>
+    <template
+      v-if="$slots.content"
+      #content
+    >
       <slot name="content" />
     </template>
   </el-tooltip>
@@ -26,11 +31,15 @@ import {
   onUpdated,
   onUnmounted,
   useTemplateRef,
+  useSlots,
   watch,
   toRefs,
-  nextTick
+  nextTick,
+  getCurrentInstance,
+  camelize
 } from 'vue';
 import { ElTooltip } from 'element-plus';
+import { pickBy } from 'lodash-es';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useNamespace } from '../../../hooks/use-namespace';
 
@@ -41,6 +50,7 @@ defineOptions({
 
 const textTooltipConfig = useAppConfig('textTooltip');
 const ns = useNamespace('text-tooltip');
+const slots = useSlots();
 const props = withDefaults(defineProps<TextTooltipProps>(), {
   lineClamp: 1,
   width: '100%',
@@ -50,21 +60,31 @@ const props = withDefaults(defineProps<TextTooltipProps>(), {
 
 const { lineClamp, width, model, textStyle } = toRefs(props);
 
+const instance = getCurrentInstance();
+
 // 合并tooltipProps
 const tooltipAttrs = computed((): Record<string, any> => {
   const configAttrs: Record<string, any> = textTooltipConfig?.tooltipProps || {};
   const { lineClamp: _, width: __, model: ___, textStyle: ____, ...restProps } = props;
-  const defaults = {
+  const defaults: Record<string, any> = {
     placement: 'top',
     showAfter: 50,
     hideAfter: 50,
     enterable: false,
     popperClass: ns.e('popper'),
-    teleported: false,
-    persistent: false,
-    content: getSlotContent(),
+    teleported: true,
+    persistent: false
   };
-  return { ...defaults, ...configAttrs, ...restProps };
+  // 仅当未提供 content 命名插槽时，自动从默认插槽提取文本作为 tooltip 内容
+  if (!slots.content) {
+    defaults.content = tooltipContent.value;
+  }
+  // Vue 会给未传入的 Boolean 类 prop 赋默认值 false（而非 undefined），若原样透传，
+  // visible: false 会让 el-tooltip 进入受控模式导致 hover 失效，
+  // 因此只透传使用者显式传入的 prop（以 vnode.props 的 key 为准）
+  const passedKeys = new Set(Object.keys(instance?.vnode.props ?? {}).map((key) => camelize(key)));
+  const passedProps = pickBy(restProps, (_value, key) => passedKeys.has(key));
+  return { ...defaults, ...configAttrs, ...passedProps };
 });
 
 const computedTextStyle = computed(() => {
@@ -77,10 +97,7 @@ const computedTextStyle = computed(() => {
 });
 
 const textRef = useTemplateRef<HTMLElement>('textRef');
-// 从默认插槽获取内容
-const getSlotContent = () => {
-  return textRef.value?.textContent || '';
-};
+const tooltipContent = ref('');
 
 const showTooltip = ref(true);
 
@@ -89,6 +106,11 @@ let resizeObserver: ResizeObserver | null = null;
 
 // 判断是否需要显示tooltip，即内容是否超长
 const getIsOverflow = () => {
+  // 更新 tooltip 内容（当未使用 content 插槽时）
+  if (!slots.content) {
+    tooltipContent.value = textRef.value?.textContent || '';
+  }
+
   if (model.value === 'none') {
     showTooltip.value = false;
   } else if (model.value === 'always') {

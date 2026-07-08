@@ -1,7 +1,10 @@
 @use './mixins/function' as *;
-@use 'element-plus/theme-chalk/src/tooltip.scss' as tooltip;
 
 #{y-class('text-tooltip')} {
+  // 作为 flex 子项时允许收缩（默认 min-width: auto 会被长文本撑开），保证内层截断与溢出检测生效
+  min-width: 0;
+  max-width: 100%;
+
   &__content {
     display: -webkit-box;
     align-self: center;
