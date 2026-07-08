@@ -3,7 +3,8 @@
     v-show="isStarted"
     v-bind="manageAttrs"
     :class="[ns.b(), { [ns.e('spinner')]: spinner && isStarted }]"
-    :percentage="percentage" />
+    :percentage="percentage"
+  />
 </template>
 
 <script setup lang="ts">

@@ -19,11 +19,7 @@ defineProps({
 
 <template>
   <slot>
-    <span
-      v-if="prefix"
-      class="mr-1"
-      >{{ prefix }}</span
-    >
+    <span v-if="prefix" class="mr-1">{{ prefix }}</span>
     <VpLink :href="url">
       {{ text }}
     </VpLink>

@@ -3,24 +3,20 @@
     <div
       v-for="(step, index) in computedOptions"
       :key="index"
-      :class="[ns.e('item'), { [ns.is('active')]: index <= activeIndex }]">
-      <slot
-        name="default"
-        :step="step"
-        :index="index"
-        :active="index <= activeIndex">
+      :class="[ns.e('item'), { [ns.is('active')]: index <= activeIndex }]"
+    >
+      <slot name="default" :step="step" :index="index" :active="index <= activeIndex">
         <div :class="[ns.e('item-content'), { [ns.is('inline')]: inlineLabel }]">
           <div :class="ns.e('item-index')">{{ index + 1 }}</div>
-          <div
-            v-if="step"
-            :class="ns.e('item-label')">
+          <div v-if="step" :class="ns.e('item-label')">
             {{ step }}
           </div>
         </div>
       </slot>
       <div
         v-if="index < computedOptions.length - 1"
-        :class="[ns.e('item-line'), { [ns.is('active')]: index < activeIndex }]" />
+        :class="[ns.e('item-line'), { [ns.is('active')]: index < activeIndex }]"
+      />
     </div>
   </div>
 </template>

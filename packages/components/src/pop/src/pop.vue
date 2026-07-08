@@ -1,32 +1,22 @@
 <template>
   <div :class="ns.b()">
-    <el-tooltip
-      v-bind="tooltipProps"
-      ref="tooltipRef"
-      :disabled="disabledTooltip">
+    <el-tooltip v-bind="tooltipProps" ref="tooltipRef" :disabled="disabledTooltip">
       <!-- 重要 -->
       <span>
         <el-popover
           v-bind="popoverProps"
           ref="popoverRef"
           v-model:visible="showPopover"
-          :disabled="noPop">
+          :disabled="noPop"
+        >
           <slot name="pop-content">
             <p>{{ popoverProps.content }}</p>
-            <div
-              v-if="!props.noFooter"
-              :class="ns.e('popover-footer')">
+            <div v-if="!props.noFooter" :class="ns.e('popover-footer')">
               <slot name="pop-footer">
-                <y-button
-                  v-if="!props.noCancel"
-                  v-bind="cancelProps"
-                  @click="cancelClick">
+                <y-button v-if="!props.noCancel" v-bind="cancelProps" @click="cancelClick">
                   {{ cancelText }}
                 </y-button>
-                <y-button
-                  v-if="!props.noConfirm"
-                  v-bind="confirmBtnProps"
-                  @click="confirmClick">
+                <y-button v-if="!props.noConfirm" v-bind="confirmBtnProps" @click="confirmClick">
                   {{ confirmText }}
                 </y-button>
               </slot>

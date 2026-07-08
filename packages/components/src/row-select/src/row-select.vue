@@ -7,26 +7,26 @@
       '--item-width': itemWidth,
       '--height': isFold ? minHeight + 'px' : maxHeight + 'px',
       '--gap': gap
-    }">
+    }"
+  >
     <!-- 左侧 label -->
     <div
       :class="[ns.e('label'), { [ns.em('label', 'separator')]: props.separator }]"
-      :style="labelStyles">
+      :style="labelStyles"
+    >
       {{ props.labelText }}
     </div>
 
     <!-- 中间选项列表 -->
     <div :class="ns.e('options-container')">
-      <div
-        ref="optionsBoxRef"
-        :class="ns.e('options')"
-        @click="onItemClick">
+      <div ref="optionsBoxRef" :class="ns.e('options')" @click="onItemClick">
         <!-- "全部"选项 -->
         <template v-if="props.showAll">
           <div
             :class="[ns.e('item'), { [ns.is('active')]: selectAll }]"
             :style="optionsItemStyles"
-            data-index="$all">
+            data-index="$all"
+          >
             <slot name="all">
               {{ props.allText }}
             </slot>
@@ -49,11 +49,10 @@
             item[props.defineProps?.disabled || 'disabled']
               ? undefined
               : item[props.defineProps?.value || 'value']
-          ">
+          "
+        >
           <div :class="ns.e('item-text')">
-            <slot
-              v-bind="item"
-              :index="index">
+            <slot v-bind="item" :index="index">
               {{ item[props.defineProps?.label || 'label'] }}
             </slot>
           </div>
@@ -63,14 +62,11 @@
 
     <!-- 右侧展开/收起按钮 -->
     <div :class="ns.e('fold')">
-      <div
-        v-if="showMore"
-        :class="ns.e('fold-inner')"
-        :style="btnStyles"
-        @click="() => trigger()">
+      <div v-if="showMore" :class="ns.e('fold-inner')" :style="btnStyles" @click="() => trigger()">
         <el-icon
           v-if="props.showIcon"
-          :class="[ns.el('icon--right'), { [`${ns.el('icon--right')}--reverse`]: !isFold }]">
+          :class="[ns.el('icon--right'), { [`${ns.el('icon--right')}--reverse`]: !isFold }]"
+        >
           <ArrowDown />
         </el-icon>
         <div :class="ns.e('fold-text')">

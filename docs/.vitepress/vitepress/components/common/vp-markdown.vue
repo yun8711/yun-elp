@@ -26,9 +26,7 @@ const parsed = computed(() => {
 </script>
 
 <template>
-  <div
-    class="markdown-wrapper"
-    v-html="parsed" />
+  <div class="markdown-wrapper" v-html="parsed" />
 </template>
 
 <style>

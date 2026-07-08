@@ -8,7 +8,8 @@
       width="500px"
       maxBodyHeight="500px"
       @confirm="handleConfirm"
-      @cancel="handleCancel">
+      @cancel="handleCancel"
+    >
       <div style="height: 500px;background-color: yellow;">这是 drawer 的内容</div>
       <div style="height: 500px;background-color:green;">这是 drawer 的内容</div>
     </y-dialog>

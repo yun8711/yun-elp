@@ -10,7 +10,8 @@
         :clearable="false"
         :placeholder="t('cronPicker.startTime')"
         :teleported="false"
-        @change="emitChange" />
+        @change="emitChange"
+      />
       <span :class="ns.e('text-gap-x')">{{ t('cronPicker.to') }}</span>
       <el-time-picker
         v-model="cronForm.endTime"
@@ -23,7 +24,8 @@
         }"
         :placeholder="t('cronPicker.endTime')"
         :teleported="false"
-        @change="emitChange" />
+        @change="emitChange"
+      />
       <span :class="ns.e('text-gap-start')">{{ t('cronPicker.at') }}</span>
     </div>
     <div :class="ns.e('row')">
@@ -32,12 +34,14 @@
         v-model="cronForm.perMinute"
         style="width: 120px;margin:0 4px;"
         :teleported="false"
-        @change="emitChange">
+        @change="emitChange"
+      >
         <el-option
           v-for="item in minuteOptions"
           :key="item.value"
           :label="item.label"
-          :value="item.value" />
+          :value="item.value"
+        />
       </el-select>
       <span>{{ t('cronPicker.runOnce') }}</span>
     </div>

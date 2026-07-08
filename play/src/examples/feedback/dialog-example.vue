@@ -5,17 +5,14 @@
     <div class="example-section">
       <h3>基础用法</h3>
       <p class="section-desc">内置确认 / 取消按钮，默认防抖；监听 confirm、cancel 事件。</p>
-      <y-button
-        type="primary"
-        @click="basicVisible = true">
-        打开对话框
-      </y-button>
+      <y-button type="primary" @click="basicVisible = true"> 打开对话框 </y-button>
       <y-dialog
         v-model="basicVisible"
         title="基础用法"
         width="520px"
         @confirm="handleConfirm('基础用法')"
-        @cancel="handleCancel('基础用法')">
+        @cancel="handleCancel('基础用法')"
+      >
         <p>这是对话框内容区域，可放置表单、提示信息等。</p>
         <p>AppWrap 全局 dialog 配置会作用于标题样式（如 titleStyle）。</p>
       </y-dialog>
@@ -31,13 +28,9 @@
         width="480px"
         body-max-height="240px"
         @confirm="handleConfirm('内容区滚动')"
-        @cancel="handleCancel('内容区滚动')">
-        <div
-          v-for="i in 10"
-          :key="i"
-          class="content-block">
-          内容块 {{ i }}
-        </div>
+        @cancel="handleCancel('内容区滚动')"
+      >
+        <div v-for="i in 10" :key="i" class="content-block">内容块 {{ i }}</div>
       </y-dialog>
     </div>
 
@@ -45,11 +38,7 @@
       <h3>无底部按钮</h3>
       <p class="section-desc">设置 show-footer 为 false，隐藏默认 footer。</p>
       <y-button @click="noFooterVisible = true">打开无 footer 对话框</y-button>
-      <y-dialog
-        v-model="noFooterVisible"
-        title="无底部按钮"
-        width="400px"
-        :show-footer="false">
+      <y-dialog v-model="noFooterVisible" title="无底部按钮" width="400px" :show-footer="false">
         <p>关闭请使用右上角关闭按钮或点击遮罩。</p>
       </y-dialog>
     </div>
@@ -67,7 +56,8 @@
         width="420px"
         align-center
         @confirm="handleConfirm('居中对话框')"
-        @cancel="handleCancel('居中对话框')">
+        @cancel="handleCancel('居中对话框')"
+      >
         <p>align-center 使对话框在视口中水平垂直居中。</p>
       </y-dialog>
       <y-dialog
@@ -75,7 +65,8 @@
         title="全屏对话框"
         fullscreen
         @confirm="handleConfirm('全屏对话框')"
-        @cancel="handleCancel('全屏对话框')">
+        @cancel="handleCancel('全屏对话框')"
+      >
         <p>fullscreen 模式下对话框占满整个视口。</p>
       </y-dialog>
     </div>

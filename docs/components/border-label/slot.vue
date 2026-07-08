@@ -6,9 +6,7 @@
       </el-icon>
     </template>
     <template #label>用户名</template>
-    <el-input
-      v-model="input"
-      placeholder="请输入用户名" />
+    <el-input v-model="input" placeholder="请输入用户名" />
     <template #suffix>
       <el-icon>
         <InfoFilled />

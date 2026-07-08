@@ -1,22 +1,12 @@
 <template>
   <div>
-    <y-page-progress
-      v-model="isStarted"
-      v-bind="config" />
+    <y-page-progress v-model="isStarted" v-bind="config" />
 
     <div class="controls">
-      <el-button
-        @click="startProgress"
-        type="primary"
-        :disabled="isStarted">
+      <el-button @click="startProgress" type="primary" :disabled="isStarted">
         {{ isStarted ? '加载中...' : '开始加载' }}
       </el-button>
-      <el-button
-        @click="completeProgress"
-        type="danger"
-        :disabled="!isStarted">
-        完成
-      </el-button>
+      <el-button @click="completeProgress" type="danger" :disabled="!isStarted"> 完成 </el-button>
     </div>
   </div>
 </template>

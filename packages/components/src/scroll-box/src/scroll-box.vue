@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="ns.b()"
-    :style="containerStyle">
+  <div :class="ns.b()" :style="containerStyle">
     <!-- 左侧按钮 -->
     <el-button
       v-if="showPrevButton"
@@ -10,24 +8,22 @@
       @click="handleClick('prev')"
       @dblclick="handleDoubleClick"
       @mousedown="handleMouseDown('prev')"
-      @mouseup="handleMouseUp">
+      @mouseup="handleMouseUp"
+    >
       <el-icon>
         <ArrowLeft />
       </el-icon>
     </el-button>
 
     <!-- 滚动容器 -->
-    <div
-      :class="ns.e('container')"
-      @wheel="handleWheel">
+    <div :class="ns.e('container')" @wheel="handleWheel">
       <el-scrollbar
         ref="scrollbarRef"
         v-bind="scrollbarProps"
         :class="ns.e('scrollbar')"
-        @scroll="handleScroll">
-        <div
-          ref="contentRef"
-          :class="ns.e('content')">
+        @scroll="handleScroll"
+      >
+        <div ref="contentRef" :class="ns.e('content')">
           <slot />
         </div>
       </el-scrollbar>
@@ -41,7 +37,8 @@
       @click="handleClick('next')"
       @dblclick="handleDoubleClick"
       @mousedown="handleMouseDown('next')"
-      @mouseup="handleMouseUp">
+      @mouseup="handleMouseUp"
+    >
       <el-icon>
         <ArrowRight />
       </el-icon>

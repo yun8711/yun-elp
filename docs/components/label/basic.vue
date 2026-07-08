@@ -1,11 +1,7 @@
 <template>
   <el-space direction="vertical">
     <y-label label="用户名">admin</y-label>
-    <y-label
-      label="密码"
-      colon=":"
-      >123456
-    </y-label>
+    <y-label label="密码" colon=":">123456 </y-label>
   </el-space>
 </template>
 

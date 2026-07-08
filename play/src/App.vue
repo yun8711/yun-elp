@@ -4,7 +4,8 @@
       v-model:theme="theme"
       :examples="examples"
       :app-wrap-config="appWrapConfig"
-      #default="{ curComponent }">
+      #default="{ curComponent }"
+    >
       <component :is="examples.find(item => item.value === curComponent)?.component" />
     </Layout>
   </el-config-provider>

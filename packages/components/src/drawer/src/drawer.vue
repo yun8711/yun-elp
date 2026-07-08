@@ -1,14 +1,8 @@
 <template>
-  <el-drawer
-    ref="drawerRef"
-    v-model="drawerVisible"
-    v-bind="drawerAttrs"
-    :class="ns.b()">
+  <el-drawer ref="drawerRef" v-model="drawerVisible" v-bind="drawerAttrs" :class="ns.b()">
     <template #header>
       <slot name="header">
-        <div
-          :class="ns.e('header-title')"
-          :style="titleStyle">
+        <div :class="ns.e('header-title')" :style="titleStyle">
           <slot name="title">
             {{ title }}
           </slot>
@@ -18,24 +12,16 @@
     <template #default>
       <slot />
     </template>
-    <template
-      v-if="props.showFooter"
-      #footer>
+    <template v-if="props.showFooter" #footer>
       <slot name="footer">
         <div :class="ns.e('footer-content')">
           <slot name="confirm">
-            <y-button
-              v-if="!props.noConfirm"
-              v-bind="confirmBtnProps"
-              @click="confirmClick">
+            <y-button v-if="!props.noConfirm" v-bind="confirmBtnProps" @click="confirmClick">
               {{ confirmText }}
             </y-button>
           </slot>
           <slot name="cancel">
-            <y-button
-              v-if="!props.noCancel"
-              v-bind="cancelBtnProps"
-              @click="cancelClick">
+            <y-button v-if="!props.noCancel" v-bind="cancelBtnProps" @click="cancelClick">
               {{ cancelText }}
             </y-button>
           </slot>

@@ -9,7 +9,8 @@
         :placeholder="t('cronPicker.time')"
         :clearable="false"
         :teleported="false"
-        @change="emitChange" />
+        @change="emitChange"
+      />
     </div>
   </div>
 </template>

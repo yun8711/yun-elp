@@ -1,13 +1,12 @@
 <template>
-  <div
-    :class="ns.b()"
-    :style="containerStyle">
+  <div :class="ns.b()" :style="containerStyle">
     <iframe
       ref="iframeRef"
       :class="ns.e('iframe')"
       :style="{border:border}"
       :src="src"
-      v-bind="iframeAttrs" />
+      v-bind="iframeAttrs"
+    />
   </div>
 </template>
 

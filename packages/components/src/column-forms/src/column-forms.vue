@@ -5,19 +5,17 @@
         <div
           v-for="item in mergedFormArr(scope)"
           :key="`${scope.$index}_${item.prop}`"
-          :style="item.style">
+          :style="item.style"
+        >
           <el-form-item
             :style="{ width: item.width || 'auto' }"
             v-bind="item.formAttrs"
             :prop="`${tableName}.${scope.$index}.${item.prop}`"
             @mouseenter="handleMouseEnter(`${scope.$index}_${item.prop}`)"
-            @mouseleave="handleMouseLeave(`${scope.$index}_${item.prop}`)">
+            @mouseleave="handleMouseLeave(`${scope.$index}_${item.prop}`)"
+          >
             <!-- 这里使用slot，方便在外部定义表单项 -->
-            <slot
-              :name="item.prop"
-              :scope="scope"
-              :row="scope.row"
-              :prop="item.prop" />
+            <slot :name="item.prop" :scope="scope" :row="scope.row" :prop="item.prop" />
             <!-- 这里是el-form-item的错误提示，以tooltip的形式展示-->
             <template #error="{ error }">
               <div>
@@ -25,7 +23,8 @@
                   v-bind="item.tipProps"
                   :content="error"
                   :disabled="!error"
-                  :visible="errorMessageMap[`${scope.$index}_${item.prop}`]">
+                  :visible="errorMessageMap[`${scope.$index}_${item.prop}`]"
+                >
                   <span :class="[formNs.e('error'), { [formNs.is('hidden')]: !error }]" />
                 </el-tooltip>
               </div>
@@ -35,10 +34,7 @@
       </div>
     </template>
     <template #header="{ column, $index }">
-      <slot
-        name="header"
-        :column="column"
-        :index="$index">
+      <slot name="header" :column="column" :index="$index">
         <span>{{ attrs.label }}</span>
       </slot>
     </template>

@@ -7,12 +7,14 @@
         collapse-tags
         style="width: 260px"
         :teleported="false"
-        @change="selectMultipleChange($event, 'months')">
+        @change="selectMultipleChange($event, 'months')"
+      >
         <el-option
           v-for="item in monthOptions"
           :key="item.value"
           :label="item.label"
-          :value="item.value" />
+          :value="item.value"
+        />
       </el-select>
     </div>
     <div :class="ns.e('row')">
@@ -22,12 +24,14 @@
         collapse-tags
         style="width: 260px"
         :teleported="false"
-        @change="selectMultipleChange($event, 'days')">
+        @change="selectMultipleChange($event, 'days')"
+      >
         <el-option
           v-for="item in dayOptions"
           :key="item.value"
           :label="item.label"
-          :value="item.value" />
+          :value="item.value"
+        />
       </el-select>
     </div>
 
@@ -40,7 +44,8 @@
         :clearable="false"
         :placeholder="t('cronPicker.time')"
         :teleported="false"
-        @change="emitChange" />
+        @change="emitChange"
+      />
     </div>
   </div>
 </template>

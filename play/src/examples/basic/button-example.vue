@@ -1,34 +1,10 @@
 <template>
-  <y-button
-    type="primary"
-    size="small"
-    ref="yButtonRef"
-    @click="handleClick"
-    >按钮</y-button
-  >
-  <y-button
-    type="primary"
-    autoInsertSpace
-    >按钮</y-button
-  >
-  <y-button
-    type="primary"
-    loading
-    size="large"
-    >按钮</y-button
-  >
-  <y-button
-    type="primary"
-    link
-    >按钮</y-button
-  >
+  <y-button type="primary" size="small" ref="yButtonRef" @click="handleClick">按钮</y-button>
+  <y-button type="primary" autoInsertSpace>按钮</y-button>
+  <y-button type="primary" loading size="large">按钮</y-button>
+  <y-button type="primary" link>按钮</y-button>
 
-  <el-button
-    ref="elButtonRef"
-    @click="handleClick2"
-    size="small"
-    >按钮</el-button
-  >
+  <el-button ref="elButtonRef" @click="handleClick2" size="small">按钮</el-button>
 </template>
 
 <script setup lang="ts">

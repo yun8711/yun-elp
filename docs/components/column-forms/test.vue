@@ -1,72 +1,46 @@
 <template>
-  <el-form
-    ref="formRef"
-    :model="form">
-    <el-form-item
-      label="字段列表"
-      prop="params"
-      hide-required-asterisk>
-      <y-table
-        :data="form.tableData"
-        :show-footer="false">
-        <y-column-forms
-          label="字段名称"
-          :options="nameFormOptions"
-          :inline="false">
+  <el-form ref="formRef" :model="form">
+    <el-form-item label="字段列表" prop="params" hide-required-asterisk>
+      <y-table :data="form.tableData" :show-footer="false">
+        <y-column-forms label="字段名称" :options="nameFormOptions" :inline="false">
           <template #name="{ row, prop }">
-            <el-input
-              v-model.trim.number="row[prop]"
-              placeholder="请输入英文名称"></el-input>
+            <el-input v-model.trim.number="row[prop]" placeholder="请输入英文名称"></el-input>
           </template>
           <template #nameCn="{ row, prop }">
-            <el-input
-              v-model.trim.number="row[prop]"
-              placeholder="请输入中文名称"></el-input>
+            <el-input v-model.trim.number="row[prop]" placeholder="请输入中文名称"></el-input>
           </template>
         </y-column-forms>
 
-        <y-column-forms
-          label="字段配置（inline布局）"
-          :options="formArr"
-          width="400px">
-          <template #type="{ row, prop }">
-            <el-select
-              v-model="row[prop]"
-              placeholder="字段类型"
-              :options="fieldTypeOptions"></el-select>
-          </template>
-          <template #length="{ row, prop }">
-            <el-input
-              v-model.trim.number="row[prop]"
-              placeholder="长度"></el-input>
-          </template>
-          <template #precision="{ row, prop }">
-            <el-input
-              v-model.trim.number="row[prop]"
-              placeholder="精度"></el-input>
-          </template>
-        </y-column-forms>
-
-        <y-column-forms
-          label="字段配置（flex布局）"
-          :options="formArr1"
-          :inline="false">
+        <y-column-forms label="字段配置（inline布局）" :options="formArr" width="400px">
           <template #type="{ row, prop }">
             <el-select
               v-model="row[prop]"
               placeholder="字段类型"
               :options="fieldTypeOptions"
-              type="simple"></el-select>
+            ></el-select>
           </template>
           <template #length="{ row, prop }">
-            <el-input
-              v-model="row[prop]"
-              placeholder="长度"></el-input>
+            <el-input v-model.trim.number="row[prop]" placeholder="长度"></el-input>
           </template>
           <template #precision="{ row, prop }">
-            <el-input
+            <el-input v-model.trim.number="row[prop]" placeholder="精度"></el-input>
+          </template>
+        </y-column-forms>
+
+        <y-column-forms label="字段配置（flex布局）" :options="formArr1" :inline="false">
+          <template #type="{ row, prop }">
+            <el-select
               v-model="row[prop]"
-              placeholder="精度"></el-input>
+              placeholder="字段类型"
+              :options="fieldTypeOptions"
+              type="simple"
+            ></el-select>
+          </template>
+          <template #length="{ row, prop }">
+            <el-input v-model="row[prop]" placeholder="长度"></el-input>
+          </template>
+          <template #precision="{ row, prop }">
+            <el-input v-model="row[prop]" placeholder="精度"></el-input>
           </template>
         </y-column-forms>
       </y-table>

@@ -3,35 +3,15 @@
     <section class="demo-block">
       <h3>布局用法</h3>
       <p class="tip">y-form 整合 el-form + el-row；y-form-item 整合 el-form-item + el-col</p>
-      <y-form
-        :model="layoutForm"
-        :rules="layoutRules"
-        label-width="120px"
-        :span="12"
-        :gutter="24">
-        <y-form-item
-          label="姓名"
-          prop="name">
-          <el-input
-            v-model="layoutForm.name"
-            placeholder="请输入姓名" />
+      <y-form :model="layoutForm" :rules="layoutRules" label-width="120px" :span="12" :gutter="24">
+        <y-form-item label="姓名" prop="name">
+          <el-input v-model="layoutForm.name" placeholder="请输入姓名" />
         </y-form-item>
-        <y-form-item
-          label="年龄"
-          prop="age">
-          <el-input-number
-            v-model="layoutForm.age"
-            :min="0"
-            placeholder="请输入年龄" />
+        <y-form-item label="年龄" prop="age">
+          <el-input-number v-model="layoutForm.age" :min="0" placeholder="请输入年龄" />
         </y-form-item>
-        <y-form-item
-          label="备注"
-          prop="remark"
-          :span="16">
-          <el-input
-            v-model="layoutForm.remark"
-            type="textarea"
-            placeholder="请输入备注" />
+        <y-form-item label="备注" prop="remark" :span="16">
+          <el-input v-model="layoutForm.remark" type="textarea" placeholder="请输入备注" />
         </y-form-item>
       </y-form>
     </section>
@@ -49,83 +29,78 @@
         :static-fields="['remark']"
         label-width="120px"
         :span="12"
-        :gutter="24">
-        <y-form-item
-          label="采购类型"
-          prop="type">
+        :gutter="24"
+      >
+        <y-form-item label="采购类型" prop="type">
           <el-select
             v-model="linkageForm.type"
             placeholder="请选择采购类型"
             clearable
-            style="width: 100%">
+            style="width: 100%"
+          >
             <el-option
               v-for="item in typeOptions"
               :key="item.value"
               :label="item.label"
-              :value="item.value" />
+              :value="item.value"
+            />
           </el-select>
         </y-form-item>
-        <y-form-item
-          label="大类"
-          prop="category">
+        <y-form-item label="大类" prop="category">
           <el-select
             v-model="linkageForm.category"
             placeholder="请选择大类"
             clearable
-            style="width: 100%">
+            style="width: 100%"
+          >
             <el-option
               v-for="item in categoryOptions"
               :key="item.value"
               :label="item.label"
-              :value="item.value" />
+              :value="item.value"
+            />
           </el-select>
         </y-form-item>
-        <y-form-item
-          label="小类"
-          prop="subCategory">
+        <y-form-item label="小类" prop="subCategory">
           <el-select
             v-model="linkageForm.subCategory"
             placeholder="请选择小类"
             clearable
-            style="width: 100%">
+            style="width: 100%"
+          >
             <el-option
               v-for="item in subCategoryOptions"
               :key="item.value"
               :label="item.label"
-              :value="item.value" />
+              :value="item.value"
+            />
           </el-select>
         </y-form-item>
-        <y-form-item
-          label="规格型号"
-          prop="spec">
+        <y-form-item label="规格型号" prop="spec">
           <el-select
             v-model="linkageForm.spec"
             placeholder="请选择规格型号"
             clearable
-            style="width: 100%">
+            style="width: 100%"
+          >
             <el-option
               v-for="item in specOptions"
               :key="item.value"
               :label="item.label"
-              :value="item.value" />
+              :value="item.value"
+            />
           </el-select>
         </y-form-item>
-        <y-form-item
-          label="备注"
-          prop="remark"
-          :span="24">
+        <y-form-item label="备注" prop="remark" :span="24">
           <el-input
             v-model="linkageForm.remark"
             type="textarea"
-            placeholder="请输入备注（不参与联动）" />
+            placeholder="请输入备注（不参与联动）"
+          />
         </y-form-item>
       </y-form>
       <div class="control-buttons">
-        <el-button
-          type="primary"
-          @click="handleSubmit"
-          >提交</el-button
-        >
+        <el-button type="primary" @click="handleSubmit">提交</el-button>
         <el-button @click="handleReset">重置</el-button>
       </div>
     </section>
@@ -139,32 +114,23 @@
         :debounce="debounceMs"
         label-width="120px"
         :span="12"
-        :gutter="24">
+        :gutter="24"
+      >
         <y-form-item label="防抖时间">
           <el-radio-group v-model="debounceMs">
             <el-radio :value="0">0ms（无防抖）</el-radio>
             <el-radio :value="300">300ms</el-radio>
           </el-radio-group>
         </y-form-item>
-        <y-form-item
-          label="关键词"
-          prop="keyword">
-          <el-input
-            v-model="debounceForm.keyword"
-            placeholder="快速输入测试防抖" />
+        <y-form-item label="关键词" prop="keyword">
+          <el-input v-model="debounceForm.keyword" placeholder="快速输入测试防抖" />
         </y-form-item>
-        <y-form-item
-          label="config 调用次数"
-          :span="24">
+        <y-form-item label="config 调用次数" :span="24">
           <span>{{ configCallCount }}</span>
         </y-form-item>
       </y-form>
       <div class="control-buttons">
-        <el-button
-          size="small"
-          @click="configCallCount = 0"
-          >重置计数</el-button
-        >
+        <el-button size="small" @click="configCallCount = 0">重置计数</el-button>
       </div>
     </section>
   </div>

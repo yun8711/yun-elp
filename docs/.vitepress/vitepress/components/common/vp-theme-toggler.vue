@@ -78,7 +78,8 @@ const beforeChange = () => {
       v-bind="$attrs"
       :before-change="beforeChange"
       :active-action-icon="DarkIcon"
-      :inactive-action-icon="LightIcon" />
+      :inactive-action-icon="LightIcon"
+    />
   </ClientOnly>
 </template>
 
@@ -95,9 +96,9 @@ const beforeChange = () => {
 }
 
 :deep(.dark-icon) {
-  border-radius: 50%;
   color: #cfd3dc;
   background-color: #141414;
+  border-radius: 50%;
 }
 
 :deep(.light-icon) {

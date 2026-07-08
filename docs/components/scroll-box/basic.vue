@@ -8,19 +8,14 @@
       :step="50"
       show-input
       input-size="small"
-      style="width: 300px" />
+      style="width: 300px"
+    />
   </el-form-item>
 
   <!-- 滚动容器 -->
-  <YScrollBox
-    :height="120"
-    class="scroll-box"
-    :width="containerWidth">
+  <YScrollBox :height="120" class="scroll-box" :width="containerWidth">
     <div class="content-wrapper">
-      <div
-        v-for="i in 4"
-        :key="i"
-        class="content-item">
+      <div v-for="i in 4" :key="i" class="content-item">
         <div class="item-number">{{ i }}</div>
       </div>
     </div>

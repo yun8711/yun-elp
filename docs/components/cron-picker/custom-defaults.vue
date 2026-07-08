@@ -4,14 +4,16 @@
     <y-cron-picker
       v-model="workTimeCron"
       :edit-default-value="workTimeDefaults"
-      @change="handleChange" />
+      @change="handleChange"
+    />
     <p>当前Cron表达式: {{ workTimeCron }}</p>
 
     <h3>指定时间执行</h3>
     <y-cron-picker
       v-model="specificTimeCron"
       :edit-default-value="specificTimeDefaults"
-      @change="handleChange" />
+      @change="handleChange"
+    />
     <p>当前Cron表达式: {{ specificTimeCron }}</p>
   </div>
 </template>

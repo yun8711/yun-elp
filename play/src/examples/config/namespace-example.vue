@@ -31,9 +31,7 @@
         </div>
         <div class="namespace-demo__actions">
           <y-button type="primary">主按钮</y-button>
-          <y-pop
-            tip-content="已启用自定义前缀"
-            pop-content="Popover 也使用自定义类名">
+          <y-pop tip-content="已启用自定义前缀" pop-content="Popover 也使用自定义类名">
             <template #default>
               <y-button>查看 Pop</y-button>
             </template>
@@ -49,11 +47,7 @@
           <code>{{ textColorVar }}</code>
         </div>
         <div class="namespace-demo__progress-actions">
-          <el-button
-            type="primary"
-            @click="loading = true"
-            >开始</el-button
-          >
+          <el-button type="primary" @click="loading = true">开始</el-button>
           <el-button @click="loading = false">结束</el-button>
         </div>
         <y-page-progress v-model="loading" />

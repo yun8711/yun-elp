@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="container"
-    dir="ltr">
+  <div class="container" dir="ltr">
     <header class="page-header">
       <h1>YUN-ELP 组件调试</h1>
       <p>左侧渲染组件，右侧控制环境、容器和示例切换。</p>
@@ -22,7 +20,8 @@
                   placeholder="选择要查看的组件"
                   :options="examples"
                   :teleported="false"
-                  @change="handleComponentChange">
+                  @change="handleComponentChange"
+                >
                 </el-select>
               </div>
             </div>
@@ -35,18 +34,12 @@
             <div class="control-grid control-grid--single">
               <div class="control-item">
                 <span class="control-item__label">容器语言</span>
-                <el-select
-                  v-model="demoLocale"
-                  :options="localeOptions"
-                  :teleported="false" />
+                <el-select v-model="demoLocale" :options="localeOptions" :teleported="false" />
               </div>
 
               <div class="control-item">
                 <span class="control-item__label">主题</span>
-                <el-select
-                  v-model="themeModel"
-                  :options="themeOptions"
-                  :teleported="false" />
+                <el-select v-model="themeModel" :options="themeOptions" :teleported="false" />
               </div>
             </div>
           </section>
@@ -63,10 +56,7 @@
 
               <div class="control-item">
                 <span class="control-item__label">缩放控制</span>
-                <el-switch
-                  v-model="isLocked"
-                  active-text="锁定"
-                  inactive-text="解锁" />
+                <el-switch v-model="isLocked" active-text="锁定" inactive-text="解锁" />
               </div>
 
               <div class="control-item">
@@ -76,7 +66,8 @@
                     v-model="backgroundColor"
                     show-alpha
                     :teleported="false"
-                    @change="handleBackgroundColorChange" />
+                    @change="handleBackgroundColorChange"
+                  />
                   <span class="color-value">{{ backgroundColor }}</span>
                 </div>
               </div>
@@ -108,15 +99,15 @@
           ref="sectionRef"
           class="demo-section"
           :class="{ 'is-locked': isLocked }"
-          :style="{ backgroundColor }">
+          :style="{ backgroundColor }"
+        >
           <y-app-wrap
             :key="demoLocale"
             :locale="demoLocale"
             :y-namespace="demoNamespaces.y"
-            v-bind="demoAppWrapProps">
-            <slot
-              :background-color="backgroundColor"
-              :cur-component="curComponent" />
+            v-bind="demoAppWrapProps"
+          >
+            <slot :background-color="backgroundColor" :cur-component="curComponent" />
           </y-app-wrap>
         </section>
       </div>

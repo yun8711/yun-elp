@@ -4,39 +4,27 @@
       :data="tableData"
       :loading="loading"
       :pagination-props="paginationProps"
-      @pagination-change="onPaginationChange">
+      @pagination-change="onPaginationChange"
+    >
       <!-- 基础文本 -->
-      <y-column-text
-        prop="name"
-        label="姓名" />
+      <y-column-text prop="name" label="姓名" />
 
       <!-- 链接态与点击事件 -->
-      <y-column-text
-        prop="name"
-        label="可点击"
-        :link="true"
-        @click="onRowClick" />
+      <y-column-text prop="name" label="可点击" :link="true" @click="onRowClick" />
 
       <!-- 自定义格式化显示 -->
-      <y-column-text
-        prop="age"
-        label="年龄(格式化)"
-        :formatter="formatAge" />
+      <y-column-text prop="age" label="年龄(格式化)" :formatter="formatAge" />
 
       <!-- 文本样式 -->
       <y-column-text
         prop="address"
         label="自定义文本样式"
-        :text-style="{ color: 'red', fontSize: '16px', fontWeight: '600' }" />
+        :text-style="{ color: 'red', fontSize: '16px', fontWeight: '600' }"
+      />
 
       <!-- 溢出 Tooltip 与禁用 -->
-      <y-column-text
-        prop="desc"
-        label="tooltip(默认)" />
-      <y-column-text
-        prop="desc"
-        label="无tooltip"
-        no-tip />
+      <y-column-text prop="desc" label="tooltip(默认)" />
+      <y-column-text prop="desc" label="无tooltip" no-tip />
 
       <!-- 自定义插槽 -->
       <y-column-text prop="status">
@@ -46,14 +34,9 @@
       </y-column-text>
 
       <!-- 配合y-text-tooltip自定义tooltip，注意要禁用column本身的tooltip -->
-      <y-column-text
-        prop="desc"
-        label="自定义tooltip"
-        no-tip>
+      <y-column-text prop="desc" label="自定义tooltip" no-tip>
         <template #default="{ value }">
-          <y-text-tooltip
-            :lineClamp="2"
-            placement="top-end">
+          <y-text-tooltip :lineClamp="2" placement="top-end">
             {{ value }}
           </y-text-tooltip>
         </template>

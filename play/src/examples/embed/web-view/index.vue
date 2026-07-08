@@ -7,7 +7,8 @@
     :border="border"
     id="20"
     @error="handleError"
-    @load="handleLoad" />
+    @load="handleLoad"
+  />
   <!-- </div> -->
 </template>
 

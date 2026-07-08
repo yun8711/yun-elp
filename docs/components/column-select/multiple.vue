@@ -1,22 +1,14 @@
 <template>
   <div>
-    <y-table
-      :data="tableData"
-      row-key="id"
-      @selection-change="multipleSelection = $event">
+    <y-table :data="tableData" row-key="id" @selection-change="multipleSelection = $event">
       <y-column-select
         :selectable="isSelectable"
         :disabled-tip="getDisabledTip"
-        reserve-selection />
-      <y-column-text
-        prop="name"
-        label="姓名" />
-      <y-column-text
-        prop="role"
-        label="角色" />
-      <y-column-text
-        prop="status"
-        label="状态" />
+        reserve-selection
+      />
+      <y-column-text prop="name" label="姓名" />
+      <y-column-text prop="role" label="角色" />
+      <y-column-text prop="status" label="状态" />
     </y-table>
 
     <p>多选结果：{{ multipleSelection.map(item => item.name).join('、') || '暂无' }}</p>

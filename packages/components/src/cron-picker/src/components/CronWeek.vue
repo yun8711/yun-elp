@@ -7,12 +7,14 @@
         collapse-tags
         style="width: 260px"
         :teleported="false"
-        @change="selectMultipleChange($event, 'weeks')">
+        @change="selectMultipleChange($event, 'weeks')"
+      >
         <el-option
           v-for="item in weekOptions"
           :key="item.value"
           :label="item.label"
-          :value="item.value" />
+          :value="item.value"
+        />
       </el-select>
     </div>
     <div :class="ns.e('row')">
@@ -24,7 +26,8 @@
         format="HH:mm"
         :placeholder="t('cronPicker.time')"
         :teleported="false"
-        @change="emitChange" />
+        @change="emitChange"
+      />
     </div>
   </div>
 </template>

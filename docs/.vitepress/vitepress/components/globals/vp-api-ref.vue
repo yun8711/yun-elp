@@ -17,7 +17,5 @@ const type = computed(() => {
 </script>
 
 <template>
-  <ApiTyping
-    type="Object"
-    :details="type" />
+  <ApiTyping type="Object" :details="type" />
 </template>

@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="ns.b()"
-    :dir="resolvedDirection">
+  <div :class="ns.b()" :dir="resolvedDirection">
     <el-config-provider v-bind="elpConfig">
       <slot />
     </el-config-provider>

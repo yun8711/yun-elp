@@ -4,22 +4,14 @@
       ref="singleTableRef"
       :data="tableData"
       highlight-current-row
-      @current-change="currentRow = $event">
-      <y-column-select
-        single
-        :selectable="isSelectable"
-        :disabled-tip="getDisabledTip">
+      @current-change="currentRow = $event"
+    >
+      <y-column-select single :selectable="isSelectable" :disabled-tip="getDisabledTip">
         <template #header>单选</template>
       </y-column-select>
-      <y-column-text
-        prop="name"
-        label="姓名" />
-      <y-column-text
-        prop="role"
-        label="角色" />
-      <y-column-text
-        prop="status"
-        label="状态" />
+      <y-column-text prop="name" label="姓名" />
+      <y-column-text prop="role" label="角色" />
+      <y-column-text prop="status" label="状态" />
     </y-table>
 
     <p>单选结果：{{ currentRow?.name || '暂无' }}</p>

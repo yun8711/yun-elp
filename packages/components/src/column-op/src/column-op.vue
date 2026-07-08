@@ -1,23 +1,16 @@
 <template>
   <el-table-column v-bind="mergedColumnAttrs">
     <template #default="scope">
-      <template
-        v-for="item in getOptions(scope).normalList"
-        :key="item.prop">
-        <slot
-          :name="item.prop"
-          :scope="scope"
-          :row="scope.row"
-          :prop="item.prop">
-          <y-pop
-            v-bind="getPopProps(item)"
-            v-on="getPopEvents(scope, item)">
+      <template v-for="item in getOptions(scope).normalList" :key="item.prop">
+        <slot :name="item.prop" :scope="scope" :row="scope.row" :prop="item.prop">
+          <y-pop v-bind="getPopProps(item)" v-on="getPopEvents(scope, item)">
             <y-button
               type="primary"
               link
               :disabled="item.disabled"
               :loading="item.loading"
-              v-on="getButtonEvents(scope, item)">
+              v-on="getButtonEvents(scope, item)"
+            >
               {{ item.label }}
             </y-button>
           </y-pop>
@@ -31,7 +24,8 @@
         :popper-class="ns.e('dropdown')"
         trigger="click"
         :visible="getDropdownVisible(scope.$index)"
-        @update:visible="setDropdownVisible(scope.$index, $event)">
+        @update:visible="setDropdownVisible(scope.$index, $event)"
+      >
         <template #reference>
           <el-icon :class="ns.e('dropdown-icon')">
             <MoreFilled />
@@ -40,16 +34,16 @@
         <div
           v-for="item in getOptions(scope).dropdownList"
           :key="item.prop"
-          :class="ns.e('dropdown-item')">
-          <y-pop
-            v-bind="getPopProps(item)"
-            v-on="getPopEvents(scope, item)">
+          :class="ns.e('dropdown-item')"
+        >
+          <y-pop v-bind="getPopProps(item)" v-on="getPopEvents(scope, item)">
             <y-button
               type="primary"
               link
               :disabled="item.disabled"
               :loading="item.loading"
-              v-on="getButtonEvents(scope, item)">
+              v-on="getButtonEvents(scope, item)"
+            >
               {{ item.label }}
             </y-button>
           </y-pop>
@@ -58,10 +52,7 @@
     </template>
 
     <template #header="{ column, $index }">
-      <slot
-        name="header"
-        :column="column"
-        :index="$index">
+      <slot name="header" :column="column" :index="$index">
         <span>{{ attrs.label }}</span>
       </slot>
     </template>

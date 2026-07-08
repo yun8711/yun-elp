@@ -10,7 +10,8 @@
         :loading="item.loading"
         :disabled="item.disabled"
         :style="itemStyles"
-        @click="onClick(item.value, item, index, $event)">
+        @click="onClick(item.value, item, index, $event)"
+      >
         <slot v-bind="{ item, index }">
           {{ item.label }}
         </slot>

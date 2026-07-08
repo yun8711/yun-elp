@@ -5,7 +5,8 @@
     @change="changeHandle"
     label-text="单选"
     single
-    all-text="不限"></y-row-select>
+    all-text="不限"
+  ></y-row-select>
 
   <div style="margin-top: 20px;">选中值：{{ value }}</div>
 </template>

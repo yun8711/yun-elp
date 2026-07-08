@@ -4,10 +4,12 @@
     :class="ns.b()"
     v-bind="elButtonAttrs"
     @click="handleClick"
-    @dblclick="handleDoubleClick">
+    @dblclick="handleDoubleClick"
+  >
     <span
       v-if="normalizedDefaultText != null"
-      :class="{ [elButtonTextExpandClass]: shouldAddSpace }">
+      :class="{ [elButtonTextExpandClass]: shouldAddSpace }"
+    >
       {{ normalizedDefaultText }}
     </span>
     <slot v-else />

@@ -7,23 +7,14 @@
       <p class="section-desc">
         拖动宽度与 line-clamp，切换 model 观察溢出检测；auto 模式仅在内容超出时显示 tooltip。
       </p>
-      <div
-        class="demo-box"
-        :style="{ width: `${containerWidth}px` }"
-      >
-        <y-text-tooltip
-          :line-clamp="lineClamp"
-          :model="model"
-        >
+      <div class="demo-box" :style="{ width: `${containerWidth}px` }">
+        <y-text-tooltip :line-clamp="lineClamp" :model="model">
           Self element set width 100px,Self element set width 100px,Self element set width 100px
         </y-text-tooltip>
 
         <el-divider />
 
-        <y-text-tooltip
-          :line-clamp="lineClamp"
-          :model="model"
-        >
+        <y-text-tooltip :line-clamp="lineClamp" :model="model">
           DeepSeek R1 模型已完成小版本升级，当前版本为 DeepSeek-R1-0528。用户通过官方网站、APP
           或小程序进入对话界面后，开启"深度思考"功能即可体验最新版本。API
           也已同步更新，调用方式不变。
@@ -32,24 +23,11 @@
 
       <div class="controls">
         <span>宽度：</span>
-        <el-slider
-          v-model="containerWidth"
-          style="width: 200px"
-          :max="600"
-          :min="80"
-        />
+        <el-slider v-model="containerWidth" style="width: 200px" :max="600" :min="80" />
         <span>line-clamp：</span>
-        <el-input-number
-          v-model="lineClamp"
-          :min="1"
-          :max="5"
-          :step="1"
-        />
+        <el-input-number v-model="lineClamp" :min="1" :max="5" :step="1" />
         <span>model：</span>
-        <el-select
-          v-model="model"
-          style="width: 120px"
-        >
+        <el-select v-model="model" style="width: 120px">
           <el-option
             v-for="item in modelOptions"
             :key="item.value"
@@ -64,10 +42,7 @@
       <h3>多行省略</h3>
       <p class="section-desc">line-clamp 大于 1 时按高度判断溢出，悬停查看完整内容。</p>
       <div class="demo-box narrow">
-        <y-text-tooltip
-          :line-clamp="3"
-          model="auto"
-        >
+        <y-text-tooltip :line-clamp="3" model="auto">
           这是一段较长的描述文本，用于演示多行省略与 tooltip 联动。当文本超过三行时，应自动出现
           tooltip； 若文本较短则不显示。优化后通过 ResizeObserver 与 IntersectionObserver
           在布局变化时重新计算。
@@ -82,18 +57,11 @@
         打开浮层后悬停长文本验证。
       </p>
       <div class="controls">
-        <el-popover
-          placement="bottom"
-          :width="280"
-          trigger="click"
-        >
+        <el-popover placement="bottom" :width="280" trigger="click">
           <template #reference>
             <el-button type="primary">Popover 内长文本</el-button>
           </template>
-          <y-text-tooltip
-            :line-clamp="2"
-            model="auto"
-          >
+          <y-text-tooltip :line-clamp="2" model="auto">
             {{ longText }}
           </y-text-tooltip>
         </el-popover>
@@ -104,10 +72,7 @@
             <el-dropdown-menu>
               <el-dropdown-item>
                 <div style="width: 200px">
-                  <y-text-tooltip
-                    :line-clamp="1"
-                    model="auto"
-                  >
+                  <y-text-tooltip :line-clamp="1" model="auto">
                     {{ longText }}
                   </y-text-tooltip>
                 </div>
@@ -126,11 +91,7 @@
       <el-button @click="delayedVisible = !delayedVisible">
         {{ delayedVisible ? '隐藏' : '显示' }}文本区域
       </el-button>
-      <div
-        v-if="delayedVisible"
-        class="demo-box narrow"
-        style="margin-top: 12px"
-      >
+      <div v-if="delayedVisible" class="demo-box narrow" style="margin-top: 12px">
         <y-text-tooltip model="auto">
           {{ longText }}
         </y-text-tooltip>

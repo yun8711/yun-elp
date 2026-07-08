@@ -1,34 +1,20 @@
 <template>
   <div class="table-search-example">
-    <y-table-search
-      :options="searchOptions"
-      @search="onSearch"
-      @reset="onReset">
+    <y-table-search :options="searchOptions" @search="onSearch" @reset="onReset">
       <template #status="{ prop, form }">
-        <el-select
-          v-model="form[prop]"
-          placeholder="请选择状态"
-          clearable
-          style="width: 100%">
-          <el-option
-            label="启用"
-            value="active" />
-          <el-option
-            label="禁用"
-            value="inactive" />
+        <el-select v-model="form[prop]" placeholder="请选择状态" clearable style="width: 100%">
+          <el-option label="启用" value="active" />
+          <el-option label="禁用" value="inactive" />
         </el-select>
       </template>
       <template #department="{ prop, form }">
-        <el-select
-          v-model="form[prop]"
-          placeholder="请选择部门"
-          clearable
-          style="width: 100%">
+        <el-select v-model="form[prop]" placeholder="请选择部门" clearable style="width: 100%">
           <el-option
             v-for="item in departmentOptions"
             :key="item.value"
             :label="item.label"
-            :value="item.value" />
+            :value="item.value"
+          />
         </el-select>
       </template>
       <template #right>
@@ -36,25 +22,12 @@
       </template>
     </y-table-search>
 
-    <y-table
-      :data="filteredData"
-      class="table-search-example__table">
-      <y-column-text
-        prop="name"
-        label="姓名" />
-      <y-column-text
-        prop="department"
-        label="部门" />
-      <y-column-text
-        prop="role"
-        label="角色" />
-      <y-column-text
-        prop="status"
-        label="状态"
-        :formatter="formatStatus" />
-      <y-column-text
-        prop="createTime"
-        label="创建时间" />
+    <y-table :data="filteredData" class="table-search-example__table">
+      <y-column-text prop="name" label="姓名" />
+      <y-column-text prop="department" label="部门" />
+      <y-column-text prop="role" label="角色" />
+      <y-column-text prop="status" label="状态" :formatter="formatStatus" />
+      <y-column-text prop="createTime" label="创建时间" />
     </y-table>
 
     <div class="table-search-example__result">

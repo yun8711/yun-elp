@@ -1,22 +1,12 @@
 <template>
   <div :style="{ width: width + '%' }">
-    <y-desc
-      :data="data"
-      :config="config"
-      :column="column" />
+    <y-desc :data="data" :config="config" :column="column" />
 
     <el-divider>宽度：{{ innerWidth + 'px' }}</el-divider>
 
-    <y-desc
-      :data="data"
-      :config="config"
-      :column="column"
-      border />
+    <y-desc :data="data" :config="config" :column="column" border />
   </div>
-  <el-slider
-    v-model="width"
-    :min="10"
-    :max="100" />
+  <el-slider v-model="width" :min="10" :max="100" />
 </template>
 
 <script setup>

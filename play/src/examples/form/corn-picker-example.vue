@@ -4,11 +4,10 @@
     :clearable="true"
     placeholder="请选择Cron表达式"
     @change="handleChange"
-    @confirm="handleConfirm" />
+    @confirm="handleConfirm"
+  />
 
-  <el-input
-    v-model="editCronValueTrunk"
-    clearable></el-input>
+  <el-input v-model="editCronValueTrunk" clearable></el-input>
 
   <el-popover trigger="click">
     <template #reference>

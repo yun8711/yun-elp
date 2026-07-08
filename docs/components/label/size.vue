@@ -4,7 +4,8 @@
     colon=":"
     height="100px"
     :label-style="labelStyle"
-    :content-style="contentStyle">
+    :content-style="contentStyle"
+  >
     Yingdu Building, Zhichun Road, BeijingYingdu Building, Zhichun Road, BeijingYingdu Building,
     Zhichun Road, BeijingYingdu Building, Zhichun Road
   </y-label>

@@ -1,56 +1,36 @@
 <template>
   <div class="table-example">
-    <el-card
-      shadow="never"
-      class="table-example__card">
+    <el-card shadow="never" class="table-example__card">
       <template #header>ColumnSelect 多选</template>
       <y-table
         :data="selectTableData"
         row-key="id"
         @select="onMultipleSelect"
-        @selection-change="multipleSelection = $event">
+        @selection-change="multipleSelection = $event"
+      >
         <y-column-select
           :selectable="isSelectable"
           :disabled-tip="getDisabledTip"
-          reserve-selection />
-        <y-column-text
-          prop="name"
-          label="姓名" />
-        <y-column-text
-          prop="role"
-          label="角色" />
-        <y-column-text
-          prop="status"
-          label="状态" />
+          reserve-selection
+        />
+        <y-column-text prop="name" label="姓名" />
+        <y-column-text prop="role" label="角色" />
+        <y-column-text prop="status" label="状态" />
       </y-table>
       <div class="table-example__result">
         多选结果：{{ multipleSelection.map(item => item.name).join('、') || '暂无' }}
       </div>
     </el-card>
 
-    <el-card
-      shadow="never"
-      class="table-example__card">
+    <el-card shadow="never" class="table-example__card">
       <template #header>ColumnSelect 单选</template>
-      <y-table
-        :data="selectTableData"
-        highlight-current-row
-        @current-change="currentRow = $event">
-        <y-column-select
-          single
-          :selectable="isSelectable"
-          :disabled-tip="getDisabledTip">
+      <y-table :data="selectTableData" highlight-current-row @current-change="currentRow = $event">
+        <y-column-select single :selectable="isSelectable" :disabled-tip="getDisabledTip">
           <template #header>单选</template>
         </y-column-select>
-        <y-column-text
-          prop="name"
-          label="姓名" />
-        <y-column-text
-          prop="role"
-          label="角色" />
-        <y-column-text
-          prop="status"
-          label="状态" />
+        <y-column-text prop="name" label="姓名" />
+        <y-column-text prop="role" label="角色" />
+        <y-column-text prop="status" label="状态" />
       </y-table>
       <div class="table-example__result">单选结果：{{ currentRow?.name || '暂无' }}</div>
     </el-card>

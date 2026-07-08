@@ -18,12 +18,8 @@ const decoded = computed(() => {
 </script>
 
 <template>
-  <div
-    v-show="visible"
-    class="example-source-wrapper">
-    <div
-      class="example-source"
-      v-html="decoded" />
+  <div v-show="visible" class="example-source-wrapper">
+    <div class="example-source" v-html="decoded" />
   </div>
 </template>
 

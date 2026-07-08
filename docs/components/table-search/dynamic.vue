@@ -1,20 +1,10 @@
 <template>
   <div>
-    <y-table-search
-      :options="options"
-      @search="onSearch"
-      @reset="onReset"
-      @change="onChange">
+    <y-table-search :options="options" @search="onSearch" @reset="onReset" @change="onChange">
       <template #type="{ prop, value, item, form }">
-        <el-select
-          v-model="form[prop]"
-          placeholder="请选择">
-          <el-option
-            label="用户"
-            value="user" />
-          <el-option
-            label="部门"
-            value="department" />
+        <el-select v-model="form[prop]" placeholder="请选择">
+          <el-option label="用户" value="user" />
+          <el-option label="部门" value="department" />
         </el-select>
       </template>
       <template #right>

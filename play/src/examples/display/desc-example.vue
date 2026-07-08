@@ -7,20 +7,13 @@
       <p class="section-desc">
         默认集成 y-text-tooltip，内容超出时自动省略并显示 tooltip。地址类长文本可悬停验证。
       </p>
-      <y-desc
-        :data="data"
-        :config="basicConfig"
-      />
+      <y-desc :data="data" :config="basicConfig" />
     </div>
 
     <div class="example-section">
       <h3>带边框</h3>
       <p class="section-desc">设置 border 属性展示边框样式。</p>
-      <y-desc
-        :data="data"
-        :config="basicConfig"
-        border
-      />
+      <y-desc :data="data" :config="basicConfig" border />
     </div>
 
     <div class="example-section">
@@ -30,10 +23,7 @@
         等配置。
       </p>
       <div class="controls">
-        <el-switch
-          v-model="globalNoTooltip"
-          active-text="全局禁用 tooltip"
-        />
+        <el-switch v-model="globalNoTooltip" active-text="全局禁用 tooltip" />
       </div>
       <y-desc
         :data="data"
@@ -50,12 +40,7 @@
         column 支持函数，根据组件宽度动态调整列数。拖动滑块观察布局与 tooltip 行为。
       </p>
       <div :style="{ width: `${containerWidth}%` }">
-        <y-desc
-          :data="data"
-          :config="columnConfig"
-          :column="responsiveColumn"
-          border
-        />
+        <y-desc :data="data" :config="columnConfig" :column="responsiveColumn" border />
         <p class="hint">当前容器宽度约 {{ innerWidth }}px，列数 {{ currentColumn }}</p>
       </div>
       <el-slider
@@ -69,11 +54,7 @@
     <div class="example-section">
       <h3>插槽用法</h3>
       <p class="section-desc">具名插槽与默认插槽混用；有 prop 时优先使用具名插槽。</p>
-      <y-desc
-        :data="data"
-        :config="slotConfig"
-        border
-      >
+      <y-desc :data="data" :config="slotConfig" border>
         <template #age-content="{ content }">
           <el-tag type="success">{{ content }} 岁</el-tag>
         </template>
@@ -92,20 +73,11 @@
         在 Popover 内使用 desc，验证 text-tooltip 在浮层场景下 tooltip
         不被裁剪、布局就绪后正确溢出检测。
       </p>
-      <el-popover
-        placement="bottom"
-        :width="480"
-        trigger="click"
-      >
+      <el-popover placement="bottom" :width="480" trigger="click">
         <template #reference>
           <el-button type="primary">Popover 内 Desc</el-button>
         </template>
-        <y-desc
-          :data="data"
-          :config="popoverConfig"
-          :column="1"
-          border
-        />
+        <y-desc :data="data" :config="popoverConfig" :column="1" border />
       </el-popover>
     </div>
   </div>

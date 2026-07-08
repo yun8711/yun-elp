@@ -1,7 +1,5 @@
 <template>
-  <y-echarts
-    :option="barChartOption"
-    :config="echartsConfig" />
+  <y-echarts :option="barChartOption" :config="echartsConfig" />
 </template>
 
 <script setup>

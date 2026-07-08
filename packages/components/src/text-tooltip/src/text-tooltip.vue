@@ -1,22 +1,11 @@
 <template>
-  <el-tooltip
-    ref="tooltipRef"
-    v-bind="tooltipAttrs"
-    :disabled="!showTooltip"
-  >
+  <el-tooltip ref="tooltipRef" v-bind="tooltipAttrs" :disabled="!showTooltip">
     <div :class="ns.b()">
-      <div
-        ref="textRef"
-        :class="ns.e('content')"
-        :style="computedTextStyle"
-      >
+      <div ref="textRef" :class="ns.e('content')" :style="computedTextStyle">
         <slot />
       </div>
     </div>
-    <template
-      v-if="$slots.content"
-      #content
-    >
+    <template v-if="$slots.content" #content>
       <slot name="content" />
     </template>
   </el-tooltip>

@@ -1,29 +1,16 @@
 <template>
   <y-table :data="tableData">
     <!-- 基础文本展示 -->
-    <y-column-text
-      prop="name"
-      label="姓名" />
+    <y-column-text prop="name" label="姓名" />
 
     <!-- 筛选+状态展示 -->
-    <y-column-filter
-      prop="status"
-      label="筛选+状态"
-      :config="config" />
+    <y-column-filter prop="status" label="筛选+状态" :config="config" />
 
     <!-- 只筛选不展示状态 -->
-    <y-column-filter
-      prop="status"
-      label="只展示筛选"
-      :config="config"
-      no-status />
+    <y-column-filter prop="status" label="只展示筛选" :config="config" no-status />
 
     <!-- 只展示状态不筛选 -->
-    <y-column-filter
-      prop="status"
-      label="只展示状态"
-      :config="config"
-      no-filter />
+    <y-column-filter prop="status" label="只展示状态" :config="config" no-filter />
   </y-table>
 </template>
 

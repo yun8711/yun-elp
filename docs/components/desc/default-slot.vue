@@ -1,18 +1,11 @@
 <template>
-  <y-desc
-    :data="data"
-    :config="config"
-    :column="2">
+  <y-desc :data="data" :config="config" :column="2">
     <template #label="{ item }">
       <el-icon><Warning /></el-icon>
       {{ item.label }}
     </template>
     <template #content="{ item, index }">
-      <el-tag
-        type="success"
-        v-if="index % 2 === 0"
-        >{{ item.content || '默认内容' }}</el-tag
-      >
+      <el-tag type="success" v-if="index % 2 === 0">{{ item.content || '默认内容' }}</el-tag>
       <span v-else>{{ item.content || '默认内容' }}</span>
     </template>
   </y-desc>

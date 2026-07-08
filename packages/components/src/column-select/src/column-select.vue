@@ -2,36 +2,32 @@
   <el-table-column
     v-bind="managedColumnAttrs"
     :type="single ? undefined : 'selection'"
-    :selectable="selectable">
-    <template
-      v-if="single"
-      #header="{ column, $index }">
-      <slot
-        name="header"
-        :table="table"
-        :column="column"
-        :index="$index" />
+    :selectable="selectable"
+  >
+    <template v-if="single" #header="{ column, $index }">
+      <slot name="header" :table="table" :column="column" :index="$index" />
     </template>
 
     <template #default="scope">
       <el-tooltip
         :disabled="!getDisabledTip(scope)"
         :content="getDisabledTip(scope)"
-        v-bind="managedTipProps">
-        <div
-          :class="ns.e('cell')"
-          @click.stop>
+        v-bind="managedTipProps"
+      >
+        <div :class="ns.e('cell')" @click.stop>
           <slot
             :scope="scope"
             :row="scope.row"
             :selected="isRowSelected(scope)"
-            :disabled="isDisabled(scope)">
+            :disabled="isDisabled(scope)"
+          >
             <el-checkbox
               :model-value="isRowSelected(scope)"
               :disabled="isDisabled(scope)"
               :class="{ [ns.e('radio')]: single }"
               @update:model-value="handleSelect(scope, Boolean($event))"
-              @click.stop />
+              @click.stop
+            />
           </slot>
         </div>
       </el-tooltip>

@@ -5,24 +5,16 @@
     <div class="example-section">
       <h3>基础用法</h3>
       <p class="section-desc">内置确认 / 取消按钮，默认防抖；监听 confirm、cancel 事件。</p>
-      <y-button
-        type="primary"
-        @click="basicVisible = true">
-        打开抽屉
-      </y-button>
+      <y-button type="primary" @click="basicVisible = true"> 打开抽屉 </y-button>
       <y-drawer
         v-model="basicVisible"
         title="基础用法"
         @confirm="handleConfirm('基础用法')"
-        @cancel="handleCancel('基础用法')">
+        @cancel="handleCancel('基础用法')"
+      >
         <p>这是抽屉内容区域，可放置表单、详情等。</p>
         <p>向下滚动可验证 body 区域滚动行为。</p>
-        <div
-          v-for="i in 8"
-          :key="i"
-          class="content-block">
-          内容块 {{ i }}
-        </div>
+        <div v-for="i in 8" :key="i" class="content-block">内容块 {{ i }}</div>
       </y-drawer>
     </div>
 
@@ -30,10 +22,7 @@
       <h3>无底部按钮</h3>
       <p class="section-desc">设置 show-footer 为 false，隐藏默认 footer。</p>
       <y-button @click="noFooterVisible = true">打开无 footer 抽屉</y-button>
-      <y-drawer
-        v-model="noFooterVisible"
-        title="无底部按钮"
-        :show-footer="false">
+      <y-drawer v-model="noFooterVisible" title="无底部按钮" :show-footer="false">
         <p>关闭请使用右上角关闭按钮或点击遮罩。</p>
       </y-drawer>
     </div>
@@ -51,7 +40,8 @@
         :direction="customDirection"
         :size="customSize"
         @confirm="handleConfirm(customTitle)"
-        @cancel="handleCancel(customTitle)">
+        @cancel="handleCancel(customTitle)"
+      >
         <p>当前方向：{{ customDirection }}，尺寸：{{ customSize }}</p>
       </y-drawer>
     </div>

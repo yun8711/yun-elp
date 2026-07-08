@@ -1,11 +1,7 @@
 <template>
   <div :class="ns.e('group')">
     <div :class="ns.e('row')">
-      <el-radio
-        v-model="cronForm.radio"
-        value="start"
-        :class="ns.e('radio')"
-        @change="emitChange">
+      <el-radio v-model="cronForm.radio" value="start" :class="ns.e('radio')" @change="emitChange">
         <span />
       </el-radio>
       <span :class="ns.e('text-gap-end')">{{ t('cronPicker.from') }}</span>
@@ -18,7 +14,8 @@
         :placeholder="t('cronPicker.startTime')"
         :disabled="startDisabled"
         :teleported="false"
-        @change="emitChange" />
+        @change="emitChange"
+      />
       <span :class="ns.e('text-gap-x')">{{ t('cronPicker.to') }}</span>
       <el-time-picker
         v-model="cronForm.endTime"
@@ -32,7 +29,8 @@
         :placeholder="t('cronPicker.endTime')"
         :clearable="false"
         :teleported="false"
-        @change="endTimeChange" />
+        @change="endTimeChange"
+      />
       <span :class="ns.e('text-gap-start')">{{ t('cronPicker.at') }}</span>
     </div>
 
@@ -43,27 +41,23 @@
         style="width: 120px;margin:0 4px;"
         :disabled="startDisabled"
         :teleported="false"
-        @change="emitChange">
+        @change="emitChange"
+      >
         <el-option
           v-for="item in perHourOptions"
           :key="item.value"
           :label="item.label"
-          :value="item.value" />
+          :value="item.value"
+        />
       </el-select>
       <span>{{ t('cronPicker.runOnce') }}</span>
     </div>
 
     <div :class="ns.e('row')">
-      <el-radio
-        v-model="cronForm.radio"
-        value="assign"
-        :class="ns.e('radio')"
-        @change="emitChange">
+      <el-radio v-model="cronForm.radio" value="assign" :class="ns.e('radio')" @change="emitChange">
         <span />
       </el-radio>
-      <span
-        :class="ns.e('label-gap')"
-        :style="{ width: labelWidth }">
+      <span :class="ns.e('label-gap')" :style="{ width: labelWidth }">
         {{ t('cronPicker.assignHours') }}
       </span>
       <el-select
@@ -73,19 +67,19 @@
         :disabled="assignDisabled"
         style="width:180px"
         :teleported="false"
-        @change="selectMultipleChange($event, 'assignHours')">
+        @change="selectMultipleChange($event, 'assignHours')"
+      >
         <el-option
           v-for="item in hourOptions"
           :key="item.value"
           :label="item.label"
-          :value="item.value" />
+          :value="item.value"
+        />
       </el-select>
     </div>
 
     <div :class="[ns.e('row'), ns.e('row-interval')]">
-      <span
-        :class="ns.e('label-gap')"
-        :style="{ width: labelWidth }">
+      <span :class="ns.e('label-gap')" :style="{ width: labelWidth }">
         {{ t('cronPicker.assignMinutes') }}
       </span>
       <el-select
@@ -93,12 +87,14 @@
         :disabled="assignDisabled"
         style="width:180px"
         :teleported="false"
-        @change="emitChange">
+        @change="emitChange"
+      >
         <el-option
           v-for="item in minuteOptions"
           :key="item.value"
           :label="item.label"
-          :value="item.value" />
+          :value="item.value"
+        />
       </el-select>
     </div>
   </div>

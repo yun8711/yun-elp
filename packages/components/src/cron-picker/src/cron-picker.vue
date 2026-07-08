@@ -1,10 +1,6 @@
 <template>
   <div :class="ns.b()">
-    <el-popover
-      :visible="popoverVisible"
-      :width="372"
-      placement="bottom"
-      popper-style="padding: 0">
+    <el-popover :visible="popoverVisible" :width="372" placement="bottom" popper-style="padding: 0">
       <template #reference>
         <el-input
           v-model="editCronValueTrunk"
@@ -13,44 +9,39 @@
           readonly
           @mouseenter="handleMouseEnter"
           @mouseleave="handleMouseLeave"
-          @click="openPopover">
+          @click="openPopover"
+        >
           <template #suffix>
-            <el-icon
-              v-if="isDeleteIcon"
-              :class="ns.e('clearable-icon')"
-              @click.stop="deleteClick">
+            <el-icon v-if="isDeleteIcon" :class="ns.e('clearable-icon')" @click.stop="deleteClick">
               <CircleClose />
             </el-icon>
           </template>
         </el-input>
       </template>
 
-      <div
-        ref="popoverRef"
-        :class="ns.e('content')">
+      <div ref="popoverRef" :class="ns.e('content')">
         <!--调度周期-->
         <div :class="ns.e('content-item')">
           <div :class="ns.e('form-label')">
             {{ t('cronPicker.period') }}
           </div>
           <div :class="ns.e('form-item')">
-            <el-select
-              v-model="period"
-              style="width: 260px"
-              :teleported="false">
+            <el-select v-model="period" style="width: 260px" :teleported="false">
               <el-option
                 v-for="item in periodOptions"
                 :key="item.value"
                 :label="item.label"
                 :disabled="disabledPeriod?.includes(item.value)"
-                :value="item.value" />
+                :value="item.value"
+              />
             </el-select>
             <component
               :is="currentComponent"
               ref="picker"
               :period="period"
               :new-default-value="newDefaultValue"
-              @change="onChange" />
+              @change="onChange"
+            />
           </div>
         </div>
         <!--Cron表达式-->
@@ -59,10 +50,7 @@
             {{ t('cronPicker.cron') }}
           </div>
           <div :class="ns.e('form-item')">
-            <el-input
-              :model-value="cron"
-              style="width: 260px"
-              disabled />
+            <el-input :model-value="cron" style="width: 260px" disabled />
           </div>
         </div>
         <!-- 预览-->
@@ -75,21 +63,15 @@
             style="width: 260px; height: 100%"
             :model-value="preTimeList"
             resize="none"
-            readonly />
+            readonly
+          />
         </div>
 
         <div :class="ns.e('content-actions')">
-          <el-button
-            type="default"
-            size="small"
-            text
-            @click="reset">
+          <el-button type="default" size="small" text @click="reset">
             {{ t('common.reset') }}
           </el-button>
-          <el-button
-            plain
-            size="small"
-            @click="confirm">
+          <el-button plain size="small" @click="confirm">
             {{ t('common.confirm') }}
           </el-button>
         </div>

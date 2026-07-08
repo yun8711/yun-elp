@@ -1,22 +1,17 @@
 <template>
-  <div
-    ref="containerRef"
-    :class="ns.b()">
+  <div ref="containerRef" :class="ns.b()">
     <!-- 左侧区域 -->
     <div
       v-if="$slots.left"
       ref="leftRef"
       :class="ns.e('left')"
-      :style="{ height: sideHeight + 'px', top: sideTop + 'px' }">
-      <slot
-        name="left"
-        :height="sideHeight" />
+      :style="{ height: sideHeight + 'px', top: sideTop + 'px' }"
+    >
+      <slot name="left" :height="sideHeight" />
     </div>
 
     <!-- 内容区域 -->
-    <div
-      :class="ns.e('content')"
-      :style="contentStyle">
+    <div :class="ns.e('content')" :style="contentStyle">
       <slot />
     </div>
 
@@ -25,10 +20,9 @@
       v-if="$slots.right"
       ref="rightRef"
       :class="ns.e('right')"
-      :style="{ height: sideHeight + 'px', top: sideTop + 'px' }">
-      <slot
-        name="right"
-        :height="sideHeight" />
+      :style="{ height: sideHeight + 'px', top: sideTop + 'px' }"
+    >
+      <slot name="right" :height="sideHeight" />
     </div>
   </div>
 </template>

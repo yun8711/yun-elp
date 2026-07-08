@@ -3,21 +3,11 @@
     <!-- 样式选择器 -->
     <div class="style-selector">
       <el-form-item label="箭头样式">
-        <el-select
-          v-model="theme"
-          style="width:200px">
-          <el-option
-            label="默认主题"
-            value="default" />
-          <el-option
-            label="渐变主题"
-            value="gradient" />
-          <el-option
-            label="圆角主题"
-            value="rounded" />
-          <el-option
-            label="阴影主题"
-            value="shadow" />
+        <el-select v-model="theme" style="width:200px">
+          <el-option label="默认主题" value="default" />
+          <el-option label="渐变主题" value="gradient" />
+          <el-option label="圆角主题" value="rounded" />
+          <el-option label="阴影主题" value="shadow" />
         </el-select>
       </el-form-item>
     </div>
@@ -30,18 +20,18 @@
         :arrow-style="arrowStyle"
         :step="80"
         continuous
-        wheel-scroll>
+        wheel-scroll
+      >
         <div class="cards-wrapper">
           <div
             v-for="(card, index) in cards"
             :key="index"
             class="card"
-            :class="{ 'featured': card.featured }">
+            :class="{ 'featured': card.featured }"
+          >
             <div class="card-header">
               <div class="card-icon">{{ card.icon }}</div>
-              <div
-                class="card-badge"
-                v-if="card.badge">
+              <div class="card-badge" v-if="card.badge">
                 {{ card.badge }}
               </div>
             </div>
@@ -60,11 +50,7 @@
                   {{ card.rating }}
                 </span>
               </div>
-              <el-button
-                type="primary"
-                size="small"
-                :icon="card.buttonIcon"
-                round>
+              <el-button type="primary" size="small" :icon="card.buttonIcon" round>
                 {{ card.buttonText }}
               </el-button>
             </div>

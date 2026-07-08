@@ -1,8 +1,5 @@
 <template>
-  <y-pop
-    tip-content="点击触发popover"
-    @confirm="confirm"
-    @cancel="cancel">
+  <y-pop tip-content="点击触发popover" @confirm="confirm" @cancel="cancel">
     <el-button type="primary">默认popover</el-button>
   </y-pop>
 
@@ -11,7 +8,8 @@
     @confirm="confirm"
     @cancel="cancel"
     pop-title="自定义popover标题"
-    pop-content="自定义popover内容">
+    pop-content="自定义popover内容"
+  >
     <el-button type="primary">自定义popover文本</el-button>
   </y-pop>
 

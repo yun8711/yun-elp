@@ -78,10 +78,7 @@ const copyCode = async () => {
 
 <template>
   <!-- danger here DO NOT USE INLINE SCRIPT TAG -->
-  <div
-    text="sm"
-    m="y-4"
-    v-html="decodedDescription" />
+  <div text="sm" m="y-4" v-html="decodedDescription" />
 
   <div class="example">
     <!-- 组件示例 -->
@@ -138,7 +135,8 @@ const copyCode = async () => {
         content="复制代码"
         :show-arrow="false"
         :trigger="['hover', 'focus']"
-        :trigger-keys="[]">
+        :trigger-keys="[]"
+      >
         <!-- :aria-label="locale['copy-code']" -->
         <ElIcon
           :size="16"
@@ -148,7 +146,8 @@ const copyCode = async () => {
           role="button"
           @click="copyCode"
           @keydown.prevent.enter="copyCode"
-          @keydown.prevent.space="copyCode">
+          @keydown.prevent.space="copyCode"
+        >
           <i-ri-file-copy-line />
         </ElIcon>
       </ElTooltip>
@@ -157,13 +156,15 @@ const copyCode = async () => {
         content="查看源码"
         :show-arrow="false"
         :trigger="['hover', 'focus']"
-        :trigger-keys="[]">
+        :trigger-keys="[]"
+      >
         <button
           ref="sourceCodeRef"
           :aria-label="sourceVisible ? '隐藏源码' : '查看源码'
           "
           class="reset-btn el-icon op-btn"
-          @click="toggleSourceVisible()">
+          @click="toggleSourceVisible()"
+        >
           <ElIcon :size="16">
             <i-ri-code-line />
           </ElIcon>
@@ -172,9 +173,7 @@ const copyCode = async () => {
     </div>
     <!-- 源码文本展示 -->
     <ElCollapseTransition>
-      <SourceCode
-        :visible="sourceVisible"
-        :source="source" />
+      <SourceCode :visible="sourceVisible" :source="source" />
     </ElCollapseTransition>
 
     <!-- 收起源码 -->
@@ -185,7 +184,8 @@ const copyCode = async () => {
         tabindex="0"
         role="button"
         @click="toggleSourceVisible(false)"
-        @keydown="onSourceVisibleKeydown">
+        @keydown="onSourceVisibleKeydown"
+      >
         <ElIcon :size="16">
           <CaretTop />
         </ElIcon>
@@ -203,17 +203,17 @@ const copyCode = async () => {
   .example-showcase {
     padding: 1.5rem;
     margin: 0.5px;
+    overflow: auto;
     background-color: var(--bg-color);
     border-radius: var(--el-border-radius-base);
-    overflow: auto;
   }
 
   .op-btns {
-    padding: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     height: 2.5rem;
+    padding: 0.5rem;
 
     .el-icon {
       &:hover {
@@ -223,13 +223,13 @@ const copyCode = async () => {
 
     .op-btn {
       margin: 0 0.5rem;
-      cursor: pointer;
       color: var(--text-color-lighter);
+      cursor: pointer;
       transition: 0.2s;
 
       &.github a {
-        transition: 0.2s;
         color: var(--text-color-lighter);
+        transition: 0.2s;
 
         &:hover {
           color: var(--text-color);
@@ -239,27 +239,27 @@ const copyCode = async () => {
   }
 
   &-float-control {
+    position: sticky;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top: 1px solid var(--border-color);
     height: 44px;
-    box-sizing: border-box;
-    background-color: var(--bg-color, #fff);
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
     margin-top: -1px;
     color: var(--el-text-color-secondary);
     cursor: pointer;
-    position: sticky;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10;
+    background-color: var(--bg-color, #fff);
+    border-top: 1px solid var(--border-color);
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
 
     span {
-      font-size: 14px;
       margin-left: 10px;
+      font-size: 14px;
     }
 
     &:hover {

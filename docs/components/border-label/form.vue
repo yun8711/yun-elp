@@ -4,51 +4,33 @@
       <el-input v-model="state1" />
     </y-border-label>
     <y-border-label label="el-input-number">
-      <el-input-number
-        v-model="state2"
-        :min="1"
-        :max="10" />
+      <el-input-number v-model="state2" :min="1" :max="10" />
     </y-border-label>
     <y-border-label label="el-autocomplete">
-      <el-autocomplete
-        v-model="state3"
-        :fetch-suggestions="querySearch" />
+      <el-autocomplete v-model="state3" :fetch-suggestions="querySearch" />
     </y-border-label>
     <y-border-label label="el-select">
-      <el-select
-        v-model="state4"
-        style="width:200px">
-        <el-option
-          v-for="item in list"
-          :key="item.value"
-          :label="item.value"
-          :value="item.value" />
+      <el-select v-model="state4" style="width:200px">
+        <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.value" />
       </el-select>
     </y-border-label>
-    <y-border-label
-      label="el-select-v2"
-      width="300px">
-      <el-select-v2
-        v-model="state12"
-        :options="selectV2options" />
+    <y-border-label label="el-select-v2" width="300px">
+      <el-select-v2 v-model="state12" :options="selectV2options" />
     </y-border-label>
 
     <y-border-label label="el-date-picker:date">
-      <el-date-picker
-        v-model="state5"
-        type="date" />
+      <el-date-picker v-model="state5" type="date" />
     </y-border-label>
     <y-border-label label="el-date-picker:daterange">
       <el-date-picker
         v-model="state6"
         type="daterange"
         start-placeholder="Start date"
-        end-placeholder="End date" />
+        end-placeholder="End date"
+      />
     </y-border-label>
     <y-border-label label="el-date-picker:datetime">
-      <el-date-picker
-        v-model="state7"
-        type="datetime" />
+      <el-date-picker v-model="state7" type="datetime" />
     </y-border-label>
     <y-border-label label="el-time-picker">
       <el-time-picker v-model="state8" />
@@ -56,27 +38,15 @@
     <y-border-label label="el-time-select">
       <el-time-select v-model="state9" />
     </y-border-label>
-    <y-border-label
-      label="el-tree-select"
-      width="300px">
-      <el-tree-select
-        v-model="state11"
-        :data="treeData" />
+    <y-border-label label="el-tree-select" width="300px">
+      <el-tree-select v-model="state11" :data="treeData" />
     </y-border-label>
-    <y-border-label
-      label="el-cascader"
-      width="300px">
-      <el-cascader
-        v-model="state13"
-        :options="cascaderOptions" />
+    <y-border-label label="el-cascader" width="300px">
+      <el-cascader v-model="state13" :options="cascaderOptions" />
     </y-border-label>
 
-    <y-border-label
-      label="el-mention"
-      width="300px">
-      <el-mention
-        v-model="state10"
-        :options="mentionOptions" />
+    <y-border-label label="el-mention" width="300px">
+      <el-mention v-model="state10" :options="mentionOptions" />
     </y-border-label>
   </el-space>
 </template>

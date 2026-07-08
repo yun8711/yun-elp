@@ -7,67 +7,43 @@
     :static-fields="['remark']"
     label-width="120px"
     :span="12"
-    :gutter="24">
-    <y-form-item
-      label="采购类型"
-      prop="type">
-      <el-select
-        v-model="form.type"
-        placeholder="请选择采购类型"
-        clearable
-        style="width: 100%">
+    :gutter="24"
+  >
+    <y-form-item label="采购类型" prop="type">
+      <el-select v-model="form.type" placeholder="请选择采购类型" clearable style="width: 100%">
         <el-option
           v-for="item in typeOptions"
           :key="item.value"
           :label="item.label"
-          :value="item.value" />
+          :value="item.value"
+        />
       </el-select>
     </y-form-item>
-    <y-form-item
-      label="大类"
-      prop="category">
-      <el-select
-        v-model="form.category"
-        placeholder="请选择大类"
-        clearable
-        style="width: 100%">
+    <y-form-item label="大类" prop="category">
+      <el-select v-model="form.category" placeholder="请选择大类" clearable style="width: 100%">
         <el-option
           v-for="item in categoryOptions"
           :key="item.value"
           :label="item.label"
-          :value="item.value" />
+          :value="item.value"
+        />
       </el-select>
     </y-form-item>
-    <y-form-item
-      label="小类"
-      prop="subCategory">
-      <el-select
-        v-model="form.subCategory"
-        placeholder="请选择小类"
-        clearable
-        style="width: 100%">
+    <y-form-item label="小类" prop="subCategory">
+      <el-select v-model="form.subCategory" placeholder="请选择小类" clearable style="width: 100%">
         <el-option
           v-for="item in subCategoryOptions"
           :key="item.value"
           :label="item.label"
-          :value="item.value" />
+          :value="item.value"
+        />
       </el-select>
     </y-form-item>
-    <y-form-item
-      label="备注"
-      prop="remark"
-      :span="24">
-      <el-input
-        v-model="form.remark"
-        type="textarea"
-        placeholder="不参与联动" />
+    <y-form-item label="备注" prop="remark" :span="24">
+      <el-input v-model="form.remark" type="textarea" placeholder="不参与联动" />
     </y-form-item>
     <y-form-item :span="24">
-      <el-button
-        type="primary"
-        @click="handleSubmit"
-        >提交</el-button
-      >
+      <el-button type="primary" @click="handleSubmit">提交</el-button>
       <el-button @click="handleReset">重置</el-button>
     </y-form-item>
   </y-form>

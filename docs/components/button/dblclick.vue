@@ -1,8 +1,5 @@
 <template>
-  <y-button
-    @click="onClick"
-    @dblclick="onDblclick"
-    type="primary">
+  <y-button @click="onClick" @dblclick="onDblclick" type="primary">
     基础单双击测试：单击计数: {{ clickCount }}，双击计数: {{ dblclickCount }}
   </y-button>
 </template>

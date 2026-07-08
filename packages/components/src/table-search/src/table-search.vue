@@ -7,35 +7,29 @@
           <y-border-label
             v-for="item in visibleFirstOptions"
             :key="item.prop"
-            v-bind="item.borderAttrs">
+            v-bind="item.borderAttrs"
+          >
             <template v-if="item.custom">
               <slot
                 :name="item.prop"
                 :prop="item.prop"
                 :value="form[item.prop]"
                 :item="item"
-                :form="form" />
+                :form="form"
+              />
             </template>
             <template v-else>
               <component
                 :is="item.comp"
                 v-model="form[item.prop]"
                 v-bind="item.innerAttrs"
-                @update:model-value="handleValueUpdate(item.prop, $event)" />
+                @update:model-value="handleValueUpdate(item.prop, $event)"
+              />
             </template>
           </y-border-label>
           <div>
-            <y-button
-              type="primary"
-              model="debounce"
-              @click="onSearch">
-              查询
-            </y-button>
-            <y-button
-              model="debounce"
-              @click="onReset">
-              重置
-            </y-button>
+            <y-button type="primary" model="debounce" @click="onSearch"> 查询 </y-button>
+            <y-button model="debounce" @click="onReset"> 重置 </y-button>
           </div>
         </div>
       </template>
@@ -46,40 +40,31 @@
           <y-border-label
             v-for="item in visibleFirstOptions"
             :key="item.prop"
-            v-bind="item.borderAttrs">
+            v-bind="item.borderAttrs"
+          >
             <template v-if="item.custom">
               <slot
                 :name="item.prop"
                 :prop="item.prop"
                 :value="form[item.prop]"
                 :item="item"
-                :form="form" />
+                :form="form"
+              />
             </template>
             <template v-else>
               <component
                 :is="item.comp"
                 v-model="form[item.prop]"
                 v-bind="item.innerAttrs"
-                @update:model-value="handleValueUpdate(item.prop, $event)" />
+                @update:model-value="handleValueUpdate(item.prop, $event)"
+              />
             </template>
           </y-border-label>
 
           <div>
-            <y-button
-              type="primary"
-              model="debounce"
-              @click="onSearch">
-              查询
-            </y-button>
-            <y-button
-              model="debounce"
-              @click="onReset">
-              重置
-            </y-button>
-            <el-button
-              link
-              type="primary"
-              @click="toggleFold">
+            <y-button type="primary" model="debounce" @click="onSearch"> 查询 </y-button>
+            <y-button model="debounce" @click="onReset"> 重置 </y-button>
+            <el-button link type="primary" @click="toggleFold">
               {{ isFold ? unFoldText : foldText }}
               <el-icon :class="ns.el('icon--right')">
                 <ArrowDown v-if="isFold" />
@@ -90,27 +75,28 @@
         </div>
         <!-- 使用 Transition 包裹 -->
         <el-collapse-transition :style="{ 'transition-duration': `${props.duration}s` }">
-          <div
-            v-show="!isFold"
-            :class="ns.e('left-more')">
+          <div v-show="!isFold" :class="ns.e('left-more')">
             <y-border-label
               v-for="item in visibleMoreOptions"
               :key="item.prop"
-              v-bind="item.borderAttrs">
+              v-bind="item.borderAttrs"
+            >
               <template v-if="item.custom">
                 <slot
                   :name="item.prop"
                   :prop="item.prop"
                   :value="form[item.prop]"
                   :item="item"
-                  :form="form" />
+                  :form="form"
+                />
               </template>
               <template v-else>
                 <component
                   :is="item.comp"
                   v-model="form[item.prop]"
                   v-bind="item.innerAttrs"
-                  @update:model-value="handleValueUpdate(item.prop, $event)" />
+                  @update:model-value="handleValueUpdate(item.prop, $event)"
+                />
               </template>
             </y-border-label>
           </div>
@@ -118,9 +104,7 @@
       </template>
     </div>
 
-    <div
-      v-if="$slots.right"
-      :class="ns.e('right')">
+    <div v-if="$slots.right" :class="ns.e('right')">
       <slot name="right" />
     </div>
   </div>

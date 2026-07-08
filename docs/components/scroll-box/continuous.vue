@@ -4,9 +4,7 @@
       <el-switch v-model="enableContinuous" />
     </el-form-item>
 
-    <el-form-item
-      v-if="enableContinuous"
-      label="continuousTime">
+    <el-form-item v-if="enableContinuous" label="continuousTime">
       <el-slider
         v-model="continuousTime"
         :min="100"
@@ -14,12 +12,11 @@
         :step="50"
         show-input
         input-size="small"
-        style="width: 300px" />
+        style="width: 300px"
+      />
     </el-form-item>
 
-    <el-form-item
-      v-if="enableContinuous"
-      label="连续滚动步长">
+    <el-form-item v-if="enableContinuous" label="连续滚动步长">
       <el-slider
         v-model="continuousStep"
         :min="10"
@@ -27,7 +24,8 @@
         :step="5"
         show-input
         input-size="small"
-        style="width: 300px" />
+        style="width: 300px"
+      />
     </el-form-item>
 
     <el-form-item label="鼠标滚动">
@@ -43,12 +41,10 @@
       :wheel-scroll="enableWheel"
       :continuous="enableContinuous"
       :continuous-time="continuousTime"
-      :continuous-step="continuousStep">
+      :continuous-step="continuousStep"
+    >
       <div class="content-wrapper">
-        <div
-          v-for="i in 8"
-          :key="i"
-          class="content-item">
+        <div v-for="i in 8" :key="i" class="content-item">
           <div class="item-number">{{ i }}</div>
         </div>
       </div>

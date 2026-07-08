@@ -1,11 +1,7 @@
 <template>
-  <div
-    :class="[ns.b(), { [ns.m('border')]: showBorder }]"
-    :style="containerStyle">
+  <div :class="[ns.b(), { [ns.m('border')]: showBorder }]" :style="containerStyle">
     <div :class="ns.e('left')">
-      <div
-        :class="ns.e('left-title')"
-        :style="textStyle">
+      <div :class="ns.e('left-title')" :style="textStyle">
         <slot name="title">
           {{ displayTitle }}
         </slot>

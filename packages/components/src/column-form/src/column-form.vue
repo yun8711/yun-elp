@@ -1,29 +1,22 @@
 <template>
   <el-table-column v-bind="mergedColumnAttrs">
     <template #default="scope">
-      <slot
-        v-if="noFrom"
-        name="default"
-        :scope="scope"
-        :row="scope.row"
-        :prop="prop" />
+      <slot v-if="noFrom" name="default" :scope="scope" :row="scope.row" :prop="prop" />
       <el-form-item
         v-else
         v-bind="mergedFormAttrs(scope)"
         @mouseenter="handleMouseEnter(`${scope.$index}_${prop}`)"
-        @mouseleave="handleMouseLeave(`${scope.$index}_${prop}`)">
-        <slot
-          name="default"
-          :scope="scope"
-          :row="scope.row"
-          :prop="prop" />
+        @mouseleave="handleMouseLeave(`${scope.$index}_${prop}`)"
+      >
+        <slot name="default" :scope="scope" :row="scope.row" :prop="prop" />
         <template #error="{ error }">
           <div>
             <el-tooltip
               v-bind="mergedTipProps"
               :content="error"
               :disabled="!error"
-              :visible="errorMessageMap[`${scope.$index}_${prop}`]">
+              :visible="errorMessageMap[`${scope.$index}_${prop}`]"
+            >
               <span :class="[ns.e('error'), { [ns.is('hidden')]: !error }]" />
             </el-tooltip>
           </div>
@@ -31,10 +24,7 @@
       </el-form-item>
     </template>
     <template #header="{ column, $index }">
-      <slot
-        name="header"
-        :column="column"
-        :index="$index">
+      <slot name="header" :column="column" :index="$index">
         <span>{{ attrs.label }}</span>
       </slot>
     </template>
