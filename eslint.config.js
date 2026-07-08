@@ -135,8 +135,6 @@ export default [
       'vue/no-v-for-template-key-on-child': 'off',
       // 允许单行 HTML 元素不换行
       'vue/singleline-html-element-content-newline': 'off',
-      // 允许结束标签在同一行
-      'vue/html-closing-bracket-newline': 'off',
       // 允许 Mustache 插值不强制空格
       'vue/mustache-interpolation-spacing': 'off',
       // 允许从 @vue/runtime-core 导入
