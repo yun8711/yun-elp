@@ -2,7 +2,7 @@ import type { ExtractPublicPropTypes, PropType } from 'vue';
 import type { DescriptionItemProps } from 'element-plus';
 import type { TextTooltipProps } from '../../text-tooltip/src/text-tooltip';
 
-export type DescItem = DescriptionItemProps & {
+export type DescItem = Partial<DescriptionItemProps> & {
   content?: any;
   path?: string;
   prop?: string;
