@@ -111,4 +111,8 @@
   #{$selector} #{el-class('select__selection')} {
     font-size: var(#{el-var-name('font-size-base')});
   }
+
+  #{$selector} #{el-class('pagination')} {
+    --el-pagination-font-size: var(#{el-var-name('font-size-base')});
+  }
 }
