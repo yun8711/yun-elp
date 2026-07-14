@@ -30,7 +30,7 @@ drawer/test
 | title                 | 对话框标题                                                                                     | ^[string]                                       | `''`                                         |
 | title-style           | 标题样式                                                                                       | ^[object]`CSSProperties`                        | —                                            |
 | show-footer           | 是否显示底部按钮区域                                                                           | ^[boolean]                                      | `true`                                       |
-| no-fonfirm            | 是否隐藏确认按钮                                                                               | ^[boolean]                                      | `false`                                      |
+| no-confirm            | 是否隐藏确认按钮                                                                               | ^[boolean]                                      | `false`                                      |
 | confirm-text          | 确认按钮文本                                                                                   | ^[string]                                       | `'确定'`                                     |
 | confirm-props         | 确认按钮属性                                                                                   | ^[object]`YButtonProps`                         | ^[object]`{type:'primary',model:'debounce'}` |
 | no-cancel             | 是否隐藏取消按钮                                                                               | ^[boolean]                                      | `false`                                      |
