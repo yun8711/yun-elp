@@ -2,6 +2,15 @@ import type { ExtractPublicPropTypes, PropType } from 'vue';
 import type { DescriptionItemProps } from 'element-plus';
 import type { TextTooltipProps } from '../../text-tooltip/src/text-tooltip';
 
+/** 默认空值规则：null / undefined / 空字符串（字符串会先 trim） */
+export const defaultEmptyRule = (value: unknown): boolean => {
+  if (value === null || value === undefined) return true;
+  if (typeof value === 'string') return value.trim() === '';
+  return false;
+};
+
+export type DescEmptyRule = (value: any) => boolean;
+
 export type DescItem = Partial<DescriptionItemProps> & {
   content?: any;
   path?: string;
@@ -17,6 +26,10 @@ export type DescItem = Partial<DescriptionItemProps> & {
   format?: (value: any) => any; // 格式化函数
   // text-tooltip配置
   textTooltip?: TextTooltipProps;
+  // 空值时的显示内容
+  emptyText?: string;
+  // 空值规则，也就是什么情况下显示空值
+  emptyRule?: DescEmptyRule;
 };
 
 export interface DescProps {
@@ -37,9 +50,11 @@ export interface DescProps {
   // 对齐方式
   labelAlign?: 'left' | 'center' | 'right';
   contentAlign?: 'left' | 'center' | 'right';
-  // 空值显示
-  emptyText?: string;
   noTooltip?: boolean;
+  // 空值时的显示内容
+  emptyText?: string;
+  // 空值规则，也就是什么情况下显示空值
+  emptyRule?: DescEmptyRule;
 }
 
 export const descProps = {
@@ -82,6 +97,10 @@ export const descProps = {
   emptyText: {
     type: String as PropType<DescProps['emptyText']>,
     default: ''
+  },
+  emptyRule: {
+    type: Function as PropType<DescProps['emptyRule']>,
+    default: undefined
   },
   noTooltip: {
     type: Boolean as PropType<DescProps['noTooltip']>,

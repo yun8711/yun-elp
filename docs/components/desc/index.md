@@ -12,6 +12,7 @@ description: 描述列表
 - 一定程度上简化了组件的使用，使用Lodash的get方法获取值，外部提供数据及配置即可
 - 使用 grid 优化了布局，支持响应式（根据组件宽度动态调整列数）
 - 默认支持内容展示超宽省略及tooltip功能
+- 内置空值判定与空值占位文案，支持组件级 / 项级配置，也可通过 `y-app-wrap` 的 `desc` 全局配置统一设置
 
 注意：
 
@@ -37,6 +38,14 @@ desc/column
 
 :::
 
+### 空值处理
+
+:::demo 默认将 `null`、`undefined`、空字符串（含纯空白）视为空并显示 `empty-text`；`0`、`false` 正常展示。项级可覆盖 `emptyText` / `emptyRule`。
+
+desc/empty
+
+:::
+
 ### 默认插槽用法
 
 :::demo 当不指定具体的 prop 插槽时，可以使用默认的 `label` 和 `content` 插槽来统一自定义所有项的显示；
@@ -57,18 +66,25 @@ desc/slot
 
 ### Attributes
 
-| 属性名        | 说明                         | 类型                                               | 默认值         |
-| ------------- | ---------------------------- | -------------------------------------------------- | -------------- |
-| config        | 配置项数组                   | ^[object]`DescItem[]`                              | —              |
-| data          | 数据对象                     | ^[object]`Record<string, any>`                     | —              |
-| direction     | 布局方向，同 el-descriptions | ^[enum]`'horizontal' \| 'vertical'`                | `'horizontal'` |
-| column        | 列数                         | ^[number] / ^[function]`(width: number) => number` | `3`            |
-| labelWidth    | label 宽度                   | ^[string] / ^[number]                              | `'auto'`       |
-| label-style   | label 样式                   | ^[object]`CSSProperties`                           | —              |
-| content-style | content 样式                 | ^[object]`CSSProperties`                           | —              |
-| label-align   | label 文本对齐方式           | ^[enum]`'left' \| 'center' \| 'right'`             | `'left'`       |
-| content-align | content 文本对齐方式         | ^[enum]`'left' \| 'center' \| 'right'`             | `'left'`       |
-| empty-text    | content 内容为空时显示的内容 | ^[string]                                          | `''`           |
+| 属性名        | 说明                                                                              | 类型                                               | 默认值         |
+| ------------- | --------------------------------------------------------------------------------- | -------------------------------------------------- | -------------- |
+| config        | 配置项数组                                                                        | ^[object]`DescItem[]`                              | —              |
+| data          | 数据对象                                                                          | ^[object]`Record<string, any>`                     | —              |
+| direction     | 布局方向，同 el-descriptions                                                      | ^[enum]`'horizontal' \| 'vertical'`                | `'horizontal'` |
+| column        | 列数                                                                              | ^[number] / ^[function]`(width: number) => number` | `3`            |
+| labelWidth    | label 宽度                                                                        | ^[string] / ^[number]                              | `'auto'`       |
+| label-style   | label 样式                                                                        | ^[object]`CSSProperties`                           | —              |
+| content-style | content 样式                                                                      | ^[object]`CSSProperties`                           | —              |
+| label-align   | label 文本对齐方式                                                                | ^[enum]`'left' \| 'center' \| 'right'`             | `'left'`       |
+| content-align | content 文本对齐方式                                                              | ^[enum]`'left' \| 'center' \| 'right'`             | `'left'`       |
+| empty-text    | content 内容为空时显示的内容；未传时回退到 `y-app-wrap` 的 `desc.emptyText`       | ^[string]                                          | `''`           |
+| empty-rule    | 空值判定函数；未传时回退到 `y-app-wrap` 的 `desc.emptyRule`，再回退到内置默认规则 | ^[function]`(value: any) => boolean`               | 内置默认规则   |
+
+> 默认空值规则：`null`、`undefined`、`''` 视为空；字符串会先 `trim` 再判定，因此纯空白也会视为空。`0`、`false` 等合法业务值不会被当作空。
+>
+> 优先级：项级 `emptyRule` / `emptyText` > 组件 props > `y-app-wrap` 全局 `desc` 配置 > 内置默认。
+>
+> 自定义 `emptyRule` 会**完全替换**默认规则（非叠加）。若需保留默认并扩展，可自行组合，例如：`(v) => defaultEmptyRule(v) || (Array.isArray(v) && v.length === 0)`。
 
 #### DescItem Properties
 
@@ -87,6 +103,8 @@ desc/slot
 | span         | 列的数量；'column'表示占据整行，最好只在响应式列数时使用                           | ^[number] / `'column'`                        | `1`      |
 | format       | 内容格式化函数                                                                     | ^[function]`(value:any,item:DescItem) => any` | —        |
 | textTooltip  | y-text-tooltip组件的tooltip配置                                                    | ^[object]`Record<string, any>`                | —        |
+| emptyText    | 该项为空时显示的内容，优先级高于组件级 `empty-text`                                | ^[string]                                     | —        |
+| emptyRule    | 该项空值判定函数，优先级高于组件级 `empty-rule`；会完全替换默认规则                | ^[function]`(value: any) => boolean`          | —        |
 
 ### Slots
 

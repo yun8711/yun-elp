@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick, h } from 'vue';
 import YDesc from '../src/desc.vue';
@@ -27,7 +27,16 @@ vi.mock('@vueuse/core', async importOriginal => {
   };
 });
 
+const mockDescAppConfig = vi.fn(() => ({}) as Record<string, any>);
+
+vi.mock('../../app-wrap/src/use-app-config', () => ({
+  useAppConfig: (key?: string) => (key === 'desc' ? mockDescAppConfig() : {})
+}));
+
 describe('YDesc 组件测试', () => {
+  beforeEach(() => {
+    mockDescAppConfig.mockReturnValue({});
+  });
   const mockData = {
     name: '张三',
     age: 25,
@@ -177,11 +186,23 @@ describe('YDesc 组件测试', () => {
   });
 
   it('处理空值和emptyText', async () => {
-    const dataWithNull = { ...mockData, name: null, age: undefined };
+    const dataWithNull = {
+      ...mockData,
+      name: null,
+      age: undefined,
+      email: '',
+      address: '   ',
+      salary: 0,
+      status: false
+    };
     const config: DescItem[] = [
       { label: '姓名', path: 'name', prop: 'name' } as DescItem,
       { label: '年龄', path: 'age', prop: 'age' } as DescItem,
-      { label: '不存在字段', path: 'nonexistent', prop: 'nonexistent' } as DescItem
+      { label: '邮箱', path: 'email', prop: 'email' } as DescItem,
+      { label: '地址', path: 'address', prop: 'address' } as DescItem,
+      { label: '不存在字段', path: 'nonexistent', prop: 'nonexistent' } as DescItem,
+      { label: '薪资', path: 'salary', prop: 'salary' } as DescItem,
+      { label: '状态', path: 'status', prop: 'status' } as DescItem
     ];
 
     const wrapper = mount(YDesc, {
@@ -195,9 +216,167 @@ describe('YDesc 组件测试', () => {
     await nextTick();
 
     const items = wrapper.findAll('.y-desc__item');
-    expect(items[0].find('.y-desc__item-content').text()).toBe('暂无数据');
-    expect(items[1].find('.y-desc__item-content').text()).toBe('暂无数据');
-    expect(items[2].find('.y-desc__item-content').text()).toBe('暂无数据');
+    expect(items[0].find('.y-desc__item-content').text()).toBe('暂无数据'); // null
+    expect(items[1].find('.y-desc__item-content').text()).toBe('暂无数据'); // undefined
+    expect(items[2].find('.y-desc__item-content').text()).toBe('暂无数据'); // ''
+    expect(items[3].find('.y-desc__item-content').text()).toBe('暂无数据'); // 纯空白
+    expect(items[4].find('.y-desc__item-content').text()).toBe('暂无数据'); // 不存在
+    expect(items[5].find('.y-desc__item-content').text()).toBe('0'); // 0 非空
+    expect(items[6].find('.y-desc__item-content').text()).toBe('false'); // false 非空
+  });
+
+  it('支持项级 emptyText 与 emptyRule', async () => {
+    const config: DescItem[] = [
+      {
+        label: '备注',
+        path: 'remark',
+        prop: 'remark',
+        emptyText: '无备注'
+      } as DescItem,
+      {
+        label: '标签',
+        path: 'tags',
+        prop: 'tags',
+        emptyRule: (value: unknown) => Array.isArray(value) && value.length === 0,
+        emptyText: '无标签'
+      } as DescItem
+    ];
+
+    const wrapper = mount(YDesc, {
+      props: {
+        data: { remark: null, tags: [] },
+        config,
+        emptyText: '暂无数据'
+      }
+    });
+
+    await nextTick();
+
+    const items = wrapper.findAll('.y-desc__item');
+    expect(items[0].find('.y-desc__item-content').text()).toBe('无备注');
+    expect(items[1].find('.y-desc__item-content').text()).toBe('无标签');
+  });
+
+  it('支持组件级自定义 emptyRule', async () => {
+    const wrapper = mount(YDesc, {
+      props: {
+        data: { count: 0, name: '张三' },
+        config: [
+          { label: '数量', path: 'count', prop: 'count' } as DescItem,
+          { label: '姓名', path: 'name', prop: 'name' } as DescItem
+        ],
+        emptyText: '空',
+        emptyRule: (value: unknown) => value === 0 || value === null || value === undefined
+      }
+    });
+
+    await nextTick();
+
+    const items = wrapper.findAll('.y-desc__item');
+    expect(items[0].find('.y-desc__item-content').text()).toBe('空');
+    expect(items[1].find('.y-desc__item-content').text()).toBe('张三');
+  });
+
+  it('静态 content 也走空值规则', async () => {
+    const wrapper = mount(YDesc, {
+      props: {
+        data: {},
+        config: [
+          { label: '空内容', content: '', prop: 'empty' } as DescItem,
+          { label: '空白内容', content: '  ', prop: 'blank' } as DescItem,
+          { label: '零', content: 0, prop: 'zero' } as DescItem
+        ],
+        emptyText: '暂无'
+      }
+    });
+
+    await nextTick();
+
+    const items = wrapper.findAll('.y-desc__item');
+    expect(items[0].find('.y-desc__item-content').text()).toBe('暂无');
+    expect(items[1].find('.y-desc__item-content').text()).toBe('暂无');
+    expect(items[2].find('.y-desc__item-content').text()).toBe('0');
+  });
+
+  it('静态 content 不走 format', async () => {
+    const format = vi.fn((value: string) => `格式化-${value}`);
+    const wrapper = mount(YDesc, {
+      props: {
+        data: { name: '数据值' },
+        config: [{ label: '静态', content: '固定值', path: 'name', format } as DescItem]
+      }
+    });
+
+    await nextTick();
+
+    expect(format).not.toHaveBeenCalled();
+    expect(wrapper.find('.y-desc__item-content').text()).toBe('固定值');
+  });
+
+  it('空值不调用 format', async () => {
+    const format = vi.fn((value: number) => `¥${value}`);
+    const wrapper = mount(YDesc, {
+      props: {
+        data: { salary: null },
+        config: [{ label: '薪资', path: 'salary', prop: 'salary', format } as DescItem],
+        emptyText: '暂无'
+      }
+    });
+
+    await nextTick();
+
+    expect(format).not.toHaveBeenCalled();
+    expect(wrapper.find('.y-desc__item-content').text()).toBe('暂无');
+  });
+
+  it('从 app-wrap 全局配置读取 emptyText 与 emptyRule', async () => {
+    mockDescAppConfig.mockReturnValue({
+      emptyText: '全局空值',
+      emptyRule: (value: unknown) => value === 0 || value == null
+    });
+
+    const wrapper = mount(YDesc, {
+      props: {
+        data: { name: null, count: 0, title: '有值' },
+        config: [
+          { label: '姓名', path: 'name', prop: 'name' } as DescItem,
+          { label: '数量', path: 'count', prop: 'count' } as DescItem,
+          { label: '标题', path: 'title', prop: 'title' } as DescItem
+        ]
+      }
+    });
+
+    await nextTick();
+
+    const items = wrapper.findAll('.y-desc__item');
+    expect(items[0].find('.y-desc__item-content').text()).toBe('全局空值');
+    expect(items[1].find('.y-desc__item-content').text()).toBe('全局空值');
+    expect(items[2].find('.y-desc__item-content').text()).toBe('有值');
+  });
+
+  it('组件 props 优先于 app-wrap 全局 emptyText / emptyRule', async () => {
+    mockDescAppConfig.mockReturnValue({
+      emptyText: '全局空值',
+      emptyRule: (value: unknown) => value === 0
+    });
+
+    const wrapper = mount(YDesc, {
+      props: {
+        data: { name: null, count: 0 },
+        config: [
+          { label: '姓名', path: 'name', prop: 'name' } as DescItem,
+          { label: '数量', path: 'count', prop: 'count' } as DescItem
+        ],
+        emptyText: '组件空值',
+        emptyRule: (value: unknown) => value == null
+      }
+    });
+
+    await nextTick();
+
+    const items = wrapper.findAll('.y-desc__item');
+    expect(items[0].find('.y-desc__item-content').text()).toBe('组件空值'); // null 按组件规则为空
+    expect(items[1].find('.y-desc__item-content').text()).toBe('0'); // 0 按组件规则非空
   });
 
   it('支持列数配置', async () => {

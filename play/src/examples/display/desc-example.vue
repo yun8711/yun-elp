@@ -80,6 +80,15 @@
         <y-desc :data="data" :config="popoverConfig" :column="1" border />
       </el-popover>
     </div>
+
+    <div class="example-section">
+      <h3>空值处理</h3>
+      <p class="section-desc">
+        默认将 null、undefined、空字符串（含纯空白，内部 trim）视为空，显示 emptyText；0、false
+        等合法业务值正常展示。支持组件级 / 项级 emptyText、emptyRule。
+      </p>
+      <y-desc :data="emptyData" :config="emptyConfig" empty-text="暂无数据" :column="3" border />
+    </div>
   </div>
 </template>
 
@@ -168,6 +177,32 @@ const popoverConfig = [
   { label: '部门', path: 'department' },
   { label: '备注', path: 'remark' },
   { label: '地址', path: 'addresses[0].address' }
+];
+
+const emptyData = ref({
+  name: null,
+  nickname: undefined,
+  bio: '',
+  note: '   ',
+  count: 0,
+  enabled: false,
+  tags: [] as string[]
+});
+
+const emptyConfig = [
+  { label: '姓名(null)', path: 'name' },
+  { label: '昵称(undefined)', path: 'nickname' },
+  { label: '简介("")', path: 'bio' },
+  { label: '备注(空白)', path: 'note' },
+  { label: '数量(0)', path: 'count' },
+  { label: '启用(false)', path: 'enabled' },
+  {
+    label: '标签([])',
+    path: 'tags',
+    emptyRule: (value: unknown) => Array.isArray(value) && value.length === 0,
+    emptyText: '无标签'
+  },
+  { label: '缺失字段', path: 'missing', emptyText: '字段不存在' }
 ];
 </script>
 

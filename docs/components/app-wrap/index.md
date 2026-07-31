@@ -176,14 +176,15 @@ import en from 'element-plus/dist/locale/en.mjs';
 
 #### desc Properties
 
-| 参数         | 描述                         | 类型                                   | 默认值   |
-| ------------ | ---------------------------- | -------------------------------------- | -------- |
-| labelWidth   | label 宽度                   | ^[string] / ^[number]                  | `'auto'` |
-| labelStyle   | label 样式                   | ^[object]`CSSProperties`               | —        |
-| contentStyle | content 样式                 | ^[object]`CSSProperties`               | —        |
-| labelAlign   | label 文本对齐方式           | ^[enum]`'left' \| 'center' \| 'right'` | `'left'` |
-| contentAlign | content 文本对齐方式         | ^[enum]`'left' \| 'center' \| 'right'` | `'left'` |
-| emptyText    | content 内容为空时显示的内容 | ^[string]                              | `''`     |
+| 参数         | 描述                                                             | 类型                                   | 默认值       |
+| ------------ | ---------------------------------------------------------------- | -------------------------------------- | ------------ |
+| labelWidth   | label 宽度                                                       | ^[string] / ^[number]                  | `'auto'`     |
+| labelStyle   | label 样式                                                       | ^[object]`CSSProperties`               | —            |
+| contentStyle | content 样式                                                     | ^[object]`CSSProperties`               | —            |
+| labelAlign   | label 文本对齐方式                                               | ^[enum]`'left' \| 'center' \| 'right'` | `'left'`     |
+| contentAlign | content 文本对齐方式                                             | ^[enum]`'left' \| 'center' \| 'right'` | `'left'`     |
+| emptyText    | content 内容为空时显示的内容；由 `y-desc` 自动读取               | ^[string]                              | `''`         |
+| emptyRule    | 空值判定函数；由 `y-desc` 自动读取，未配置时使用组件内置默认规则 | ^[function]`(value: any) => boolean`   | 内置默认规则 |
 
 #### pop Properties
 

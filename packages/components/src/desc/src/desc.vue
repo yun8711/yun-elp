@@ -62,6 +62,7 @@
 
 <script setup lang="ts">
 import type { DescProps, DescItem } from './desc';
+import { defaultEmptyRule } from './desc';
 import { get } from 'lodash-es';
 import { computed, useAttrs, useSlots, useTemplateRef } from 'vue';
 import { hasOwn } from '@vueuse/shared';
@@ -86,21 +87,18 @@ const ns = useNamespace('desc');
 
 const mergedProps = computed(() => {
   const desc = descConfig || {};
-  // 先展开 desc 和 props，这样它们会覆盖默认值
-  const merged = {
+  // props 未传入时为 undefined，需用 ?? 显式回退到 app-wrap 全局配置，避免被 spread 覆盖丢失
+  return {
     ...desc,
     ...props,
     labelWidth: getSizeValue(props.labelWidth) ?? getSizeValue(desc?.labelWidth) ?? 'auto',
     labelStyle: Object.assign({}, desc?.labelStyle || {}, props.labelStyle || {}),
-    contentStyle: Object.assign({}, desc?.contentStyle || {}, props.contentStyle || {})
+    contentStyle: Object.assign({}, desc?.contentStyle || {}, props.contentStyle || {}),
+    labelAlign: props.labelAlign ?? desc.labelAlign ?? 'left',
+    contentAlign: props.contentAlign ?? desc.contentAlign ?? 'left',
+    emptyText: props.emptyText ?? desc.emptyText ?? '',
+    emptyRule: props.emptyRule ?? desc.emptyRule ?? defaultEmptyRule
   };
-
-  // 如果 desc 和 props 中都没有设置这些属性，则使用默认值
-  if (!merged.labelAlign) merged.labelAlign = 'left';
-  if (!merged.contentAlign) merged.contentAlign = 'left';
-  if (!merged.emptyText) merged.emptyText = '';
-
-  return merged;
 });
 
 // 是否显示边框
@@ -122,25 +120,29 @@ const isItemTooltip = (item: DescItem): boolean => {
   return isAllTooltip.value ?? true;
 };
 
-// 获取值
+// 获取值：先取原始值 → 按空值规则判定 → 非空且非静态 content 再 format
 const getValue = (item: DescItem) => {
-  let value = null;
-  if (item?.content) {
+  let value: any;
+  const hasContent = hasOwn(item, 'content');
+
+  if (hasContent) {
     value = item.content;
   } else {
-    // 如果未指定path，使用label作为取值路径
+    // 如果未指定 path，使用 label 作为取值路径
     const dataPath = item.path || item.label;
-    const v0 = dataPath ? get(props.data, dataPath) : props.data;
-    if (v0 !== undefined && v0 !== null) {
-      if (typeof item?.format === 'function') {
-        value = item.format(v0);
-      } else {
-        value = v0 || mergedProps.value?.emptyText;
-      }
-    } else {
-      value = props.emptyText;
-    }
+    value = dataPath ? get(props.data, dataPath) : props.data;
   }
+
+  const isEmpty = (item.emptyRule ?? mergedProps.value.emptyRule ?? defaultEmptyRule)(value);
+  if (isEmpty) {
+    return item.emptyText ?? mergedProps.value.emptyText ?? '';
+  }
+
+  // 静态 content 视为最终展示值，不走 format（与旧行为一致）
+  if (!hasContent && typeof item.format === 'function') {
+    return item.format(value);
+  }
+
   return value;
 };
 

@@ -451,7 +451,8 @@ describe('YAppWrap 应用容器', () => {
           contentStyle: { color: 'gray' },
           labelAlign: 'right',
           contentAlign: 'left',
-          emptyText: '暂无'
+          emptyText: '暂无',
+          emptyRule: (value: unknown) => value == null || value === ''
         },
         table: {
           emptyProps: { description: '表格为空' },

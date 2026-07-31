@@ -96,6 +96,7 @@ export interface AppWrapProps {
     labelAlign?: 'left' | 'center' | 'right';
     contentAlign?: 'left' | 'center' | 'right';
     emptyText?: string;
+    emptyRule?: (value: any) => boolean;
   };
   pop?: {
     confirmText?: string;

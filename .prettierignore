@@ -38,3 +38,7 @@ LICENSE
 .github
 .git
 README.md
+
+# 自动生成的类型声明（unplugin-auto-import / unplugin-vue-components）
+**/auto-imports.d.ts
+**/components.d.ts
