@@ -2,6 +2,21 @@
 
 
 
+## [1.9.0](https://github.com/yun8711/yun-elp/compare/v1.8.1...v1.9.0) (2026-07-31)
+
+
+### Features
+
+* **components:** :sparkles: desc 支持空值规则与占位文案 ([1ccde52](https://github.com/yun8711/yun-elp/commit/1ccde52db91f8cde28b210628052eb8577f52267))
+
+
+### Bug Fixes
+
+* **components:** :bug: desc组件,优化DescItem类型声明 ([1dcd36c](https://github.com/yun8711/yun-elp/commit/1dcd36c630be265ab19cf58a090cf4cd5fcb0430))
+* **components:** :bug: dialog组件,修复footer中按钮右对齐不生效的问题 ([e3e383c](https://github.com/yun8711/yun-elp/commit/e3e383c55ed4df5408532bf58dae45bb1e9c9e20))
+* **docs:** :bug: drawer组件,修复组件文档错别字 ([f374ae1](https://github.com/yun8711/yun-elp/commit/f374ae1d384029cd3e695a4a1a39c1bf78284528))
+* **theme:** :bug: table组件中,优化分页组件文本字号变量 ([208d586](https://github.com/yun8711/yun-elp/commit/208d58694d5232b372b790f5050d1adcf34ff89c))
+
 ## [1.8.1](https://github.com/yun8711/yun-elp/compare/v1.8.0...v1.8.1) (2026-07-08)
 
 
