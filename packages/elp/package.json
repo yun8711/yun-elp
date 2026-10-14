@@ -52,6 +52,10 @@
     "./hooks/*": {
       "import": "./es/hooks/*.mjs"
     },
+    "./echarts": {
+      "types": "./es/echarts.d.ts",
+      "import": "./es/echarts.mjs"
+    },
     "./resolver": {
       "types": "./resolver.d.ts",
       "import": "./resolver.mjs"

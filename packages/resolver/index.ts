@@ -13,6 +13,13 @@ import { collectYunInternalStyleComponents, collectAllYunInternalComponents } fr
 
 const PACKAGE_NAME = 'yun-elp';
 
+/** 从独立分包入口引入，避免进入主包静态依赖图 */
+const ASYNC_COMPONENT_ENTRIES: Record<string, string> = {
+  YEcharts: `${PACKAGE_NAME}/echarts`
+};
+
+const DEFAULT_ASYNC_COMPONENTS = ['YEcharts'] as const;
+
 interface ImportInfo {
   as?: string;
   name?: string;
@@ -59,6 +66,13 @@ export interface YunElpResolverOptions {
    * 排除组件名称，如果匹配则不解析组件
    */
   exclude?: RegExp;
+  /**
+   * 使用 `yun-elp/<entry>` 异步分包入口的组件名。
+   * - 默认包含 `YEcharts`（从 `yun-elp/echarts` 引入 defineAsyncComponent 包装）
+   * - 设为 `false` 时与主包相同，从 `yun-elp` 静态引入（不推荐）
+   * - 传入数组可覆盖默认列表
+   */
+  asyncComponents?: false | string[];
 }
 
 type YunElpResolverOptionsResolved = {
@@ -66,6 +80,7 @@ type YunElpResolverOptionsResolved = {
   importElementStyles: boolean;
   importElementStyle: ElementPlusStyleFormat;
   exclude?: RegExp;
+  asyncComponents: string[];
   noStylesComponents: string[];
 };
 
@@ -160,9 +175,14 @@ function resolveComponent(
     getElementSideEffects(name, options)
   );
 
+  const from =
+    options.asyncComponents.includes(name) && ASYNC_COMPONENT_ENTRIES[name]
+      ? ASYNC_COMPONENT_ENTRIES[name]
+      : PACKAGE_NAME;
+
   return {
     name,
-    from: PACKAGE_NAME,
+    from,
     sideEffects
   };
 }
@@ -200,11 +220,17 @@ export function YunElpResolver(options: YunElpResolverOptions = {}): ComponentRe
 
   async function resolveOptions() {
     if (optionsResolved) return optionsResolved;
+    const asyncComponents =
+      options?.asyncComponents === false
+        ? []
+        : (options?.asyncComponents ?? [...DEFAULT_ASYNC_COMPONENTS]);
+
     optionsResolved = {
       importStyle: options?.importStyle ?? 'scss',
       importElementStyles: options?.importElementStyles ?? true,
       importElementStyle: options?.importElementStyle ?? 'sass',
       exclude: options?.exclude,
+      asyncComponents,
       noStylesComponents
     };
     return optionsResolved;

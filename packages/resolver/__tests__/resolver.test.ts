@@ -166,4 +166,28 @@ describe('YunElpResolver', () => {
     expect(sideEffects).toContain('element-plus/es/components/dialog/style/index');
     expect(sideEffects).toContain('element-plus/es/components/button/style/index');
   });
+
+  it('默认解析 YEcharts 时应从 yun-elp/echarts 异步入口引入', async () => {
+    const resolver = YunElpResolver({ importStyle: 'scss', importElementStyle: 'sass' });
+    const result = await resolver.resolve!('YEcharts');
+
+    expect(result).toMatchObject({
+      name: 'YEcharts',
+      from: 'yun-elp/echarts'
+    });
+
+    const sideEffects = result?.sideEffects as string[];
+    expect(sideEffects).toContain('yun-elp/theme-chalk/src/echarts.scss');
+    expect(sideEffects).toContain('element-plus/es/components/loading/style/index');
+  });
+
+  it('asyncComponents: false 时 YEcharts 仍从主包引入', async () => {
+    const resolver = YunElpResolver({ asyncComponents: false });
+    const result = await resolver.resolve!('YEcharts');
+
+    expect(result).toMatchObject({
+      name: 'YEcharts',
+      from: 'yun-elp'
+    });
+  });
 });

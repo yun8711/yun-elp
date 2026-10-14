@@ -13,6 +13,13 @@ description: 基于 ECharts 的基础图表组件
 - 对于项目中有大量复用图表的场景，可以先基于 `y-echarts` 封装某个类型的图表，在异步加载数据时时只需要传入必要的配置项即可
 - 使用时需要单独安装 `echarts` 依赖
 
+### 与构建分包 / 自动导入
+
+- 模板内仍写 `<y-echarts>`；`YunElpResolver` **默认**从 `yun-elp/echarts` 解析，导出的是 `defineAsyncComponent` 包装，挂载后再加载图表实现与 ECharts 模块。
+- 手动引入：`import { YEcharts, defineAsyncYEcharts } from 'yun-elp/echarts'`（不要从 `yun-elp` 主入口静态 import 图表组件，除非 `app.use` 全量注册）。
+- 关闭异步入口（不推荐）：`YunElpResolver({ asyncComponents: false })`。
+- 应用侧建议将 `echarts` / `zrender` 单独 `manualChunks`，并与图表路由懒加载配合。
+
 ## 用法示例
 
 ### 基础用法

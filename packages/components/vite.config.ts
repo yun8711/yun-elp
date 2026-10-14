@@ -66,6 +66,7 @@ export default defineConfig({
         'locale/index.ts',
         'utils/*.ts',
         'index.ts',
+        'echarts.ts',
         'components.ts',
         'defaults.ts'
       ],
@@ -124,7 +125,8 @@ export default defineConfig({
     lib: {
       // 库模式下，必须声明入口文件
       entry: {
-        index: resolve(__dirname, 'index.ts')
+        index: resolve(__dirname, 'index.ts'),
+        echarts: resolve(__dirname, 'echarts.ts')
       },
       formats: ['es'],
       // 自定义构建结果中的入口文件名称

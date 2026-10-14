@@ -25,6 +25,7 @@ export const YUN_ELP_ELEMENT_PLUS_DEPS: Record<string, readonly string[]> = {
   YDesc: ['tooltip'],
   YDialog: ['dialog'],
   YDrawer: ['drawer'],
+  YEcharts: ['loading'],
   YEmpty: ['empty'],
   YForm: ['form', 'row'],
   YFormItem: ['col', 'form-item'],
