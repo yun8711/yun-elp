@@ -48,4 +48,9 @@ export type YunElpLanguage = {
   table: {
     totalText: string;
   };
+  sidebar: {
+    collapse: string;
+    nav: string;
+    collapseToggle: string;
+  };
 };

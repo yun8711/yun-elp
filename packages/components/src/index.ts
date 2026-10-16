@@ -34,3 +34,4 @@ export * from './page-progress';
 export * from './web-view';
 export * from './form';
 export * from './form-item';
+export * from './sidebar';

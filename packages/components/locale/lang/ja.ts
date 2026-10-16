@@ -47,5 +47,10 @@ export default {
   },
   table: {
     totalText: '合計 {total} 件のデータ'
+  },
+  sidebar: {
+    collapse: 'メニューを折りたたむ',
+    nav: 'サイドナビゲーション',
+    collapseToggle: 'サイドメニューを展開または折りたたむ'
   }
 } as YunElpLanguage;

@@ -47,5 +47,10 @@ export default {
   },
   table: {
     totalText: 'الإجمالي {total} عنصر'
+  },
+  sidebar: {
+    collapse: 'طي القائمة',
+    nav: 'التنقل الجانبي',
+    collapseToggle: 'توسيع أو طي القائمة الجانبية'
   }
 } as YunElpLanguage;

@@ -57,6 +57,11 @@ export default {
   },
   table: {
     totalText: 'Total {total} items'
+  },
+  sidebar: {
+    collapse: 'Collapse menu',
+    nav: 'Side navigation',
+    collapseToggle: 'Expand or collapse side menu'
   }
 
   // Button component

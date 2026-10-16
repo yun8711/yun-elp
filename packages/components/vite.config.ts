@@ -77,7 +77,8 @@ export default defineConfig({
         // 确保类型声明文件可以在 JS 项目中使用
         skipLibCheck: true,
         // 将类型依赖标记为可选
-        types: ['vue']
+        // vite/client 提供 import.meta.env，仅用于声明检查，不写入产物
+        types: ['vue', 'vite/client']
       },
       // 在类型声明文件中添加类型引用
       beforeWriteFile: (filePath, content) => {

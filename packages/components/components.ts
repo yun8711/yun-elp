@@ -31,6 +31,7 @@ import { YPageProgress } from './src/page-progress';
 import { YWebView } from './src/web-view';
 import { YForm } from './src/form';
 import { YFormItem } from './src/form-item';
+import { YSidebar } from './src/sidebar';
 
 export default [
   YAppWrap,
@@ -64,5 +65,6 @@ export default [
   YPageProgress,
   YWebView,
   YForm,
-  YFormItem
+  YFormItem,
+  YSidebar
 ] as Plugin[];

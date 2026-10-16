@@ -3,7 +3,7 @@
  * 用于 YunElpResolver 注入内部依赖的 yun-elp / Element Plus 样式。
  *
  * 维护说明（已审计 packages/components/src 下全部 .vue 源码）：
- * - 需额外加载 yun 样式：YTableSearch→YBorderLabel/YButton、YTable→YEmpty、YDesc→YTextTooltip、YColumnOp→YPop/YButton、YDialog/YDrawer/YPop→YButton
+ * - 需额外加载 yun 样式：YTableSearch→YBorderLabel/YButton、YTable→YEmpty、YDesc→YTextTooltip、YSidebar→YTextTooltip、YColumnOp→YPop/YButton、YDialog/YDrawer/YPop→YButton
  * - 无独立 y 样式：YAppWrap、YGroupSelect
  */
 export const YUN_ELP_INTERNAL_DEPS: Record<string, readonly string[]> = {
@@ -13,6 +13,7 @@ export const YUN_ELP_INTERNAL_DEPS: Record<string, readonly string[]> = {
   YDrawer: ['YButton'],
   YPop: ['YButton'],
   YTable: ['YEmpty'],
+  YSidebar: ['YTextTooltip'],
   YTableSearch: ['YBorderLabel', 'YButton']
 };
 

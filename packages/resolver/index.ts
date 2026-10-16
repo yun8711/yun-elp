@@ -86,6 +86,9 @@ type YunElpResolverOptionsResolved = {
 
 const noStylesComponents = ['YAppWrap', 'YGroupSelect'];
 
+/** 非公开子组件：无独立导出、无独立样式，不参与按需解析 */
+const internalComponents = ['YSidebarItem', 'YSidebarItemIcon', 'YSidebarItemTitle'];
+
 function getYunStylePaths(dirNames: string[], options: YunElpResolverOptionsResolved): string[] {
   const { importStyle } = options;
 
@@ -239,6 +242,10 @@ export function YunElpResolver(options: YunElpResolverOptions = {}): ComponentRe
   return {
     type: 'component',
     resolve: async (name: string) => {
+      if (internalComponents.includes(name)) {
+        return;
+      }
+
       const options = await resolveOptions();
       if (options.noStylesComponents.includes(name)) {
         return resolveComponent(name, { ...options, importStyle: false });

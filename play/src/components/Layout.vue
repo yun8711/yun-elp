@@ -370,6 +370,8 @@ const handleComponentChange = (value) => {
     position: relative;
     z-index: 1;
     box-sizing: border-box; // 确保padding和border不会影响整体尺寸计算
+    display: flex;
+    flex-direction: column;
     width: 100%;
     min-width: 0;
     height: 800px;
@@ -379,6 +381,14 @@ const handleComponentChange = (value) => {
     border: 2px solid #000;
     border-radius: 0;
     transition: background-color 0.3s; // 只对背景色变化添加过渡
+
+    // 子示例根节点常写 height:100%，需把 demo 区高度传下去（如 YSidebar 列布局 + flex:1 滚动区）
+    :deep(.y-app-wrap) {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      min-height: 0;
+    }
 
     &.is-locked {
       overflow: auto;

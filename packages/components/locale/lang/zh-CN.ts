@@ -47,5 +47,10 @@ export default {
   },
   table: {
     totalText: '共 {total} 项数据'
+  },
+  sidebar: {
+    collapse: '收起菜单',
+    nav: '侧边导航',
+    collapseToggle: '展开或收起侧边菜单'
   }
 } as YunElpLanguage;

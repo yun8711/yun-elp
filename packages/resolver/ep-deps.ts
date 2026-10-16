@@ -34,6 +34,7 @@ export const YUN_ELP_ELEMENT_PLUS_DEPS: Record<string, readonly string[]> = {
   YPop: ['popover', 'tooltip'],
   YRowSelect: ['icon'],
   YScrollBox: ['button', 'icon', 'scrollbar'],
+  YSidebar: ['badge', 'icon', 'menu', 'scrollbar', 'tooltip'],
   YTable: ['loading', 'pagination', 'table'],
   YTableSearch: [
     'autocomplete',

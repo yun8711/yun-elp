@@ -181,6 +181,11 @@ describe('YunElpResolver', () => {
     expect(sideEffects).toContain('element-plus/es/components/loading/style/index');
   });
 
+  it('内部子组件 YSidebarItem 不参与按需解析', async () => {
+    const resolver = YunElpResolver();
+    expect(await resolver.resolve!('YSidebarItem')).toBeUndefined();
+  });
+
   it('asyncComponents: false 时 YEcharts 仍从主包引入', async () => {
     const resolver = YunElpResolver({ asyncComponents: false });
     const result = await resolver.resolve!('YEcharts');

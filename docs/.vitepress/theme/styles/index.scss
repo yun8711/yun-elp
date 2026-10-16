@@ -7,9 +7,9 @@
   --vp-c-brand-light: #5cadff;
   --vp-c-brand-dark: #337ecc;
   --code-font-family:
-    'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    'JetBrains Mono', source-code-pro, menlo, monaco, consolas, 'Courier New', monospace;
   --font-family-mono:
-    'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    'JetBrains Mono', source-code-pro, menlo, monaco, consolas, 'Courier New', monospace;
   --vp-layout-max-width: 100%;
   --vp-nav-logo-height: 30px;
 }
@@ -22,22 +22,23 @@
   .vp-table > table {
     display: table;
     width: 100%;
-    border-collapse: collapse;
+    overflow: hidden;
+
     // margin: 16px 0;
     font-size: 14px;
     line-height: 1.5em;
-    overflow: hidden;
     table-layout: fixed;
+    border-collapse: collapse;
 
     th,
     td {
-      white-space: nowrap;
-      border-top: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
+      max-width: 250px;
       padding: 0.6em 1em;
       text-align: left;
-      max-width: 250px;
+      white-space: nowrap;
       white-space: pre-wrap;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
     }
 
     thead tr:first-child th {
@@ -52,27 +53,38 @@
   table:not(.el-table) {
     margin: 0;
   }
+
+  /* 演示区组件（如 el-menu / YSidebar）不受 Markdown 列表样式影响 */
+  .example-showcase {
+    ul,
+    ol {
+      padding-left: 0;
+      margin: 0;
+    }
+  }
 }
 
 /* 取消 VitePress 对 Element Plus 表格的通用 table 样式干扰（保留 EP 默认行高） */
+
 /* 已通过 .vp-table > table 限定 Markdown 表格作用域，这里不再强制重置 .el-table */
 
+/* stylelint-disable-next-line selector-id-pattern -- VitePress 根节点 id */
 #VPContent {
   .container {
     .content {
       .content-container {
-        max-width: 100%;
         width: 100%;
+        max-width: 100%;
       }
       a.vp-link {
-        white-space: nowrap;
         display: inline-flex;
         align-items: center;
+        white-space: nowrap;
         svg {
           display: inline-block;
-          margin-left: 0.25rem;
-          height: 1em;
           width: 1em;
+          height: 1em;
+          margin-left: 0.25rem;
         }
       }
     }

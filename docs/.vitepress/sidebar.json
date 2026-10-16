@@ -23,6 +23,11 @@
         "activeMatch": "/components/page-header/"
       },
       {
+        "text": "sidebar 侧边菜单",
+        "link": "/components/sidebar/",
+        "activeMatch": "/components/sidebar/"
+      },
+      {
         "text": "step 步骤条",
         "link": "/components/step/",
         "activeMatch": "/components/step/"

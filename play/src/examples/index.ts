@@ -26,6 +26,11 @@ export const exampleGroups: Array<{ category: string; items: DemoExample[] }> = 
         label: 'Sticky Page',
         value: 'sticky-page',
         component: defineAsyncComponent(() => import('./layout/sticky-page/index.vue'))
+      },
+      {
+        label: 'Sidebar',
+        value: 'sidebar',
+        component: defineAsyncComponent(() => import('./layout/sidebar-example.vue'))
       }
     ]
   },

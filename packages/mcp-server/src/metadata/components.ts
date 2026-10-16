@@ -6,7 +6,7 @@ export default {
     tagName: 'y-app-wrap',
     description: '向后代组件传递全局配置',
     detailedDescription:
-      'AppWrap 是一个应用容器，一般用在应用最外层，主要作用是：\n（1）向内部的后代组件（`element-plus` 及 `yun-elp`）传递默认配置，方便设置组件属性的默认值，简化配置\n（2）设置 `yun-elp` 及 `element-plus` 组件库的语言选项：只需配置 `locale`，即可同步切换 `y-app-wrap` 内部的 yun-elp 与 Element Plus 文案（详见 [语言配置](#语言配置-locale)）\n注意：\n向后代组件传递的配置参数只是为了从全局角度简化组件的配置和使用，所以它的优先级最低',
+      'AppWrap 是一个应用容器，一般用在应用最外层，主要作用是：\n（1）向内部的后代组件（`element-plus` 及 `yun-elp`）传递默认配置，方便设置组件属性的默认值，简化配置\n（2）设置 `yun-elp` 及 `element-plus` 组件库的语言选项：只需配置 `locale`，即可同步切换 `y-app-wrap` 内部的 yun-elp 与 Element Plus 文案（详见 [语言配置](#语言配置-locale)）\n注意：\n向后代组件传递的配置参数只是为了从全局角度简化组件的配置和使用，所以它的优先级最低\n`elpConfig.button.autoInsertSpace` 控制两个汉字之间是否自动插入空格，默认 `true`；`y-button` 底层为 `el-button`，与 `el-button` 共用该配置，无需在 `button` 上重复设置。\n```vue\n<y-app-wrap :elp-config="{ button: { autoInsertSpace: false } }">\n<y-button>确定</y-button>\n<el-button>取消</el-button>\n</y-app-wrap>\n```',
     docUrl: 'https://yun8711.github.io/yun-elp/components/app-wrap/',
     props: [
       {
@@ -383,11 +383,19 @@ export default {
           },
           {
             name: 'empty-text',
-            description: 'content 内容为空时显示的内容',
+            description: 'content 内容为空时显示的内容；由 y-desc 自动读取',
             type: {
               raw: 'string'
             },
             default: "''"
+          },
+          {
+            name: 'empty-rule',
+            description: '空值判定函数；由 y-desc 自动读取，未配置时使用组件内置默认规则',
+            type: {
+              raw: 'function(value: any) => boolean'
+            },
+            default: '内置默认规则'
           }
         ]
       },
@@ -498,7 +506,7 @@ export default {
             name: 'pagination-props',
             description: '分页配置',
             type: {
-              raw: 'Partial<PaginationProps>'
+              raw: 'objectPartial<PaginationProps>'
             },
             default: '{}'
           }
@@ -707,7 +715,7 @@ export default {
     tagName: 'y-button',
     description: '功能增强的按钮',
     detailedDescription:
-      '基于 el-button 组件和 [useDebounceFn](https://vueuse.org/shared/useDebounceFn/#usedebouncefn) / [useThrottleFn](https://vueuse.org/shared/useThrottleFn/#usethrottlefn) 函数封装，支持 `click`、`dblclick`及防抖、节流控制：\n（1）通过 `model` 属性可以设置启动防抖或节流，此时 `delay` 默认为300ms\n（2）仅绑定单击事件：不设置 `delay` 时立即响应，与普通按钮行为一致；设置 `delay` 时根据 `model` 决定是否应用防抖或节流\n（3）同时绑定单击和双击事件：经过双击检测时间（`dbl-delay`）后响应，然后根据 `delay` 和 `model` 设置决定是否应用防抖或节流\n组件内部实现了单击和双击的智能区分机制，双击时不会触发单击事件，确保交互体验的准确性。`dbl-delay` 参数仅在绑定双击事件时生效，用于控制双击检测时间阈值，必须大于等于 `delay` 参数',
+      '基于 el-button 组件和 [useDebounceFn](https://vueuse.org/shared/useDebounceFn/#usedebouncefn) / [useThrottleFn](https://vueuse.org/shared/useThrottleFn/#usethrottlefn) 函数封装，支持 `click`、`dblclick`及防抖、节流控制：\n（1）通过 `model` 属性可以设置启动防抖或节流，此时 `delay` 默认为300ms\n（2）仅绑定单击事件：不设置 `delay` 时立即响应，与普通按钮行为一致；设置 `delay` 时根据 `model` 决定是否应用防抖或节流\n（3）同时绑定单击和双击事件：经过双击检测时间（`dbl-delay`）后响应，然后根据 `delay` 和 `model` 设置决定是否应用防抖或节流\n组件内部实现了单击和双击的智能区分机制，双击时不会触发单击事件，确保交互体验的准确性。`dbl-delay` 参数仅在绑定双击事件时生效，用于控制双击检测时间阈值，必须大于等于 `delay` 参数\n相邻的 `y-button` / `el-button` 间距可通过 CSS 变量 `--y-button-spacing` 全局调整，默认 `8px`。',
     docUrl: 'https://yun8711.github.io/yun-elp/components/button/',
     props: [
       {
@@ -1741,12 +1749,12 @@ export default {
             default: 'false'
           },
           {
-            name: 'no-pop',
-            description: '是否显示popover，默认不显示',
+            name: 'popover',
+            description: '是否显示 popover，一般用于二次确认',
             type: {
               raw: 'boolean / Function((scope: TableItemScope, item: ColumnOpItemType) => boolean)'
             },
-            default: 'true'
+            default: 'false'
           },
           {
             name: 'pop-props',
@@ -2500,7 +2508,7 @@ export default {
     tagName: 'y-desc',
     description: '描述列表',
     detailedDescription:
-      '感觉 el-descriptions 组件用起来不够方便且不够灵活，所以模仿编写了 y-desc 组件，实现了它的大部分功能，也摒弃了一些不太常用的功能，主要特点：\n- 一定程度上简化了组件的使用，使用Lodash的get方法获取值，外部提供数据及配置即可\n- 使用 grid 优化了布局，支持响应式（根据组件宽度动态调整列数）\n- 默认支持内容展示超宽省略及tooltip功能\n注意：\n在默认只展示内容时，组件内部使用配置项的 path 属性或 index 作为key值\n但是如果使用插槽展示表单等场景下，需要提供 prop 属性，并且在配置中要唯一',
+      '感觉 el-descriptions 组件用起来不够方便且不够灵活，所以模仿编写了 y-desc 组件，实现了它的大部分功能，也摒弃了一些不太常用的功能，主要特点：\n- 一定程度上简化了组件的使用，使用Lodash的get方法获取值，外部提供数据及配置即可\n- 使用 grid 优化了布局，支持响应式（根据组件宽度动态调整列数）\n- 默认支持内容展示超宽省略及tooltip功能\n- 内置空值判定与空值占位文案，支持组件级 / 项级配置，也可通过 `y-app-wrap` 的 `desc` 全局配置统一设置\n注意：\n在默认只展示内容时，组件内部使用配置项的 path 属性或 index 作为key值\n但是如果使用插槽展示表单等场景下，需要提供 prop 属性，并且在配置中要唯一',
     docUrl: 'https://yun8711.github.io/yun-elp/components/desc/',
     props: [
       {
@@ -2608,6 +2616,20 @@ export default {
             type: {
               raw: 'objectRecord<string, any>'
             }
+          },
+          {
+            name: 'empty-text',
+            description: '该项为空时显示的内容，优先级高于组件级 empty-text',
+            type: {
+              raw: 'string'
+            }
+          },
+          {
+            name: 'empty-rule',
+            description: '该项空值判定函数，优先级高于组件级 empty-rule；会完全替换默认规则',
+            type: {
+              raw: 'function(value: any) => boolean'
+            }
           }
         ]
       },
@@ -2682,12 +2704,22 @@ export default {
       },
       {
         name: 'empty-text',
-        description: 'content 内容为空时显示的内容',
+        description: 'content 内容为空时显示的内容；未传时回退到 `y-app-wrap` 的 `desc.emptyText`',
         type: {
           raw: 'string'
         },
         required: false,
         default: "''"
+      },
+      {
+        name: 'empty-rule',
+        description:
+          '空值判定函数；未传时回退到 `y-app-wrap` 的 `desc.emptyRule`，再回退到内置默认规则',
+        type: {
+          raw: 'function'
+        },
+        required: false,
+        default: '内置默认规则'
       }
     ],
     events: [],
@@ -2724,6 +2756,14 @@ export default {
         description:
           'column 属性支持使用函数来根据组件宽度动态调整，可以手动调整页面宽度来查看效果',
         sourcePath: 'docs/components/desc/column.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/desc/'
+      },
+      {
+        name: 'empty',
+        title: '空值处理',
+        description:
+          '默认将 `null`、`undefined`、空字符串（含纯空白）视为空并显示 `empty-text`；`0`、`false` 正常展示。项级可覆盖 `emptyText` / `emptyRule`。',
+        sourcePath: 'docs/components/desc/empty.vue',
         docUrl: 'https://yun8711.github.io/yun-elp/components/desc/'
       },
       {
@@ -3200,7 +3240,7 @@ export default {
         default: 'true'
       },
       {
-        name: 'no-fonfirm',
+        name: 'no-confirm',
         description: '是否隐藏确认按钮',
         type: {
           raw: 'boolean'
@@ -3521,7 +3561,7 @@ export default {
     tagName: 'y-echarts',
     description: '基于 ECharts 的基础图表组件',
     detailedDescription:
-      '基于 `ECharts^6.0.0` 封装，组件内部实现了动态按需加载，通过 `config` 指定要加载的图表类型、组件、特性、渲染器、主题、init参数，也可以通过 `appWrap` 的配置项进行全局设置\n- 对于简单图表场景，可以直接通过 `option` 属性传递图表配置及异步加载的数据\n- 对于项目中有大量复用图表的场景，可以先基于 `y-echarts` 封装某个类型的图表，在异步加载数据时时只需要传入必要的配置项即可\n- 使用时需要单独安装 `echarts` 依赖',
+      "基于 `ECharts^6.0.0` 封装，组件内部实现了动态按需加载，通过 `config` 指定要加载的图表类型、组件、特性、渲染器、主题、init参数，也可以通过 `appWrap` 的配置项进行全局设置\n- 对于简单图表场景，可以直接通过 `option` 属性传递图表配置及异步加载的数据\n- 对于项目中有大量复用图表的场景，可以先基于 `y-echarts` 封装某个类型的图表，在异步加载数据时时只需要传入必要的配置项即可\n- 使用时需要单独安装 `echarts` 依赖\n- 模板内仍写 `<y-echarts>`；`YunElpResolver` **默认**从 `yun-elp/echarts` 解析，导出的是 `defineAsyncComponent` 包装，挂载后再加载图表实现与 ECharts 模块。\n- 手动引入：`import { YEcharts, defineAsyncYEcharts } from 'yun-elp/echarts'`（不要从 `yun-elp` 主入口静态 import 图表组件，除非 `app.use` 全量注册）。\n- 关闭异步入口（不推荐）：`YunElpResolver({ asyncComponents: false })`。\n- 应用侧建议将 `echarts` / `zrender` 单独 `manualChunks`，并与图表路由懒加载配合。",
     docUrl: 'https://yun8711.github.io/yun-elp/components/echarts/',
     props: [
       {
@@ -5457,6 +5497,308 @@ export default {
         description: '组件支持自定义箭头样式，内容部分可自由定义。',
         sourcePath: 'docs/components/scroll-box/arrow.vue',
         docUrl: 'https://yun8711.github.io/yun-elp/components/scroll-box/'
+      }
+    ]
+  },
+  'y-sidebar': {
+    tagName: 'y-sidebar',
+    description: '可折叠的侧边菜单',
+    detailedDescription:
+      '基于 `el-menu` 封装的垂直侧边菜单，行为保持一致，并扩展了更多功能；支持树形数据、展开/折叠/隐藏三种宽度。\n（1）`menuList` 的 `icon` 支持 CSS 类名或 Vue 组件；也可用 `icon` 插槽完全自定义\n（2）点击菜单仅触发 `select`（`index` 为菜单项索引：`prop` 未设置时为 `path`，第二参数为对应 `SidebarMenuItem`）；路由跳转等由业务在 `@select` 中自行处理。内部 `el-menu` 的 `router` 固定为 `false`，`menu-props.router` 不会生效，避免与业务侧跳转重复\n（3）组件高度继承父容器，请为父级设置明确高度',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/sidebar/',
+    props: [
+      {
+        name: 'menu-list',
+        description: '菜单数据',
+        type: {
+          raw: 'SidebarMenuItem[]'
+        },
+        required: false,
+        default: '[]'
+      },
+      {
+        name: 'active-menu',
+        description:
+          '当前激活项（菜单 index：`prop` 未设时为 `path`），唯一控制高亮；同步到 `el-menu` 的 `default-active`，**覆盖** `menu-props.default-active`',
+        type: {
+          raw: 'string'
+        },
+        required: false,
+        default: "''"
+      },
+      {
+        name: 'collapsed',
+        description: '是否折叠，支持 `v-model:collapsed`',
+        type: {
+          raw: 'boolean'
+        },
+        required: false,
+        default: 'false'
+      },
+      {
+        name: 'visible',
+        description: '是否可见，支持 `v-model:visible`',
+        type: {
+          raw: 'boolean'
+        },
+        required: false,
+        default: 'true'
+      },
+      {
+        name: 'width-map',
+        description: '展开 / 折叠 / 隐藏宽度，单位 px',
+        type: {
+          raw: 'SidebarWidthMap'
+        },
+        required: false,
+        default: '{ default: 184, fold: 54, hidden: 0 }'
+      },
+      {
+        name: 'indent',
+        description: '一级基础缩进（px）',
+        type: {
+          raw: 'number'
+        },
+        required: false,
+        default: '16'
+      },
+      {
+        name: 'indent-map',
+        description: '按层级覆盖自动缩进',
+        type: {
+          raw: 'Record<number, number>'
+        },
+        required: false,
+        default: '{}'
+      },
+      {
+        name: 'icon-max-width',
+        description: '图标最大宽度（px）',
+        type: {
+          raw: 'number'
+        },
+        required: false,
+        default: '16'
+      },
+      {
+        name: 'icon-gap',
+        description: '图标与文本间距（px）',
+        type: {
+          raw: 'number'
+        },
+        required: false,
+        default: '8'
+      },
+      {
+        name: 'item-height',
+        description: '菜单项高度（px）',
+        type: {
+          raw: 'number'
+        },
+        required: false,
+        default: '50'
+      },
+      {
+        name: 'unique-opened',
+        description: '是否只保持一个子菜单展开',
+        type: {
+          raw: 'boolean'
+        },
+        required: false,
+        default: 'false'
+      },
+      {
+        name: 'collapse-transition',
+        description: '是否开启折叠动画',
+        type: {
+          raw: 'boolean'
+        },
+        required: false,
+        default: 'false'
+      },
+      {
+        name: 'show-footer',
+        description: '是否显示底部折叠条',
+        type: {
+          raw: 'boolean'
+        },
+        required: false,
+        default: 'false'
+      },
+      {
+        name: 'extra-style',
+        description: 'extra 区域默认样式，可被 `menuList[].extraStyle` 覆盖',
+        type: {
+          raw: 'CSSProperties'
+        },
+        required: false,
+        default: '{}'
+      },
+      {
+        name: 'title-prop',
+        description: '菜单项标题 `YTextTooltip` 配置，见 [Text Tooltip](/components/text-tooltip/)',
+        type: {
+          raw: 'Partial<SidebarTitleConfig>'
+        },
+        required: false,
+        default: '见下方默认'
+      },
+      {
+        name: 'menu-props',
+        description:
+          '透传给 `el-menu`（不含 `router`、`default-active`；高亮用 `active-menu`，跳转用 `@select`）',
+        type: {
+          raw: 'SidebarMenuProps'
+        },
+        required: false,
+        default: '{}'
+      }
+    ],
+    events: [
+      {
+        name: 'updatecollapsed',
+        description: '折叠状态变化',
+        parameters: [
+          {
+            raw: 'function'
+          }
+        ]
+      },
+      {
+        name: 'updatevisible',
+        description: '显隐状态变化',
+        parameters: [
+          {
+            raw: 'function'
+          }
+        ]
+      },
+      {
+        name: 'select',
+        description: '选中菜单项',
+        parameters: [
+          {
+            raw: 'function'
+          }
+        ]
+      }
+    ],
+    slots: [
+      {
+        name: 'header',
+        description: '顶部区域'
+      },
+      {
+        name: 'footer',
+        description: '底部折叠区，传入后即使未开 `show-footer` 也会显示'
+      },
+      {
+        name: 'icon',
+        description: '菜单图标'
+      },
+      {
+        name: 'title',
+        description: '菜单标题'
+      },
+      {
+        name: 'extra',
+        description: '标题文本末尾，优先于 `item.extra`'
+      }
+    ],
+    methods: [
+      {
+        name: 'toggle',
+        description: '切换折叠',
+        parameters: [
+          {
+            raw: 'function'
+          }
+        ]
+      },
+      {
+        name: 'collapse',
+        description: '折叠',
+        parameters: [
+          {
+            raw: 'function'
+          }
+        ]
+      },
+      {
+        name: 'expand',
+        description: '展开',
+        parameters: [
+          {
+            raw: 'function'
+          }
+        ]
+      },
+      {
+        name: 'hide',
+        description: '隐藏',
+        parameters: [
+          {
+            raw: 'function'
+          }
+        ]
+      },
+      {
+        name: 'show',
+        description: '显示',
+        parameters: [
+          {
+            raw: 'function'
+          }
+        ]
+      }
+    ],
+    examples: [
+      {
+        name: 'test',
+        title: '基础用法',
+        description:
+          '传入树形 `menuList`，用 `active-menu` 标记当前项；`#header` 为顶部插槽； `show-footer` 控制是否显示默认底部，`#footer` 可以自定义底部；',
+        sourcePath: 'docs/components/sidebar/test.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/sidebar/'
+      },
+      {
+        name: 'status',
+        title: '显示 / 折叠 / 隐藏',
+        description:
+          '`collapsed` 与 `visible` 对应展开、折叠、隐藏三种宽度；底部折叠条默认不显示；`show-footer` 开启后交互与样式与内置一致，也可用 `footer` 插槽自定义',
+        sourcePath: 'docs/components/sidebar/status.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/sidebar/'
+      },
+      {
+        name: 'indent',
+        title: '层级缩进',
+        description:
+          '默认情况下，子级菜单会与上级菜单图标与文本自动对齐；`indent` 为一级菜单缩进，它是各级菜单缩进的基础，未设置时子级菜单会在上级菜单的基础上按`indent` 增加缩进；通过`indent-map`可对各级缩进进行配置；也可以通过菜单项的 `indent` 进行配置。',
+        sourcePath: 'docs/components/sidebar/indent.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/sidebar/'
+      },
+      {
+        name: 'badge',
+        title: '角标与标题附加',
+        description:
+          '角标基于 `el-badge`实现，绑定在图标上，折叠后仍可保留；通过 `extra` / `#extra` 可在在标题末尾添加自定义内容，折叠时隐藏；`extra-style` 控制 extra 区域样式',
+        sourcePath: 'docs/components/sidebar/badge.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/sidebar/'
+      },
+      {
+        name: 'title',
+        title: '标题 Tooltip',
+        description:
+          '`title-prop` 配置标题省略与溢出提示，基于 [Text Tooltip](/components/text-tooltip/)；折叠时内置将 `model` 置为 `none`，避免与 `el-menu` 折叠提示重复',
+        sourcePath: 'docs/components/sidebar/title.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/sidebar/'
+      },
+      {
+        name: 'color',
+        title: '颜色',
+        description: '通过 CSS 变量控制背景、文字、激活、悬停与边框色',
+        sourcePath: 'docs/components/sidebar/color.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/sidebar/'
       }
     ]
   },
