@@ -76,6 +76,11 @@ export const exampleGroups: Array<{ category: string; items: DemoExample[] }> = 
         label: 'Button',
         value: 'button',
         component: defineAsyncComponent(() => import('./basic/button-example.vue'))
+      },
+      {
+        label: 'Order Button',
+        value: 'order-button',
+        component: defineAsyncComponent(() => import('./basic/order-button-example.vue'))
       }
     ]
   },

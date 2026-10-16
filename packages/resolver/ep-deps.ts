@@ -30,6 +30,7 @@ export const YUN_ELP_ELEMENT_PLUS_DEPS: Record<string, readonly string[]> = {
   YForm: ['form', 'row'],
   YFormItem: ['col', 'form-item'],
   YGroupSelect: ['button', 'button-group'],
+  YOrderButton: ['icon'],
   YPageProgress: ['progress'],
   YPop: ['popover', 'tooltip'],
   YRowSelect: ['icon'],

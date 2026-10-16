@@ -6,6 +6,11 @@
         "text": "button 增强按钮",
         "link": "/components/button/",
         "activeMatch": "/components/button/"
+      },
+      {
+        "text": "order-button 排序按钮",
+        "link": "/components/order-button/",
+        "activeMatch": "/components/order-button/"
       }
     ]
   },

@@ -32,6 +32,7 @@ import { YWebView } from './src/web-view';
 import { YForm } from './src/form';
 import { YFormItem } from './src/form-item';
 import { YSidebar } from './src/sidebar';
+import { YOrderButton } from './src/order-button';
 
 export default [
   YAppWrap,
@@ -66,5 +67,6 @@ export default [
   YWebView,
   YForm,
   YFormItem,
-  YSidebar
+  YSidebar,
+  YOrderButton
 ] as Plugin[];

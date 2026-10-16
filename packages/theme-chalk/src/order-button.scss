@@ -1,0 +1,108 @@
+@use 'element-plus/theme-chalk/src/common/var' as ep;
+@use 'element-plus/theme-chalk/src/mixins/var' as ep-var;
+@use './mixins/function' as *;
+
+#{y-class('order-button')} {
+  // --el-button-* 定义在 .el-button 上，这里挂一份，默认值才能解析到
+  @include ep-var.set-component-css-var('button', ep.$button);
+
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(#{y-var-name('order-button-height')}, #{el-var('component-size')});
+  padding: var(#{y-var-name('order-button-padding-vertical')}, 8px)
+    var(#{y-var-name('order-button-padding-horizontal')}, 15px);
+  margin: 0;
+  font-size: var(#{y-var-name('order-button-font-size')}, #{el-var('font-size-base')});
+  font-weight: var(#{y-var-name('order-button-font-weight')}, #{el-var('button-font-weight')});
+  line-height: 1;
+  color: var(#{y-var-name('order-button-text-color')}, #{el-var('button-text-color')});
+  white-space: nowrap;
+  appearance: none;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  background-color: var(#{y-var-name('order-button-bg-color')}, #{el-var('button-bg-color')});
+  border: var(#{y-var-name('order-button-border')}, #{el-var('border')});
+  border-color: var(#{y-var-name('order-button-border-color')}, #{el-var('button-border-color')});
+  border-radius: var(#{y-var-name('order-button-border-radius')}, #{el-var('border-radius-base')});
+  transition: 0.1s;
+
+  &:hover:not(.is-disabled) {
+    color: var(
+      #{y-var-name('order-button-hover-text-color')},
+      #{el-var('button-hover-text-color')}
+    );
+    background-color: var(
+      #{y-var-name('order-button-hover-bg-color')},
+      #{el-var('button-hover-bg-color')}
+    );
+    border-color: var(
+      #{y-var-name('order-button-hover-border-color')},
+      #{el-var('button-hover-border-color')}
+    );
+  }
+
+  &:active:not(.is-disabled) {
+    color: var(
+      #{y-var-name('order-button-active-text-color')},
+      #{el-var('button-active-text-color')}
+    );
+    background-color: var(
+      #{y-var-name('order-button-active-bg-color')},
+      #{el-var('button-active-bg-color')}
+    );
+    border-color: var(
+      #{y-var-name('order-button-active-border-color')},
+      #{el-var('button-active-border-color')}
+    );
+  }
+
+  &:focus-visible {
+    outline: 2px solid
+      var(#{y-var-name('order-button-outline-color')}, #{el-var('button-outline-color')});
+    outline-offset: 1px;
+  }
+
+  &.is-disabled,
+  &.is-disabled:hover {
+    color: var(
+      #{y-var-name('order-button-disabled-text-color')},
+      #{el-var('button-disabled-text-color')}
+    );
+    cursor: not-allowed;
+    background-color: var(
+      #{y-var-name('order-button-disabled-bg-color')},
+      #{el-var('button-disabled-bg-color')}
+    );
+    border-color: var(
+      #{y-var-name('order-button-disabled-border-color')},
+      #{el-var('button-disabled-border-color')}
+    );
+  }
+
+  &__icons {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(#{y-var-name('order-button-icon-color')}, #{el-var('text-color-placeholder')});
+  }
+
+  &__label + &__icons {
+    margin-inline-start: var(#{y-var-name('order-button-icon-gap')}, 6px);
+  }
+
+  &__icon {
+    height: 10px;
+    font-size: 12px;
+
+    & + & {
+      margin-top: -4px;
+    }
+
+    &.is-active {
+      color: var(#{y-var-name('order-button-icon-active-color')}, #{el-var('color-primary')});
+    }
+  }
+}
