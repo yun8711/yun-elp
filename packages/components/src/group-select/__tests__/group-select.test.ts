@@ -172,6 +172,40 @@ describe('YGroupSelect', () => {
       });
     });
 
+    it('activeType 为 plain 时选中项使用朴素样式', () => {
+      const wrapper = mount(YGroupSelect, {
+        props: {
+          ...baseProps,
+          activeType: 'plain'
+        }
+      });
+
+      const buttons = wrapper.findAll('.el-button');
+      expect(buttons[0].classes()).toContain('el-button--default');
+      expect(buttons[0].classes()).toContain('is-plain');
+      expect(buttons[0].classes()).toContain('is-active');
+      expect(buttons[0].classes()).not.toContain('el-button--primary');
+      expect(buttons[1].classes()).not.toContain('is-plain');
+      expect(buttons[1].classes()).not.toContain('is-active');
+    });
+
+    it('activeType 为 plain 时更新选中项样式', async () => {
+      const wrapper = mount(YGroupSelect, {
+        props: {
+          ...baseProps,
+          activeType: 'plain'
+        }
+      });
+
+      await wrapper.setProps({ modelValue: '2' });
+
+      const buttons = wrapper.findAll('.el-button');
+      expect(buttons[0].classes()).not.toContain('is-active');
+      expect(buttons[1].classes()).toContain('is-plain');
+      expect(buttons[1].classes()).toContain('is-active');
+      expect(buttons[1].classes()).toContain('el-button--default');
+    });
+
     it('应该处理 modelValue 为 null 的情况', () => {
       const wrapper = mount(YGroupSelect, {
         props: {

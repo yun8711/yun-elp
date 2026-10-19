@@ -4,8 +4,13 @@
       <el-button
         v-for="(item, index) in options"
         :key="item.value"
-        :type="modelValue === item.value ? 'primary' : 'default'"
-        :class="['item', itemClass]"
+        :type="isPrimarySelected(item.value) ? 'primary' : 'default'"
+        :class="[
+          'item',
+          itemClass,
+          ns.is('plain', isPlainSelected(item.value)),
+          ns.is('active', isPlainSelected(item.value))
+        ]"
         :icon="item.icon"
         :loading="item.loading"
         :disabled="item.disabled"
@@ -35,6 +40,12 @@ defineOptions({
 const props = defineProps(groupSelectProps);
 const emit = defineEmits<GroupSelectEmits>();
 const ns = useNamespace('group-select');
+
+const isSelected = (value: string | number) => value === props.modelValue;
+const isPrimarySelected = (value: string | number) =>
+  props.activeType === 'primary' && isSelected(value);
+const isPlainSelected = (value: string | number) =>
+  props.activeType === 'plain' && isSelected(value);
 
 const onClick = (value: string | number, item: GroupSelectOption, index: number, event: MouseEvent) => {
   if (value === props.modelValue) {

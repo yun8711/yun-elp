@@ -4335,6 +4335,15 @@ export default {
         ]
       },
       {
+        name: 'active-type',
+        description: '选中项样式',
+        type: {
+          raw: "enum'primary' \\| 'plain'"
+        },
+        required: false,
+        default: "'primary'"
+      },
+      {
         name: 'item-class',
         description: '按钮的自定义类名',
         type: {
@@ -4385,6 +4394,13 @@ export default {
         title: '基础用法',
         description: '最基本的用法，通过 `v-model` 绑定选中值，通过 `options` 配置选项。',
         sourcePath: 'docs/components/group-select/test.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/group-select/'
+      },
+      {
+        name: 'plain',
+        title: '朴素选中',
+        description: '`active-type="plain"` 时，选中项保持白底，文本和边框使用主题色。',
+        sourcePath: 'docs/components/group-select/plain.vue',
         docUrl: 'https://yun8711.github.io/yun-elp/components/group-select/'
       }
     ]

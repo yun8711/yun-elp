@@ -6,9 +6,13 @@ export interface GroupSelectOption {
   [key: string]: any;
 }
 
+/** primary：实心主色；plain：白底，文本和边框为主题色 */
+export type GroupSelectActiveType = 'primary' | 'plain';
+
 export interface GroupSelectProps {
   modelValue: string | number;
   options: GroupSelectOption[];
+  activeType?: GroupSelectActiveType;
   itemClass?: string;
   itemStyles?: Record<string, any>;
 }
@@ -28,6 +32,11 @@ export const groupSelectProps = {
   options: {
     type: Array as PropType<GroupSelectOption[]>,
     default: () => []
+  },
+  activeType: {
+    type: String as PropType<GroupSelectActiveType>,
+    default: 'primary',
+    validator: (value: string) => value === 'primary' || value === 'plain'
   },
   itemClass: {
     type: String,

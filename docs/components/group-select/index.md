@@ -19,16 +19,25 @@ group-select/test
 
 :::
 
+### 朴素选中
+
+:::demo `active-type="plain"` 时，选中项保持白底，文本和边框使用主题色。
+
+group-select/plain
+
+:::
+
 ## API
 
 ### Attributes
 
-| 属性名                | 说明                 | 类型                  | 默认值 |
-| --------------------- | -------------------- | --------------------- | ------ |
-| model-value / v-model | 绑定值               | `string \| number`    | `''`   |
-| options               | 选项数组             | `GroupSelectOption[]` | `[]`   |
-| item-class            | 按钮的自定义类名     | `string`              | `''`   |
-| item-styles           | 按钮的自定义样式对象 | `Record<string, any>` | `{}`   |
+| 属性名                | 说明                 | 类型                          | 默认值      |
+| --------------------- | -------------------- | ----------------------------- | ----------- |
+| model-value / v-model | 绑定值               | `string \| number`            | `''`        |
+| options               | 选项数组             | `GroupSelectOption[]`         | `[]`        |
+| active-type           | 选中项样式           | ^[enum]`'primary' \| 'plain'` | `'primary'` |
+| item-class            | 按钮的自定义类名     | `string`                      | `''`        |
+| item-styles           | 按钮的自定义样式对象 | `Record<string, any>`         | `{}`        |
 
 #### GroupSelectOption Properties
 
