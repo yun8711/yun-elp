@@ -4338,7 +4338,7 @@ export default {
         name: 'active-type',
         description: '选中项样式',
         type: {
-          raw: "enum'primary' \\| 'plain'"
+          raw: "'primary' | 'plain'"
         },
         required: false,
         default: "'primary'"
@@ -4521,6 +4521,114 @@ export default {
         description: '提供了前后置插槽',
         sourcePath: 'docs/components/label/slots.vue',
         docUrl: 'https://yun8711.github.io/yun-elp/components/label/'
+      }
+    ]
+  },
+  'y-order-button': {
+    tagName: 'y-order-button',
+    description: '单字段排序按钮',
+    docUrl: 'https://yun8711.github.io/yun-elp/components/order-button/',
+    props: [
+      {
+        name: 'model-value',
+        description: '当前方向，空字符串表示未排序',
+        type: {
+          raw: "'asc' | 'desc' | ''"
+        },
+        required: false,
+        default: "''"
+      },
+      {
+        name: 'default-order',
+        description: '从未排序点下时的方向',
+        type: {
+          raw: "'asc' | 'desc'"
+        },
+        required: false,
+        default: "'asc'"
+      },
+      {
+        name: 'clearable',
+        description: '降序后再点击是否取消排序',
+        type: {
+          raw: 'boolean'
+        },
+        required: false,
+        default: 'false'
+      },
+      {
+        name: 'icon',
+        description: '指示图标',
+        type: {
+          raw: "'caret' | 'arrow'"
+        },
+        required: false,
+        default: "'caret'"
+      },
+      {
+        name: 'disabled',
+        description: '是否禁用',
+        type: {
+          raw: 'boolean'
+        },
+        required: false,
+        default: 'false'
+      }
+    ],
+    events: [
+      {
+        name: 'change',
+        description: '方向变化时触发',
+        parameters: [
+          {
+            raw: 'function'
+          }
+        ]
+      },
+      {
+        name: 'updatemodel-value',
+        description: '方向变化',
+        parameters: [
+          {
+            raw: 'function'
+          }
+        ]
+      }
+    ],
+    slots: [
+      {
+        name: 'default',
+        description: '按钮文案'
+      }
+    ],
+    methods: [],
+    examples: [
+      {
+        name: 'basic',
+        title: '基础用法',
+        sourcePath: 'docs/components/order-button/basic.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/order-button/'
+      },
+      {
+        name: 'icon',
+        title: '箭头图标',
+        description: '`icon` 设为 `arrow` 时使用箭头，默认 `caret` 为三角形。',
+        sourcePath: 'docs/components/order-button/icon.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/order-button/'
+      },
+      {
+        name: 'group',
+        title: '按钮组',
+        description: '每个按钮只负责一个字段。外层用当前字段决定哪个按钮带有方向。',
+        sourcePath: 'docs/components/order-button/group.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/order-button/'
+      },
+      {
+        name: 'clearable',
+        title: '取消排序',
+        description: '`clearable` 为 `true` 时，升序 → 降序 → 取消。',
+        sourcePath: 'docs/components/order-button/clearable.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/order-button/'
       }
     ]
   },
@@ -5989,6 +6097,15 @@ export default {
         default: 'tableData'
       },
       {
+        name: 'title',
+        description: '表格上方标题。有文案，或使用 `#title`、`#title-right` 时显示',
+        type: {
+          raw: 'string'
+        },
+        required: false,
+        default: "''"
+      },
+      {
         name: 'data',
         description: '表数据',
         type: {
@@ -6552,6 +6669,14 @@ export default {
         description: '默认内容'
       },
       {
+        name: 'title',
+        description: '标题左侧内容，默认展示 `title` 文案'
+      },
+      {
+        name: 'title-right',
+        description: '标题右侧内容，与左侧 `space-between`'
+      },
+      {
         name: 'empty',
         description: '空状态内容'
       },
@@ -6712,6 +6837,14 @@ export default {
         name: 'test',
         title: '基础用法',
         sourcePath: 'docs/components/table/test.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/table/'
+      },
+      {
+        name: 'title',
+        title: '标题',
+        description:
+          '传入 `title` 时，在表格上方展示一行标题，高度 56px，左右边距 16px。`#title` 可替换左侧内容，`#title-right` 放在右侧，两侧 `space-between`。',
+        sourcePath: 'docs/components/table/title.vue',
         docUrl: 'https://yun8711.github.io/yun-elp/components/table/'
       }
     ]

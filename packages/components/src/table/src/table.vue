@@ -1,5 +1,13 @@
 <template>
   <div v-loading="loading" :class="ns.b()">
+    <div v-if="showTitle" :class="ns.e('title')">
+      <div :class="ns.e('title-main')">
+        <slot name="title">{{ title }}</slot>
+      </div>
+      <div v-if="slots['title-right']" :class="ns.e('title-right')">
+        <slot name="title-right" />
+      </div>
+    </div>
     <el-table v-bind="tableProps" ref="tableRef" :class="ns.e('table')">
       <slot />
       <template #empty>
@@ -56,6 +64,8 @@ const slots = defineSlots<{
   empty(): any;
   append(): any;
   footer(): any;
+  title(): any;
+  'title-right'(): any;
 }>();
 
 const props = withDefaults(defineProps<TableProps>(), {
@@ -63,17 +73,22 @@ const props = withDefaults(defineProps<TableProps>(), {
   showFooter: true,
   emptyProps: undefined,
   paginationProps: undefined,
-  formTableProp: 'tableData'
+  formTableProp: 'tableData',
+  title: ''
 });
 
 const tableConfig = useAppConfig('table');
 const { t } = useLocale();
 const ns = useNamespace('table');
 
+const showTitle = computed(
+  () => !!props.title || !!slots.title || !!slots['title-right']
+);
+
 const tableProps = computed(() => {
   return {
     ...(attrs || {}),
-    ...props,
+    ...omit(props, ['title']),
     border: true,
     size: 'large' as const,
   }

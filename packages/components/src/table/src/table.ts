@@ -13,6 +13,8 @@ export interface TableProps {
   paginationProps?: Partial<PaginationProps>;
   // 在el-form中嵌套的table，需要传入该属性，指明表间中表格数据的字段名，用于绑定校验
   formTableProp?: string;
+  /** 表格上方标题，默认展示文本 */
+  title?: string;
 }
 
 export const tableProps = {
@@ -35,6 +37,10 @@ export const tableProps = {
   formTableProp: {
     type: String,
     default: 'tableData'
+  },
+  title: {
+    type: String,
+    default: ''
   }
 } as const;
 

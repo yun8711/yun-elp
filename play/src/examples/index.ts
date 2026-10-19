@@ -113,6 +113,11 @@ export const exampleGroups: Array<{ category: string; items: DemoExample[] }> = 
         component: defineAsyncComponent(() => import('./table/table-example.vue'))
       },
       {
+        label: 'Table Title',
+        value: 'table-title',
+        component: defineAsyncComponent(() => import('./table/table-title.vue'))
+      },
+      {
         label: 'Table Filter',
         value: 'table-filter',
         component: defineAsyncComponent(() => import('./table/table-filter.vue'))

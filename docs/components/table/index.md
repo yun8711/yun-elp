@@ -19,6 +19,16 @@ table/test
 
 :::
 
+### 标题
+
+传入 `title` 时，在表格上方展示一行标题，高度 56px，左右边距 16px。`#title` 可替换左侧内容，`#title-right` 放在右侧，两侧 `space-between`。
+
+:::demo
+
+table/title
+
+:::
+
 ## API
 
 ### Attributes
@@ -30,6 +40,7 @@ table/test
 | show-footer               | 是否显示底部分页区域                                                                                                                                                             | ^[boolean]                                                                                                                                                           | `true`                                                                                                                  |
 | pagination-props          | 分页配置                                                                                                                                                                         | ^[object]`Partial<PaginationProps>`                                                                                                                                  | `{layout: 'prev, pager, next, sizes, jumper',background: true,pageSizes: [10, 20, 30, 40, 50, 100, 200],total: 0}`      |
 | form-table-prop           | 在表单对象中嵌套的 table 数据的键名，用于绑定校验                                                                                                                                | ^[string]                                                                                                                                                            | `tableData`                                                                                                             |
+| title                     | 表格上方标题。有文案，或使用 `#title`、`#title-right` 时显示                                                                                                                     | ^[string]                                                                                                                                                            | `''`                                                                                                                    |
 | data                      | 表数据                                                                                                                                                                           | ^[array]`any[]`                                                                                                                                                      | `[]`                                                                                                                    |
 | height                    | table 的高度；默认为自动高度；如果 height 为 number 类型，单位为 px；如果 height 为 string 类型，则会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式             | ^[string] / ^[number]                                                                                                                                                | —                                                                                                                       |
 | max-height                | table 的最大高度；合法的值为数字或者单位为 px 的高度                                                                                                                             | ^[string] / ^[number]                                                                                                                                                | —                                                                                                                       |
@@ -75,12 +86,14 @@ table/test
 
 ### Slots
 
-| 名称    | 说明                                                                                                                                  | 参数 |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| default | 默认内容                                                                                                                              | —    |
-| empty   | 空状态内容                                                                                                                            | —    |
-| footer  | 底部分页区域内容                                                                                                                      | —    |
-| append  | 插入至表格最后一行之后的内容， 如果需要对表格的内容进行无限滚动操作，可能需要用到这个 slot。 若表格有合计行，该 slot 会位于合计行之上 | —    |
+| 名称        | 说明                                                                                                                                  | 参数 |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| default     | 默认内容                                                                                                                              | —    |
+| title       | 标题左侧内容，默认展示 `title` 文案                                                                                                   | —    |
+| title-right | 标题右侧内容，与左侧 `space-between`                                                                                                  | —    |
+| empty       | 空状态内容                                                                                                                            | —    |
+| footer      | 底部分页区域内容                                                                                                                      | —    |
+| append      | 插入至表格最后一行之后的内容， 如果需要对表格的内容进行无限滚动操作，可能需要用到这个 slot。 若表格有合计行，该 slot 会位于合计行之上 | —    |
 
 ### Events
 
