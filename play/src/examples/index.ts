@@ -91,6 +91,11 @@ export const exampleGroups: Array<{ category: string; items: DemoExample[] }> = 
         label: 'Desc',
         value: 'desc',
         component: defineAsyncComponent(() => import('./display/desc-example.vue'))
+      },
+      {
+        label: 'Part Title',
+        value: 'part-title',
+        component: defineAsyncComponent(() => import('./display/part-title-example.vue'))
       }
     ]
   },

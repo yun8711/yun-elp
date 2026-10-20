@@ -85,6 +85,7 @@ import en from 'element-plus/dist/locale/en.mjs';
 | direction   | 排版方向；`auto` 时阿拉伯语自动 RTL                                                                           | ^[enum]`'ltr' \| 'rtl' \| 'auto'`        | `auto`  |
 | borderLabel | y-border-label 组件全局配置，[见下表](#border-label-properties)                                               | ^[object]                                | —       |
 | pageHeader  | y-page-header 组件全局配置，[见下表](#page-header-properties)                                                 | ^[object]                                | —       |
+| partTitle   | y-part-title 组件全局配置，[见下表](#part-title-properties)                                                   | ^[object]                                | —       |
 | pageFooter  | y-page-footer 组件全局配置，[见下表](#page-footer-properties)                                                 | ^[object]                                | —       |
 | button      | y-button 组件全局配置，[见下表](#button-properties)                                                           | ^[object]                                | —       |
 | drawer      | y-drawer 组件全局配置，[见下表](#drawer-properties)                                                           | ^[object]                                | —       |
@@ -114,6 +115,17 @@ import en from 'element-plus/dist/locale/en.mjs';
 | border    | 组件默认是否显示下边框            | ^[boolean]                             | —      |
 | paddingX  | 组件水平内边距                    | ^[string] / ^[array]`[string, string]` | —      |
 | textStyle | 标题文本样式                      | ^[object]`CSSProperties`               | —      |
+
+#### part-title Properties
+
+与 [y-part-title](/components/part-title/) 的样式属性相同，未设置的项保持组件默认样式。
+
+| 参数      | 描述                                | 类型                     | 默认值                                                                                           |
+| --------- | ----------------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------ |
+| textStyle | 标题文本样式，只覆盖传入的字段      | ^[object]`CSSProperties` | `{ color: 'var(--el-text-color-primary)', fontSize: 'var(--el-font-size-base)', lineHeight: 1 }` |
+| barStyle  | 左侧竖条样式，只覆盖传入的字段      | ^[object]`CSSProperties` | `{ width: '2px', height: '1em', backgroundColor: 'var(--el-color-primary)' }`                    |
+| gap       | 竖条与标题的间距，数字按 px 处理    | ^[string] / ^[number]    | `var(--gap-base, 8px)`                                                                           |
+| extraGap  | 标题与 extra 的间距，数字按 px 处理 | ^[string] / ^[number]    | `var(--gap-small)`                                                                               |
 
 #### page-footer Properties
 

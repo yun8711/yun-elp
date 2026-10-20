@@ -66,6 +66,18 @@ describe('YAppWrap 应用容器', () => {
       expect(wrapper.vm.$props.elpConfig).toEqual(elpConfig);
     });
 
+    it('应该接受partTitle配置', () => {
+      const partTitle = {
+        textStyle: { color: '#365edf', fontSize: '16px' },
+        barStyle: { width: '3px' },
+        gap: 12
+      };
+
+      const wrapper = createWrapper({ partTitle });
+
+      expect(wrapper.vm.$props.partTitle).toEqual(partTitle);
+    });
+
     it('应该接受borderLabel配置', () => {
       const borderLabel = {
         width: '400px',

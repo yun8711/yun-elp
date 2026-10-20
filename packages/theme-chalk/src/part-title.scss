@@ -9,6 +9,17 @@
   line-height: 1;
   color: var(#{el-var-name('text-color-primary')});
 
+  &__bar {
+    position: absolute;
+    inset-inline-start: 0;
+    top: 50%;
+    display: block;
+    width: 2px;
+    height: 1em;
+    background-color: var(#{el-var-name('color-primary')});
+    transform: translateY(-50%);
+  }
+
   &__left {
     display: flex;
     align-items: center;
@@ -23,18 +34,6 @@
 
     &-extra {
       margin-inline-start: var(--gap-small);
-    }
-
-    &::before {
-      position: absolute;
-      inset-inline-start: 0;
-      top: 50%;
-      display: block;
-      width: 2px;
-      height: 1em;
-      content: '';
-      background-color: var(#{el-var-name('color-primary')});
-      transform: translateY(-50%);
     }
   }
 

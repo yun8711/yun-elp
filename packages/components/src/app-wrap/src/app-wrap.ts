@@ -12,6 +12,7 @@ import type {
 import type { PropType, ExtractPublicPropTypes } from 'vue';
 import type { ButtonProps as YButtonProps } from '../../button/src/button';
 import type { EmptyProps } from '../../empty/src/empty';
+import type { PartTitleConfig } from '../../part-title/src/part-title';
 
 type PlacementType =
   | 'top'
@@ -40,6 +41,8 @@ export interface AppWrapProps {
     width?: string;
     height?: string;
   };
+  // part-title的配置
+  partTitle?: PartTitleConfig;
   // page-header的配置
   pageHeader?: {
     height?: string | number;
@@ -164,6 +167,10 @@ export const appWrapProps = {
   },
   pageHeader: {
     type: Object as PropType<AppWrapProps['pageHeader']>,
+    default: () => ({})
+  },
+  partTitle: {
+    type: Object as PropType<AppWrapProps['partTitle']>,
     default: () => ({})
   },
   pageFooter: {

@@ -109,6 +109,50 @@ export default {
         ]
       },
       {
+        name: 'part-title',
+        description: 'y-part-title 组件全局配置，[见下表](#part-title-properties)',
+        type: {
+          raw: 'object'
+        },
+        required: false,
+        extendsDescription: '与 y-part-title 的样式属性相同，未设置的项保持组件默认样式。',
+        properties: [
+          {
+            name: 'text-style',
+            description: '标题文本样式，只覆盖传入的字段',
+            type: {
+              raw: 'objectCSSProperties'
+            },
+            default:
+              "{ color: 'var(--el-text-color-primary)', fontSize: 'var(--el-font-size-base)', lineHeight: 1 }"
+          },
+          {
+            name: 'bar-style',
+            description: '左侧竖条样式，只覆盖传入的字段',
+            type: {
+              raw: 'objectCSSProperties'
+            },
+            default: "{ width: '2px', height: '1em', backgroundColor: 'var(--el-color-primary)' }"
+          },
+          {
+            name: 'gap',
+            description: '竖条与标题的间距，数字按 px 处理',
+            type: {
+              raw: 'string / number'
+            },
+            default: 'var(--gap-base, 8px)'
+          },
+          {
+            name: 'extra-gap',
+            description: '标题与 extra 的间距，数字按 px 处理',
+            type: {
+              raw: 'string / number'
+            },
+            default: 'var(--gap-small)'
+          }
+        ]
+      },
+      {
         name: 'page-footer',
         description: 'y-page-footer 组件全局配置，[见下表](#page-footer-properties)',
         type: {
@@ -4889,7 +4933,7 @@ export default {
     tagName: 'y-part-title',
     description: '用于展示页面局部区域的标题，支持左侧装饰块和右侧操作区域。',
     detailedDescription:
-      '用于在局部区域展示分区小标题，具有左侧装饰块和灵活的插槽配置。常用于页面分区、表单分组、列表标题等场景。',
+      '用于在局部区域展示分区小标题，具有左侧装饰块和灵活的插槽配置。常用于页面分区、表单分组、列表标题等场景。\n文本样式、左侧竖条样式和间距可通过组件属性调整，也可在 `y-app-wrap` 的 `partTitle` 上全局配置。`textStyle`、`barStyle` 按字段合并，优先级：组件属性 > `partTitle` > 下表默认样式。`gap`、`extraGap` 传入数字时按 px 处理。',
     docUrl: 'https://yun8711.github.io/yun-elp/components/part-title/',
     props: [
       {
@@ -4900,6 +4944,43 @@ export default {
         },
         required: false,
         default: "''"
+      },
+      {
+        name: 'text-style',
+        description: '标题文本样式，只覆盖传入的字段',
+        type: {
+          raw: 'CSSProperties'
+        },
+        required: false,
+        default:
+          "{ color: 'var(--el-text-color-primary)', fontSize: 'var(--el-font-size-base)', lineHeight: 1 }"
+      },
+      {
+        name: 'bar-style',
+        description: '左侧竖条样式，只覆盖传入的字段',
+        type: {
+          raw: 'CSSProperties'
+        },
+        required: false,
+        default: "{ width: '2px', height: '1em', backgroundColor: 'var(--el-color-primary)' }"
+      },
+      {
+        name: 'gap',
+        description: '竖条与标题的间距',
+        type: {
+          raw: 'string | number'
+        },
+        required: false,
+        default: 'var(--gap-base, 8px)'
+      },
+      {
+        name: 'extra-gap',
+        description: '标题与 extra 插槽的间距',
+        type: {
+          raw: 'string | number'
+        },
+        required: false,
+        default: 'var(--gap-small)'
       }
     ],
     events: [],
@@ -4930,6 +5011,13 @@ export default {
         name: 'slots',
         title: '插槽',
         sourcePath: 'docs/components/part-title/slots.vue',
+        docUrl: 'https://yun8711.github.io/yun-elp/components/part-title/'
+      },
+      {
+        name: 'style',
+        title: '样式配置',
+        description: '组件属性与 `y-app-wrap` 的 `partTitle` 字段相同，用于单独覆盖某一处分区标题',
+        sourcePath: 'docs/components/part-title/style.vue',
         docUrl: 'https://yun8711.github.io/yun-elp/components/part-title/'
       }
     ]

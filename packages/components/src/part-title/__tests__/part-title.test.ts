@@ -2,6 +2,7 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import YPartTitle from '../src/part-title.vue';
+import { appConfigKey } from '../../app-wrap/src/use-app-config';
 
 describe('YPartTitle组件', () => {
   // 基础渲染测试
@@ -254,5 +255,88 @@ describe('YPartTitle组件', () => {
 
     expect(wrapper.find('.y-part-title__right').exists()).toBe(true);
     expect(wrapper.find('.y-part-title__right').text()).toBe('');
+  });
+
+  it('应该把 textStyle、barStyle 和间距应用到对应节点', () => {
+    const wrapper = mount(YPartTitle, {
+      props: {
+        title: '测试标题',
+        textStyle: { color: '#365edf', fontSize: '16px' },
+        barStyle: { backgroundColor: 'red', width: '3px', height: '14px' },
+        gap: 12,
+        extraGap: '8px'
+      }
+    });
+
+    const textStyle = wrapper.find('.y-part-title__left span').attributes('style') ?? '';
+    const barStyle = wrapper.find('.y-part-title__bar').attributes('style') ?? '';
+    const leftStyle = wrapper.find('.y-part-title__left').attributes('style') ?? '';
+    const extraStyle = wrapper.find('.y-part-title__left-extra').attributes('style') ?? '';
+
+    expect(textStyle).toContain('color: #365edf');
+    expect(textStyle).toContain('font-size: 16px');
+    expect(barStyle).toContain('background-color: red');
+    expect(barStyle).toContain('width: 3px');
+    expect(barStyle).toContain('height: 14px');
+    expect(leftStyle).toContain('padding-inline-start: 12px');
+    expect(extraStyle).toContain('margin-inline-start: 8px');
+  });
+
+  it('应该使用 app-wrap 的 partTitle 配置', () => {
+    const wrapper = mount(YPartTitle, {
+      props: {
+        title: '测试标题'
+      },
+      global: {
+        provide: {
+          [appConfigKey as symbol]: {
+            partTitle: {
+              textStyle: { color: '#111111', fontSize: '12px' },
+              barStyle: { width: '4px' },
+              gap: 10
+            }
+          }
+        }
+      }
+    });
+
+    const textStyle = wrapper.find('.y-part-title__left span').attributes('style') ?? '';
+    const barStyle = wrapper.find('.y-part-title__bar').attributes('style') ?? '';
+    const leftStyle = wrapper.find('.y-part-title__left').attributes('style') ?? '';
+
+    expect(textStyle).toContain('color: #111111');
+    expect(textStyle).toContain('font-size: 12px');
+    expect(barStyle).toContain('width: 4px');
+    expect(leftStyle).toContain('padding-inline-start: 10px');
+  });
+
+  it('组件属性应优先于 app-wrap 的 partTitle 配置，样式对象按字段合并', () => {
+    const wrapper = mount(YPartTitle, {
+      props: {
+        title: '测试标题',
+        textStyle: { color: '#222222' },
+        gap: 16
+      },
+      global: {
+        provide: {
+          [appConfigKey as symbol]: {
+            partTitle: {
+              textStyle: { color: '#111111', fontSize: '12px' },
+              barStyle: { backgroundColor: 'red' },
+              gap: 8
+            }
+          }
+        }
+      }
+    });
+
+    const textStyle = wrapper.find('.y-part-title__left span').attributes('style') ?? '';
+    const barStyle = wrapper.find('.y-part-title__bar').attributes('style') ?? '';
+    const leftStyle = wrapper.find('.y-part-title__left').attributes('style') ?? '';
+
+    expect(textStyle).toContain('color: #222222');
+    expect(textStyle).toContain('font-size: 12px');
+    expect(barStyle).toContain('background-color: red');
+    expect(leftStyle).toContain('padding-inline-start: 16px');
   });
 });
