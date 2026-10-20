@@ -1,5 +1,11 @@
 <template>
-  <el-drawer ref="drawerRef" v-model="drawerVisible" v-bind="drawerAttrs" :class="ns.b()">
+  <el-drawer
+    ref="drawerRef"
+    v-model="drawerVisible"
+    v-bind="drawerAttrs"
+    :class="ns.b()"
+    :style="drawerStyle"
+  >
     <template #header>
       <slot name="header">
         <div :class="ns.e('header-title')" :style="titleStyle">
@@ -39,7 +45,7 @@ import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import { useExternalListener } from '../../../hooks/use-external-listener';
 import { useNamespace } from '../../../hooks/use-namespace';
-import { omit } from 'lodash-es';
+import { isNil, isNumber, omit } from 'lodash-es';
 import YButton from '../../button/src/button.vue';
 
 defineOptions({
@@ -82,6 +88,7 @@ const drawerAttrs = computed(() => {
     size: drawerConfig?.size || '640px',
     ...omit(drawerConfig, [
       'titleStyle',
+      'bodyPadding',
       'confirmText',
       'cancelText',
       'confirmProps',
@@ -90,6 +97,23 @@ const drawerAttrs = computed(() => {
     ...attrs
   };
 });
+
+const resolveBodyPadding = (prop?: string | number, config?: string | number) => {
+  const value =
+    !isNil(prop) && prop !== '' ? prop : !isNil(config) && config !== '' ? config : 0;
+  return isNumber(value) ? `${value}px` : value;
+};
+
+const bodyPadding = computed(() =>
+  resolveBodyPadding(props.bodyPadding, drawerConfig?.bodyPadding)
+);
+
+const drawerStyle = computed(() => [
+  attrs.style,
+  {
+    '--body-padding': bodyPadding.value
+  }
+]);
 
 const titleStyle = computed(() => {
   const configStyle = drawerConfig?.titleStyle || {};

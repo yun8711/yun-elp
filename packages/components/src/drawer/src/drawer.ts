@@ -12,6 +12,8 @@ export interface DrawerProps {
   modelValue?: boolean;
   title?: string;
   titleStyle?: Record<string, any>;
+  /** 内容区内边距，数字按 px 处理 */
+  bodyPadding?: string | number;
   showFooter?: boolean;
   noConfirm?: boolean;
   confirmText?: string;
@@ -29,6 +31,10 @@ export const drawerProps = {
   titleStyle: {
     type: Object,
     default: () => {}
+  },
+  bodyPadding: {
+    type: [String, Number],
+    default: undefined
   },
   showFooter: {
     type: Boolean,

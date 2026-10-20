@@ -14,19 +14,22 @@
         @cancel="handleCancel('基础用法')"
       >
         <p>这是对话框内容区域，可放置表单、提示信息等。</p>
-        <p>AppWrap 全局 dialog 配置会作用于标题样式（如 titleStyle）。</p>
+        <p>AppWrap 全局 dialog 配置会作用于标题样式和内容区内边距（bodyPadding）。</p>
       </y-dialog>
     </div>
 
     <div class="example-section">
       <h3>内容区滚动</h3>
-      <p class="section-desc">通过 body-max-height 限制 body 最大高度，超出部分滚动。</p>
+      <p class="section-desc">
+        通过 body-max-height 限制 body 最大高度，超出部分滚动。body-padding 覆盖全局内边距。
+      </p>
       <y-button @click="scrollVisible = true">打开可滚动对话框</y-button>
       <y-dialog
         v-model="scrollVisible"
         title="内容区滚动"
         width="480px"
         body-max-height="240px"
+        body-padding="8px 12px"
         @confirm="handleConfirm('内容区滚动')"
         @cancel="handleCancel('内容区滚动')"
       >

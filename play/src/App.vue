@@ -38,7 +38,11 @@ const appWrapConfig = {
     titleStyle: {
       color: 'red'
     },
-    closeOnClickModal: true
+    closeOnClickModal: true,
+    bodyPadding: '16px 24px'
+  },
+  drawer: {
+    bodyPadding: '16px 24px'
   },
   empty: {
     image: logo

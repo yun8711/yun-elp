@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import YDrawer from '../src/drawer.vue';
+import { appConfigKey } from '../../app-wrap/src/use-app-config';
 
 // 全局 stubs：最小化实现，便于断言 attrs、插槽与点击
 const globalStubs = {
@@ -237,5 +238,52 @@ describe('YDrawer', () => {
     // 验证触发了父组件的 update:modelValue 监听器
     expect(onUpdateModelValue).toHaveBeenCalledWith(false);
     expect(onUpdateModelValue).toHaveBeenCalledTimes(1);
+  });
+
+  it('bodyPadding 默认 0px，props 覆盖 AppWrap，数字按 px 处理', () => {
+    const defaultWrapper = mount(YDrawer, {
+      props: { modelValue: true },
+      global: { stubs: globalStubs }
+    });
+    expect(defaultWrapper.find('.el-drawer').attributes('style') || '').toContain(
+      '--body-padding: 0px'
+    );
+
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true, bodyPadding: 0 },
+      global: {
+        stubs: globalStubs,
+        provide: {
+          [appConfigKey as unknown as string]: {
+            drawer: {
+              bodyPadding: '16px'
+            }
+          }
+        }
+      }
+    });
+    const style = wrapper.find('.el-drawer').attributes('style') || '';
+    expect(style).toContain('--body-padding: 0px');
+    expect(style).not.toContain('16px');
+    expect(wrapper.find('.el-drawer').attributes('body-padding')).toBeUndefined();
+  });
+
+  it('未传 bodyPadding 时使用 AppWrap 配置', () => {
+    const wrapper = mount(YDrawer, {
+      props: { modelValue: true },
+      global: {
+        stubs: globalStubs,
+        provide: {
+          [appConfigKey as unknown as string]: {
+            drawer: {
+              bodyPadding: '20px 24px'
+            }
+          }
+        }
+      }
+    });
+    expect(wrapper.find('.el-drawer').attributes('style') || '').toContain(
+      '--body-padding: 20px 24px'
+    );
   });
 });

@@ -7,7 +7,7 @@ description: 默认提供操作按钮的对话框组件
 
 ## 说明
 
-基于 `el-dialog` 封装，重置了内部样式，`footer` 插槽内使用 `y-button` 内置了"确定"、"取消"按钮，默认都是防抖的
+基于 `el-dialog` 封装，重置了内部样式，内容区默认无内边距。可通过 `body-padding` 或 `y-app-wrap` 的 `dialog.bodyPadding` 指定，组件属性优先。`footer` 插槽内使用 `y-button` 内置了"确定"、"取消"按钮，默认都是防抖的
 
 ## 用法示例
 
@@ -36,6 +36,7 @@ dialog/test
 | cancel-text           | 取消按钮文本                                                                             | ^[string]                                       | `'取消'`                               |
 | cancel-props          | 取消按钮属性                                                                             | ^[object]`YButtonProps`                         | `{ type: 'default',model:'debounce' }` |
 | body-max-height       | body 区域最大高                                                                          | ^[string]                                       | `'50vh'`                               |
+| body-padding          | 内容区内边距，数字按 px 处理                                                             | ^[string] / ^[number]                           | `0`                                    |
 | width                 | 对话框的宽度，默认值为 50%                                                               | ^[string] / ^[number]                           | `'50%'`                                |
 | fullscreen            | 是否为全屏                                                                               | ^[boolean]                                      | `false`                                |
 | top                   | dialog CSS 中的 margin-top 值，默认为 15vh                                               | ^[string]                                       | `'15vh'`                               |

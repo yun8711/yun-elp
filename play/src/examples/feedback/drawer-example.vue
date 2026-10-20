@@ -12,7 +12,7 @@
         @confirm="handleConfirm('基础用法')"
         @cancel="handleCancel('基础用法')"
       >
-        <p>这是抽屉内容区域，可放置表单、详情等。</p>
+        <p>这是抽屉内容区域，可放置表单、详情等。内边距来自 AppWrap 的 drawer.bodyPadding。</p>
         <p>向下滚动可验证 body 区域滚动行为。</p>
         <div v-for="i in 8" :key="i" class="content-block">内容块 {{ i }}</div>
       </y-drawer>
@@ -20,9 +20,16 @@
 
     <div class="example-section">
       <h3>无底部按钮</h3>
-      <p class="section-desc">设置 show-footer 为 false，隐藏默认 footer。</p>
+      <p class="section-desc">
+        设置 show-footer 为 false，隐藏默认 footer。body-padding 覆盖全局内边距。
+      </p>
       <y-button @click="noFooterVisible = true">打开无 footer 抽屉</y-button>
-      <y-drawer v-model="noFooterVisible" title="无底部按钮" :show-footer="false">
+      <y-drawer
+        v-model="noFooterVisible"
+        title="无底部按钮"
+        body-padding="8px"
+        :show-footer="false"
+      >
         <p>关闭请使用右上角关闭按钮或点击遮罩。</p>
       </y-drawer>
     </div>

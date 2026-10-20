@@ -215,6 +215,14 @@ export default {
             type: {
               raw: 'objectCSSProperties'
             }
+          },
+          {
+            name: 'body-padding',
+            description: '内容区内边距，数字按 px 处理',
+            type: {
+              raw: 'string / number'
+            },
+            default: '0'
           }
         ]
       },
@@ -265,6 +273,14 @@ export default {
             type: {
               raw: 'objectCSSProperties'
             }
+          },
+          {
+            name: 'body-padding',
+            description: '内容区内边距，数字按 px 处理',
+            type: {
+              raw: 'string / number'
+            },
+            default: '0'
           }
         ]
       },
@@ -2788,7 +2804,7 @@ export default {
     tagName: 'y-dialog',
     description: '默认提供操作按钮的对话框组件',
     detailedDescription:
-      '基于 `el-dialog` 封装，重置了内部样式，`footer` 插槽内使用 `y-button` 内置了"确定"、"取消"按钮，默认都是防抖的',
+      '基于 `el-dialog` 封装，重置了内部样式，内容区默认无内边距。可通过 `body-padding` 或 `y-app-wrap` 的 `dialog.bodyPadding` 指定，组件属性优先。`footer` 插槽内使用 `y-button` 内置了"确定"、"取消"按钮，默认都是防抖的',
     docUrl: 'https://yun8711.github.io/yun-elp/components/dialog/',
     props: [
       {
@@ -2889,6 +2905,15 @@ export default {
         },
         required: false,
         default: "'50vh'"
+      },
+      {
+        name: 'body-padding',
+        description: '内容区内边距，数字按 px 处理',
+        type: {
+          raw: 'string | number'
+        },
+        required: false,
+        default: '0'
       },
       {
         name: 'width',
@@ -3192,7 +3217,7 @@ export default {
     tagName: 'y-drawer',
     description: '默认提供footer区域及操作按钮的抽屉组件',
     detailedDescription:
-      '基于 `el-drawer` 封装，重置了内部样式，`footer` 插槽内使用 `y-button` 内置了"确定"、"取消"按钮，并且默认都是防抖的',
+      '基于 `el-drawer` 封装，重置了内部样式，内容区默认无内边距。可通过 `body-padding` 或 `y-app-wrap` 的 `drawer.bodyPadding` 指定，组件属性优先。`footer` 插槽内使用 `y-button` 内置了"确定"、"取消"按钮，并且默认都是防抖的',
     docUrl: 'https://yun8711.github.io/yun-elp/components/drawer/',
     props: [
       {
@@ -3229,6 +3254,15 @@ export default {
           raw: 'CSSProperties'
         },
         required: false
+      },
+      {
+        name: 'body-padding',
+        description: '内容区内边距，数字按 px 处理',
+        type: {
+          raw: 'string | number'
+        },
+        required: false,
+        default: '0'
       },
       {
         name: 'show-footer',

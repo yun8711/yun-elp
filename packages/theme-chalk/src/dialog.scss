@@ -15,6 +15,7 @@
 
   &__body {
     max-height: var(--body-max-height);
+    padding: var(--body-padding, 0) !important;
     overflow-y: auto;
   }
 

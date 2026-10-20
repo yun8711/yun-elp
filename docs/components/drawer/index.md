@@ -7,7 +7,7 @@ description: 默认提供footer区域及操作按钮的抽屉组件
 
 ## 说明
 
-基于 `el-drawer` 封装，重置了内部样式，`footer` 插槽内使用 `y-button` 内置了"确定"、"取消"按钮，并且默认都是防抖的
+基于 `el-drawer` 封装，重置了内部样式，内容区默认无内边距。可通过 `body-padding` 或 `y-app-wrap` 的 `drawer.bodyPadding` 指定，组件属性优先。`footer` 插槽内使用 `y-button` 内置了"确定"、"取消"按钮，并且默认都是防抖的
 
 ## 用法示例
 
@@ -29,6 +29,7 @@ drawer/test
 | size                  | 抽屉尺寸                                                                                       | ^[string] / ^[number]                           | `'640px'`                                    |
 | title                 | 对话框标题                                                                                     | ^[string]                                       | `''`                                         |
 | title-style           | 标题样式                                                                                       | ^[object]`CSSProperties`                        | —                                            |
+| body-padding          | 内容区内边距，数字按 px 处理                                                                   | ^[string] / ^[number]                           | `0`                                          |
 | show-footer           | 是否显示底部按钮区域                                                                           | ^[boolean]                                      | `true`                                       |
 | no-confirm            | 是否隐藏确认按钮                                                                               | ^[boolean]                                      | `false`                                      |
 | confirm-text          | 确认按钮文本                                                                                   | ^[string]                                       | `'确定'`                                     |

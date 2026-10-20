@@ -4,9 +4,7 @@
     v-model="dialogVisible"
     v-bind="dialogAttrs"
     :class="ns.b()"
-    :style="{
-      '--body-max-height': bodyMaxHeight
-    }"
+    :style="dialogStyle"
   >
     <template #header>
       <slot name="header">
@@ -46,7 +44,7 @@ import { useAppConfig } from '../../app-wrap/src/use-app-config';
 import { useLocale } from '../../../hooks/use-locale';
 import { useExternalListener } from '../../../hooks/use-external-listener';
 import { useNamespace } from '../../../hooks/use-namespace';
-import { omit } from 'lodash-es';
+import { isNil, isNumber, omit } from 'lodash-es';
 import { ElDialog } from 'element-plus';
 import YButton from '../../button/src/button.vue';
 
@@ -90,6 +88,7 @@ const dialogAttrs = computed(() => {
     footerClass: ns.e('footer'),
     ...omit(dialogConfig, [
       'titleStyle',
+      'bodyPadding',
       'confirmText',
       'cancelText',
       'confirmProps',
@@ -102,6 +101,24 @@ const dialogAttrs = computed(() => {
 const bodyMaxHeight = computed(() => {
   return props.bodyMaxHeight || dialogConfig?.bodyMaxHeight || '50vh';
 });
+
+const resolveBodyPadding = (prop?: string | number, config?: string | number) => {
+  const value =
+    !isNil(prop) && prop !== '' ? prop : !isNil(config) && config !== '' ? config : 0;
+  return isNumber(value) ? `${value}px` : value;
+};
+
+const bodyPadding = computed(() =>
+  resolveBodyPadding(props.bodyPadding, dialogConfig?.bodyPadding)
+);
+
+const dialogStyle = computed(() => [
+  attrs.style,
+  {
+    '--body-max-height': bodyMaxHeight.value,
+    '--body-padding': bodyPadding.value
+  }
+]);
 
 const titleStyle = computed(() => {
   const configStyle = dialogConfig?.titleStyle || {};

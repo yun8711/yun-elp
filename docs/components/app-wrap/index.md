@@ -136,25 +136,27 @@ import en from 'element-plus/dist/locale/en.mjs';
 
 继承 [el-drawer 的全部属性](https://element-plus.org/zh-CN/component/drawer.html#%E5%B1%9E%E6%80%A7) ，另外包含以下属性
 
-| 参数         | 描述         | 类型                     | 默认值             |
-| ------------ | ------------ | ------------------------ | ------------------ |
-| confirmText  | 确认按钮文本 | ^[string]                | `'确定'`           |
-| confirmProps | 确认按钮属性 | ^[object]`YButtonProps`  | `{type:'primary'}` |
-| cancelText   | 取消按钮文本 | ^[string]                | `'取消'`           |
-| cancelProps  | 取消按钮属性 | ^[object]`YButtonProps`  | `{type:'default'}` |
-| titleStyle   | 标题文本样式 | ^[object]`CSSProperties` | —                  |
+| 参数         | 描述                         | 类型                     | 默认值             |
+| ------------ | ---------------------------- | ------------------------ | ------------------ |
+| confirmText  | 确认按钮文本                 | ^[string]                | `'确定'`           |
+| confirmProps | 确认按钮属性                 | ^[object]`YButtonProps`  | `{type:'primary'}` |
+| cancelText   | 取消按钮文本                 | ^[string]                | `'取消'`           |
+| cancelProps  | 取消按钮属性                 | ^[object]`YButtonProps`  | `{type:'default'}` |
+| titleStyle   | 标题文本样式                 | ^[object]`CSSProperties` | —                  |
+| bodyPadding  | 内容区内边距，数字按 px 处理 | ^[string] / ^[number]    | `0`                |
 
 #### dialog Properties
 
 继承 [el-dialog 的全部属性](https://element-plus.org/zh-CN/component/dialog.html#attributes) ，另外包含以下属性
 
-| 参数         | 描述         | 类型                     | 默认值             |
-| ------------ | ------------ | ------------------------ | ------------------ |
-| confirmText  | 确认按钮文本 | ^[string]                | `'确定'`           |
-| confirmProps | 确认按钮属性 | ^[object]`YButtonProps`  | `{type:'primary'}` |
-| cancelText   | 取消按钮文本 | ^[string]                | `'取消'`           |
-| cancelProps  | 取消按钮属性 | ^[object]`YButtonProps`  | `{type:'default'}` |
-| titleStyle   | 标题文本样式 | ^[object]`CSSProperties` | —                  |
+| 参数         | 描述                         | 类型                     | 默认值             |
+| ------------ | ---------------------------- | ------------------------ | ------------------ |
+| confirmText  | 确认按钮文本                 | ^[string]                | `'确定'`           |
+| confirmProps | 确认按钮属性                 | ^[object]`YButtonProps`  | `{type:'primary'}` |
+| cancelText   | 取消按钮文本                 | ^[string]                | `'取消'`           |
+| cancelProps  | 取消按钮属性                 | ^[object]`YButtonProps`  | `{type:'default'}` |
+| titleStyle   | 标题文本样式                 | ^[object]`CSSProperties` | —                  |
+| bodyPadding  | 内容区内边距，数字按 px 处理 | ^[string] / ^[number]    | `0`                |
 
 #### empty Properties
 

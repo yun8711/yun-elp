@@ -321,4 +321,51 @@ describe('YDialog - 合并配置与插槽/样式', () => {
     expect(normalized).toContain('color:red');
     expect(normalized).toContain('font-weight:700');
   });
+
+  it('bodyPadding 默认 0px，props 覆盖 AppWrap，数字按 px 处理', () => {
+    const defaultWrapper = mount(YDialog, {
+      props: { modelValue: true },
+      global: { stubs: globalStubs }
+    });
+    expect(defaultWrapper.find('.el-dialog').attributes('style') || '').toContain(
+      '--body-padding: 0px'
+    );
+
+    const wrapper = mount(YDialog, {
+      props: { modelValue: true, bodyPadding: 8 },
+      global: {
+        stubs: globalStubs,
+        provide: {
+          [appConfigKey as unknown as string]: {
+            dialog: {
+              bodyPadding: '16px 24px'
+            }
+          }
+        }
+      }
+    });
+    const style = wrapper.find('.el-dialog').attributes('style') || '';
+    expect(style).toContain('--body-padding: 8px');
+    expect(style).not.toContain('16px 24px');
+    expect(wrapper.find('.el-dialog').attributes('body-padding')).toBeUndefined();
+  });
+
+  it('未传 bodyPadding 时使用 AppWrap 配置', () => {
+    const wrapper = mount(YDialog, {
+      props: { modelValue: true },
+      global: {
+        stubs: globalStubs,
+        provide: {
+          [appConfigKey as unknown as string]: {
+            dialog: {
+              bodyPadding: '16px 24px'
+            }
+          }
+        }
+      }
+    });
+    expect(wrapper.find('.el-dialog').attributes('style') || '').toContain(
+      '--body-padding: 16px 24px'
+    );
+  });
 });

@@ -16,7 +16,7 @@
   }
 
   &__body {
-    padding: 0 !important;
+    padding: var(--body-padding, 0) !important;
   }
 
   &__footer {
