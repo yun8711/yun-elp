@@ -12,13 +12,18 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { watch } from 'vue';
+import { useStorage } from '@vueuse/core';
 import Layout from './components/Layout.vue';
 import logo from './assets/test.png';
 import { examples } from './examples';
 import { demoNamespaces } from './demo-namespaces';
 
-const theme = ref('kd');
+const themeValues = ['kd', 'arco', 'antd'];
+const theme = useStorage('YElp-theme', 'kd');
+if (!themeValues.includes(theme.value)) {
+  theme.value = 'kd';
+}
 
 watch(
   theme,
@@ -36,12 +41,19 @@ const appWrapConfig = {
   },
   dialog: {
     titleStyle: {
-      color: 'red'
+      color: 'red',
+      fontSize: '16px',
+      fontWeight: 'bold'
     },
     closeOnClickModal: true,
     bodyPadding: '16px 24px'
   },
   drawer: {
+    titleStyle: {
+      color: 'blue',
+      fontSize: '16px',
+      fontWeight: 'bold'
+    },
     bodyPadding: '16px 24px'
   },
   empty: {

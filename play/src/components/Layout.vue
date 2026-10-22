@@ -117,7 +117,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { useElementSize } from '@vueuse/core'
+import { useElementSize, useStorage } from '@vueuse/core'
 import { Link } from '@element-plus/icons-vue'
 import { demoNamespaces } from '../demo-namespaces'
 
@@ -149,9 +149,6 @@ const demoAppWrapProps = computed(() => {
   }
 })
 
-/** 仅作用于右侧 demo 容器的语言与 RTL，不影响调试壳层 */
-const demoLocale = ref('zh-cn')
-
 const localeOptions = [
   { label: '简体中文', value: 'zh-cn' },
   { label: 'English', value: 'en' },
@@ -165,18 +162,24 @@ const themeOptions = [
   { label: 'Antd', value: 'antd' }
 ]
 
+/** 仅作用于右侧 demo 容器的语言与 RTL，不影响调试壳层 */
+const demoLocale = useStorage('YElp-demoLocale', 'zh-cn')
+if (!localeOptions.some(item => item.value === demoLocale.value)) {
+  demoLocale.value = 'zh-cn'
+}
+
 const themeModel = computed({
   get: () => props.theme,
   set: value => emit('update:theme', value)
 })
 
-// 背景颜色
-const backgroundColor = ref(localStorage.getItem('YElp-backgroundColor') || '#ffffff')
+const backgroundColor = useStorage('YElp-backgroundColor', '#ffffff')
+if (!backgroundColor.value || backgroundColor.value === 'null') {
+  backgroundColor.value = '#ffffff'
+}
 
-// 背景颜色变化
 const handleBackgroundColorChange = (color) => {
   console.log('背景颜色变化:', color)
-  localStorage.setItem('YElp-backgroundColor', color)
 }
 
 // 容器尺寸监控
@@ -185,11 +188,13 @@ const { width, height } = useElementSize(sectionRef, {
   debounce: 100,  // 添加100ms的防抖
   box: 'border-box'  // 使用border-box盒模型计算尺寸
 })
-// 尺寸锁定状态
-const isLocked = ref(false)
+const isLocked = useStorage('YElp-isLocked', false)
 
-// 组件选择
-const curComponent = ref(props.examples.find(item => item.default)?.value || "")
+const defaultComponent = props.examples.find(item => item.default)?.value || ''
+const curComponent = useStorage('YElp-curComponent', defaultComponent)
+if (!props.examples.some(item => item.value === curComponent.value)) {
+  curComponent.value = defaultComponent
+}
 const handleComponentChange = (value) => {
   console.log('切换组件:', value);
 };
@@ -252,7 +257,6 @@ const handleComponentChange = (value) => {
   .control-sidebar {
     position: sticky;
     top: 20px;
-    z-index: 2;
     overflow: visible;
   }
 
