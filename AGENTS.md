@@ -17,7 +17,7 @@
 ## 环境要求
 
 - 只能使用 `pnpm`。仓库在 `preinstall` 中限制了其他包管理器。
-- 仓库根环境要求 Node.js `>= 18`。
+- 仓库根环境要求 Node.js `>= 22`。
 - `packages/mcp-server` 需要 Node.js `>= 20`。
 
 ## 仓库结构

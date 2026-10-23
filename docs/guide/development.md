@@ -6,7 +6,7 @@ title: 开发流程
 
 ## 环境准备
 
-- Node.js `>= 18`
+- Node.js `>= 22`
 - 推荐 `pnpm 10+`
 - 仓库使用 pnpm workspace，必须用 `pnpm` 安装依赖
 

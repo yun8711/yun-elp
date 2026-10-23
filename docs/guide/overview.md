@@ -41,6 +41,8 @@ yun-elp 是一个基于 Element Plus 的 Vue 3 业务组件库。
 - Element Plus：`^2.14.0`
 - Vue Router：`^4.5.0 || ^5.0.0`
 - lodash-es：`^4.17.21`
+- @vueuse/core：`^14.3.0`
+- @vueuse/shared：`^14.3.0`
 
 可选依赖：
 
@@ -49,7 +51,7 @@ yun-elp 是一个基于 Element Plus 的 Vue 3 业务组件库。
 
 ## 工程约束
 
-- Node.js：`>= 18`
+- Node.js：`>= 22`
 - 包管理器：推荐 `pnpm 10+`
 - 发布产物：根包构建后输出到 `dist/`
 - 文档 AI 资源：由 `pnpm docs:ai` 生成到 `docs/public/`
