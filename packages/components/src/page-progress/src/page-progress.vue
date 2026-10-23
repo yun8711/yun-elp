@@ -164,22 +164,20 @@ const inc = (amount?: number) => {
 
 
 // 自动增量定时器
-let trickleTimer: number | null = null;
+let trickleTimer: ReturnType<typeof setInterval> | null = null;
 
-// 开始自动增量
+// 开始自动增量。服务端没有 window，不启动定时器
 const startTrickle = () => {
-  if ( isStarted.value && !trickleTimer) {
-    // 每 speed.value 毫秒执行一次stopTrickle
-    trickleTimer = window.setInterval(() => {
-      // 在进度未达到 99% 时自动增量，超过96%时必须手动调用 done() 才能完成进度条
-      if (percentage.value < 99) {
-        // 自动增加进度
-        inc();
-      } else {
-        stopTrickle();
-      }
-    }, speed.value);
-  }
+  if (typeof window === 'undefined' || !isStarted.value || trickleTimer) return;
+
+  trickleTimer = setInterval(() => {
+    // 未到 99% 时自动增量，到 99% 后需调用 done() 才会完成
+    if (percentage.value < 99) {
+      inc();
+    } else {
+      stopTrickle();
+    }
+  }, speed.value);
 };
 
 // 停止自动增量
