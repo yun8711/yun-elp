@@ -67,14 +67,9 @@ import type {
   ColumnOpItemType,
   ResolvedColumnOpItem
 } from './column-op';
-import {
-  toRefs,
-  computed,
-  ref,
-  watch,
-  onUnmounted,
-  nextTick
-} from 'vue';
+import { toRefs, ref, watch, inject } from 'vue';
+import { routeLocationKey, type RouteLocationNormalizedLoaded } from 'vue-router';
+import { useEventListener } from '@vueuse/core';
 import { merge } from 'lodash-es';
 import { MoreFilled } from '@element-plus/icons-vue';
 import { useAppConfig } from '../../app-wrap/src/use-app-config';
@@ -266,46 +261,20 @@ const getButtonEvents = (scope: TableItemScope, item: ResolvedColumnOpItem) => {
     : {};
 };
 
-// 路由变化监听器 - 兼容有无vue-router的环境
-const setupRouteWatcher = () => {
-  // 延迟执行，避免在组件初始化时立即访问可能不存在的依赖
-  nextTick(() => {
-    const handleRouteChange = () => {
-      showDropdownMap.value.clear();
-    };
-
-    // 尝试使用vue-router
-    try {
-      // 使用动态导入来避免TypeScript错误
-      const vueRouterModule = (globalThis as any).VueRouter || (window as any).VueRouter;
-      if (vueRouterModule && vueRouterModule.useRoute) {
-        const { useRoute } = vueRouterModule;
-        const route = useRoute();
-        // 确保route对象存在且有path属性
-        if (route && route.path !== undefined) {
-          const routePath = computed(() => route.path);
-          watch(() => routePath.value, handleRouteChange);
-        }
-      }
-    } catch (_error) { // eslint-disable-line @typescript-eslint/no-unused-vars
-      // 如果没有vue-router，使用浏览器原生事件，但仅在浏览器环境中
-      if (typeof window !== 'undefined') {
-        // 监听浏览器前进后退按钮
-        window.addEventListener('popstate', handleRouteChange);
-
-        // 监听hash变化（适用于hash模式路由）
-        window.addEventListener('hashchange', handleRouteChange);
-
-        // 清理函数
-        onUnmounted(() => {
-          window.removeEventListener('popstate', handleRouteChange);
-          window.removeEventListener('hashchange', handleRouteChange);
-        });
-      }
-    }
-  });
+const closeDropdowns = () => {
+  showDropdownMap.value.clear();
 };
 
-// 初始化路由监听
-setupRouteWatcher();
+// 未 provide 路由时得到 undefined，避免 inject 警告
+const route: RouteLocationNormalizedLoaded | undefined = inject(
+  routeLocationKey,
+  undefined as unknown as RouteLocationNormalizedLoaded
+);
+
+if (route) {
+  watch(() => route.fullPath, closeDropdowns);
+} else if (typeof window !== 'undefined') {
+  useEventListener(window, 'popstate', closeDropdowns);
+  useEventListener(window, 'hashchange', closeDropdowns);
+}
 </script>

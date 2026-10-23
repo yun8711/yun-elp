@@ -1,61 +1,26 @@
 import { describe, it, expect, vi } from 'vitest';
+import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import YColumnOp from '../src/column-op.vue';
 import type { ColumnOpItemType, TableItemScope } from '../src/column-op';
 
-// Mock vue-router
-vi.mock('vue-router', () => ({
-  useRoute: vi.fn(() => ({
+const { route, routeLocationKey } = vi.hoisted(() => {
+  const { reactive } = require('vue') as typeof import('vue');
+  const route = reactive({
     path: '/',
+    fullPath: '/',
     params: {},
     query: {}
-  })),
-  useRouter: vi.fn(() => ({
-    push: vi.fn(),
-    replace: vi.fn(),
-    go: vi.fn(),
-    back: vi.fn(),
-    forward: vi.fn()
-  }))
+  });
+  return {
+    route,
+    routeLocationKey: Symbol('route location')
+  };
+});
+
+vi.mock('vue-router', () => ({
+  routeLocationKey
 }));
-
-// Mock global VueRouter
-Object.defineProperty(globalThis, 'VueRouter', {
-  value: {
-    useRoute: vi.fn(() => ({
-      path: '/',
-      params: {},
-      query: {}
-    })),
-    useRouter: vi.fn(() => ({
-      push: vi.fn(),
-      replace: vi.fn(),
-      go: vi.fn(),
-      back: vi.fn(),
-      forward: vi.fn()
-    }))
-  },
-  writable: true
-});
-
-// Mock window.VueRouter
-Object.defineProperty(window, 'VueRouter', {
-  value: {
-    useRoute: vi.fn(() => ({
-      path: '/',
-      params: {},
-      query: {}
-    })),
-    useRouter: vi.fn(() => ({
-      push: vi.fn(),
-      replace: vi.fn(),
-      go: vi.fn(),
-      back: vi.fn(),
-      forward: vi.fn()
-    }))
-  },
-  writable: true
-});
 
 describe('YColumnOp 表格操作列组件', () => {
   describe('基本功能', () => {
@@ -911,6 +876,9 @@ describe('YColumnOp 表格操作列组件', () => {
       const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
+          provide: {
+            [routeLocationKey]: route
+          },
           stubs: {
             'el-table-column': {
               template: `
@@ -926,20 +894,55 @@ describe('YColumnOp 表格操作列组件', () => {
         }
       });
 
-      // 模拟路由变化
-      const popstateEvent = new Event('popstate');
-      window.dispatchEvent(popstateEvent);
+      const vm = wrapper.vm as any;
+      vm.setDropdownVisible(0, true);
+      expect(vm.getDropdownVisible(0)).toBe(true);
 
-      await wrapper.vm.$nextTick();
+      route.fullPath = '/list';
+      await nextTick();
 
-      // 由于组件内部的showDropdownMap被清空，dropdown应该被关闭
-      // 这里我们无法直接测试内部状态，但可以验证组件仍然正常工作
-      expect(wrapper.exists()).toBe(true);
+      expect(vm.getDropdownVisible(0)).toBe(false);
+      route.fullPath = '/';
     });
 
     it('应该在hash变化时关闭dropdown', async () => {
       const options: ColumnOpItemType[] = [{ label: '操作1', prop: 'action1', dropdown: true }];
 
+      const wrapper = mount(YColumnOp, {
+        props: { options },
+        global: {
+          provide: {
+            [routeLocationKey]: route
+          },
+          stubs: {
+            'el-table-column': {
+              template: `
+                <div class="el-table-column">
+                  <slot name="default" :scope="{ row: { id: 1 }, column: {}, $index: 0 }"></slot>
+                </div>
+              `
+            },
+            'el-icon': {
+              template: '<i class="el-icon"><slot></slot></i>'
+            }
+          }
+        }
+      });
+
+      const vm = wrapper.vm as any;
+      vm.setDropdownVisible(0, true);
+      expect(vm.getDropdownVisible(0)).toBe(true);
+
+      route.fullPath = '/list#section';
+      await nextTick();
+
+      expect(vm.getDropdownVisible(0)).toBe(false);
+      route.fullPath = '/';
+    });
+
+    it('未安装路由时，浏览器前进后退应关闭dropdown', async () => {
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      const options: ColumnOpItemType[] = [{ label: '操作1', prop: 'action1', dropdown: true }];
       const wrapper = mount(YColumnOp, {
         props: { options },
         global: {
@@ -958,14 +961,19 @@ describe('YColumnOp 表格操作列组件', () => {
         }
       });
 
-      // 模拟hash变化
-      const hashchangeEvent = new Event('hashchange');
-      window.dispatchEvent(hashchangeEvent);
+      await nextTick();
+      const injectionWarns = warnSpy.mock.calls.filter(args =>
+        args.some(arg => String(arg).includes('route location'))
+      );
+      expect(injectionWarns).toHaveLength(0);
+      warnSpy.mockRestore();
 
-      await wrapper.vm.$nextTick();
+      const vm = wrapper.vm as any;
+      vm.setDropdownVisible(0, true);
+      expect(vm.getDropdownVisible(0)).toBe(true);
 
-      // 验证组件仍然正常工作
-      expect(wrapper.exists()).toBe(true);
+      window.dispatchEvent(new Event('popstate'));
+      expect(vm.getDropdownVisible(0)).toBe(false);
     });
   });
 
@@ -1728,6 +1736,9 @@ describe('YColumnOp 表格操作列组件', () => {
         const wrapper = mount(YColumnOp, {
           props: { options },
           global: {
+            provide: {
+              [routeLocationKey]: route
+            },
             stubs: {
               'el-table-column': {
                 template: `
@@ -1756,38 +1767,25 @@ describe('YColumnOp 表格操作列组件', () => {
 
         const vm = wrapper.vm as any;
 
-        // 等待setupRouteWatcher的nextTick执行完成
-        await new Promise(resolve => setTimeout(resolve, 50));
-
-        // 设置dropdown为显示状态
         vm.setDropdownVisible(0, true);
         expect(vm.getDropdownVisible(0)).toBe(true);
 
-        // 手动调用showDropdownMap的clear方法来模拟路由变化
-        vm.showDropdownMap.clear();
+        route.fullPath = '/detail';
+        await nextTick();
 
-        // 验证dropdown被关闭
         expect(vm.getDropdownVisible(0)).toBe(false);
+        route.fullPath = '/';
       });
 
       it('setupRouteWatcher在有vue-router时应该正确工作', async () => {
-        // 保存原始的全局状态
-        const originalVueRouter = (globalThis as any).VueRouter;
-
-        // 重置全局mock为有vue-router的环境
-        (globalThis as any).VueRouter = {
-          useRoute: vi.fn(() => ({
-            path: '/',
-            params: {},
-            query: {}
-          }))
-        };
-
         const options: ColumnOpItemType[] = [{ label: '操作1', prop: 'action1', dropdown: true }];
 
         const wrapper = mount(YColumnOp, {
           props: { options },
           global: {
+            provide: {
+              [routeLocationKey]: route
+            },
             stubs: {
               'el-table-column': {
                 template: `
@@ -1816,21 +1814,14 @@ describe('YColumnOp 表格操作列组件', () => {
 
         const vm = wrapper.vm as any;
 
-        // 等待setupRouteWatcher的nextTick执行完成
-        await new Promise(resolve => setTimeout(resolve, 50));
-
-        // 设置dropdown为显示状态
         vm.setDropdownVisible(0, true);
         expect(vm.getDropdownVisible(0)).toBe(true);
 
-        // 手动调用showDropdownMap的clear方法来模拟路由变化
-        vm.showDropdownMap.clear();
+        route.fullPath = '/detail?id=1';
+        await nextTick();
 
-        // 验证dropdown被关闭
         expect(vm.getDropdownVisible(0)).toBe(false);
-
-        // 清理全局mock，恢复原始状态
-        (globalThis as any).VueRouter = originalVueRouter;
+        route.fullPath = '/';
       });
     });
 
