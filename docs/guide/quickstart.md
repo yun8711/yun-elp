@@ -99,6 +99,12 @@ createApp(App).use(YunElp).mount('#app');
 import 'yun-elp/themes/kd.scss';
 ```
 
+## 服务端渲染
+
+可用于 Vite SSR 与 Nuxt 3。发布包只有 ESM，样式仍由应用自己引入，和客户端一致。
+
+依赖布局测量的组件在服务端只输出初始结构，挂载后再计算尺寸与图表。包括 `y-text-tooltip`、`y-sticky-layout`、`y-scroll-box`、`y-row-select`、`y-echarts`。`y-dialog`、`y-drawer` 首屏保持关闭。`y-page-progress` 的自动增量只在浏览器里运行。
+
 ## 一个最小示例
 
 ```vue

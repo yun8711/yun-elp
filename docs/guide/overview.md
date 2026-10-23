@@ -49,6 +49,8 @@ yun-elp 是一个基于 Element Plus 的 Vue 3 业务组件库。
 - `cron-parser`：`y-cron-picker` 等场景需要
 - `echarts`：`y-echarts` 组件需要
 
+服务端渲染见[快速开始](./quickstart#服务端渲染)。
+
 ## 工程约束
 
 - Node.js：`>= 22`
