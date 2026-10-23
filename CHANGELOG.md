@@ -2,6 +2,24 @@
 
 
 
+## 1.10.0 (2026-10-23)
+
+* fix(components): :bug: 服务端渲染时不启动 page-progress 定时器 ([373dbe0](https://github.com/yun8711/yun-elp/commit/373dbe0))
+* fix(components): :bug: 未提供路由时避免 column-op 注入警告 ([de7e819](https://github.com/yun8711/yun-elp/commit/de7e819))
+* fix(release): :bug: 修复发版时无法根据提交计算版本号 ([f182bbb](https://github.com/yun8711/yun-elp/commit/f182bbb))
+* docs(docs): :memo: 为 ECharts 二次封装示例补上高度和数据 ([3ab1c0f](https://github.com/yun8711/yun-elp/commit/3ab1c0f))
+* docs(docs): :memo: 补充服务端渲染说明 ([fb4ce1c](https://github.com/yun8711/yun-elp/commit/fb4ce1c))
+* chore(build): :hammer: 提升 Node 到 22、升级工程依赖并声明 VueUse peer ([9b93606](https://github.com/yun8711/yun-elp/commit/9b93606))
+* chore(release): 升级版本 1.9.0 ([932792c](https://github.com/yun8711/yun-elp/commit/932792c))
+* feat(components): :sparkles: dialog 与 drawer 支持配置内容区内边距 ([341bcb1](https://github.com/yun8711/yun-elp/commit/341bcb1))
+* feat(components): :sparkles: group-select 支持朴素选中样式 ([b18ef2d](https://github.com/yun8711/yun-elp/commit/b18ef2d))
+* feat(components): :sparkles: part-title 支持文本、竖条样式和间距配置 ([960359d](https://github.com/yun8711/yun-elp/commit/960359d))
+* feat(components): :sparkles: y-table 支持表格上方标题 ([f13fa9b](https://github.com/yun8711/yun-elp/commit/f13fa9b))
+* feat(components): :sparkles: 新增 order-button 排序按钮组件 ([6498a03](https://github.com/yun8711/yun-elp/commit/6498a03))
+* feat(components): :sparkles: 新增 sidebar 侧边菜单组件 ([aa85560](https://github.com/yun8711/yun-elp/commit/aa85560))
+* feat(play): :sparkles: 缓存演示页选项，下次打开优先恢复 ([73ec95f](https://github.com/yun8711/yun-elp/commit/73ec95f))
+* feat(resolver): YEcharts 默认从 yun-elp/echarts 异步入口解析 ([58cc245](https://github.com/yun8711/yun-elp/commit/58cc245))
+
 ## [1.9.0](https://github.com/yun8711/yun-elp/compare/v1.8.1...v1.9.0) (2026-07-31)
 
 
