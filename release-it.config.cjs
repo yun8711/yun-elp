@@ -38,6 +38,32 @@ module.exports = {
     '@release-it/conventional-changelog': {
       infile: 'CHANGELOG.md',
       header: '# 📋 更新历史 \n\n',
+      // preset-loader 6 把 whatBump 放在 recommendedBumpOpts 下，bumper 12 读不到顶层函数
+      whatBump(commits) {
+        let level = 2;
+        let breakings = 0;
+        let features = 0;
+
+        for (const commit of commits) {
+          const notes = commit.notes || [];
+          const breaking =
+            notes.some(note => String(note.title || '').toLowerCase().includes('breaking')) ||
+            /!:/.test(commit.header || '');
+
+          if (breaking) {
+            breakings += 1;
+            level = 0;
+          } else if (commit.type === 'feat') {
+            features += 1;
+            if (level > 1) level = 1;
+          }
+        }
+
+        return {
+          level,
+          reason: `There are ${breakings} BREAKING CHANGES and ${features} features`
+        };
+      },
       preset: {
         name: 'conventionalcommits',
         types: [
