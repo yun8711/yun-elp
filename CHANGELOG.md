@@ -1,30 +1,48 @@
 # 📋 更新历史 
 
 
+## [1.10.1](https://github.com/yun8711/yun-elp/compare/v1.10.0...v1.10.1) (2026-10-26)
 
-## <small>1.10.1 (2026-10-26)</small>
+### Documentation
 
-* docs(docs): :memo: 在文档站展示更新日志 ([ee9c25d](https://github.com/yun8711/yun-elp/commit/ee9c25d))
-* chore(build): :arrow_up: 锁定 Element Plus 2.14.7 与 VueUse 15.0.0 ([e3b62e3](https://github.com/yun8711/yun-elp/commit/e3b62e3))
-* ci(docs): :construction_worker: 升级文档部署 Action 以适配 Node 24 ([38832a2](https://github.com/yun8711/yun-elp/commit/38832a2))
+* **docs:** :memo: 在文档站展示更新日志 ([ee9c25d](https://github.com/yun8711/yun-elp/commit/ee9c25dbec099856787dc513acd44f295717882e))
 
-## 1.10.0 (2026-10-23)
+### Chores
 
-* fix(components): :bug: 服务端渲染时不启动 page-progress 定时器 ([373dbe0](https://github.com/yun8711/yun-elp/commit/373dbe0))
-* fix(components): :bug: 未提供路由时避免 column-op 注入警告 ([de7e819](https://github.com/yun8711/yun-elp/commit/de7e819))
-* fix(release): :bug: 修复发版时无法根据提交计算版本号 ([f182bbb](https://github.com/yun8711/yun-elp/commit/f182bbb))
-* docs(docs): :memo: 为 ECharts 二次封装示例补上高度和数据 ([3ab1c0f](https://github.com/yun8711/yun-elp/commit/3ab1c0f))
-* docs(docs): :memo: 补充服务端渲染说明 ([fb4ce1c](https://github.com/yun8711/yun-elp/commit/fb4ce1c))
-* chore(build): :hammer: 提升 Node 到 22、升级工程依赖并声明 VueUse peer ([9b93606](https://github.com/yun8711/yun-elp/commit/9b93606))
-* chore(release): 升级版本 1.9.0 ([932792c](https://github.com/yun8711/yun-elp/commit/932792c))
-* feat(components): :sparkles: dialog 与 drawer 支持配置内容区内边距 ([341bcb1](https://github.com/yun8711/yun-elp/commit/341bcb1))
-* feat(components): :sparkles: group-select 支持朴素选中样式 ([b18ef2d](https://github.com/yun8711/yun-elp/commit/b18ef2d))
-* feat(components): :sparkles: part-title 支持文本、竖条样式和间距配置 ([960359d](https://github.com/yun8711/yun-elp/commit/960359d))
-* feat(components): :sparkles: y-table 支持表格上方标题 ([f13fa9b](https://github.com/yun8711/yun-elp/commit/f13fa9b))
-* feat(components): :sparkles: 新增 order-button 排序按钮组件 ([6498a03](https://github.com/yun8711/yun-elp/commit/6498a03))
-* feat(components): :sparkles: 新增 sidebar 侧边菜单组件 ([aa85560](https://github.com/yun8711/yun-elp/commit/aa85560))
-* feat(play): :sparkles: 缓存演示页选项，下次打开优先恢复 ([73ec95f](https://github.com/yun8711/yun-elp/commit/73ec95f))
-* feat(resolver): YEcharts 默认从 yun-elp/echarts 异步入口解析 ([58cc245](https://github.com/yun8711/yun-elp/commit/58cc245))
+* **build:** :arrow_up: 锁定 Element Plus 2.14.7 与 VueUse 15.0.0 ([e3b62e3](https://github.com/yun8711/yun-elp/commit/e3b62e33e54bb85f8ce792936a6785dd51596f4d))
+
+### Continuous Integration
+
+* **docs:** :construction_worker: 升级文档部署 Action 以适配 Node 24 ([38832a2](https://github.com/yun8711/yun-elp/commit/38832a292dd837f0ac7e9a3c27d7226c251f284f))
+
+## [1.10.0](https://github.com/yun8711/yun-elp/compare/v1.9.0...v1.10.0) (2026-10-23)
+
+
+### Features
+
+* **components:** :sparkles: dialog 与 drawer 支持配置内容区内边距 ([da01cb5](https://github.com/yun8711/yun-elp/commit/da01cb598f95b6f1f9cff7e6fdca2683db4d064f))
+* **components:** :sparkles: group-select 支持朴素选中样式 ([6f20c7b](https://github.com/yun8711/yun-elp/commit/6f20c7b5f712e4407e7c712a1dcdd590a6865fa1))
+* **components:** :sparkles: part-title 支持文本、竖条样式和间距配置 ([2468824](https://github.com/yun8711/yun-elp/commit/24688246a9b3b1334f736abdc4ccfe49f842c8c8))
+* **components:** :sparkles: y-table 支持表格上方标题 ([0a6fe72](https://github.com/yun8711/yun-elp/commit/0a6fe7297bd3f9038510209e0dcc1e0c422c50d3))
+* **components:** :sparkles: 新增 order-button 排序按钮组件 ([260d8eb](https://github.com/yun8711/yun-elp/commit/260d8eb4183a5a8b579924ecebe7139ba95106a6))
+* **components:** :sparkles: 新增 sidebar 侧边菜单组件 ([3d8f9c2](https://github.com/yun8711/yun-elp/commit/3d8f9c2f1c358e0c321a88b98ba7c1032aa87255))
+* **play:** :sparkles: 缓存演示页选项，下次打开优先恢复 ([6f507d7](https://github.com/yun8711/yun-elp/commit/6f507d70b66b46de3869783d4de249e59fac9093))
+* **resolver:** YEcharts 默认从 yun-elp/echarts 异步入口解析 ([58cc245](https://github.com/yun8711/yun-elp/commit/58cc24590c8f589e13d807897771991a69e34e88))
+
+### Bug Fixes
+
+* **components:** :bug: 服务端渲染时不启动 page-progress 定时器 ([d5c68e6](https://github.com/yun8711/yun-elp/commit/d5c68e614e112718ec306bebde433782c7838fab))
+* **components:** :bug: 未提供路由时避免 column-op 注入警告 ([dcba7cf](https://github.com/yun8711/yun-elp/commit/dcba7cf12fcf8d288b4be44daee63157c14e441b))
+* **release:** :bug: 修复发版时无法根据提交计算版本号 ([734ae1b](https://github.com/yun8711/yun-elp/commit/734ae1b81b16bc585589898e10a49cfe0a2714db))
+
+### Documentation
+
+* **docs:** :memo: 为 ECharts 二次封装示例补上高度和数据 ([64f850c](https://github.com/yun8711/yun-elp/commit/64f850c4bc4aea7849f98ec95eb881a557f3d34f))
+* **docs:** :memo: 补充服务端渲染说明 ([4d8a04f](https://github.com/yun8711/yun-elp/commit/4d8a04f700797699b070192c3b32ab4c3a31ef14))
+
+### Chores
+
+* **build:** :hammer: 提升 Node 到 22、升级工程依赖并声明 VueUse peer ([0b64f7a](https://github.com/yun8711/yun-elp/commit/0b64f7a4a614fcc6c49817dc0cc74ab39e489988))
 
 ## [1.9.0](https://github.com/yun8711/yun-elp/compare/v1.8.1...v1.9.0) (2026-07-31)
 

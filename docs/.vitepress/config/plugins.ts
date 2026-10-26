@@ -8,11 +8,11 @@ import externalLinkIcon from '../plugins/external-link-icon';
 import type { MarkdownRenderer } from 'vitepress';
 
 const mdPlugin = (md: MarkdownRenderer) => {
-  // CHANGELOG 中的泛型会被 Vue 模板编译成标签
+  // 只转义大写开头的泛型，保留 changelog 的 <small> 等 HTML 标签
   md.core.ruler.before('normalize', 'escape-changelog-angles', state => {
     const file = String(state.env?.relativePath || state.env?.path || '').replace(/\\/g, '/');
     if (!file.endsWith('guide/changelog.md')) return;
-    state.src = state.src.replace(/<(?!\/?script\b)/g, '&lt;');
+    state.src = state.src.replace(/<(\/?[A-Z][^>\n]*)>/g, '&lt;$1&gt;');
   });
   md.use(tableWrapper);
   md.use(mdContainer, 'demo', createDemoContainer(md));
