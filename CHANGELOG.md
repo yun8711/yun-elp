@@ -2,6 +2,12 @@
 
 
 
+## <small>1.10.1 (2026-10-26)</small>
+
+* docs(docs): :memo: 在文档站展示更新日志 ([ee9c25d](https://github.com/yun8711/yun-elp/commit/ee9c25d))
+* chore(build): :arrow_up: 锁定 Element Plus 2.14.7 与 VueUse 15.0.0 ([e3b62e3](https://github.com/yun8711/yun-elp/commit/e3b62e3))
+* ci(docs): :construction_worker: 升级文档部署 Action 以适配 Node 24 ([38832a2](https://github.com/yun8711/yun-elp/commit/38832a2))
+
 ## 1.10.0 (2026-10-23)
 
 * fix(components): :bug: 服务端渲染时不启动 page-progress 定时器 ([373dbe0](https://github.com/yun8711/yun-elp/commit/373dbe0))
