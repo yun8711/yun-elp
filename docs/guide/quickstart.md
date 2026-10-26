@@ -11,7 +11,7 @@ title: 快速开始
 `yun-elp` 发布包当前通过 `peerDependencies` 要求使用方自行安装基础依赖，推荐直接安装下面这一组：
 
 ```shell
-pnpm add yun-elp vue@^3.5.34 element-plus@^2.14.0 vue-router@^5 lodash-es@^4.17.21 @vueuse/core@^14.3.0 @vueuse/shared@^14.3.0
+pnpm add yun-elp vue@^3.5.34 element-plus@2.14.7 vue-router@^5 lodash-es@^4.17.21 @vueuse/core@15.0.0 @vueuse/shared@15.0.0
 ```
 
 说明：
@@ -19,7 +19,8 @@ pnpm add yun-elp vue@^3.5.34 element-plus@^2.14.0 vue-router@^5 lodash-es@^4.17.
 - `vue-router` 的兼容范围是 `^4.5.0 || ^5.0.0`
 - 新项目推荐直接使用最新主线 `5.x`
 - 已在使用 Vue Router 4 的项目，只要版本在 `4.5+`，也可以继续接入
-- `@vueuse/core`、`@vueuse/shared` 的兼容范围是 `^14.3.0`
+- `element-plus` 锁定为 `2.14.7`
+- `@vueuse/core`、`@vueuse/shared` 锁定为 `15.0.0`，与该版本 Element Plus 一致
 
 按需安装可选依赖：
 

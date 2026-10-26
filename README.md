@@ -19,7 +19,7 @@
 ## 安装
 
 ```bash
-pnpm add yun-elp element-plus vue vue-router lodash-es @vueuse/core @vueuse/shared
+pnpm add yun-elp element-plus@2.14.7 vue vue-router lodash-es @vueuse/core@15.0.0 @vueuse/shared@15.0.0
 ```
 
 按需安装可选依赖：

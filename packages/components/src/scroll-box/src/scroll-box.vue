@@ -114,7 +114,7 @@ const showNextButton = computed(() => {
   return false;
 });
 
-// 检查滚动状态
+// 检查滚动状态。关闭 trailing，避免间隔结束时再计算一次
 const checkScrollStatus = useThrottleFn(() => {
   if (!scrollbarRef.value) return;
 
@@ -130,7 +130,7 @@ const checkScrollStatus = useThrottleFn(() => {
 
   canScrollLeft.value = scrollLeft > 0;
   canScrollRight.value = scrollLeft < scrollWidth - clientWidth - 1;
-}, 16);
+}, 16, false);
 
 // 连续滚动相关状态
 const isContinuous = ref(false);

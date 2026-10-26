@@ -38,11 +38,11 @@ yun-elp 是一个基于 Element Plus 的 Vue 3 业务组件库。
 当前发布包 `yun-elp` 的基础依赖范围如下：
 
 - Vue：`^3.5.34`
-- Element Plus：`^2.14.0`
+- Element Plus：`2.14.7`
 - Vue Router：`^4.5.0 || ^5.0.0`
 - lodash-es：`^4.17.21`
-- @vueuse/core：`^14.3.0`
-- @vueuse/shared：`^14.3.0`
+- @vueuse/core：`15.0.0`
+- @vueuse/shared：`15.0.0`
 
 可选依赖：
 

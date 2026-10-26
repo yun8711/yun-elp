@@ -13,9 +13,9 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "catalog:",
-    "@element-plus/metadata": "^2.14.0",
+    "@element-plus/metadata": "2.14.7",
     "@vue/shared": "catalog:",
-    "@vueuse/core": "^13.9.0",
+    "@vueuse/core": "catalog:",
     "@yun-elp/components": "workspace:*",
     "@yun-elp/theme-chalk": "workspace:*",
     "clipboard-copy": "^4.0.1",

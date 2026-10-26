@@ -131,7 +131,8 @@ watch(() => props.model, (newModel: 'debounce' | 'throttle' | undefined) => {
     if (newModel === 'debounce') {
       clickHandlerFn = useDebounceFn(clickHandler, delay.value, { maxWait: maxWait.value })
     } else if (newModel === 'throttle') {
-      clickHandlerFn = useThrottleFn(clickHandler, delay.value)
+      // VueUse 15 默认 trailing 为 true，关闭后间隔结束不再补一次点击
+      clickHandlerFn = useThrottleFn(clickHandler, delay.value, false)
     } else {
       // model 为 undefined，不启用防抖或节流
       clickHandlerFn = null
