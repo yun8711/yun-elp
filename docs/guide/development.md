@@ -102,6 +102,8 @@ pnpm commit
 
 发布流程按 `publish:*` 命令分步执行。**发布到 npm 需在本机终端人工执行**，npm 开启 2FA 时需传入 `--otp`（每次发布各需一次 OTP）。
 
+文档站「更新日志」在构建时引用仓库根目录的 `CHANGELOG.md`。发版提交会改 `package.json` 与 `CHANGELOG.md`，从而触发文档 Action，站点展示该次提交中的更新日志。
+
 主包与 MCP 包分开发布。MCP 元数据（`components.ts`）应在开发阶段通过 `pnpm mcp:sync` 生成并提交；**发布 MCP 包时不再执行 extract**。
 
 ### 主包

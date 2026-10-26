@@ -8,6 +8,12 @@ import externalLinkIcon from '../plugins/external-link-icon';
 import type { MarkdownRenderer } from 'vitepress';
 
 const mdPlugin = (md: MarkdownRenderer) => {
+  // CHANGELOG 中的泛型会被 Vue 模板编译成标签
+  md.core.ruler.before('normalize', 'escape-changelog-angles', state => {
+    const file = String(state.env?.relativePath || state.env?.path || '').replace(/\\/g, '/');
+    if (!file.endsWith('guide/changelog.md')) return;
+    state.src = state.src.replace(/<(?!\/?script\b)/g, '&lt;');
+  });
   md.use(tableWrapper);
   md.use(mdContainer, 'demo', createDemoContainer(md));
   md.use(ApiTableContainer);

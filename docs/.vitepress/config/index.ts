@@ -46,7 +46,8 @@ const setupConfig = configEnv => {
       // 社交链接
       socialLinks: [{ icon: 'github', link: 'https://github.com/yun8711/yun-elp' }],
       nav: [
-        { text: '指南', link: '/guide/overview/', activeMatch: '^/guide/' },
+        { text: '指南', link: '/guide/overview/', activeMatch: '^/guide/(?!changelog)' },
+        { text: '更新日志', link: '/guide/changelog', activeMatch: '^/guide/changelog' },
         { text: '组件', link: firstLink!, activeMatch: '^/components/' }
         // { text: '工具函数', link: '/utils/', activeMatch: '^/utils/' }
       ],
@@ -57,7 +58,8 @@ const setupConfig = configEnv => {
             text: '基础',
             items: [
               { text: '总览', link: '/guide/overview' },
-              { text: '快速开始', link: '/guide/quickstart' }
+              { text: '快速开始', link: '/guide/quickstart' },
+              { text: '更新日志', link: '/guide/changelog' }
             ]
           },
           {

@@ -10,11 +10,13 @@
 name: Deploy Docs to GitHub Pages
 
 on:
-  # 默认分支（main）推送时，仅 docs/ 或本配置文件变化时触发
+  # 默认分支（main）推送时，文档、更新日志或本配置变化时触发
+  # 更新日志页在构建时引用仓库根目录 CHANGELOG.md，发版写入后需重新构建才会出现在站点上
   push:
     branches: [main]
     paths:
       - 'docs/**'
+      - 'CHANGELOG.md'
       - 'scripts/generate-ai-docs.ts'
       - 'package.json'
       - 'docs/package.json'
